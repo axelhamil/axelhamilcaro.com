@@ -1,5 +1,6 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./global.css";
 import type { ReactNode } from "react";
 import Navbar from "./_components/navbar";
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${interSans.variable} antialiased pt-15`}>
         <Navbar />
         {children}
+        <Analytics />
       </body>
     </html>
   );
