@@ -1,37 +1,129 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "files": {
-    "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
-  },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2
+  "root": true,
+  "assist": {
+    "actions": {
+      "source": { "organizeImports": "on" }
+    }
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
+      "nursery": {
+        "noImportCycles": "error"
+      },
+      "correctness": {
+        "noUnusedVariables": "error",
+        "noUndeclaredVariables": "error",
+        "useExhaustiveDependencies": "warn",
+        "noUnusedImports": "error",
+        "noUnreachable": "warn",
+        "noSwitchDeclarations": "warn"
+      },
       "suspicious": {
-        "noUnknownAtRules": "off"
+        "noExplicitAny": "warn",
+        "noEmptyInterface": "warn",
+        "noRedundantUseStrict": "warn",
+        "noAssignInExpressions": "warn",
+        "noDoubleEquals": "warn",
+        "noPrototypeBuiltins": "warn",
+        "noConstEnum": "off",
+        "noConsole": { "level": "warn", "options": { "allow": ["log"] } }
+      },
+      "style": {
+        "noNonNullAssertion": "warn",
+        "useConst": "warn",
+        "useTemplate": "warn",
+        "useImportType": "warn",
+        "useExportType": "warn",
+        "noParameterAssign": "warn",
+        "useShorthandAssign": "warn",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error",
+        "useConsistentArrayType": {
+          "level": "warn",
+          "options": { "syntax": "shorthand" }
+        }
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noBannedTypes": "warn",
+        "noStaticOnlyClass": "warn",
+        "noUselessConstructor": "warn",
+        "noUselessFragments": "warn",
+        "noThisInStatic": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn",
+        "noDangerouslySetInnerHtmlWithChildren": "error",
+        "noBlankTarget": "warn"
+      },
+      "performance": {
+        "noDelete": "off",
+        "noAccumulatingSpread": "warn"
+      },
+      "a11y": {
+        "useAltText": "warn",
+        "useKeyWithClickEvents": "warn",
+        "useValidAnchor": "warn",
+        "noAccessKey": "warn",
+        "useButtonType": "warn",
+        "useMediaCaption": "warn",
+        "noHeaderScope": "warn",
+        "noPositiveTabindex": "warn",
+        "useIframeTitle": "warn",
+        "noRedundantRoles": "warn",
+        "useAriaPropsForRole": "warn",
+        "useAnchorContent": "warn",
+        "noSvgWithoutTitle": "warn",
+        "noAutofocus": "off",
+        "useHeadingContent": "warn"
       }
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
     }
   },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf",
+    "includes": [
+      "**",
+      "!**/node_modules/**",
+      "!**/.next/**",
+      "!**/dist/**",
+      "!**/build/**"
+    ]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false
     }
+  },
+  "json": {
+    "parser": {
+      "allowComments": true
+    },
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
   }
 }
