@@ -1,25 +1,50 @@
-import Image from "next/image";
+import cn from "@/lib/cn";
+import { Heading1 } from "./ui/heading1";
+import { Heading2 } from "./ui/heading2";
 
 const Navbar = () => {
+  const headerConfig = {
+    title: "axel_hamilcaro()",
+    navList: [
+      {
+        href: "#about",
+        content: "about",
+      },
+      {
+        href: "#projects",
+        content: "projects",
+      },
+      {
+        href: "#contact",
+        content: "contact",
+      },
+    ],
+  };
+
   return (
-    <nav className="fixed top-0 left-0 w-screen flex justify-between px-5 py-4 bg-secondary-background border-primary-foreground border-b">
-      <h1 className="text-2xl font-bold">Axel Hamilcaro</h1>
-      <ul
-        className={
-          "flex top-0 left-0 text-lg text-primary-foreground uppercase gap-5"
-        }
-      >
-        <li>
-          <a href="#ici">our work</a>
-        </li>
-        <li>
-          <a href="#la">about me</a>
-        </li>
-        <li>
-          <a href="#ok">realisation</a>
-        </li>
-      </ul>
-    </nav>
+    <header
+      className={cn(
+        "px-10 py-3 w-full",
+        "fixed top-0 left-0",
+        "bg-primary-background/30 backdrop-blur-2xl",
+      )}
+    >
+      <nav className={cn("flex flex-col items-center gap-32", "sm:flex-row")}>
+        <a href="/">
+          <Heading1>{headerConfig.title}</Heading1>
+        </a>
+
+        <ul className={"hidden sm:flex gap-10 top-0 left-0"}>
+          {headerConfig.navList.map((v, i) => (
+            <li key={`nav-list-${i.toString()}`}>
+              <Heading2>
+                <a href={v.href}>{v.content}</a>
+              </Heading2>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
   );
 };
 
