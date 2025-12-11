@@ -13,7 +13,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     --primary-background: #020617;
     --secondary-background: rgba(15, 23, 42, 0.85);
@@ -45,4 +45,44 @@ body {
   color: var(--color-primary-foreground);
   font-family:
     var(--font-geist-sans), var(--font-geist-mono), Arial, Helvetica, sans-serif;
+}
+
+.terminal-input {
+  caret-color: var(--color-primary);
+  position: relative;
+}
+
+.terminal-input::-webkit-textfield-decoration-container {
+  caret-color: var(--color-primary) !important;
+}
+
+.terminal-input:focus {
+  caret-color: var(--color-primary);
+}
+
+@keyframes terminal-caret-blink {
+  0%,
+  40% {
+    opacity: 1;
+  }
+  40.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.terminal-input-blink {
+  caret-color: transparent !important;
+}
+
+.terminal-input-blink::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 1.1em;
+  background: var(--color-primary);
+  animation: terminal-caret-blink 300s steps(2, start) infinite;
 }

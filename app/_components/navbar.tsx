@@ -27,6 +27,7 @@ const Navbar = () => {
         "px-10 py-3 w-full",
         "fixed top-0 left-0",
         "bg-primary-background/30 backdrop-blur-2xl",
+        "border-b",
       )}
     >
       <nav className={cn("flex flex-col items-center gap-32", "sm:flex-row")}>
