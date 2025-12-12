@@ -1,0 +1,18 @@
+{
+  "name": "Axel Hamilcaro - Développeur Full-Stack",
+  "short_name": "Axel Hamilcaro",
+  "description": "Développeur Full-Stack TypeScript spécialisé Next.js, React et Node.js. Applications web et SaaS robustes et orientées produit.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e1e2e",
+  "theme_color": "#89b4fa",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "lang": "fr",
+  "categories": ["business", "productivity", "developer tools"]
+}
