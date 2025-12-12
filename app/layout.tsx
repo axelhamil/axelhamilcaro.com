@@ -5,6 +5,7 @@ import "./global.css";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "./_components/navbar";
+import cn from "../lib/cn";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased pt-25 px-10`}
+      className={cn(
+        `${geistSans.variable} ${geistMono.variable} antialiased pt-25 px-10 bg-grid transition-all ease-in-out duration-500`,
+      )}
     >
       <body>
         <Navbar />

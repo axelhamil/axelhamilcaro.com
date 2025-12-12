@@ -1,21 +1,24 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
-import cn from "@/lib/cn";
+import cn from "../../../lib/cn";
 
 interface IHeading2Props {
   children: ReactNode;
 }
 
-const heading2Variants = cva("scroll-m-20 font-extralight tracking-tight ", {
+const heading2Variants = cva("scroll-m-20 font-semibold tracking-tight ", {
   variants: {
     variant: {
       primary: "text-primary",
       secondary: "text-secondary",
+      highlight: "text-primary font-bold",
     },
     size: {
+      xs: "text-base",
       sm: "text-lg",
       md: "text-xl",
       lg: "text-2xl",
+      xl: "text-3xl",
     },
   },
   defaultVariants: {

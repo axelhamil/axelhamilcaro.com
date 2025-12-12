@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
-import cn from "@/lib/cn";
+import cn from "../../../lib/cn";
 
 interface IHeading1Props {
   children: ReactNode;
@@ -11,11 +11,13 @@ const heading1Variants = cva("scroll-m-20 font-bold tracking-tight", {
     variant: {
       primary: "text-primary",
       secondary: "text-secondary",
+      highlight: "text-primary font-extrabold",
     },
     size: {
       sm: "text-xl",
       md: "text-3xl",
       lg: "text-4xl",
+      xl: "text-5xl",
     },
   },
   defaultVariants: {

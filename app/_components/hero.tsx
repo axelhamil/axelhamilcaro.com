@@ -1,25 +1,44 @@
 import Terminal from "./terminal";
 import { Heading1 } from "./ui/heading1";
 import { Heading2 } from "./ui/heading2";
+import { Paragraphe } from "./ui/paragraphe";
 
 const Hero = () => {
   return (
-    <section className="container mx-auto h-[calc(100vh-500px)] flex flex-col md:flex-row md:justify-around items-center gap-5">
-      <div className="font-mono w-full md:w-1/2 flex flex-col gap-5">
-        <Heading1 size={"lg"}>&gt; Axel Hamilcaro</Heading1>
-        <Heading2 size={"lg"}>Développeur Web Full-Stack Freelance</Heading2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione quo
-          amet incidunt sapiente, tempore quisquam,
-        </p>
-        <p>
-          est dolore cumque suscipit corporis molestias dolores culpa quidem
-          eaque dignissimos fugiat rem. Maiores, odit?
-        </p>
+    <section className="container mx-auto h-[calc(100vh-100px)] flex flex-col md:flex-row md:justify-between items-center gap-10 2xl:gap-30">
+      
+      <div className="w-full md:max-w-3xl flex flex-col gap-5">
+        <Heading1 size={"xl"} className="font-mono">
+          &gt; Axel Hamilcaro
+        </Heading1>
+        <Heading2 size={"lg"} className="font-semibo">
+          Full-Stack · TypeScript · Product-Oriented
+        </Heading2>
+
+        <Paragraphe size="lg">
+          Un produit web qui fonctionne, c’est bien. Un produit qui est utilisé,
+          maintenable et rentable, c’est mieux.
+        </Paragraphe>
+
+        <Paragraphe size="lg">
+          J’accompagne les entreprises et les entrepreneurs dans la conception
+          et le développement d’applications web solides, pensées dès le départ
+          pour répondre à de vrais enjeux métier.
+        </Paragraphe>
+
+        <Paragraphe size="lg">
+          Architecture claire, décisions techniques maîtrisées et expérience
+          utilisateur fluide : chaque choix est fait pour accélérer la mise en
+          production sans compromettre l’avenir du produit.
+        </Paragraphe>
+
+        <Paragraphe size="lg" variant="highlight">
+          C’est exactement ce que je construis.
+        </Paragraphe>
       </div>
 
-      <div className="w-full md:w-1/2 h-fit flex justify-center">
-        <Terminal />
+      <div className="w-full md:w-1/2 h-6/12 flex justify-center">
+        <Terminal className={"glass h-full"} />
       </div>
     </section>
   );

@@ -1,13 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --primary-background: #f5f5f4;
-  --secondary-background: #e7e5e4;
+  --primary-background: #eff1f5;
+  --secondary-background: #e6e9ef;
 
-  --primary: #111827;
-  --primary-foreground: #0b0b0b;
+  --primary: #4c4f69;
+  --primary-foreground: #11111b;
+  --secondary: #6c6f85;
 
-  --secondary: #4b5563;
+  --accent-blue: #1e66f5;
+  --accent-mauve: #8839ef;
+  --accent-teal: #179299;
+  --accent-peach: #fe640b;
+
+  --accent: var(--accent-blue);
+
+  --grid-line-color: rgba(30, 102, 245, 0.35);
+  --grid-glow-color: rgba(30, 102, 245, 0.18);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -15,74 +24,102 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-background: #020617;
-    --secondary-background: rgba(15, 23, 42, 0.85);
+    --primary-background: #1e1e2e;
+    --secondary-background: #181825;
 
-    --primary: #e5e7eb;
-    --primary-foreground: #f9fafb;
+    --primary: #cdd6f4;
+    --primary-foreground: #f5e0dc;
+    --secondary: #a6adc8;
 
-    --secondary: #9ca3af;
+    --accent-blue: #89b4fa;
+    --accent-mauve: #cba6f7;
+    --accent-teal: #94e2d5;
+    --accent-peach: #fab387;
 
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+    --accent: var(--accent-blue);
+
+    --grid-line-color: color-mix(in srgb, var(--accent) 20%, transparent);
+
+    --grid-glow-color: color-mix(in srgb, var(--accent) 14%, transparent);
   }
 }
 
 @theme inline {
   --color-primary-background: var(--primary-background);
   --color-secondary-background: var(--secondary-background);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --font-serif: var(--font-serif);
 }
 
 body {
-  background: var(--color-primary-background);
   color: var(--color-primary-foreground);
   font-family:
     var(--font-geist-sans), var(--font-geist-mono), Arial, Helvetica, sans-serif;
 }
 
-.terminal-input {
-  caret-color: var(--color-primary);
-  position: relative;
-}
+@layer utilities {
+  .bg-grid {
+    --grid-size: clamp(96px, 10vw, 220px);
 
-.terminal-input::-webkit-textfield-decoration-container {
-  caret-color: var(--color-primary) !important;
-}
+    background-color: var(--primary-background);
+    background-image:
+      linear-gradient(to right, var(--grid-glow-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-glow-color) 1px, transparent 1px),
+      linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
 
-.terminal-input:focus {
-  caret-color: var(--color-primary);
-}
-
-@keyframes terminal-caret-blink {
-  0%,
-  40% {
-    opacity: 1;
-  }
-  40.01%,
-  100% {
-    opacity: 0;
+    background-size:
+      var(--grid-size) var(--grid-size),
+      var(--grid-size) var(--grid-size),
+      var(--grid-size) var(--grid-size),
+      var(--grid-size) var(--grid-size);
   }
 }
 
-.terminal-input-blink {
-  caret-color: transparent !important;
+.glow {
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      color-mix(in srgb, var(--accent-mauve) 5%, transparent),
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at 80% 60%,
+      color-mix(in srgb, var(--accent-blue) 5%, transparent),
+      transparent 80%
+    );
 }
 
-.terminal-input-blink::after {
-  content: "";
-  position: absolute;
-  right: -2px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 5px;
-  height: 1.1em;
-  background: var(--color-primary);
-  animation: terminal-caret-blink 300s steps(2, start) infinite;
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-[2px] border-2 shadow inset-shadow-sm;
+
+    background-color: color-mix(
+      in srgb,
+      var(--color-secondary-background) 10%,
+      transparent
+    );
+
+    border-color: color-mix(in srgb, var(--color-secondary) 20%, transparent);
+  }
+}
+
+.terminal-caret {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: currentColor;
+  opacity: 1;
+  animation: terminal-blink 1s steps(2, start) infinite;
+}
+
+@keyframes terminal-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
