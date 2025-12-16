@@ -30,6 +30,11 @@ const nextConfig: NextConfig = {
       destination: "https://github.com/axelhamil",
       permanent: true,
     },
+    {
+      source: "/rdv",
+      destination: "https://calendly.com/axel-hamilcaro-pro/appel-decouverte",
+      permanent: true,
+    },
   ],
   headers: async () => [
     {

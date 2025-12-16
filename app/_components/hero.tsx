@@ -6,7 +6,6 @@ import { Paragraphe } from "./ui/paragraphe";
 const Hero = () => {
   return (
     <section className="container mx-auto h-[calc(100vh-100px)] flex flex-col md:flex-row md:justify-between items-center gap-10 2xl:gap-30">
-      
       <div className="w-full md:max-w-3xl flex flex-col gap-5">
         <Heading1 size={"xl"} className="font-mono">
           &gt; Axel Hamilcaro
@@ -37,7 +36,7 @@ const Hero = () => {
         </Paragraphe>
       </div>
 
-      <div className="w-full md:w-1/2 h-6/12 flex justify-center">
+      <div className="w-full md:w-1/2 h-1/2 flex justify-center">
         <Terminal className={"glass h-full"} />
       </div>
     </section>
