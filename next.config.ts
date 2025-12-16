@@ -31,6 +31,11 @@ const nextConfig: NextConfig = {
       permanent: true,
     },
     {
+      source: "/malt",
+      destination: "https://www.malt.fr/profile/axelhamilcaro",
+      permanent: true,
+    },
+    {
       source: "/rdv",
       destination: "https://calendly.com/axel-hamilcaro-pro/appel-decouverte",
       permanent: true,
