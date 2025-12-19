@@ -1,31 +1,31 @@
 "use client";
-
-import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const ScrollIndicator = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY < 50);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const opacity = useTransform(scrollY, [0, 80], [1, 0]);
+  const y = useTransform(scrollY, [0, 80], [0, 12]);
+  const scale = useTransform(scrollY, [0, 80], [1, 0.92]);
 
   return (
-    <div
-      className={`absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 transition-opacity duration-300 ${
-        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+    <motion.div
+      aria-hidden="true"
+      style={{ opacity, y, scale }}
+      className="absolute bottom-10 left-1/2 -translate-x-1/2"
     >
-      <span className="text-xs text-secondary/60 hidden sm:block">Scroll</span>
-      <div className="animate-bounce">
-        <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-secondary/50" />
+      <div className="relative h-12 w-7 rounded-full border border-secondary/40">
+        <motion.div
+          className="absolute left-1/2 top-3 h-2 w-2 -translate-x-1/2 rounded-full bg-secondary/70"
+          animate={{ y: [0, 14, 0] }}
+          transition={{
+            duration: 2.2,
+            ease: [0.45, 0, 0.25, 1],
+            repeat: Infinity,
+          }}
+        />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
