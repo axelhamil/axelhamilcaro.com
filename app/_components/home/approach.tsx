@@ -49,29 +49,34 @@ const Approach = () => {
       className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20"
       aria-labelledby="approach-title"
     >
-      <div className="text-center mb-10 sm:mb-12 md:mb-16">
-        <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
-          <Cpu className="w-4 h-4 text-accent-blue" />
-          <span className="text-sm font-medium text-primary">Approche</span>
-        </div>
+      <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
+        <RevealItem>
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
+            <Cpu className="w-4 h-4 text-accent-blue" />
+            <span className="text-sm font-medium text-primary">Approche</span>
+          </div>
+        </RevealItem>
 
-        <Heading2
-          id="approach-title"
-          size="xl"
-          className="text-2xl sm:text-3xl md:text-4xl animate-fade-in"
-        >
-          Comment je construis
-        </Heading2>
+        <RevealItem>
+          <Heading2
+            id="approach-title"
+            size="xl"
+            className="text-2xl sm:text-3xl md:text-4xl"
+          >
+            Comment je construis
+          </Heading2>
+        </RevealItem>
 
-        <Paragraphe
-          variant="secondary"
-          className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base animate-fade-in"
-          style={{ animationDelay: "100ms" }}
-        >
-          Une approche orientée produit, avec un standard de qualité qui tient
-          dans le temps.
-        </Paragraphe>
-      </div>
+        <RevealItem>
+          <Paragraphe
+            variant="secondary"
+            className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
+          >
+            Une approche orientée produit, avec un standard de qualité qui tient
+            dans le temps.
+          </Paragraphe>
+        </RevealItem>
+      </RevealContainer>
 
       <RevealContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
         {pillars.map((p) => (
@@ -124,17 +129,16 @@ const Approach = () => {
         ))}
       </RevealContainer>
 
-      <div
-        className="text-center mt-10 sm:mt-12 animate-fade-in"
-        style={{ animationDelay: "600ms" }}
-      >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass">
-          <span className="text-xs sm:text-sm text-secondary">
-            Résultat : un produit livrable rapidement, maintenable, et prêt pour
-            la production.
-          </span>
-        </div>
-      </div>
+      <RevealContainer className="text-center mt-10 sm:mt-12">
+        <RevealItem>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass">
+            <span className="text-xs sm:text-sm text-secondary">
+              Résultat : un produit livrable rapidement, maintenable, et prêt
+              pour la production.
+            </span>
+          </div>
+        </RevealItem>
+      </RevealContainer>
     </section>
   );
 };

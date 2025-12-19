@@ -1,8 +1,8 @@
 "use client";
-import { motion, useReducedMotion } from "framer-motion";
 import { ChevronRight, Cpu, Gauge, Layers, Shield } from "lucide-react";
 import { Heading2 } from "../ui/heading2";
 import { Paragraphe } from "../ui/paragraphe";
+import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import cn from "../../_lib/cn";
 
 const blocks = [
@@ -47,46 +47,21 @@ const blocks = [
 ] as const;
 
 const TechStack = () => {
-  const prefersReducedMotion = useReducedMotion();
-
-  const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
-  };
-
-  const item = {
-    hidden: prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 },
-    show: prefersReducedMotion
-      ? { opacity: 1, y: 0 }
-      : {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-        },
-  };
-
   return (
     <section
       id="stack"
       className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20"
       aria-labelledby="stack-title"
     >
-      {/* Header ultra lisible */}
-      <motion.div
-        className="text-center mb-10 sm:mb-12 md:mb-16"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.35 }}
-      >
-        <motion.div variants={item}>
+      <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
+        <RevealItem>
           <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
             <Cpu className="w-4 h-4 text-accent-blue" />
             <span className="text-sm font-medium text-primary">Stack</span>
           </div>
-        </motion.div>
+        </RevealItem>
 
-        <motion.div variants={item}>
+        <RevealItem>
           <Heading2
             id="stack-title"
             size="xl"
@@ -94,9 +69,9 @@ const TechStack = () => {
           >
             Une stack au service du produit
           </Heading2>
-        </motion.div>
+        </RevealItem>
 
-        <motion.div variants={item}>
+        <RevealItem>
           <Paragraphe
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-xl mx-auto text-sm sm:text-base"
@@ -104,24 +79,16 @@ const TechStack = () => {
             Moins de buzzwords. Plus de résultats : performance, qualité, SEO,
             et sérénité en production.
           </Paragraphe>
-        </motion.div>
-      </motion.div>
+        </RevealItem>
+      </RevealContainer>
 
-      {/* 3 cartes scannables */}
-      <motion.div
-        className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-      >
+      <RevealContainer className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
         {blocks.map((b) => {
           const Icon = b.icon;
 
           return (
-            <motion.article
+            <RevealItem
               key={b.title}
-              variants={item}
               className={cn(
                 "group relative rounded-2xl glass-card glow-border border border-secondary/20",
                 "p-5 sm:p-6",
@@ -176,26 +143,21 @@ const TechStack = () => {
                   ))}
                 </ul>
               </div>
-            </motion.article>
+            </RevealItem>
           );
         })}
-      </motion.div>
+      </RevealContainer>
 
-      {/* Footer sobre */}
-      <motion.div
-        className="text-center mt-10 sm:mt-12"
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass">
-          <span className="text-xs sm:text-sm text-secondary">
-            La stack s’adapte au contexte : MVP, refonte, SaaS multi-tenant,
-            contraintes perf ou SEO.
-          </span>
-        </div>
-      </motion.div>
+      <RevealContainer className="text-center mt-10 sm:mt-12">
+        <RevealItem>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass">
+            <span className="text-xs sm:text-sm text-secondary">
+              La stack s'adapte au contexte : MVP, refonte, SaaS multi-tenant,
+              contraintes perf ou SEO.
+            </span>
+          </div>
+        </RevealItem>
+      </RevealContainer>
     </section>
   );
 };

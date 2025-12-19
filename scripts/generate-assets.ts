@@ -77,9 +77,7 @@ async function generateOGImage() {
   <text x="450" y="420" font-family="monospace" font-size="28" fill="#cba6f7">TypeScript · Next.js · React · Node.js</text>
 </svg>`;
 
-  const buffer = await sharp(Buffer.from(ogSvg))
-    .png()
-    .toBuffer();
+  const buffer = await sharp(Buffer.from(ogSvg)).png().toBuffer();
 
   writeFileSync(join(PUBLIC_DIR, "og-image.png"), buffer);
   console.log("✅ Generated og-image.png (1200x630)");

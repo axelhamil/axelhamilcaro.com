@@ -123,9 +123,15 @@ body {
 }
 
 @keyframes ambient-drift {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
 /* ============================================================================
@@ -199,6 +205,269 @@ body {
   100% {
     opacity: 0;
     transform: translateY(-20px);
+  }
+}
+
+/* ============================================================================
+   VIEW TRANSITIONS API - TRON GRID EFFECT
+   ============================================================================ */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation-name: tron-exit;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  animation-name: tron-enter;
+  z-index: 2;
+}
+
+@keyframes tron-exit {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateZ(0) rotateX(0deg);
+    filter: blur(0px) brightness(1) saturate(1);
+  }
+  25% {
+    opacity: 0.85;
+    transform: scale(0.99) translateZ(0) rotateX(1deg);
+    filter: blur(1px) brightness(0.95) saturate(1.2);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.97) translateZ(0) rotateX(2deg);
+    filter: blur(3px) brightness(0.8) saturate(1.4);
+  }
+  75% {
+    opacity: 0.2;
+    transform: scale(0.96) translateZ(0) rotateX(3deg);
+    filter: blur(6px) brightness(0.7) saturate(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateZ(0) rotateX(4deg);
+    filter: blur(10px) brightness(0.6) saturate(0.8);
+  }
+}
+
+@keyframes tron-enter {
+  0% {
+    opacity: 0;
+    transform: scale(1.06) translateZ(0) rotateX(-4deg);
+    filter: blur(16px) brightness(1.4) saturate(1.6) hue-rotate(10deg);
+  }
+  25% {
+    opacity: 0.3;
+    transform: scale(1.04) translateZ(0) rotateX(-3deg);
+    filter: blur(10px) brightness(1.3) saturate(1.4) hue-rotate(5deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.02) translateZ(0) rotateX(-2deg);
+    filter: blur(5px) brightness(1.15) saturate(1.2) hue-rotate(2deg);
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(1.01) translateZ(0) rotateX(-1deg);
+    filter: blur(2px) brightness(1.05) saturate(1.05) hue-rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateZ(0) rotateX(0deg);
+    filter: blur(0px) brightness(1) saturate(1) hue-rotate(0deg);
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms;
+    animation: none;
+  }
+}
+
+/* ============================================================================
+   SCAN LINE OVERLAY
+   ============================================================================ */
+
+.transition-scan-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--accent-blue) 3%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  background-repeat: repeat-y;
+  animation: scan-lines 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  backdrop-filter: blur(0px);
+  transition: backdrop-filter 0.3s ease-out;
+}
+
+.transition-scan-overlay.active {
+  opacity: 1;
+  backdrop-filter: blur(2px);
+}
+
+.transition-scan-overlay::before {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent-mauve) 12%, transparent) 35%,
+    color-mix(in srgb, var(--accent-blue) 20%, transparent) 50%,
+    color-mix(in srgb, var(--accent-teal) 12%, transparent) 65%,
+    transparent 100%
+  );
+  animation: scan-sweep 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow:
+    0 0 60px color-mix(in srgb, var(--accent-blue) 40%, transparent),
+    0 0 120px color-mix(in srgb, var(--accent-mauve) 30%, transparent),
+    0 0 200px color-mix(in srgb, var(--accent-teal) 20%, transparent);
+  border-radius: 50%;
+  filter: blur(30px);
+}
+
+.transition-scan-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    color-mix(in srgb, var(--accent-blue) 2%, transparent) 2px,
+    color-mix(in srgb, var(--accent-blue) 2%, transparent) 4px
+  );
+  opacity: 0.6;
+  animation: scan-flicker 0.6s steps(6) infinite;
+}
+
+@keyframes scan-sweep {
+  0% {
+    top: -100%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes scan-lines {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 0 100%;
+  }
+}
+
+@keyframes scan-flicker {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.transition-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle-float 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow:
+    0 0 10px currentColor,
+    0 0 20px currentColor;
+}
+
+.particle:nth-child(2n) {
+  background: var(--accent-mauve);
+}
+
+.particle:nth-child(3n) {
+  background: var(--accent-teal);
+}
+
+.particle:nth-child(4n) {
+  background: var(--accent-peach);
+}
+
+@keyframes particle-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-80px) scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition-scan-overlay,
+  .transition-scan-overlay::before,
+  .transition-scan-overlay::after,
+  .particle {
+    animation: none;
+    opacity: 0 !important;
   }
 }
 
@@ -351,8 +620,14 @@ body {
 }
 
 @keyframes terminal-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* ============================================================================
@@ -361,8 +636,7 @@ body {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color:
-    color-mix(in srgb, var(--accent) 35%, transparent)
+  scrollbar-color: color-mix(in srgb, var(--accent) 35%, transparent)
     transparent;
 }
 
@@ -376,22 +650,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: color-mix(
-    in srgb,
-    var(--accent) 30%,
-    transparent
-  );
+  background-color: color-mix(in srgb, var(--accent) 30%, transparent);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--accent) 45%,
-    transparent
-  );
+  background-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 ::-webkit-scrollbar-corner {
@@ -423,7 +689,8 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -432,7 +699,8 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
     filter: blur(8px);
   }

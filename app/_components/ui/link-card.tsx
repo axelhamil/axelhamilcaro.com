@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import cn from "../../_lib/cn";
+import TransitionLink from "../shared/navigation/transition-link";
 
 const linkCardVariants = cva(
   "group relative flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl transition-all duration-300 ease-out cursor-pointer border-2 active:scale-[0.98]",
@@ -16,7 +17,7 @@ const linkCardVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );
 
 interface ILinkCardProps {
@@ -37,14 +38,11 @@ const LinkCard = ({
 }: ILinkCardProps &
   Omit<ComponentProps<"a">, "href"> &
   VariantProps<typeof linkCardVariants>) => {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={cn(linkCardVariants({ variant, className }))}
-      {...props}
-    >
+  const isExternal = href.startsWith("http") || href.startsWith("mailto:");
+  const classes = cn(linkCardVariants({ variant, className }));
+
+  const content = (
+    <>
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-gradient-to-r from-accent-mauve/5 via-accent-blue/5 to-accent-teal/5" />
 
       <div className="relative z-10 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-secondary-background/60 border border-secondary/30 group-hover:border-accent/40 group-hover:scale-105 transition-all duration-300 shrink-0">
@@ -72,14 +70,30 @@ const LinkCard = ({
           stroke="currentColor"
           strokeWidth={2}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 5l7 7-7 7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </div>
-    </a>
+    </>
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+        {...props}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <TransitionLink href={href} className={classes} {...props}>
+      {content}
+    </TransitionLink>
   );
 };
 

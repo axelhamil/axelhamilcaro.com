@@ -44,7 +44,7 @@ export const treeLinks: ILink[] = [
   },
   {
     title: "Portfolio",
-    url: "https://axelhamilcaro.com",
+    url: "/",
     icon: Globe,
     description: "Mon site personnel",
   },
