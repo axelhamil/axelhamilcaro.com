@@ -1,12 +1,12 @@
-import { Coffee, Sparkles } from "lucide-react";
+import { Calendar, Mail, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { Heading1 } from "../ui/heading1";
 import { Paragraphe } from "../ui/paragraphe";
 
 export default function TreeHeader() {
   return (
-    <div className="flex flex-col items-center gap-6 sm:gap-8">
-      <div className="flex flex-col items-center gap-3 sm:gap-4 animate-fade-in">
+    <div className="flex flex-col items-center gap-5 sm:gap-7">
+      <div className="flex flex-col items-center gap-3 sm:gap-4">
         <div className="relative group">
           <div className="absolute -inset-1 sm:-inset-1.5 rounded-full bg-linear-to-r from-accent-mauve via-accent-blue to-accent-teal opacity-50 blur-md group-hover:opacity-75 group-hover:blur-lg transition-all duration-500" />
 
@@ -20,12 +20,6 @@ export default function TreeHeader() {
               priority
             />
           </div>
-
-          <div className="absolute -right-1 -bottom-1 sm:-right-2 sm:-bottom-2 text-lg sm:text-xl animate-bounce">
-            <span role="img" aria-label="wave">
-              <Coffee className="w-5 h-5 sm:w-6 sm:h-6 text-accent-peach" />
-            </span>
-          </div>
         </div>
 
         <div className="text-center">
@@ -35,31 +29,38 @@ export default function TreeHeader() {
           >
             Axel Hamilcaro
           </Heading1>
+
           <Paragraphe variant="secondary" className="mt-1 text-sm sm:text-base">
-            Full-Stack Developer · TypeScript
+            Full-Stack TypeScript — produit, perf, et architecture lisible
           </Paragraphe>
 
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 mt-3 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent-teal/10 border border-accent-teal/30">
-            <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-teal opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-accent-teal" />
-            </span>
-            <span className="text-xs sm:text-sm font-medium text-accent-teal">
-              Disponible
-            </span>
+          <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 w-full">
+            <a
+              href="mailto:contact@axelhamilcaro.com"
+              className="px-4 py-2 rounded-xl glass-card border border-secondary/20 hover:border-accent/40 hover:bg-secondary-background/40 transition-all duration-300 flex items-center justify-center gap-2 text-sm text-primary hover:text-accent"
+            >
+              <Mail className="w-4 h-4" />
+              Email
+            </a>
+            <a
+              href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-xl bg-accent text-primary-background hover:shadow-lg hover:shadow-accent/25 transition-all duration-300 flex items-center justify-center gap-2 text-sm shimmer"
+            >
+              <Calendar className="w-4 h-4" />
+              Call (15–20 min)
+            </a>
           </div>
         </div>
       </div>
 
-      <div
-        className="flex items-center gap-2 text-secondary/70 animate-fade-in"
-        style={{ animationDelay: "150ms" }}
-      >
-        <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-mauve" />
+      <div className="flex items-center gap-2 text-secondary/70">
+        <Sparkles className="w-3.5 h-3.5 text-accent-mauve" />
         <span className="text-xs sm:text-sm italic">
-          Building products, not just features
+          “Ship fast. Keep it clean.”
         </span>
-        <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-mauve" />
+        <Sparkles className="w-3.5 h-3.5 text-accent-mauve" />
       </div>
     </div>
   );

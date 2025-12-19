@@ -1,6 +1,7 @@
-import { Code2, Rocket, Lightbulb, Wrench, Sparkles } from "lucide-react";
+import { Code2, Lightbulb, Rocket, Sparkles, Wrench } from "lucide-react";
 import { Heading2 } from "../ui/heading2";
 import { Paragraphe } from "../ui/paragraphe";
+import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 
 const services = [
   {
@@ -41,41 +42,39 @@ const services = [
 
 const WhatIDo = () => {
   return (
-    <section id="services" className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20">
+    <section
+      id="services"
+      className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20"
+    >
+      {/* Header */}
+      <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
+        <RevealItem>
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
+            <Sparkles className="w-4 h-4 text-accent-mauve" />
+            <span className="text-sm font-medium text-primary">Services</span>
+          </div>
+        </RevealItem>
 
-      <div className="text-center mb-10 sm:mb-12 md:mb-16">
-        <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
-          <Sparkles className="w-4 h-4 text-accent-mauve" />
-          <span className="text-sm font-medium text-primary">
-            Services
-          </span>
-        </div>
-        <Heading2
-          size="xl"
-          className="text-2xl sm:text-3xl md:text-4xl animate-fade-in"
-        >
-          Ce que je fais
-        </Heading2>
-        <Paragraphe
-          variant="secondary"
-          className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base animate-fade-in"
-          style={{ animationDelay: "100ms" }}
-        >
-          Un accompagnement complet, de l'idée au produit en production
-        </Paragraphe>
-      </div>
+        <RevealItem>
+          <Heading2 size="xl" className="text-2xl sm:text-3xl md:text-4xl">
+            Ce que je fais
+          </Heading2>
+        </RevealItem>
 
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
-        {services.map((service, index) => (
-          <div
-            key={service.title}
-            className="group animate-fade-in-up"
-            style={{
-              animationDelay: `${(index + 1) * 100}ms`,
-              animationFillMode: "both",
-            }}
+        <RevealItem>
+          <Paragraphe
+            variant="secondary"
+            className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
           >
+            Un accompagnement complet, de l'idée au produit en production
+          </Paragraphe>
+        </RevealItem>
+      </RevealContainer>
+
+      {/* Cards */}
+      <RevealContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
+        {services.map((service) => (
+          <RevealItem key={service.title} className="group">
             <div
               className={`
                 relative h-full flex flex-col items-center text-center gap-3 sm:gap-4
@@ -85,7 +84,6 @@ const WhatIDo = () => {
                 group-hover:scale-[1.02] group-hover:-translate-y-2
               `}
             >
-
               <div
                 className={`
                   absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
@@ -93,7 +91,6 @@ const WhatIDo = () => {
                   bg-gradient-to-br ${service.gradient}
                 `}
               />
-
 
               <div
                 className={`
@@ -106,15 +103,13 @@ const WhatIDo = () => {
                 `}
               >
                 <service.icon
-                  className={`w-7 h-7 sm:w-8 sm:h-8 ${service.color} transition-transform duration-300`}
+                  className={`w-7 h-7 sm:w-8 sm:h-8 ${service.color}`}
                 />
               </div>
-
 
               <h3 className="relative z-10 font-semibold text-primary text-lg sm:text-xl group-hover:text-primary-foreground transition-colors duration-300">
                 {service.title}
               </h3>
-
 
               <Paragraphe
                 variant="secondary"
@@ -124,9 +119,9 @@ const WhatIDo = () => {
                 {service.description}
               </Paragraphe>
             </div>
-          </div>
+          </RevealItem>
         ))}
-      </div>
+      </RevealContainer>
     </section>
   );
 };
