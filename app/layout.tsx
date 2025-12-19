@@ -1,6 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Head from "next/head";
 import type { ReactNode } from "react";
 import TronGrid from "./_components/shared/effects/tron-grid";
 import Navbar from "./_components/shared/layouts/navbar";
@@ -25,10 +24,8 @@ export default function RootLayout({
         "antialiased pt-20 sm:pt-25 px-4 sm:px-6 md:px-10 bg-grid transition-all ease-in-out duration-500",
       )}
     >
-      <Head>
-        <JsonLd />
-      </Head>
       <body className="overflow-x-hidden">
+        <JsonLd />
         <TronGrid />
         <Navbar />
         <div className="relative z-10">{children}</div>

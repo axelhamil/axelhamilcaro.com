@@ -83,4 +83,4 @@ const LinkCard = ({
   );
 };
 
-export { LinkCard, linkCardVariants };
+export { LinkCard };

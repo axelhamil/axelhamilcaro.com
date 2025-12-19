@@ -46,4 +46,4 @@ const Paragraphe = ({
   );
 };
 
-export { Paragraphe, paragrapheVariants };
+export { Paragraphe };

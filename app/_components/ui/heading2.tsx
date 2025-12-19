@@ -46,4 +46,4 @@ const Heading2 = ({
   );
 };
 
-export { Heading2, heading2Variants };
+export { Heading2 };
