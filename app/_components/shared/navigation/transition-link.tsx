@@ -10,14 +10,12 @@ const TransitionLink = ({ href, children, ...props }: TransitionLinkProps) => {
   const router = useRouter();
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    // Only handle internal links
     if (typeof href !== "string" || href.startsWith("http")) {
       return;
     }
 
     e.preventDefault();
 
-    // Use View Transitions API if available
     if (document.startViewTransition) {
       document.startViewTransition(() => {
         router.push(href);

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { Calendar, ArrowRight, Zap, Code2, Coffee, Rocket } from "lucide-react";
-import ScrollIndicator from "./scroll-indicator";
-import { Button } from "./ui/button";
-import { Heading1 } from "./ui/heading1";
-import { Heading2 } from "./ui/heading2";
-import { Paragraphe } from "./ui/paragraphe";
+import ScrollIndicator from "../shared/effects/scroll-indicator";
+import { Button } from "../ui/button";
+import { Heading1 } from "../ui/heading1";
+import { Heading2 } from "../ui/heading2";
+import { Paragraphe } from "../ui/paragraphe";
 
 const Hero = () => {
   return (
@@ -12,11 +12,8 @@ const Hero = () => {
       id="hero"
       className="relative container mx-auto min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-100px)] flex flex-col lg:flex-row lg:justify-between items-center gap-8 lg:gap-12 2xl:gap-20 py-6 md:py-10"
     >
-      {/* Left: Text content */}
       <div className="w-full lg:max-w-2xl xl:max-w-3xl flex flex-col gap-4 md:gap-5 order-2 lg:order-1 z-10">
-        {/* Fun intro badges */}
         <div className="flex flex-wrap items-center gap-2 animate-fade-in">
-          {/* Availability badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-teal/10 border border-accent-teal/30">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-teal opacity-75" />
@@ -27,7 +24,6 @@ const Hero = () => {
             </span>
           </div>
 
-          {/* Coffee counter - fun touch */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent-peach/10 border border-accent-peach/30">
             <Coffee className="w-3.5 h-3.5 text-accent-peach" />
             <span className="text-xs sm:text-sm font-medium text-accent-peach">
@@ -36,7 +32,6 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Main heading with typing effect feel - SEO optimized h1 */}
         <div className="animate-fade-in" style={{ animationDelay: "100ms" }}>
           <Heading1
             size="xl"
@@ -93,7 +88,6 @@ const Hero = () => {
           </Paragraphe>
         </div>
 
-        {/* CTAs */}
         <div
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2 animate-fade-in"
           style={{ animationDelay: "400ms" }}
@@ -118,7 +112,6 @@ const Hero = () => {
           </Button>
         </div>
 
-        {/* Social proof / fun stats */}
         <div
           className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 animate-fade-in"
           style={{ animationDelay: "500ms" }}
@@ -148,19 +141,15 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Right: Profile photo with cool effects */}
       <div
         className="w-full lg:w-auto flex justify-center order-1 lg:order-2 animate-fade-in z-10"
         style={{ animationDelay: "200ms" }}
       >
         <div className="relative group">
-          {/* Animated glow background */}
           <div className="absolute -inset-4 sm:-inset-6 rounded-full bg-gradient-to-r from-accent-mauve via-accent-blue to-accent-teal opacity-30 blur-2xl animate-pulse-glow group-hover:opacity-50 transition-opacity duration-500" />
 
-          {/* Secondary glow ring */}
           <div className="absolute -inset-1 sm:-inset-2 rounded-full bg-gradient-to-r from-accent-blue via-accent-teal to-accent-mauve opacity-60 blur-sm group-hover:opacity-80 transition-opacity duration-300" />
 
-          {/* Photo container */}
           <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border-4 border-secondary-background/50 shadow-2xl group-hover:scale-105 transition-transform duration-500">
             <Image
               src="/profil_pp.jpeg"
@@ -172,7 +161,6 @@ const Hero = () => {
             />
           </div>
 
-          {/* Floating badges around photo */}
           <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 p-2 sm:p-3 rounded-xl bg-secondary-background/90 border border-accent-blue/30 shadow-lg animate-float">
             <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-accent-blue" />
           </div>
@@ -193,7 +181,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <ScrollIndicator />
     </section>
   );

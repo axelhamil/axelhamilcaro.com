@@ -1,0 +1,90 @@
+import type { Metadata } from "next";
+import { siteConfig } from "./site";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default:
+      "Axel Hamilcaro | Développeur Full-Stack Freelance Paris - TypeScript & React",
+    template: "%s | Axel Hamilcaro - Dev Full-Stack",
+  },
+  description: siteConfig.description,
+  keywords: [
+    "développeur full-stack",
+    "développeur freelance",
+    "développeur web",
+    "développeur full-stack freelance",
+    "développeur freelance Paris",
+    "développeur web Paris",
+    "TypeScript",
+    "Next.js",
+    "React",
+    "Node.js",
+    "JavaScript",
+    "Tailwind CSS",
+    "PostgreSQL",
+    "MongoDB",
+    "GraphQL",
+    "API REST",
+    "création application web",
+    "développement SaaS",
+    "refonte site web",
+    "création site internet",
+    "développement sur mesure",
+    "application web sur mesure",
+    "Paris",
+    "France",
+    "Île-de-France",
+    "clean architecture",
+    "scalable",
+    "performant",
+    "Vercel",
+  ],
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title:
+      "Axel Hamilcaro | Développeur Full-Stack Freelance Paris - TypeScript & React",
+    description: siteConfig.description,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Axel Hamilcaro - Développeur Full-Stack Freelance Paris",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Axel Hamilcaro | Dev Full-Stack Freelance Paris",
+    description: siteConfig.description,
+    images: ["/og-image.png"],
+    creator: "@axelhamilcaro",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/manifest.json",
+  category: "technology",
+};

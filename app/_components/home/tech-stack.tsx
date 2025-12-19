@@ -1,8 +1,8 @@
 import { Cpu } from "lucide-react";
-import { Heading2 } from "./ui/heading2";
-import { Paragraphe } from "./ui/paragraphe";
+import { Heading2 } from "../ui/heading2";
+import { Paragraphe } from "../ui/paragraphe";
 
-// Tech stack data with fun descriptions
+
 const technologies = [
   {
     name: "TypeScript",
@@ -45,7 +45,7 @@ const technologies = [
 const TechStack = () => {
   return (
     <section id="stack" className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20">
-      {/* Section header */}
+
       <div className="text-center mb-10 sm:mb-12 md:mb-16">
         <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
           <Cpu className="w-4 h-4 text-accent-blue" />
@@ -67,7 +67,7 @@ const TechStack = () => {
         </Paragraphe>
       </div>
 
-      {/* Tech grid */}
+
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 md:gap-6 max-w-4xl mx-auto">
         {technologies.map((tech, index) => (
           <div
@@ -78,7 +78,7 @@ const TechStack = () => {
               animationFillMode: "both",
             }}
           >
-            {/* Card */}
+
             <div
               className={`
                 relative flex flex-col items-center gap-3 sm:gap-4
@@ -89,7 +89,7 @@ const TechStack = () => {
                 group-hover:shadow-xl ${tech.glow}
               `}
             >
-              {/* Icon badge */}
+
               <div
                 className={`
                   relative z-10 w-12 h-12 sm:w-14 sm:h-14 rounded-xl
@@ -105,7 +105,7 @@ const TechStack = () => {
                 </span>
               </div>
 
-              {/* Name */}
+
               <span className="relative z-10 font-medium text-primary text-xs sm:text-sm text-center group-hover:text-primary-foreground transition-colors duration-300">
                 {tech.name}
               </span>
@@ -114,7 +114,7 @@ const TechStack = () => {
         ))}
       </div>
 
-      {/* Fun footer text */}
+
       <div
         className="text-center mt-10 sm:mt-12 animate-fade-in"
         style={{ animationDelay: "600ms" }}

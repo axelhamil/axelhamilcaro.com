@@ -1,5 +1,5 @@
 "use client";
-import cn from "../../lib/cn";
+import cn from "../../_lib/cn";
 import type { ClassValue } from "clsx";
 import { useEffect, useMemo, useRef, useState } from "react";
 

@@ -2,8 +2,8 @@
 
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
-import cn from "../../../lib/cn";
-import TransitionLink from "../transition-link";
+import cn from "../../_lib/cn";
+import TransitionLink from "../shared/navigation/transition-link";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 ease-out cursor-pointer rounded-lg border-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-background disabled:opacity-50 disabled:cursor-not-allowed",
@@ -50,7 +50,6 @@ const Button = ({
   const classes = cn(buttonVariants({ variant, size, className }));
 
   if (href) {
-    // External link - use regular anchor
     if (external || href.startsWith("http") || href.startsWith("mailto:")) {
       return (
         <a
@@ -64,7 +63,6 @@ const Button = ({
       );
     }
 
-    // Internal link - use TransitionLink for smooth page transitions
     return (
       <TransitionLink href={href} className={classes}>
         {children}

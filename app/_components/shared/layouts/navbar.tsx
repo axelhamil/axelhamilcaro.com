@@ -1,11 +1,10 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { Calendar, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Menu, X, Calendar } from "lucide-react";
-import cn from "../../lib/cn";
-import TransitionLink from "./transition-link";
-import { heading1Variants } from "./ui/heading1";
+import { useEffect, useState } from "react";
+import cn from "../../../_lib/cn";
+import TransitionLink from "../navigation/transition-link";
+import { heading1Variants } from "../../ui/heading1";
 
 const navLinks = [
   { href: "/#services", label: "Services" },
@@ -20,25 +19,21 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("");
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Calculate scroll progress
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       setScrollProgress(Math.min(progress, 100));
 
-      // Only track sections on home page
       if (pathname !== "/") {
         setActiveSection("");
         return;
       }
 
-      // Update active section based on scroll position
-      // Check sections in reverse order so later sections take priority
       const sections = ["services", "stack"];
       let currentSection = "";
 
@@ -46,7 +41,6 @@ const Navbar = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Section is active if its top has scrolled past 200px from viewport top
           if (rect.top <= 200) {
             currentSection = section;
           }
@@ -55,16 +49,14 @@ const Navbar = () => {
       setActiveSection(currentSection);
     };
 
-    handleScroll(); // Initial check
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  // Handle navigation click
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
 
-    // If it's a hash link and we're on home page, scroll smoothly
     if (href.startsWith("/#") && pathname === "/") {
       const id = href.replace("/#", "");
       const element = document.getElementById(id);
@@ -73,8 +65,6 @@ const Navbar = () => {
         return;
       }
     }
-
-    // Otherwise, navigate normally (TransitionLink will handle it)
   };
 
   const isActive = (href: string) => {
@@ -92,14 +82,13 @@ const Navbar = () => {
         "transition-all duration-500",
         isScrolled
           ? "glass-nav border-b border-secondary/20"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
       <nav
         className="max-w-7xl mx-auto flex items-center justify-between"
         aria-label="Navigation principale"
       >
-        {/* Logo */}
         <TransitionLink
           href="/"
           className="group flex items-center gap-2"
@@ -108,14 +97,13 @@ const Navbar = () => {
           <span
             className={cn(
               heading1Variants({ size: "sm" }),
-              "font-mono transition-colors duration-300 group-hover:text-accent"
+              "font-mono transition-colors duration-300 group-hover:text-accent",
             )}
           >
             axel_hamilcaro()
           </span>
         </TransitionLink>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <TransitionLink
@@ -128,23 +116,22 @@ const Navbar = () => {
                 "hover:bg-secondary-background/50",
                 isActive(link.href)
                   ? "text-accent"
-                  : "text-primary hover:text-accent"
+                  : "text-primary hover:text-accent",
               )}
             >
               {link.label}
-              {/* Active indicator line */}
               <span
                 className={cn(
                   "absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 rounded-full",
                   "bg-gradient-to-r from-accent-mauve via-accent-blue to-accent-teal",
                   "transition-all duration-300 ease-out",
-                  isActive(link.href) ? "w-6 opacity-100" : "w-0 opacity-0"
+                  isActive(link.href) ? "w-6 opacity-100" : "w-0 opacity-0",
                 )}
               />
             </TransitionLink>
           ))}
 
-          {/* CTA Button */}
+
           <a
             href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
             target="_blank"
@@ -155,7 +142,7 @@ const Navbar = () => {
               "hover:scale-105 hover:shadow-lg hover:shadow-accent/25",
               "transition-all duration-300",
               "flex items-center gap-2",
-              "shimmer"
+              "shimmer",
             )}
           >
             <Calendar className="w-4 h-4" />
@@ -163,14 +150,13 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={cn(
             "md:hidden p-2 rounded-lg",
             "text-primary hover:text-accent",
             "hover:bg-secondary-background/50",
-            "transition-all duration-300"
+            "transition-all duration-300",
           )}
           aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={isMobileMenuOpen}
@@ -181,7 +167,7 @@ const Navbar = () => {
                 "absolute inset-0 transition-all duration-300",
                 isMobileMenuOpen
                   ? "opacity-0 rotate-90 scale-50"
-                  : "opacity-100 rotate-0 scale-100"
+                  : "opacity-100 rotate-0 scale-100",
               )}
             />
             <X
@@ -189,18 +175,17 @@ const Navbar = () => {
                 "absolute inset-0 transition-all duration-300",
                 isMobileMenuOpen
                   ? "opacity-100 rotate-0 scale-100"
-                  : "opacity-0 -rotate-90 scale-50"
+                  : "opacity-0 -rotate-90 scale-50",
               )}
             />
           </div>
         </button>
       </nav>
 
-      {/* Mobile Menu */}
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300 ease-out",
-          isMobileMenuOpen ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0"
+          isMobileMenuOpen ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0",
         )}
       >
         <div className="flex flex-col gap-2 pb-4 glass-card rounded-xl p-4">
@@ -215,7 +200,7 @@ const Navbar = () => {
                 "hover:bg-secondary-background/50",
                 isActive(link.href)
                   ? "text-accent bg-accent/10"
-                  : "text-primary hover:text-accent"
+                  : "text-primary hover:text-accent",
               )}
               style={{
                 animationDelay: isMobileMenuOpen ? `${index * 50}ms` : "0ms",
@@ -225,7 +210,7 @@ const Navbar = () => {
             </TransitionLink>
           ))}
 
-          {/* Mobile CTA */}
+
           <a
             href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
             target="_blank"
@@ -235,7 +220,7 @@ const Navbar = () => {
               "bg-accent text-primary-background",
               "hover:bg-accent/90",
               "transition-all duration-300",
-              "flex items-center justify-center gap-2"
+              "flex items-center justify-center gap-2",
             )}
           >
             <Calendar className="w-5 h-5" />
@@ -244,7 +229,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Scroll Progress Bar */}
       <div className="absolute bottom-0 left-0 w-full h-0.5 bg-secondary/10">
         <div
           className="h-full bg-gradient-to-r from-accent-mauve via-accent-blue to-accent-teal transition-all duration-150 ease-out"

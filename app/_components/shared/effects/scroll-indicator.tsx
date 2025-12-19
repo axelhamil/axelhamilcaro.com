@@ -8,7 +8,6 @@ const ScrollIndicator = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Hide after scrolling 50px
       setIsVisible(window.scrollY < 50);
     };
 

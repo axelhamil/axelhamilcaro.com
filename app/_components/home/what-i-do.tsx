@@ -1,6 +1,6 @@
 import { Code2, Rocket, Lightbulb, Wrench, Sparkles } from "lucide-react";
-import { Heading2 } from "./ui/heading2";
-import { Paragraphe } from "./ui/paragraphe";
+import { Heading2 } from "../ui/heading2";
+import { Paragraphe } from "../ui/paragraphe";
 
 const services = [
   {
@@ -42,7 +42,7 @@ const services = [
 const WhatIDo = () => {
   return (
     <section id="services" className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20">
-      {/* Section header */}
+
       <div className="text-center mb-10 sm:mb-12 md:mb-16">
         <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
           <Sparkles className="w-4 h-4 text-accent-mauve" />
@@ -65,7 +65,7 @@ const WhatIDo = () => {
         </Paragraphe>
       </div>
 
-      {/* Services grid */}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
         {services.map((service, index) => (
           <div
@@ -85,7 +85,7 @@ const WhatIDo = () => {
                 group-hover:scale-[1.02] group-hover:-translate-y-2
               `}
             >
-              {/* Gradient overlay on hover */}
+
               <div
                 className={`
                   absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
@@ -94,7 +94,7 @@ const WhatIDo = () => {
                 `}
               />
 
-              {/* Icon */}
+
               <div
                 className={`
                   relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl
@@ -110,12 +110,12 @@ const WhatIDo = () => {
                 />
               </div>
 
-              {/* Title */}
+
               <h3 className="relative z-10 font-semibold text-primary text-lg sm:text-xl group-hover:text-primary-foreground transition-colors duration-300">
                 {service.title}
               </h3>
 
-              {/* Description */}
+
               <Paragraphe
                 variant="secondary"
                 size="sm"

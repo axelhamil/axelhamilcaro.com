@@ -1,6 +1,6 @@
-import { Github, Linkedin, Mail, Calendar, Heart, Coffee } from "lucide-react";
-import TransitionLink from "./transition-link";
-import { Paragraphe } from "./ui/paragraphe";
+import { Calendar, Coffee, Github, Heart, Linkedin, Mail } from "lucide-react";
+import TransitionLink from "../navigation/transition-link";
+import { Paragraphe } from "../../ui/paragraphe";
 
 const socialLinks = [
   {
@@ -31,9 +31,7 @@ const Footer = () => {
   return (
     <footer className="relative z-10 border-t border-secondary/20 mt-16 sm:mt-20 md:mt-24">
       <div className="container mx-auto py-10 sm:py-12 md:py-16">
-        {/* Main footer content */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-          {/* Left: Brand & tagline */}
           <div className="flex flex-col gap-3">
             <div className="font-mono text-xl sm:text-2xl font-bold text-primary-foreground">
               axel_hamilcaro()
@@ -44,7 +42,6 @@ const Footer = () => {
             </Paragraphe>
           </div>
 
-          {/* Center: Quick links */}
           <div className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
               Navigation
@@ -73,7 +70,6 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Right: Social links */}
           <div className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
               Me retrouver
@@ -95,17 +91,13 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent my-8" />
 
-        {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          {/* Copyright */}
           <Paragraphe variant="muted" size="sm" className="text-xs sm:text-sm">
             &copy; {currentYear} Axel Hamilcaro. Tous droits réservés.
           </Paragraphe>
 
-          {/* Fun message */}
           <Paragraphe
             variant="muted"
             size="sm"
@@ -117,7 +109,6 @@ const Footer = () => {
             <span className="font-mono text-accent-blue">TypeScript</span>
           </Paragraphe>
 
-          {/* Location */}
           <Paragraphe variant="muted" size="sm" className="text-xs sm:text-sm">
             Paris, France
           </Paragraphe>

@@ -13,12 +13,10 @@ const PageTransition = ({ children }: PageTransitionProps) => {
   const [displayChildren, setDisplayChildren] = useState(children);
 
   useEffect(() => {
-    // Check if View Transitions API is supported
     if (document.startViewTransition) {
-      return; // Let CSS handle it via View Transitions API
+      return;
     }
 
-    // Fallback animation for browsers without View Transitions
     setIsTransitioning(true);
 
     const timeout = setTimeout(() => {
@@ -29,7 +27,6 @@ const PageTransition = ({ children }: PageTransitionProps) => {
     return () => clearTimeout(timeout);
   }, [pathname, children]);
 
-  // If View Transitions API is supported, just render children
   if (typeof document !== "undefined" && document.startViewTransition) {
     return <>{children}</>;
   }

@@ -22,7 +22,7 @@ const TronGrid = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Get CSS variables for colors
+
     const computedStyle = getComputedStyle(document.documentElement);
     const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -32,7 +32,7 @@ const TronGrid = () => {
       teal: isDark ? "#94e2d5" : "#179299",
     };
 
-    // Resize canvas to window size
+
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -40,24 +40,24 @@ const TronGrid = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    // Grid settings
+
     const getGridSize = () => {
       const vw = window.innerWidth;
       return Math.min(Math.max(60, vw * 0.08), 120);
     };
 
-    // Light trails
+
     const trails: LightTrail[] = [];
     const maxTrails = 4;
     const trailLength = 8;
 
-    // Create a new trail
+
     const createTrail = (): LightTrail => {
       const gridSize = getGridSize();
       const cols = Math.ceil(canvas.width / gridSize);
       const rows = Math.ceil(canvas.height / gridSize);
 
-      // Start from a random grid intersection
+
       const startCol = Math.floor(Math.random() * cols);
       const startRow = Math.floor(Math.random() * rows);
 
@@ -83,30 +83,30 @@ const TronGrid = () => {
       };
     };
 
-    // Initialize trails
+
     for (let i = 0; i < maxTrails; i++) {
       setTimeout(() => {
         trails.push(createTrail());
       }, i * 2000);
     }
 
-    // Animation loop
+
     let animationId: number;
     const animate = () => {
       const gridSize = getGridSize();
 
-      // Clear canvas
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw each trail
+
       trails.forEach((trail, index) => {
-        // Add current position to trail history
+
         trail.trail.unshift({ x: trail.x, y: trail.y });
         if (trail.trail.length > trail.length * gridSize / trail.speed) {
           trail.trail.pop();
         }
 
-        // Move trail
+
         switch (trail.direction) {
           case "up":
             trail.y -= trail.speed;
@@ -122,17 +122,17 @@ const TronGrid = () => {
             break;
         }
 
-        // Check if we've reached a grid intersection (with tolerance)
+
         const atIntersectionX = Math.abs(trail.x % gridSize) < trail.speed;
         const atIntersectionY = Math.abs(trail.y % gridSize) < trail.speed;
 
-        // Change direction randomly at intersections
+
         if (atIntersectionX && atIntersectionY && Math.random() < 0.3) {
-          // Snap to grid
+
           trail.x = Math.round(trail.x / gridSize) * gridSize;
           trail.y = Math.round(trail.y / gridSize) * gridSize;
 
-          // Choose new direction (not backwards)
+
           const possibleDirs: ("up" | "down" | "left" | "right")[] = [];
           if (trail.direction !== "down") possibleDirs.push("up");
           if (trail.direction !== "up") possibleDirs.push("down");
@@ -143,7 +143,7 @@ const TronGrid = () => {
             possibleDirs[Math.floor(Math.random() * possibleDirs.length)];
         }
 
-        // Check if trail is out of bounds - respawn it
+
         if (
           trail.x < -gridSize * 2 ||
           trail.x > canvas.width + gridSize * 2 ||
@@ -154,9 +154,9 @@ const TronGrid = () => {
           return;
         }
 
-        // Draw trail with glow effect
+
         if (trail.trail.length > 1) {
-          // Glow layer
+
           ctx.shadowBlur = 20;
           ctx.shadowColor = trail.color;
           ctx.strokeStyle = trail.color;
@@ -164,7 +164,7 @@ const TronGrid = () => {
           ctx.lineCap = "round";
           ctx.lineJoin = "round";
 
-          // Draw the trail
+
           ctx.beginPath();
           ctx.moveTo(trail.trail[0].x, trail.trail[0].y);
 
@@ -175,7 +175,7 @@ const TronGrid = () => {
 
           ctx.stroke();
 
-          // Brighter core
+
           ctx.shadowBlur = 10;
           ctx.strokeStyle = "white";
           ctx.lineWidth = 1;
@@ -192,7 +192,7 @@ const TronGrid = () => {
           ctx.stroke();
           ctx.globalAlpha = 1;
 
-          // Leading point glow
+
           ctx.shadowBlur = 30;
           ctx.shadowColor = trail.color;
           ctx.fillStyle = "white";
@@ -209,7 +209,7 @@ const TronGrid = () => {
 
     animate();
 
-    // Listen for color scheme changes
+
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleColorSchemeChange = () => {
       const isDarkNow = mediaQuery.matches;
