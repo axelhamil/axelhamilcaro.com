@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { Heading2 } from "../ui/heading2";
 import { Paragraphe } from "../ui/paragraphe";
+import { TerminalBlock } from "../shared/effects/typewriter";
 
 const pillars = [
   {
@@ -148,6 +149,21 @@ const Approach = () => {
             </motion.div>
           </RevealItem>
         ))}
+      </RevealContainer>
+
+      <RevealContainer className="mt-12 sm:mt-16 max-w-2xl mx-auto">
+        <RevealItem>
+          <TerminalBlock
+            lines={[
+              { prefix: "$", text: "npx create-next-app@latest mon-projet", delay: 0 },
+              { prefix: "✓", text: "Project created successfully!", delay: 600 },
+              { prefix: "$", text: "cd mon-projet && pnpm dev", delay: 1200 },
+              { prefix: "▲", text: "Ready in 1.2s", delay: 1800 },
+              { prefix: "→", text: "Local: http://localhost:3000", delay: 2200 },
+              { prefix: "🚀", text: "Let's ship something great!", delay: 2800 },
+            ]}
+          />
+        </RevealItem>
       </RevealContainer>
 
       <RevealContainer className="text-center mt-10 sm:mt-12">
