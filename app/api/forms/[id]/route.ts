@@ -3,6 +3,20 @@ import { forms } from "@/app/_lib/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "")
+    .replace(/-+/g, "-");
+}
+
+function isValidSlug(slug: string): boolean {
+  return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) && slug.length >= 2;
+}
+
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -34,37 +48,49 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    if (body.slug) {
-      const existingForm = await db
-        .select()
-        .from(forms)
-        .where(eq(forms.slug, body.slug));
+    if (!body.title?.trim()) {
+      return NextResponse.json(
+        { error: "Le titre est requis" },
+        { status: 400 }
+      );
+    }
 
-      const otherFormWithSlug = existingForm.find((f) => f.id !== id);
-      if (otherFormWithSlug) {
-        return NextResponse.json(
-          { error: "A form with this slug already exists" },
-          { status: 400 }
-        );
-      }
+    const slug = slugify(body.slug || body.title);
+
+    if (!isValidSlug(slug)) {
+      return NextResponse.json(
+        { error: "Le slug n'est pas valide (min 2 caractères, lettres/chiffres/tirets)" },
+        { status: 400 }
+      );
+    }
+
+    const existingForm = await db
+      .select()
+      .from(forms)
+      .where(eq(forms.slug, slug));
+
+    const otherFormWithSlug = existingForm.find((f) => f.id !== id);
+    if (otherFormWithSlug) {
+      return NextResponse.json(
+        { error: "Un formulaire avec ce slug existe déjà" },
+        { status: 400 }
+      );
     }
 
     const [updatedForm] = await db
       .update(forms)
       .set({
-        slug: body.slug,
+        slug,
         backgroundType: body.backgroundType,
         backgroundColor: body.backgroundColor,
         backgroundGradient: body.backgroundGradient,
         backgroundImage: body.backgroundImage,
         cardImage: body.cardImage,
         badgeText: body.badgeText,
-        title: body.title,
+        badgeColor: body.badgeColor,
+        title: body.title.trim(),
         description: body.description,
         buttonText: body.buttonText,
-        emailSubject: body.emailSubject,
-        emailBody: body.emailBody,
-        emailTo: body.emailTo,
         isActive: body.isActive,
         updatedAt: new Date(),
       })
@@ -72,14 +98,14 @@ export async function PUT(
       .returning();
 
     if (!updatedForm) {
-      return NextResponse.json({ error: "Form not found" }, { status: 404 });
+      return NextResponse.json({ error: "Formulaire non trouvé" }, { status: 404 });
     }
 
     return NextResponse.json(updatedForm);
   } catch (error) {
     console.error("Failed to update form:", error);
     return NextResponse.json(
-      { error: "Failed to update form" },
+      { error: "Erreur lors de la mise à jour du formulaire" },
       { status: 500 }
     );
   }

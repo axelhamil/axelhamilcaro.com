@@ -1,7 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { FileText, LayoutDashboard, Mail, Package } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  ExternalLink,
+  FileText,
+  LayoutDashboard,
+  Mail,
+  Package,
+  Zap,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,44 +20,88 @@ const navigation = [
   { name: "Leads", href: "/admin/leads", icon: Mail },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, x: -12 },
+  show: { opacity: 1, x: 0 },
+};
+
 export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r bg-background">
-      <div className="flex h-16 items-center border-b px-6">
-        <Link href="/admin" className="text-xl font-bold">
+    <aside className="flex w-64 flex-col border-r border-[var(--admin-border)] bg-[var(--admin-bg)]">
+      <div className="flex h-16 items-center gap-2 border-b border-[var(--admin-border)] px-6">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--admin-accent)]">
+          <Zap className="h-4 w-4 text-white" />
+        </div>
+        <Link
+          href="/admin"
+          className="text-lg font-semibold text-[var(--admin-text)]"
+        >
           Admin
         </Link>
       </div>
-      <nav className="flex-1 space-y-1 p-4">
-        {navigation.map((item) => {
+
+      <motion.nav
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="flex-1 space-y-1 p-3"
+      >
+        {navigation.map((navItem) => {
           const isActive =
-            pathname === item.href ||
-            (item.href !== "/admin" && pathname.startsWith(item.href));
+            pathname === navItem.href ||
+            (navItem.href !== "/admin" && pathname.startsWith(navItem.href));
+
           return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                isActive
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              <item.icon className="h-5 w-5" />
-              {item.name}
-            </Link>
+            <motion.div key={navItem.name} variants={item}>
+              <Link
+                href={navItem.href}
+                className={cn(
+                  "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                  isActive
+                    ? "bg-[var(--admin-accent-muted)] text-[var(--admin-accent)]"
+                    : "text-[var(--admin-text-muted)] hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
+                )}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="sidebar-active"
+                    className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[var(--admin-accent)]"
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
+                <navItem.icon
+                  className={cn(
+                    "h-5 w-5 transition-colors",
+                    isActive
+                      ? "text-[var(--admin-accent)]"
+                      : "text-[var(--admin-text-subtle)] group-hover:text-[var(--admin-text)]"
+                  )}
+                />
+                {navItem.name}
+              </Link>
+            </motion.div>
           );
         })}
-      </nav>
-      <div className="border-t p-4">
+      </motion.nav>
+
+      <div className="border-t border-[var(--admin-border)] p-3">
         <Link
           href="/"
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+          target="_blank"
+          className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
         >
-          ← Retour au site
+          <ExternalLink className="h-4 w-4" />
+          Voir le site
         </Link>
       </div>
     </aside>

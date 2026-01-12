@@ -73,7 +73,10 @@ export function FormCard({ form }: FormCardProps) {
         )}
         <div className="flex-1 space-y-4">
           {form.badgeText && (
-            <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+            <span
+              className="inline-block rounded-full px-3 py-1 text-xs font-medium text-white"
+              style={{ backgroundColor: form.badgeColor || "#ff4d00" }}
+            >
               {form.badgeText}
             </span>
           )}

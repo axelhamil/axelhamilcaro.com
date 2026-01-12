@@ -1,9 +1,16 @@
+"use client";
+
 import { ArrowRight, Calendar, Code2, Rocket, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "../../ui/button";
-import { Heading1 } from "../../ui/heading1";
 import { Heading2 } from "../../ui/heading2";
 import { Paragraphe } from "../../ui/paragraphe";
 import { HeroMotionItem } from "./hero-motion";
+import { AnimatedCounter } from "../../shared/effects/animated-counter";
+import { PulsingDot } from "../../shared/effects/floating-element";
+import { MagneticWrapper } from "../../shared/effects/magnetic-wrapper";
+import { RunawayBadge } from "../../shared/effects/runaway-badge";
+import { LetterReveal } from "../../shared/effects/text-reveal";
 
 const stats = [
   { v: "5+", l: "ans d'XP" },
@@ -11,33 +18,66 @@ const stats = [
   { v: "100%", l: "clients satisfaits" },
 ] as const;
 
+const techIcons = [
+  { Icon: Code2, label: "React & Next.js", delay: 0 },
+  { Icon: Zap, label: "TypeScript Expert", delay: 0.1 },
+  { Icon: Rocket, label: "Node.js & APIs", delay: 0.2 },
+];
+
 const HeroLeft = () => {
   return (
     <div className="flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8 min-w-0">
       <HeroMotionItem>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="badge">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-            </span>
+          <RunawayBadge
+            className="badge group"
+            maxEscapes={5}
+            escapeDistance={60}
+          >
+            <PulsingDot size="sm" />
             <span className="text-xs sm:text-sm font-medium">
               Dispo pour missions
             </span>
-          </div>
+          </RunawayBadge>
         </div>
       </HeroMotionItem>
 
       <HeroMotionItem>
-        <Heading1
-          size="xl"
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight"
+        <h1
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight font-bold text-primary"
           style={{ fontFamily: "var(--font-space-grotesk)" }}
         >
-          Développeur{" "}
-          <span className="text-accent">FullStack</span>{" "}
-          Freelance
-        </Heading1>
+          <LetterReveal text="Développeur" delay={0.2} />
+          <br className="hidden sm:block" />{" "}
+          <motion.span
+            className="inline-block"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+            }}
+            transition={{
+              delay: 0.5,
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <motion.span
+              className="inline-block text-accent"
+              animate={{
+                color: ["#ff4d00", "#ff8c42", "#ff4d00"],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
+              FullStack
+            </motion.span>
+          </motion.span>{" "}
+          <LetterReveal text="Freelance" delay={0.8} />
+        </h1>
       </HeroMotionItem>
 
       <HeroMotionItem>
@@ -45,24 +85,32 @@ const HeroLeft = () => {
           size="lg"
           className="text-lg sm:text-xl md:text-2xl flex flex-wrap items-center gap-x-3 gap-y-2"
         >
-          <span className="inline-flex items-center gap-1.5">
-            <Code2 className="w-5 h-5 text-accent" />
-            React & Next.js
-          </span>
-
-          <span className="hidden sm:inline text-muted">·</span>
-
-          <span className="inline-flex items-center gap-1.5">
-            <Zap className="w-5 h-5 text-accent" />
-            TypeScript Expert
-          </span>
-
-          <span className="hidden sm:inline text-muted">·</span>
-
-          <span className="inline-flex items-center gap-1.5">
-            <Rocket className="w-5 h-5 text-accent" />
-            Node.js & APIs
-          </span>
+          {techIcons.map(({ Icon, label, delay }, index) => (
+            <motion.span
+              key={label}
+              className="inline-flex items-center gap-1.5 group"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8 + delay, duration: 0.5 }}
+              whileHover={{ scale: 1.05, x: 5 }}
+            >
+              <motion.span
+                animate={{ rotate: [0, 10, 0] }}
+                transition={{
+                  duration: 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: delay * 2,
+                  ease: "easeInOut",
+                }}
+              >
+                <Icon className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
+              </motion.span>
+              {label}
+              {index < techIcons.length - 1 && (
+                <span className="hidden sm:inline text-muted ml-3">·</span>
+              )}
+            </motion.span>
+          ))}
         </Heading2>
       </HeroMotionItem>
 
@@ -89,45 +137,64 @@ const HeroLeft = () => {
 
       <HeroMotionItem>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-          <Button
-            href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
-            external
-            size="lg"
-            className="w-full sm:w-auto justify-center group"
-          >
-            <Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-            On s'appelle ?
-          </Button>
+          <MagneticWrapper strength={0.2}>
+            <Button
+              href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
+              external
+              size="lg"
+              className="w-full sm:w-auto justify-center group"
+            >
+              <motion.span
+                animate={{ rotate: [0, 12, 0] }}
+                transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, repeatDelay: 3, ease: "easeInOut" }}
+              >
+                <Calendar className="w-5 h-5" />
+              </motion.span>
+              On s'appelle ?
+            </Button>
+          </MagneticWrapper>
 
-          <Button
-            href="/tree"
-            variant="secondary"
-            size="lg"
-            className="w-full sm:w-auto justify-center"
-          >
-            Tous mes liens
-            <ArrowRight className="w-5 h-5" />
-          </Button>
+          <MagneticWrapper strength={0.2}>
+            <Button
+              href="/tree"
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto justify-center group"
+            >
+              Tous mes liens
+              <motion.span
+                className="inline-block"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+              >
+                <ArrowRight className="w-5 h-5" />
+              </motion.span>
+            </Button>
+          </MagneticWrapper>
         </div>
       </HeroMotionItem>
 
       <HeroMotionItem>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 pt-2">
-          {stats.map(({ v, l }) => (
-            <div
+          {stats.map(({ v, l }, index) => (
+            <motion.div
               key={l}
-              className="flex flex-col items-center px-4 py-3 rounded-xl card-accent hover:scale-105 transition-transform duration-300"
+              className="flex flex-col items-center px-4 py-3 rounded-xl card-accent"
+              whileHover={{
+                scale: 1.08,
+                rotateY: 5,
+                boxShadow: "0 10px 30px rgba(255, 77, 0, 0.15)",
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <span
+              <AnimatedCounter
+                value={v}
                 className="text-2xl sm:text-3xl font-bold text-accent"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                {v}
-              </span>
+              />
               <span className="text-xs sm:text-sm text-secondary text-center">
                 {l}
               </span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </HeroMotionItem>

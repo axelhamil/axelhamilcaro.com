@@ -1,7 +1,11 @@
+"use client";
+
 import { Code2, Lightbulb, Rocket, Sparkles, Wrench } from "lucide-react";
+import { motion } from "framer-motion";
 import { Heading2 } from "../ui/heading2";
 import { Paragraphe } from "../ui/paragraphe";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
+import { TiltCard } from "../shared/effects/tilt-card";
 
 const services = [
   {
@@ -9,22 +13,26 @@ const services = [
     title: "Conception",
     description:
       "Du besoin métier à l'architecture technique, je pose les bases solides.",
+    gradient: "from-amber-500 to-orange-500",
   },
   {
     icon: Code2,
     title: "Développement",
     description:
       "Code propre, testé et maintenable. Pas de dette technique cachée.",
+    gradient: "from-blue-500 to-cyan-500",
   },
   {
     icon: Rocket,
     title: "Déploiement",
     description: "CI/CD, monitoring, et mise en production sans stress.",
+    gradient: "from-purple-500 to-pink-500",
   },
   {
     icon: Wrench,
     title: "Maintenance",
     description: "Évolutions, corrections, et support sur le long terme.",
+    gradient: "from-emerald-500 to-teal-500",
   },
 ];
 
@@ -35,11 +43,20 @@ const WhatIDo = () => {
       className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20"
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
-        <RevealItem>
-          <div className="badge mb-4">
-            <Sparkles className="w-4 h-4 text-accent" />
+        <RevealItem direction="scale">
+          <motion.div
+            className="badge mb-4"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <motion.span
+              animate={{ rotate: [0, 15, 0] }}
+              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            >
+              <Sparkles className="w-4 h-4 text-accent" />
+            </motion.span>
             <span className="text-sm font-medium">Services</span>
-          </div>
+          </motion.div>
         </RevealItem>
 
         <RevealItem>
@@ -62,28 +79,64 @@ const WhatIDo = () => {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
-        {services.map((service) => (
-          <RevealItem key={service.title} className="group">
-            <div className="relative h-full flex flex-col items-center text-center gap-3 sm:gap-4 p-5 sm:p-6 rounded-2xl card-accent transition-all duration-300 group-hover:scale-[1.02] group-hover:-translate-y-1">
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light" />
-
-              <div className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-secondary-background border border-border flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-300">
-                <service.icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary group-hover:text-white transition-colors duration-300" />
-              </div>
-
-              <h3 className="relative z-10 font-semibold text-primary text-lg sm:text-xl">
-                {service.title}
-              </h3>
-
-              <Paragraphe
-                variant="secondary"
-                size="sm"
-                className="relative z-10 text-sm"
+      <RevealContainer staggerDelay={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
+        {services.map((service, index) => (
+          <RevealItem key={service.title} direction="scale">
+            <TiltCard className="h-full rounded-2xl">
+              <motion.div
+                className="relative h-full flex flex-col items-center text-center gap-3 sm:gap-4 p-5 sm:p-6 rounded-2xl card-accent overflow-hidden"
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {service.description}
-              </Paragraphe>
-            </div>
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 transition-opacity duration-500`}
+                  whileHover={{ opacity: 0.05 }}
+                />
+
+                <motion.div
+                  className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-accent/5 blur-3xl"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.5, 0.3],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Number.POSITIVE_INFINITY,
+                    delay: index * 0.5,
+                  }}
+                />
+
+                <motion.div
+                  className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
+                  whileHover={{
+                    scale: 1.15,
+                    rotate: 8,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <service.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                </motion.div>
+
+                <h3 className="relative z-10 font-semibold text-primary text-lg sm:text-xl">
+                  {service.title}
+                </h3>
+
+                <Paragraphe
+                  variant="secondary"
+                  size="sm"
+                  className="relative z-10 text-sm"
+                >
+                  {service.description}
+                </Paragraphe>
+
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent"
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  whileHover={{ scaleX: 1, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.div>
+            </TiltCard>
           </RevealItem>
         ))}
       </RevealContainer>

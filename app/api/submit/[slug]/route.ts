@@ -1,6 +1,5 @@
 import { db } from "@/app/_lib/db";
 import { forms, leads } from "@/app/_lib/db/schema";
-import { sendLeadNotification } from "@/app/_lib/resend";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -44,21 +43,10 @@ export async function POST(
       );
     }
 
-    const [newLead] = await db
-      .insert(leads)
-      .values({
-        formId: form.id,
-        firstName: body.firstName.trim(),
-        email: body.email.trim().toLowerCase(),
-      })
-      .returning();
-
-    await sendLeadNotification({
-      to: form.emailTo,
-      subject: form.emailSubject,
-      body: form.emailBody,
-      firstName: newLead.firstName,
-      email: newLead.email,
+    await db.insert(leads).values({
+      formId: form.id,
+      firstName: body.firstName.trim(),
+      email: body.email.trim().toLowerCase(),
     });
 
     return NextResponse.json({ success: true }, { status: 201 });

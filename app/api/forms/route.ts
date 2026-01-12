@@ -3,6 +3,20 @@ import { forms, leads } from "@/app/_lib/db/schema";
 import { desc, eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "")
+    .replace(/-+/g, "-");
+}
+
+function isValidSlug(slug: string): boolean {
+  return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) && slug.length >= 2;
+}
+
 export async function GET() {
   try {
     const result = await db
@@ -31,15 +45,31 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
+    if (!body.title?.trim()) {
+      return NextResponse.json(
+        { error: "Le titre est requis" },
+        { status: 400 }
+      );
+    }
+
+    const slug = slugify(body.slug || body.title);
+
+    if (!isValidSlug(slug)) {
+      return NextResponse.json(
+        { error: "Le slug n'est pas valide (min 2 caractères, lettres/chiffres/tirets)" },
+        { status: 400 }
+      );
+    }
+
     const existingForm = await db
       .select()
       .from(forms)
-      .where(eq(forms.slug, body.slug))
+      .where(eq(forms.slug, slug))
       .limit(1);
 
     if (existingForm.length > 0) {
       return NextResponse.json(
-        { error: "A form with this slug already exists" },
+        { error: "Un formulaire avec ce slug existe déjà" },
         { status: 400 }
       );
     }
@@ -47,19 +77,17 @@ export async function POST(request: Request) {
     const [newForm] = await db
       .insert(forms)
       .values({
-        slug: body.slug,
+        slug,
         backgroundType: body.backgroundType || "color",
         backgroundColor: body.backgroundColor,
         backgroundGradient: body.backgroundGradient,
         backgroundImage: body.backgroundImage,
         cardImage: body.cardImage,
         badgeText: body.badgeText,
-        title: body.title,
+        badgeColor: body.badgeColor,
+        title: body.title.trim(),
         description: body.description,
         buttonText: body.buttonText || "Envoyer",
-        emailSubject: body.emailSubject,
-        emailBody: body.emailBody,
-        emailTo: body.emailTo,
         isActive: body.isActive ?? true,
       })
       .returning();
@@ -68,7 +96,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Failed to create form:", error);
     return NextResponse.json(
-      { error: "Failed to create form" },
+      { error: "Erreur lors de la création du formulaire" },
       { status: 500 }
     );
   }

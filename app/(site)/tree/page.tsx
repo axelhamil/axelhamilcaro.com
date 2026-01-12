@@ -1,9 +1,9 @@
-import { treeLinks } from "../_config/tree-links";
-import TreeFooter from "../_components/tree/footer";
-import TreeHeader from "../_components/tree/header";
-import TreeLinks from "../_components/tree/links";
+"use client";
 
-export { metadata } from "./_config/metadata";
+import { treeLinks } from "@/app/_config/tree-links";
+import TreeFooter from "@/app/_components/tree/footer";
+import TreeHeader from "@/app/_components/tree/header";
+import TreeLinks from "@/app/_components/tree/links";
 
 export default function TreePage() {
   return (
