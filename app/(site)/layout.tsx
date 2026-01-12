@@ -3,7 +3,6 @@
 import type { ReactNode } from "react";
 import Navbar from "@/app/_components/shared/layouts/navbar";
 import { JsonLd } from "@/app/_components/shared/seo/json-ld";
-import { KonamiEasterEgg } from "@/app/_components/shared/effects/konami-easter-egg";
 import { CustomCursor } from "@/app/_components/shared/effects/custom-cursor";
 import { ScrollProgress } from "@/app/_components/shared/effects/scroll-progress";
 import { KeyStatsWidget } from "@/app/_components/shared/effects/key-stats";
@@ -19,7 +18,6 @@ export default function SiteLayout({
       <JsonLd />
       <ScrollProgress />
       <CustomCursor />
-      <KonamiEasterEgg />
       <EmojiRain />
       <ClickSpark />
       <KeyStatsWidget />
