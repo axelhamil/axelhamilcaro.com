@@ -4,14 +4,14 @@ import cn from "../../_lib/cn";
 import TransitionLink from "../shared/navigation/transition-link";
 
 const linkCardVariants = cva(
-  "group relative flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl transition-all duration-300 ease-out cursor-pointer border-2 active:scale-[0.98]",
+  "group relative flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl transition-all duration-300 ease-out cursor-pointer border active:scale-[0.98]",
   {
     variants: {
       variant: {
         default:
-          "bg-secondary-background/30 border-secondary/20 hover:border-accent/40 hover:bg-secondary-background/50",
+          "bg-primary-background border-border hover:border-accent hover:shadow-md",
         featured:
-          "bg-secondary-background/50 border-accent/30 hover:border-accent/60 hover:bg-secondary-background/70 shadow-lg",
+          "bg-primary-background border-accent/30 hover:border-accent shadow-md hover:shadow-lg",
       },
     },
     defaultVariants: {
@@ -43,26 +43,26 @@ const LinkCard = ({
 
   const content = (
     <>
-      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-gradient-to-r from-accent-mauve/5 via-accent-blue/5 to-accent-teal/5" />
+      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light" />
 
-      <div className="relative z-10 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-secondary-background/60 border border-secondary/30 group-hover:border-accent/40 group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span className="text-primary group-hover:text-accent transition-colors duration-300">
+      <div className="relative z-10 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-secondary-background border border-border group-hover:border-accent group-hover:bg-accent group-hover:scale-105 transition-all duration-300 shrink-0">
+        <span className="text-primary group-hover:text-white transition-colors duration-300">
           {icon}
         </span>
       </div>
 
       <div className="relative z-10 flex-1 min-w-0">
-        <h3 className="font-semibold text-sm sm:text-base text-primary group-hover:text-primary-foreground transition-colors duration-300 truncate">
+        <h3 className="font-semibold text-sm sm:text-base text-primary transition-colors duration-300 truncate">
           {title}
         </h3>
         {description && (
-          <p className="text-xs sm:text-sm text-secondary/80 truncate">
+          <p className="text-xs sm:text-sm text-secondary truncate">
             {description}
           </p>
         )}
       </div>
 
-      <div className="relative z-10 text-secondary/50 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 shrink-0">
+      <div className="relative z-10 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 shrink-0">
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5"
           fill="none"

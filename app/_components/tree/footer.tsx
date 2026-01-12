@@ -14,7 +14,7 @@ export default function TreeFooter() {
         className="opacity-60 text-xs sm:text-sm flex items-center justify-center gap-1.5"
       >
         &copy; {new Date().getFullYear()} Axel Hamilcaro •{" "}
-        <Coffee className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent-peach" />{" "}
+        <Coffee className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent" />{" "}
         TypeScript
       </Paragraphe>
     </footer>

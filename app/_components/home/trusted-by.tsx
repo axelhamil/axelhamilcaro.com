@@ -8,25 +8,16 @@ const companies = [
     name: "Civitime",
     type: "Elearning",
     logo: "CT",
-    accent: "text-accent-mauve",
-    gradient: "from-accent-mauve/20 to-accent-mauve/5",
-    border: "hover:border-accent-mauve/50",
   },
   {
     name: "Scormpilot",
     type: "SaaS B2B",
     logo: "SP",
-    accent: "text-accent-blue",
-    gradient: "from-accent-blue/20 to-accent-blue/5",
-    border: "hover:border-accent-blue/50",
   },
   {
     name: "MentorTroc",
     type: "Éducation",
     logo: "MT",
-    accent: "text-accent-teal",
-    gradient: "from-accent-teal/20 to-accent-teal/5",
-    border: "hover:border-accent-teal/50",
   },
 ] as const;
 
@@ -39,9 +30,9 @@ const TrustedBy = () => {
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem>
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
-            <Briefcase className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm font-medium text-primary">Références</span>
+          <div className="badge mb-4">
+            <Briefcase className="w-4 h-4 text-accent" />
+            <span className="text-sm font-medium">Références</span>
           </div>
         </RevealItem>
 
@@ -50,6 +41,7 @@ const TrustedBy = () => {
             id="trusted-by-title"
             size="xl"
             className="text-2xl sm:text-3xl md:text-4xl"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
             Ils m'ont fait confiance
           </Heading2>
@@ -69,40 +61,18 @@ const TrustedBy = () => {
       <RevealContainer className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-3xl mx-auto">
         {companies.map((company) => (
           <RevealItem key={company.name} className="group">
-            <div
-              className={`
-                relative flex flex-col items-center justify-center gap-2
-                p-5 sm:p-6 rounded-xl aspect-square
-                glass-card glow-border border border-secondary/20
-                transition-all duration-500
-                group-hover:scale-105 group-hover:-translate-y-1
-                ${company.border}
-              `}
-            >
+            <div className="relative flex flex-col items-center justify-center gap-2 p-5 sm:p-6 rounded-xl aspect-square card-accent transition-all duration-300 group-hover:scale-105 group-hover:-translate-y-1">
               <div
-                className={`
-                  absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100
-                  transition-opacity duration-500 pointer-events-none
-                  bg-gradient-to-br ${company.gradient}
-                `}
+                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light"
                 aria-hidden="true"
               />
 
               <div className="relative z-10 flex flex-col items-center gap-1.5">
                 <div
-                  className={`
-                    w-10 h-10 sm:w-12 sm:h-12 rounded-lg
-                    flex items-center justify-center
-                    border border-secondary/20
-                    bg-gradient-to-br ${company.gradient}
-                    group-hover:scale-110 group-hover:rotate-3
-                    transition-all duration-500
-                  `}
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center border border-border bg-secondary-background group-hover:bg-accent group-hover:border-accent transition-all duration-300"
                   aria-hidden="true"
                 >
-                  <span
-                    className={`text-base sm:text-lg font-bold ${company.accent}`}
-                  >
+                  <span className="text-base sm:text-lg font-bold text-primary group-hover:text-white transition-colors duration-300">
                     {company.logo}
                   </span>
                 </div>
@@ -123,7 +93,7 @@ const TrustedBy = () => {
 
       <RevealContainer className="text-center mt-10 sm:mt-12">
         <RevealItem>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass">
+          <div className="badge">
             <Building2 className="w-4 h-4 text-secondary" />
             <span className="text-xs sm:text-sm text-secondary">
               +15 projets livrés depuis 2020 · Disponible pour nouveaux projets

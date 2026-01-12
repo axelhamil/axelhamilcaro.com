@@ -7,35 +7,23 @@ const testimonials = [
   {
     name: "Léo",
     role: "CTO @ Scormpilot",
-    company: "Scormpilot",
     content:
       "Intervention rapide et qualitative sur notre stack Next.js. Axel a restructuré notre architecture frontend et ajouté des fonctionnalités clés sans casser l'existant. Pro et autonome.",
     rating: 5,
-    accent: "text-accent-blue",
-    gradient: "from-accent-blue/20 to-accent-blue/5",
-    border: "border-accent-blue/30",
   },
   {
     name: "Anthony M.",
     role: "Product Manager",
-    company: "Civitime",
     content:
       "Axel a développé plusieurs modules critiques de notre plateforme e-learning. Son code est propre, bien testé, et il pose les bonnes questions. Un renfort technique solide.",
     rating: 5,
-    accent: "text-accent-mauve",
-    gradient: "from-accent-mauve/20 to-accent-mauve/5",
-    border: "border-accent-mauve/30",
   },
   {
     name: "Aboubacar",
     role: "Fondateur @ MentorTroc",
-    company: "MentorTroc",
     content:
       "Mission réussie sur notre app Next.js. Axel a livré dans les temps, avec un code maintenable et une vraie attention aux détails UX. Je recommande.",
     rating: 5,
-    accent: "text-accent-teal",
-    gradient: "from-accent-teal/20 to-accent-teal/5",
-    border: "border-accent-teal/30",
   },
 ] as const;
 
@@ -48,11 +36,9 @@ const Testimonials = () => {
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem>
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
-            <MessageSquare className="w-4 h-4 text-accent-mauve" />
-            <span className="text-sm font-medium text-primary">
-              Témoignages
-            </span>
+          <div className="badge mb-4">
+            <MessageSquare className="w-4 h-4 text-accent" />
+            <span className="text-sm font-medium">Témoignages</span>
           </div>
         </RevealItem>
 
@@ -61,6 +47,7 @@ const Testimonials = () => {
             id="testimonials-title"
             size="xl"
             className="text-2xl sm:text-3xl md:text-4xl"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
             Ce qu'en disent mes clients
           </Heading2>
@@ -80,27 +67,15 @@ const Testimonials = () => {
       <RevealContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
         {testimonials.map((testimonial) => (
           <RevealItem key={testimonial.name} className="group h-full">
-            <div
-              className={`
-                relative h-full flex flex-col gap-4
-                p-6 sm:p-7 rounded-2xl
-                glass-card glow-border border ${testimonial.border}
-                transition-all duration-500
-                group-hover:scale-[1.02] group-hover:-translate-y-2
-              `}
-            >
+            <div className="relative h-full flex flex-col gap-4 p-6 sm:p-7 rounded-2xl card transition-all duration-300 group-hover:scale-[1.02] group-hover:-translate-y-1">
               <div
-                className={`
-                  absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
-                  transition-opacity duration-500 pointer-events-none
-                  bg-gradient-to-br ${testimonial.gradient}
-                `}
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light"
                 aria-hidden="true"
               />
 
               <div className="relative z-10 flex items-start justify-between gap-3">
                 <Quote
-                  className={`w-8 h-8 ${testimonial.accent} opacity-40`}
+                  className="w-8 h-8 text-accent opacity-60"
                   aria-hidden="true"
                 />
                 <div
@@ -110,7 +85,7 @@ const Testimonials = () => {
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-4 h-4 ${testimonial.accent} fill-current`}
+                      className="w-4 h-4 text-accent fill-current"
                       aria-hidden="true"
                     />
                   ))}
@@ -125,7 +100,7 @@ const Testimonials = () => {
                 {testimonial.content}
               </Paragraphe>
 
-              <div className="relative z-10 pt-3 border-t border-secondary/20">
+              <div className="relative z-10 pt-3 border-t border-border">
                 <p className="font-semibold text-primary text-sm">
                   {testimonial.name}
                 </p>

@@ -11,9 +11,6 @@ const blocks = [
     title: "App moderne, base saine",
     desc: "TypeScript + Next.js pour ship vite, sans dette invisible.",
     icon: Layers,
-    accent: "text-accent-mauve",
-    border: "hover:border-accent-mauve/50",
-    gradient: "from-accent-mauve/16 to-accent-mauve/5",
     bullets: [
       "Architecture claire (DDD / boundaries)",
       "Refactors rapides et sûrs",
@@ -25,9 +22,6 @@ const blocks = [
     title: "UI premium, sans gimmicks",
     desc: "Tailwind + motion utile pour un rendu clean et cohérent.",
     icon: Gauge,
-    accent: "text-accent-blue",
-    border: "hover:border-accent-blue/50",
-    gradient: "from-accent-blue/16 to-accent-blue/5",
     bullets: [
       "Responsive solide",
       "SEO technique + accessibilité",
@@ -39,9 +33,6 @@ const blocks = [
     title: "Backend fiable, prod pilotable",
     desc: "Node + PostgreSQL avec monitoring et déploiements maîtrisés.",
     icon: Shield,
-    accent: "text-accent-teal",
-    border: "hover:border-accent-teal/50",
-    gradient: "from-accent-teal/16 to-accent-teal/5",
     bullets: ["Observabilité", "Scalabilité pragmatique", "Sécurité & rôles"],
   },
 ] as const;
@@ -55,9 +46,9 @@ const TechStack = () => {
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem>
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-card">
-            <Cpu className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm font-medium text-primary">Stack</span>
+          <div className="badge mb-4">
+            <Cpu className="w-4 h-4 text-accent" />
+            <span className="text-sm font-medium">Stack</span>
           </div>
         </RevealItem>
 
@@ -66,6 +57,7 @@ const TechStack = () => {
             id="stack-title"
             size="xl"
             className="text-2xl sm:text-3xl md:text-4xl"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
             Une stack au service du produit
           </Heading2>
@@ -90,19 +82,14 @@ const TechStack = () => {
             <RevealItem
               key={b.title}
               className={cn(
-                "group relative rounded-2xl glass-card glow-border border border-secondary/20",
+                "group relative rounded-2xl card-accent",
                 "p-5 sm:p-6",
-                "transition-all duration-500",
-                "hover:-translate-y-2 hover:shadow-xl",
-                b.border,
+                "transition-all duration-300",
+                "hover:-translate-y-1",
               )}
             >
               <div
-                className={cn(
-                  "absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100",
-                  "transition-opacity duration-500 pointer-events-none",
-                  `bg-linear-to-br ${b.gradient}`,
-                )}
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light"
                 aria-hidden="true"
               />
 
@@ -120,13 +107,13 @@ const TechStack = () => {
                   <div
                     className={cn(
                       "w-11 h-11 rounded-xl flex items-center justify-center",
-                      "border border-secondary/20 bg-secondary-background/40",
-                      "transition-all duration-500",
-                      "group-hover:scale-110 group-hover:rotate-3",
+                      "border border-border bg-secondary-background",
+                      "transition-all duration-300",
+                      "group-hover:bg-accent group-hover:border-accent group-hover:scale-110",
                     )}
                     aria-hidden="true"
                   >
-                    <Icon className={cn("w-5 h-5", b.accent)} />
+                    <Icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
                   </div>
                 </div>
 
@@ -137,7 +124,7 @@ const TechStack = () => {
                 <ul className="mt-4 space-y-2">
                   {b.bullets.map((txt) => (
                     <li key={txt} className="flex items-start gap-2">
-                      <ChevronRight className="w-4 h-4 mt-0.5 text-secondary" />
+                      <ChevronRight className="w-4 h-4 mt-0.5 text-accent" />
                       <span className="text-sm text-primary">{txt}</span>
                     </li>
                   ))}
@@ -150,7 +137,7 @@ const TechStack = () => {
 
       <RevealContainer className="text-center mt-10 sm:mt-12">
         <RevealItem>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass">
+          <div className="badge">
             <span className="text-xs sm:text-sm text-secondary">
               La stack s'adapte au contexte : MVP, refonte, SaaS multi-tenant,
               contraintes perf ou SEO.

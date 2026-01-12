@@ -146,9 +146,9 @@ const Footer = () => {
             className="text-xs sm:text-sm flex items-center gap-1.5"
           >
             Fait avec{" "}
-            <Heart className="w-3.5 h-3.5 text-accent-peach animate-pulse" />,{" "}
-            <Coffee className="w-3.5 h-3.5 text-accent-peach" /> et beaucoup de{" "}
-            <span className="font-mono text-accent-blue">TypeScript</span>
+            <Heart className="w-3.5 h-3.5 text-accent animate-pulse" />,{" "}
+            <Coffee className="w-3.5 h-3.5 text-accent" /> et beaucoup de{" "}
+            <span className="font-mono text-accent">TypeScript</span>
           </Paragraphe>
 
           <Paragraphe variant="muted" size="sm" className="text-xs sm:text-sm">

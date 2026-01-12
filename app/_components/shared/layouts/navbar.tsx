@@ -66,7 +66,6 @@ const Navbar = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isMobileMenuOpen]);
 
-  // Bonus UX : lock scroll derrière le menu
   useEffect(() => {
     if (!isMobileMenuOpen) return;
     const prev = document.body.style.overflow;
@@ -101,10 +100,8 @@ const Navbar = () => {
       cn(
         "px-4 sm:px-6 md:px-10 py-3 sm:py-4 w-full",
         "fixed top-0 left-0 z-50",
-        "transition-all duration-500",
-        isScrolled
-          ? "glass-nav border-b border-secondary/20"
-          : "bg-transparent",
+        "transition-all duration-300",
+        isScrolled ? "nav-clean nav-scrolled" : "bg-transparent",
       ),
     [isScrolled],
   );
@@ -119,7 +116,6 @@ const Navbar = () => {
   return (
     <motion.header
       className={headerClassName}
-      // micro polish : un léger “settle” quand l’état scrolled change
       animate={prefersReducedMotion ? undefined : { y: 0 }}
     >
       <nav
@@ -141,7 +137,6 @@ const Navbar = () => {
           </span>
         </TransitionLink>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
             const active = isActive(link.href);
@@ -154,30 +149,19 @@ const Navbar = () => {
                   className={cn(
                     "relative px-4 py-2 text-sm font-medium rounded-lg",
                     "transition-all duration-300",
-                    "hover:bg-secondary-background/50",
+                    "hover:bg-secondary-background",
                     active ? "text-accent" : "text-primary hover:text-accent",
                   )}
                 >
                   {link.label}
 
-                  {/* underline premium : motion shared layout */}
                   {active ? (
                     <motion.span
                       {...underlineMotion}
-                      className={cn(
-                        "absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 rounded-full",
-                        "bg-gradient-to-r from-accent-mauve via-accent-blue to-accent-teal",
-                        "w-6 opacity-100",
-                      )}
+                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-accent"
                     />
                   ) : (
-                    <span
-                      className={cn(
-                        "absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 rounded-full",
-                        "bg-gradient-to-r from-accent-mauve via-accent-blue to-accent-teal",
-                        "transition-all duration-300 ease-out w-0 opacity-0",
-                      )}
-                    />
+                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-accent transition-all duration-300 ease-out w-0 opacity-0" />
                   )}
                 </TransitionLink>
               </div>
@@ -190,11 +174,10 @@ const Navbar = () => {
             rel="noopener noreferrer"
             className={cn(
               "ml-3 px-4 py-2 text-sm font-medium rounded-lg",
-              "bg-accent text-primary-background",
-              "hover:scale-105 hover:shadow-lg hover:shadow-accent/25",
+              "bg-accent text-white",
+              "hover:bg-accent-hover hover:scale-[1.02]",
               "transition-all duration-300",
               "flex items-center gap-2",
-              "shimmer",
             )}
           >
             <Calendar className="w-4 h-4" />
@@ -202,13 +185,12 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Mobile trigger */}
         <button
           onClick={() => setIsMobileMenuOpen((v) => !v)}
           className={cn(
             "md:hidden p-2 rounded-lg",
             "text-primary hover:text-accent",
-            "hover:bg-secondary-background/50",
+            "hover:bg-secondary-background",
             "transition-all duration-300",
           )}
           aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
@@ -236,14 +218,12 @@ const Navbar = () => {
         </button>
       </nav>
 
-      {/* Mobile menu + backdrop (AnimatePresence) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
-              className="md:hidden fixed inset-0 z-40 bg-black/30"
+              className="md:hidden fixed inset-0 z-40 bg-black/20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -251,7 +231,6 @@ const Navbar = () => {
               aria-hidden="true"
             />
 
-            {/* Panel */}
             <motion.div
               key="panel"
               id="mobile-nav"
@@ -265,7 +244,7 @@ const Navbar = () => {
               }
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
-              <div className="flex flex-col gap-2 pb-4 glass-card rounded-xl p-4">
+              <div className="flex flex-col gap-2 pb-4 card rounded-xl p-4">
                 {navLinks.map((link, index) => {
                   const active = isActive(link.href);
 
@@ -292,9 +271,9 @@ const Navbar = () => {
                         className={cn(
                           "px-4 py-3 text-base font-medium rounded-lg",
                           "transition-all duration-300",
-                          "hover:bg-secondary-background/50",
+                          "hover:bg-secondary-background",
                           active
-                            ? "text-accent bg-accent/10"
+                            ? "text-accent bg-accent-light"
                             : "text-primary hover:text-accent",
                         )}
                       >
@@ -321,8 +300,8 @@ const Navbar = () => {
                     rel="noopener noreferrer"
                     className={cn(
                       "mt-2 px-4 py-3 text-base font-medium rounded-lg",
-                      "bg-accent text-primary-background",
-                      "hover:bg-accent/90",
+                      "bg-accent text-white",
+                      "hover:bg-accent-hover",
                       "transition-all duration-300",
                       "flex items-center justify-center gap-2",
                     )}
@@ -337,10 +316,9 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* Scroll progress : motion width (plus fluide) */}
-      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-secondary/10">
+      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-border">
         <motion.div
-          className="h-full bg-gradient-to-r from-accent-mauve via-accent-blue to-accent-teal"
+          className="h-full bg-accent"
           initial={false}
           animate={{ width: `${scrollProgress}%` }}
           transition={
