@@ -6,6 +6,8 @@ import { JsonLd } from "@/app/_components/shared/seo/json-ld";
 import { KonamiEasterEgg } from "@/app/_components/shared/effects/konami-easter-egg";
 import { CustomCursor } from "@/app/_components/shared/effects/custom-cursor";
 import { ScrollProgress } from "@/app/_components/shared/effects/scroll-progress";
+import { KeyStatsWidget } from "@/app/_components/shared/effects/key-stats";
+import { EmojiRain, ClickSpark } from "@/app/_components/shared/effects/emoji-rain";
 
 export default function SiteLayout({
   children,
@@ -18,6 +20,9 @@ export default function SiteLayout({
       <ScrollProgress />
       <CustomCursor />
       <KonamiEasterEgg />
+      <EmojiRain />
+      <ClickSpark />
+      <KeyStatsWidget />
       <Navbar />
       <div className="pt-20 sm:pt-25 px-4 sm:px-6 md:px-10">{children}</div>
     </>
