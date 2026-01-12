@@ -1,0 +1,126 @@
+"use client";
+
+import type { TreeLink } from "@/app/_lib/db/schema";
+import { LinkCard } from "@/app/_components/ui/link-card";
+import { motion } from "framer-motion";
+import {
+  Briefcase,
+  Calendar,
+  Github,
+  Globe,
+  Linkedin,
+  Link as LinkIcon,
+  Mail,
+  type LucideIcon,
+} from "lucide-react";
+import { useEffect } from "react";
+
+const iconMap: Record<string, LucideIcon> = {
+  link: LinkIcon,
+  calendar: Calendar,
+  github: Github,
+  linkedin: Linkedin,
+  briefcase: Briefcase,
+  globe: Globe,
+  mail: Mail,
+};
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 24,
+    },
+  },
+};
+
+function getSessionId() {
+  if (typeof window === "undefined") return null;
+  let sessionId = sessionStorage.getItem("sessionId");
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    sessionStorage.setItem("sessionId", sessionId);
+  }
+  return sessionId;
+}
+
+interface TreeLinksWrapperProps {
+  links: TreeLink[];
+}
+
+export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
+  useEffect(() => {
+    fetch("/api/analytics/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "pageview",
+        path: "/tree",
+        referrer: document.referrer,
+        sessionId: getSessionId(),
+      }),
+    }).catch(() => {});
+  }, []);
+
+  const handleClick = (link: TreeLink) => {
+    fetch("/api/analytics/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "click",
+        linkId: link.id,
+        path: "/tree",
+        targetUrl: link.url,
+        referrer: document.referrer,
+        sessionId: getSessionId(),
+      }),
+    }).catch(() => {});
+  };
+
+  return (
+    <motion.nav
+      className="w-full flex flex-col gap-2.5 sm:gap-3"
+      aria-label="Liens sociaux"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      {links.map((link) => {
+        const IconComponent = iconMap[link.icon] || LinkIcon;
+        return (
+          <motion.div
+            key={link.id}
+            variants={item}
+            whileHover={{ scale: 1.02, x: 4 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => handleClick(link)}
+          >
+            <LinkCard
+              href={link.url}
+              icon={<IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />}
+              title={link.title}
+              description={link.description || undefined}
+              variant={link.featured ? "featured" : "default"}
+            />
+          </motion.div>
+        );
+      })}
+    </motion.nav>
+  );
+}

@@ -3,9 +3,11 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
+  BarChart3,
   ExternalLink,
   FileText,
   LayoutDashboard,
+  Link2,
   Mail,
   Package,
   Zap,
@@ -15,7 +17,9 @@ import { usePathname } from "next/navigation";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Formulaires", href: "/admin/forms", icon: FileText },
+  { name: "Liens Tree", href: "/admin/tree", icon: Link2 },
   { name: "Templates", href: "/admin/templates", icon: Package },
   { name: "Leads", href: "/admin/leads", icon: Mail },
 ];

@@ -1,6 +1,6 @@
 import { db } from "@/app/_lib/db";
 import { treeLinks } from "@/app/_lib/db/schema";
-import { asc, eq } from "drizzle-orm";
+import { asc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -15,7 +15,7 @@ export async function GET() {
     console.error("Failed to fetch tree links:", error);
     return NextResponse.json(
       { error: "Failed to fetch tree links" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     if (!body.title?.trim() || !body.url?.trim()) {
       return NextResponse.json(
         { error: "Title and URL are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     console.error("Failed to create tree link:", error);
     return NextResponse.json(
       { error: "Failed to create tree link" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
