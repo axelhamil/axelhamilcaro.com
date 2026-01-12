@@ -1,5 +1,6 @@
 import {
   boolean,
+  integer,
   jsonb,
   pgTable,
   text,
@@ -93,6 +94,48 @@ export const leads = pgTable("leads", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Tree links - pour la page /tree
+export const treeLinks = pgTable("tree_links", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: text("title").notNull(),
+  url: text("url").notNull(),
+  description: text("description"),
+  icon: text("icon").notNull().default("link"),
+  featured: boolean("featured").default(false),
+  isActive: boolean("is_active").default(true),
+  order: integer("order").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Analytics - vues de pages
+export const pageViews = pgTable("page_views", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  path: text("path").notNull(),
+  referrer: text("referrer"),
+  userAgent: text("user_agent"),
+  country: text("country"),
+  city: text("city"),
+  device: text("device"),
+  browser: text("browser"),
+  os: text("os"),
+  sessionId: text("session_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Analytics - clics sur les liens
+export const linkClicks = pgTable("link_clicks", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  linkId: uuid("link_id").references(() => treeLinks.id, { onDelete: "cascade" }),
+  path: text("path").notNull(),
+  targetUrl: text("target_url").notNull(),
+  referrer: text("referrer"),
+  userAgent: text("user_agent"),
+  country: text("country"),
+  sessionId: text("session_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type User = typeof users.$inferSelect;
 export type Form = typeof forms.$inferSelect;
 export type FormInsert = typeof forms.$inferInsert;
@@ -100,3 +143,9 @@ export type FormTemplate = typeof formTemplates.$inferSelect;
 export type FormTemplateInsert = typeof formTemplates.$inferInsert;
 export type Lead = typeof leads.$inferSelect;
 export type LeadInsert = typeof leads.$inferInsert;
+export type TreeLink = typeof treeLinks.$inferSelect;
+export type TreeLinkInsert = typeof treeLinks.$inferInsert;
+export type PageView = typeof pageViews.$inferSelect;
+export type PageViewInsert = typeof pageViews.$inferInsert;
+export type LinkClick = typeof linkClicks.$inferSelect;
+export type LinkClickInsert = typeof linkClicks.$inferInsert;

@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FormCard } from "./_components/form-card";
+import { FormPageBackground } from "./_components/form-background";
 
 interface FormPageProps {
   params: Promise<{ slug: string }>;
@@ -40,27 +41,9 @@ export default async function FormPage({ params }: FormPageProps) {
     notFound();
   }
 
-  const getBackgroundStyle = () => {
-    switch (form.backgroundType) {
-      case "image":
-        return {
-          backgroundImage: `url(${form.backgroundImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        };
-      case "gradient":
-        return { background: form.backgroundGradient || undefined };
-      default:
-        return { backgroundColor: form.backgroundColor || "#fafafa" };
-    }
-  };
-
   return (
-    <div
-      className="flex min-h-screen items-center justify-center p-4"
-      style={getBackgroundStyle()}
-    >
+    <FormPageBackground form={form}>
       <FormCard form={form} />
-    </div>
+    </FormPageBackground>
   );
 }
