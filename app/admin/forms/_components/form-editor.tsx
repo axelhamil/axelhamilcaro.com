@@ -45,8 +45,8 @@ interface FormData {
 const defaultFormData: FormData = {
   slug: "",
   backgroundType: "color",
-  backgroundColor: "#1e1e2e",
-  backgroundGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  backgroundColor: "#fafafa",
+  backgroundGradient: "linear-gradient(135deg, #ff4d00 0%, #ff6b35 100%)",
   backgroundImage: "",
   cardImage: "",
   badgeText: "",
@@ -79,10 +79,10 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
       return {
         slug: form.slug,
         backgroundType: (form.backgroundType as BackgroundType) || "color",
-        backgroundColor: form.backgroundColor || "#1e1e2e",
+        backgroundColor: form.backgroundColor || "#fafafa",
         backgroundGradient:
           form.backgroundGradient ||
-          "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          "linear-gradient(135deg, #ff4d00 0%, #ff6b35 100%)",
         backgroundImage: form.backgroundImage || "",
         cardImage: form.cardImage || "",
         badgeText: form.badgeText || "",
@@ -359,7 +359,7 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
                       onChange={(e) =>
                         handleChange("backgroundColor", e.target.value)
                       }
-                      placeholder="#1e1e2e"
+                      placeholder="#fafafa"
                     />
                   </div>
                 </div>
@@ -374,7 +374,7 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
                     onChange={(e) =>
                       handleChange("backgroundGradient", e.target.value)
                     }
-                    placeholder="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                    placeholder="linear-gradient(135deg, #ff4d00 0%, #ff6b35 100%)"
                     rows={2}
                   />
                 </div>

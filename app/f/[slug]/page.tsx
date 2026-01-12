@@ -51,7 +51,7 @@ export default async function FormPage({ params }: FormPageProps) {
       case "gradient":
         return { background: form.backgroundGradient || undefined };
       default:
-        return { backgroundColor: form.backgroundColor || "#1e1e2e" };
+        return { backgroundColor: form.backgroundColor || "#fafafa" };
     }
   };
 
