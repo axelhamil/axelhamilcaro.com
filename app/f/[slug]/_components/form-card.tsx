@@ -2,150 +2,85 @@
 
 import type { Form } from "@/app/_lib/db/schema";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, Loader2, Sparkles, Send, User, Mail } from "lucide-react";
-import { useState, useEffect } from "react";
+import { CheckCircle, Loader2, Sparkles, Send, User, Mail, ArrowRight } from "lucide-react";
+import { useState } from "react";
 
 interface FormCardProps {
   form: Form;
 }
 
-interface FloatingParticle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-}
-
-function FloatingParticles({ color }: { color: string }) {
-  const [particles, setParticles] = useState<FloatingParticle[]>([]);
-
-  useEffect(() => {
-    const newParticles: FloatingParticle[] = [];
-    for (let i = 0; i < 20; i++) {
-      newParticles.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 4 + 2,
-        duration: Math.random() * 10 + 10,
-        delay: Math.random() * 5,
-      });
-    }
-    setParticles(newParticles);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute rounded-full opacity-40"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            width: particle.size,
-            height: particle.size,
-            backgroundColor: color,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, Math.random() * 20 - 10, 0],
-            opacity: [0.2, 0.6, 0.2],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Number.POSITIVE_INFINITY,
-            delay: particle.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function SuccessAnimation({ firstName, accentColor }: { firstName: string; accentColor: string }) {
+function SuccessState({ firstName, accentColor }: { firstName: string; accentColor: string }) {
   return (
     <motion.div
-      className="relative w-full max-w-md mx-auto"
-      initial={{ scale: 0.8, opacity: 0 }}
+      className="w-full max-w-lg mx-auto"
+      initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: "spring", damping: 15 }}
+      transition={{ type: "spring", damping: 20 }}
     >
-      <div
-        className="relative overflow-hidden rounded-3xl p-8 sm:p-10 text-center"
-        style={{
-          background: "rgba(255, 255, 255, 0.1)",
-          backdropFilter: "blur(20px)",
-          border: "1px solid rgba(255, 255, 255, 0.2)",
-          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-        }}
-      >
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: `radial-gradient(circle at 50% 0%, ${accentColor}, transparent 70%)`,
-          }}
-          animate={{ opacity: [0.1, 0.3, 0.1] }}
-          transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-        />
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="h-2" style={{ backgroundColor: accentColor }} />
 
-        <motion.div
-          className="relative z-10"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-        >
+        <div className="p-8 sm:p-12 text-center">
           <motion.div
             className="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6"
-            style={{ backgroundColor: accentColor }}
-            animate={{ rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            style={{ backgroundColor: `${accentColor}15` }}
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           >
-            <CheckCircle className="w-10 h-10 text-white" />
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <CheckCircle className="w-10 h-10" style={{ color: accentColor }} />
+            </motion.div>
           </motion.div>
 
-          <motion.div
+          <motion.h2
+            className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.3 }}
           >
-            <h2
-              className="text-3xl sm:text-4xl font-bold text-white mb-3"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              Merci {firstName} !
-            </h2>
-            <p className="text-white/70 text-lg">
-              Ta demande a bien été envoyée
-            </p>
-          </motion.div>
+            Merci {firstName} !
+          </motion.h2>
 
-          <motion.div
-            className="mt-8 flex justify-center gap-2"
+          <motion.p
+            className="text-gray-500 text-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.4 }}
+          >
+            Ta demande a bien été envoyée
+          </motion.p>
+
+          <motion.div
+            className="mt-8 flex justify-center gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
           >
             {["🎉", "✨", "🚀"].map((emoji, i) => (
               <motion.span
                 key={i}
-                className="text-2xl"
-                animate={{ y: [0, -10, 0], rotate: [0, 10, -10, 0] }}
+                className="text-3xl"
+                animate={{
+                  y: [0, -8, 0],
+                  rotate: [0, 10, -10, 0]
+                }}
                 transition={{
-                  duration: 1.5,
+                  duration: 2,
                   repeat: Number.POSITIVE_INFINITY,
-                  delay: i * 0.2,
+                  delay: i * 0.15,
+                  ease: "easeInOut"
                 }}
               >
                 {emoji}
               </motion.span>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   );
@@ -188,61 +123,44 @@ export function FormCard({ form }: FormCardProps) {
   };
 
   if (isSuccess) {
-    return <SuccessAnimation firstName={firstName} accentColor={accentColor} />;
+    return <SuccessState firstName={firstName} accentColor={accentColor} />;
   }
 
   return (
     <motion.div
-      className="relative w-full max-w-md mx-auto"
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="w-full max-w-lg mx-auto"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <motion.div
-        className="absolute -inset-1 rounded-3xl opacity-50 blur-xl"
-        style={{ background: accentColor }}
-        animate={{
-          opacity: [0.3, 0.5, 0.3],
-          scale: [1, 1.02, 1],
-        }}
-        transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY }}
-      />
-
-      <div
-        className="relative overflow-hidden rounded-3xl"
-        style={{
-          background: "rgba(255, 255, 255, 0.08)",
-          backdropFilter: "blur(20px)",
-          border: "1px solid rgba(255, 255, 255, 0.15)",
-          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)",
-        }}
-      >
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
         <motion.div
-          className="absolute top-0 left-0 right-0 h-1"
+          className="h-2"
           style={{ backgroundColor: accentColor }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         />
 
         <div className="p-6 sm:p-8">
-          <div className="flex items-start gap-5">
+          <div className="flex gap-5">
             {form.cardImage && (
               <motion.div
-                className="hidden sm:block w-24 h-24 rounded-2xl overflow-hidden shrink-0"
+                className="hidden sm:block shrink-0"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                whileHover={{ scale: 1.05, rotate: 2 }}
-                style={{
-                  boxShadow: `0 10px 30px ${accentColor}40`,
-                }}
+                transition={{ delay: 0.1 }}
               >
-                <img
-                  src={form.cardImage}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                <div
+                  className="w-28 h-28 rounded-xl overflow-hidden shadow-lg"
+                  style={{ boxShadow: `0 8px 30px ${accentColor}25` }}
+                >
+                  <img
+                    src={form.cardImage}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </motion.div>
             )}
 
@@ -251,9 +169,9 @@ export function FormCard({ form }: FormCardProps) {
                 <motion.span
                   className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white mb-3"
                   style={{ backgroundColor: accentColor }}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
+                  transition={{ delay: 0.2 }}
                   whileHover={{ scale: 1.05 }}
                 >
                   <Sparkles className="w-3 h-3" />
@@ -262,21 +180,20 @@ export function FormCard({ form }: FormCardProps) {
               )}
 
               <motion.h1
-                className="text-2xl sm:text-3xl font-bold text-white mb-2"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
+                className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.25 }}
               >
                 {form.title}
               </motion.h1>
 
               {form.description && (
                 <motion.p
-                  className="text-white/60 text-sm sm:text-base"
+                  className="text-gray-500"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
+                  transition={{ delay: 0.3 }}
                 >
                   {form.description}
                 </motion.p>
@@ -284,28 +201,33 @@ export function FormCard({ form }: FormCardProps) {
             </div>
           </div>
 
+          <motion.div
+            className="h-px bg-gray-100 my-6"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 0.35, duration: 0.4 }}
+          />
+
           <motion.form
             onSubmit={handleSubmit}
-            className="mt-6 space-y-4"
+            className="space-y-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.4 }}
           >
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="firstName"
-                className="text-xs font-medium text-white/70 uppercase tracking-wider"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Prénom
               </label>
               <motion.div
                 className="relative"
-                animate={{
-                  scale: focusedField === "firstName" ? 1.02 : 1,
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
+                animate={{ scale: focusedField === "firstName" ? 1.01 : 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="firstName"
                   type="text"
@@ -316,29 +238,28 @@ export function FormCard({ form }: FormCardProps) {
                   placeholder="Ton prénom"
                   required
                   disabled={isSubmitting}
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all duration-300 disabled:opacity-50"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-gray-50 border-2 border-transparent text-gray-900 placeholder-gray-400 transition-all duration-200 disabled:opacity-50 focus:outline-none focus:bg-white"
                   style={{
-                    boxShadow: focusedField === "firstName" ? `0 0 20px ${accentColor}40` : "none",
+                    borderColor: focusedField === "firstName" ? accentColor : "transparent",
+                    boxShadow: focusedField === "firstName" ? `0 0 0 4px ${accentColor}15` : "none",
                   }}
                 />
               </motion.div>
             </div>
 
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="email"
-                className="text-xs font-medium text-white/70 uppercase tracking-wider"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Email
               </label>
               <motion.div
                 className="relative"
-                animate={{
-                  scale: focusedField === "email" ? 1.02 : 1,
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
+                animate={{ scale: focusedField === "email" ? 1.01 : 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="email"
                   type="email"
@@ -349,9 +270,10 @@ export function FormCard({ form }: FormCardProps) {
                   placeholder="ton@email.com"
                   required
                   disabled={isSubmitting}
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all duration-300 disabled:opacity-50"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-gray-50 border-2 border-transparent text-gray-900 placeholder-gray-400 transition-all duration-200 disabled:opacity-50 focus:outline-none focus:bg-white"
                   style={{
-                    boxShadow: focusedField === "email" ? `0 0 20px ${accentColor}40` : "none",
+                    borderColor: focusedField === "email" ? accentColor : "transparent",
+                    boxShadow: focusedField === "email" ? `0 0 0 4px ${accentColor}15` : "none",
                   }}
                 />
               </motion.div>
@@ -359,26 +281,24 @@ export function FormCard({ form }: FormCardProps) {
 
             <AnimatePresence>
               {error && (
-                <motion.p
-                  className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
+                <motion.div
+                  className="flex items-center gap-2 text-red-600 text-sm bg-red-50 border border-red-100 rounded-xl px-4 py-3"
+                  initial={{ opacity: 0, y: -10, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: "auto" }}
+                  exit={{ opacity: 0, y: -10, height: 0 }}
                 >
+                  <span className="shrink-0">⚠️</span>
                   {error}
-                </motion.p>
+                </motion.div>
               )}
             </AnimatePresence>
 
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-70"
-              style={{
-                backgroundColor: accentColor,
-                boxShadow: `0 10px 30px ${accentColor}50`,
-              }}
-              whileHover={{ scale: 1.02, y: -2 }}
+              className="w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-70"
+              style={{ backgroundColor: accentColor }}
+              whileHover={{ scale: 1.02, boxShadow: `0 10px 40px ${accentColor}40` }}
               whileTap={{ scale: 0.98 }}
             >
               {isSubmitting ? (
@@ -388,20 +308,21 @@ export function FormCard({ form }: FormCardProps) {
                 </>
               ) : (
                 <>
-                  <Send className="w-4 h-4" />
                   {form.buttonText}
+                  <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </motion.button>
           </motion.form>
 
           <motion.p
-            className="mt-6 text-center text-xs text-white/40"
+            className="mt-6 text-center text-xs text-gray-400 flex items-center justify-center gap-1.5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 0.6 }}
           >
-            🔒 Tes données sont en sécurité
+            <span>🔒</span>
+            Tes données restent confidentielles
           </motion.p>
         </div>
       </div>
