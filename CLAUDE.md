@@ -243,17 +243,18 @@ When refactoring existing code:
 ### Styling
 
 - **Tailwind CSS v4** with `@tailwindcss/postcss`
-- Custom color scheme: Catppuccin-inspired with accent colors
-  - `accent-blue`, `accent-mauve`, `accent-teal`, `accent-peach`
-  - Light/dark mode support via `prefers-color-scheme`
+- Editorial/Magazine theme with single accent color
+  - Primary: `#0a0a0a` (black), Background: `#ffffff` (white)
+  - Single accent: `#ff4d00` (electric orange)
 - **Utility function**: `cn()` in `lib/cn.tsx` for merging Tailwind classes
-- **Glassmorphism effects**: Used throughout (`.glass-card`, `.glow-border`)
-- **TRON grid effect**: Background animation (TronGrid component)
+- **Card system**: `.card`, `.card-accent`, `.badge` utility classes
+- **Clean animations**: Fade-in, fade-in-up with Framer Motion
 
 ### Fonts
 
-- Geist Sans (primary)
+- Geist Sans (primary body text)
 - Geist Mono (monospace for code-like elements)
+- Space Grotesk (display font for headlines)
 - Loaded via `next/font/google` with variable fonts
 
 ### Analytics
