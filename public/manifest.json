@@ -4,8 +4,8 @@
   "description": "Développeur Full-Stack TypeScript spécialisé Next.js, React et Node.js. Applications web et SaaS robustes et orientées produit.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1e1e2e",
-  "theme_color": "#89b4fa",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF4D00",
   "icons": [
     {
       "src": "/favicon.ico",
