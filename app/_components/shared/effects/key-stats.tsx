@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Keyboard, MousePointer, Clock } from "lucide-react";
 
 interface KeyStats {
@@ -14,9 +14,12 @@ export function KeyStatsWidget() {
   const [stats, setStats] = useState<KeyStats>({ keyPresses: 0, clicks: 0, timeSpent: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [lastKey, setLastKey] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const startTimeRef = useRef(Date.now());
 
   useEffect(() => {
-    const startTime = Date.now();
+    setIsMounted(true);
+    startTimeRef.current = Date.now();
 
     const handleKeyPress = (e: KeyboardEvent) => {
       setStats((prev) => ({ ...prev, keyPresses: prev.keyPresses + 1 }));
@@ -29,7 +32,7 @@ export function KeyStatsWidget() {
     };
 
     const updateTime = () => {
-      const elapsed = Math.floor((Date.now() - startTime) / 1000);
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
       setStats((prev) => ({ ...prev, timeSpent: elapsed }));
     };
 
@@ -58,6 +61,8 @@ export function KeyStatsWidget() {
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
+
+  if (!isMounted) return null;
 
   return (
     <>

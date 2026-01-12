@@ -7,7 +7,7 @@ export function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [trail, setTrail] = useState<{ x: number; y: number; id: number }[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -17,28 +17,35 @@ export function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    setIsMounted(true);
+
     const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
+
+    const style = document.createElement("style");
+    style.textContent = `
+      @media (hover: hover) and (pointer: fine) {
+        * { cursor: none !important; }
+      }
+    `;
+    document.head.appendChild(style);
 
     const updatePosition = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
       setIsVisible(true);
-
-      setTrail((prev) => {
-        const newTrail = [...prev, { x: e.clientX, y: e.clientY, id: Date.now() }];
-        return newTrail.slice(-5);
-      });
     };
 
-    const updateCursorType = () => {
-      const hoveredElement = document.elementFromPoint(cursorX.get(), cursorY.get());
+    const updateCursorType = (e: MouseEvent) => {
+      const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
       if (hoveredElement) {
         const computedStyle = window.getComputedStyle(hoveredElement);
         setIsPointer(
           computedStyle.cursor === "pointer" ||
             hoveredElement.tagName === "A" ||
-            hoveredElement.tagName === "BUTTON"
+            hoveredElement.tagName === "BUTTON" ||
+            hoveredElement.closest("a") !== null ||
+            hoveredElement.closest("button") !== null
         );
       }
     };
@@ -56,6 +63,7 @@ export function CustomCursor() {
     document.documentElement.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
+      document.head.removeChild(style);
       window.removeEventListener("mousemove", updatePosition);
       window.removeEventListener("mousemove", updateCursorType);
       window.removeEventListener("mousedown", handleMouseDown);
@@ -65,78 +73,46 @@ export function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
-  useEffect(() => {
-    if (trail.length === 0) return;
-
-    const timeout = setTimeout(() => {
-      setTrail((prev) => prev.slice(1));
-    }, 50);
-
-    return () => clearTimeout(timeout);
-  }, [trail]);
+  if (!isMounted) return null;
 
   const isTouchDevice = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
   if (isTouchDevice) return null;
 
   return (
-    <>
-      <style jsx global>{`
-        * {
-          cursor: none !important;
-        }
-      `}</style>
-
-      {trail.map((point, index) => (
-        <motion.div
-          key={point.id}
-          className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full bg-accent/30"
-          style={{
-            x: point.x - 4,
-            y: point.y - 4,
-            width: 8,
-            height: 8,
-          }}
-          initial={{ opacity: 0.5, scale: 1 }}
-          animate={{ opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.3 }}
-        />
-      ))}
-
+    <motion.div
+      className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+      style={{
+        x: cursorXSpring,
+        y: cursorYSpring,
+      }}
+    >
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="relative flex items-center justify-center"
+        animate={{
+          scale: isClicking ? 0.8 : isPointer ? 1.5 : 1,
+        }}
+        transition={{ type: "spring", damping: 20, stiffness: 400 }}
         style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
+          marginLeft: -12,
+          marginTop: -12,
         }}
       >
         <motion.div
-          className="relative flex items-center justify-center"
+          className="w-6 h-6 rounded-full bg-white"
           animate={{
-            scale: isClicking ? 0.8 : isPointer ? 1.5 : 1,
+            opacity: isVisible ? 1 : 0,
           }}
-          transition={{ type: "spring", damping: 20, stiffness: 400 }}
-          style={{
-            marginLeft: -12,
-            marginTop: -12,
-          }}
-        >
-          <motion.div
-            className="w-6 h-6 rounded-full bg-white"
-            animate={{
-              opacity: isVisible ? 1 : 0,
-            }}
-          />
+        />
 
-          {isPointer && (
-            <motion.div
-              className="absolute w-10 h-10 rounded-full border-2 border-white"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", damping: 20 }}
-            />
-          )}
-        </motion.div>
+        {isPointer && (
+          <motion.div
+            className="absolute w-10 h-10 rounded-full border-2 border-white"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", damping: 20 }}
+          />
+        )}
       </motion.div>
-    </>
+    </motion.div>
   );
 }

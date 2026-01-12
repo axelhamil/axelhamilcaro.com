@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 const EMOJIS = ["🚀", "💻", "⚡", "🔥", "✨", "🎯", "💡", "🛠️", "📦", "🎨"];
 
@@ -15,11 +15,16 @@ interface FallingEmoji {
 
 export function EmojiRain() {
   const [emojis, setEmojis] = useState<FallingEmoji[]>([]);
-  const [isRaining, setIsRaining] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(0);
+  const isRainingRef = useRef(false);
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+  }, []);
 
   const startRain = useCallback(() => {
-    if (isRaining) return;
-    setIsRaining(true);
+    if (isRainingRef.current || typeof window === "undefined") return;
+    isRainingRef.current = true;
 
     const newEmojis: FallingEmoji[] = [];
     for (let i = 0; i < 30; i++) {
@@ -35,17 +40,16 @@ export function EmojiRain() {
     setEmojis(newEmojis);
     setTimeout(() => {
       setEmojis([]);
-      setIsRaining(false);
+      isRainingRef.current = false;
     }, 5000);
-  }, [isRaining]);
+  }, []);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    let scrollVelocity = 0;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      scrollVelocity = Math.abs(currentScrollY - lastScrollY);
+      const scrollVelocity = Math.abs(currentScrollY - lastScrollY);
       lastScrollY = currentScrollY;
 
       if (scrollVelocity > 100) {
@@ -57,6 +61,8 @@ export function EmojiRain() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [startRain]);
 
+  if (windowHeight === 0) return null;
+
   return (
     <div className="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
       <AnimatePresence>
@@ -67,7 +73,7 @@ export function EmojiRain() {
             style={{ left: `${emoji.x}%` }}
             initial={{ y: -50, opacity: 1, rotate: 0 }}
             animate={{
-              y: window.innerHeight + 50,
+              y: windowHeight + 50,
               opacity: [1, 1, 0],
               rotate: 360,
             }}
@@ -86,17 +92,14 @@ export function EmojiRain() {
   );
 }
 
-interface ClickSparkProps {
-  enabled?: boolean;
-}
-
-export function ClickSpark({ enabled = true }: ClickSparkProps) {
+export function ClickSpark() {
   const [sparks, setSparks] = useState<
     { id: number; x: number; y: number; particles: { angle: number; distance: number }[] }[]
   >([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (!enabled) return;
+    setIsMounted(true);
 
     const handleClick = (e: MouseEvent) => {
       const particles = Array.from({ length: 8 }, (_, i) => ({
@@ -119,7 +122,9 @@ export function ClickSpark({ enabled = true }: ClickSparkProps) {
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
-  }, [enabled]);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9997]">
