@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { db } from "@/app/_lib/db";
 import { formTemplates } from "@/app/_lib/db/schema";
 import { desc } from "drizzle-orm";

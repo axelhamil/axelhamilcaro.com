@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { db } from "@/app/_lib/db";
 import { forms, leads } from "@/app/_lib/db/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

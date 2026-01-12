@@ -31,31 +31,15 @@ export const auth = betterAuth({
     },
   },
 
-  callbacks: {
-    async onBeforeSignIn({ user }) {
-      const allowedGitHubId = process.env.ADMIN_GITHUB_ID;
-
-      if (!allowedGitHubId) {
-        console.error("ADMIN_GITHUB_ID is not configured");
-        return { allow: false };
-      }
-
-      return { allow: true };
-    },
-  },
-
   databaseHooks: {
-    user: {
-      create: {
-        before: async (user) => {
-          return user;
-        },
-      },
-    },
     account: {
       create: {
         before: async (account) => {
           const allowedGitHubId = process.env.ADMIN_GITHUB_ID;
+
+          if (!allowedGitHubId) {
+            throw new Error("ADMIN_GITHUB_ID is not configured");
+          }
 
           if (account.providerId === "github") {
             if (account.accountId !== allowedGitHubId) {
@@ -63,7 +47,7 @@ export const auth = betterAuth({
             }
           }
 
-          return account;
+          return { data: account };
         },
       },
     },

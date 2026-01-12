@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { db } from "@/app/_lib/db";
 import { formTemplates } from "@/app/_lib/db/schema";
 import { Button } from "@/components/ui/button";
@@ -38,7 +40,10 @@ export default async function TemplatesPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {templates.map((template) => {
-            const config = template.config as Record<string, unknown>;
+            const config = template.config as Record<string, unknown> | null;
+            const title = config?.title ? String(config.title) : null;
+            const badgeText = config?.badgeText ? String(config.badgeText) : null;
+            const buttonText = config?.buttonText ? String(config.buttonText) : null;
             return (
               <Card key={template.id}>
                 <CardHeader className="flex flex-row items-start justify-between">
@@ -47,22 +52,19 @@ export default async function TemplatesPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2 text-sm text-muted-foreground">
-                    {config?.title && (
+                    {title && (
                       <p>
-                        <span className="font-medium">Titre:</span>{" "}
-                        {String(config.title)}
+                        <span className="font-medium">Titre:</span> {title}
                       </p>
                     )}
-                    {config?.badgeText && (
+                    {badgeText && (
                       <p>
-                        <span className="font-medium">Badge:</span>{" "}
-                        {String(config.badgeText)}
+                        <span className="font-medium">Badge:</span> {badgeText}
                       </p>
                     )}
-                    {config?.buttonText && (
+                    {buttonText && (
                       <p>
-                        <span className="font-medium">Bouton:</span>{" "}
-                        {String(config.buttonText)}
+                        <span className="font-medium">Bouton:</span> {buttonText}
                       </p>
                     )}
                   </div>
