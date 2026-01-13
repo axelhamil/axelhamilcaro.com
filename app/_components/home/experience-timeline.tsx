@@ -64,16 +64,9 @@ const ExperienceTimeline = () => {
       <RevealContainer className="text-center mb-12 sm:mb-16 md:mb-20">
         <RevealItem direction="scale">
           <motion.div className="badge mb-4" whileHover={{ scale: 1.05 }}>
-            <motion.span
-              animate={{ rotate: [0, 10, 0] }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            >
+            <span className="animate-icon-wiggle">
               <Briefcase className="w-4 h-4 text-accent" />
-            </motion.span>
+            </span>
             <span className="text-sm font-medium">Parcours</span>
           </motion.div>
         </RevealItem>
@@ -156,23 +149,12 @@ const ExperienceTimeline = () => {
                         <div
                           className={`relative z-10 flex items-start gap-4 ${isLeft ? "md:flex-row-reverse" : ""}`}
                         >
-                          <motion.div
-                            className={`shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${exp.gradient} flex items-center justify-center shadow-lg`}
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                            animate={{
-                              y: [0, -3, 0],
-                            }}
-                            transition={{
-                              y: {
-                                duration: 2,
-                                repeat: Number.POSITIVE_INFINITY,
-                                delay: index * 0.3,
-                                ease: "easeInOut",
-                              },
-                            }}
+                          <div
+                            className={`shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${exp.gradient} flex items-center justify-center shadow-lg animate-bounce-soft`}
+                            style={{ animationDelay: `${index * 0.3}s` }}
                           >
                             <Icon className="w-6 h-6 text-white" />
-                          </motion.div>
+                          </div>
 
                           <div className={`flex-1 ${isLeft ? "md:text-right" : ""}`}>
                             <motion.p
@@ -222,16 +204,9 @@ const ExperienceTimeline = () => {
                     stiffness: 400,
                   }}
                 >
-                  <motion.div
-                    className={`w-4 h-4 rounded-full bg-gradient-to-br ${exp.gradient} shadow-lg ring-4 ring-background`}
-                    animate={{
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Number.POSITIVE_INFINITY,
-                      delay: index * 0.5,
-                    }}
+                  <div
+                    className={`w-4 h-4 rounded-full bg-gradient-to-br ${exp.gradient} shadow-lg ring-4 ring-background animate-scale-pulse`}
+                    style={{ animationDelay: `${index * 0.5}s` }}
                   />
                 </motion.div>
 

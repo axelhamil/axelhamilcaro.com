@@ -1,7 +1,6 @@
 "use client";
 
 import ScrollIndicator from "../../shared/effects/scroll-indicator";
-import { FloatingCircle, GlowOrb } from "../../shared/effects/geometric-shapes";
 import HeroLeft from "./hero-left";
 import HeroMotion from "./hero-motion";
 import HeroRight from "./hero-right";
@@ -23,12 +22,6 @@ const Hero = () => {
         lg:items-center
       "
     >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <FloatingCircle size={250} top="10%" left="-5%" delay={0} duration={10} />
-        <FloatingCircle size={180} bottom="20%" right="-3%" delay={3} duration={12} />
-        <GlowOrb size={400} position={{ top: "30%", right: "10%" }} intensity="low" />
-      </div>
-
       <HeroMotion>
         <HeroLeft />
       </HeroMotion>

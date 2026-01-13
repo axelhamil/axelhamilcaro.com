@@ -51,29 +51,14 @@ const HeroLeft = () => {
           <motion.span
             className="inline-block"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{
               delay: 0.5,
               duration: 0.6,
               ease: [0.22, 1, 0.36, 1],
             }}
           >
-            <motion.span
-              className="inline-block text-accent"
-              animate={{
-                color: ["#ff4d00", "#ff8c42", "#ff4d00"],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            >
-              FullStack
-            </motion.span>
+            <span className="inline-block animate-color-pulse">FullStack</span>
           </motion.span>{" "}
           <LetterReveal text="Freelance" delay={0.8} />
         </h1>
@@ -91,19 +76,10 @@ const HeroLeft = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 + delay, duration: 0.5 }}
-              whileHover={{ scale: 1.05, x: 5 }}
             >
-              <motion.span
-                animate={{ rotate: [0, 10, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  delay: delay * 2,
-                  ease: "easeInOut",
-                }}
-              >
+              <span className="animate-icon-wiggle" style={{ animationDelay: `${delay * 2}s` }}>
                 <Icon className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
-              </motion.span>
+              </span>
               {label}
               {index < techIcons.length - 1 && (
                 <span className="hidden sm:inline text-muted ml-3">·</span>
@@ -141,17 +117,9 @@ const HeroLeft = () => {
               size="lg"
               className="w-full sm:w-auto justify-center group"
             >
-              <motion.span
-                animate={{ rotate: [0, 12, 0] }}
-                transition={{
-                  duration: 0.6,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatDelay: 3,
-                  ease: "easeInOut",
-                }}
-              >
+              <span className="animate-wiggle" style={{ animationDuration: "3s" }}>
                 <Calendar className="w-5 h-5" />
-              </motion.span>
+              </span>
               Discuter de ton projet
             </Button>
           </MagneticWrapper>
@@ -164,13 +132,9 @@ const HeroLeft = () => {
               className="w-full sm:w-auto justify-center group"
             >
               Mes réseaux
-              <motion.span
-                className="inline-block"
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-              >
+              <span className="inline-block animate-bounce-x">
                 <ArrowRight className="w-5 h-5" />
-              </motion.span>
+              </span>
             </Button>
           </MagneticWrapper>
         </div>

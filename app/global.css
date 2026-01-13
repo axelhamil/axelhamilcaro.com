@@ -342,6 +342,36 @@ body {
   }
 }
 
+@keyframes color-pulse {
+  0%,
+  100% {
+    color: var(--accent);
+  }
+  50% {
+    color: #ff8c42;
+  }
+}
+
+@keyframes bounce-x {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes icon-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.5s ease-out forwards;
 }
@@ -384,6 +414,18 @@ body {
 
 .animate-scale-pulse {
   animation: scale-pulse 2s ease-in-out infinite;
+}
+
+.animate-color-pulse {
+  animation: color-pulse 3s ease-in-out infinite;
+}
+
+.animate-bounce-x {
+  animation: bounce-x 1.5s ease-in-out infinite;
+}
+
+.animate-icon-wiggle {
+  animation: icon-wiggle 2s ease-in-out infinite;
 }
 
 .hover-lift {
