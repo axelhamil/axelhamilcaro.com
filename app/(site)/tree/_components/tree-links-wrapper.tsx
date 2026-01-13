@@ -1,7 +1,7 @@
 "use client";
 
 import type { TreeLink } from "@/app/_lib/db/schema";
-import { LinkCard } from "@/app/_components/ui/link-card";
+import { LinkCard } from "@/components/portfolio";
 import { motion } from "framer-motion";
 import {
   Briefcase,

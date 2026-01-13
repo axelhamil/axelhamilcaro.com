@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import TransitionLink from "../shared/navigation/transition-link";
+import TransitionLink from "@/app/_components/shared/navigation/transition-link";
 
 const linkCardVariants = cva(
   "group relative flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl transition-all duration-300 ease-out cursor-pointer border active:scale-[0.98]",

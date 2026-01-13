@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ILink } from "../../_config/tree-links";
-import { LinkCard } from "../ui/link-card";
+import { LinkCard } from "@/components/portfolio";
 
 interface TreeLinksProps {
   links: ILink[];
