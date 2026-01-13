@@ -2,8 +2,7 @@
 
 import { Code2, Lightbulb, Rocket, Sparkles, Wrench, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
-import { Heading2 } from "../ui/heading2";
-import { Paragraphe } from "../ui/paragraphe";
+import { Heading2, Paragraphe } from "@/components/typography";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { TiltCard } from "../shared/effects/tilt-card";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";

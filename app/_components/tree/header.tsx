@@ -3,8 +3,7 @@
 import { Calendar, Mail, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Heading1 } from "../ui/heading1";
-import { Paragraphe } from "../ui/paragraphe";
+import { Heading1, Paragraphe } from "@/components/typography";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
 
 export default function TreeHeader() {

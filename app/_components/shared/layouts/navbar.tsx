@@ -4,7 +4,7 @@ import { Calendar, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { heading1Variants } from "../../ui/heading1";
+import { heading1Variants } from "@/components/typography";
 import TransitionLink from "../navigation/transition-link";
 
 const navLinks = [

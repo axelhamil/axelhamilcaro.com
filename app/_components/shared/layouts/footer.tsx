@@ -10,7 +10,7 @@ import {
   Music2,
 } from "lucide-react";
 import TransitionLink from "../navigation/transition-link";
-import { Paragraphe } from "../../ui/paragraphe";
+import { Paragraphe } from "@/components/typography";
 
 const socialLinks = [
   {

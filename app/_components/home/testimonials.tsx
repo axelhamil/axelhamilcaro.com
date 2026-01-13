@@ -3,8 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { MessageSquare, Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heading2 } from "../ui/heading2";
-import { Paragraphe } from "../ui/paragraphe";
+import { Heading2, Paragraphe } from "@/components/typography";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
 

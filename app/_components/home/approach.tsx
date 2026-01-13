@@ -10,8 +10,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import { Heading2 } from "../ui/heading2";
-import { Paragraphe } from "../ui/paragraphe";
+import { Heading2, Paragraphe } from "@/components/typography";
 import { TerminalBlock } from "../shared/effects/typewriter";
 import { TiltCard } from "../shared/effects/tilt-card";
 

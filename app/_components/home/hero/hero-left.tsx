@@ -3,8 +3,7 @@
 import { ArrowRight, Calendar, Code2, Rocket, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "../../ui/button";
-import { Heading2 } from "../../ui/heading2";
-import { Paragraphe } from "../../ui/paragraphe";
+import { Heading2, Paragraphe } from "@/components/typography";
 import { HeroMotionItem } from "./hero-motion";
 import { AnimatedCounter } from "../../shared/effects/animated-counter";
 import { PulsingDot } from "../../shared/effects/floating-element";

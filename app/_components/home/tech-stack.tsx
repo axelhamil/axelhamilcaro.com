@@ -2,8 +2,7 @@
 
 import { Cpu, Gauge, Layers, Shield, Check } from "lucide-react";
 import { motion } from "framer-motion";
-import { Heading2 } from "../ui/heading2";
-import { Paragraphe } from "../ui/paragraphe";
+import { Heading2, Paragraphe } from "@/components/typography";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { DotGrid, GlowOrb } from "../shared/effects/geometric-shapes";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
