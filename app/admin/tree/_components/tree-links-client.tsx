@@ -1,6 +1,5 @@
 "use client";
 
-import type { TreeLink } from "@/app/_lib/db/schema";
 import { motion, Reorder } from "framer-motion";
 import {
   Briefcase,
@@ -10,8 +9,8 @@ import {
   Globe,
   GripVertical,
   Instagram,
-  Linkedin,
   Link as LinkIcon,
+  Linkedin,
   Loader2,
   Mail,
   Music2,
@@ -22,9 +21,9 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useTreeLinks } from "../../_hooks";
 
 const iconOptions = [
   { value: "link", label: "Lien", icon: LinkIcon },
@@ -41,10 +40,6 @@ const iconOptions = [
 function getIconComponent(iconName: string) {
   const found = iconOptions.find((opt) => opt.value === iconName);
   return found?.icon || LinkIcon;
-}
-
-interface TreeLinksClientProps {
-  initialLinks: TreeLink[];
 }
 
 interface EditingLink {
@@ -66,25 +61,22 @@ const defaultLink: EditingLink = {
   isActive: true,
 };
 
-export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
-  const router = useRouter();
-  const [links, setLinks] = useState(initialLinks);
+export function TreeLinksClient() {
+  const {
+    links,
+    isLoading,
+    createLink,
+    updateLink,
+    deleteLink,
+    reorderLinks,
+  } = useTreeLinks();
   const [editingLink, setEditingLink] = useState<EditingLink | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  const handleReorder = async (newOrder: TreeLink[]) => {
-    setLinks(newOrder);
-    try {
-      await fetch("/api/tree-links/reorder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderedIds: newOrder.map((l) => l.id) }),
-      });
-    } catch {
-      toast.error("Erreur lors du réordonnancement");
-    }
+  const handleReorder = async (newOrder: typeof links) => {
+    await reorderLinks(newOrder);
   };
 
   const handleSave = async () => {
@@ -96,30 +88,15 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
 
     setIsSaving(true);
     try {
-      const isNew = !editingLink.id;
-      const url = isNew
-        ? "/api/tree-links"
-        : `/api/tree-links/${editingLink.id}`;
-      const method = isNew ? "POST" : "PUT";
-
-      const response = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editingLink),
-      });
-
-      if (response.ok) {
-        toast.success(isNew ? "Lien créé" : "Lien mis à jour");
-        setEditingLink(null);
-        setIsCreating(false);
-        router.refresh();
-        const updatedLinks = await fetch("/api/tree-links").then((r) =>
-          r.json(),
-        );
-        setLinks(updatedLinks);
+      if (editingLink.id) {
+        await updateLink(editingLink.id, editingLink);
+        toast.success("Lien mis à jour");
       } else {
-        toast.error("Erreur lors de la sauvegarde");
+        await createLink(editingLink);
+        toast.success("Lien créé");
       }
+      setEditingLink(null);
+      setIsCreating(false);
     } catch {
       toast.error("Erreur lors de la sauvegarde");
     } finally {
@@ -130,15 +107,8 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
   const handleDelete = async (id: string) => {
     setDeletingId(id);
     try {
-      const response = await fetch(`/api/tree-links/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        toast.success("Lien supprimé");
-        setLinks(links.filter((l) => l.id !== id));
-      } else {
-        toast.error("Erreur lors de la suppression");
-      }
+      await deleteLink(id);
+      toast.success("Lien supprimé");
     } catch {
       toast.error("Erreur lors de la suppression");
     } finally {
@@ -146,7 +116,7 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
     }
   };
 
-  const startEdit = (link: TreeLink) => {
+  const startEdit = (link: (typeof links)[0]) => {
     setEditingLink({
       id: link.id,
       title: link.title,
@@ -168,6 +138,14 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
     setEditingLink(null);
     setIsCreating(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="h-8 w-8 animate-spin text-[var(--admin-accent)]" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

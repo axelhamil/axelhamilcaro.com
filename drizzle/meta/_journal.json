@@ -22,6 +22,20 @@
       "when": 1768289371706,
       "tag": "0002_mushy_wildside",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1768299222302,
+      "tag": "0003_bouncy_talon",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1768305766426,
+      "tag": "0004_previous_dark_phoenix",
+      "breakpoints": true
     }
   ]
 }

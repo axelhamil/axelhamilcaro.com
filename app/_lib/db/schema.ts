@@ -91,6 +91,10 @@ export const leads = pgTable("leads", {
     .references(() => forms.id, { onDelete: "cascade" }),
   firstName: text("first_name").notNull(),
   email: text("email").notNull(),
+  score: integer("score").default(50),
+  source: text("source"),
+  status: text("status").default("new"),
+  notes: text("notes"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -120,6 +124,23 @@ export const pageViews = pgTable("page_views", {
   browser: text("browser"),
   os: text("os"),
   sessionId: text("session_id"),
+  durationMs: integer("duration_ms"),
+  isBounce: boolean("is_bounce").default(true),
+  utmSource: text("utm_source"),
+  utmMedium: text("utm_medium"),
+  utmCampaign: text("utm_campaign"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const loginAttempts = pgTable("login_attempts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  githubId: text("github_id").notNull(),
+  githubUsername: text("github_username"),
+  githubEmail: text("github_email"),
+  githubAvatar: text("github_avatar"),
+  githubName: text("github_name"),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -151,3 +172,5 @@ export type PageView = typeof pageViews.$inferSelect;
 export type PageViewInsert = typeof pageViews.$inferInsert;
 export type LinkClick = typeof linkClicks.$inferSelect;
 export type LinkClickInsert = typeof linkClicks.$inferInsert;
+export type LoginAttempt = typeof loginAttempts.$inferSelect;
+export type LoginAttemptInsert = typeof loginAttempts.$inferInsert;

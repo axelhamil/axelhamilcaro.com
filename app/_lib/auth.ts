@@ -1,7 +1,96 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { count, eq, gte, and } from "drizzle-orm";
 import { db } from "./db";
 import * as schema from "./db/schema";
+import { loginAttempts } from "./db/schema";
+
+interface GitHubUser {
+  login: string;
+  name: string | null;
+  email: string | null;
+  avatar_url: string;
+}
+
+const TROLL_MESSAGES = [
+  "Initialisation du protocole de sécurité...",
+  "Vérification des autorisations...",
+  "Analyse biométrique en cours...",
+  "Consultation de la base de données du FBI...",
+  "Envoi d'un email à ta mère...",
+  "Téléchargement de ton historique de recherche...",
+  "Suppression de ton compte GitHub... (jk)",
+  "Activation du mode paranoïa...",
+];
+
+function getRandomTrollMessage(): string {
+  return TROLL_MESSAGES[Math.floor(Math.random() * TROLL_MESSAGES.length)];
+}
+
+async function fetchGitHubUser(githubId: string): Promise<GitHubUser | null> {
+  try {
+    const response = await fetch(`https://api.github.com/user/${githubId}`, {
+      headers: {
+        Accept: "application/vnd.github.v3+json",
+        "User-Agent": "axelhamilcaro-admin",
+      },
+    });
+    if (!response.ok) return null;
+    return response.json();
+  } catch {
+    return null;
+  }
+}
+
+async function getAttemptCount(githubId: string): Promise<number> {
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+  const result = await db
+    .select({ count: count() })
+    .from(loginAttempts)
+    .where(
+      and(
+        eq(loginAttempts.githubId, githubId),
+        gte(loginAttempts.createdAt, oneHourAgo)
+      )
+    );
+  return result[0]?.count ?? 0;
+}
+
+async function applyRateLimit(githubId: string): Promise<void> {
+  const attempts = await getAttemptCount(githubId);
+
+  if (attempts >= 5) {
+    console.warn(
+      `[SECURITY] 🚫 Rate limited intruder: GitHub ID=${githubId}, Attempts=${attempts}`
+    );
+    const banTime = Math.min(attempts * 10, 120);
+    await new Promise((resolve) => setTimeout(resolve, banTime * 1000));
+  } else if (attempts >= 2) {
+    const delay = Math.pow(2, attempts) * 1000;
+    console.warn(
+      `[SECURITY] ⏳ Slowing down intruder: GitHub ID=${githubId}, Delay=${delay}ms`
+    );
+    await new Promise((resolve) => setTimeout(resolve, delay));
+  }
+}
+
+async function logUnauthorizedAttempt(githubId: string) {
+  await applyRateLimit(githubId);
+
+  const githubUser = await fetchGitHubUser(githubId);
+
+  await db.insert(loginAttempts).values({
+    githubId,
+    githubUsername: githubUser?.login ?? null,
+    githubEmail: githubUser?.email ?? null,
+    githubAvatar: githubUser?.avatar_url ?? null,
+    githubName: githubUser?.name ?? null,
+  });
+
+  console.warn(
+    `[SECURITY] 🚨 Unauthorized login attempt: GitHub ID=${githubId}, Username=${githubUser?.login ?? "unknown"}, Message="${getRandomTrollMessage()}"`
+  );
+}
 
 export const auth = betterAuth({
   appName: "Axel Hamilcaro Admin",
@@ -48,7 +137,8 @@ export const auth = betterAuth({
 
           if (account.providerId === "github") {
             if (account.accountId !== allowedGitHubId) {
-              throw new Error("Unauthorized: Only the admin can sign in");
+              await logUnauthorizedAttempt(account.accountId);
+              throw new Error("NICE_TRY");
             }
           }
 

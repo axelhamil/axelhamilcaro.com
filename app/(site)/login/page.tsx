@@ -3,14 +3,22 @@
 import { signIn } from "@/app/_lib/auth-client";
 import { Github, Loader2, Lock, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense, useState, useEffect } from "react";
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const callbackURL = searchParams.get("callbackURL") || "/admin";
+  const error = searchParams.get("error");
+
+  useEffect(() => {
+    if (error) {
+      router.replace("/nice-try");
+    }
+  }, [error, router]);
 
   const handleGitHubSignIn = async () => {
     setIsLoading(true);

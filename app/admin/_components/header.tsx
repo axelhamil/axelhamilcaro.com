@@ -62,21 +62,6 @@ function Breadcrumbs() {
   );
 }
 
-function SearchButton() {
-  return (
-    <button
-      type="button"
-      className="flex items-center gap-2 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg-elevated)] px-3 py-1.5 text-sm text-[var(--admin-text-muted)] transition-colors hover:border-[var(--admin-border-hover)] hover:text-[var(--admin-text)]"
-    >
-      <Search className="h-4 w-4" />
-      <span className="hidden sm:inline">Rechercher...</span>
-      <kbd className="ml-2 hidden rounded bg-[var(--admin-bg)] px-1.5 py-0.5 text-xs font-medium text-[var(--admin-text-subtle)] sm:inline">
-        ⌘K
-      </kbd>
-    </button>
-  );
-}
-
 function UserMenu() {
   const { data: session } = useSession();
 
@@ -118,11 +103,7 @@ export function Header() {
   return (
     <header className="flex h-14 items-center justify-between border-b border-[var(--admin-border)] bg-[var(--admin-bg)] px-6">
       <Breadcrumbs />
-      <div className="flex items-center gap-4">
-        <SearchButton />
-        <div className="h-6 w-px bg-[var(--admin-border)]" />
-        <UserMenu />
-      </div>
+      <UserMenu />
     </header>
   );
 }

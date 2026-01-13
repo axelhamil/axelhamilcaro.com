@@ -28,7 +28,17 @@ function parseUserAgent(ua: string | null) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { type, path, targetUrl, linkId, referrer, sessionId } = body;
+    const {
+      type,
+      path,
+      targetUrl,
+      linkId,
+      referrer,
+      sessionId,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+    } = body;
 
     const userAgent = request.headers.get("user-agent");
     const { device, browser, os } = parseUserAgent(userAgent);
@@ -42,6 +52,9 @@ export async function POST(request: Request) {
         browser,
         os,
         sessionId,
+        utmSource,
+        utmMedium,
+        utmCampaign,
       });
     } else if (type === "click") {
       await db.insert(linkClicks).values({

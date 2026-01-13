@@ -6,27 +6,16 @@ import {
   Copy,
   ExternalLink,
   FileText,
+  Loader2,
   Pencil,
   Plus,
   Search,
+  Trash2,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { DeleteFormButton } from "./delete-form-button";
-
-interface Form {
-  id: string;
-  slug: string;
-  title: string;
-  isActive: boolean | null;
-  leadsCount: number;
-  createdAtFormatted: string;
-}
-
-interface FormsListClientProps {
-  forms: Form[];
-}
+import { useForms } from "../../_hooks";
 
 const container = {
   hidden: { opacity: 0 },
@@ -94,14 +83,64 @@ function EmptyState() {
   );
 }
 
-export function FormsListClient({ forms }: FormsListClientProps) {
+function DeleteFormButton({
+  formId,
+  onDelete,
+}: {
+  formId: string;
+  onDelete: (id: string) => Promise<void>;
+}) {
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await onDelete(formId);
+      toast.success("Formulaire supprimé");
+    } catch {
+      toast.error("Erreur lors de la suppression");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleDelete}
+      disabled={isDeleting}
+      className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-destructive-muted)] hover:text-[var(--admin-destructive)]"
+    >
+      {isDeleting ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : (
+        <Trash2 className="h-4 w-4" />
+      )}
+    </button>
+  );
+}
+
+export function FormsListClient() {
+  const { forms, isLoading, deleteForm } = useForms();
   const [search, setSearch] = useState("");
 
-  const filteredForms = forms.filter(
-    (form) =>
-      form.title.toLowerCase().includes(search.toLowerCase()) ||
-      form.slug.toLowerCase().includes(search.toLowerCase()),
+  const filteredForms = useMemo(
+    () =>
+      forms.filter(
+        (form) =>
+          form.title.toLowerCase().includes(search.toLowerCase()) ||
+          form.slug.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [forms, search],
   );
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="h-8 w-8 animate-spin text-[var(--admin-accent)]" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -246,7 +285,10 @@ export function FormsListClient({ forms }: FormsListClientProps) {
                         >
                           <Pencil className="h-4 w-4" />
                         </Link>
-                        <DeleteFormButton formId={form.id} />
+                        <DeleteFormButton
+                          formId={form.id}
+                          onDelete={deleteForm}
+                        />
                       </div>
                     </td>
                   </motion.tr>

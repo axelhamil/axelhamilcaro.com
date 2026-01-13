@@ -6,7 +6,14 @@ const ALLOWED_GITHUB_IDS = process.env.ADMIN_GITHUB_ID
   ? [process.env.ADMIN_GITHUB_ID]
   : [];
 
+const isDev = process.env.NODE_ENV === "development";
+
 export async function proxy(request: NextRequest) {
+  if (isDev) {
+    console.log("[DEV] Auth bypass enabled for admin routes");
+    return NextResponse.next();
+  }
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -20,12 +27,12 @@ export async function proxy(request: NextRequest) {
   });
 
   const githubAccount = userAccounts?.find(
-    (account) => account.providerId === "github"
+    (account) => account.providerId === "github",
   );
 
   if (!githubAccount || !ALLOWED_GITHUB_IDS.includes(githubAccount.accountId)) {
     console.warn(
-      `[SECURITY] Blocked admin access: user=${session.user.id}, github=${githubAccount?.accountId || "none"}`
+      `[SECURITY] Blocked admin access: user=${session.user.id}, github=${githubAccount?.accountId || "none"}`,
     );
 
     const response = NextResponse.redirect(new URL("/login", request.url));
@@ -40,7 +47,7 @@ function redirectToLogin(request: NextRequest) {
   const loginUrl = new URL("/login", request.url);
   loginUrl.searchParams.set(
     "callbackURL",
-    request.nextUrl.pathname + request.nextUrl.search
+    request.nextUrl.pathname + request.nextUrl.search,
   );
   return NextResponse.redirect(loginUrl);
 }

@@ -47,6 +47,7 @@ export async function POST(
       formId: form.id,
       firstName: body.firstName.trim(),
       email: body.email.trim().toLowerCase(),
+      source: body.source || null,
     });
 
     return NextResponse.json({ success: true }, { status: 201 });

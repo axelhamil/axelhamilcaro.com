@@ -18,6 +18,15 @@ function isValidSlug(slug: string): boolean {
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) && slug.length >= 2;
 }
 
+function formatDate(date: Date | null): string {
+  if (!date) return "-";
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 export async function GET() {
   const authResult = await requireAdminAuth();
   if (!authResult.success) return authResult.response;
@@ -35,7 +44,12 @@ export async function GET() {
       .from(forms)
       .orderBy(desc(forms.createdAt));
 
-    return NextResponse.json(result);
+    const formattedResult = result.map((form) => ({
+      ...form,
+      createdAtFormatted: formatDate(form.createdAt),
+    }));
+
+    return NextResponse.json(formattedResult);
   } catch (error) {
     console.error("Failed to fetch forms:", error);
     return NextResponse.json(

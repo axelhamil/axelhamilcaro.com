@@ -6,11 +6,17 @@ const ALLOWED_GITHUB_IDS = process.env.ADMIN_GITHUB_ID
   ? [process.env.ADMIN_GITHUB_ID]
   : [];
 
+const isDev = process.env.NODE_ENV === "development";
+
 export type AuthResult =
   | { success: true; userId: string }
   | { success: false; response: NextResponse };
 
 export async function requireAdminAuth(): Promise<AuthResult> {
+  if (isDev) {
+    return { success: true, userId: "dev-user" };
+  }
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
