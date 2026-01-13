@@ -6,12 +6,16 @@ import {
   pageViews,
   treeLinks,
 } from "@/app/_lib/db/schema";
+import { requireAdminAuth } from "@/app/_lib/api-auth";
 import { and, count, desc, eq, gte, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  const authResult = await requireAdminAuth();
+  if (!authResult.success) return authResult.response;
+
   try {
     const { searchParams } = new URL(request.url);
     const days = Number.parseInt(searchParams.get("days") || "30");
@@ -70,8 +74,8 @@ export async function GET(request: Request) {
         linkClicks,
         and(
           eq(linkClicks.linkId, treeLinks.id),
-          gte(linkClicks.createdAt, startDate),
-        ),
+          gte(linkClicks.createdAt, startDate)
+        )
       )
       .groupBy(treeLinks.id, treeLinks.title, treeLinks.url)
       .orderBy(desc(count(linkClicks.id)))
@@ -86,8 +90,8 @@ export async function GET(request: Request) {
       .where(
         gte(
           pageViews.createdAt,
-          new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-        ),
+          new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+        )
       )
       .groupBy(sql`DATE(${pageViews.createdAt})`)
       .orderBy(sql`DATE(${pageViews.createdAt})`);
@@ -96,7 +100,7 @@ export async function GET(request: Request) {
       .select({ date: sql<string>`DATE(${leads.createdAt})`, count: count() })
       .from(leads)
       .where(
-        gte(leads.createdAt, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)),
+        gte(leads.createdAt, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
       )
       .groupBy(sql`DATE(${leads.createdAt})`)
       .orderBy(sql`DATE(${leads.createdAt})`);
@@ -133,7 +137,7 @@ export async function GET(request: Request) {
     console.error("Failed to fetch analytics:", error);
     return NextResponse.json(
       { error: "Failed to fetch analytics" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

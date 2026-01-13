@@ -9,6 +9,7 @@ interface MarqueeProps {
   direction?: "left" | "right";
   className?: string;
   pauseOnHover?: boolean;
+  gap?: number;
 }
 
 export function Marquee({
@@ -17,13 +18,15 @@ export function Marquee({
   direction = "left",
   className = "",
   pauseOnHover = true,
+  gap = 32,
 }: MarqueeProps) {
   const directionMultiplier = direction === "left" ? -1 : 1;
 
   return (
     <div className={`overflow-hidden ${className}`}>
       <motion.div
-        className="flex gap-8 w-max"
+        className="flex w-max"
+        style={{ gap }}
         animate={{
           x: [0, directionMultiplier * -50 + "%"],
         }}
@@ -37,6 +40,8 @@ export function Marquee({
         }}
         whileHover={pauseOnHover ? { animationPlayState: "paused" } : {}}
       >
+        {children}
+        {children}
         {children}
         {children}
       </motion.div>

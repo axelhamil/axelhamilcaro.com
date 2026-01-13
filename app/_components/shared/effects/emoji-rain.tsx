@@ -52,7 +52,7 @@ export function EmojiRain() {
       const scrollVelocity = Math.abs(currentScrollY - lastScrollY);
       lastScrollY = currentScrollY;
 
-      if (scrollVelocity > 200) {
+      if (scrollVelocity > 500) {
         startRain();
       }
     };

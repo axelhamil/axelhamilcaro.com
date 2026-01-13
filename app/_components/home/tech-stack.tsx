@@ -1,45 +1,51 @@
 "use client";
 
-import { ChevronRight, Cpu, Gauge, Layers, Shield, Check } from "lucide-react";
+import { Cpu, Gauge, Layers, Shield, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { Heading2 } from "../ui/heading2";
 import { Paragraphe } from "../ui/paragraphe";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import cn from "../../_lib/cn";
+import { DotGrid, GlowOrb } from "../shared/effects/geometric-shapes";
+import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
+import { cn } from "@/lib/utils";
 import { TiltCard } from "../shared/effects/tilt-card";
 
 const blocks = [
   {
-    eyebrow: "Core",
-    title: "App moderne, base saine",
-    desc: "TypeScript + Next.js pour ship vite, sans dette invisible.",
+    eyebrow: "Frontend",
+    title: "React & Next.js",
+    desc: "TypeScript strict, composants réutilisables et architecture modulaire pour une base de code évolutive.",
     icon: Layers,
     gradient: "from-blue-500 to-cyan-500",
     bullets: [
-      "Architecture claire (DDD / boundaries)",
-      "Refactors rapides et sûrs",
-      "Composants réutilisables",
+      "Server Components & App Router",
+      "State management optimisé",
+      "Tests unitaires et E2E",
     ],
   },
   {
-    eyebrow: "Produit",
-    title: "UI premium, sans gimmicks",
-    desc: "Tailwind + motion utile pour un rendu clean et cohérent.",
+    eyebrow: "UI/UX",
+    title: "Design system moderne",
+    desc: "Tailwind CSS, animations Framer Motion et composants accessibles pour une expérience utilisateur premium.",
     icon: Gauge,
     gradient: "from-amber-500 to-orange-500",
     bullets: [
-      "Responsive solide",
-      "SEO technique + accessibilité",
-      "Micro-interactions sobres",
+      "Responsive mobile-first",
+      "SEO technique optimisé",
+      "Accessibilité WCAG",
     ],
   },
   {
-    eyebrow: "Production",
-    title: "Backend fiable, prod pilotable",
-    desc: "Node + PostgreSQL avec monitoring et déploiements maîtrisés.",
+    eyebrow: "Backend",
+    title: "Node.js & PostgreSQL",
+    desc: "APIs REST/GraphQL, authentification sécurisée et base de données performante pour des applications robustes.",
     icon: Shield,
     gradient: "from-emerald-500 to-teal-500",
-    bullets: ["Observabilité", "Scalabilité pragmatique", "Sécurité & rôles"],
+    bullets: [
+      "APIs documentées",
+      "Authentification OAuth/JWT",
+      "Migrations et backups",
+    ],
   },
 ] as const;
 
@@ -50,21 +56,29 @@ const TechStack = () => {
       className="relative container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20 overflow-hidden"
       aria-labelledby="stack-title"
     >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <DotGrid rows={5} cols={5} gap={20} className="top-20 right-10 opacity-30" />
+        <DotGrid rows={4} cols={4} gap={16} className="bottom-32 left-10 opacity-20" />
+        <GlowOrb size={350} position={{ bottom: "20%", left: "5%" }} intensity="low" />
+      </div>
+
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
-          <motion.div className="badge mb-4" whileHover={{ scale: 1.05 }}>
-            <motion.span
-              animate={{ rotate: [0, 180, 360] }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-            >
-              <Cpu className="w-4 h-4 text-accent" />
-            </motion.span>
-            <span className="text-sm font-medium">Stack</span>
-          </motion.div>
+          <MagneticWrapper strength={0.1}>
+            <motion.div className="badge mb-4 inline-flex" whileHover={{ scale: 1.05 }}>
+              <motion.span
+                animate={{ rotate: [0, 180, 360] }}
+                transition={{
+                  duration: 3,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                }}
+              >
+                <Cpu className="w-4 h-4 text-accent" />
+              </motion.span>
+              <span className="text-sm font-medium">Stack</span>
+            </motion.div>
+          </MagneticWrapper>
         </RevealItem>
 
         <RevealItem>
@@ -74,7 +88,7 @@ const TechStack = () => {
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Une stack au service du produit
+            Technologies et expertise
           </Heading2>
         </RevealItem>
 
@@ -83,8 +97,8 @@ const TechStack = () => {
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-xl mx-auto text-sm sm:text-base"
           >
-            Moins de buzzwords. Plus de résultats : performance, qualité, SEO,
-            et sérénité en production.
+            Une stack moderne et éprouvée pour des applications performantes,
+            maintenables et scalables
           </Paragraphe>
         </RevealItem>
       </RevealContainer>
@@ -101,99 +115,101 @@ const TechStack = () => {
               key={b.title}
               direction={index === 1 ? "up" : index === 0 ? "left" : "right"}
             >
-              <TiltCard
-                className="h-full rounded-2xl"
-                tiltAmount={6}
-                glareOpacity={0.08}
-              >
-                <motion.div
-                  className={cn(
-                    "group relative rounded-2xl card-accent overflow-hidden h-full",
-                    "p-5 sm:p-6",
-                  )}
-                  whileHover={{
-                    y: -8,
-                    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              <MagneticWrapper strength={0.12}>
+                <TiltCard
+                  className="h-full rounded-2xl"
+                  tiltAmount={6}
+                  glareOpacity={0.08}
                 >
                   <motion.div
-                    className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${b.gradient} opacity-0 blur-3xl`}
-                    whileHover={{ opacity: 0.1 }}
-                    transition={{ duration: 0.3 }}
-                  />
+                    className={cn(
+                      "group relative rounded-2xl card-accent overflow-hidden h-full",
+                      "p-5 sm:p-6",
+                    )}
+                    whileHover={{
+                      y: -8,
+                      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <motion.div
+                      className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${b.gradient} opacity-0 blur-3xl`}
+                      whileHover={{ opacity: 0.1 }}
+                      transition={{ duration: 0.3 }}
+                    />
 
-                  <div className="relative z-10">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <motion.p
-                          className={`text-xs uppercase tracking-wider font-semibold bg-gradient-to-r ${b.gradient} bg-clip-text text-transparent`}
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.2 }}
+                    <div className="relative z-10">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <motion.p
+                            className={`text-xs uppercase tracking-wider font-semibold bg-gradient-to-r ${b.gradient} bg-clip-text text-transparent`}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            {b.eyebrow}
+                          </motion.p>
+                          <h3 className="mt-1 text-lg sm:text-xl font-semibold text-primary">
+                            {b.title}
+                          </h3>
+                        </div>
+
+                        <motion.div
+                          className={cn(
+                            "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg",
+                            `bg-gradient-to-br ${b.gradient}`,
+                          )}
+                          whileHover={{
+                            scale: 1.15,
+                            rotate: 8,
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 17,
+                          }}
                         >
-                          {b.eyebrow}
-                        </motion.p>
-                        <h3 className="mt-1 text-lg sm:text-xl font-semibold text-primary">
-                          {b.title}
-                        </h3>
+                          <Icon className="w-6 h-6 text-white" />
+                        </motion.div>
                       </div>
 
-                      <motion.div
-                        className={cn(
-                          "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg",
-                          `bg-gradient-to-br ${b.gradient}`,
-                        )}
-                        whileHover={{
-                          scale: 1.15,
-                          rotate: 8,
-                        }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 17,
-                        }}
-                      >
-                        <Icon className="w-6 h-6 text-white" />
-                      </motion.div>
+                      <p className="mt-3 text-sm text-secondary leading-relaxed">
+                        {b.desc}
+                      </p>
+
+                      <ul className="mt-4 space-y-2">
+                        {b.bullets.map((txt, bulletIndex) => (
+                          <motion.li
+                            key={txt}
+                            className="flex items-start gap-2"
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 + bulletIndex * 0.1 }}
+                          >
+                            <motion.span
+                              whileHover={{ scale: 1.2, rotate: 10 }}
+                              transition={{ type: "spring", stiffness: 400 }}
+                            >
+                              <Check className="w-4 h-4 mt-0.5 text-accent" />
+                            </motion.span>
+                            <span className="text-sm text-primary">{txt}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
                     </div>
 
-                    <p className="mt-3 text-sm text-secondary leading-relaxed">
-                      {b.desc}
-                    </p>
-
-                    <ul className="mt-4 space-y-2">
-                      {b.bullets.map((txt, bulletIndex) => (
-                        <motion.li
-                          key={txt}
-                          className="flex items-start gap-2"
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 + bulletIndex * 0.1 }}
-                        >
-                          <motion.span
-                            whileHover={{ scale: 1.2, rotate: 10 }}
-                            transition={{ type: "spring", stiffness: 400 }}
-                          >
-                            <Check className="w-4 h-4 mt-0.5 text-accent" />
-                          </motion.span>
-                          <span className="text-sm text-primary">{txt}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-1"
-                    style={{
-                      background: `linear-gradient(to right, transparent, var(--accent), transparent)`,
-                    }}
-                    initial={{ scaleX: 0, opacity: 0 }}
-                    whileHover={{ scaleX: 1, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.div>
-              </TiltCard>
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-1"
+                      style={{
+                        background: `linear-gradient(to right, transparent, var(--accent), transparent)`,
+                      }}
+                      initial={{ scaleX: 0, opacity: 0 }}
+                      whileHover={{ scaleX: 1, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.div>
+                </TiltCard>
+              </MagneticWrapper>
             </RevealItem>
           );
         })}
@@ -201,18 +217,20 @@ const TechStack = () => {
 
       <RevealContainer className="text-center mt-10 sm:mt-12">
         <RevealItem direction="scale">
-          <motion.div className="badge" whileHover={{ scale: 1.02 }}>
-            <motion.span
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            >
-              <Cpu className="w-4 h-4 text-accent" />
-            </motion.span>
-            <span className="text-xs sm:text-sm text-secondary">
-              La stack s'adapte au contexte : MVP, refonte, SaaS multi-tenant,
-              contraintes perf ou SEO.
-            </span>
-          </motion.div>
+          <MagneticWrapper strength={0.08}>
+            <motion.div className="badge inline-flex" whileHover={{ scale: 1.02 }}>
+              <motion.span
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              >
+                <Cpu className="w-4 h-4 text-accent" />
+              </motion.span>
+              <span className="text-xs sm:text-sm text-secondary">
+                Stack adaptable : MVP rapide, refonte progressive, SaaS
+                multi-tenant ou app haute performance
+              </span>
+            </motion.div>
+          </MagneticWrapper>
         </RevealItem>
       </RevealContainer>
     </section>

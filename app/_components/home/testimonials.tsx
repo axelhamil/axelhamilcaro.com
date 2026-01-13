@@ -1,16 +1,17 @@
 "use client";
 
-import { MessageSquare, Quote, Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useCallback, useEffect } from "react";
+import { MessageSquare, Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Heading2 } from "../ui/heading2";
 import { Paragraphe } from "../ui/paragraphe";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import { TiltCard } from "../shared/effects/tilt-card";
+import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
 
 const testimonials = [
   {
     name: "Léo",
-    role: "CTO @ Scormpilot",
+    role: "CTO @ ScormPilot",
     content:
       "Intervention rapide et qualitative sur notre stack Next.js. Axel a restructuré notre architecture frontend et ajouté des fonctionnalités clés sans casser l'existant. Pro et autonome.",
     rating: 5,
@@ -19,7 +20,7 @@ const testimonials = [
   },
   {
     name: "Anthony M.",
-    role: "Product Manager",
+    role: "Product Manager @ Civitime",
     content:
       "Axel a développé plusieurs modules critiques de notre plateforme e-learning. Son code est propre, bien testé, et il pose les bonnes questions. Un renfort technique solide.",
     rating: 5,
@@ -35,9 +36,94 @@ const testimonials = [
     avatar: "Ab",
     color: "from-emerald-500 to-teal-500",
   },
+  {
+    name: "Sophie L.",
+    role: "CEO @ Startup EdTech",
+    content:
+      "Excellent travail sur notre MVP. Axel a su comprendre nos besoins métier et proposer des solutions techniques pragmatiques. Le produit est sorti en 6 semaines.",
+    rating: 5,
+    avatar: "S",
+    color: "from-amber-500 to-orange-500",
+  },
+  {
+    name: "Thomas R.",
+    role: "Développeur @ Agence Web",
+    content:
+      "J'ai suivi le mentorat d'Axel pendant 3 mois. Ses explications sur React et Clean Architecture m'ont fait progresser très vite. Pédagogue et patient.",
+    rating: 5,
+    avatar: "T",
+    color: "from-rose-500 to-red-500",
+  },
 ] as const;
 
 const Testimonials = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const next = useCallback(() => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  }, []);
+
+  const goTo = useCallback(
+    (index: number) => {
+      setDirection(index > activeIndex ? 1 : -1);
+      setActiveIndex(index);
+    },
+    [activeIndex]
+  );
+
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(next, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, next]);
+
+  const getCardStyle = (index: number) => {
+    const diff = index - activeIndex;
+    const normalizedDiff =
+      ((diff + testimonials.length + Math.floor(testimonials.length / 2)) %
+        testimonials.length) -
+      Math.floor(testimonials.length / 2);
+
+    if (normalizedDiff === 0) {
+      return {
+        x: 0,
+        scale: 1,
+        zIndex: 10,
+        opacity: 1,
+        rotateY: 0,
+      };
+    }
+
+    const side = normalizedDiff > 0 ? 1 : -1;
+    const absOffset = Math.abs(normalizedDiff);
+
+    if (absOffset === 1) {
+      return {
+        x: side * 260,
+        scale: 0.88,
+        zIndex: 5,
+        opacity: 0.6,
+        rotateY: side * -12,
+      };
+    }
+
+    return {
+      x: side * 400,
+      scale: 0.75,
+      zIndex: 2,
+      opacity: 0,
+      rotateY: side * -20,
+    };
+  };
+
   return (
     <section
       id="testimonials"
@@ -46,15 +132,17 @@ const Testimonials = () => {
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
-          <motion.div className="badge mb-4" whileHover={{ scale: 1.05 }}>
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            >
-              <MessageSquare className="w-4 h-4 text-accent" />
-            </motion.span>
-            <span className="text-sm font-medium">Témoignages</span>
-          </motion.div>
+          <MagneticWrapper strength={0.1}>
+            <motion.div className="badge mb-4 inline-flex" whileHover={{ scale: 1.05 }}>
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              >
+                <MessageSquare className="w-4 h-4 text-accent" />
+              </motion.span>
+              <span className="text-sm font-medium">Témoignages</span>
+            </motion.div>
+          </MagneticWrapper>
         </RevealItem>
 
         <RevealItem>
@@ -64,7 +152,7 @@ const Testimonials = () => {
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Ce qu'en disent mes clients
+            Avis et témoignages clients
           </Heading2>
         </RevealItem>
 
@@ -73,115 +161,174 @@ const Testimonials = () => {
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base"
           >
-            Des retours concrets de CTOs, CEOs et Product Leads qui ont fait
-            confiance à mon expertise.
+            Retours de CTOs, fondateurs et Product Managers sur nos
+            collaborations
           </Paragraphe>
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.15}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto"
+      <div
+        className="relative max-w-4xl mx-auto"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
       >
-        {testimonials.map((testimonial, index) => (
-          <RevealItem
-            key={testimonial.name}
-            direction={index % 2 === 0 ? "left" : "right"}
-          >
-            <TiltCard
-              className="h-full rounded-2xl"
-              tiltAmount={5}
-              glareOpacity={0.06}
-            >
-              <motion.div
-                className="relative h-full flex flex-col gap-4 p-6 sm:p-7 rounded-2xl card overflow-hidden"
-                whileHover={{
-                  y: -8,
-                  boxShadow: "0 20px 40px rgba(255, 77, 0, 0.1)",
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
+        <div
+          className="relative h-[380px] sm:h-[350px] flex items-center justify-center"
+          style={{ perspective: "1200px" }}
+        >
+          <AnimatePresence mode="popLayout">
+            {testimonials.map((testimonial, index) => {
+              const style = getCardStyle(index);
+              const isActive = index === activeIndex;
+
+              return (
                 <motion.div
-                  className={`absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-br ${testimonial.color} opacity-10 blur-3xl`}
+                  key={testimonial.name}
+                  className="absolute w-full max-w-lg px-4"
+                  initial={{
+                    x: direction > 0 ? 400 : -400,
+                    opacity: 0,
+                    scale: 0.8,
+                    rotateY: direction > 0 ? 30 : -30,
+                  }}
                   animate={{
-                    scale: [1, 1.3, 1],
-                    rotate: [0, 90, 0],
+                    x: style.x,
+                    scale: style.scale,
+                    zIndex: style.zIndex,
+                    opacity: style.opacity,
+                    rotateY: style.rotateY,
+                  }}
+                  exit={{
+                    x: direction > 0 ? -400 : 400,
+                    opacity: 0,
+                    scale: 0.8,
+                    rotateY: direction > 0 ? -30 : 30,
                   }}
                   transition={{
-                    duration: 8,
-                    repeat: Number.POSITIVE_INFINITY,
-                    delay: index * 0.5,
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
                   }}
-                />
+                  style={{
+                    transformStyle: "preserve-3d",
+                    pointerEvents: isActive ? "auto" : "none",
+                  }}
+                  onClick={() => !isActive && goTo(index)}
+                >
+                  <MagneticWrapper strength={isActive ? 0.1 : 0}>
+                    <motion.div
+                      className={`relative flex flex-col gap-4 p-6 sm:p-8 rounded-2xl overflow-hidden transition-shadow ${
+                        isActive
+                          ? "bg-white shadow-2xl shadow-accent/10 ring-1 ring-accent/10"
+                          : "bg-white/80 shadow-lg"
+                      }`}
+                      whileHover={isActive ? { y: -4 } : undefined}
+                    >
+                      <motion.div
+                        className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${testimonial.color} opacity-10 blur-3xl`}
+                      />
 
-                <div className="relative z-10 flex items-start justify-between gap-3">
-                  <motion.div
-                    whileHover={{ rotate: 10, scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Quote
-                      className="w-8 h-8 text-accent opacity-60"
-                      aria-hidden="true"
-                    />
-                  </motion.div>
-                  <div
-                    className="flex gap-0.5"
-                    aria-label={`${testimonial.rating} étoiles sur 5`}
-                  >
-                    {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                        transition={{
-                          delay: 0.5 + i * 0.1,
-                          type: "spring",
-                          stiffness: 200,
-                        }}
-                      >
-                        <Star
-                          className="w-4 h-4 text-amber-400 fill-current"
+                      <div className="relative z-10 flex items-start justify-between gap-3">
+                        <Quote
+                          className="w-10 h-10 text-accent opacity-40"
                           aria-hidden="true"
                         />
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
+                        <div
+                          className="flex gap-0.5"
+                          aria-label={`${testimonial.rating} étoiles sur 5`}
+                        >
+                          {Array.from({ length: testimonial.rating }).map((_, i) => (
+                            <motion.span
+                              key={i}
+                              initial={{ opacity: 0, scale: 0 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.1 * i }}
+                            >
+                              <Star
+                                className="w-4 h-4 text-amber-400 fill-current"
+                                aria-hidden="true"
+                              />
+                            </motion.span>
+                          ))}
+                        </div>
+                      </div>
 
-                <Paragraphe
-                  variant="secondary"
-                  size="sm"
-                  className="relative z-10 flex-1 italic leading-relaxed"
-                >
-                  "{testimonial.content}"
-                </Paragraphe>
+                      <Paragraphe
+                        variant="secondary"
+                        className={`relative z-10 flex-1 italic leading-relaxed ${
+                          isActive ? "text-base sm:text-lg" : "text-sm"
+                        }`}
+                      >
+                        "{testimonial.content}"
+                      </Paragraphe>
 
-                <motion.div
-                  className="relative z-10 pt-3 border-t border-border flex items-center gap-3"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <motion.div
-                    className={`w-10 h-10 rounded-full bg-gradient-to-br ${testimonial.color} flex items-center justify-center text-white font-bold text-sm`}
-                    whileHover={{ scale: 1.1, rotate: 10 }}
-                  >
-                    {testimonial.avatar}
-                  </motion.div>
-                  <div>
-                    <p className="font-semibold text-primary text-sm">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-xs text-secondary mt-0.5">
-                      {testimonial.role}
-                    </p>
-                  </div>
+                      <div className="relative z-10 pt-4 border-t border-border/50 flex items-center gap-3">
+                        <motion.div
+                          className={`w-12 h-12 rounded-full bg-gradient-to-br ${testimonial.color} flex items-center justify-center text-white font-bold`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                        >
+                          {testimonial.avatar}
+                        </motion.div>
+                        <div>
+                          <p className="font-semibold text-primary">
+                            {testimonial.name}
+                          </p>
+                          <p className="text-sm text-secondary">
+                            {testimonial.role}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </MagneticWrapper>
                 </motion.div>
-              </motion.div>
-            </TiltCard>
-          </RevealItem>
-        ))}
-      </RevealContainer>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+
+        <div className="flex items-center justify-center gap-4 mt-6">
+          <MagneticWrapper strength={0.2}>
+            <motion.button
+              onClick={prev}
+              className="p-3 rounded-full bg-primary/5 hover:bg-accent/10 text-primary hover:text-accent transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Témoignage précédent"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </motion.button>
+          </MagneticWrapper>
+
+          <div className="flex gap-2">
+            {testimonials.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => goTo(index)}
+                className={`h-2 rounded-full transition-all ${
+                  index === activeIndex
+                    ? "w-8 bg-accent"
+                    : "w-2 bg-primary/20 hover:bg-primary/40"
+                }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={`Aller au témoignage ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          <MagneticWrapper strength={0.2}>
+            <motion.button
+              onClick={next}
+              className="p-3 rounded-full bg-primary/5 hover:bg-accent/10 text-primary hover:text-accent transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Témoignage suivant"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </motion.button>
+          </MagneticWrapper>
+        </div>
+      </div>
     </section>
   );
 };

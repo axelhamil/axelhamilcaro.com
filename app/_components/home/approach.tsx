@@ -18,33 +18,33 @@ import { TiltCard } from "../shared/effects/tilt-card";
 const pillars = [
   {
     icon: ShieldCheck,
-    title: "Qualité durable",
+    title: "Code maintenable",
     description:
-      "Clean Architecture, boundaries claires, tests ciblés. Le produit reste évolutif.",
+      "Architecture claire, tests automatisés et documentation. Votre produit évolue sereinement.",
     gradient: "from-emerald-500 to-teal-500",
     number: "01",
   },
   {
     icon: Zap,
-    title: "Performance & UX",
+    title: "Performance & SEO",
     description:
-      "Core Web Vitals, accessibilité, et détails UI. Rapide, stable, premium.",
+      "Core Web Vitals optimisés, accessibilité et UX soignée. Vos utilisateurs restent.",
     gradient: "from-amber-500 to-orange-500",
     number: "02",
   },
   {
     icon: GitBranch,
-    title: "Delivery pragmatique",
+    title: "Livraison continue",
     description:
-      "Itérations courtes, scope maîtrisé, release fréquentes. Tu vois l'impact vite.",
+      "Itérations courtes, releases fréquentes. Vous voyez les résultats rapidement.",
     gradient: "from-blue-500 to-cyan-500",
     number: "03",
   },
   {
     icon: Radar,
-    title: "Observabilité",
+    title: "Monitoring",
     description:
-      "Logs, métriques, alerting. Une prod pilotable, pas une boîte noire.",
+      "Logs structurés, métriques et alertes. Votre prod est pilotable, pas une boîte noire.",
     gradient: "from-purple-500 to-pink-500",
     number: "04",
   },
@@ -81,7 +81,7 @@ const Approach = () => {
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Comment je construis
+            Ma méthodologie de développement
           </Heading2>
         </RevealItem>
 
@@ -90,8 +90,8 @@ const Approach = () => {
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
           >
-            Une approche orientée produit, avec un standard de qualité qui tient
-            dans le temps.
+            Une approche pragmatique orientée résultats, avec des standards de
+            qualité professionnels
           </Paragraphe>
         </RevealItem>
       </RevealContainer>
@@ -209,8 +209,8 @@ const Approach = () => {
               <CheckCircle className="w-4 h-4 text-emerald-500" />
             </motion.span>
             <span className="text-xs sm:text-sm text-secondary">
-              Résultat : un produit livrable rapidement, maintenable, et prêt
-              pour la production.
+              Résultat : un produit livré rapidement, maintenable et prêt à
+              scaler
             </span>
           </motion.div>
         </RevealItem>

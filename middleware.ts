@@ -1,25 +1,51 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
+import { auth } from "@/app/_lib/auth";
+
+const ALLOWED_GITHUB_IDS = process.env.ADMIN_GITHUB_ID
+  ? [process.env.ADMIN_GITHUB_ID]
+  : [];
 
 export async function middleware(request: NextRequest) {
-  if (process.env.NODE_ENV === "development") {
-    return NextResponse.next();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    return redirectToLogin(request);
   }
 
-  const sessionCookie = request.cookies.get("better-auth.session_token");
+  const userAccounts = await auth.api.listUserAccounts({
+    headers: await headers(),
+  });
 
-  if (!sessionCookie) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set(
-      "callbackURL",
-      request.nextUrl.pathname + request.nextUrl.search,
+  const githubAccount = userAccounts?.find(
+    (account) => account.providerId === "github"
+  );
+
+  if (!githubAccount || !ALLOWED_GITHUB_IDS.includes(githubAccount.accountId)) {
+    console.warn(
+      `[SECURITY] Blocked admin access: user=${session.user.id}, github=${githubAccount?.accountId || "none"}`
     );
-    return NextResponse.redirect(loginUrl);
+
+    const response = NextResponse.redirect(new URL("/login", request.url));
+    response.cookies.delete("better-auth.session_token");
+    return response;
   }
 
   return NextResponse.next();
 }
 
+function redirectToLogin(request: NextRequest) {
+  const loginUrl = new URL("/login", request.url);
+  loginUrl.searchParams.set(
+    "callbackURL",
+    request.nextUrl.pathname + request.nextUrl.search
+  );
+  return NextResponse.redirect(loginUrl);
+}
+
 export const config = {
+  runtime: "nodejs",
   matcher: ["/admin/:path*"],
 };

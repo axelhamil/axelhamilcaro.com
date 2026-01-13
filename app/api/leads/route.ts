@@ -1,9 +1,13 @@
 import { db } from "@/app/_lib/db";
 import { forms, leads } from "@/app/_lib/db/schema";
+import { requireAdminAuth } from "@/app/_lib/api-auth";
 import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
+  const authResult = await requireAdminAuth();
+  if (!authResult.success) return authResult.response;
+
   try {
     const { searchParams } = new URL(request.url);
     const formId = searchParams.get("formId");
@@ -33,12 +37,15 @@ export async function GET(request: Request) {
     console.error("Failed to fetch leads:", error);
     return NextResponse.json(
       { error: "Failed to fetch leads" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
 
 export async function DELETE(request: Request) {
+  const authResult = await requireAdminAuth();
+  if (!authResult.success) return authResult.response;
+
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
@@ -46,7 +53,7 @@ export async function DELETE(request: Request) {
     if (!id) {
       return NextResponse.json(
         { error: "Lead ID is required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -64,7 +71,7 @@ export async function DELETE(request: Request) {
     console.error("Failed to delete lead:", error);
     return NextResponse.json(
       { error: "Failed to delete lead" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

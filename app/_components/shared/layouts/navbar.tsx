@@ -3,18 +3,19 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Calendar, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import cn from "../../../_lib/cn";
+import { cn } from "@/lib/utils";
 import { heading1Variants } from "../../ui/heading1";
 import TransitionLink from "../navigation/transition-link";
 
 const navLinks = [
+  { href: "/#parcours", label: "Parcours" },
   { href: "/#services", label: "Services" },
-  { href: "/#approach", label: "Approche" },
+  { href: "/#projets", label: "Projets" },
   { href: "/#stack", label: "Stack" },
   { href: "/tree", label: "Liens" },
 ];
 
-const DESKTOP_SECTIONS = ["services", "approach", "stack"] as const;
+const DESKTOP_SECTIONS = ["parcours", "services", "projets", "stack"] as const;
 
 const Navbar = () => {
   const pathname = usePathname();

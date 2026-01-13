@@ -1,5 +1,6 @@
 import { db } from "@/app/_lib/db";
 import { forms } from "@/app/_lib/db/schema";
+import { requireAdminAuth } from "@/app/_lib/api-auth";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -19,8 +20,11 @@ function isValidSlug(slug: string): boolean {
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const authResult = await requireAdminAuth();
+  if (!authResult.success) return authResult.response;
+
   try {
     const { id } = await params;
 
@@ -35,15 +39,18 @@ export async function GET(
     console.error("Failed to fetch form:", error);
     return NextResponse.json(
       { error: "Failed to fetch form" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const authResult = await requireAdminAuth();
+  if (!authResult.success) return authResult.response;
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -51,7 +58,7 @@ export async function PUT(
     if (!body.title?.trim()) {
       return NextResponse.json(
         { error: "Le titre est requis" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -63,7 +70,7 @@ export async function PUT(
           error:
             "Le slug n'est pas valide (min 2 caractères, lettres/chiffres/tirets)",
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -76,7 +83,7 @@ export async function PUT(
     if (otherFormWithSlug) {
       return NextResponse.json(
         { error: "Un formulaire avec ce slug existe déjà" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -103,7 +110,7 @@ export async function PUT(
     if (!updatedForm) {
       return NextResponse.json(
         { error: "Formulaire non trouvé" },
-        { status: 404 },
+        { status: 404 }
       );
     }
 
@@ -112,15 +119,18 @@ export async function PUT(
     console.error("Failed to update form:", error);
     return NextResponse.json(
       { error: "Erreur lors de la mise à jour du formulaire" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const authResult = await requireAdminAuth();
+  if (!authResult.success) return authResult.response;
+
   try {
     const { id } = await params;
 
@@ -138,7 +148,7 @@ export async function DELETE(
     console.error("Failed to delete form:", error);
     return NextResponse.json(
       { error: "Failed to delete form" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

@@ -13,15 +13,15 @@ import { RunawayBadge } from "../../shared/effects/runaway-badge";
 import { LetterReveal } from "../../shared/effects/text-reveal";
 
 const stats = [
-  { v: "5+", l: "ans d'XP" },
-  { v: "20+", l: "projets livrés" },
-  { v: "100%", l: "clients satisfaits" },
+  { v: "5+", l: "ans d'expérience" },
+  { v: "20+", l: "apps livrées" },
+  { v: "100%", l: "satisfaction client" },
 ] as const;
 
 const techIcons = [
-  { Icon: Code2, label: "React & Next.js", delay: 0 },
-  { Icon: Zap, label: "TypeScript Expert", delay: 0.1 },
-  { Icon: Rocket, label: "Node.js & APIs", delay: 0.2 },
+  { Icon: Code2, label: "React / Next.js", delay: 0 },
+  { Icon: Zap, label: "TypeScript", delay: 0.1 },
+  { Icon: Rocket, label: "Node.js", delay: 0.2 },
 ];
 
 const HeroLeft = () => {
@@ -36,7 +36,7 @@ const HeroLeft = () => {
           >
             <PulsingDot size="sm" />
             <span className="text-xs sm:text-sm font-medium">
-              Dispo pour missions
+              Disponible · Paris & Remote
             </span>
           </RunawayBadge>
         </div>
@@ -118,19 +118,17 @@ const HeroLeft = () => {
         <div className="flex flex-col gap-3 md:gap-4 min-w-0">
           <Paragraphe size="lg" className="text-base md:text-lg">
             Je suis <strong>Axel Hamilcaro</strong>, développeur web freelance
-            spécialisé en{" "}
+            basé à Paris. Je crée des{" "}
             <span className="font-semibold text-primary">
-              création d'applications web sur mesure
-            </span>
-            . Du MVP au produit scalable, je conçois des{" "}
-            <strong>solutions digitales performantes</strong>.
+              applications web performantes et scalables
+            </span>{" "}
+            pour startups et entreprises tech.
           </Paragraphe>
 
           <Paragraphe size="md" className="text-base md:text-lg text-secondary">
-            Expert <strong>React, Next.js et TypeScript</strong>, j'accompagne
-            mes clients de la conception au déploiement.{" "}
-            <strong>Applications SaaS</strong>, APIs robustes et produits
-            durables.
+            Spécialiste <strong>React, Next.js et TypeScript</strong>.
+            J'accompagne mes clients du MVP à la production : SaaS, plateformes
+            métier, et APIs robustes.
           </Paragraphe>
         </div>
       </HeroMotionItem>
@@ -155,7 +153,7 @@ const HeroLeft = () => {
               >
                 <Calendar className="w-5 h-5" />
               </motion.span>
-              On s'appelle ?
+              Discuter de ton projet
             </Button>
           </MagneticWrapper>
 
@@ -166,7 +164,7 @@ const HeroLeft = () => {
               size="lg"
               className="w-full sm:w-auto justify-center group"
             >
-              Tous mes liens
+              Mes réseaux
               <motion.span
                 className="inline-block"
                 animate={{ x: [0, 5, 0] }}

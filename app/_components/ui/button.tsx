@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
-import cn from "../../_lib/cn";
+import { cn } from "@/lib/utils";
 import TransitionLink from "../shared/navigation/transition-link";
 
 const buttonVariants = cva(
