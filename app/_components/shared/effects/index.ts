@@ -1,4 +1,12 @@
 export { AnimatedCounter } from "./animated-counter";
+export { Carousel3D } from "./carousel-3d";
+export {
+  FloatingCircle,
+  DotGrid,
+  DiagonalLines,
+  GlowOrb,
+  GeometricBackground,
+} from "./geometric-shapes";
 export { CustomCursor } from "./custom-cursor";
 export { EmojiRain, ClickSpark } from "./emoji-rain";
 export { FloatingElement, RotatingGlow, PulsingDot } from "./floating-element";
