@@ -133,7 +133,7 @@ const ExperienceTimeline = () => {
                         }}
                       >
                         <motion.div
-                          className={`absolute top-3 px-2 py-0.5 rounded-full bg-accent/10 text-accent text-xs font-semibold z-20 ${isLeft ? "right-3" : "right-3"}`}
+                          className="absolute top-3 right-3 px-2 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold z-20"
                           initial={{ opacity: 0, x: isLeft ? -10 : 10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
@@ -147,7 +147,7 @@ const ExperienceTimeline = () => {
                         />
 
                         <div
-                          className="relative z-10 flex items-start gap-4 pt-6 sm:pt-0"
+                          className="relative z-10 flex items-start gap-4 pt-8 sm:pt-0"
                         >
                           <div
                             className={`shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${exp.gradient} flex items-center justify-center shadow-lg animate-bounce-soft`}
@@ -156,7 +156,7 @@ const ExperienceTimeline = () => {
                             <Icon className="w-6 h-6 text-white" />
                           </div>
 
-                          <div className="flex-1">
+                          <div className="flex-1 mt-6">
                             <motion.p
                               className={`text-xs uppercase tracking-wider font-semibold bg-gradient-to-r ${exp.gradient} bg-clip-text text-transparent`}
                             >
