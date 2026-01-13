@@ -6,7 +6,7 @@ const ALLOWED_GITHUB_IDS = process.env.ADMIN_GITHUB_ID
   ? [process.env.ADMIN_GITHUB_ID]
   : [];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -46,6 +46,5 @@ function redirectToLogin(request: NextRequest) {
 }
 
 export const config = {
-  runtime: "nodejs",
   matcher: ["/admin/:path*"],
 };

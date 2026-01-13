@@ -15,10 +15,15 @@ function LoginForm() {
   const handleGitHubSignIn = async () => {
     setIsLoading(true);
     try {
-      await signIn.social({
+      const result = await signIn.social({
         provider: "github",
         callbackURL,
       });
+
+      if (result?.error) {
+        console.error("Sign in error:", result.error);
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error("Sign in error:", error);
       setIsLoading(false);
