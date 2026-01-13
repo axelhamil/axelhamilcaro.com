@@ -69,7 +69,7 @@ export function LetterReveal({
   const letters = text.split("");
 
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} className={`inline-block whitespace-nowrap ${className ?? ""}`}>
       {letters.map((letter, i) => (
         <motion.span
           key={i}
