@@ -1,4 +1,14 @@
-import { Calendar, Coffee, Github, Heart, Linkedin, Mail } from "lucide-react";
+import {
+  Briefcase,
+  Calendar,
+  Coffee,
+  Github,
+  Heart,
+  Instagram,
+  Linkedin,
+  Mail,
+  Music2,
+} from "lucide-react";
 import TransitionLink from "../navigation/transition-link";
 import { Paragraphe } from "../../ui/paragraphe";
 
@@ -12,6 +22,21 @@ const socialLinks = [
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/axelhamilcaro/",
     icon: Linkedin,
+  },
+  {
+    name: "Malt",
+    href: "https://www.malt.fr/profile/axelhamilcaro",
+    icon: Briefcase,
+  },
+  {
+    name: "Instagram",
+    href: "https://instagram.com/axelhmlcr",
+    icon: Instagram,
+  },
+  {
+    name: "TikTok",
+    href: "https://tiktok.com/@axelhmlcr",
+    icon: Music2,
   },
 ] as const;
 
@@ -37,7 +62,6 @@ const Footer = () => {
     <footer className="relative z-10 border-t border-secondary/20 mt-16 sm:mt-20 md:mt-24">
       <div className="container mx-auto py-10 sm:py-12 md:py-16">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
-          {/* Signature */}
           <div className="flex flex-col gap-3">
             <div className="font-mono text-xl sm:text-2xl font-bold text-primary-foreground">
               axel_hamilcaro()
@@ -61,7 +85,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Start here */}
           <div className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
               Start here
@@ -88,7 +111,6 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Contact direct */}
           <div className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
               Contact direct
@@ -116,7 +138,7 @@ const Footer = () => {
               ))}
             </div>
 
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-2 pt-2">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}

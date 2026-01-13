@@ -52,7 +52,7 @@ export function EmojiRain() {
       const scrollVelocity = Math.abs(currentScrollY - lastScrollY);
       lastScrollY = currentScrollY;
 
-      if (scrollVelocity > 100) {
+      if (scrollVelocity > 200) {
         startRain();
       }
     };
@@ -94,7 +94,12 @@ export function EmojiRain() {
 
 export function ClickSpark() {
   const [sparks, setSparks] = useState<
-    { id: number; x: number; y: number; particles: { angle: number; distance: number }[] }[]
+    {
+      id: number;
+      x: number;
+      y: number;
+      particles: { angle: number; distance: number }[];
+    }[]
   >([]);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -141,8 +146,12 @@ export function ClickSpark() {
                 }}
                 initial={{ scale: 1, opacity: 1 }}
                 animate={{
-                  x: Math.cos((particle.angle * Math.PI) / 180) * particle.distance,
-                  y: Math.sin((particle.angle * Math.PI) / 180) * particle.distance,
+                  x:
+                    Math.cos((particle.angle * Math.PI) / 180) *
+                    particle.distance,
+                  y:
+                    Math.sin((particle.angle * Math.PI) / 180) *
+                    particle.distance,
                   scale: 0,
                   opacity: 0,
                 }}

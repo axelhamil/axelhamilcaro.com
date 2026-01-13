@@ -4,7 +4,7 @@ import cn from "../../_lib/cn";
 import TransitionLink from "../shared/navigation/transition-link";
 
 const linkCardVariants = cva(
-  "group relative flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl transition-all duration-300 ease-out cursor-pointer border active:scale-[0.98]",
+  "group relative flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl transition-all duration-300 ease-out cursor-pointer border active:scale-[0.98]",
   {
     variants: {
       variant: {
@@ -45,7 +45,7 @@ const LinkCard = ({
     <>
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light" />
 
-      <div className="relative z-10 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-secondary-background border border-border group-hover:border-accent group-hover:bg-accent group-hover:scale-105 transition-all duration-300 shrink-0">
+      <div className="relative z-10 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-secondary-background border border-border group-hover:border-accent group-hover:bg-accent group-hover:scale-105 transition-all duration-300 shrink-0">
         <span className="text-primary group-hover:text-white transition-colors duration-300">
           {icon}
         </span>

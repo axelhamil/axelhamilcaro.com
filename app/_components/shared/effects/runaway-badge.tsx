@@ -29,18 +29,16 @@ export function RunawayBadge({
     "Haha ! 🎉",
   ];
 
-  const caughtMessages = [
-    "Tu m'as eu ! 🎊",
-    "GG ! 🏆",
-    "Bien joué ! ⭐",
-  ];
+  const caughtMessages = ["Tu m'as eu ! 🎊", "GG ! 🏆", "Bien joué ! ⭐"];
 
   const handleMouseEnter = useCallback(() => {
     if (isCaught) return;
 
     if (escapeCount >= maxEscapes) {
       setIsCaught(true);
-      setMessage(caughtMessages[Math.floor(Math.random() * caughtMessages.length)]);
+      setMessage(
+        caughtMessages[Math.floor(Math.random() * caughtMessages.length)],
+      );
       controls.start({
         scale: [1, 1.2, 1],
         rotate: [0, 10, -10, 0],

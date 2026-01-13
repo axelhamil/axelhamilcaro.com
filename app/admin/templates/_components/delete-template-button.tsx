@@ -19,7 +19,9 @@ interface DeleteTemplateButtonProps {
   templateId: string;
 }
 
-export function DeleteTemplateButton({ templateId }: DeleteTemplateButtonProps) {
+export function DeleteTemplateButton({
+  templateId,
+}: DeleteTemplateButtonProps) {
   const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();

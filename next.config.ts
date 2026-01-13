@@ -43,6 +43,16 @@ const nextConfig: NextConfig = {
       destination: "https://calendly.com/axel-hamilcaro-pro/appel-decouverte",
       permanent: true,
     },
+    {
+      source: "/instagram",
+      destination: "https://www.instagram.com/axelhmlcr/",
+      permanent: true,
+    },
+    {
+      source: "/tiktok",
+      destination: "https://www.tiktok.com/@axelhmlcr",
+      permanent: true,
+    },
   ],
   headers: async () => [
     {

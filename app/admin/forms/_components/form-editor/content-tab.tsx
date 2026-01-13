@@ -34,7 +34,9 @@ export function ContentTab({ formData, onChange, slugError }: ContentTabProps) {
               placeholder="mon-formulaire"
               required
               className={`pr-10 border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)] ${
-                slugError ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""
+                slugError
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+                  : ""
               } ${isSlugValid ? "border-green-500 focus:border-green-500 focus:ring-green-500/20" : ""}`}
             />
             {isSlugValid && (
@@ -45,13 +47,9 @@ export function ContentTab({ formData, onChange, slugError }: ContentTabProps) {
             )}
           </div>
         </div>
-        {slugError && (
-          <p className="text-xs text-red-500">{slugError}</p>
-        )}
+        {slugError && <p className="text-xs text-red-500">{slugError}</p>}
         {isSlugValid && (
-          <p className="text-xs text-green-600">
-            URL : /f/{formData.slug}
-          </p>
+          <p className="text-xs text-green-600">URL : /f/{formData.slug}</p>
         )}
       </div>
 

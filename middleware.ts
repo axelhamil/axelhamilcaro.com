@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set(
       "callbackURL",
-      request.nextUrl.pathname + request.nextUrl.search
+      request.nextUrl.pathname + request.nextUrl.search,
     );
     return NextResponse.redirect(loginUrl);
   }

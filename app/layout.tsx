@@ -18,7 +18,7 @@ export default function RootLayout({
       lang="fr"
       className={cn(
         `${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`,
-        "antialiased bg-primary-background"
+        "antialiased bg-primary-background",
       )}
     >
       <body className="overflow-x-hidden">

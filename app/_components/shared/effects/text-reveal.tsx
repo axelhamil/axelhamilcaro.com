@@ -34,9 +34,7 @@ export function TextReveal({
               className={`inline-block ${isHighlight ? highlightClassName : ""}`}
               initial={{ y: "100%", rotateX: -90 }}
               animate={
-                isInView
-                  ? { y: "0%", rotateX: 0 }
-                  : { y: "100%", rotateX: -90 }
+                isInView ? { y: "0%", rotateX: 0 } : { y: "100%", rotateX: -90 }
               }
               transition={{
                 duration: 0.5,
@@ -60,7 +58,11 @@ interface LetterRevealProps {
   delay?: number;
 }
 
-export function LetterReveal({ text, className, delay = 0 }: LetterRevealProps) {
+export function LetterReveal({
+  text,
+  className,
+  delay = 0,
+}: LetterRevealProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 

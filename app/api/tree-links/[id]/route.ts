@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -35,14 +35,14 @@ export async function PUT(
     console.error("Failed to update tree link:", error);
     return NextResponse.json(
       { error: "Failed to update tree link" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -61,7 +61,7 @@ export async function DELETE(
     console.error("Failed to delete tree link:", error);
     return NextResponse.json(
       { error: "Failed to delete tree link" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

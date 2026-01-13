@@ -37,17 +37,20 @@ export function SparkleWrapper({
           x: e.clientX - rect.left + (Math.random() - 0.5) * 40,
           y: e.clientY - rect.top + (Math.random() - 0.5) * 40,
           size: Math.random() * 10 + 5,
-          color: SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)],
+          color:
+            SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)],
         });
       }
 
       setSparkles((prev) => [...prev, ...newSparkles]);
 
       setTimeout(() => {
-        setSparkles((prev) => prev.filter((s) => !newSparkles.find((n) => n.id === s.id)));
+        setSparkles((prev) =>
+          prev.filter((s) => !newSparkles.find((n) => n.id === s.id)),
+        );
       }, 700);
     },
-    [sparkleCount]
+    [sparkleCount],
   );
 
   return (
@@ -117,7 +120,11 @@ interface BouncyEmojiProps {
   delay?: number;
 }
 
-export function BouncyEmoji({ emoji, className = "", delay = 0 }: BouncyEmojiProps) {
+export function BouncyEmoji({
+  emoji,
+  className = "",
+  delay = 0,
+}: BouncyEmojiProps) {
   return (
     <motion.span
       className={`inline-block cursor-default select-none ${className}`}

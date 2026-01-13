@@ -126,7 +126,9 @@ export const pageViews = pgTable("page_views", {
 // Analytics - clics sur les liens
 export const linkClicks = pgTable("link_clicks", {
   id: uuid("id").primaryKey().defaultRandom(),
-  linkId: uuid("link_id").references(() => treeLinks.id, { onDelete: "cascade" }),
+  linkId: uuid("link_id").references(() => treeLinks.id, {
+    onDelete: "cascade",
+  }),
   path: text("path").notNull(),
   targetUrl: text("target_url").notNull(),
   referrer: text("referrer"),

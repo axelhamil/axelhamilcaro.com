@@ -19,7 +19,7 @@ function isValidSlug(slug: string): boolean {
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -35,14 +35,14 @@ export async function GET(
     console.error("Failed to fetch form:", error);
     return NextResponse.json(
       { error: "Failed to fetch form" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -51,7 +51,7 @@ export async function PUT(
     if (!body.title?.trim()) {
       return NextResponse.json(
         { error: "Le titre est requis" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -59,8 +59,11 @@ export async function PUT(
 
     if (!isValidSlug(slug)) {
       return NextResponse.json(
-        { error: "Le slug n'est pas valide (min 2 caractères, lettres/chiffres/tirets)" },
-        { status: 400 }
+        {
+          error:
+            "Le slug n'est pas valide (min 2 caractères, lettres/chiffres/tirets)",
+        },
+        { status: 400 },
       );
     }
 
@@ -73,7 +76,7 @@ export async function PUT(
     if (otherFormWithSlug) {
       return NextResponse.json(
         { error: "Un formulaire avec ce slug existe déjà" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -98,7 +101,10 @@ export async function PUT(
       .returning();
 
     if (!updatedForm) {
-      return NextResponse.json({ error: "Formulaire non trouvé" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Formulaire non trouvé" },
+        { status: 404 },
+      );
     }
 
     return NextResponse.json(updatedForm);
@@ -106,14 +112,14 @@ export async function PUT(
     console.error("Failed to update form:", error);
     return NextResponse.json(
       { error: "Erreur lors de la mise à jour du formulaire" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -132,7 +138,7 @@ export async function DELETE(
     console.error("Failed to delete form:", error);
     return NextResponse.json(
       { error: "Failed to delete form" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

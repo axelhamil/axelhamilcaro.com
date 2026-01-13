@@ -9,7 +9,10 @@ export async function POST(request: Request) {
     const { orderedIds } = body;
 
     if (!Array.isArray(orderedIds)) {
-      return NextResponse.json({ error: "orderedIds must be an array" }, { status: 400 });
+      return NextResponse.json(
+        { error: "orderedIds must be an array" },
+        { status: 400 },
+      );
     }
 
     for (let i = 0; i < orderedIds.length; i++) {
@@ -22,6 +25,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Failed to reorder links:", error);
-    return NextResponse.json({ error: "Failed to reorder links" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to reorder links" },
+      { status: 500 },
+    );
   }
 }

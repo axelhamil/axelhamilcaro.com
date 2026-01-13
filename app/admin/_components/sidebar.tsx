@@ -73,7 +73,7 @@ export function Sidebar() {
                   "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                   isActive
                     ? "bg-[var(--admin-accent-muted)] text-[var(--admin-accent)]"
-                    : "text-[var(--admin-text-muted)] hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
+                    : "text-[var(--admin-text-muted)] hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]",
                 )}
               >
                 {isActive && (
@@ -88,7 +88,7 @@ export function Sidebar() {
                     "h-5 w-5 transition-colors",
                     isActive
                       ? "text-[var(--admin-accent)]"
-                      : "text-[var(--admin-text-subtle)] group-hover:text-[var(--admin-text)]"
+                      : "text-[var(--admin-text-subtle)] group-hover:text-[var(--admin-text)]",
                   )}
                 />
                 {navItem.name}

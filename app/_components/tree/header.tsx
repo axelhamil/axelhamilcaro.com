@@ -5,87 +5,47 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heading1 } from "../ui/heading1";
 import { Paragraphe } from "../ui/paragraphe";
-
-const floatingEmojis = ["🚀", "💻", "⚡", "🔥", "✨"];
+import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
 
 export default function TreeHeader() {
   return (
     <motion.div
-      className="flex flex-col items-center gap-5 sm:gap-7"
+      className="flex flex-col items-center gap-3 sm:gap-5"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col items-center gap-3 sm:gap-4">
+      <div className="flex flex-col items-center gap-2 sm:gap-3">
         <div className="relative">
-          {floatingEmojis.map((emoji, i) => (
-            <motion.span
-              key={i}
-              className="absolute text-lg pointer-events-none select-none"
-              style={{
-                left: `${50 + 45 * Math.cos((i * 2 * Math.PI) / floatingEmojis.length)}%`,
-                top: `${50 + 45 * Math.sin((i * 2 * Math.PI) / floatingEmojis.length)}%`,
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{
-                opacity: [0.4, 0.8, 0.4],
-                scale: [0.8, 1, 0.8],
-                y: [0, -5, 0],
-              }}
-              transition={{
-                duration: 2 + i * 0.3,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: i * 0.2,
-                ease: "easeInOut",
-              }}
-            >
-              {emoji}
-            </motion.span>
-          ))}
-
           <motion.div
-            className="absolute -inset-3 rounded-full bg-gradient-to-r from-accent/30 via-purple-500/20 to-accent/30 blur-xl"
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.5, 0.8, 0.5],
-              rotate: [0, 180, 360],
-            }}
+            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-accent shadow-lg"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
             transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              delay: 0.2,
             }}
-          />
-
-          <motion.div
-            className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-secondary-background border-3 border-accent overflow-hidden"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileHover={{ scale: 1.05 }}
           >
             <Image
               src="/profil_pp.jpeg"
               alt="Axel Hamilcaro"
-              width={112}
-              height={112}
+              width={96}
+              height={96}
               className="object-cover w-full h-full"
               priority
             />
           </motion.div>
 
           <motion.div
-            className="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-accent"
+            className="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-accent shadow-md"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.5, type: "spring", stiffness: 300 }}
           >
-            <motion.span
-              animate={{ rotate: [0, 15, 0] }}
-              transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-            >
-              <Sparkles className="w-4 h-4 text-white" />
-            </motion.span>
+            <Sparkles className="w-3.5 h-3.5 text-white" />
           </motion.div>
         </div>
 
@@ -97,17 +57,10 @@ export default function TreeHeader() {
           >
             <Heading1
               size="lg"
-              className="text-2xl sm:text-3xl md:text-4xl"
+              className="text-xl sm:text-2xl md:text-3xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              <motion.span
-                className="inline-block"
-                animate={{ color: ["#0a0a0a", "#ff4d00", "#0a0a0a"] }}
-                transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-              >
-                Axel
-              </motion.span>{" "}
-              Hamilcaro
+              <span className="text-accent">Axel</span> Hamilcaro
             </Heading1>
           </motion.div>
 
@@ -116,65 +69,45 @@ export default function TreeHeader() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Paragraphe variant="secondary" className="mt-1 text-sm sm:text-base">
-              Full-Stack TypeScript — produit, perf, et architecture lisible
+            <Paragraphe variant="secondary" className="text-xs sm:text-sm">
+              Full-Stack TypeScript • Freelance
             </Paragraphe>
           </motion.div>
 
           <motion.div
-            className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 w-full"
+            className="mt-2 sm:mt-3 flex flex-row items-center justify-center gap-2 w-full"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <motion.a
-              href="mailto:contact@axelhamilcaro.com"
-              className="px-4 py-2.5 rounded-xl card-accent flex items-center justify-center gap-2 text-sm text-primary hover:text-accent transition-colors duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <motion.span
-                animate={{ rotate: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            <MagneticWrapper strength={0.15}>
+              <motion.a
+                href="mailto:contact@axelhamilcaro.com"
+                className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl card-accent flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-primary hover:text-accent transition-colors duration-300"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Mail className="w-4 h-4" />
-              </motion.span>
-              Email
-            </motion.a>
+                <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                Email
+              </motion.a>
+            </MagneticWrapper>
 
-            <motion.a
-              href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl bg-accent text-white hover:bg-accent-hover transition-all duration-300 flex items-center justify-center gap-2 text-sm font-medium shadow-lg shadow-accent/25"
-              whileHover={{ scale: 1.05, y: -2, boxShadow: "0 10px 30px rgba(255, 77, 0, 0.3)" }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <motion.span
-                animate={{ rotate: [0, 10, 0] }}
-                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            <MagneticWrapper strength={0.15}>
+              <motion.a
+                href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-accent text-white hover:bg-accent-hover transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Calendar className="w-4 h-4" />
-              </motion.span>
-              Call (15–20 min)
-            </motion.a>
+                <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                Appel découverte
+              </motion.a>
+            </MagneticWrapper>
           </motion.div>
         </div>
       </div>
-
-      <motion.div
-        className="flex items-center gap-2 text-secondary"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7 }}
-      >
-        <motion.span
-          className="text-xs sm:text-sm italic px-3 py-1.5 rounded-full bg-secondary-background border border-border"
-          whileHover={{ scale: 1.05 }}
-        >
-          "Ship fast. Keep it clean." 🚀
-        </motion.span>
-      </motion.div>
     </motion.div>
   );
 }

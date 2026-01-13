@@ -2,14 +2,27 @@
 
 import type { Form } from "@/app/_lib/db/schema";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, Loader2, Sparkles, ArrowRight, User, Mail } from "lucide-react";
+import {
+  CheckCircle,
+  Loader2,
+  Sparkles,
+  ArrowRight,
+  User,
+  Mail,
+} from "lucide-react";
 import { useState } from "react";
 
 interface FormCardProps {
   form: Form;
 }
 
-function SuccessState({ firstName, accentColor }: { firstName: string; accentColor: string }) {
+function SuccessState({
+  firstName,
+  accentColor,
+}: {
+  firstName: string;
+  accentColor: string;
+}) {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -27,9 +40,7 @@ function SuccessState({ firstName, accentColor }: { firstName: string; accentCol
             Merci {firstName} !
           </h2>
 
-          <p className="text-gray-500 text-lg">
-            Ta demande a bien été envoyée
-          </p>
+          <p className="text-gray-500 text-lg">Ta demande a bien été envoyée</p>
         </div>
       </div>
     </div>
@@ -54,7 +65,10 @@ export function FormCard({ form }: FormCardProps) {
       const response = await fetch(`/api/submit/${form.slug}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName: firstName.trim(), email: email.trim() }),
+        body: JSON.stringify({
+          firstName: firstName.trim(),
+          email: email.trim(),
+        }),
       });
 
       const data = await response.json();
@@ -113,9 +127,7 @@ export function FormCard({ form }: FormCardProps) {
               </h1>
 
               {form.description && (
-                <p className="text-gray-500">
-                  {form.description}
-                </p>
+                <p className="text-gray-500">{form.description}</p>
               )}
             </div>
           </div>

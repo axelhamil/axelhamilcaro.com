@@ -15,6 +15,13 @@
       "when": 1768250135277,
       "tag": "0001_young_forgotten_one",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768289371706,
+      "tag": "0002_mushy_wildside",
+      "breakpoints": true
     }
   ]
 }

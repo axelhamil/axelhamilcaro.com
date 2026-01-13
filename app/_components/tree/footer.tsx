@@ -1,46 +1,83 @@
 "use client";
 
-import { Coffee, Heart } from "lucide-react";
+import {
+  Briefcase,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  Music2,
+} from "lucide-react";
 import { motion } from "framer-motion";
-import { Paragraphe } from "../ui/paragraphe";
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    href: "https://github.com/axelhamil",
+    icon: Github,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/axelhamilcaro/",
+    icon: Linkedin,
+  },
+  {
+    name: "Malt",
+    href: "https://www.malt.fr/profile/axelhamilcaro",
+    icon: Briefcase,
+  },
+  {
+    name: "Instagram",
+    href: "https://instagram.com/axelhmlcr",
+    icon: Instagram,
+  },
+  {
+    name: "TikTok",
+    href: "https://tiktok.com/@axelhmlcr",
+    icon: Music2,
+  },
+  {
+    name: "Email",
+    href: "mailto:contact@axelhamilcaro.com",
+    icon: Mail,
+  },
+];
 
 export default function TreeFooter() {
   return (
     <motion.footer
-      className="mt-2 sm:mt-4 text-center flex flex-col gap-3"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      className="w-full flex flex-col items-center gap-4 pt-2"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ delay: 0.8 }}
     >
-      <motion.div
-        whileHover={{ scale: 1.02 }}
-        className="px-4 py-2 rounded-xl bg-secondary-background/50 border border-border inline-flex items-center justify-center gap-2 mx-auto"
-      >
-        <motion.span
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        >
-          <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
-        </motion.span>
-        <Paragraphe variant="muted" size="sm" className="text-xs sm:text-sm">
-          Disponible pour des missions orientées produit, refonte, ou scale.
-        </Paragraphe>
-      </motion.div>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        {socialLinks.map((link, index) => (
+          <motion.a
+            key={link.name}
+            href={link.href}
+            target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+            rel={
+              link.href.startsWith("mailto:")
+                ? undefined
+                : "noopener noreferrer"
+            }
+            aria-label={link.name}
+            className="p-2.5 rounded-xl bg-primary-background border border-border text-secondary hover:text-accent hover:border-accent transition-all duration-300"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 + index * 0.05 }}
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <link.icon className="w-4 h-4" />
+          </motion.a>
+        ))}
+      </div>
 
-      <Paragraphe
-        variant="muted"
-        size="sm"
-        className="opacity-60 text-xs sm:text-sm flex items-center justify-center gap-1.5"
-      >
-        &copy; {new Date().getFullYear()} Axel Hamilcaro •{" "}
-        <motion.span
-          animate={{ rotate: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        >
-          <Coffee className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent" />
-        </motion.span>{" "}
-        TypeScript
-      </Paragraphe>
+      <p className="text-[10px] sm:text-xs text-muted text-center">
+        &copy; {new Date().getFullYear()} Axel Hamilcaro • Paris, France
+      </p>
     </motion.footer>
   );
 }

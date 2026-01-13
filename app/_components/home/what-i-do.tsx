@@ -40,7 +40,7 @@ const WhatIDo = () => {
   return (
     <section
       id="services"
-      className="container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20"
+      className="relative container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20 overflow-hidden"
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
@@ -51,7 +51,11 @@ const WhatIDo = () => {
           >
             <motion.span
               animate={{ rotate: [0, 15, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
             >
               <Sparkles className="w-4 h-4 text-accent" />
             </motion.span>
@@ -79,7 +83,10 @@ const WhatIDo = () => {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer staggerDelay={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
+      <RevealContainer
+        staggerDelay={0.1}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto"
+      >
         {services.map((service, index) => (
           <RevealItem key={service.title} direction="scale">
             <TiltCard className="h-full rounded-2xl">

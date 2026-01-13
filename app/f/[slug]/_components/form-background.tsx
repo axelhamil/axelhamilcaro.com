@@ -9,7 +9,10 @@ interface FormPageBackgroundProps {
   children: ReactNode;
 }
 
-export function FormPageBackground({ form, children }: FormPageBackgroundProps) {
+export function FormPageBackground({
+  form,
+  children,
+}: FormPageBackgroundProps) {
   const getBackgroundStyle = () => {
     switch (form.backgroundType) {
       case "image":
@@ -39,9 +42,7 @@ export function FormPageBackground({ form, children }: FormPageBackgroundProps) 
         axelhamilcaro.com
       </motion.div>
 
-      <div className="relative z-10 w-full">
-        {children}
-      </div>
+      <div className="relative z-10 w-full">{children}</div>
     </div>
   );
 }

@@ -11,7 +11,11 @@ interface KeyStats {
 }
 
 export function KeyStatsWidget() {
-  const [stats, setStats] = useState<KeyStats>({ keyPresses: 0, clicks: 0, timeSpent: 0 });
+  const [stats, setStats] = useState<KeyStats>({
+    keyPresses: 0,
+    clicks: 0,
+    timeSpent: 0,
+  });
   const [isVisible, setIsVisible] = useState(false);
   const [lastKey, setLastKey] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);

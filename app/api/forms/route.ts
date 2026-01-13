@@ -36,7 +36,7 @@ export async function GET() {
     console.error("Failed to fetch forms:", error);
     return NextResponse.json(
       { error: "Failed to fetch forms" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     if (!body.title?.trim()) {
       return NextResponse.json(
         { error: "Le titre est requis" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -56,8 +56,11 @@ export async function POST(request: Request) {
 
     if (!isValidSlug(slug)) {
       return NextResponse.json(
-        { error: "Le slug n'est pas valide (min 2 caractères, lettres/chiffres/tirets)" },
-        { status: 400 }
+        {
+          error:
+            "Le slug n'est pas valide (min 2 caractères, lettres/chiffres/tirets)",
+        },
+        { status: 400 },
       );
     }
 
@@ -70,7 +73,7 @@ export async function POST(request: Request) {
     if (existingForm.length > 0) {
       return NextResponse.json(
         { error: "Un formulaire avec ce slug existe déjà" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -97,7 +100,7 @@ export async function POST(request: Request) {
     console.error("Failed to create form:", error);
     return NextResponse.json(
       { error: "Erreur lors de la création du formulaire" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

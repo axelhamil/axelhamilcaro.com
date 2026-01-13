@@ -41,7 +41,6 @@
   --destructive: #ef4444;
   --input: #e5e5e5;
   --ring: #ff4d00;
-
 }
 
 @theme inline {
@@ -98,7 +97,8 @@ html {
 body {
   color: var(--primary);
   background-color: var(--primary-background);
-  font-family: var(--font-geist-sans), var(--font-geist-mono), system-ui, sans-serif;
+  font-family:
+    var(--font-geist-sans), var(--font-geist-mono), system-ui, sans-serif;
 }
 
 /* ============================================================================
@@ -178,7 +178,9 @@ body {
 
   .card-accent:hover {
     border-color: var(--accent);
-    box-shadow: var(--shadow-lg), 0 0 0 1px var(--accent);
+    box-shadow:
+      var(--shadow-lg),
+      0 0 0 1px var(--accent);
     transform: translateY(-2px);
   }
 
@@ -269,7 +271,8 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -278,7 +281,8 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(255, 77, 0, 0.2);
   }
   50% {
@@ -296,7 +300,8 @@ body {
 }
 
 @keyframes gradient-shift {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -305,7 +310,8 @@ body {
 }
 
 @keyframes bounce-soft {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -314,7 +320,8 @@ body {
 }
 
 @keyframes wiggle {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   25% {
@@ -326,7 +333,8 @@ body {
 }
 
 @keyframes scale-pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -379,7 +387,9 @@ body {
 }
 
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {

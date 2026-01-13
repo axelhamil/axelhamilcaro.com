@@ -8,12 +8,15 @@ import {
   Calendar,
   Github,
   Globe,
+  Instagram,
   Linkedin,
   Link as LinkIcon,
   Mail,
+  Music2,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect } from "react";
+import { MagneticWrapper } from "@/app/_components/shared/effects/magnetic-wrapper";
 
 const iconMap: Record<string, LucideIcon> = {
   link: LinkIcon,
@@ -23,6 +26,8 @@ const iconMap: Record<string, LucideIcon> = {
   briefcase: Briefcase,
   globe: Globe,
   mail: Mail,
+  instagram: Instagram,
+  tiktok: Music2,
 };
 
 const container = {
@@ -95,7 +100,7 @@ export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
 
   return (
     <motion.nav
-      className="w-full flex flex-col gap-2.5 sm:gap-3"
+      className="w-full flex flex-col gap-2 sm:gap-2.5"
       aria-label="Liens sociaux"
       variants={container}
       initial="hidden"
@@ -104,21 +109,23 @@ export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
       {links.map((link) => {
         const IconComponent = iconMap[link.icon] || LinkIcon;
         return (
-          <motion.div
-            key={link.id}
-            variants={item}
-            whileHover={{ scale: 1.02, x: 4 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => handleClick(link)}
-          >
-            <LinkCard
-              href={link.url}
-              icon={<IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />}
-              title={link.title}
-              description={link.description || undefined}
-              variant={link.featured ? "featured" : "default"}
-            />
-          </motion.div>
+          <MagneticWrapper key={link.id} strength={0.1}>
+            <motion.div
+              key={link.id}
+              variants={item}
+              whileHover={{ scale: 1.02, x: 4 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleClick(link)}
+            >
+              <LinkCard
+                href={link.url}
+                icon={<IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />}
+                title={link.title}
+                description={link.description || undefined}
+                variant={link.featured ? "featured" : "default"}
+              />
+            </motion.div>
+          </MagneticWrapper>
         );
       })}
     </motion.nav>

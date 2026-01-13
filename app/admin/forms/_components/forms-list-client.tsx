@@ -100,7 +100,7 @@ export function FormsListClient({ forms }: FormsListClientProps) {
   const filteredForms = forms.filter(
     (form) =>
       form.title.toLowerCase().includes(search.toLowerCase()) ||
-      form.slug.toLowerCase().includes(search.toLowerCase())
+      form.slug.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (

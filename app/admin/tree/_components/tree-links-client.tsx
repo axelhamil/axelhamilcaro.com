@@ -9,10 +9,12 @@ import {
   Github,
   Globe,
   GripVertical,
+  Instagram,
   Linkedin,
   Link as LinkIcon,
   Loader2,
   Mail,
+  Music2,
   Pencil,
   Plus,
   Save,
@@ -32,6 +34,8 @@ const iconOptions = [
   { value: "briefcase", label: "Travail", icon: Briefcase },
   { value: "globe", label: "Web", icon: Globe },
   { value: "mail", label: "Email", icon: Mail },
+  { value: "instagram", label: "Instagram", icon: Instagram },
+  { value: "tiktok", label: "TikTok", icon: Music2 },
 ];
 
 function getIconComponent(iconName: string) {
@@ -93,7 +97,9 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
     setIsSaving(true);
     try {
       const isNew = !editingLink.id;
-      const url = isNew ? "/api/tree-links" : `/api/tree-links/${editingLink.id}`;
+      const url = isNew
+        ? "/api/tree-links"
+        : `/api/tree-links/${editingLink.id}`;
       const method = isNew ? "POST" : "PUT";
 
       const response = await fetch(url, {
@@ -107,7 +113,9 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
         setEditingLink(null);
         setIsCreating(false);
         router.refresh();
-        const updatedLinks = await fetch("/api/tree-links").then((r) => r.json());
+        const updatedLinks = await fetch("/api/tree-links").then((r) =>
+          r.json(),
+        );
         setLinks(updatedLinks);
       } else {
         toast.error("Erreur lors de la sauvegarde");
@@ -122,7 +130,9 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
   const handleDelete = async (id: string) => {
     setDeletingId(id);
     try {
-      const response = await fetch(`/api/tree-links/${id}`, { method: "DELETE" });
+      const response = await fetch(`/api/tree-links/${id}`, {
+        method: "DELETE",
+      });
       if (response.ok) {
         toast.success("Lien supprimé");
         setLinks(links.filter((l) => l.id !== id));
@@ -167,7 +177,9 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-2xl font-bold text-[var(--admin-text)]">Liens Tree</h1>
+          <h1 className="text-2xl font-bold text-[var(--admin-text)]">
+            Liens Tree
+          </h1>
           <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
             Gère les liens de ta page /tree
           </p>
@@ -192,48 +204,78 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
             <h3 className="font-medium text-[var(--admin-text)]">
               {isCreating ? "Nouveau lien" : "Modifier le lien"}
             </h3>
-            <button type="button" onClick={cancelEdit} className="text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]">
+            <button
+              type="button"
+              onClick={cancelEdit}
+              className="text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+            >
               <X className="h-5 w-5" />
             </button>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">Titre</label>
+              <label className="text-sm font-medium text-[var(--admin-text)]">
+                Titre
+              </label>
               <input
                 value={editingLink?.title || ""}
-                onChange={(e) => setEditingLink((prev) => prev && { ...prev, title: e.target.value })}
+                onChange={(e) =>
+                  setEditingLink(
+                    (prev) => prev && { ...prev, title: e.target.value },
+                  )
+                }
                 className="w-full rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] px-3 py-2 text-[var(--admin-text)]"
                 placeholder="Prendre rendez-vous"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">URL</label>
+              <label className="text-sm font-medium text-[var(--admin-text)]">
+                URL
+              </label>
               <input
                 value={editingLink?.url || ""}
-                onChange={(e) => setEditingLink((prev) => prev && { ...prev, url: e.target.value })}
+                onChange={(e) =>
+                  setEditingLink(
+                    (prev) => prev && { ...prev, url: e.target.value },
+                  )
+                }
                 className="w-full rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] px-3 py-2 text-[var(--admin-text)]"
                 placeholder="https://..."
               />
             </div>
             <div className="space-y-2 sm:col-span-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">Description</label>
+              <label className="text-sm font-medium text-[var(--admin-text)]">
+                Description
+              </label>
               <input
                 value={editingLink?.description || ""}
-                onChange={(e) => setEditingLink((prev) => prev && { ...prev, description: e.target.value })}
+                onChange={(e) =>
+                  setEditingLink(
+                    (prev) => prev && { ...prev, description: e.target.value },
+                  )
+                }
                 className="w-full rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] px-3 py-2 text-[var(--admin-text)]"
                 placeholder="30 min pour discuter..."
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">Icône</label>
+              <label className="text-sm font-medium text-[var(--admin-text)]">
+                Icône
+              </label>
               <select
                 value={editingLink?.icon || "link"}
-                onChange={(e) => setEditingLink((prev) => prev && { ...prev, icon: e.target.value })}
+                onChange={(e) =>
+                  setEditingLink(
+                    (prev) => prev && { ...prev, icon: e.target.value },
+                  )
+                }
                 className="w-full rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] px-3 py-2 text-[var(--admin-text)]"
               >
                 {iconOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
                 ))}
               </select>
             </div>
@@ -242,16 +284,26 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
                 <input
                   type="checkbox"
                   checked={editingLink?.featured || false}
-                  onChange={(e) => setEditingLink((prev) => prev && { ...prev, featured: e.target.checked })}
+                  onChange={(e) =>
+                    setEditingLink(
+                      (prev) => prev && { ...prev, featured: e.target.checked },
+                    )
+                  }
                   className="rounded border-[var(--admin-border)]"
                 />
-                <span className="text-sm text-[var(--admin-text)]">Mis en avant</span>
+                <span className="text-sm text-[var(--admin-text)]">
+                  Mis en avant
+                </span>
               </label>
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   checked={editingLink?.isActive ?? true}
-                  onChange={(e) => setEditingLink((prev) => prev && { ...prev, isActive: e.target.checked })}
+                  onChange={(e) =>
+                    setEditingLink(
+                      (prev) => prev && { ...prev, isActive: e.target.checked },
+                    )
+                  }
                   className="rounded border-[var(--admin-border)]"
                 />
                 <span className="text-sm text-[var(--admin-text)]">Actif</span>
@@ -266,14 +318,23 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
               disabled={isSaving}
               className="flex items-center gap-2 rounded-lg bg-[var(--admin-accent)] px-4 py-2 text-sm font-medium text-white"
             >
-              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              {isSaving ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Save className="h-4 w-4" />
+              )}
               {isSaving ? "Sauvegarde..." : "Sauvegarder"}
             </button>
           </div>
         </motion.div>
       )}
 
-      <Reorder.Group axis="y" values={links} onReorder={handleReorder} className="space-y-2">
+      <Reorder.Group
+        axis="y"
+        values={links}
+        onReorder={handleReorder}
+        className="space-y-2"
+      >
         {links.map((link) => {
           const IconComponent = getIconComponent(link.icon);
           return (
@@ -288,15 +349,21 @@ export function TreeLinksClient({ initialLinks }: TreeLinksClientProps) {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-[var(--admin-text)] truncate">{link.title}</span>
-                  {link.featured && <Star className="h-4 w-4 text-amber-500 fill-amber-500 shrink-0" />}
+                  <span className="font-medium text-[var(--admin-text)] truncate">
+                    {link.title}
+                  </span>
+                  {link.featured && (
+                    <Star className="h-4 w-4 text-amber-500 fill-amber-500 shrink-0" />
+                  )}
                   {!link.isActive && (
                     <span className="text-xs text-[var(--admin-text-subtle)] bg-[var(--admin-bg-elevated)] px-2 py-0.5 rounded">
                       Inactif
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-[var(--admin-text-muted)] truncate">{link.url}</p>
+                <p className="text-sm text-[var(--admin-text-muted)] truncate">
+                  {link.url}
+                </p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <a

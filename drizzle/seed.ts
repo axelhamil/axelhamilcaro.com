@@ -1,6 +1,5 @@
 import { db } from "@/app/_lib/db";
 import { treeLinks } from "@/app/_lib/db/schema";
-import { NextResponse } from "next/server";
 
 const defaultLinks = [
   {
@@ -69,28 +68,23 @@ const defaultLinks = [
   },
 ];
 
-export async function POST() {
-  try {
-    const existingLinks = await db.select().from(treeLinks);
+async function main() {
+  console.log("🌱 Seeding database...");
 
-    if (existingLinks.length > 0) {
-      return NextResponse.json(
-        { message: "Les liens existent déjà", count: existingLinks.length },
-        { status: 200 },
-      );
-    }
+  const existingLinks = await db.select().from(treeLinks);
 
-    await db.insert(treeLinks).values(defaultLinks);
-
-    return NextResponse.json(
-      { message: "Liens initialisés avec succès", count: defaultLinks.length },
-      { status: 201 },
-    );
-  } catch (error) {
-    console.error("Erreur seed tree links:", error);
-    return NextResponse.json(
-      { error: "Erreur lors de l'initialisation" },
-      { status: 500 },
-    );
+  if (existingLinks.length > 0) {
+    console.log(`ℹ️  ${existingLinks.length} liens existent déjà, skip seed`);
+    process.exit(0);
   }
+
+  await db.insert(treeLinks).values(defaultLinks);
+  console.log(`✅ ${defaultLinks.length} liens insérés`);
+
+  process.exit(0);
 }
+
+main().catch((error) => {
+  console.error("❌ Erreur seed:", error);
+  process.exit(1);
+});

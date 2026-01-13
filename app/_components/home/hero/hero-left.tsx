@@ -146,7 +146,12 @@ const HeroLeft = () => {
             >
               <motion.span
                 animate={{ rotate: [0, 12, 0] }}
-                transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, repeatDelay: 3, ease: "easeInOut" }}
+                transition={{
+                  duration: 0.6,
+                  repeat: Number.POSITIVE_INFINITY,
+                  repeatDelay: 3,
+                  ease: "easeInOut",
+                }}
               >
                 <Calendar className="w-5 h-5" />
               </motion.span>
@@ -181,8 +186,8 @@ const HeroLeft = () => {
               key={l}
               className="flex flex-col items-center px-4 py-3 rounded-xl card-accent"
               whileHover={{
-                scale: 1.08,
-                rotateY: 5,
+                scale: 1.05,
+                y: -4,
                 boxShadow: "0 10px 30px rgba(255, 77, 0, 0.15)",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}

@@ -12,14 +12,15 @@ export function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 400 };
+  const springConfig = { damping: 35, stiffness: 700 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
     setIsMounted(true);
 
-    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
 
     const style = document.createElement("style");
@@ -45,7 +46,7 @@ export function CustomCursor() {
             hoveredElement.tagName === "A" ||
             hoveredElement.tagName === "BUTTON" ||
             hoveredElement.closest("a") !== null ||
-            hoveredElement.closest("button") !== null
+            hoveredElement.closest("button") !== null,
         );
       }
     };
@@ -68,14 +69,22 @@ export function CustomCursor() {
       window.removeEventListener("mousemove", updateCursorType);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
-      document.documentElement.removeEventListener("mouseleave", handleMouseLeave);
-      document.documentElement.removeEventListener("mouseenter", handleMouseEnter);
+      document.documentElement.removeEventListener(
+        "mouseleave",
+        handleMouseLeave,
+      );
+      document.documentElement.removeEventListener(
+        "mouseenter",
+        handleMouseEnter,
+      );
     };
   }, [cursorX, cursorY]);
 
   if (!isMounted) return null;
 
-  const isTouchDevice = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  const isTouchDevice =
+    typeof window !== "undefined" &&
+    ("ontouchstart" in window || navigator.maxTouchPoints > 0);
   if (isTouchDevice) return null;
 
   return (
@@ -89,16 +98,16 @@ export function CustomCursor() {
       <motion.div
         className="relative flex items-center justify-center"
         animate={{
-          scale: isClicking ? 0.8 : isPointer ? 1.5 : 1,
+          scale: isClicking ? 0.85 : isPointer ? 1.3 : 1,
         }}
-        transition={{ type: "spring", damping: 20, stiffness: 400 }}
+        transition={{ type: "spring", damping: 25, stiffness: 500 }}
         style={{
-          marginLeft: -12,
-          marginTop: -12,
+          marginLeft: -8,
+          marginTop: -8,
         }}
       >
         <motion.div
-          className="w-6 h-6 rounded-full bg-white"
+          className="w-4 h-4 rounded-full bg-white"
           animate={{
             opacity: isVisible ? 1 : 0,
           }}
@@ -106,10 +115,10 @@ export function CustomCursor() {
 
         {isPointer && (
           <motion.div
-            className="absolute w-10 h-10 rounded-full border-2 border-white"
+            className="absolute w-7 h-7 rounded-full border-2 border-white"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", damping: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 500 }}
           />
         )}
       </motion.div>

@@ -124,7 +124,9 @@ export function AnalyticsDashboard() {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-2xl font-bold text-[var(--admin-text)]">Analytics</h1>
+          <h1 className="text-2xl font-bold text-[var(--admin-text)]">
+            Analytics
+          </h1>
           <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
             Vue ensemble des performances de ton site
           </p>
@@ -141,10 +143,30 @@ export function AnalyticsDashboard() {
       </motion.div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Vues de pages" value={data.overview.totalViews} icon={Eye} color="blue" />
-        <StatCard title="Clics sur liens" value={data.overview.totalClicks} icon={MousePointerClick} color="green" />
-        <StatCard title="Leads capturés" value={data.overview.totalLeads} icon={Users} color="purple" />
-        <StatCard title="Formulaires actifs" value={data.overview.activeForms} icon={TrendingUp} color="amber" />
+        <StatCard
+          title="Vues de pages"
+          value={data.overview.totalViews}
+          icon={Eye}
+          color="blue"
+        />
+        <StatCard
+          title="Clics sur liens"
+          value={data.overview.totalClicks}
+          icon={MousePointerClick}
+          color="green"
+        />
+        <StatCard
+          title="Leads capturés"
+          value={data.overview.totalLeads}
+          icon={Users}
+          color="purple"
+        />
+        <StatCard
+          title="Formulaires actifs"
+          value={data.overview.activeForms}
+          icon={TrendingUp}
+          color="amber"
+        />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -154,17 +176,28 @@ export function AnalyticsDashboard() {
           className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-5"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-[var(--admin-text)]">Vues par page</h3>
+            <h3 className="font-semibold text-[var(--admin-text)]">
+              Vues par page
+            </h3>
             <BarChart3 className="h-5 w-5 text-[var(--admin-text-muted)]" />
           </div>
           {data.viewsByPage.length === 0 ? (
-            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">Aucune donnée</p>
+            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">
+              Aucune donnée
+            </p>
           ) : (
             <div className="space-y-3">
               {data.viewsByPage.slice(0, 5).map((page) => (
-                <div key={page.path} className="flex items-center justify-between">
-                  <span className="text-sm text-[var(--admin-text)] truncate max-w-[200px]">{page.path}</span>
-                  <span className="text-sm font-medium text-[var(--admin-accent)]">{page.count}</span>
+                <div
+                  key={page.path}
+                  className="flex items-center justify-between"
+                >
+                  <span className="text-sm text-[var(--admin-text)] truncate max-w-[200px]">
+                    {page.path}
+                  </span>
+                  <span className="text-sm font-medium text-[var(--admin-accent)]">
+                    {page.count}
+                  </span>
                 </div>
               ))}
             </div>
@@ -177,11 +210,15 @@ export function AnalyticsDashboard() {
           className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-5"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-[var(--admin-text)]">Appareils</h3>
+            <h3 className="font-semibold text-[var(--admin-text)]">
+              Appareils
+            </h3>
             <Laptop className="h-5 w-5 text-[var(--admin-text-muted)]" />
           </div>
           {totalDevices === 0 ? (
-            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">Aucune donnée</p>
+            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">
+              Aucune donnée
+            </p>
           ) : (
             <div className="space-y-3">
               {data.viewsByDevice.map((d) => {
@@ -192,12 +229,19 @@ export function AnalyticsDashboard() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Icon className="h-4 w-4 text-[var(--admin-text-muted)]" />
-                        <span className="text-sm text-[var(--admin-text)] capitalize">{d.device}</span>
+                        <span className="text-sm text-[var(--admin-text)] capitalize">
+                          {d.device}
+                        </span>
                       </div>
-                      <span className="text-sm text-[var(--admin-text-muted)]">{percent}%</span>
+                      <span className="text-sm text-[var(--admin-text-muted)]">
+                        {percent}%
+                      </span>
                     </div>
                     <div className="h-2 rounded-full bg-[var(--admin-bg-elevated)]">
-                      <div className="h-full rounded-full bg-[var(--admin-accent)]" style={{ width: percent + "%" }} />
+                      <div
+                        className="h-full rounded-full bg-[var(--admin-accent)]"
+                        style={{ width: percent + "%" }}
+                      />
                     </div>
                   </div>
                 );
@@ -212,11 +256,15 @@ export function AnalyticsDashboard() {
           className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-5"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-[var(--admin-text)]">Top liens cliqués</h3>
+            <h3 className="font-semibold text-[var(--admin-text)]">
+              Top liens cliqués
+            </h3>
             <Link2 className="h-5 w-5 text-[var(--admin-text-muted)]" />
           </div>
           {data.topLinks.length === 0 ? (
-            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">Aucune donnée</p>
+            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">
+              Aucune donnée
+            </p>
           ) : (
             <div className="space-y-3">
               {data.topLinks.slice(0, 5).map((link, i) => (
@@ -224,8 +272,12 @@ export function AnalyticsDashboard() {
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)] text-xs font-medium text-[var(--admin-text-muted)]">
                     {i + 1}
                   </span>
-                  <span className="flex-1 text-sm text-[var(--admin-text)] truncate">{link.title}</span>
-                  <span className="text-sm font-medium text-green-500">{link.clicks} clics</span>
+                  <span className="flex-1 text-sm text-[var(--admin-text)] truncate">
+                    {link.title}
+                  </span>
+                  <span className="text-sm font-medium text-green-500">
+                    {link.clicks} clics
+                  </span>
                 </div>
               ))}
             </div>
@@ -238,20 +290,33 @@ export function AnalyticsDashboard() {
           className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-5"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-[var(--admin-text)]">Derniers leads</h3>
+            <h3 className="font-semibold text-[var(--admin-text)]">
+              Derniers leads
+            </h3>
             <Clock className="h-5 w-5 text-[var(--admin-text-muted)]" />
           </div>
           {data.recentLeads.length === 0 ? (
-            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">Aucun lead</p>
+            <p className="text-sm text-[var(--admin-text-muted)] py-8 text-center">
+              Aucun lead
+            </p>
           ) : (
             <div className="space-y-3">
               {data.recentLeads.map((lead) => (
-                <div key={lead.id} className="flex items-center justify-between">
+                <div
+                  key={lead.id}
+                  className="flex items-center justify-between"
+                >
                   <div>
-                    <p className="text-sm font-medium text-[var(--admin-text)]">{lead.firstName}</p>
-                    <p className="text-xs text-[var(--admin-text-muted)]">{lead.email}</p>
+                    <p className="text-sm font-medium text-[var(--admin-text)]">
+                      {lead.firstName}
+                    </p>
+                    <p className="text-xs text-[var(--admin-text-muted)]">
+                      {lead.email}
+                    </p>
                   </div>
-                  <span className="text-xs text-[var(--admin-text-subtle)]">{lead.formTitle}</span>
+                  <span className="text-xs text-[var(--admin-text-subtle)]">
+                    {lead.formTitle}
+                  </span>
                 </div>
               ))}
             </div>

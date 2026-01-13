@@ -14,7 +14,7 @@ import {
 
 function parseGradient(gradient: string): GradientConfig {
   const match = gradient.match(
-    /linear-gradient\(([^,]+),\s*([^\s]+)\s+\d+%,\s*([^\s]+)\s+\d+%\)/
+    /linear-gradient\(([^,]+),\s*([^\s]+)\s+\d+%,\s*([^\s]+)\s+\d+%\)/,
   );
   if (match) {
     return {
@@ -72,7 +72,7 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
 
   const [gradientMode, setGradientMode] = useState<GradientMode>("visual");
   const [gradientConfig, setGradientConfig] = useState<GradientConfig>(() =>
-    parseGradient(formData.backgroundGradient)
+    parseGradient(formData.backgroundGradient),
   );
 
   const [isSaving, setIsSaving] = useState(false);
@@ -95,13 +95,14 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
     });
   };
 
-  const slugError = formData.slug && !isValidSlug(formData.slug)
-    ? "Le slug doit contenir au moins 2 caractères (lettres, chiffres, tirets)"
-    : null;
+  const slugError =
+    formData.slug && !isValidSlug(formData.slug)
+      ? "Le slug doit contenir au moins 2 caractères (lettres, chiffres, tirets)"
+      : null;
 
   const handleGradientConfigChange = (
     field: keyof GradientConfig,
-    value: string
+    value: string,
   ) => {
     const newConfig = { ...gradientConfig, [field]: value };
     setGradientConfig(newConfig);

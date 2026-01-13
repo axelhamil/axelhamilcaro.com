@@ -48,11 +48,20 @@ export function Typewriter({
           }
         }
       },
-      isDeleting ? deleteSpeed : speed
+      isDeleting ? deleteSpeed : speed,
     );
 
     return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, textIndex, texts, isInView, speed, deleteSpeed, pauseDuration]);
+  }, [
+    displayText,
+    isDeleting,
+    textIndex,
+    texts,
+    isInView,
+    speed,
+    deleteSpeed,
+    pauseDuration,
+  ]);
 
   return (
     <span ref={ref} className={className}>
@@ -82,9 +91,12 @@ export function TerminalBlock({ lines, className = "" }: TerminalBlockProps) {
     if (!isInView) return;
 
     lines.forEach((line, index) => {
-      setTimeout(() => {
-        setVisibleLines((prev) => [...prev, index]);
-      }, (line.delay ?? index * 400) + 200);
+      setTimeout(
+        () => {
+          setVisibleLines((prev) => [...prev, index]);
+        },
+        (line.delay ?? index * 400) + 200,
+      );
     });
   }, [isInView, lines]);
 
@@ -102,7 +114,7 @@ export function TerminalBlock({ lines, className = "" }: TerminalBlockProps) {
       <div className="p-4 space-y-1">
         {lines.map((line, index) => (
           <motion.div
-            key={index}
+            key={`line-${index.toString()}`}
             initial={{ opacity: 0, x: -10 }}
             animate={
               visibleLines.includes(index)

@@ -42,10 +42,7 @@ interface DashboardClientProps {
   recentLeads: Lead[];
 }
 
-const colorClasses: Record<
-  string,
-  { bg: string; text: string }
-> = {
+const colorClasses: Record<string, { bg: string; text: string }> = {
   accent: {
     bg: "bg-[var(--admin-accent-muted)]",
     text: "text-[var(--admin-accent)]",

@@ -88,7 +88,9 @@ export function PulsingDot({
   const { dot } = sizeMap[size];
 
   return (
-    <span className={`relative inline-flex items-center justify-center ${className}`}>
+    <span
+      className={`relative inline-flex items-center justify-center ${className}`}
+    >
       <motion.span
         className="absolute rounded-full"
         style={{

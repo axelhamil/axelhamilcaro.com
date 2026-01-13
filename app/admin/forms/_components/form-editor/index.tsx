@@ -150,7 +150,11 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
               value="content"
               className="mt-4 rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-4"
             >
-              <ContentTab formData={formData} onChange={handleChange} slugError={slugError} />
+              <ContentTab
+                formData={formData}
+                onChange={handleChange}
+                slugError={slugError}
+              />
             </TabsContent>
 
             <TabsContent

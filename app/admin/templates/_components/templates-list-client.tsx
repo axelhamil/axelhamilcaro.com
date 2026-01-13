@@ -126,7 +126,7 @@ export function TemplatesListClient({ templates }: TemplatesListClientProps) {
   const [search, setSearch] = useState("");
 
   const filteredTemplates = templates.filter((template) =>
-    template.name.toLowerCase().includes(search.toLowerCase())
+    template.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (

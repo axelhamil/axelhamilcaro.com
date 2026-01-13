@@ -79,7 +79,11 @@ interface LogoMarqueeProps {
   className?: string;
 }
 
-export function LogoMarquee({ logos, speed = 25, className = "" }: LogoMarqueeProps) {
+export function LogoMarquee({
+  logos,
+  speed = 25,
+  className = "",
+}: LogoMarqueeProps) {
   return (
     <Marquee speed={speed} className={className}>
       <div className="flex items-center gap-12">

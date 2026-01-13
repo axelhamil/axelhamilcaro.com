@@ -1,14 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Download,
-  Filter,
-  Mail,
-  Search,
-  User,
-  X,
-} from "lucide-react";
+import { Download, Filter, Mail, Search, User, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -88,7 +81,7 @@ function ExportButton({ leads }: { leads: Lead[] }) {
     const csvContent = [
       headers.join(","),
       ...rows.map((row) =>
-        row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(",")
+        row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(","),
       ),
     ].join("\n");
 
@@ -127,7 +120,7 @@ export function LeadsListClient({
   const filteredLeads = leads.filter(
     (lead) =>
       (lead.firstName?.toLowerCase() || "").includes(search.toLowerCase()) ||
-      lead.email.toLowerCase().includes(search.toLowerCase())
+      lead.email.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleFilterChange = (formId: string) => {

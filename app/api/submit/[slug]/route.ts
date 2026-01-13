@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(
   request: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
     const { slug } = await params;
@@ -14,7 +14,7 @@ export async function POST(
     if (!body.firstName || !body.email) {
       return NextResponse.json(
         { error: "firstName and email are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -22,7 +22,7 @@ export async function POST(
     if (!emailRegex.test(body.email)) {
       return NextResponse.json(
         { error: "Invalid email format" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -39,7 +39,7 @@ export async function POST(
     if (!form.isActive) {
       return NextResponse.json(
         { error: "This form is no longer active" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -54,7 +54,7 @@ export async function POST(
     console.error("Failed to submit form:", error);
     return NextResponse.json(
       { error: "Failed to submit form" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -21,8 +21,8 @@ export default async function TreePage() {
   const links = await getLinks();
 
   return (
-    <main className="min-h-[calc(100vh-80px)] sm:min-h-[calc(100vh-100px)] flex flex-col items-center py-6 sm:py-10 md:py-16">
-      <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-6 sm:gap-8">
+    <main className="relative h-full flex flex-col items-center justify-start px-4 pt-20 sm:pt-0 overflow-hidden">
+      <div className="relative z-10 w-full max-w-sm sm:max-w-md flex flex-col items-center gap-4 sm:gap-6">
         <TreeHeader />
         <TreeLinksWrapper links={links} />
         <TreeFooter />
