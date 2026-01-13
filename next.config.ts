@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
   },
   redirects: async () => [
     {
+      source: "/:path*",
+      has: [{ type: "host", value: "axelhamilcaro.com" }],
+      destination: "https://www.axelhamilcaro.com/:path*",
+      permanent: true,
+    },
+    {
       source: "/linkedin",
       destination: "https://www.linkedin.com/in/axelhamilcaro/",
       permanent: true,
