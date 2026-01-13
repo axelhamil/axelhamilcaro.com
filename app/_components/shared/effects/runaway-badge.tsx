@@ -93,7 +93,7 @@ export function RunawayBadge({
 
         {!isCaught && escapeCount > 0 && (
           <motion.span
-            className="absolute -top-1 -right-1 w-4 h-4 bg-accent text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+            className="absolute -top-2 -right-2 w-5 h-5 bg-accent text-white text-[10px] font-bold rounded-full flex items-center justify-center z-30 shadow-md"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             key={escapeCount}

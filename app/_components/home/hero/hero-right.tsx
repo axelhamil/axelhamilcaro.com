@@ -29,7 +29,7 @@ const HeroRight = () => {
         </motion.div>
 
         <motion.div
-          className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 p-2 sm:p-2.5 rounded-xl bg-accent shadow-lg"
+          className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 p-2 sm:p-2.5 rounded-xl bg-accent shadow-lg z-20"
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6, type: "spring", stiffness: 200, damping: 15 }}

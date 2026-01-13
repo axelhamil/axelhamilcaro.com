@@ -13,7 +13,7 @@ const Hero = () => {
       className="
         relative container mx-auto
         min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-100px)]
-        py-6 md:py-10
+        pt-20 md:pt-24 pb-6 md:pb-10
 
         flex flex-col-reverse
         gap-10

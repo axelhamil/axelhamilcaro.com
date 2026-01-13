@@ -140,7 +140,7 @@ const ExperienceTimeline = () => {
                         }}
                       >
                         <motion.div
-                          className={`absolute top-3 px-2 py-0.5 rounded-full bg-accent/10 text-accent text-xs font-semibold ${isLeft ? "left-3" : "right-3"}`}
+                          className={`absolute top-3 px-2 py-0.5 rounded-full bg-accent/10 text-accent text-xs font-semibold z-20 ${isLeft ? "right-3" : "right-3"}`}
                           initial={{ opacity: 0, x: isLeft ? -10 : 10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
