@@ -13,6 +13,10 @@ interface GitHubUser {
   name: string | null;
   email: string | null;
   avatar_url: string;
+  company: string | null;
+  location: string | null;
+  blog: string | null;
+  twitter_username: string | null;
 }
 
 const TROLL_MESSAGES = [
@@ -88,10 +92,14 @@ async function logUnauthorizedAttempt(githubId: string) {
     githubEmail: githubUser?.email ?? null,
     githubAvatar: githubUser?.avatar_url ?? null,
     githubName: githubUser?.name ?? null,
+    githubCompany: githubUser?.company ?? null,
+    githubLocation: githubUser?.location ?? null,
+    githubBlog: githubUser?.blog ?? null,
+    githubTwitter: githubUser?.twitter_username ?? null,
   });
 
   console.warn(
-    `[SECURITY] 🚨 Unauthorized login attempt: GitHub ID=${githubId}, Username=${githubUser?.login ?? "unknown"}, Message="${getRandomTrollMessage()}"`
+    `[SECURITY] 🚨 Unauthorized login attempt: GitHub ID=${githubId}, Username=${githubUser?.login ?? "unknown"}, Location=${githubUser?.location ?? "unknown"}, Message="${getRandomTrollMessage()}"`
   );
 }
 
