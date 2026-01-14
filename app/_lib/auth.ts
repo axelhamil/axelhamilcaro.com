@@ -1,9 +1,12 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { APIError } from "better-auth/api";
 import { count, eq, gte, and } from "drizzle-orm";
 import { db } from "./db";
 import * as schema from "./db/schema";
 import { loginAttempts } from "./db/schema";
+
+const ALLOWED_GITHUB_ID = process.env.ADMIN_GITHUB_ID;
 
 interface GitHubUser {
   login: string;
@@ -111,6 +114,26 @@ export const auth = betterAuth({
     github: {
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      mapProfileToUser: async (profile) => {
+        if (!ALLOWED_GITHUB_ID) {
+          throw new APIError("FORBIDDEN", {
+            message: "ADMIN_GITHUB_ID is not configured",
+          });
+        }
+
+        if (String(profile.id) !== ALLOWED_GITHUB_ID) {
+          await logUnauthorizedAttempt(String(profile.id));
+          throw new APIError("FORBIDDEN", {
+            message: "NICE_TRY",
+          });
+        }
+
+        return {
+          name: profile.name || profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+        };
+      },
     },
   },
 
@@ -129,19 +152,9 @@ export const auth = betterAuth({
     account: {
       create: {
         before: async (account) => {
-          const allowedGitHubId = process.env.ADMIN_GITHUB_ID;
-
-          if (!allowedGitHubId) {
-            throw new Error("ADMIN_GITHUB_ID is not configured");
+          if (account.providerId === "github" && account.accountId !== ALLOWED_GITHUB_ID) {
+            throw new APIError("FORBIDDEN", { message: "NICE_TRY" });
           }
-
-          if (account.providerId === "github") {
-            if (account.accountId !== allowedGitHubId) {
-              await logUnauthorizedAttempt(account.accountId);
-              throw new Error("NICE_TRY");
-            }
-          }
-
           return { data: account };
         },
       },
