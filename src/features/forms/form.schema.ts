@@ -7,8 +7,8 @@ export const createFormSchema = z.object({
   backgroundType: z.enum(["color", "gradient", "image"]).default("color"),
   backgroundColor: z.string().nullish(),
   backgroundGradient: z.string().nullish(),
-  backgroundImage: z.url().nullish(),
-  cardImage: z.url().nullish(),
+  backgroundImage: z.string().nullish(),
+  cardImage: z.string().nullish(),
   badgeText: z.string().nullish(),
   badgeColor: z
     .string()
