@@ -1,5 +1,5 @@
-import { db } from "@/app/_lib/db";
-import { treeLinks } from "@/app/_lib/db/schema";
+import { db } from "@/drizzle";
+import { treeLinks } from "@/drizzle/schema";
 
 const defaultLinks = [
   {
@@ -84,7 +84,6 @@ async function main() {
   process.exit(0);
 }
 
-main().catch((error) => {
-  console.error("❌ Erreur seed:", error);
+main().catch((_error) => {
   process.exit(1);
 });

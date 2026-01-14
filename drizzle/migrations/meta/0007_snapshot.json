@@ -1,6 +1,6 @@
 {
-  "id": "4fbe64e8-fb8b-460d-b3e3-6355479e3eee",
-  "prevId": "e1edc55f-2018-4aa7-930b-dd950b924411",
+  "id": "c289e90b-ea94-4aff-bded-025965024195",
+  "prevId": "4ade3faa-02dd-4cc3-8da3-18b0d2d3ce94",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -89,12 +89,8 @@
           "name": "accounts_user_id_users_id_fk",
           "tableFrom": "accounts",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -218,6 +214,12 @@
           "notNull": true,
           "default": "'Envoyer'"
         },
+        "button_subtext": {
+          "name": "button_subtext",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "badge_color": {
           "name": "badge_color",
           "type": "text",
@@ -225,12 +227,43 @@
           "notNull": false,
           "default": "'#ff4d00'"
         },
+        "badge_style": {
+          "name": "badge_style",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'filled'"
+        },
         "is_active": {
           "name": "is_active",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": true
+        },
+        "email_subject": {
+          "name": "email_subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email_body": {
+          "name": "email_body",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email_cta_text": {
+          "name": "email_cta_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email_cta_url": {
+          "name": "email_cta_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -254,9 +287,7 @@
         "forms_slug_unique": {
           "name": "forms_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -332,12 +363,8 @@
           "name": "leads_form_id_forms_id_fk",
           "tableFrom": "leads",
           "tableTo": "forms",
-          "columnsFrom": [
-            "form_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["form_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -415,12 +442,8 @@
           "name": "link_clicks_link_id_tree_links_id_fk",
           "tableFrom": "link_clicks",
           "tableTo": "tree_links",
-          "columnsFrom": [
-            "link_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["link_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -697,12 +720,8 @@
           "name": "sessions_user_id_users_id_fk",
           "tableFrom": "sessions",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -712,9 +731,7 @@
         "sessions_token_unique": {
           "name": "sessions_token_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
+          "columns": ["token"]
         }
       },
       "policies": {},
@@ -858,9 +875,7 @@
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},
