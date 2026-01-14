@@ -4,6 +4,20 @@ export type BackgroundType = "color" | "gradient" | "image";
 export type GradientMode = "visual" | "css";
 export type BadgeStyle = "filled" | "outline";
 
+const backgroundTypes: BackgroundType[] = ["color", "gradient", "image"];
+const badgeStyles: BadgeStyle[] = ["filled", "outline"];
+
+export function isBackgroundType(value: unknown): value is BackgroundType {
+  return (
+    typeof value === "string" &&
+    backgroundTypes.includes(value as BackgroundType)
+  );
+}
+
+export function isBadgeStyle(value: unknown): value is BadgeStyle {
+  return typeof value === "string" && badgeStyles.includes(value as BadgeStyle);
+}
+
 export interface FormData {
   slug: string;
   backgroundType: BackgroundType;

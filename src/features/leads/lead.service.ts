@@ -4,12 +4,7 @@ import { formRepository } from "@/src/features/forms/form.repository";
 import { formatDate } from "@/src/lib/utils/date.utils";
 import { normalizeEmail } from "@/src/lib/utils/email.utils";
 import { leadRepository } from "./lead.repository";
-import {
-  type SubmitLeadInput,
-  submitLeadSchema,
-  type UpdateLeadInput,
-  updateLeadSchema,
-} from "./lead.schema";
+import { submitLeadSchema, updateLeadSchema } from "./lead.schema";
 
 export const leadService = {
   async list(formId?: string) {
@@ -29,7 +24,7 @@ export const leadService = {
   },
 
   async submit(slug: string, input: unknown, source?: string | null) {
-    const data = submitLeadSchema.parse(input) as SubmitLeadInput;
+    const data = submitLeadSchema.parse(input);
 
     const form = await formRepository.findBySlug(slug);
     if (!form) {
@@ -45,7 +40,7 @@ export const leadService = {
 
     const alreadyExists = await leadRepository.existsByFormAndEmail(
       form.id,
-      email
+      email,
     );
     if (!alreadyExists) {
       await leadRepository.create({
@@ -75,7 +70,7 @@ export const leadService = {
   },
 
   async update(id: string, input: unknown) {
-    const data = updateLeadSchema.parse(input) as UpdateLeadInput;
+    const data = updateLeadSchema.parse(input);
 
     const existing = await leadRepository.findById(id);
     if (!existing) {

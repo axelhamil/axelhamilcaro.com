@@ -47,11 +47,16 @@ function useTypewriter(
   onComplete?: () => void,
 ): string {
   const [displayed, setDisplayed] = useState("");
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     if (!text) {
       setDisplayed("");
-      onComplete?.();
+      onCompleteRef.current?.();
       return;
     }
 
@@ -63,12 +68,12 @@ function useTypewriter(
         i++;
       } else {
         clearInterval(interval);
-        onComplete?.();
+        onCompleteRef.current?.();
       }
     }, speed);
 
     return () => clearInterval(interval);
-  }, [text, speed, onComplete]);
+  }, [text, speed]);
 
   return displayed;
 }
@@ -127,7 +132,7 @@ function HackerTerminal() {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
-  }, []);
+  }, [lines.length]);
 
   const handleLineComplete = () => {
     if (currentIndex < FAKE_PROCESSES.length - 1) {

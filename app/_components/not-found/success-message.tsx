@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Home, RefreshCw } from "lucide-react";
-import { Button } from "@/components/portfolio";
+import { Button } from "@/components/portfolio/button";
 
 interface SuccessMessageProps {
   onReset: () => void;

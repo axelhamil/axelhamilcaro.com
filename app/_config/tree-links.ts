@@ -7,6 +7,7 @@ import {
   type LucideIcon,
   Mail,
 } from "lucide-react";
+import { CONTACT, EXTERNAL_LINKS } from "./site.constants";
 
 export interface ILink {
   title: string;
@@ -19,26 +20,26 @@ export interface ILink {
 export const treeLinks: ILink[] = [
   {
     title: "Prendre rendez-vous",
-    url: "https://calendly.com/axel-hamilcaro-pro/appel-decouverte",
+    url: EXTERNAL_LINKS.calendly,
     icon: Calendar,
     description: "30 min pour discuter de votre projet",
     featured: true,
   },
   {
     title: "GitHub",
-    url: "https://github.com/axelhamil",
+    url: EXTERNAL_LINKS.github,
     icon: Github,
     description: "Mes projets open source",
   },
   {
     title: "LinkedIn",
-    url: "https://www.linkedin.com/in/axelhamilcaro/",
+    url: EXTERNAL_LINKS.linkedin,
     icon: Linkedin,
     description: "Mon profil professionnel",
   },
   {
     title: "Malt",
-    url: "https://www.malt.fr/profile/axelhamilcaro",
+    url: EXTERNAL_LINKS.malt,
     icon: Briefcase,
     description: "Mon profil freelance",
   },
@@ -50,8 +51,8 @@ export const treeLinks: ILink[] = [
   },
   {
     title: "Email",
-    url: "mailto:contact@axelhamilcaro.com",
+    url: CONTACT.mailto,
     icon: Mail,
-    description: "contact@axelhamilcaro.com",
+    description: CONTACT.email,
   },
 ];

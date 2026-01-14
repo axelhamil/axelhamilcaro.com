@@ -85,10 +85,14 @@ export function ContentTab({
       </div>
 
       <div className="space-y-2">
-        <Label className="text-sm font-medium text-[var(--admin-text)]">
+        <Label
+          htmlFor="cardImage"
+          className="text-sm font-medium text-[var(--admin-text)]"
+        >
           Image de la carte
         </Label>
         <ImageUpload
+          id="cardImage"
           value={formData.cardImage}
           onChange={(url) => onChange("cardImage", url)}
         />
@@ -115,7 +119,10 @@ export function ContentTab({
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs text-[var(--admin-text-muted)]">
+            <Label
+              htmlFor="badgeStyle"
+              className="text-xs text-[var(--admin-text-muted)]"
+            >
               Style
             </Label>
             <Select
@@ -124,7 +131,10 @@ export function ContentTab({
                 onChange("badgeStyle", value)
               }
             >
-              <SelectTrigger className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]">
+              <SelectTrigger
+                id="badgeStyle"
+                className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]"
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="border-[var(--admin-border)] bg-[var(--admin-bg-subtle)]">
@@ -135,10 +145,14 @@ export function ContentTab({
           </div>
         </div>
         <div className="space-y-2">
-          <Label className="text-xs text-[var(--admin-text-muted)]">
+          <Label
+            htmlFor="badgeColor"
+            className="text-xs text-[var(--admin-text-muted)]"
+          >
             Couleur
           </Label>
           <ColorPicker
+            id="badgeColor"
             value={formData.badgeColor}
             onChange={(value) => onChange("badgeColor", value)}
           />

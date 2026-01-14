@@ -34,7 +34,7 @@ export const leadRepository = {
   },
 
   async findAllWithForm(formId?: string): Promise<LeadWithForm[]> {
-    let query = db
+    const baseQuery = db
       .select({
         id: leads.id,
         firstName: leads.firstName,
@@ -53,10 +53,10 @@ export const leadRepository = {
       .orderBy(desc(leads.createdAt));
 
     if (formId) {
-      query = query.where(eq(leads.formId, formId)) as typeof query;
+      return baseQuery.where(eq(leads.formId, formId));
     }
 
-    return query;
+    return baseQuery;
   },
 
   async existsByFormAndEmail(formId: string, email: string): Promise<boolean> {

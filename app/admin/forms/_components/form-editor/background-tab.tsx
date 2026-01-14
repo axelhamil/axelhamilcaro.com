@@ -41,7 +41,10 @@ export function BackgroundTab({
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <Label className="text-sm font-medium text-[var(--admin-text)]">
+        <Label
+          htmlFor="backgroundType"
+          className="text-sm font-medium text-[var(--admin-text)]"
+        >
           Type de fond
         </Label>
         <Select
@@ -50,7 +53,10 @@ export function BackgroundTab({
             onChange("backgroundType", value)
           }
         >
-          <SelectTrigger className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]">
+          <SelectTrigger
+            id="backgroundType"
+            className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]"
+          >
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="border-[var(--admin-border)] bg-[var(--admin-bg-subtle)]">
@@ -63,10 +69,14 @@ export function BackgroundTab({
 
       {formData.backgroundType === "color" && (
         <div className="space-y-2">
-          <Label className="text-sm font-medium text-[var(--admin-text)]">
+          <Label
+            htmlFor="backgroundColor"
+            className="text-sm font-medium text-[var(--admin-text)]"
+          >
             Couleur
           </Label>
           <ColorPicker
+            id="backgroundColor"
             value={formData.backgroundColor}
             onChange={(value) => onChange("backgroundColor", value)}
           />
@@ -104,10 +114,14 @@ export function BackgroundTab({
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium text-[var(--admin-text)]">
+                  <Label
+                    htmlFor="gradientColor1"
+                    className="text-sm font-medium text-[var(--admin-text)]"
+                  >
                     Couleur 1
                   </Label>
                   <ColorPicker
+                    id="gradientColor1"
                     value={gradientConfig.color1}
                     onChange={(value) =>
                       onGradientConfigChange("color1", value)
@@ -115,10 +129,14 @@ export function BackgroundTab({
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium text-[var(--admin-text)]">
+                  <Label
+                    htmlFor="gradientColor2"
+                    className="text-sm font-medium text-[var(--admin-text)]"
+                  >
                     Couleur 2
                   </Label>
                   <ColorPicker
+                    id="gradientColor2"
                     value={gradientConfig.color2}
                     onChange={(value) =>
                       onGradientConfigChange("color2", value)
@@ -127,7 +145,10 @@ export function BackgroundTab({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label className="text-sm font-medium text-[var(--admin-text)]">
+                <Label
+                  htmlFor="gradientDirection"
+                  className="text-sm font-medium text-[var(--admin-text)]"
+                >
                   Direction
                 </Label>
                 <Select
@@ -136,7 +157,10 @@ export function BackgroundTab({
                     onGradientConfigChange("direction", value)
                   }
                 >
-                  <SelectTrigger className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]">
+                  <SelectTrigger
+                    id="gradientDirection"
+                    className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]"
+                  >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="border-[var(--admin-border)] bg-[var(--admin-bg-subtle)]">
@@ -176,10 +200,14 @@ export function BackgroundTab({
 
       {formData.backgroundType === "image" && (
         <div className="space-y-2">
-          <Label className="text-sm font-medium text-[var(--admin-text)]">
+          <Label
+            htmlFor="backgroundImage"
+            className="text-sm font-medium text-[var(--admin-text)]"
+          >
             Image de fond
           </Label>
           <ImageUpload
+            id="backgroundImage"
             value={formData.backgroundImage}
             onChange={(url) => onChange("backgroundImage", url)}
           />

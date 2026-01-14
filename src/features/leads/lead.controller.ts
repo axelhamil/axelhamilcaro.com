@@ -15,7 +15,7 @@ export async function list(formId: string | undefined, headers: Headers) {
       formRepository.findAllForDropdown(),
     ]);
     return json({ leads, forms });
-  } catch (_err) {
+  } catch {
     return error("Failed to fetch leads");
   }
 }
@@ -31,7 +31,7 @@ export async function update(id: string, body: unknown, headers: Headers) {
   try {
     const lead = await leadService.update(id, body);
     return json({ success: true, lead });
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof ZodError) {
       return error(err.issues[0].message, 400);
     }
@@ -53,7 +53,7 @@ export async function remove(id: string, headers: Headers) {
   try {
     await leadService.delete(id);
     return json({ success: true });
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof NotFoundError) {
       return error(err.message, 404);
     }
@@ -65,7 +65,7 @@ export async function submit(slug: string, body: { source?: string }) {
   try {
     await leadService.submit(slug, body, body.source);
     return json({ success: true }, 201);
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof ZodError) {
       return error(err.issues[0].message, 400);
     }

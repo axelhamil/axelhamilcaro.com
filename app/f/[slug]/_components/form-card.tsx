@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Loader2, Mail, Sparkles } from "lucide-react";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Form } from "@/drizzle/schema";
 
@@ -263,10 +264,12 @@ export function FormCard({ form }: FormCardProps) {
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
                 <div className="h-72 lg:h-full min-h-[400px] relative">
-                  <img
+                  <Image
                     src={form.cardImage!}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover"
+                    alt={form.title || "Image du formulaire"}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 600px"
+                    className="object-cover"
                   />
                   <div
                     className="absolute inset-0 opacity-30"

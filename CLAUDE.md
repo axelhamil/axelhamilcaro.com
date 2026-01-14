@@ -24,17 +24,19 @@ pnpm format     # Format code with Biome
     /ui              # Reusable UI components
     /shared
       /layouts       # Navbar, Footer
-      /effects       # TronGrid, ScrollIndicator
       /navigation    # TransitionLink, PageTransition
       /seo           # JsonLd
     /home            # Home page-specific components
   /_config           # Configuration files (metadata, viewport, fonts, site)
   /_lib              # App utilities (cn.ts)
-  /api               # API routes (controllers)
+  /api               # API routes (minimal wrappers for controllers)
     /forms           # Forms CRUD
     /leads           # Leads CRUD
     /submit/[slug]   # Public lead submission
     /admin/dashboard # Dashboard stats
+    /analytics       # Analytics tracking & stats
+    /tree-links      # Tree links CRUD & reorder
+    /templates       # Form templates CRUD
   layout.tsx         # Root layout
   page.tsx           # Homepage
 
@@ -60,6 +62,17 @@ pnpm format     # Format code with Biome
       analytics.controller.ts
       analytics.repository.ts
       analytics.service.ts
+      analytics.schema.ts
+    /tree-links      # Tree links feature
+      tree-link.controller.ts
+      tree-link.repository.ts
+      tree-link.service.ts
+      tree-link.schema.ts
+    /templates       # Form templates feature
+      template.controller.ts
+      template.repository.ts
+      template.service.ts
+      template.schema.ts
   /lib
     http.ts          # HTTP response helpers (NextResponse abstraction)
     /utils
@@ -75,6 +88,12 @@ pnpm format     # Format code with Biome
 ```
 
 **Note:** `/app` contains Next.js routes and UI. `/src` contains business logic with Clean Architecture.
+
+**IMPORTANT - No direct database calls in /app:**
+- All Drizzle calls must be in `/src/features/*/[feature].repository.ts`
+- API routes delegate to controllers, never import from `@/drizzle` directly
+- Server Components can call services directly (e.g., `formService.getById()`)
+- Exception: `app/_lib/auth.ts` uses Drizzle adapter for better-auth configuration
 
 ## Refactoring Guidelines
 
@@ -218,7 +237,7 @@ export async function list(headers: Headers) {
 - **Services**: `*.service.ts`
 - **Types**: `*.types.ts` or colocated in the file
 - **Exports**: Named exports by default, default export only for Next.js pages
-- **Barrel exports**: Use `index.ts` for folders with multiple files
+- **No barrel exports**: Import directly from component files, not from index.ts
 
 ### 7. TypeScript Best Practices
 
@@ -264,7 +283,7 @@ When refactoring existing code:
 3. **Identify and convert** to Server Components where possible
 4. **Organize components** (shared vs feature-specific)
 5. **Separate concerns** (infrastructure/domain/application if mixed)
-6. **Clean imports** and add barrel exports
+6. **Clean imports** (direct imports, no barrel exports)
 
 **When to create a new component:**
 - Reused 2+ times → shared
@@ -330,9 +349,9 @@ When refactoring existing code:
 ```
 Home Page
   ├─ Hero (section)
-  │   ├─ Heading1 (ui)
-  │   ├─ Heading2 (ui)
-  │   ├─ Paragraphe (ui)
+  │   ├─ Heading1 (typography)
+  │   ├─ Heading2 (typography)
+  │   ├─ Paragraph (typography)
   │   └─ Button (ui)
   ├─ WhatIDo (section)
   ├─ TechStack (section)
@@ -438,82 +457,57 @@ export async function POST(request: Request) {
 
 ## Important Notes
 
-- Components are in `/app/_components` (UI layer)
+- Shared components are in `/components` (ui, typography, effects, portfolio)
+- Page-specific components are in `/app/_components`
 - Business logic is in `/src/features` (Clean Architecture)
-- No Shadcn components yet - `/ui` contains custom components
+- Shadcn components in `/components/ui`
 - Database: Drizzle ORM with PostgreSQL (Neon)
-- Auth: NextAuth.js with GitHub provider
+- Auth: better-auth with GitHub provider
+- **No direct DB calls in /app** - use services or controllers
 
-## Atomic Design
-
-### Structure des composants
+## Component Structure
 
 ```
 /components
-├── /atoms/          # Éléments UI basiques (barrel export → shadcn + typography)
-├── /molecules/      # Combinaisons d'atoms (LinkCard, FormField)
-├── /organisms/      # Sections complexes (Navbar, Footer, Sidebar)
-├── /templates/      # Layouts de pages (SiteLayout, AdminLayout)
-└── /effects/        # Wrappers d'animation (Reveal, Tilt, Magnetic)
-
-/lib/animations/     # Configs Framer Motion partagées
-├── spring-configs.ts    # { gentle, snappy, bouncy }
-├── easing.ts           # { expoOut, easeOut, spring }
-├── variants.ts         # fadeUp, scaleIn, staggerContainer
-└── index.ts
+├── /ui/             # Shadcn components (Button, Card, Dialog, Input, etc.)
+├── /typography/     # Typography components (Heading1, Heading2, Paragraph)
+├── /effects/        # Wrappers d'animation (Reveal, Tilt, Magnetic)
+└── /portfolio/      # Composants spécifiques au portfolio
 ```
 
-### Pattern d'import
+### Pattern d'import (imports directs, pas de barrel exports)
 
 ```typescript
-import { Button, Badge, Heading1, Paragraph } from "@/components/atoms";
-import { LinkCard, PortfolioButton } from "@/components/molecules";
-import { Navbar, Footer, Sidebar } from "@/components/organisms";
-import { SiteLayout, AdminLayout } from "@/components/templates";
-import { RevealContainer, TiltCard, MagneticWrapper } from "@/components/effects";
-import { springConfigs, fadeUp, staggerContainer } from "@/lib/animations";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Heading1 } from "@/components/typography/heading1";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { Button as PortfolioButton } from "@/components/portfolio/button";
+import { LinkCard } from "@/components/portfolio/link-card";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RevealContainer } from "@/components/effects/reveal";
 ```
 
 ### Principes
 
-1. **Atoms**: Ne jamais modifier les composants shadcn directement. Utiliser les barrel exports.
-2. **Molecules**: Combinaisons de 2-3 atoms avec une logique simple.
-3. **Organisms**: Sections complètes avec état et logique métier.
-4. **Templates**: Layouts Next.js réutilisables.
-5. **Effects**: Wrappers Framer Motion pour animations déclaratives.
-
-### Standards d'animation
-
-```typescript
-import { springConfigs, easing, fadeUp } from "@/lib/animations";
-
-const gentleTransition = { type: "spring", ...springConfigs.gentle };
-const snappyTransition = { type: "spring", ...springConfigs.snappy };
-
-<motion.div
-  variants={fadeUp}
-  initial="hidden"
-  animate="show"
-  transition={{ ease: easing.expoOut }}
-/>
-```
-
-**Règles:**
-- Utiliser les configs partagées de `/lib/animations/`
-- Toujours supporter `prefers-reduced-motion` (Framer Motion le gère)
-- `springConfigs.gentle` pour animations subtiles
-- `springConfigs.snappy` pour éléments interactifs
-- `springConfigs.bouncy` pour feedback utilisateur
+1. **UI**: Composants Shadcn - ne pas modifier directement, étendre si nécessaire.
+2. **Typography**: Composants typographiques réutilisables (Heading1, Heading2, Paragraph).
+3. **Effects**: Wrappers Framer Motion pour animations déclaratives.
+4. **Portfolio**: Composants spécifiques au site portfolio.
 
 ## Refactoring Status
 
 ✅ **Completed:**
 - Clean Architecture: Route → Controller → Service → Repository
 - Framework decoupling: Controllers don't import Next.js
-- Feature-based structure: `/src/features/{auth,email,forms,leads,analytics}`
+- Feature-based structure: `/src/features/{auth,email,forms,leads,analytics,tree-links,templates}`
 - HTTP abstraction: `src/lib/http.ts` wraps NextResponse
 - Auth service receives Headers as parameter
 - Routes are minimal (~5 lines)
-- Atomic Design: Barrel exports pour atoms, molecules, organisms, templates, effects
-- Animations partagées: `/lib/animations/` avec spring configs et variants
+- Component structure: ui, typography, effects, portfolio
+- No barrel exports (imports directs uniquement)
+- No direct Drizzle calls in /app (except auth adapter)
+- All API routes use controllers
+- Server Components use services directly
 - Build successful

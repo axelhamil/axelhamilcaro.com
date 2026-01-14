@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
-import TransitionLink from "@/app/_components/shared/navigation/transition-link";
+import TransitionLink from "@/components/shared/navigation/transition-link";
 import { cn } from "@/lib/utils";
 
 const linkCardVariants = cva(

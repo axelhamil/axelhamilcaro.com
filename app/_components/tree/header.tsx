@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { Calendar, Mail, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { Heading1, Paragraphe } from "@/components/typography";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
+import { Heading1 } from "@/components/typography/heading1";
+import { Paragraph } from "@/components/typography/paragraph";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { CONTACT, EXTERNAL_LINKS } from "@/app/_config/site.constants";
 
 export default function TreeHeader() {
   return (
@@ -68,9 +70,9 @@ export default function TreeHeader() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Paragraphe variant="secondary" className="text-xs sm:text-sm">
+            <Paragraph variant="secondary" className="text-xs sm:text-sm">
               Full-Stack TypeScript • Freelance
-            </Paragraphe>
+            </Paragraph>
           </motion.div>
 
           <motion.div
@@ -81,7 +83,7 @@ export default function TreeHeader() {
           >
             <MagneticWrapper strength={0.04}>
               <motion.a
-                href="mailto:contact@axelhamilcaro.com"
+                href={CONTACT.mailto}
                 className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl card-accent flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-primary hover:text-accent transition-colors duration-300"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -93,7 +95,7 @@ export default function TreeHeader() {
 
             <MagneticWrapper strength={0.04}>
               <motion.a
-                href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
+                href={EXTERNAL_LINKS.calendly}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-accent text-white hover:bg-accent-hover transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium"

@@ -2,11 +2,11 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface IParagrapheProps {
+interface IParagraphProps {
   children: ReactNode;
 }
 
-const paragrapheVariants = cva("leading-relaxed text-pretty", {
+const paragraphVariants = cva("leading-relaxed text-pretty", {
   variants: {
     variant: {
       primary: "text-primary/90",
@@ -27,18 +27,18 @@ const paragrapheVariants = cva("leading-relaxed text-pretty", {
   },
 });
 
-const Paragraphe = ({
+const Paragraph = ({
   children,
   variant,
   size,
   className,
   ...props
-}: IParagrapheProps &
+}: IParagraphProps &
   ComponentProps<"p"> &
-  VariantProps<typeof paragrapheVariants>) => {
+  VariantProps<typeof paragraphVariants>) => {
   return (
     <p
-      className={cn(paragrapheVariants({ variant, size, className }))}
+      className={cn(paragraphVariants({ variant, size, className }))}
       {...props}
     >
       {children}
@@ -46,7 +46,4 @@ const Paragraphe = ({
   );
 };
 
-const Paragraph = Paragraphe;
-const paragraphVariants = paragrapheVariants;
-
-export { Paragraph, Paragraphe, paragraphVariants, paragrapheVariants };
+export { Paragraph };

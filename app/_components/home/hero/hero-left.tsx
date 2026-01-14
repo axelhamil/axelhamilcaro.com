@@ -2,14 +2,16 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Code2, Rocket, Zap } from "lucide-react";
-import { Button } from "@/components/portfolio";
-import { Heading2, Paragraphe } from "@/components/typography";
-import { AnimatedCounter } from "../../shared/effects/animated-counter";
-import { PulsingDot } from "../../shared/effects/floating-element";
-import { MagneticWrapper } from "../../shared/effects/magnetic-wrapper";
-import { RunawayBadge } from "../../shared/effects/runaway-badge";
-import { LetterReveal } from "../../shared/effects/text-reveal";
+import { Button } from "@/components/portfolio/button";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { AnimatedCounter } from "@/components/effects/animated-counter";
+import { PulsingDot } from "@/components/effects/floating-element";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RunawayBadge } from "@/components/effects/runaway-badge";
+import { LetterReveal } from "@/components/effects/text-reveal";
 import { HeroMotionItem } from "./hero-motion";
+import { EXTERNAL_LINKS } from "@/app/_config/site.constants";
 
 const stats = [
   { v: "5+", l: "ans d'expérience" },
@@ -94,20 +96,20 @@ const HeroLeft = () => {
 
       <HeroMotionItem>
         <div className="flex flex-col gap-3 md:gap-4 min-w-0">
-          <Paragraphe size="lg" className="text-base md:text-lg">
+          <Paragraph size="lg" className="text-base md:text-lg">
             Je suis <strong>Axel Hamilcaro</strong>, développeur web freelance
             basé à Paris. Je crée des{" "}
             <span className="font-semibold text-primary">
               applications web performantes et scalables
             </span>{" "}
             pour startups et entreprises tech.
-          </Paragraphe>
+          </Paragraph>
 
-          <Paragraphe size="md" className="text-base md:text-lg text-secondary">
+          <Paragraph size="md" className="text-base md:text-lg text-secondary">
             Spécialiste <strong>React, Next.js et TypeScript</strong>.
             J'accompagne mes clients du MVP à la production : SaaS, plateformes
             métier, et APIs robustes.
-          </Paragraphe>
+          </Paragraph>
         </div>
       </HeroMotionItem>
 
@@ -115,7 +117,7 @@ const HeroLeft = () => {
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
           <MagneticWrapper strength={0.06}>
             <Button
-              href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
+              href={EXTERNAL_LINKS.calendly}
               external
               size="lg"
               className="w-full sm:w-auto justify-center group"

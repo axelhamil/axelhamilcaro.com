@@ -14,8 +14,8 @@ import {
   Music2,
 } from "lucide-react";
 import { useEffect } from "react";
-import { MagneticWrapper } from "@/app/_components/shared/effects/magnetic-wrapper";
-import { LinkCard } from "@/components/portfolio";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { LinkCard } from "@/components/portfolio/link-card";
 import type { TreeLink } from "@/drizzle/schema";
 
 const iconMap: Record<string, LucideIcon> = {

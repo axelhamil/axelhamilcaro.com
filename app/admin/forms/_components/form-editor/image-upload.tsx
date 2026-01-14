@@ -1,16 +1,24 @@
 "use client";
 
 import { ImagePlus, Loader2, Trash2, X } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useId, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface ImageUploadProps {
   value: string;
   onChange: (url: string) => void;
   className?: string;
+  id?: string;
 }
 
-export function ImageUpload({ value, onChange, className }: ImageUploadProps) {
+export function ImageUpload({
+  value,
+  onChange,
+  className,
+  id,
+}: ImageUploadProps) {
+  const generatedId = useId();
+  const inputId = id || `image-upload-${generatedId}`;
   const [isUploading, setIsUploading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -96,6 +104,7 @@ export function ImageUpload({ value, onChange, className }: ImageUploadProps) {
   return (
     <div className={className}>
       <label
+        htmlFor={inputId}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -131,6 +140,7 @@ export function ImageUpload({ value, onChange, className }: ImageUploadProps) {
           )}
         </div>
         <input
+          id={inputId}
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
           onChange={handleFileChange}

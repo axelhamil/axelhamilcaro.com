@@ -20,13 +20,18 @@ export function useTreeLinks() {
 
   const createLink = async (link: EditingLink) => {
     const tempId = `temp-${Date.now()}`;
-    const tempLink = {
-      ...link,
+    const tempLink: TreeLink = {
       id: tempId,
+      title: link.title,
+      url: link.url,
+      description: link.description || null,
+      icon: link.icon,
+      featured: link.featured,
+      isActive: link.isActive,
       order: (data?.length ?? 0) + 1,
       createdAt: new Date(),
       updatedAt: new Date(),
-    } as TreeLink;
+    };
 
     const optimisticData = [...(data ?? []), tempLink];
 

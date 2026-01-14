@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import {
+  ArrowLeft,
   Briefcase,
   Github,
   Instagram,
@@ -9,36 +10,42 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
+import TransitionLink from "@/components/shared/navigation/transition-link";
+import {
+  CONTACT,
+  EXTERNAL_LINKS,
+  SOCIAL_LINKS,
+} from "@/app/_config/site.constants";
 
 const socialLinks = [
   {
     name: "GitHub",
-    href: "https://github.com/axelhamil",
+    href: EXTERNAL_LINKS.github,
     icon: Github,
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/axelhamilcaro/",
+    href: EXTERNAL_LINKS.linkedin,
     icon: Linkedin,
   },
   {
     name: "Malt",
-    href: "https://www.malt.fr/profile/axelhamilcaro",
+    href: EXTERNAL_LINKS.malt,
     icon: Briefcase,
   },
   {
     name: "Instagram",
-    href: "https://instagram.com/axelhmlcr",
+    href: SOCIAL_LINKS.instagram,
     icon: Instagram,
   },
   {
     name: "TikTok",
-    href: "https://tiktok.com/@axelhmlcr",
+    href: SOCIAL_LINKS.tiktok,
     icon: Music2,
   },
   {
     name: "Email",
-    href: "mailto:contact@axelhamilcaro.com",
+    href: CONTACT.mailto,
     icon: Mail,
   },
 ];
@@ -74,6 +81,20 @@ export default function TreeFooter() {
           </motion.a>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.1 }}
+      >
+        <TransitionLink
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-secondary hover:text-accent transition-colors duration-300"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Voir mon portfolio
+        </TransitionLink>
+      </motion.div>
 
       <p className="text-[10px] sm:text-xs text-muted text-center">
         &copy; {new Date().getFullYear()} Axel Hamilcaro • Paris, France

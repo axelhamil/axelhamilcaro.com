@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { EXTERNAL_LINKS, SOCIAL_LINKS } from "./app/_config/site.constants";
 
 const securityHeaders = [
   {
@@ -31,32 +32,32 @@ const nextConfig: NextConfig = {
     },
     {
       source: "/linkedin",
-      destination: "https://www.linkedin.com/in/axelhamilcaro/",
+      destination: EXTERNAL_LINKS.linkedin,
       permanent: true,
     },
     {
       source: "/github",
-      destination: "https://github.com/axelhamil",
+      destination: EXTERNAL_LINKS.github,
       permanent: true,
     },
     {
       source: "/malt",
-      destination: "https://www.malt.fr/profile/axelhamilcaro",
+      destination: EXTERNAL_LINKS.malt,
       permanent: true,
     },
     {
       source: "/rdv",
-      destination: "https://calendly.com/axel-hamilcaro-pro/appel-decouverte",
+      destination: EXTERNAL_LINKS.calendly,
       permanent: true,
     },
     {
       source: "/instagram",
-      destination: "https://www.instagram.com/axelhmlcr/",
+      destination: SOCIAL_LINKS.instagram,
       permanent: true,
     },
     {
       source: "/tiktok",
-      destination: "https://www.tiktok.com/@axelhmlcr",
+      destination: SOCIAL_LINKS.tiktok,
       permanent: true,
     },
   ],

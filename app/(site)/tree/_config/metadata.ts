@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/app/_config/site.constants";
 
 export const metadata: Metadata = {
   title: "Liens",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     title: "Liens | Axel Hamilcaro",
     description:
       "Retrouvez tous mes liens professionnels : GitHub, LinkedIn, Malt, et prenez rendez-vous.",
-    url: "https://axelhamilcaro.com/tree",
+    url: `${SITE_URL}/tree`,
   },
   twitter: {
     title: "Liens | Axel Hamilcaro",
@@ -16,6 +17,6 @@ export const metadata: Metadata = {
       "Retrouvez tous mes liens professionnels : GitHub, LinkedIn, Malt, et prenez rendez-vous.",
   },
   alternates: {
-    canonical: "https://axelhamilcaro.com/tree",
+    canonical: `${SITE_URL}/tree`,
   },
 };

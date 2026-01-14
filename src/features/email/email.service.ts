@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { AdminNotification } from "@/app/_lib/emails/admin-notification";
 import { LeadEmail } from "@/app/_lib/emails/lead-email";
+import { CONTACT } from "@/app/_config/site.constants";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const adminEmail = process.env.ADMIN_EMAIL;
@@ -35,7 +36,7 @@ export const emailService = {
 
     try {
       const { data, error } = await resend.emails.send({
-        from: "Axel Hamilcaro <noreply@axelhamilcaro.com>",
+        from: `Axel Hamilcaro <${CONTACT.noreply}>`,
         to: [to],
         subject: parsedSubject,
         react: LeadEmail({ firstName, subject: parsedSubject, body }),
@@ -46,10 +47,10 @@ export const emailService = {
       }
 
       return { success: true, data };
-    } catch (error) {
+    } catch (err: unknown) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: err instanceof Error ? err.message : "Unknown error",
       };
     }
   },
@@ -71,9 +72,9 @@ export const emailService = {
 
     try {
       const { data, error } = await resend.emails.send({
-        from: "Formulaire <noreply@axelhamilcaro.com>",
+        from: `Formulaire <${CONTACT.noreply}>`,
         to: [adminEmail],
-        subject: `🎯 Nouveau lead: ${firstName} via ${formTitle}`,
+        subject: `Nouveau lead: ${firstName} via ${formTitle}`,
         react: AdminNotification({
           formTitle,
           formSlug,
@@ -88,10 +89,10 @@ export const emailService = {
       }
 
       return { success: true, data };
-    } catch (error) {
+    } catch (err: unknown) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: err instanceof Error ? err.message : "Unknown error",
       };
     }
   },

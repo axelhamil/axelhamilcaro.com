@@ -10,6 +10,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { SITE_URL } from "@/app/_config/site.constants";
 
 interface AdminNotificationProps {
   formTitle: string;
@@ -62,7 +63,7 @@ export function AdminNotification({
           <Hr style={hr} />
           <Section style={footerSection}>
             <Text style={footer}>Notification automatique</Text>
-            <Link href="https://axelhamilcaro.com" style={footerLink}>
+            <Link href={SITE_URL} style={footerLink}>
               axelhamilcaro.com
             </Link>
           </Section>

@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useTreeLinks } from "@/app/_hooks/swr";
+import { useTreeLinks } from "@/app/_hooks/swr/use-tree-links";
 
 const iconOptions = [
   { value: "link", label: "Lien", icon: LinkIcon },
@@ -187,10 +187,14 @@ export function TreeLinksClient() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">
+              <label
+                htmlFor="tree-link-title"
+                className="text-sm font-medium text-[var(--admin-text)]"
+              >
                 Titre
               </label>
               <input
+                id="tree-link-title"
                 value={editingLink?.title || ""}
                 onChange={(e) =>
                   setEditingLink(
@@ -202,10 +206,14 @@ export function TreeLinksClient() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">
+              <label
+                htmlFor="tree-link-url"
+                className="text-sm font-medium text-[var(--admin-text)]"
+              >
                 URL
               </label>
               <input
+                id="tree-link-url"
                 value={editingLink?.url || ""}
                 onChange={(e) =>
                   setEditingLink(
@@ -217,10 +225,14 @@ export function TreeLinksClient() {
               />
             </div>
             <div className="space-y-2 sm:col-span-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">
+              <label
+                htmlFor="tree-link-description"
+                className="text-sm font-medium text-[var(--admin-text)]"
+              >
                 Description
               </label>
               <input
+                id="tree-link-description"
                 value={editingLink?.description || ""}
                 onChange={(e) =>
                   setEditingLink(
@@ -232,10 +244,14 @@ export function TreeLinksClient() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[var(--admin-text)]">
+              <label
+                htmlFor="tree-link-icon"
+                className="text-sm font-medium text-[var(--admin-text)]"
+              >
                 Icône
               </label>
               <select
+                id="tree-link-icon"
                 value={editingLink?.icon || "link"}
                 onChange={(e) =>
                   setEditingLink(
@@ -254,6 +270,7 @@ export function TreeLinksClient() {
             <div className="flex items-center gap-6">
               <label className="flex items-center gap-2">
                 <input
+                  id="tree-link-featured"
                   type="checkbox"
                   checked={editingLink?.featured || false}
                   onChange={(e) =>
@@ -269,6 +286,7 @@ export function TreeLinksClient() {
               </label>
               <label className="flex items-center gap-2">
                 <input
+                  id="tree-link-active"
                   type="checkbox"
                   checked={editingLink?.isActive ?? true}
                   onChange={(e) =>

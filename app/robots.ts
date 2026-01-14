@@ -1,17 +1,16 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "./_config/site.constants";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://axelhamilcaro.com";
-
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        disallow: ["/api/", "/_next/", "/admin/", "/login", "/nice-try", "/f/"],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

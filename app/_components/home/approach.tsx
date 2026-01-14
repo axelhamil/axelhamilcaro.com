@@ -9,10 +9,11 @@ import {
   ShieldCheck,
   Zap,
 } from "lucide-react";
-import { Heading2, Paragraphe } from "@/components/typography";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import { TiltCard } from "../shared/effects/tilt-card";
-import { TerminalBlock } from "../shared/effects/typewriter";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { RevealContainer, RevealItem } from "@/components/effects/reveal";
+import { TiltCard } from "@/components/effects/tilt-card";
+import { TerminalBlock } from "@/components/effects/typewriter";
 
 const pillars = [
   {
@@ -85,13 +86,13 @@ const Approach = () => {
         </RevealItem>
 
         <RevealItem>
-          <Paragraphe
+          <Paragraph
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
           >
             Une approche pragmatique orientée résultats, avec des standards de
             qualité professionnels
-          </Paragraphe>
+          </Paragraph>
         </RevealItem>
       </RevealContainer>
 
@@ -141,13 +142,13 @@ const Approach = () => {
                   {p.title}
                 </h3>
 
-                <Paragraphe
+                <Paragraph
                   variant="secondary"
                   size="sm"
                   className="relative z-10 text-sm"
                 >
                   {p.description}
-                </Paragraphe>
+                </Paragraph>
 
                 <motion.div
                   className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r"

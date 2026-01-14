@@ -2,14 +2,11 @@
 
 import { motion } from "framer-motion";
 import {
-  ArrowDown,
-  ArrowUp,
   ArrowUpRight,
   BarChart3,
   Clock,
   Eye,
   FileText,
-  HelpCircle,
   Link2,
   Loader2,
   LogIn,
@@ -24,12 +21,8 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
-import { useDashboard } from "@/app/_hooks/swr";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { AdminStatCard } from "@/app/admin/_components/shared";
+import { useDashboard } from "@/app/_hooks/swr/use-dashboard";
 
 const container = {
   hidden: { opacity: 0 },
@@ -43,104 +36,6 @@ const item = {
   hidden: { opacity: 0, y: 10 },
   show: { opacity: 1, y: 0 },
 };
-
-function StatCard({
-  title,
-  value,
-  icon: Icon,
-  change,
-  suffix,
-  tooltip,
-  href,
-  color = "blue",
-}: {
-  title: string;
-  value: number | string;
-  icon: typeof Eye;
-  change?: number;
-  suffix?: string;
-  tooltip?: string;
-  href?: string;
-  color?: "blue" | "green" | "purple" | "amber" | "red" | "cyan" | "pink";
-}) {
-  const colorMap = {
-    blue: { text: "text-blue-500", bg: "bg-blue-500/10" },
-    green: { text: "text-green-500", bg: "bg-green-500/10" },
-    purple: { text: "text-purple-500", bg: "bg-purple-500/10" },
-    amber: { text: "text-amber-500", bg: "bg-amber-500/10" },
-    red: { text: "text-red-500", bg: "bg-red-500/10" },
-    cyan: { text: "text-cyan-500", bg: "bg-cyan-500/10" },
-    pink: { text: "text-pink-500", bg: "bg-pink-500/10" },
-  };
-
-  const colors = colorMap[color];
-
-  const content = (
-    <div className="flex items-center justify-between">
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1">
-          <p className="text-xs text-[var(--admin-text-muted)] truncate">
-            {title}
-          </p>
-          {tooltip && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <HelpCircle className="h-3 w-3 text-[var(--admin-text-subtle)] cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-[200px]">
-                {tooltip}
-              </TooltipContent>
-            </Tooltip>
-          )}
-        </div>
-        <div className="flex items-center gap-2 mt-1">
-          <p className={`text-2xl font-bold ${colors.text}`}>
-            {value}
-            {suffix && (
-              <span className="text-sm font-normal ml-0.5">{suffix}</span>
-            )}
-          </p>
-          {change !== undefined && change !== 0 && (
-            <span
-              className={`flex items-center gap-0.5 text-xs font-medium ${
-                change > 0 ? "text-green-500" : "text-red-500"
-              }`}
-            >
-              {change > 0 ? (
-                <ArrowUp className="h-3 w-3" />
-              ) : (
-                <ArrowDown className="h-3 w-3" />
-              )}
-              {Math.abs(change)}%
-            </span>
-          )}
-        </div>
-      </div>
-      <div className={`rounded-lg p-2.5 ${colors.bg}`}>
-        <Icon className={`h-5 w-5 ${colors.text}`} />
-      </div>
-    </div>
-  );
-
-  const cardClass =
-    "rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-4 transition-all hover:border-[var(--admin-border-hover)] hover:shadow-sm";
-
-  if (href) {
-    return (
-      <motion.div variants={item}>
-        <Link href={href} className={`${cardClass} block`}>
-          {content}
-        </Link>
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div variants={item} className={cardClass}>
-      {content}
-    </motion.div>
-  );
-}
 
 function WeekChart({
   data,
@@ -308,30 +203,33 @@ export function DashboardClient() {
         animate="show"
         className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
       >
-        <StatCard
+        <AdminStatCard
           title="Vues"
           value={dashboard.overview.totalViews}
           icon={Eye}
           color="blue"
           change={dashboard.comparison.viewsChange}
           tooltip="Nombre total de pages vues sur les 7 derniers jours."
+          variants={item}
         />
-        <StatCard
+        <AdminStatCard
           title="Sessions"
           value={dashboard.overview.uniqueSessions}
           icon={Users}
           color="cyan"
           tooltip="Visiteurs uniques identifiés par leur session."
+          variants={item}
         />
-        <StatCard
+        <AdminStatCard
           title="Clics"
           value={dashboard.overview.totalClicks}
           icon={MousePointerClick}
           color="green"
           change={dashboard.comparison.clicksChange}
           tooltip="Clics sur les liens de la page Tree."
+          variants={item}
         />
-        <StatCard
+        <AdminStatCard
           title="Leads"
           value={dashboard.overview.totalLeads}
           icon={Target}
@@ -339,14 +237,16 @@ export function DashboardClient() {
           change={dashboard.comparison.leadsChange}
           href="/admin/leads"
           tooltip="Formulaires soumis avec succès."
+          variants={item}
         />
-        <StatCard
+        <AdminStatCard
           title="Conversion"
           value={dashboard.overview.conversionRate}
           icon={Percent}
           color="pink"
           suffix="%"
           tooltip="Taux de conversion = Leads / Vues × 100."
+          variants={item}
         />
       </motion.div>
 
@@ -356,28 +256,31 @@ export function DashboardClient() {
         animate="show"
         className="grid gap-3 grid-cols-2 sm:grid-cols-4"
       >
-        <StatCard
+        <AdminStatCard
           title="Click rate"
           value={dashboard.overview.clickRate}
           icon={Zap}
           color="amber"
           suffix="%"
           tooltip="Clics / Vues × 100. Mesure l'engagement avec tes liens."
+          variants={item}
         />
-        <StatCard
+        <AdminStatCard
           title="Formulaires"
           value={dashboard.overview.activeForms}
           icon={FileText}
           color="green"
           href="/admin/forms"
           tooltip={`${dashboard.overview.activeForms} actifs sur ${dashboard.overview.totalForms} total.`}
+          variants={item}
         />
-        <StatCard
+        <AdminStatCard
           title="Logins"
           value={dashboard.overview.loginAttempts}
           icon={LogIn}
           color="red"
           tooltip="Tentatives de connexion à l'admin cette semaine."
+          variants={item}
         />
         <Link
           href="/admin/analytics"

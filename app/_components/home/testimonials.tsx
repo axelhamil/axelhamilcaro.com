@@ -9,9 +9,10 @@ import {
   Star,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { Heading2, Paragraphe } from "@/components/typography";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "@/components/effects/reveal";
 
 const testimonials = [
   {
@@ -133,9 +134,9 @@ const Testimonials = () => {
 
   return (
     <section
-      id="testimonials"
+      id="temoignages"
       className="relative container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20 overflow-hidden"
-      aria-labelledby="testimonials-title"
+      aria-labelledby="temoignages-title"
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
@@ -157,7 +158,7 @@ const Testimonials = () => {
 
         <RevealItem>
           <Heading2
-            id="testimonials-title"
+            id="temoignages-title"
             size="xl"
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
@@ -167,13 +168,13 @@ const Testimonials = () => {
         </RevealItem>
 
         <RevealItem>
-          <Paragraphe
+          <Paragraph
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base"
           >
             Retours de CTOs, fondateurs et Product Managers sur nos
             collaborations
-          </Paragraphe>
+          </Paragraph>
         </RevealItem>
       </RevealContainer>
 
@@ -265,14 +266,14 @@ const Testimonials = () => {
                         </div>
                       </div>
 
-                      <Paragraphe
+                      <Paragraph
                         variant="secondary"
                         className={`relative z-10 flex-1 italic leading-relaxed ${
                           isActive ? "text-base sm:text-lg" : "text-sm"
                         }`}
                       >
                         "{testimonial.content}"
-                      </Paragraphe>
+                      </Paragraph>
 
                       <div className="relative z-10 pt-4 border-t border-border/50 flex items-center gap-3">
                         <motion.div

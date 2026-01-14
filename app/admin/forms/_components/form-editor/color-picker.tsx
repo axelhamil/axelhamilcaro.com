@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 
@@ -8,6 +8,7 @@ interface ColorPickerProps {
   value: string;
   onChange: (value: string) => void;
   showAlpha?: boolean;
+  id?: string;
 }
 
 function hexToRgba(hex: string, alpha: number): string {
@@ -41,7 +42,11 @@ export function ColorPicker({
   value,
   onChange,
   showAlpha = true,
+  id,
 }: ColorPickerProps) {
+  const generatedId = useId();
+  const colorInputId = id || `color-${generatedId}`;
+  const textInputId = `${colorInputId}-text`;
   const parsed = parseColor(value);
   const [hex, setHex] = useState(parsed.hex);
   const [alpha, setAlpha] = useState(parsed.alpha);
@@ -76,13 +81,21 @@ export function ColorPicker({
   return (
     <div className="space-y-2">
       <div className="flex gap-2">
+        <label htmlFor={colorInputId} className="sr-only">
+          Sélecteur de couleur
+        </label>
         <Input
+          id={colorInputId}
           type="color"
           value={hex}
           onChange={(e) => handleHexChange(e.target.value)}
           className="h-10 w-14 cursor-pointer border-[var(--admin-border)] bg-[var(--admin-bg)] p-1"
         />
+        <label htmlFor={textInputId} className="sr-only">
+          Valeur de couleur
+        </label>
         <Input
+          id={textInputId}
           value={showAlpha && alpha < 1 ? hexToRgba(hex, alpha) : hex}
           onChange={(e) => onChange(e.target.value)}
           placeholder="#ff4d00"

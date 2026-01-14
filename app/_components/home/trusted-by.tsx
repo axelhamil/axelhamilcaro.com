@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Award, Building2 } from "lucide-react";
-import { Heading2, Paragraphe } from "@/components/typography";
-import { AnimatedCounter } from "../shared/effects/animated-counter";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { AnimatedCounter } from "@/components/effects/animated-counter";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "@/components/effects/reveal";
 
 const companies = [
   {
@@ -116,13 +117,13 @@ const TrustedBy = () => {
         </RevealItem>
 
         <RevealItem>
-          <Paragraphe
+          <Paragraph
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base"
           >
             Startups tech, scale-ups et entrepreneurs. Du MVP au produit en
             production.
-          </Paragraphe>
+          </Paragraph>
         </RevealItem>
       </RevealContainer>
 

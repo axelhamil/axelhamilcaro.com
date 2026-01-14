@@ -1,3 +1,47 @@
+import {
+  EXTERNAL_LINKS,
+  PROFILE_IMAGE,
+  SITE_URL,
+} from "@/app/_config/site.constants";
+
+const testimonials = [
+  {
+    name: "Léo",
+    role: "CTO @ ScormPilot",
+    content:
+      "Intervention rapide et qualitative sur notre stack Next.js. Axel a restructuré notre architecture frontend et ajouté des fonctionnalités clés sans casser l'existant. Pro et autonome.",
+    rating: 5,
+  },
+  {
+    name: "Anthony M.",
+    role: "Product Manager @ Civitime",
+    content:
+      "Axel a développé plusieurs modules critiques de notre plateforme e-learning. Son code est propre, bien testé, et il pose les bonnes questions. Un renfort technique solide.",
+    rating: 5,
+  },
+  {
+    name: "Aboubacar",
+    role: "Fondateur @ MentorTroc",
+    content:
+      "Mission réussie sur notre app Next.js. Axel a livré dans les temps, avec un code maintenable et une vraie attention aux détails UX. Je recommande.",
+    rating: 5,
+  },
+  {
+    name: "Sophie L.",
+    role: "CEO @ Startup EdTech",
+    content:
+      "Excellent travail sur notre MVP. Axel a su comprendre nos besoins métier et proposer des solutions techniques pragmatiques. Le produit est sorti en 6 semaines.",
+    rating: 5,
+  },
+  {
+    name: "Thomas R.",
+    role: "Développeur @ Agence Web",
+    content:
+      "J'ai suivi le mentorat d'Axel pendant 3 mois. Ses explications sur React et Clean Architecture m'ont fait progresser très vite. Pédagogue et patient.",
+    rating: 5,
+  },
+];
+
 export function JsonLd() {
   const personSchema = {
     "@context": "https://schema.org",
@@ -5,15 +49,15 @@ export function JsonLd() {
     name: "Axel Hamilcaro",
     givenName: "Axel",
     familyName: "Hamilcaro",
-    url: "https://axelhamilcaro.com",
-    image: "https://axelhamilcaro.com/profil_pp.jpeg",
+    url: SITE_URL,
+    image: PROFILE_IMAGE,
     jobTitle: "Développeur Full-Stack TypeScript",
     description:
       "Développeur Full-Stack freelance spécialisé TypeScript, Next.js, React et Node.js. Je conçois des applications web et SaaS robustes, scalables et orientées produit pour startups et entreprises en France.",
     sameAs: [
-      "https://www.linkedin.com/in/axelhamilcaro/",
-      "https://github.com/axelhamil",
-      "https://www.malt.fr/profile/axelhamilcaro",
+      EXTERNAL_LINKS.linkedin,
+      EXTERNAL_LINKS.github,
+      EXTERNAL_LINKS.malt,
     ],
     knowsAbout: [
       "TypeScript",
@@ -53,7 +97,7 @@ export function JsonLd() {
     "@type": "WebSite",
     name: "Axel Hamilcaro - Développeur Full-Stack TypeScript",
     alternateName: "Axel Hamilcaro Portfolio",
-    url: "https://axelhamilcaro.com",
+    url: SITE_URL,
     description:
       "Portfolio d'Axel Hamilcaro, développeur Full-Stack freelance basé à Paris. Expertise TypeScript, Next.js, React, Node.js pour applications web et SaaS.",
     author: {
@@ -68,14 +112,18 @@ export function JsonLd() {
     },
   };
 
+  const averageRating =
+    testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length;
+
   const professionalServiceSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": `${SITE_URL}/#service`,
     name: "Axel Hamilcaro - Développeur Full-Stack Freelance",
     description:
       "Services de développement web Full-Stack freelance à Paris : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
-    url: "https://axelhamilcaro.com",
-    image: "https://axelhamilcaro.com/profil_pp.jpeg",
+    url: SITE_URL,
+    image: PROFILE_IMAGE,
     priceRange: "€€€",
     provider: {
       "@type": "Person",
@@ -101,6 +149,28 @@ export function JsonLd() {
       "Refonte de Site Web",
       "Maintenance et Support",
     ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toString(),
+      reviewCount: testimonials.length.toString(),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: testimonials.map((testimonial) => ({
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: testimonial.name,
+        jobTitle: testimonial.role,
+      },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: testimonial.rating.toString(),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      reviewBody: testimonial.content,
+    })),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Services de développement web",
@@ -144,7 +214,7 @@ export function JsonLd() {
         "@type": "ListItem",
         position: 1,
         name: "Accueil",
-        item: "https://axelhamilcaro.com",
+        item: SITE_URL,
       },
     ],
   };

@@ -9,11 +9,13 @@ export async function POST(request: Request) {
   }
 
   const formData = await request.formData();
-  const file = formData.get("file") as File | null;
+  const fileEntry = formData.get("file");
 
-  if (!file) {
+  if (!fileEntry || typeof fileEntry === "string") {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
+
+  const file = fileEntry;
 
   const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
   if (!allowedTypes.includes(file.type)) {
@@ -30,7 +32,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ url: blob.url });
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to upload file" },
       { status: 500 },

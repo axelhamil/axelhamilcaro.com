@@ -1,24 +1,28 @@
-import { asc, eq } from "drizzle-orm";
+import type { Metadata } from "next";
 import TreeFooter from "@/app/_components/tree/footer";
 import TreeHeader from "@/app/_components/tree/header";
-import { db } from "@/drizzle";
-import { treeLinks as treeLinksTable } from "@/drizzle/schema";
+import { treeLinkService } from "@/src/features/tree-links/tree-link.service";
 import TreeLinksWrapper from "./_components/tree-links-wrapper";
+
+export const metadata: Metadata = {
+  title: "Liens et Réseaux",
+  description:
+    "Retrouvez tous mes liens professionnels : LinkedIn, GitHub, Malt, et plus. Connectez-vous avec Axel Hamilcaro, développeur Full-Stack freelance à Paris.",
+  alternates: {
+    canonical: "/tree",
+  },
+  openGraph: {
+    title: "Liens et Réseaux",
+    description:
+      "Retrouvez tous mes liens professionnels : LinkedIn, GitHub, Malt, et plus. Connectez-vous avec Axel Hamilcaro, développeur Full-Stack freelance à Paris.",
+    url: "/tree",
+  },
+};
 
 export const dynamic = "force-dynamic";
 
-async function getLinks() {
-  const links = await db
-    .select()
-    .from(treeLinksTable)
-    .where(eq(treeLinksTable.isActive, true))
-    .orderBy(asc(treeLinksTable.order));
-
-  return links;
-}
-
 export default async function TreePage() {
-  const links = await getLinks();
+  const links = await treeLinkService.listActive();
 
   return (
     <main className="relative h-full flex flex-col items-center justify-start px-4 pt-20 sm:pt-0 overflow-hidden">

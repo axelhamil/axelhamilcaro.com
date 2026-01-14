@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Check, Cpu, Gauge, Layers, Shield } from "lucide-react";
-import { Heading2, Paragraphe } from "@/components/typography";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
 import { cn } from "@/lib/utils";
-import { DotGrid, GlowOrb } from "../shared/effects/geometric-shapes";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import { TiltCard } from "../shared/effects/tilt-card";
+import { DotGrid, GlowOrb } from "@/components/effects/geometric-shapes";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "@/components/effects/reveal";
+import { TiltCard } from "@/components/effects/tilt-card";
 
 const blocks = [
   {
@@ -109,13 +110,13 @@ const TechStack = () => {
         </RevealItem>
 
         <RevealItem>
-          <Paragraphe
+          <Paragraph
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-xl mx-auto text-sm sm:text-base"
           >
             Une stack moderne et éprouvée pour des applications performantes,
             maintenables et scalables
-          </Paragraphe>
+          </Paragraph>
         </RevealItem>
       </RevealContainer>
 

@@ -5,12 +5,12 @@ import { useState } from "react";
 import { toast } from "sonner";
 import type { Form, FormTemplate } from "@/drizzle/schema";
 import {
-  type BackgroundType,
-  type BadgeStyle,
   defaultFormData,
   type FormData,
   type GradientConfig,
   type GradientMode,
+  isBackgroundType,
+  isBadgeStyle,
 } from "../types";
 
 function parseGradient(gradient: string): GradientConfig {
@@ -53,7 +53,9 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
     if (form) {
       return {
         slug: form.slug,
-        backgroundType: (form.backgroundType as BackgroundType) || "color",
+        backgroundType: isBackgroundType(form.backgroundType)
+          ? form.backgroundType
+          : "color",
         backgroundColor: form.backgroundColor || "#fafafa",
         backgroundGradient:
           form.backgroundGradient ||
@@ -62,7 +64,7 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
         cardImage: form.cardImage || "",
         badgeText: form.badgeText || "",
         badgeColor: form.badgeColor || "#ff4d00",
-        badgeStyle: (form.badgeStyle as BadgeStyle) || "filled",
+        badgeStyle: isBadgeStyle(form.badgeStyle) ? form.badgeStyle : "filled",
         title: form.title,
         description: form.description || "",
         buttonText: form.buttonText,
@@ -96,9 +98,14 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
     setFormData((prev) => {
       const newData = { ...prev, [field]: value };
 
-      if (field === "title" && !isEditing && !slugInput) {
-        const newSlug = slugify(value as string);
-        setSlugInput(value as string);
+      if (
+        field === "title" &&
+        !isEditing &&
+        !slugInput &&
+        typeof value === "string"
+      ) {
+        const newSlug = slugify(value);
+        setSlugInput(value);
         newData.slug = newSlug;
       }
 
@@ -127,15 +134,53 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
 
   const loadTemplate = (templateId: string) => {
     const template = templates.find((t) => t.id === templateId);
-    if (template?.config) {
-      const config = template.config as Partial<FormData>;
+    if (template?.config && typeof template.config === "object") {
+      const config = template.config as Record<string, unknown>;
+      const safeConfig: Partial<FormData> = {};
+
+      if (
+        typeof config.backgroundType === "string" &&
+        isBackgroundType(config.backgroundType)
+      ) {
+        safeConfig.backgroundType = config.backgroundType;
+      }
+      if (typeof config.backgroundColor === "string")
+        safeConfig.backgroundColor = config.backgroundColor;
+      if (typeof config.backgroundGradient === "string")
+        safeConfig.backgroundGradient = config.backgroundGradient;
+      if (typeof config.backgroundImage === "string")
+        safeConfig.backgroundImage = config.backgroundImage;
+      if (typeof config.cardImage === "string")
+        safeConfig.cardImage = config.cardImage;
+      if (typeof config.badgeText === "string")
+        safeConfig.badgeText = config.badgeText;
+      if (typeof config.badgeColor === "string")
+        safeConfig.badgeColor = config.badgeColor;
+      if (
+        typeof config.badgeStyle === "string" &&
+        isBadgeStyle(config.badgeStyle)
+      ) {
+        safeConfig.badgeStyle = config.badgeStyle;
+      }
+      if (typeof config.title === "string") safeConfig.title = config.title;
+      if (typeof config.description === "string")
+        safeConfig.description = config.description;
+      if (typeof config.buttonText === "string")
+        safeConfig.buttonText = config.buttonText;
+      if (typeof config.buttonSubtext === "string")
+        safeConfig.buttonSubtext = config.buttonSubtext;
+      if (typeof config.emailSubject === "string")
+        safeConfig.emailSubject = config.emailSubject;
+      if (typeof config.emailBody === "string")
+        safeConfig.emailBody = config.emailBody;
+
       setFormData((prev) => ({
         ...prev,
-        ...config,
+        ...safeConfig,
         slug: prev.slug,
       }));
-      if (config.backgroundGradient) {
-        setGradientConfig(parseGradient(config.backgroundGradient));
+      if (safeConfig.backgroundGradient) {
+        setGradientConfig(parseGradient(safeConfig.backgroundGradient));
       }
       toast.success("Template chargé");
     }
@@ -164,7 +209,7 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
       } else {
         toast.error("Erreur lors de la sauvegarde");
       }
-    } catch (_error) {
+    } catch {
       toast.error("Erreur lors de la sauvegarde");
     } finally {
       setIsSavingTemplate(false);
@@ -205,7 +250,7 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
       } else {
         toast.error(data.error || "Erreur lors de la sauvegarde");
       }
-    } catch (_error) {
+    } catch {
       toast.error("Erreur lors de la sauvegarde");
     } finally {
       setIsSaving(false);

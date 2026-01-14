@@ -2,11 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Briefcase, Layers, Zap } from "lucide-react";
-import { Heading2, Paragraphe } from "@/components/typography";
-import { DotGrid, GlowOrb } from "../shared/effects/geometric-shapes";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import { TiltCard } from "../shared/effects/tilt-card";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { DotGrid, GlowOrb } from "@/components/effects/geometric-shapes";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "@/components/effects/reveal";
+import { TiltCard } from "@/components/effects/tilt-card";
 
 const projects = [
   {
@@ -105,13 +106,13 @@ const CaseStudies = () => {
         </RevealItem>
 
         <RevealItem>
-          <Paragraphe
+          <Paragraph
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base"
           >
             Du MVP au produit en production. Des projets concrets avec des
             résultats mesurables.
-          </Paragraphe>
+          </Paragraph>
         </RevealItem>
       </RevealContainer>
 

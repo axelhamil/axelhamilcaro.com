@@ -9,13 +9,16 @@ import {
   Loader2,
   Pencil,
   Plus,
-  Search,
   Trash2,
 } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { useForms } from "@/app/_hooks/swr";
+import {
+  AdminEmptyState,
+  AdminSearchInput,
+} from "@/app/admin/_components/shared";
+import { useForms } from "@/app/_hooks/swr/use-forms";
 
 const container = {
   hidden: { opacity: 0 },
@@ -53,33 +56,6 @@ function CopySlugButton({ slug }: { slug: string }) {
         <Copy className="h-3 w-3 opacity-0 transition-opacity group-hover/copy:opacity-100" />
       )}
     </button>
-  );
-}
-
-function EmptyState() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[var(--admin-border)] bg-[var(--admin-bg)] py-16"
-    >
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)]">
-        <FileText className="h-7 w-7 text-[var(--admin-text-subtle)]" />
-      </div>
-      <h3 className="mt-4 text-lg font-medium text-[var(--admin-text)]">
-        Aucun formulaire
-      </h3>
-      <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
-        Crée ton premier formulaire pour commencer à capturer des leads
-      </p>
-      <Link
-        href="/admin/forms/new"
-        className="mt-6 flex items-center gap-2 rounded-lg bg-[var(--admin-accent)] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[var(--admin-accent-hover)] hover:-translate-y-0.5"
-      >
-        <Plus className="h-4 w-4" />
-        Créer un formulaire
-      </Link>
-    </motion.div>
   );
 }
 
@@ -170,25 +146,24 @@ export function FormsListClient() {
       </motion.div>
 
       {forms.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="relative"
-        >
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--admin-text-subtle)]" />
-          <input
-            type="text"
-            placeholder="Rechercher un formulaire..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] py-2.5 pl-10 pr-4 text-sm text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] transition-colors focus:border-[var(--admin-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--admin-accent-muted)]"
-          />
-        </motion.div>
+        <AdminSearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="Rechercher un formulaire..."
+        />
       )}
 
       {forms.length === 0 ? (
-        <EmptyState />
+        <AdminEmptyState
+          icon={FileText}
+          title="Aucun formulaire"
+          description="Cree ton premier formulaire pour commencer a capturer des leads"
+          action={{
+            label: "Creer un formulaire",
+            href: "/admin/forms/new",
+            icon: Plus,
+          }}
+        />
       ) : filteredForms.length === 0 ? (
         <div className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg)] py-12 text-center">
           <p className="text-sm text-[var(--admin-text-muted)]">

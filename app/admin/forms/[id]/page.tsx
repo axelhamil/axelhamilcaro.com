@@ -1,19 +1,10 @@
 export const dynamic = "force-dynamic";
 
-import { desc, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import { db } from "@/drizzle";
-import { forms, formTemplates } from "@/drizzle/schema";
+import { NotFoundError } from "@/src/core/errors/domain.error";
+import { formService } from "@/src/features/forms/form.service";
+import { templateService } from "@/src/features/templates/template.service";
 import { FormEditor } from "../_components/form-editor";
-
-async function getForm(id: string) {
-  const [form] = await db.select().from(forms).where(eq(forms.id, id));
-  return form;
-}
-
-async function getTemplates() {
-  return db.select().from(formTemplates).orderBy(desc(formTemplates.createdAt));
-}
 
 export default async function EditFormPage({
   params,
@@ -21,11 +12,18 @@ export default async function EditFormPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [form, templates] = await Promise.all([getForm(id), getTemplates()]);
 
-  if (!form) {
-    notFound();
+  try {
+    const [form, templates] = await Promise.all([
+      formService.getById(id),
+      templateService.list(),
+    ]);
+
+    return <FormEditor form={form} templates={templates} />;
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      notFound();
+    }
+    throw error;
   }
-
-  return <FormEditor form={form} templates={templates} />;
 }

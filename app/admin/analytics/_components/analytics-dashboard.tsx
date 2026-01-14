@@ -2,15 +2,12 @@
 
 import { motion } from "framer-motion";
 import {
-  ArrowDown,
-  ArrowUp,
   BarChart3,
   Calendar,
   Clock,
   ExternalLink,
   Eye,
   Globe,
-  HelpCircle,
   Laptop,
   Lightbulb,
   Link2,
@@ -28,27 +25,13 @@ import {
   Zap,
 } from "lucide-react";
 import { useState } from "react";
+import { AdminStatCard } from "@/app/admin/_components/shared";
 import {
   type AnalyticsData,
   type DateRange,
   type RefreshInterval,
   useAnalytics,
-} from "@/app/_hooks/swr";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
-const colorMap: Record<string, { text: string; bg: string }> = {
-  blue: { text: "text-blue-500", bg: "bg-blue-500/10" },
-  green: { text: "text-green-500", bg: "bg-green-500/10" },
-  purple: { text: "text-purple-500", bg: "bg-purple-500/10" },
-  amber: { text: "text-amber-500", bg: "bg-amber-500/10" },
-  red: { text: "text-red-500", bg: "bg-red-500/10" },
-  cyan: { text: "text-cyan-500", bg: "bg-cyan-500/10" },
-  pink: { text: "text-pink-500", bg: "bg-pink-500/10" },
-};
+} from "@/app/_hooks/swr/use-analytics";
 
 const deviceIcons: Record<string, typeof Smartphone> = {
   mobile: Smartphone,
@@ -72,78 +55,6 @@ const refreshOptions: { label: string; value: RefreshInterval }[] = [
   { label: "15s", value: 15000 },
   { label: "30s", value: 30000 },
 ];
-
-function StatCard({
-  title,
-  value,
-  icon: Icon,
-  color,
-  change,
-  suffix,
-  tooltip,
-}: {
-  title: string;
-  value: number | string;
-  icon: typeof Eye;
-  color: keyof typeof colorMap;
-  change?: number;
-  suffix?: string;
-  tooltip?: string;
-}) {
-  const colors = colorMap[color];
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-4"
-    >
-      <div className="flex items-center justify-between">
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1">
-            <p className="text-xs text-[var(--admin-text-muted)] truncate">
-              {title}
-            </p>
-            {tooltip && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <HelpCircle className="h-3 w-3 text-[var(--admin-text-subtle)] cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-[200px]">
-                  {tooltip}
-                </TooltipContent>
-              </Tooltip>
-            )}
-          </div>
-          <div className="flex items-center gap-2 mt-1">
-            <p className={`text-2xl font-bold ${colors.text}`}>
-              {value}
-              {suffix && (
-                <span className="text-sm font-normal ml-0.5">{suffix}</span>
-              )}
-            </p>
-            {change !== undefined && change !== 0 && (
-              <span
-                className={`flex items-center gap-0.5 text-xs font-medium ${
-                  change > 0 ? "text-green-500" : "text-red-500"
-                }`}
-              >
-                {change > 0 ? (
-                  <ArrowUp className="h-3 w-3" />
-                ) : (
-                  <ArrowDown className="h-3 w-3" />
-                )}
-                {Math.abs(change)}%
-              </span>
-            )}
-          </div>
-        </div>
-        <div className={`rounded-lg p-2.5 ${colors.bg}`}>
-          <Icon className={`h-5 w-5 ${colors.text}`} />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 interface Insight {
   type: "positive" | "negative" | "neutral";
@@ -466,7 +377,7 @@ export function AnalyticsDashboard() {
       <InsightsPanel insights={insights} />
 
       <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9">
-        <StatCard
+        <AdminStatCard
           title="Vues"
           value={data.overview.totalViews}
           icon={Eye}
@@ -474,14 +385,14 @@ export function AnalyticsDashboard() {
           change={data.comparison.viewsChange}
           tooltip="Nombre total de pages vues sur la période. Inclut toutes les pages du site (accueil, tree, formulaires...)."
         />
-        <StatCard
+        <AdminStatCard
           title="Sessions"
           value={data.overview.uniqueSessions}
           icon={Users}
           color="cyan"
           tooltip="Nombre de visiteurs uniques identifiés par leur session. Un visiteur qui revient le lendemain compte comme une nouvelle session."
         />
-        <StatCard
+        <AdminStatCard
           title="Clics"
           value={data.overview.totalClicks}
           icon={MousePointerClick}
@@ -489,7 +400,7 @@ export function AnalyticsDashboard() {
           change={data.comparison.clicksChange}
           tooltip="Total des clics sur les liens de la page Tree (LinkedIn, GitHub, etc.). Mesure l'engagement avec tes liens."
         />
-        <StatCard
+        <AdminStatCard
           title="Leads"
           value={data.overview.totalLeads}
           icon={Target}
@@ -497,7 +408,7 @@ export function AnalyticsDashboard() {
           change={data.comparison.leadsChange}
           tooltip="Nombre de formulaires soumis avec succès. Chaque lead représente un contact potentiel capturé."
         />
-        <StatCard
+        <AdminStatCard
           title="Conversion"
           value={data.overview.conversionRate}
           icon={Percent}
@@ -505,7 +416,7 @@ export function AnalyticsDashboard() {
           suffix="%"
           tooltip="Taux de conversion = (Leads / Vues) × 100. Indique le pourcentage de visiteurs qui deviennent des leads."
         />
-        <StatCard
+        <AdminStatCard
           title="Click rate"
           value={data.overview.clickRate}
           icon={Zap}
@@ -513,21 +424,21 @@ export function AnalyticsDashboard() {
           suffix="%"
           tooltip="Taux de clic = (Clics / Vues) × 100. Mesure l'efficacité de tes liens sur la page Tree."
         />
-        <StatCard
+        <AdminStatCard
           title="Vues/Session"
           value={data.overview.avgViewsPerSession}
           icon={BarChart3}
           color="blue"
           tooltip="Nombre moyen de pages consultées par visiteur. Un chiffre élevé indique un bon engagement."
         />
-        <StatCard
+        <AdminStatCard
           title="Logins"
           value={data.overview.totalLoginAttempts}
           icon={LogIn}
           color="red"
           tooltip="Tentatives de connexion à l'admin. Utile pour détecter des tentatives d'accès non autorisées."
         />
-        <StatCard
+        <AdminStatCard
           title="Formulaires"
           value={data.overview.activeForms}
           icon={TrendingUp}

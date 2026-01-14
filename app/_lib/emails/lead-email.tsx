@@ -10,6 +10,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { SITE_URL } from "@/app/_config/site.constants";
 
 interface LeadEmailProps {
   firstName: string;
@@ -36,7 +37,7 @@ export function LeadEmail({ firstName, subject, body }: LeadEmailProps) {
 
           <Section style={footerSection}>
             <Text style={footerName}>Axel Hamilcaro</Text>
-            <Link href="https://axelhamilcaro.com" style={footerLink}>
+            <Link href={SITE_URL} style={footerLink}>
               axelhamilcaro.com
             </Link>
           </Section>

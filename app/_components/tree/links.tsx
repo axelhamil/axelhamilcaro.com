@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { LinkCard } from "@/components/portfolio";
+import { LinkCard } from "@/components/portfolio/link-card";
 import type { ILink } from "../../_config/tree-links";
 
 interface TreeLinksProps {

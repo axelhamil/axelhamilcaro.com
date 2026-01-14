@@ -9,7 +9,6 @@ import {
   Loader2,
   Mail,
   MessageSquare,
-  Search,
   Trash2,
   User,
   X,
@@ -18,7 +17,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { toast } from "sonner";
-import { type Lead, type LeadStatus, useLeads } from "@/app/_hooks/swr";
+import {
+  AdminEmptyState,
+  AdminSearchInput,
+} from "@/app/admin/_components/shared";
+import {
+  type Lead,
+  type LeadStatus,
+  useLeads,
+} from "@/app/_hooks/swr/use-leads";
 
 const statusConfig: Record<
   LeadStatus,
@@ -46,28 +53,6 @@ const item = {
   hidden: { opacity: 0, y: 10 },
   show: { opacity: 1, y: 0 },
 };
-
-function EmptyState({ hasFilter }: { hasFilter: boolean }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] py-16"
-    >
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)]">
-        <Mail className="h-7 w-7 text-[var(--admin-text-subtle)]" />
-      </div>
-      <h3 className="mt-4 text-lg font-medium text-[var(--admin-text)]">
-        Aucun lead
-      </h3>
-      <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
-        {hasFilter
-          ? "Aucun lead pour ce formulaire"
-          : "Les leads apparaîtront ici quand quelqu'un remplira un formulaire"}
-      </p>
-    </motion.div>
-  );
-}
 
 function ExportButton({ leads }: { leads: Lead[] }) {
   const handleExport = () => {
@@ -196,7 +181,7 @@ function StatusSelect({
               ))}
             </div>
           </>,
-          document.body
+          document.body,
         )}
     </div>
   );
@@ -233,9 +218,14 @@ function NotesEditor({
   };
 
   if (isEditing) {
+    const inputId = `notes-${leadId}`;
     return (
       <div className="flex items-center gap-2">
+        <label htmlFor={inputId} className="sr-only">
+          Note pour ce lead
+        </label>
         <input
+          id={inputId}
           type="text"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -390,20 +380,23 @@ export function LeadsListClient() {
         transition={{ delay: 0.1 }}
         className="flex flex-col gap-3 sm:flex-row sm:items-center"
       >
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--admin-text-subtle)]" />
-          <input
-            type="text"
-            placeholder="Rechercher par nom ou email..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] py-2.5 pl-10 pr-4 text-sm text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] transition-colors focus:border-[var(--admin-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--admin-accent-muted)]"
-          />
-        </div>
+        <AdminSearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="Rechercher par nom ou email..."
+          className="flex-1"
+        />
 
         <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-[var(--admin-text-subtle)]" />
+          <Filter
+            className="h-4 w-4 text-[var(--admin-text-subtle)]"
+            aria-hidden="true"
+          />
+          <label htmlFor="form-filter" className="sr-only">
+            Filtrer par formulaire
+          </label>
           <select
+            id="form-filter"
             value={currentFormId || "all"}
             onChange={(e) => handleFilterChange(e.target.value)}
             className="rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] px-3 py-2.5 text-sm text-[var(--admin-text)] transition-colors focus:border-[var(--admin-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--admin-accent-muted)]"
@@ -430,7 +423,15 @@ export function LeadsListClient() {
       </motion.div>
 
       {leads.length === 0 ? (
-        <EmptyState hasFilter={!!currentFormId} />
+        <AdminEmptyState
+          icon={Mail}
+          title="Aucun lead"
+          description={
+            currentFormId
+              ? "Aucun lead pour ce formulaire"
+              : "Les leads apparaitront ici quand quelqu'un remplira un formulaire"
+          }
+        />
       ) : filteredLeads.length === 0 ? (
         <div className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] py-12 text-center">
           <p className="text-sm text-[var(--admin-text-muted)]">

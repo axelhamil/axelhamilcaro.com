@@ -9,11 +9,12 @@ import {
   Trophy,
   Wrench,
 } from "lucide-react";
-import { Heading2, Paragraphe } from "@/components/typography";
-import { AnimatedCounter } from "../shared/effects/animated-counter";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import { TiltCard } from "../shared/effects/tilt-card";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { AnimatedCounter } from "@/components/effects/animated-counter";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "@/components/effects/reveal";
+import { TiltCard } from "@/components/effects/tilt-card";
 
 const stats = [
   { value: "20+", label: "applications livrées" },
@@ -93,12 +94,12 @@ const WhatIDo = () => {
         </RevealItem>
 
         <RevealItem>
-          <Paragraphe
+          <Paragraph
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
           >
             Un accompagnement complet de l'idée au lancement, puis au-delà
-          </Paragraphe>
+          </Paragraph>
         </RevealItem>
       </RevealContainer>
 
@@ -148,13 +149,13 @@ const WhatIDo = () => {
                     {service.title}
                   </h3>
 
-                  <Paragraphe
+                  <Paragraph
                     variant="secondary"
                     size="sm"
                     className="relative z-10 text-sm"
                   >
                     {service.description}
-                  </Paragraphe>
+                  </Paragraph>
 
                   <motion.div
                     className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent"

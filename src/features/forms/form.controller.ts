@@ -11,7 +11,7 @@ export async function list(headers: Headers) {
   try {
     const forms = await formService.list();
     return json(forms);
-  } catch (_err) {
+  } catch {
     return error("Failed to fetch forms");
   }
 }
@@ -23,7 +23,7 @@ export async function getById(id: string, headers: Headers) {
   try {
     const form = await formService.getById(id);
     return json(form);
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof NotFoundError) {
       return error(err.message, 404);
     }
@@ -38,7 +38,7 @@ export async function create(body: unknown, headers: Headers) {
   try {
     const form = await formService.create(body);
     return json(form, 201);
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof ZodError) {
       return error(err.issues[0].message, 400);
     }
@@ -56,7 +56,7 @@ export async function update(id: string, body: unknown, headers: Headers) {
   try {
     const form = await formService.update(id, body);
     return json(form);
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof ZodError) {
       return error(err.issues[0].message, 400);
     }
@@ -77,7 +77,7 @@ export async function remove(id: string, headers: Headers) {
   try {
     await formService.delete(id);
     return json({ success: true });
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof NotFoundError) {
       return error(err.message, 404);
     }

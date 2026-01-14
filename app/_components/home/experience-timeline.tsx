@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Briefcase, Code2, GraduationCap, Rocket } from "lucide-react";
-import { Heading2, Paragraphe } from "@/components/typography";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
-import { TiltCard } from "../shared/effects/tilt-card";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "@/components/effects/reveal";
+import { TiltCard } from "@/components/effects/tilt-card";
 
 const experiences = [
   {
@@ -82,12 +83,12 @@ const ExperienceTimeline = () => {
         </RevealItem>
 
         <RevealItem>
-          <Paragraphe
+          <Paragraph
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
           >
             5+ années à construire des produits web solides et scalables
-          </Paragraphe>
+          </Paragraph>
         </RevealItem>
       </RevealContainer>
 
@@ -169,13 +170,13 @@ const ExperienceTimeline = () => {
                             <p className="text-sm font-medium text-accent">
                               {exp.role}
                             </p>
-                            <Paragraphe
+                            <Paragraph
                               variant="secondary"
                               size="sm"
                               className="mt-2 text-sm"
                             >
                               {exp.description}
-                            </Paragraphe>
+                            </Paragraph>
                           </div>
                         </div>
 

@@ -9,10 +9,11 @@ import {
   DESKTOP_SECTIONS,
   NAV_LINKS,
 } from "@/app/_config/navigation";
-import { useMobileMenu, useScrollProgress } from "@/app/_hooks";
-import { heading1Variants } from "@/components/typography";
+import { useMobileMenu } from "@/app/_hooks/use-mobile-menu";
+import { useScrollProgress } from "@/app/_hooks/use-scroll-progress";
+import { heading1Variants } from "@/components/typography/heading1";
 import { cn } from "@/lib/utils";
-import TransitionLink from "../navigation/transition-link";
+import TransitionLink from "@/components/shared/navigation/transition-link";
 
 const Navbar = () => {
   const pathname = usePathname();

@@ -4,7 +4,7 @@ import Hero from "@/app/_components/home/hero/hero";
 import TechStack from "@/app/_components/home/tech-stack";
 import Testimonials from "@/app/_components/home/testimonials";
 import WhatIDo from "@/app/_components/home/what-i-do";
-import Footer from "@/app/_components/shared/layouts/footer";
+import Footer from "@/app/_components/home/footer";
 
 export default function Home() {
   return (
