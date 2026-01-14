@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NotFoundError } from "@/src/core/errors/domain.error";
@@ -7,8 +5,15 @@ import { formService } from "@/src/features/forms/form.service";
 import { FormPageBackground } from "./_components/form-background";
 import { FormCard } from "./_components/form-card";
 
+export const revalidate = 3600;
+
 interface FormPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const slugs = await formService.getActiveSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({

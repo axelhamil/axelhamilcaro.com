@@ -10,12 +10,12 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
-import TransitionLink from "@/components/shared/navigation/transition-link";
 import {
   CONTACT,
   EXTERNAL_LINKS,
   SOCIAL_LINKS,
 } from "@/app/_config/site.constants";
+import TransitionLink from "@/components/shared/navigation/transition-link";
 
 const socialLinks = [
   {

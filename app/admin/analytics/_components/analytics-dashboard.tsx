@@ -25,13 +25,13 @@ import {
   Zap,
 } from "lucide-react";
 import { useState } from "react";
-import { AdminStatCard } from "@/app/admin/_components/shared";
 import {
   type AnalyticsData,
   type DateRange,
   type RefreshInterval,
   useAnalytics,
 } from "@/app/_hooks/swr/use-analytics";
+import { AdminStatCard } from "@/app/admin/_components/shared";
 
 const deviceIcons: Record<string, typeof Smartphone> = {
   mobile: Smartphone,

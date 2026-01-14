@@ -1,9 +1,15 @@
 import { ZodError } from "zod";
 import { authService } from "@/src/features/auth/auth.service";
-import { error, json } from "@/src/lib/http";
+import { error, json, rateLimited } from "@/src/lib/http";
+import { RATE_LIMITS, rateLimit } from "@/src/lib/rate-limit";
 import { analyticsService } from "./analytics.service";
 
-export async function track(body: unknown, headers: Headers) {
+export async function track(body: unknown, headers: Headers, clientIp: string) {
+  const rateLimitResult = rateLimit(`track:${clientIp}`, RATE_LIMITS.track);
+  if (!rateLimitResult.success) {
+    return rateLimited(rateLimitResult.retryAfter);
+  }
+
   try {
     const userAgent = headers.get("user-agent");
     await analyticsService.trackEvent(body, userAgent);

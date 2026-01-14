@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import { Calendar, Mail, Sparkles } from "lucide-react";
 import Image from "next/image";
+import { CONTACT, EXTERNAL_LINKS } from "@/app/_config/site.constants";
+import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
 import { Heading1 } from "@/components/typography/heading1";
 import { Paragraph } from "@/components/typography/paragraph";
-import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
-import { CONTACT, EXTERNAL_LINKS } from "@/app/_config/site.constants";
 
 export default function TreeHeader() {
   return (

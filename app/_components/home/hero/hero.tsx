@@ -1,5 +1,3 @@
-"use client";
-
 import { ScrollIndicator } from "@/components/effects/scroll-indicator";
 import HeroLeft from "./hero-left";
 import HeroMotion from "./hero-motion";

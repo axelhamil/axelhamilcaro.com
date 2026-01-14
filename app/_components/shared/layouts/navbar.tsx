@@ -11,9 +11,9 @@ import {
 } from "@/app/_config/navigation";
 import { useMobileMenu } from "@/app/_hooks/use-mobile-menu";
 import { useScrollProgress } from "@/app/_hooks/use-scroll-progress";
+import TransitionLink from "@/components/shared/navigation/transition-link";
 import { heading1Variants } from "@/components/typography/heading1";
 import { cn } from "@/lib/utils";
-import TransitionLink from "@/components/shared/navigation/transition-link";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -135,6 +135,7 @@ const Navbar = () => {
         </div>
 
         <button
+          type="button"
           onClick={mobileMenu.toggle}
           className={cn(
             "md:hidden p-2 rounded-lg",

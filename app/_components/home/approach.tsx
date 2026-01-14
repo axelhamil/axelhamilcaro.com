@@ -9,11 +9,11 @@ import {
   ShieldCheck,
   Zap,
 } from "lucide-react";
-import { Heading2 } from "@/components/typography/heading2";
-import { Paragraph } from "@/components/typography/paragraph";
 import { RevealContainer, RevealItem } from "@/components/effects/reveal";
 import { TiltCard } from "@/components/effects/tilt-card";
 import { TerminalBlock } from "@/components/effects/typewriter";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
 
 const pillars = [
   {

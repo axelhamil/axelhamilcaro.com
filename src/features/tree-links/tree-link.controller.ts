@@ -1,7 +1,7 @@
 import { ZodError } from "zod";
 import { NotFoundError } from "@/src/core/errors/domain.error";
-import { error, json } from "@/src/lib/http";
 import { authService } from "@/src/features/auth/auth.service";
+import { error, json } from "@/src/lib/http";
 import { treeLinkService } from "./tree-link.service";
 
 export async function list() {

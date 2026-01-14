@@ -9,12 +9,12 @@ import {
   Trophy,
   Wrench,
 } from "lucide-react";
-import { Heading2 } from "@/components/typography/heading2";
-import { Paragraph } from "@/components/typography/paragraph";
 import { AnimatedCounter } from "@/components/effects/animated-counter";
 import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/components/effects/reveal";
 import { TiltCard } from "@/components/effects/tilt-card";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
 
 const stats = [
   { value: "20+", label: "applications livrées" },

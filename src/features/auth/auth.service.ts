@@ -4,7 +4,9 @@ const ALLOWED_GITHUB_IDS = process.env.ADMIN_GITHUB_ID
   ? [process.env.ADMIN_GITHUB_ID]
   : [];
 
-const isDev = process.env.NODE_ENV === "development";
+const allowDevBypass =
+  process.env.NODE_ENV === "development" &&
+  process.env.ALLOW_DEV_AUTH_BYPASS === "true";
 
 export type AuthResult =
   | { success: true; userId: string }
@@ -12,7 +14,7 @@ export type AuthResult =
 
 export const authService = {
   async requireAdmin(headers: Headers): Promise<AuthResult> {
-    if (isDev) {
+    if (allowDevBypass) {
       return { success: true, userId: "dev-user" };
     }
 

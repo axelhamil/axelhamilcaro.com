@@ -1,7 +1,7 @@
 import { Resend } from "resend";
+import { CONTACT } from "@/app/_config/site.constants";
 import { AdminNotification } from "@/app/_lib/emails/admin-notification";
 import { LeadEmail } from "@/app/_lib/emails/lead-email";
-import { CONTACT } from "@/app/_config/site.constants";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const adminEmail = process.env.ADMIN_EMAIL;

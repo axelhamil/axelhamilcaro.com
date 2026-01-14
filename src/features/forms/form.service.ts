@@ -74,4 +74,8 @@ export const formService = {
     }
     await formRepository.delete(id);
   },
+
+  async getActiveSlugs() {
+    return formRepository.findAllActiveSlugs();
+  },
 };

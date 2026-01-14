@@ -1,10 +1,12 @@
 import {
   boolean,
+  index,
   integer,
   jsonb,
   pgTable,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 
@@ -90,19 +92,27 @@ export const formTemplates = pgTable("form_templates", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const leads = pgTable("leads", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  formId: uuid("form_id")
-    .notNull()
-    .references(() => forms.id, { onDelete: "cascade" }),
-  firstName: text("first_name").notNull(),
-  email: text("email").notNull(),
-  score: integer("score").default(50),
-  source: text("source"),
-  status: text("status").default("new"),
-  notes: text("notes"),
-  createdAt: timestamp("created_at").defaultNow(),
-});
+export const leads = pgTable(
+  "leads",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    formId: uuid("form_id")
+      .notNull()
+      .references(() => forms.id, { onDelete: "cascade" }),
+    firstName: text("first_name").notNull(),
+    email: text("email").notNull(),
+    score: integer("score").default(50),
+    source: text("source"),
+    status: text("status").default("new"),
+    notes: text("notes"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [
+    index("idx_leads_form_id").on(table.formId),
+    index("idx_leads_created_at").on(table.createdAt),
+    uniqueIndex("idx_leads_form_email").on(table.formId, table.email),
+  ],
+);
 
 // Tree links - pour la page /tree
 export const treeLinks = pgTable("tree_links", {
@@ -119,24 +129,31 @@ export const treeLinks = pgTable("tree_links", {
 });
 
 // Analytics - vues de pages
-export const pageViews = pgTable("page_views", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  path: text("path").notNull(),
-  referrer: text("referrer"),
-  userAgent: text("user_agent"),
-  country: text("country"),
-  city: text("city"),
-  device: text("device"),
-  browser: text("browser"),
-  os: text("os"),
-  sessionId: text("session_id"),
-  durationMs: integer("duration_ms"),
-  isBounce: boolean("is_bounce").default(true),
-  utmSource: text("utm_source"),
-  utmMedium: text("utm_medium"),
-  utmCampaign: text("utm_campaign"),
-  createdAt: timestamp("created_at").defaultNow(),
-});
+export const pageViews = pgTable(
+  "page_views",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    path: text("path").notNull(),
+    referrer: text("referrer"),
+    userAgent: text("user_agent"),
+    country: text("country"),
+    city: text("city"),
+    device: text("device"),
+    browser: text("browser"),
+    os: text("os"),
+    sessionId: text("session_id"),
+    durationMs: integer("duration_ms"),
+    isBounce: boolean("is_bounce").default(true),
+    utmSource: text("utm_source"),
+    utmMedium: text("utm_medium"),
+    utmCampaign: text("utm_campaign"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [
+    index("idx_page_views_created_at").on(table.createdAt),
+    index("idx_page_views_session").on(table.sessionId),
+  ],
+);
 
 export const loginAttempts = pgTable("login_attempts", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -155,19 +172,25 @@ export const loginAttempts = pgTable("login_attempts", {
 });
 
 // Analytics - clics sur les liens
-export const linkClicks = pgTable("link_clicks", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  linkId: uuid("link_id").references(() => treeLinks.id, {
-    onDelete: "cascade",
-  }),
-  path: text("path").notNull(),
-  targetUrl: text("target_url").notNull(),
-  referrer: text("referrer"),
-  userAgent: text("user_agent"),
-  country: text("country"),
-  sessionId: text("session_id"),
-  createdAt: timestamp("created_at").defaultNow(),
-});
+export const linkClicks = pgTable(
+  "link_clicks",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    linkId: uuid("link_id").references(() => treeLinks.id, {
+      onDelete: "cascade",
+    }),
+    path: text("path").notNull(),
+    targetUrl: text("target_url").notNull(),
+    referrer: text("referrer"),
+    userAgent: text("user_agent"),
+    country: text("country"),
+    sessionId: text("session_id"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [
+    index("idx_link_clicks_link_created").on(table.linkId, table.createdAt),
+  ],
+);
 
 export type User = typeof users.$inferSelect;
 export type Form = typeof forms.$inferSelect;

@@ -152,4 +152,10 @@ CREATE TABLE "verifications" (
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "leads" ADD CONSTRAINT "leads_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "link_clicks" ADD CONSTRAINT "link_clicks_link_id_tree_links_id_fk" FOREIGN KEY ("link_id") REFERENCES "public"."tree_links"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "idx_leads_form_id" ON "leads" USING btree ("form_id");--> statement-breakpoint
+CREATE INDEX "idx_leads_created_at" ON "leads" USING btree ("created_at");--> statement-breakpoint
+CREATE UNIQUE INDEX "idx_leads_form_email" ON "leads" USING btree ("form_id","email");--> statement-breakpoint
+CREATE INDEX "idx_link_clicks_link_created" ON "link_clicks" USING btree ("link_id","created_at");--> statement-breakpoint
+CREATE INDEX "idx_page_views_created_at" ON "page_views" USING btree ("created_at");--> statement-breakpoint
+CREATE INDEX "idx_page_views_session" ON "page_views" USING btree ("session_id");

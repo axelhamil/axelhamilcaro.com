@@ -1,5 +1,11 @@
 import * as analyticsController from "@/src/features/analytics/analytics.controller";
+import { getClientIdentifier } from "@/src/lib/rate-limit";
 
 export async function POST(request: Request) {
-  return analyticsController.track(await request.json(), request.headers);
+  const clientIp = getClientIdentifier(request);
+  return analyticsController.track(
+    await request.json(),
+    request.headers,
+    clientIp,
+  );
 }

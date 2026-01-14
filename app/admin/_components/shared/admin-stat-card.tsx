@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ArrowDown, ArrowUp, HelpCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { ArrowDown, ArrowUp, HelpCircle } from "lucide-react";
 import Link from "next/link";
 import {
   Tooltip,

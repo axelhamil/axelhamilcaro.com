@@ -191,7 +191,7 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
 
     setIsSavingTemplate(true);
     try {
-      const { slug, isActive, ...config } = formData;
+      const { slug: _slug, isActive: _isActive, ...config } = formData;
 
       const response = await fetch("/api/templates", {
         method: "POST",

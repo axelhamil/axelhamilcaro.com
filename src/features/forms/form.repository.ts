@@ -1,4 +1,4 @@
-import { desc, eq, sql } from "drizzle-orm";
+import { count, desc, eq } from "drizzle-orm";
 import { db } from "@/drizzle";
 import { forms, leads } from "@/drizzle/schema";
 
@@ -29,17 +29,24 @@ export const formRepository = {
   },
 
   async findAllWithLeadsCount(): Promise<FormWithLeadsCount[]> {
-    return db
+    const rows = await db
       .select({
         id: forms.id,
         slug: forms.slug,
         title: forms.title,
         isActive: forms.isActive,
         createdAt: forms.createdAt,
-        leadsCount: sql<number>`(SELECT COUNT(*) FROM ${leads} WHERE ${leads.formId} = ${forms.id})`,
+        leadsCount: count(leads.id),
       })
       .from(forms)
+      .leftJoin(leads, eq(forms.id, leads.formId))
+      .groupBy(forms.id)
       .orderBy(desc(forms.createdAt));
+
+    return rows.map((row) => ({
+      ...row,
+      leadsCount: Number(row.leadsCount),
+    }));
   },
 
   async findAllForDropdown(): Promise<{ id: string; title: string }[]> {
@@ -47,6 +54,14 @@ export const formRepository = {
       .select({ id: forms.id, title: forms.title })
       .from(forms)
       .orderBy(forms.title);
+  },
+
+  async findAllActiveSlugs(): Promise<string[]> {
+    const rows = await db
+      .select({ slug: forms.slug })
+      .from(forms)
+      .where(eq(forms.isActive, true));
+    return rows.map((r) => r.slug);
   },
 
   async slugExists(slug: string, excludeId?: string): Promise<boolean> {

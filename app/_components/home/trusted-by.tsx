@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Award, Building2 } from "lucide-react";
-import { Heading2 } from "@/components/typography/heading2";
-import { Paragraph } from "@/components/typography/paragraph";
 import { AnimatedCounter } from "@/components/effects/animated-counter";
 import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/components/effects/reveal";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
 
 const companies = [
   {

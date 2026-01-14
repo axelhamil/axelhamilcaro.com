@@ -4,7 +4,13 @@ export const submitLeadSchema = z.object({
   firstName: z
     .string()
     .min(1, "Le prénom est requis")
+    .max(100, "Le prénom est trop long")
     .transform((val) => val.trim()),
+  lastName: z
+    .string()
+    .max(100, "Le nom est trop long")
+    .transform((val) => val.trim())
+    .nullish(),
   email: z.email("Email invalide"),
 });
 

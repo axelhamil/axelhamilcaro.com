@@ -18,14 +18,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { toast } from "sonner";
 import {
-  AdminEmptyState,
-  AdminSearchInput,
-} from "@/app/admin/_components/shared";
-import {
   type Lead,
   type LeadStatus,
   useLeads,
 } from "@/app/_hooks/swr/use-leads";
+import {
+  AdminEmptyState,
+  AdminSearchInput,
+} from "@/app/admin/_components/shared";
 
 const statusConfig: Record<
   LeadStatus,

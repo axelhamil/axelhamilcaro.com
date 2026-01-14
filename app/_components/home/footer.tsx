@@ -9,13 +9,13 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
-import { Paragraph } from "@/components/typography/paragraph";
-import TransitionLink from "@/components/shared/navigation/transition-link";
 import {
   CONTACT,
   EXTERNAL_LINKS,
   SOCIAL_LINKS,
 } from "@/app/_config/site.constants";
+import TransitionLink from "@/components/shared/navigation/transition-link";
+import { Paragraph } from "@/components/typography/paragraph";
 
 const socialLinks = [
   {

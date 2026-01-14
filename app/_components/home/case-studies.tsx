@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Briefcase, Layers, Zap } from "lucide-react";
-import { Heading2 } from "@/components/typography/heading2";
-import { Paragraph } from "@/components/typography/paragraph";
 import { DotGrid, GlowOrb } from "@/components/effects/geometric-shapes";
 import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/components/effects/reveal";
 import { TiltCard } from "@/components/effects/tilt-card";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
 
 const projects = [
   {

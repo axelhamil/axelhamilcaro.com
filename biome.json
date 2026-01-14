@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
   "root": true,
   "assist": {
     "actions": {
@@ -29,7 +29,10 @@
         "noDoubleEquals": "warn",
         "noPrototypeBuiltins": "warn",
         "noConstEnum": "off",
-        "noConsole": { "level": "warn", "options": { "allow": ["log"] } }
+        "noConsole": {
+          "level": "warn",
+          "options": { "allow": ["log", "error"] }
+        }
       },
       "style": {
         "noNonNullAssertion": "warn",
@@ -119,6 +122,18 @@
     },
     "formatter": {
       "enabled": true
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    },
+    "linter": {
+      "enabled": false
+    },
+    "formatter": {
+      "enabled": false
     }
   },
   "vcs": {

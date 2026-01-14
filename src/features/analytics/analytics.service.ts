@@ -177,7 +177,11 @@ export const analyticsService = {
     };
   },
 
-  async getDetailedStats(params: { from?: string; to?: string; days?: number }) {
+  async getDetailedStats(params: {
+    from?: string;
+    to?: string;
+    days?: number;
+  }) {
     const { from, to, days: daysParam } = params;
 
     let startDate: Date;

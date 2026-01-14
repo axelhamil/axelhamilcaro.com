@@ -3,8 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Compass, Home } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { CustomCursor } from "@/components/effects/custom-cursor";
 import Navbar from "@/app/_components/shared/layouts/navbar";
+import { CustomCursor } from "@/components/effects/custom-cursor";
 import { Button } from "@/components/portfolio/button";
 import { CaughtCounter } from "./_components/not-found/caught-counter";
 import { GlitchText } from "./_components/not-found/glitch-text";

@@ -2,16 +2,16 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Code2, Rocket, Zap } from "lucide-react";
-import { Button } from "@/components/portfolio/button";
-import { Heading2 } from "@/components/typography/heading2";
-import { Paragraph } from "@/components/typography/paragraph";
+import { EXTERNAL_LINKS } from "@/app/_config/site.constants";
 import { AnimatedCounter } from "@/components/effects/animated-counter";
 import { PulsingDot } from "@/components/effects/floating-element";
 import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
 import { RunawayBadge } from "@/components/effects/runaway-badge";
 import { LetterReveal } from "@/components/effects/text-reveal";
+import { Button } from "@/components/portfolio/button";
+import { Heading2 } from "@/components/typography/heading2";
+import { Paragraph } from "@/components/typography/paragraph";
 import { HeroMotionItem } from "./hero-motion";
-import { EXTERNAL_LINKS } from "@/app/_config/site.constants";
 
 const stats = [
   { v: "5+", l: "ans d'expérience" },

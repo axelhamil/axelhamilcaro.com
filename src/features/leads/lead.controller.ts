@@ -2,7 +2,8 @@ import { ZodError } from "zod";
 import { NotFoundError, ValidationError } from "@/src/core/errors/domain.error";
 import { authService } from "@/src/features/auth/auth.service";
 import { formRepository } from "@/src/features/forms/form.repository";
-import { error, json } from "@/src/lib/http";
+import { error, json, rateLimited } from "@/src/lib/http";
+import { RATE_LIMITS, rateLimit } from "@/src/lib/rate-limit";
 import { leadService } from "./lead.service";
 
 export async function list(formId: string | undefined, headers: Headers) {
@@ -61,7 +62,16 @@ export async function remove(id: string, headers: Headers) {
   }
 }
 
-export async function submit(slug: string, body: { source?: string }) {
+export async function submit(
+  slug: string,
+  body: { source?: string },
+  clientIp: string,
+) {
+  const rateLimitResult = rateLimit(`submit:${clientIp}`, RATE_LIMITS.submit);
+  if (!rateLimitResult.success) {
+    return rateLimited(rateLimitResult.retryAfter);
+  }
+
   try {
     await leadService.submit(slug, body, body.source);
     return json({ success: true }, 201);
