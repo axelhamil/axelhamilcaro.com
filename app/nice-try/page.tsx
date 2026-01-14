@@ -1,20 +1,20 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  Skull,
-  ShieldAlert,
-  Camera,
-  Database,
-  Clock,
   AlertTriangle,
-  Wifi,
-  MapPin,
-  Terminal,
+  Camera,
+  Clock,
+  Database,
   Eye,
+  MapPin,
+  ShieldAlert,
+  Skull,
+  Terminal,
+  Wifi,
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FAKE_PROCESSES = [
   { text: "ssh root@intruder.local", delay: 100 },
@@ -44,7 +44,7 @@ const FAKE_PROCESSES = [
 function useTypewriter(
   text: string,
   speed = 30,
-  onComplete?: () => void
+  onComplete?: () => void,
 ): string {
   const [displayed, setDisplayed] = useState("");
 
@@ -68,7 +68,7 @@ function useTypewriter(
     }, speed);
 
     return () => clearInterval(interval);
-  }, [text, speed]);
+  }, [text, speed, onComplete]);
 
   return displayed;
 }
@@ -98,7 +98,7 @@ function TerminalLine({
 
 function HackerTerminal() {
   const [lines, setLines] = useState<{ text: string; isCommand: boolean }[]>(
-    []
+    [],
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -127,7 +127,7 @@ function HackerTerminal() {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
-  }, [lines]);
+  }, []);
 
   const handleLineComplete = () => {
     if (currentIndex < FAKE_PROCESSES.length - 1) {
@@ -161,7 +161,9 @@ function HackerTerminal() {
               key={i}
               text={line.text}
               isCommand={line.isCommand}
-              onComplete={i === lines.length - 1 ? handleLineComplete : undefined}
+              onComplete={
+                i === lines.length - 1 ? handleLineComplete : undefined
+              }
             />
           ))}
         </div>
@@ -324,8 +326,16 @@ export default function NiceTryPage() {
                 Données capturées
               </span>
             </div>
-            <DataPoint icon={Camera} label="Profil GitHub enregistré" delay={1.1} />
-            <DataPoint icon={Database} label="Tentative logguée en DB" delay={1.2} />
+            <DataPoint
+              icon={Camera}
+              label="Profil GitHub enregistré"
+              delay={1.1}
+            />
+            <DataPoint
+              icon={Database}
+              label="Tentative logguée en DB"
+              delay={1.2}
+            />
             <DataPoint icon={Wifi} label="Adresse IP capturée" delay={1.3} />
           </div>
 
@@ -336,8 +346,16 @@ export default function NiceTryPage() {
                 Actions en cours
               </span>
             </div>
-            <DataPoint icon={MapPin} label="Géolocalisation active" delay={1.4} />
-            <DataPoint icon={Clock} label="Rate limiting appliqué" delay={1.5} />
+            <DataPoint
+              icon={MapPin}
+              label="Géolocalisation active"
+              delay={1.4}
+            />
+            <DataPoint
+              icon={Clock}
+              label="Rate limiting appliqué"
+              delay={1.5}
+            />
             <DataPoint icon={Terminal} label="Admin notifié" delay={1.6} />
           </div>
         </motion.div>
@@ -356,9 +374,9 @@ export default function NiceTryPage() {
                   <div className="font-mono text-sm">
                     <p className="text-amber-400 mb-1">AVERTISSEMENT</p>
                     <p className="text-zinc-400 text-xs">
-                      Chaque nouvelle tentative de connexion augmente ton temps de
-                      bannissement de manière exponentielle. Ton compte GitHub est
-                      maintenant sous surveillance.
+                      Chaque nouvelle tentative de connexion augmente ton temps
+                      de bannissement de manière exponentielle. Ton compte
+                      GitHub est maintenant sous surveillance.
                     </p>
                   </div>
                 </div>
@@ -392,7 +410,9 @@ export default function NiceTryPage() {
         >
           <p className="text-zinc-700 text-xs font-mono">
             {incidentId && timestamp && (
-              <>incident_id: {incidentId} • {timestamp}</>
+              <>
+                incident_id: {incidentId} • {timestamp}
+              </>
             )}
           </p>
         </motion.div>

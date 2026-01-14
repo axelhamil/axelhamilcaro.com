@@ -1,8 +1,8 @@
 export const dynamic = "force-dynamic";
 
-import { db } from "@/app/_lib/db";
-import { formTemplates } from "@/app/_lib/db/schema";
 import { desc } from "drizzle-orm";
+import { db } from "@/drizzle";
+import { formTemplates } from "@/drizzle/schema";
 import { TemplatesListClient } from "./_components/templates-list-client";
 
 async function getTemplates() {

@@ -9,8 +9,8 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
-import TransitionLink from "../navigation/transition-link";
 import { Paragraphe } from "@/components/typography";
+import TransitionLink from "../navigation/transition-link";
 
 const socialLinks = [
   {

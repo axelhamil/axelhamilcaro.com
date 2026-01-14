@@ -1,19 +1,39 @@
 "use client";
 
+import { AlertCircle, ArrowRight, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle, Check } from "lucide-react";
-import type { FormData } from "./types";
+import { ColorPicker } from "./color-picker";
+import { ImageUpload } from "./image-upload";
+import type { BadgeStyle, FormData } from "./types";
 
 interface ContentTabProps {
   formData: FormData;
+  slugInput: string;
+  computedSlug: string;
   onChange: (field: keyof FormData, value: string | boolean) => void;
+  onSlugInputChange: (value: string) => void;
   slugError: string | null;
 }
 
-export function ContentTab({ formData, onChange, slugError }: ContentTabProps) {
-  const isSlugValid = formData.slug && !slugError;
+export function ContentTab({
+  formData,
+  slugInput,
+  computedSlug,
+  onChange,
+  onSlugInputChange,
+  slugError,
+}: ContentTabProps) {
+  const isSlugValid = computedSlug && !slugError;
+  const showSlugPreview = slugInput && slugInput !== computedSlug;
 
   return (
     <div className="space-y-4">
@@ -29,9 +49,9 @@ export function ContentTab({ formData, onChange, slugError }: ContentTabProps) {
           <div className="relative flex-1">
             <Input
               id="slug"
-              value={formData.slug}
-              onChange={(e) => onChange("slug", e.target.value)}
-              placeholder="mon-formulaire"
+              value={slugInput}
+              onChange={(e) => onSlugInputChange(e.target.value)}
+              placeholder="Mon Super Formulaire !"
               required
               className={`pr-10 border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)] ${
                 slugError
@@ -48,65 +68,80 @@ export function ContentTab({ formData, onChange, slugError }: ContentTabProps) {
           </div>
         </div>
         {slugError && <p className="text-xs text-red-500">{slugError}</p>}
+        {showSlugPreview && !slugError && (
+          <div className="flex items-center gap-2 text-xs text-[var(--admin-text-muted)]">
+            <span className="opacity-60">{slugInput}</span>
+            <ArrowRight className="h-3 w-3" />
+            <code className="rounded bg-[var(--admin-bg-elevated)] px-1.5 py-0.5 font-mono text-[var(--admin-accent)]">
+              {computedSlug}
+            </code>
+          </div>
+        )}
         {isSlugValid && (
-          <p className="text-xs text-green-600">URL : /f/{formData.slug}</p>
+          <p className="text-xs text-green-600">
+            URL finale : <span className="font-mono">/f/{computedSlug}</span>
+          </p>
         )}
       </div>
 
       <div className="space-y-2">
-        <Label
-          htmlFor="cardImage"
-          className="text-sm font-medium text-[var(--admin-text)]"
-        >
-          Image de la carte (URL)
+        <Label className="text-sm font-medium text-[var(--admin-text)]">
+          Image de la carte
         </Label>
-        <Input
-          id="cardImage"
+        <ImageUpload
           value={formData.cardImage}
-          onChange={(e) => onChange("cardImage", e.target.value)}
-          placeholder="https://..."
-          className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
+          onChange={(url) => onChange("cardImage", url)}
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label
-            htmlFor="badgeText"
-            className="text-sm font-medium text-[var(--admin-text)]"
-          >
-            Badge
-          </Label>
-          <Input
-            id="badgeText"
-            value={formData.badgeText}
-            onChange={(e) => onChange("badgeText", e.target.value)}
-            placeholder="Offre limitée"
-            className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label
-            htmlFor="badgeColor"
-            className="text-sm font-medium text-[var(--admin-text)]"
-          >
-            Couleur du badge
-          </Label>
-          <div className="flex gap-2">
+      <div className="space-y-4 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg-elevated)] p-4">
+        <Label className="text-sm font-medium text-[var(--admin-text)]">
+          Badge
+        </Label>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label
+              htmlFor="badgeText"
+              className="text-xs text-[var(--admin-text-muted)]"
+            >
+              Texte
+            </Label>
             <Input
-              type="color"
-              id="badgeColor"
-              value={formData.badgeColor}
-              onChange={(e) => onChange("badgeColor", e.target.value)}
-              className="h-10 w-14 cursor-pointer border-[var(--admin-border)] bg-[var(--admin-bg)] p-1"
-            />
-            <Input
-              value={formData.badgeColor}
-              onChange={(e) => onChange("badgeColor", e.target.value)}
-              placeholder="#ff4d00"
-              className="flex-1 border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
+              id="badgeText"
+              value={formData.badgeText}
+              onChange={(e) => onChange("badgeText", e.target.value)}
+              placeholder="Offre limitée"
+              className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
             />
           </div>
+          <div className="space-y-2">
+            <Label className="text-xs text-[var(--admin-text-muted)]">
+              Style
+            </Label>
+            <Select
+              value={formData.badgeStyle}
+              onValueChange={(value: BadgeStyle) =>
+                onChange("badgeStyle", value)
+              }
+            >
+              <SelectTrigger className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="border-[var(--admin-border)] bg-[var(--admin-bg-subtle)]">
+                <SelectItem value="filled">Rempli</SelectItem>
+                <SelectItem value="outline">Contour</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label className="text-xs text-[var(--admin-text-muted)]">
+            Couleur
+          </Label>
+          <ColorPicker
+            value={formData.badgeColor}
+            onChange={(value) => onChange("badgeColor", value)}
+          />
         </div>
       </div>
 
@@ -144,21 +179,41 @@ export function ContentTab({ formData, onChange, slugError }: ContentTabProps) {
         />
       </div>
 
-      <div className="space-y-2">
-        <Label
-          htmlFor="buttonText"
-          className="text-sm font-medium text-[var(--admin-text)]"
-        >
-          Texte du bouton
+      <div className="space-y-4 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg-elevated)] p-4">
+        <Label className="text-sm font-medium text-[var(--admin-text)]">
+          Bouton
         </Label>
-        <Input
-          id="buttonText"
-          value={formData.buttonText}
-          onChange={(e) => onChange("buttonText", e.target.value)}
-          placeholder="Envoyer"
-          required
-          className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
-        />
+        <div className="space-y-2">
+          <Label
+            htmlFor="buttonText"
+            className="text-xs text-[var(--admin-text-muted)]"
+          >
+            Texte principal
+          </Label>
+          <Input
+            id="buttonText"
+            value={formData.buttonText}
+            onChange={(e) => onChange("buttonText", e.target.value)}
+            placeholder="Je veux recevoir les ressources"
+            required
+            className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label
+            htmlFor="buttonSubtext"
+            className="text-xs text-[var(--admin-text-muted)]"
+          >
+            Sous-texte (optionnel)
+          </Label>
+          <Input
+            id="buttonSubtext"
+            value={formData.buttonSubtext}
+            onChange={(e) => onChange("buttonSubtext", e.target.value)}
+            placeholder="(Profites-en pendant que c'est gratuit)"
+            className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,57 +1,98 @@
 import { Resend } from "resend";
+import { AdminNotification } from "./emails/admin-notification";
+import { LeadEmail } from "./emails/lead-email";
 
 const resendApiKey = process.env.RESEND_API_KEY;
+const adminEmail = process.env.ADMIN_EMAIL;
 
 if (!resendApiKey) {
-  console.warn("RESEND_API_KEY is not configured - emails will not be sent");
 }
 
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-interface SendLeadNotificationParams {
+interface SendLeadEmailParams {
   to: string;
+  firstName: string;
   subject: string;
   body: string;
-  firstName: string;
-  email: string;
 }
 
-export async function sendLeadNotification({
+export async function sendLeadEmail({
   to,
+  firstName,
   subject,
   body,
-  firstName,
-  email,
-}: SendLeadNotificationParams) {
+}: SendLeadEmailParams) {
   if (!resend) {
-    console.warn("Resend not configured, skipping email");
     return { success: false, error: "Resend not configured" };
   }
 
-  const parsedSubject = subject
-    .replace(/\{\{firstName\}\}/g, firstName)
-    .replace(/\{\{email\}\}/g, email);
-
-  const parsedBody = body
-    .replace(/\{\{firstName\}\}/g, firstName)
-    .replace(/\{\{email\}\}/g, email);
+  const parsedSubject = subject.replace(/\{\{firstName\}\}/g, firstName);
 
   try {
     const { data, error } = await resend.emails.send({
-      from: "Formulaire <noreply@axelhamilcaro.com>",
+      from: "Axel Hamilcaro <noreply@axelhamilcaro.com>",
       to: [to],
       subject: parsedSubject,
-      html: parsedBody,
+      react: LeadEmail({ firstName, subject: parsedSubject, body }),
     });
 
     if (error) {
-      console.error("Resend error:", error);
       return { success: false, error: error.message };
     }
 
     return { success: true, data };
   } catch (error) {
-    console.error("Failed to send email:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
+
+interface SendAdminNotificationParams {
+  formTitle: string;
+  formSlug: string;
+  firstName: string;
+  email: string;
+  source?: string | null;
+}
+
+export async function sendAdminNotification({
+  formTitle,
+  formSlug,
+  firstName,
+  email,
+  source,
+}: SendAdminNotificationParams) {
+  if (!resend) {
+    return { success: false, error: "Resend not configured" };
+  }
+
+  if (!adminEmail) {
+    return { success: false, error: "ADMIN_EMAIL not configured" };
+  }
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: "Formulaire <noreply@axelhamilcaro.com>",
+      to: [adminEmail],
+      subject: `🎯 Nouveau lead: ${firstName} via ${formTitle}`,
+      react: AdminNotification({
+        formTitle,
+        formSlug,
+        firstName,
+        email,
+        source,
+      }),
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, data };
+  } catch (error) {
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",

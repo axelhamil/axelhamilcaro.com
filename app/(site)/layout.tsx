@@ -1,15 +1,15 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { CustomCursor } from "@/app/_components/shared/effects/custom-cursor";
+import {
+  ClickSpark,
+  EmojiRain,
+} from "@/app/_components/shared/effects/emoji-rain";
+import { KeyStatsWidget } from "@/app/_components/shared/effects/key-stats";
+import { ScrollProgress } from "@/app/_components/shared/effects/scroll-progress";
 import Navbar from "@/app/_components/shared/layouts/navbar";
 import { JsonLd } from "@/app/_components/shared/seo/json-ld";
-import { CustomCursor } from "@/app/_components/shared/effects/custom-cursor";
-import { ScrollProgress } from "@/app/_components/shared/effects/scroll-progress";
-import { KeyStatsWidget } from "@/app/_components/shared/effects/key-stats";
-import {
-  EmojiRain,
-  ClickSpark,
-} from "@/app/_components/shared/effects/emoji-rain";
 
 export default function SiteLayout({
   children,

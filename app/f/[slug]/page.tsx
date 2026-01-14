@@ -1,12 +1,12 @@
 export const dynamic = "force-dynamic";
 
-import { db } from "@/app/_lib/db";
-import { forms } from "@/app/_lib/db/schema";
 import { eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { FormCard } from "./_components/form-card";
+import { db } from "@/drizzle";
+import { forms } from "@/drizzle/schema";
 import { FormPageBackground } from "./_components/form-background";
+import { FormCard } from "./_components/form-card";
 
 interface FormPageProps {
   params: Promise<{ slug: string }>;

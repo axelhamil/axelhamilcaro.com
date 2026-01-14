@@ -22,40 +22,59 @@ pnpm format     # Format code with Biome
 /app
   /_components
     /ui              # Reusable UI components
-      button.tsx
-      heading1.tsx
-      heading2.tsx
-      paragraphe.tsx
-      link-card.tsx
     /shared
       /layouts       # Navbar, Footer
       /effects       # TronGrid, ScrollIndicator
       /navigation    # TransitionLink, PageTransition
-      /seo          # JsonLd
+      /seo           # JsonLd
     /home            # Home page-specific components
-      hero.tsx
-      what-i-do.tsx
-      tech-stack.tsx
-      terminal.tsx
-      services.tsx
-  /_config          # Configuration files
-    metadata.ts     # SEO metadata
-    viewport.ts     # Viewport config
-    fonts.ts        # Font setup
-    site.ts         # Site constants
-  /_lib
-    cn.ts           # Utility for merging Tailwind classes
-  /tree             # /tree page
-  layout.tsx        # Root layout (40 lines - streamlined!)
-  page.tsx          # Homepage (orchestrator pattern)
-  global.css        # Global styles
-  robots.ts         # Robots.txt generator
-  sitemap.ts        # Sitemap generator
+  /_config           # Configuration files (metadata, viewport, fonts, site)
+  /_lib              # App utilities (cn.ts)
+  /api               # API routes (controllers)
+    /forms           # Forms CRUD
+    /leads           # Leads CRUD
+    /submit/[slug]   # Public lead submission
+    /admin/dashboard # Dashboard stats
+  layout.tsx         # Root layout
+  page.tsx           # Homepage
 
-/public             # Static assets (images, favicon, manifest.json)
+/src
+  /core
+    /errors          # Domain errors (NotFoundError, ValidationError, ConflictError)
+  /features
+    /auth            # Auth feature
+      auth.service.ts      # Admin auth (framework-agnostic)
+    /email           # Email feature
+      email.service.ts     # Email sending (Resend)
+    /forms           # Form feature
+      form.controller.ts   # HTTP handling
+      form.repository.ts   # CRUD operations
+      form.service.ts      # Business logic
+      form.schema.ts       # Zod schemas
+    /leads           # Lead feature
+      lead.controller.ts
+      lead.repository.ts
+      lead.service.ts
+      lead.schema.ts
+    /analytics       # Analytics feature
+      analytics.controller.ts
+      analytics.repository.ts
+      analytics.service.ts
+  /lib
+    http.ts          # HTTP response helpers (NextResponse abstraction)
+    /utils
+      date.utils.ts   # Date formatting
+      slug.utils.ts   # Slug generation/validation
+      email.utils.ts  # Email normalization/validation
+
+/drizzle             # Database layer
+  schema.ts          # Drizzle schema definitions
+  index.ts           # DB connection
+
+/public              # Static assets
 ```
 
-**Note:** All Next.js-related files (config, lib, components) are in `/app`. The `_` prefix prevents Next.js from treating them as routes.
+**Note:** `/app` contains Next.js routes and UI. `/src` contains business logic with Clean Architecture.
 
 ## Refactoring Guidelines
 
@@ -137,23 +156,58 @@ export default function Home() {
 - Extract viewport config to separate file
 - Keep layout.tsx minimal
 
-### 5. Target Clean Architecture/DDD Structure
-
-Create this structure for business logic:
+### 5. Clean Architecture (Route → Controller → Service → Repository)
 
 ```
-/src
-  /domain          # Entities, value objects, business types
-  /application     # Use cases, application services
-  /infrastructure  # API calls, external services
-  /lib             # Utilities, helpers, constants
+Route (Next.js) → Controller → Service → Repository → Database
 ```
 
-**Dependency rules:**
-- UI components import from `application` or `domain`, NEVER from `infrastructure`
-- API calls belong in `infrastructure`
-- Business logic belongs in `domain`
-- Use cases orchestrate in `application`
+**Layer responsibilities:**
+
+| Layer | Location | Responsibility |
+|-------|----------|----------------|
+| Route | `/app/api/**` | Next.js specific (headers, params extraction) |
+| Controller | `/src/features/*/[feature].controller.ts` | Business flow, error handling, response formatting |
+| Service | `/src/features/*/[feature].service.ts` | Business logic, validation, orchestration |
+| Repository | `/src/features/*/[feature].repository.ts` | CRUD operations only, no business logic |
+| Schema | `/src/features/*/[feature].schema.ts` | Zod validation schemas |
+
+**Framework decoupling:**
+- Controllers use `@/src/lib/http` (abstraction over NextResponse)
+- Auth service receives `Headers` as parameter (no direct Next.js imports)
+- Routes are minimal wrappers (~5 lines max)
+- To switch framework: only change routes and `src/lib/http.ts`
+
+**Example route (minimal Next.js code):**
+```typescript
+// app/api/forms/route.ts
+import { headers } from "next/headers";
+import * as formController from "@/src/features/forms/form.controller";
+
+export async function GET() {
+  return formController.list(await headers());
+}
+
+export async function POST(request: Request) {
+  return formController.create(await request.json(), await headers());
+}
+```
+
+**Example controller (framework-agnostic):**
+```typescript
+// src/features/forms/form.controller.ts
+import { json, error } from "@/src/lib/http";
+import { authService } from "@/src/features/auth/auth.service";
+import { formService } from "./form.service";
+
+export async function list(headers: Headers) {
+  const auth = await authService.requireAdmin(headers);
+  if (!auth.success) return error(auth.error, auth.status);
+
+  const forms = await formService.list();
+  return json(forms);
+}
+```
 
 ### 6. Naming Conventions
 
@@ -302,22 +356,164 @@ Extensive SEO optimization in layout.tsx:
 - Hover effects with Tailwind utilities
 - View transitions enabled (Next.js experimental)
 
+## Backend Architecture
+
+### Zod v4 Conventions
+
+```typescript
+import { z } from "zod";
+
+const schema = z.object({
+  email: z.email("Email invalide"),
+  name: z.string().min(2),
+});
+
+try {
+  schema.parse(data);
+} catch (error) {
+  if (error instanceof ZodError) {
+    error.issues[0].message;
+  }
+}
+```
+
+### Domain Errors
+
+```typescript
+import { NotFoundError, ValidationError, ConflictError } from "@/src/core/errors/domain.error";
+
+throw new NotFoundError("Formulaire", id);
+throw new ValidationError("Ce formulaire n'est plus actif");
+throw new ConflictError("Un formulaire avec ce slug existe déjà");
+```
+
+### Repository Pattern
+
+```typescript
+export const formRepository = {
+  async findById(id: string): Promise<Form | null> { ... },
+  async create(data: FormInsert): Promise<Form> { ... },
+  async update(id: string, data: Partial<FormInsert>): Promise<Form> { ... },
+  async delete(id: string): Promise<void> { ... },
+};
+```
+
+### Service Pattern
+
+```typescript
+export const formService = {
+  async create(input: unknown) {
+    const data = createFormSchema.parse(input);
+    const slug = generateSlug(data.slug || data.title);
+    if (await formRepository.slugExists(slug)) {
+      throw new ConflictError("Slug existe déjà");
+    }
+    return formRepository.create({ ...data, slug });
+  },
+};
+```
+
+### API Route Pattern (Controller)
+
+```typescript
+export async function POST(request: Request) {
+  const authResult = await requireAdminAuth();
+  if (!authResult.success) return authResult.response;
+
+  try {
+    const body = await request.json();
+    const result = await formService.create(body);
+    return NextResponse.json(result, { status: 201 });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json({ error: error.issues[0].message }, { status: 400 });
+    }
+    if (error instanceof ConflictError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    return NextResponse.json({ error: "Internal error" }, { status: 500 });
+  }
+}
+```
+
 ## Important Notes
 
-- **No /components directory exists yet** - currently all components are in `/app/_components`
-- **No domain/application/infrastructure structure** - to be created during refactoring
-- **No Shadcn components yet** - the `/ui` folder contains custom UI components
-- **Server/Client Component split** is not yet optimized - many components could be Server Components
-- **Layout.tsx is too large** - metadata and config should be extracted
+- Components are in `/app/_components` (UI layer)
+- Business logic is in `/src/features` (Clean Architecture)
+- No Shadcn components yet - `/ui` contains custom components
+- Database: Drizzle ORM with PostgreSQL (Neon)
+- Auth: NextAuth.js with GitHub provider
+
+## Atomic Design
+
+### Structure des composants
+
+```
+/components
+├── /atoms/          # Éléments UI basiques (barrel export → shadcn + typography)
+├── /molecules/      # Combinaisons d'atoms (LinkCard, FormField)
+├── /organisms/      # Sections complexes (Navbar, Footer, Sidebar)
+├── /templates/      # Layouts de pages (SiteLayout, AdminLayout)
+└── /effects/        # Wrappers d'animation (Reveal, Tilt, Magnetic)
+
+/lib/animations/     # Configs Framer Motion partagées
+├── spring-configs.ts    # { gentle, snappy, bouncy }
+├── easing.ts           # { expoOut, easeOut, spring }
+├── variants.ts         # fadeUp, scaleIn, staggerContainer
+└── index.ts
+```
+
+### Pattern d'import
+
+```typescript
+import { Button, Badge, Heading1, Paragraph } from "@/components/atoms";
+import { LinkCard, PortfolioButton } from "@/components/molecules";
+import { Navbar, Footer, Sidebar } from "@/components/organisms";
+import { SiteLayout, AdminLayout } from "@/components/templates";
+import { RevealContainer, TiltCard, MagneticWrapper } from "@/components/effects";
+import { springConfigs, fadeUp, staggerContainer } from "@/lib/animations";
+```
+
+### Principes
+
+1. **Atoms**: Ne jamais modifier les composants shadcn directement. Utiliser les barrel exports.
+2. **Molecules**: Combinaisons de 2-3 atoms avec une logique simple.
+3. **Organisms**: Sections complètes avec état et logique métier.
+4. **Templates**: Layouts Next.js réutilisables.
+5. **Effects**: Wrappers Framer Motion pour animations déclaratives.
+
+### Standards d'animation
+
+```typescript
+import { springConfigs, easing, fadeUp } from "@/lib/animations";
+
+const gentleTransition = { type: "spring", ...springConfigs.gentle };
+const snappyTransition = { type: "spring", ...springConfigs.snappy };
+
+<motion.div
+  variants={fadeUp}
+  initial="hidden"
+  animate="show"
+  transition={{ ease: easing.expoOut }}
+/>
+```
+
+**Règles:**
+- Utiliser les configs partagées de `/lib/animations/`
+- Toujours supporter `prefers-reduced-motion` (Framer Motion le gère)
+- `springConfigs.gentle` pour animations subtiles
+- `springConfigs.snappy` pour éléments interactifs
+- `springConfigs.bouncy` pour feedback utilisateur
 
 ## Refactoring Status
 
 ✅ **Completed:**
-- All comments removed - code is self-documenting
-- Components organized by feature/shared pattern
-- Metadata and configuration extracted to /src/config
-- layout.tsx reduced from 157 to 40 lines
-- All imports updated and working
+- Clean Architecture: Route → Controller → Service → Repository
+- Framework decoupling: Controllers don't import Next.js
+- Feature-based structure: `/src/features/{auth,email,forms,leads,analytics}`
+- HTTP abstraction: `src/lib/http.ts` wraps NextResponse
+- Auth service receives Headers as parameter
+- Routes are minimal (~5 lines)
+- Atomic Design: Barrel exports pour atoms, molecules, organisms, templates, effects
+- Animations partagées: `/lib/animations/` avec spring configs et variants
 - Build successful
-
-**Note:** This is a portfolio site with no complex business logic, so Clean Architecture layers (domain/application/infrastructure) are not needed.

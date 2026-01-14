@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
 interface Carousel3DProps<T> {
   items: readonly T[];
@@ -38,7 +38,7 @@ export function Carousel3D<T>({
       setDirection(index > activeIndex ? 1 : -1);
       setActiveIndex(index);
     },
-    [activeIndex]
+    [activeIndex],
   );
 
   useEffect(() => {

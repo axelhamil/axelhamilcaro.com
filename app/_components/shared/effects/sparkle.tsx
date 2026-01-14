@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useCallback, type ReactNode } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { type ReactNode, useCallback, useState } from "react";
 
 interface Sparkle {
   id: number;

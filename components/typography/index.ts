@@ -3,6 +3,6 @@ export { Heading2 } from "./heading2";
 export {
   Paragraph,
   Paragraphe,
-  paragraphVariants,
   paragrapheVariants,
+  paragraphVariants,
 } from "./paragraph";

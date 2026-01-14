@@ -28,7 +28,7 @@ export function Marquee({
         className="flex w-max"
         style={{ gap }}
         animate={{
-          x: [0, directionMultiplier * -50 + "%"],
+          x: [0, `${directionMultiplier * -50}%`],
         }}
         transition={{
           x: {

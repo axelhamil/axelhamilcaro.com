@@ -1,6 +1,5 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -10,6 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { ColorPicker } from "./color-picker";
+import { ImageUpload } from "./image-upload";
 import type {
   BackgroundType,
   FormData,
@@ -62,27 +63,13 @@ export function BackgroundTab({
 
       {formData.backgroundType === "color" && (
         <div className="space-y-2">
-          <Label
-            htmlFor="backgroundColor"
-            className="text-sm font-medium text-[var(--admin-text)]"
-          >
+          <Label className="text-sm font-medium text-[var(--admin-text)]">
             Couleur
           </Label>
-          <div className="flex gap-2">
-            <Input
-              type="color"
-              id="backgroundColor"
-              value={formData.backgroundColor}
-              onChange={(e) => onChange("backgroundColor", e.target.value)}
-              className="h-10 w-20 cursor-pointer border-[var(--admin-border)] bg-[var(--admin-bg)] p-1"
-            />
-            <Input
-              value={formData.backgroundColor}
-              onChange={(e) => onChange("backgroundColor", e.target.value)}
-              placeholder="#fafafa"
-              className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)]"
-            />
-          </div>
+          <ColorPicker
+            value={formData.backgroundColor}
+            onChange={(value) => onChange("backgroundColor", value)}
+          />
         </div>
       )}
 
@@ -120,45 +107,23 @@ export function BackgroundTab({
                   <Label className="text-sm font-medium text-[var(--admin-text)]">
                     Couleur 1
                   </Label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="color"
-                      value={gradientConfig.color1}
-                      onChange={(e) =>
-                        onGradientConfigChange("color1", e.target.value)
-                      }
-                      className="h-10 w-14 cursor-pointer border-[var(--admin-border)] bg-[var(--admin-bg)] p-1"
-                    />
-                    <Input
-                      value={gradientConfig.color1}
-                      onChange={(e) =>
-                        onGradientConfigChange("color1", e.target.value)
-                      }
-                      className="flex-1 border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]"
-                    />
-                  </div>
+                  <ColorPicker
+                    value={gradientConfig.color1}
+                    onChange={(value) =>
+                      onGradientConfigChange("color1", value)
+                    }
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-[var(--admin-text)]">
                     Couleur 2
                   </Label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="color"
-                      value={gradientConfig.color2}
-                      onChange={(e) =>
-                        onGradientConfigChange("color2", e.target.value)
-                      }
-                      className="h-10 w-14 cursor-pointer border-[var(--admin-border)] bg-[var(--admin-bg)] p-1"
-                    />
-                    <Input
-                      value={gradientConfig.color2}
-                      onChange={(e) =>
-                        onGradientConfigChange("color2", e.target.value)
-                      }
-                      className="flex-1 border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)]"
-                    />
-                  </div>
+                  <ColorPicker
+                    value={gradientConfig.color2}
+                    onChange={(value) =>
+                      onGradientConfigChange("color2", value)
+                    }
+                  />
                 </div>
               </div>
               <div className="space-y-2">
@@ -211,18 +176,12 @@ export function BackgroundTab({
 
       {formData.backgroundType === "image" && (
         <div className="space-y-2">
-          <Label
-            htmlFor="backgroundImage"
-            className="text-sm font-medium text-[var(--admin-text)]"
-          >
-            URL de l'image
+          <Label className="text-sm font-medium text-[var(--admin-text)]">
+            Image de fond
           </Label>
-          <Input
-            id="backgroundImage"
+          <ImageUpload
             value={formData.backgroundImage}
-            onChange={(e) => onChange("backgroundImage", e.target.value)}
-            placeholder="https://..."
-            className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)]"
+            onChange={(url) => onChange("backgroundImage", url)}
           />
         </div>
       )}

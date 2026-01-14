@@ -59,7 +59,7 @@ export function ScrambleText({
     if (triggerOnView && isInView) {
       scramble();
     }
-  }, [isInView, triggerOnView]);
+  }, [isInView, triggerOnView, scramble]);
 
   return (
     <motion.span

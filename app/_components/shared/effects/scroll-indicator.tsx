@@ -21,7 +21,7 @@ const ScrollIndicator = () => {
           transition={{
             duration: 2.2,
             ease: [0.45, 0, 0.25, 1],
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
           }}
         />
       </div>

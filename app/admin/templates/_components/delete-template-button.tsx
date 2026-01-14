@@ -1,5 +1,9 @@
 "use client";
 
+import { AlertTriangle, Loader2, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,10 +14,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { AlertTriangle, Loader2, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
 
 interface DeleteTemplateButtonProps {
   templateId: string;
@@ -40,9 +40,8 @@ export function DeleteTemplateButton({
       } else {
         toast.error("Erreur lors de la suppression");
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error("Erreur lors de la suppression");
-      console.error("Failed to delete template:", error);
     } finally {
       setIsDeleting(false);
     }

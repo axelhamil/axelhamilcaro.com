@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { ILink } from "../../_config/tree-links";
 import { LinkCard } from "@/components/portfolio";
+import type { ILink } from "../../_config/tree-links";
 
 interface TreeLinksProps {
   links: ILink[];
@@ -42,7 +42,7 @@ export default function TreeLinks({ links }: TreeLinksProps) {
       initial="hidden"
       animate="show"
     >
-      {links.map((link, index) => (
+      {links.map((link, _index) => (
         <motion.div
           key={link.url}
           variants={item}

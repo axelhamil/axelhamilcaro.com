@@ -1,9 +1,9 @@
 export const dynamic = "force-dynamic";
 
-import { db } from "@/app/_lib/db";
-import { forms, formTemplates } from "@/app/_lib/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { db } from "@/drizzle";
+import { forms, formTemplates } from "@/drizzle/schema";
 import { FormEditor } from "../_components/form-editor";
 
 async function getForm(id: string) {

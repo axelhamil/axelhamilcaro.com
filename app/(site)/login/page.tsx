@@ -1,10 +1,10 @@
 "use client";
 
-import { signIn } from "@/app/_lib/auth-client";
-import { Github, Loader2, Lock, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense, useState, useEffect } from "react";
+import { Github, Loader2, Lock, Terminal } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { signIn } from "@/app/_lib/auth-client";
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,11 +29,9 @@ function LoginForm() {
       });
 
       if (result?.error) {
-        console.error("Sign in error:", result.error);
         setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Sign in error:", error);
+    } catch (_error) {
       setIsLoading(false);
     }
   };

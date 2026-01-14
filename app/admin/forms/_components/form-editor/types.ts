@@ -1,7 +1,8 @@
-import type { Form, FormTemplate } from "@/app/_lib/db/schema";
+import type { Form, FormTemplate } from "@/drizzle/schema";
 
 export type BackgroundType = "color" | "gradient" | "image";
 export type GradientMode = "visual" | "css";
+export type BadgeStyle = "filled" | "outline";
 
 export interface FormData {
   slug: string;
@@ -12,10 +13,14 @@ export interface FormData {
   cardImage: string;
   badgeText: string;
   badgeColor: string;
+  badgeStyle: BadgeStyle;
   title: string;
   description: string;
   buttonText: string;
+  buttonSubtext: string;
   isActive: boolean;
+  emailSubject: string;
+  emailBody: string;
 }
 
 export interface GradientConfig {
@@ -38,10 +43,15 @@ export const defaultFormData: FormData = {
   cardImage: "",
   badgeText: "",
   badgeColor: "#ff4d00",
+  badgeStyle: "filled",
   title: "",
   description: "",
   buttonText: "Envoyer",
+  buttonSubtext: "",
   isActive: true,
+  emailSubject: "Voici ta ressource !",
+  emailBody:
+    "Merci pour ton inscription !\n\nTu peux maintenant accéder à ta ressource via ce lien :\nhttps://...",
 };
 
 export const gradientDirections = [

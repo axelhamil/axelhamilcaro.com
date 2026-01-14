@@ -17,7 +17,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { useLeads, type Lead, type LeadStatus } from "../../_hooks";
+import { type Lead, type LeadStatus, useLeads } from "@/app/_hooks/swr";
 
 const statusConfig: Record<
   LeadStatus,
@@ -25,7 +25,11 @@ const statusConfig: Record<
 > = {
   new: { label: "Nouveau", color: "text-blue-600", bg: "bg-blue-100" },
   contacted: { label: "Contacté", color: "text-amber-600", bg: "bg-amber-100" },
-  qualified: { label: "Qualifié", color: "text-purple-600", bg: "bg-purple-100" },
+  qualified: {
+    label: "Qualifié",
+    color: "text-purple-600",
+    bg: "bg-purple-100",
+  },
   converted: { label: "Converti", color: "text-green-600", bg: "bg-green-100" },
 };
 
@@ -71,7 +75,14 @@ function ExportButton({ leads }: { leads: Lead[] }) {
       return;
     }
 
-    const headers = ["Prénom", "Email", "Formulaire", "Statut", "Notes", "Date"];
+    const headers = [
+      "Prénom",
+      "Email",
+      "Formulaire",
+      "Statut",
+      "Notes",
+      "Date",
+    ];
     const rows = leads.map((lead) => [
       lead.firstName || "",
       lead.email,
@@ -298,7 +309,8 @@ export function LeadsListClient() {
   const searchParams = useSearchParams();
   const currentFormId = searchParams.get("formId") || undefined;
 
-  const { leads, forms, isLoading, deleteLead, updateLead } = useLeads(currentFormId);
+  const { leads, forms, isLoading, deleteLead, updateLead } =
+    useLeads(currentFormId);
   const [search, setSearch] = useState("");
 
   const filteredLeads = useMemo(

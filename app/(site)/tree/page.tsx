@@ -1,8 +1,8 @@
-import { db } from "@/app/_lib/db";
-import { treeLinks as treeLinksTable } from "@/app/_lib/db/schema";
 import { asc, eq } from "drizzle-orm";
 import TreeFooter from "@/app/_components/tree/footer";
 import TreeHeader from "@/app/_components/tree/header";
+import { db } from "@/drizzle";
+import { treeLinks as treeLinksTable } from "@/drizzle/schema";
 import TreeLinksWrapper from "./_components/tree-links-wrapper";
 
 export const dynamic = "force-dynamic";

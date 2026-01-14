@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
-import { useState, useCallback, type ReactNode } from "react";
+import { type ReactNode, useCallback, useState } from "react";
 
 interface RunawayBadgeProps {
   children: ReactNode;

@@ -1,83 +1,30 @@
 "use client";
+
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Calendar, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { cn } from "@/lib/utils";
+import { useMemo } from "react";
+import {
+  CALENDLY_URL,
+  DESKTOP_SECTIONS,
+  NAV_LINKS,
+} from "@/app/_config/navigation";
+import { useMobileMenu, useScrollProgress } from "@/app/_hooks";
 import { heading1Variants } from "@/components/typography";
+import { cn } from "@/lib/utils";
 import TransitionLink from "../navigation/transition-link";
-
-const navLinks = [
-  { href: "/#parcours", label: "Parcours" },
-  { href: "/#services", label: "Services" },
-  { href: "/#projets", label: "Projets" },
-  { href: "/#stack", label: "Stack" },
-  { href: "/tree", label: "Liens" },
-];
-
-const DESKTOP_SECTIONS = ["parcours", "services", "projets", "stack"] as const;
 
 const Navbar = () => {
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
-
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-
-      const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setScrollProgress(Math.min(progress, 100));
-
-      if (pathname !== "/") {
-        setActiveSection("");
-        return;
-      }
-
-      let currentSection = "";
-      for (const section of DESKTOP_SECTIONS) {
-        const el = document.getElementById(section);
-        if (!el) continue;
-
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 200) currentSection = section;
-      }
-      setActiveSection(currentSection);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!isMobileMenuOpen) return;
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsMobileMenuOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    if (!isMobileMenuOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [isMobileMenuOpen]);
+  const mobileMenu = useMobileMenu();
+  const { isScrolled, activeSection, scrollProgress } = useScrollProgress({
+    sections: DESKTOP_SECTIONS,
+    pathname,
+  });
 
   const handleNavClick = (href: string) => {
-    setIsMobileMenuOpen(false);
+    mobileMenu.close();
 
     if (href.startsWith("/#") && pathname === "/") {
       const id = href.replace("/#", "");
@@ -139,7 +86,7 @@ const Navbar = () => {
         </TransitionLink>
 
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => {
+          {NAV_LINKS.map((link) => {
             const active = isActive(link.href);
 
             return (
@@ -170,7 +117,7 @@ const Navbar = () => {
           })}
 
           <a
-            href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
+            href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
@@ -187,22 +134,22 @@ const Navbar = () => {
         </div>
 
         <button
-          onClick={() => setIsMobileMenuOpen((v) => !v)}
+          onClick={mobileMenu.toggle}
           className={cn(
             "md:hidden p-2 rounded-lg",
             "text-primary hover:text-accent",
             "hover:bg-secondary-background",
             "transition-all duration-300",
           )}
-          aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          aria-expanded={isMobileMenuOpen}
+          aria-label={mobileMenu.isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={mobileMenu.isOpen}
           aria-controls="mobile-nav"
         >
           <div className="relative w-6 h-6">
             <Menu
               className={cn(
                 "absolute inset-0 transition-all duration-300",
-                isMobileMenuOpen
+                mobileMenu.isOpen
                   ? "opacity-0 rotate-90 scale-50"
                   : "opacity-100 rotate-0 scale-100",
               )}
@@ -210,7 +157,7 @@ const Navbar = () => {
             <X
               className={cn(
                 "absolute inset-0 transition-all duration-300",
-                isMobileMenuOpen
+                mobileMenu.isOpen
                   ? "opacity-100 rotate-0 scale-100"
                   : "opacity-0 -rotate-90 scale-50",
               )}
@@ -220,7 +167,7 @@ const Navbar = () => {
       </nav>
 
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {mobileMenu.isOpen && (
           <>
             <motion.div
               key="backdrop"
@@ -228,7 +175,7 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={mobileMenu.close}
               aria-hidden="true"
             />
 
@@ -246,7 +193,7 @@ const Navbar = () => {
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
               <div className="flex flex-col gap-2 pb-4 card rounded-xl p-4">
-                {navLinks.map((link, index) => {
+                {NAV_LINKS.map((link, index) => {
                   const active = isActive(link.href);
 
                   return (
@@ -292,11 +239,11 @@ const Navbar = () => {
                   transition={{
                     duration: 0.25,
                     ease: "easeOut",
-                    delay: prefersReducedMotion ? 0 : navLinks.length * 0.04,
+                    delay: prefersReducedMotion ? 0 : NAV_LINKS.length * 0.04,
                   }}
                 >
                   <a
-                    href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
+                    href={CALENDLY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cn(

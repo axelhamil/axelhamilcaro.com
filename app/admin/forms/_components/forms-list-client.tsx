@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { useForms } from "../../_hooks";
+import { useForms } from "@/app/_hooks/swr";
 
 const container = {
   hidden: { opacity: 0 },

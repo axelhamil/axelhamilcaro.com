@@ -1,10 +1,10 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { APIError } from "better-auth/api";
-import { count, eq, gte, and } from "drizzle-orm";
-import { db } from "./db";
-import * as schema from "./db/schema";
-import { loginAttempts } from "./db/schema";
+import { and, count, eq, gte } from "drizzle-orm";
+import { db } from "@/drizzle";
+import * as schema from "@/drizzle/schema";
+import { loginAttempts } from "@/drizzle/schema";
 
 const ALLOWED_GITHUB_ID = process.env.ADMIN_GITHUB_ID;
 
@@ -30,7 +30,7 @@ const TROLL_MESSAGES = [
   "Activation du mode paranoïa...",
 ];
 
-function getRandomTrollMessage(): string {
+function _getRandomTrollMessage(): string {
   return TROLL_MESSAGES[Math.floor(Math.random() * TROLL_MESSAGES.length)];
 }
 
@@ -57,8 +57,8 @@ async function getAttemptCount(githubId: string): Promise<number> {
     .where(
       and(
         eq(loginAttempts.githubId, githubId),
-        gte(loginAttempts.createdAt, oneHourAgo)
-      )
+        gte(loginAttempts.createdAt, oneHourAgo),
+      ),
     );
   return result[0]?.count ?? 0;
 }
@@ -67,16 +67,10 @@ async function applyRateLimit(githubId: string): Promise<void> {
   const attempts = await getAttemptCount(githubId);
 
   if (attempts >= 5) {
-    console.warn(
-      `[SECURITY] 🚫 Rate limited intruder: GitHub ID=${githubId}, Attempts=${attempts}`
-    );
     const banTime = Math.min(attempts * 10, 120);
     await new Promise((resolve) => setTimeout(resolve, banTime * 1000));
   } else if (attempts >= 2) {
-    const delay = Math.pow(2, attempts) * 1000;
-    console.warn(
-      `[SECURITY] ⏳ Slowing down intruder: GitHub ID=${githubId}, Delay=${delay}ms`
-    );
+    const delay = 2 ** attempts * 1000;
     await new Promise((resolve) => setTimeout(resolve, delay));
   }
 }
@@ -97,10 +91,6 @@ async function logUnauthorizedAttempt(githubId: string) {
     githubBlog: githubUser?.blog ?? null,
     githubTwitter: githubUser?.twitter_username ?? null,
   });
-
-  console.warn(
-    `[SECURITY] 🚨 Unauthorized login attempt: GitHub ID=${githubId}, Username=${githubUser?.login ?? "unknown"}, Location=${githubUser?.location ?? "unknown"}, Message="${getRandomTrollMessage()}"`
-  );
 }
 
 export const auth = betterAuth({
@@ -164,7 +154,10 @@ export const auth = betterAuth({
     account: {
       create: {
         before: async (account) => {
-          if (account.providerId === "github" && account.accountId !== ALLOWED_GITHUB_ID) {
+          if (
+            account.providerId === "github" &&
+            account.accountId !== ALLOWED_GITHUB_ID
+          ) {
             throw new APIError("FORBIDDEN", { message: "NICE_TRY" });
           }
           return { data: account };

@@ -9,8 +9,8 @@ import {
   Globe,
   GripVertical,
   Instagram,
-  Link as LinkIcon,
   Linkedin,
+  Link as LinkIcon,
   Loader2,
   Mail,
   Music2,
@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useTreeLinks } from "../../_hooks";
+import { useTreeLinks } from "@/app/_hooks/swr";
 
 const iconOptions = [
   { value: "link", label: "Lien", icon: LinkIcon },
@@ -62,14 +62,8 @@ const defaultLink: EditingLink = {
 };
 
 export function TreeLinksClient() {
-  const {
-    links,
-    isLoading,
-    createLink,
-    updateLink,
-    deleteLink,
-    reorderLinks,
-  } = useTreeLinks();
+  const { links, isLoading, createLink, updateLink, deleteLink, reorderLinks } =
+    useTreeLinks();
   const [editingLink, setEditingLink] = useState<EditingLink | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);

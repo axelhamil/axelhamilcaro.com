@@ -1,10 +1,10 @@
 "use client";
 
-import { signOut, useSession } from "@/app/_lib/auth-client";
-import { ChevronRight, LogOut, Search, User } from "lucide-react";
+import { ChevronRight, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
+import { signOut, useSession } from "@/app/_lib/auth-client";
 
 const routeLabels: Record<string, string> = {
   admin: "Dashboard",

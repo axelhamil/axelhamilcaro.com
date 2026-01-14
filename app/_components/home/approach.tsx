@@ -1,18 +1,18 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
+  CheckCircle,
   Cpu,
   GitBranch,
   Radar,
   ShieldCheck,
   Zap,
-  CheckCircle,
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { Heading2, Paragraphe } from "@/components/typography";
-import { TerminalBlock } from "../shared/effects/typewriter";
+import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { TiltCard } from "../shared/effects/tilt-card";
+import { TerminalBlock } from "../shared/effects/typewriter";
 
 const pillars = [
   {
@@ -152,7 +152,8 @@ const Approach = () => {
                 <motion.div
                   className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r"
                   style={{
-                    backgroundImage: `linear-gradient(to right, transparent, var(--accent), transparent)`,
+                    backgroundImage:
+                      "linear-gradient(to right, transparent, var(--accent), transparent)",
                   }}
                   initial={{ scaleX: 0 }}
                   whileHover={{ scaleX: 1 }}

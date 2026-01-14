@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   Briefcase,
   Github,
@@ -8,7 +9,6 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
-import { motion } from "framer-motion";
 
 const socialLinks = [
   {

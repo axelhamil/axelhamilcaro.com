@@ -1,8 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 const HeroRight = () => {
   return (
@@ -32,7 +32,12 @@ const HeroRight = () => {
           className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 p-2 sm:p-2.5 rounded-xl bg-accent shadow-lg z-20"
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.6, type: "spring", stiffness: 200, damping: 15 }}
+          transition={{
+            delay: 0.6,
+            type: "spring",
+            stiffness: 200,
+            damping: 15,
+          }}
           whileHover={{ scale: 1.1 }}
         >
           <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />

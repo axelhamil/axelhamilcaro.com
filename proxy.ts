@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
+import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/_lib/auth";
 
 const ALLOWED_GITHUB_IDS = process.env.ADMIN_GITHUB_ID
@@ -31,10 +31,6 @@ export async function proxy(request: NextRequest) {
   );
 
   if (!githubAccount || !ALLOWED_GITHUB_IDS.includes(githubAccount.accountId)) {
-    console.warn(
-      `[SECURITY] Blocked admin access: user=${session.user.id}, github=${githubAccount?.accountId || "none"}`,
-    );
-
     const response = NextResponse.redirect(new URL("/login", request.url));
     response.cookies.delete("better-auth.session_token");
     return response;

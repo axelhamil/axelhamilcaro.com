@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
-import { Keyboard, MousePointer, Clock } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Clock, Keyboard, MousePointer } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 interface KeyStats {
   keyPresses: number;

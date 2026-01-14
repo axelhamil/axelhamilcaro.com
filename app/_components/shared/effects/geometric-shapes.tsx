@@ -152,7 +152,11 @@ export const GlowOrb = ({
       }}
       animate={{
         scale: [1, 1.2, 1],
-        opacity: [opacityMap[intensity], opacityMap[intensity] * 1.5, opacityMap[intensity]],
+        opacity: [
+          opacityMap[intensity],
+          opacityMap[intensity] * 1.5,
+          opacityMap[intensity],
+        ],
       }}
       transition={{
         duration: 6,
@@ -174,9 +178,17 @@ export const GeometricBackground = ({
 }: GeometricBackgroundProps) => {
   if (variant === "circles") {
     return (
-      <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+      <div
+        className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      >
         <FloatingCircle size={200} top="10%" left="5%" delay={0} />
-        <FloatingCircle size={150} top="60%" right="10%" delay={2} color="var(--accent)" />
+        <FloatingCircle
+          size={150}
+          top="60%"
+          right="10%"
+          delay={2}
+          color="var(--accent)"
+        />
         <FloatingCircle size={100} bottom="20%" left="30%" delay={4} />
       </div>
     );
@@ -184,7 +196,9 @@ export const GeometricBackground = ({
 
   if (variant === "dots") {
     return (
-      <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+      <div
+        className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      >
         <DotGrid rows={6} cols={6} className="top-10 right-10 opacity-50" />
         <DotGrid rows={4} cols={4} className="bottom-20 left-10 opacity-30" />
       </div>
@@ -193,17 +207,26 @@ export const GeometricBackground = ({
 
   if (variant === "lines") {
     return (
-      <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+      <div
+        className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      >
         <DiagonalLines count={4} className="inset-0" direction="right" />
       </div>
     );
   }
 
   return (
-    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+    <div
+      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+    >
       <FloatingCircle size={180} top="5%" left="10%" delay={0} />
       <FloatingCircle size={120} bottom="15%" right="5%" delay={3} />
-      <DotGrid rows={4} cols={4} gap={20} className="top-1/4 right-20 opacity-40" />
+      <DotGrid
+        rows={4}
+        cols={4}
+        gap={20}
+        className="top-1/4 right-20 opacity-40"
+      />
       <GlowOrb position={{ top: "50%", right: "0" }} intensity="low" />
     </div>
   );

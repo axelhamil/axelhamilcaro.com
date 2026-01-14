@@ -1,6 +1,7 @@
 "use client";
 
-import type { Form, FormTemplate } from "@/app/_lib/db/schema";
+import { motion } from "framer-motion";
+import { FileText, Loader2, Mail, Palette, Save } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -12,10 +13,10 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { motion } from "framer-motion";
-import { FileText, Loader2, Palette, Save } from "lucide-react";
+import type { Form, FormTemplate } from "@/drizzle/schema";
 import { BackgroundTab } from "./background-tab";
 import { ContentTab } from "./content-tab";
+import { EmailTab } from "./email-tab";
 import { useFormEditor } from "./hooks/use-form-editor";
 import { PreviewPanel } from "./preview-panel";
 
@@ -33,10 +34,13 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
     templateName,
     gradientMode,
     gradientConfig,
+    slugInput,
+    computedSlug,
     slugError,
     setTemplateName,
     setGradientMode,
     handleChange,
+    handleSlugInputChange,
     handleGradientConfigChange,
     handleGradientCssChange,
     loadTemplate,
@@ -129,7 +133,7 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
           className="space-y-6"
         >
           <Tabs defaultValue="content" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-[var(--admin-bg-subtle)] border border-[var(--admin-border)] rounded-lg p-1">
+            <TabsList className="grid w-full grid-cols-3 bg-[var(--admin-bg-subtle)] border border-[var(--admin-border)] rounded-lg p-1">
               <TabsTrigger
                 value="content"
                 className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted)]"
@@ -144,6 +148,13 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
                 <Palette className="h-4 w-4" />
                 Fond
               </TabsTrigger>
+              <TabsTrigger
+                value="email"
+                className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted)]"
+              >
+                <Mail className="h-4 w-4" />
+                Email
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent
@@ -152,7 +163,10 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
             >
               <ContentTab
                 formData={formData}
+                slugInput={slugInput}
+                computedSlug={computedSlug}
                 onChange={handleChange}
+                onSlugInputChange={handleSlugInputChange}
                 slugError={slugError}
               />
             </TabsContent>
@@ -170,6 +184,13 @@ export function FormEditor({ form, templates = [] }: FormEditorProps) {
                 onGradientConfigChange={handleGradientConfigChange}
                 onGradientCssChange={handleGradientCssChange}
               />
+            </TabsContent>
+
+            <TabsContent
+              value="email"
+              className="mt-4 rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-4"
+            >
+              <EmailTab formData={formData} onChange={handleChange} />
             </TabsContent>
           </Tabs>
 

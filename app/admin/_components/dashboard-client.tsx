@@ -1,10 +1,5 @@
 "use client";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
@@ -29,7 +24,12 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
-import { useDashboard } from "../_hooks";
+import { useDashboard } from "@/app/_hooks/swr";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const container = {
   hidden: { opacity: 0 },
@@ -94,7 +94,7 @@ function StatCard({
           )}
         </div>
         <div className="flex items-center gap-2 mt-1">
-          <p className={"text-2xl font-bold " + colors.text}>
+          <p className={`text-2xl font-bold ${colors.text}`}>
             {value}
             {suffix && (
               <span className="text-sm font-normal ml-0.5">{suffix}</span>
@@ -116,8 +116,8 @@ function StatCard({
           )}
         </div>
       </div>
-      <div className={"rounded-lg p-2.5 " + colors.bg}>
-        <Icon className={"h-5 w-5 " + colors.text} />
+      <div className={`rounded-lg p-2.5 ${colors.bg}`}>
+        <Icon className={`h-5 w-5 ${colors.text}`} />
       </div>
     </div>
   );
@@ -128,7 +128,7 @@ function StatCard({
   if (href) {
     return (
       <motion.div variants={item}>
-        <Link href={href} className={cardClass + " block"}>
+        <Link href={href} className={`${cardClass} block`}>
           {content}
         </Link>
       </motion.div>
@@ -207,8 +207,16 @@ function WeekChart({
         })}
       </div>
       <div className="flex items-center justify-between text-[10px] text-[var(--admin-text-muted)] pt-1 border-t border-[var(--admin-border)]">
-        <span>Total: <span className={`font-semibold ${colors.text}`}>{total}</span></span>
-        <span>Moy: <span className={`font-semibold ${colors.text}`}>{Math.round(total / 7)}</span>/jour</span>
+        <span>
+          Total: <span className={`font-semibold ${colors.text}`}>{total}</span>
+        </span>
+        <span>
+          Moy:{" "}
+          <span className={`font-semibold ${colors.text}`}>
+            {Math.round(total / 7)}
+          </span>
+          /jour
+        </span>
       </div>
     </div>
   );

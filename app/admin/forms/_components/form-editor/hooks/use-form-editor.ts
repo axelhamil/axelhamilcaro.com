@@ -1,15 +1,16 @@
 "use client";
 
-import type { Form, FormTemplate } from "@/app/_lib/db/schema";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import type { Form, FormTemplate } from "@/drizzle/schema";
 import {
   type BackgroundType,
+  type BadgeStyle,
+  defaultFormData,
   type FormData,
   type GradientConfig,
   type GradientMode,
-  defaultFormData,
 } from "../types";
 
 function parseGradient(gradient: string): GradientConfig {
@@ -61,14 +62,21 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
         cardImage: form.cardImage || "",
         badgeText: form.badgeText || "",
         badgeColor: form.badgeColor || "#ff4d00",
+        badgeStyle: (form.badgeStyle as BadgeStyle) || "filled",
         title: form.title,
         description: form.description || "",
         buttonText: form.buttonText,
+        buttonSubtext: form.buttonSubtext || "",
         isActive: form.isActive ?? true,
+        emailSubject: form.emailSubject || "",
+        emailBody: form.emailBody || "",
       };
     }
     return defaultFormData;
   });
+
+  const [slugInput, setSlugInput] = useState(() => form?.slug || "");
+  const computedSlug = slugify(slugInput);
 
   const [gradientMode, setGradientMode] = useState<GradientMode>("visual");
   const [gradientConfig, setGradientConfig] = useState<GradientConfig>(() =>
@@ -79,16 +87,19 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
   const [isSavingTemplate, setIsSavingTemplate] = useState(false);
   const [templateName, setTemplateName] = useState("");
 
+  const handleSlugInputChange = (value: string) => {
+    setSlugInput(value);
+    setFormData((prev) => ({ ...prev, slug: slugify(value) }));
+  };
+
   const handleChange = (field: keyof FormData, value: string | boolean) => {
     setFormData((prev) => {
       const newData = { ...prev, [field]: value };
 
-      if (field === "title" && !isEditing && !prev.slug) {
-        newData.slug = slugify(value as string);
-      }
-
-      if (field === "slug") {
-        newData.slug = slugify(value as string);
+      if (field === "title" && !isEditing && !slugInput) {
+        const newSlug = slugify(value as string);
+        setSlugInput(value as string);
+        newData.slug = newSlug;
       }
 
       return newData;
@@ -96,7 +107,7 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
   };
 
   const slugError =
-    formData.slug && !isValidSlug(formData.slug)
+    computedSlug && !isValidSlug(computedSlug)
       ? "Le slug doit contenir au moins 2 caractères (lettres, chiffres, tirets)"
       : null;
 
@@ -116,7 +127,7 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
 
   const loadTemplate = (templateId: string) => {
     const template = templates.find((t) => t.id === templateId);
-    if (template && template.config) {
+    if (template?.config) {
       const config = template.config as Partial<FormData>;
       setFormData((prev) => ({
         ...prev,
@@ -153,9 +164,8 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
       } else {
         toast.error("Erreur lors de la sauvegarde");
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error("Erreur lors de la sauvegarde");
-      console.error("Failed to save template:", error);
     } finally {
       setIsSavingTemplate(false);
     }
@@ -195,9 +205,8 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
       } else {
         toast.error(data.error || "Erreur lors de la sauvegarde");
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error("Erreur lors de la sauvegarde");
-      console.error("Failed to save form:", error);
     } finally {
       setIsSaving(false);
     }
@@ -226,11 +235,14 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
     templateName,
     gradientMode,
     gradientConfig,
+    slugInput,
+    computedSlug,
     slugError,
     templates,
     setTemplateName,
     setGradientMode,
     handleChange,
+    handleSlugInputChange,
     handleGradientConfigChange,
     handleGradientCssChange,
     loadTemplate,

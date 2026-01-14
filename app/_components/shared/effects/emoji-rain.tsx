@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const EMOJIS = ["🚀", "💻", "⚡", "🔥", "✨", "🎯", "💡", "🛠️", "📦", "🎨"];
 

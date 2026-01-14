@@ -1,10 +1,5 @@
 "use client";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
@@ -12,8 +7,8 @@ import {
   BarChart3,
   Calendar,
   Clock,
-  Eye,
   ExternalLink,
+  Eye,
   Globe,
   HelpCircle,
   Laptop,
@@ -34,11 +29,16 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import {
-  useAnalytics,
   type AnalyticsData,
   type DateRange,
   type RefreshInterval,
-} from "../../_hooks";
+  useAnalytics,
+} from "@/app/_hooks/swr";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const colorMap: Record<string, { text: string; bg: string }> = {
   blue: { text: "text-blue-500", bg: "bg-blue-500/10" },
@@ -115,7 +115,7 @@ function StatCard({
             )}
           </div>
           <div className="flex items-center gap-2 mt-1">
-            <p className={"text-2xl font-bold " + colors.text}>
+            <p className={`text-2xl font-bold ${colors.text}`}>
               {value}
               {suffix && (
                 <span className="text-sm font-normal ml-0.5">{suffix}</span>
@@ -137,8 +137,8 @@ function StatCard({
             )}
           </div>
         </div>
-        <div className={"rounded-lg p-2.5 " + colors.bg}>
-          <Icon className={"h-5 w-5 " + colors.text} />
+        <div className={`rounded-lg p-2.5 ${colors.bg}`}>
+          <Icon className={`h-5 w-5 ${colors.text}`} />
         </div>
       </div>
     </motion.div>
@@ -238,7 +238,9 @@ function InsightsPanel({ insights }: { insights: Insight[] }) {
                     : "bg-blue-500"
               }`}
             />
-            <p className="text-xs text-[var(--admin-text)]">{insight.message}</p>
+            <p className="text-xs text-[var(--admin-text)]">
+              {insight.message}
+            </p>
           </div>
         ))}
       </div>
@@ -246,7 +248,11 @@ function InsightsPanel({ insights }: { insights: Insight[] }) {
   );
 }
 
-function HourlyChart({ data }: { data: Array<{ hour: number; count: number }> }) {
+function HourlyChart({
+  data,
+}: {
+  data: Array<{ hour: number; count: number }>;
+}) {
   const maxCount = Math.max(...data.map((d) => d.count), 1);
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
@@ -308,7 +314,12 @@ export function AnalyticsDashboard() {
   const [customFrom, setCustomFrom] = useState("");
   const [customTo, setCustomTo] = useState("");
 
-  const { analytics: data, isLoading, isRefreshing, refresh } = useAnalytics({
+  const {
+    analytics: data,
+    isLoading,
+    isRefreshing,
+    refresh,
+  } = useAnalytics({
     days,
     dateRange,
     refreshInterval,
@@ -324,7 +335,7 @@ export function AnalyticsDashboard() {
     if (customFrom && customTo) {
       setDateRange({
         from: new Date(customFrom),
-        to: new Date(customTo + "T23:59:59"),
+        to: new Date(`${customTo}T23:59:59`),
       });
       setShowCustomRange(false);
     }
@@ -629,7 +640,7 @@ export function AnalyticsDashboard() {
                     <div className="h-1.5 rounded-full bg-[var(--admin-bg-elevated)]">
                       <div
                         className="h-full rounded-full bg-[var(--admin-accent)]"
-                        style={{ width: percent + "%" }}
+                        style={{ width: `${percent}%` }}
                       />
                     </div>
                   </div>

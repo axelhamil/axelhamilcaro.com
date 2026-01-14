@@ -2,51 +2,51 @@ export { Badge, badgeVariants } from "./badge";
 export { Button, buttonVariants } from "./button";
 export {
   Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
   CardAction,
-  CardDescription,
   CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "./card";
 export {
   Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogTrigger,
   DialogClose,
   DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
   DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
 } from "./dialog";
 export { Input } from "./input";
 export { Label } from "./label";
 export {
   Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
   SelectContent,
-  SelectLabel,
+  SelectGroup,
   SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
+  SelectLabel,
   SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
 } from "./select";
 export { Separator } from "./separator";
 export { Toaster } from "./sonner";
 export { Switch } from "./switch";
 export {
   Table,
-  TableHeader,
   TableBody,
+  TableCaption,
+  TableCell,
   TableFooter,
   TableHead,
+  TableHeader,
   TableRow,
-  TableCell,
-  TableCaption,
 } from "./table";
-export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
+export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 export { Textarea } from "./textarea";

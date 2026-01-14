@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { headers } from "next/headers";
+import { NextResponse } from "next/server";
 import { auth } from "./auth";
 
 const ALLOWED_GITHUB_IDS = process.env.ADMIN_GITHUB_ID
@@ -26,7 +26,7 @@ export async function requireAdminAuth(): Promise<AuthResult> {
       success: false,
       response: NextResponse.json(
         { error: "Non authentifié" },
-        { status: 401 }
+        { status: 401 },
       ),
     };
   }
@@ -36,18 +36,15 @@ export async function requireAdminAuth(): Promise<AuthResult> {
   });
 
   const githubAccount = userAccounts?.find(
-    (account) => account.providerId === "github"
+    (account) => account.providerId === "github",
   );
 
   if (!githubAccount || !ALLOWED_GITHUB_IDS.includes(githubAccount.accountId)) {
-    console.warn(
-      `[SECURITY] API unauthorized: user=${session.user.id}, github=${githubAccount?.accountId || "none"}`
-    );
     return {
       success: false,
       response: NextResponse.json(
         { error: "Accès non autorisé" },
-        { status: 403 }
+        { status: 403 },
       ),
     };
   }
