@@ -13,14 +13,14 @@ interface MagneticWrapperProps {
 export function MagneticWrapper({
   children,
   className,
-  strength = 0.3,
+  strength = 0.03,
 }: MagneticWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const springConfig = { damping: 15, stiffness: 150 };
+  const springConfig = { damping: 20, stiffness: 120 };
   const xSpring = useSpring(x, springConfig);
   const ySpring = useSpring(y, springConfig);
 

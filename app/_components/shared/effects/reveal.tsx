@@ -7,7 +7,7 @@ const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.08,
+      staggerChildren: 0.06,
       delayChildren: 0.02,
     },
   },
@@ -16,9 +16,9 @@ const containerVariants: Variants = {
 const itemVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    scale: 0.95,
-    filter: "blur(4px)",
+    y: 16,
+    scale: 0.98,
+    filter: "blur(2px)",
   },
   show: {
     opacity: 1,
@@ -26,7 +26,7 @@ const itemVariants: Variants = {
     scale: 1,
     filter: "blur(0px)",
     transition: {
-      duration: 0.6,
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -35,15 +35,15 @@ const itemVariants: Variants = {
 const itemFromLeftVariants: Variants = {
   hidden: {
     opacity: 0,
-    x: -40,
-    scale: 0.95,
+    x: -20,
+    scale: 0.98,
   },
   show: {
     opacity: 1,
     x: 0,
     scale: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -52,15 +52,15 @@ const itemFromLeftVariants: Variants = {
 const itemFromRightVariants: Variants = {
   hidden: {
     opacity: 0,
-    x: 40,
-    scale: 0.95,
+    x: 20,
+    scale: 0.98,
   },
   show: {
     opacity: 1,
     x: 0,
     scale: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -69,15 +69,15 @@ const itemFromRightVariants: Variants = {
 const itemScaleVariants: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.8,
-    filter: "blur(8px)",
+    scale: 0.92,
+    filter: "blur(4px)",
   },
   show: {
     opacity: 1,
     scale: 1,
     filter: "blur(0px)",
     transition: {
-      duration: 0.5,
+      duration: 0.45,
       ease: [0.22, 1, 0.36, 1],
     },
   },

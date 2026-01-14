@@ -1,8 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Calendar, Mail, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Heading1, Paragraphe } from "@/components/typography";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
 
@@ -79,7 +79,7 @@ export default function TreeHeader() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <MagneticWrapper strength={0.15}>
+            <MagneticWrapper strength={0.04}>
               <motion.a
                 href="mailto:contact@axelhamilcaro.com"
                 className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl card-accent flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-primary hover:text-accent transition-colors duration-300"
@@ -91,7 +91,7 @@ export default function TreeHeader() {
               </motion.a>
             </MagneticWrapper>
 
-            <MagneticWrapper strength={0.15}>
+            <MagneticWrapper strength={0.04}>
               <motion.a
                 href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
                 target="_blank"

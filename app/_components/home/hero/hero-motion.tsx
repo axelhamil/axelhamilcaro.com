@@ -1,25 +1,25 @@
 "use client";
 
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
-import { motion, type Variants, useReducedMotion } from "framer-motion";
 
 const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.05,
+      staggerChildren: 0.08,
+      delayChildren: 0.03,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 14 },
+  hidden: { opacity: 0, y: 10 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.55,
+      duration: 0.45,
       ease: [0.22, 1, 0.36, 1],
     },
   },

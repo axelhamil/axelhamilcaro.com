@@ -1,12 +1,12 @@
 "use client";
 
-import { Briefcase, ExternalLink, Layers, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { Briefcase, Layers, Zap } from "lucide-react";
 import { Heading2, Paragraphe } from "@/components/typography";
+import { DotGrid, GlowOrb } from "../shared/effects/geometric-shapes";
+import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { TiltCard } from "../shared/effects/tilt-card";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { DotGrid, GlowOrb } from "../shared/effects/geometric-shapes";
 
 const projects = [
   {
@@ -52,15 +52,32 @@ const CaseStudies = () => {
       aria-labelledby="projets-title"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <DotGrid rows={4} cols={4} gap={18} className="top-16 left-10 opacity-25" />
-        <DotGrid rows={3} cols={3} gap={14} className="bottom-24 right-10 opacity-20" />
-        <GlowOrb size={300} position={{ top: "30%", right: "10%" }} intensity="low" />
+        <DotGrid
+          rows={4}
+          cols={4}
+          gap={18}
+          className="top-16 left-10 opacity-25"
+        />
+        <DotGrid
+          rows={3}
+          cols={3}
+          gap={14}
+          className="bottom-24 right-10 opacity-20"
+        />
+        <GlowOrb
+          size={300}
+          position={{ top: "30%", right: "10%" }}
+          intensity="low"
+        />
       </div>
 
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.1}>
-            <motion.div className="badge mb-4 inline-flex" whileHover={{ scale: 1.05 }}>
+          <MagneticWrapper strength={0.03}>
+            <motion.div
+              className="badge mb-4 inline-flex"
+              whileHover={{ scale: 1.05 }}
+            >
               <motion.span
                 animate={{ rotate: [0, 10, 0] }}
                 transition={{
@@ -92,7 +109,8 @@ const CaseStudies = () => {
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base"
           >
-            Du MVP au produit en production. Des projets concrets avec des résultats mesurables.
+            Du MVP au produit en production. Des projets concrets avec des
+            résultats mesurables.
           </Paragraphe>
         </RevealItem>
       </RevealContainer>
@@ -106,8 +124,12 @@ const CaseStudies = () => {
             key={project.title}
             direction={index === 1 ? "up" : index === 0 ? "left" : "right"}
           >
-            <MagneticWrapper strength={0.12}>
-              <TiltCard className="h-full rounded-2xl" tiltAmount={6} glareOpacity={0.08}>
+            <MagneticWrapper strength={0.04}>
+              <TiltCard
+                className="h-full rounded-2xl"
+                tiltAmount={6}
+                glareOpacity={0.08}
+              >
                 <motion.div
                   className="group relative rounded-2xl card-accent overflow-hidden h-full p-5 sm:p-6"
                   whileHover={{
@@ -141,7 +163,11 @@ const CaseStudies = () => {
                       <motion.div
                         className={`w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center shadow-lg`}
                         whileHover={{ scale: 1.15, rotate: 8 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 17,
+                        }}
                       >
                         <span
                           className="text-xs font-bold text-white"
@@ -168,23 +194,28 @@ const CaseStudies = () => {
                     </div>
 
                     <motion.div
-                      className={`flex items-center gap-2 pt-4 border-t border-border/50`}
+                      className={
+                        "flex items-center gap-2 pt-4 border-t border-border/50"
+                      }
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={{ delay: 0.3 }}
                     >
-                      <Zap className={`w-4 h-4 text-accent`} />
+                      <Zap className={"w-4 h-4 text-accent"} />
                       <span className="text-sm font-semibold text-accent">
                         {project.metric}
                       </span>
-                      <span className="text-xs text-secondary">{project.metricLabel}</span>
+                      <span className="text-xs text-secondary">
+                        {project.metricLabel}
+                      </span>
                     </motion.div>
                   </div>
 
                   <motion.div
                     className="absolute bottom-0 left-0 right-0 h-1"
                     style={{
-                      background: `linear-gradient(to right, transparent, var(--accent), transparent)`,
+                      background:
+                        "linear-gradient(to right, transparent, var(--accent), transparent)",
                     }}
                     initial={{ scaleX: 0, opacity: 0 }}
                     whileHover={{ scaleX: 1, opacity: 1 }}
@@ -199,8 +230,11 @@ const CaseStudies = () => {
 
       <RevealContainer className="text-center mt-10 sm:mt-12">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.08}>
-            <motion.div className="badge inline-flex" whileHover={{ scale: 1.02 }}>
+          <MagneticWrapper strength={0.025}>
+            <motion.div
+              className="badge inline-flex"
+              whileHover={{ scale: 1.02 }}
+            >
               <motion.span
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}

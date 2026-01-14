@@ -1,11 +1,17 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { MessageSquare, Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  MessageSquare,
+  Quote,
+  Star,
+} from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { Heading2, Paragraphe } from "@/components/typography";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 
 const testimonials = [
   {
@@ -67,7 +73,9 @@ const Testimonials = () => {
 
   const prev = useCallback(() => {
     setDirection(-1);
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setActiveIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
   }, []);
 
   const goTo = useCallback(
@@ -75,7 +83,7 @@ const Testimonials = () => {
       setDirection(index > activeIndex ? 1 : -1);
       setActiveIndex(index);
     },
-    [activeIndex]
+    [activeIndex],
   );
 
   useEffect(() => {
@@ -107,19 +115,19 @@ const Testimonials = () => {
     if (absOffset === 1) {
       return {
         x: side * 260,
-        scale: 0.88,
+        scale: 0.92,
         zIndex: 5,
         opacity: 0.6,
-        rotateY: side * -12,
+        rotateY: side * -8,
       };
     }
 
     return {
       x: side * 400,
-      scale: 0.75,
+      scale: 0.8,
       zIndex: 2,
       opacity: 0,
-      rotateY: side * -20,
+      rotateY: side * -12,
     };
   };
 
@@ -131,10 +139,13 @@ const Testimonials = () => {
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.1}>
-            <motion.div className="badge mb-4 inline-flex" whileHover={{ scale: 1.05 }}>
+          <MagneticWrapper strength={0.03}>
+            <motion.div
+              className="badge mb-4 inline-flex"
+              whileHover={{ scale: 1.05 }}
+            >
               <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
+                animate={{ scale: [1, 1.08, 1] }}
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               >
                 <MessageSquare className="w-4 h-4 text-accent" />
@@ -187,8 +198,8 @@ const Testimonials = () => {
                   initial={{
                     x: direction > 0 ? 400 : -400,
                     opacity: 0,
-                    scale: 0.8,
-                    rotateY: direction > 0 ? 30 : -30,
+                    scale: 0.85,
+                    rotateY: direction > 0 ? 15 : -15,
                   }}
                   animate={{
                     x: style.x,
@@ -200,8 +211,8 @@ const Testimonials = () => {
                   exit={{
                     x: direction > 0 ? -400 : 400,
                     opacity: 0,
-                    scale: 0.8,
-                    rotateY: direction > 0 ? -30 : 30,
+                    scale: 0.85,
+                    rotateY: direction > 0 ? -15 : 15,
                   }}
                   transition={{
                     type: "spring",
@@ -214,7 +225,7 @@ const Testimonials = () => {
                   }}
                   onClick={() => !isActive && goTo(index)}
                 >
-                  <MagneticWrapper strength={isActive ? 0.1 : 0}>
+                  <MagneticWrapper strength={isActive ? 0.03 : 0}>
                     <motion.div
                       className={`relative flex flex-col gap-4 p-6 sm:p-8 rounded-2xl overflow-hidden transition-shadow ${
                         isActive
@@ -236,19 +247,21 @@ const Testimonials = () => {
                           className="flex gap-0.5"
                           aria-label={`${testimonial.rating} étoiles sur 5`}
                         >
-                          {Array.from({ length: testimonial.rating }).map((_, i) => (
-                            <motion.span
-                              key={i}
-                              initial={{ opacity: 0, scale: 0 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: 0.1 * i }}
-                            >
-                              <Star
-                                className="w-4 h-4 text-amber-400 fill-current"
-                                aria-hidden="true"
-                              />
-                            </motion.span>
-                          ))}
+                          {Array.from({ length: testimonial.rating }).map(
+                            (_, i) => (
+                              <motion.span
+                                key={i}
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.1 * i }}
+                              >
+                                <Star
+                                  className="w-4 h-4 text-amber-400 fill-current"
+                                  aria-hidden="true"
+                                />
+                              </motion.span>
+                            ),
+                          )}
                         </div>
                       </div>
 
@@ -286,7 +299,7 @@ const Testimonials = () => {
         </div>
 
         <div className="flex items-center justify-center gap-4 mt-6">
-          <MagneticWrapper strength={0.2}>
+          <MagneticWrapper strength={0.025}>
             <motion.button
               onClick={prev}
               className="p-3 rounded-full bg-primary/5 hover:bg-accent/10 text-primary hover:text-accent transition-colors"
@@ -315,7 +328,7 @@ const Testimonials = () => {
             ))}
           </div>
 
-          <MagneticWrapper strength={0.2}>
+          <MagneticWrapper strength={0.025}>
             <motion.button
               onClick={next}
               className="p-3 rounded-full bg-primary/5 hover:bg-accent/10 text-primary hover:text-accent transition-colors"

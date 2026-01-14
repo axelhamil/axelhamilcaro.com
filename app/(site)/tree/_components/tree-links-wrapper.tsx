@@ -1,7 +1,5 @@
 "use client";
 
-import type { TreeLink } from "@/app/_lib/db/schema";
-import { LinkCard } from "@/components/portfolio";
 import { motion } from "framer-motion";
 import {
   Briefcase,
@@ -11,12 +9,14 @@ import {
   Instagram,
   Linkedin,
   Link as LinkIcon,
+  type LucideIcon,
   Mail,
   Music2,
-  type LucideIcon,
 } from "lucide-react";
 import { useEffect } from "react";
 import { MagneticWrapper } from "@/app/_components/shared/effects/magnetic-wrapper";
+import { LinkCard } from "@/components/portfolio";
+import type { TreeLink } from "@/drizzle/schema";
 
 const iconMap: Record<string, LucideIcon> = {
   link: LinkIcon,
@@ -121,7 +121,7 @@ export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
       {links.map((link) => {
         const IconComponent = iconMap[link.icon] || LinkIcon;
         return (
-          <MagneticWrapper key={link.id} strength={0.1}>
+          <MagneticWrapper key={link.id} strength={0.03}>
             <motion.div
               key={link.id}
               variants={item}

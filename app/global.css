@@ -262,7 +262,7 @@ body {
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -276,7 +276,7 @@ body {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-6px);
   }
 }
 
@@ -315,7 +315,7 @@ body {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
   }
 }
 
@@ -325,10 +325,10 @@ body {
     transform: rotate(0deg);
   }
   25% {
-    transform: rotate(-5deg);
+    transform: rotate(-3deg);
   }
   75% {
-    transform: rotate(5deg);
+    transform: rotate(3deg);
   }
 }
 
@@ -338,7 +338,7 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 }
 
@@ -368,7 +368,7 @@ body {
     transform: rotate(0deg);
   }
   50% {
-    transform: rotate(10deg);
+    transform: rotate(5deg);
   }
 }
 

@@ -1,12 +1,12 @@
 "use client";
 
-import { Cpu, Gauge, Layers, Shield, Check } from "lucide-react";
 import { motion } from "framer-motion";
+import { Check, Cpu, Gauge, Layers, Shield } from "lucide-react";
 import { Heading2, Paragraphe } from "@/components/typography";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
+import { cn } from "@/lib/utils";
 import { DotGrid, GlowOrb } from "../shared/effects/geometric-shapes";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { cn } from "@/lib/utils";
+import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { TiltCard } from "../shared/effects/tilt-card";
 
 const blocks = [
@@ -56,17 +56,34 @@ const TechStack = () => {
       aria-labelledby="stack-title"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-        <DotGrid rows={5} cols={5} gap={20} className="top-20 right-10 opacity-30" />
-        <DotGrid rows={4} cols={4} gap={16} className="bottom-32 left-10 opacity-20" />
-        <GlowOrb size={350} position={{ bottom: "20%", left: "5%" }} intensity="low" />
+        <DotGrid
+          rows={5}
+          cols={5}
+          gap={20}
+          className="top-20 right-10 opacity-30"
+        />
+        <DotGrid
+          rows={4}
+          cols={4}
+          gap={16}
+          className="bottom-32 left-10 opacity-20"
+        />
+        <GlowOrb
+          size={350}
+          position={{ bottom: "20%", left: "5%" }}
+          intensity="low"
+        />
       </div>
 
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.1}>
-            <motion.div className="badge mb-4 inline-flex" whileHover={{ scale: 1.05 }}>
+          <MagneticWrapper strength={0.03}>
+            <motion.div
+              className="badge mb-4 inline-flex"
+              whileHover={{ scale: 1.05 }}
+            >
               <motion.span
-                animate={{ rotate: [0, 180, 360] }}
+                animate={{ rotate: [0, 90, 180] }}
                 transition={{
                   duration: 3,
                   repeat: Number.POSITIVE_INFINITY,
@@ -114,7 +131,7 @@ const TechStack = () => {
               key={b.title}
               direction={index === 1 ? "up" : index === 0 ? "left" : "right"}
             >
-              <MagneticWrapper strength={0.12}>
+              <MagneticWrapper strength={0.04}>
                 <TiltCard
                   className="h-full rounded-2xl"
                   tiltAmount={6}
@@ -126,8 +143,8 @@ const TechStack = () => {
                       "p-5 sm:p-6",
                     )}
                     whileHover={{
-                      y: -8,
-                      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+                      y: -4,
+                      boxShadow: "0 16px 32px rgba(0, 0, 0, 0.08)",
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
@@ -159,8 +176,8 @@ const TechStack = () => {
                             `bg-gradient-to-br ${b.gradient}`,
                           )}
                           whileHover={{
-                            scale: 1.15,
-                            rotate: 8,
+                            scale: 1.08,
+                            rotate: 4,
                           }}
                           transition={{
                             type: "spring",
@@ -186,8 +203,8 @@ const TechStack = () => {
                             transition={{ delay: 0.3 + bulletIndex * 0.1 }}
                           >
                             <motion.span
-                              whileHover={{ scale: 1.2, rotate: 10 }}
-                              transition={{ type: "spring", stiffness: 400 }}
+                              whileHover={{ scale: 1.1, rotate: 5 }}
+                              transition={{ type: "spring", stiffness: 350 }}
                             >
                               <Check className="w-4 h-4 mt-0.5 text-accent" />
                             </motion.span>
@@ -200,7 +217,8 @@ const TechStack = () => {
                     <motion.div
                       className="absolute bottom-0 left-0 right-0 h-1"
                       style={{
-                        background: `linear-gradient(to right, transparent, var(--accent), transparent)`,
+                        background:
+                          "linear-gradient(to right, transparent, var(--accent), transparent)",
                       }}
                       initial={{ scaleX: 0, opacity: 0 }}
                       whileHover={{ scaleX: 1, opacity: 1 }}
@@ -216,10 +234,13 @@ const TechStack = () => {
 
       <RevealContainer className="text-center mt-10 sm:mt-12">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.08}>
-            <motion.div className="badge inline-flex" whileHover={{ scale: 1.02 }}>
+          <MagneticWrapper strength={0.025}>
+            <motion.div
+              className="badge inline-flex"
+              whileHover={{ scale: 1.02 }}
+            >
               <motion.span
-                animate={{ scale: [1, 1.1, 1] }}
+                animate={{ scale: [1, 1.04, 1] }}
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               >
                 <Cpu className="w-4 h-4 text-accent" />

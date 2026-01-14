@@ -1,15 +1,15 @@
 "use client";
 
-import { ArrowRight, Calendar, Code2, Rocket, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowRight, Calendar, Code2, Rocket, Zap } from "lucide-react";
 import { Button } from "@/components/portfolio";
 import { Heading2, Paragraphe } from "@/components/typography";
-import { HeroMotionItem } from "./hero-motion";
 import { AnimatedCounter } from "../../shared/effects/animated-counter";
 import { PulsingDot } from "../../shared/effects/floating-element";
 import { MagneticWrapper } from "../../shared/effects/magnetic-wrapper";
 import { RunawayBadge } from "../../shared/effects/runaway-badge";
 import { LetterReveal } from "../../shared/effects/text-reveal";
+import { HeroMotionItem } from "./hero-motion";
 
 const stats = [
   { v: "5+", l: "ans d'expérience" },
@@ -77,7 +77,10 @@ const HeroLeft = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 + delay, duration: 0.5 }}
             >
-              <span className="animate-icon-wiggle" style={{ animationDelay: `${delay * 2}s` }}>
+              <span
+                className="animate-icon-wiggle"
+                style={{ animationDelay: `${delay * 2}s` }}
+              >
                 <Icon className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
               </span>
               {label}
@@ -110,21 +113,24 @@ const HeroLeft = () => {
 
       <HeroMotionItem>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-          <MagneticWrapper strength={0.2}>
+          <MagneticWrapper strength={0.06}>
             <Button
               href="https://calendly.com/axel-hamilcaro-pro/appel-decouverte"
               external
               size="lg"
               className="w-full sm:w-auto justify-center group"
             >
-              <span className="animate-wiggle" style={{ animationDuration: "3s" }}>
+              <span
+                className="animate-wiggle"
+                style={{ animationDuration: "3s" }}
+              >
                 <Calendar className="w-5 h-5" />
               </span>
               Discuter de ton projet
             </Button>
           </MagneticWrapper>
 
-          <MagneticWrapper strength={0.2}>
+          <MagneticWrapper strength={0.06}>
             <Button
               href="/tree"
               variant="secondary"
@@ -142,7 +148,7 @@ const HeroLeft = () => {
 
       <HeroMotionItem>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 pt-2">
-          {stats.map(({ v, l }, index) => (
+          {stats.map(({ v, l }, _index) => (
             <motion.div
               key={l}
               className="flex flex-col items-center px-4 py-3 rounded-xl card-accent"

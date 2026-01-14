@@ -1,11 +1,11 @@
 "use client";
 
-import { Award, Building2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { Award, Building2 } from "lucide-react";
 import { Heading2, Paragraphe } from "@/components/typography";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { AnimatedCounter } from "../shared/effects/animated-counter";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 
 const companies = [
   {
@@ -46,12 +46,8 @@ const companies = [
   },
 ] as const;
 
-const CompanyCard = ({
-  company,
-}: {
-  company: (typeof companies)[number];
-}) => (
-  <MagneticWrapper strength={0.15}>
+const CompanyCard = ({ company }: { company: (typeof companies)[number] }) => (
+  <MagneticWrapper strength={0.04}>
     <motion.div
       className="flex items-center gap-3 px-5 py-3 rounded-xl bg-white border border-border/50 shadow-sm hover:shadow-lg transition-all cursor-pointer shrink-0"
       whileHover={{ y: -4, scale: 1.03 }}
@@ -75,7 +71,9 @@ const CompanyCard = ({
         >
           {company.name}
         </p>
-        <p className="text-xs text-secondary whitespace-nowrap">{company.type}</p>
+        <p className="text-xs text-secondary whitespace-nowrap">
+          {company.type}
+        </p>
       </div>
     </motion.div>
   </MagneticWrapper>
@@ -90,8 +88,11 @@ const TrustedBy = () => {
     >
       <RevealContainer className="container mx-auto text-center mb-10 sm:mb-12">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.1}>
-            <motion.div className="badge mb-4 inline-flex" whileHover={{ scale: 1.05 }}>
+          <MagneticWrapper strength={0.03}>
+            <motion.div
+              className="badge mb-4 inline-flex"
+              whileHover={{ scale: 1.05 }}
+            >
               <motion.span
                 animate={{ y: [0, -3, 0] }}
                 transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
@@ -143,15 +144,17 @@ const TrustedBy = () => {
             },
           }}
         >
-          {[...companies, ...companies, ...companies, ...companies].map((company, i) => (
-            <CompanyCard key={`${company.name}-${i}`} company={company} />
-          ))}
+          {[...companies, ...companies, ...companies, ...companies].map(
+            (company, i) => (
+              <CompanyCard key={`${company.name}-${i}`} company={company} />
+            ),
+          )}
         </motion.div>
       </div>
 
       <RevealContainer className="container mx-auto text-center mt-10 sm:mt-12">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.08}>
+          <MagneticWrapper strength={0.025}>
             <motion.div
               className="badge inline-flex items-center gap-3"
               whileHover={{ scale: 1.02 }}

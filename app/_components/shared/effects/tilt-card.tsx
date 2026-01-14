@@ -14,7 +14,7 @@ interface TiltCardProps {
 export function TiltCard({
   children,
   className,
-  tiltAmount = 10,
+  tiltAmount = 6,
   glareOpacity = 0.1,
 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +22,7 @@ export function TiltCard({
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
 
-  const springConfig = { damping: 20, stiffness: 200 };
+  const springConfig = { damping: 20, stiffness: 150 };
   const xSpring = useSpring(x, springConfig);
   const ySpring = useSpring(y, springConfig);
 
@@ -60,7 +60,7 @@ export function TiltCard({
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.01 }}
       transition={{ scale: { duration: 0.2 } }}
     >
       {children}

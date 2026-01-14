@@ -1,10 +1,10 @@
 "use client";
 
-import { Briefcase, GraduationCap, Rocket, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { Briefcase, Code2, GraduationCap, Rocket } from "lucide-react";
 import { Heading2, Paragraphe } from "@/components/typography";
-import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
+import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { TiltCard } from "../shared/effects/tilt-card";
 
 const experiences = [
@@ -23,8 +23,7 @@ const experiences = [
     period: "2025 - Présent",
     company: "ScormPilot",
     role: "Développeur Full-Stack",
-    description:
-      "SaaS e-learning from scratch. Next.js, NestJS, PostgreSQL.",
+    description: "SaaS e-learning from scratch. Next.js, NestJS, PostgreSQL.",
     icon: Code2,
     gradient: "from-emerald-500 to-teal-500",
     side: "left" as const,
@@ -102,7 +101,7 @@ const ExperienceTimeline = () => {
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: 1, ease: "easeOut" }}
         />
 
         <div className="relative space-y-6 md:space-y-0">
@@ -116,16 +115,20 @@ const ExperienceTimeline = () => {
                 className={`relative md:flex md:items-center ${
                   isLeft ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: index * 0.12, duration: 0.5 }}
+                transition={{ delay: index * 0.08, duration: 0.45 }}
               >
                 <div
                   className={`md:w-1/2 ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12"}`}
                 >
-                  <MagneticWrapper strength={0.15}>
-                    <TiltCard className="rounded-2xl" tiltAmount={6} glareOpacity={0.08}>
+                  <MagneticWrapper strength={0.02}>
+                    <TiltCard
+                      className="rounded-2xl"
+                      tiltAmount={6}
+                      glareOpacity={0.08}
+                    >
                       <motion.div
                         className="relative p-5 sm:p-6 rounded-2xl card-accent overflow-hidden group"
                         whileHover={{
@@ -137,7 +140,7 @@ const ExperienceTimeline = () => {
                           initial={{ opacity: 0, x: isLeft ? -10 : 10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
-                          transition={{ delay: index * 0.12 + 0.3 }}
+                          transition={{ delay: index * 0.08 + 0.25 }}
                         >
                           {exp.highlight}
                         </motion.div>
@@ -146,9 +149,7 @@ const ExperienceTimeline = () => {
                           className={`absolute -top-16 ${isLeft ? "-left-16" : "-right-16"} w-32 h-32 rounded-full bg-gradient-to-br ${exp.gradient} opacity-0 blur-2xl group-hover:opacity-20 transition-opacity duration-500`}
                         />
 
-                        <div
-                          className="relative z-10 flex items-start gap-4 pt-8 sm:pt-0"
-                        >
+                        <div className="relative z-10 flex items-start gap-4 pt-8 sm:pt-0">
                           <div
                             className={`shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${exp.gradient} flex items-center justify-center shadow-lg animate-bounce-soft`}
                             style={{ animationDelay: `${index * 0.3}s` }}
@@ -199,9 +200,9 @@ const ExperienceTimeline = () => {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{
-                    delay: index * 0.12 + 0.2,
+                    delay: index * 0.08 + 0.15,
                     type: "spring",
-                    stiffness: 400,
+                    stiffness: 350,
                   }}
                 >
                   <div

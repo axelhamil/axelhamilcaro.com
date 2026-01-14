@@ -1,12 +1,19 @@
 "use client";
 
-import { Code2, Lightbulb, Rocket, Sparkles, Wrench, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
+import {
+  Code2,
+  Lightbulb,
+  Rocket,
+  Sparkles,
+  Trophy,
+  Wrench,
+} from "lucide-react";
 import { Heading2, Paragraphe } from "@/components/typography";
+import { AnimatedCounter } from "../shared/effects/animated-counter";
+import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "../shared/effects/reveal";
 import { TiltCard } from "../shared/effects/tilt-card";
-import { MagneticWrapper } from "../shared/effects/magnetic-wrapper";
-import { AnimatedCounter } from "../shared/effects/animated-counter";
 
 const stats = [
   { value: "20+", label: "applications livrées" },
@@ -54,7 +61,7 @@ const WhatIDo = () => {
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.1}>
+          <MagneticWrapper strength={0.03}>
             <motion.div
               className="badge mb-4 inline-flex"
               whileHover={{ scale: 1.05 }}
@@ -101,11 +108,11 @@ const WhatIDo = () => {
       >
         {services.map((service, index) => (
           <RevealItem key={service.title} direction="scale">
-            <MagneticWrapper strength={0.12}>
+            <MagneticWrapper strength={0.04}>
               <TiltCard className="h-full rounded-2xl">
                 <motion.div
                   className="relative h-full flex flex-col items-center text-center gap-3 sm:gap-4 p-5 sm:p-6 rounded-2xl card-accent overflow-hidden"
-                  whileHover={{ y: -8 }}
+                  whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <motion.div
@@ -116,8 +123,8 @@ const WhatIDo = () => {
                   <motion.div
                     className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-accent/5 blur-3xl"
                     animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.3, 0.5, 0.3],
+                      scale: [1, 1.08, 1],
+                      opacity: [0.2, 0.35, 0.2],
                     }}
                     transition={{
                       duration: 4,
@@ -129,8 +136,8 @@ const WhatIDo = () => {
                   <motion.div
                     className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
                     whileHover={{
-                      scale: 1.15,
-                      rotate: 8,
+                      scale: 1.08,
+                      rotate: 4,
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
@@ -164,7 +171,7 @@ const WhatIDo = () => {
 
       <RevealContainer className="mt-10 sm:mt-12">
         <RevealItem direction="scale">
-          <MagneticWrapper strength={0.06}>
+          <MagneticWrapper strength={0.02}>
             <motion.div
               className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12 px-6 py-4 rounded-2xl bg-primary/5 max-w-3xl mx-auto"
               whileHover={{ scale: 1.01 }}
@@ -181,7 +188,9 @@ const WhatIDo = () => {
                   <span className="font-bold text-accent">
                     <AnimatedCounter value={stat.value} className="inline" />
                   </span>
-                  <span className="text-xs sm:text-sm text-secondary">{stat.label}</span>
+                  <span className="text-xs sm:text-sm text-secondary">
+                    {stat.label}
+                  </span>
                 </motion.div>
               ))}
             </motion.div>
