@@ -43,12 +43,18 @@ export const leadService = {
     const email = normalizeEmail(data.email);
     const firstName = data.firstName.trim();
 
-    await leadRepository.create({
-      formId: form.id,
-      firstName,
-      email,
-      source,
-    });
+    const alreadyExists = await leadRepository.existsByFormAndEmail(
+      form.id,
+      email
+    );
+    if (!alreadyExists) {
+      await leadRepository.create({
+        formId: form.id,
+        firstName,
+        email,
+        source,
+      });
+    }
 
     if (form.emailSubject && form.emailBody) {
       await emailService.sendLeadEmail({
