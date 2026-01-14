@@ -448,6 +448,113 @@ body {
 }
 
 /* ============================================================================
+   404 PAGE ANIMATIONS
+   ============================================================================ */
+
+@keyframes particle-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(calc(100vh + 100px)) rotate(360deg);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes chromatic-shift-left {
+  0%,
+  100% {
+    transform: translateX(-2px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(2px);
+    opacity: 0.5;
+  }
+}
+
+@keyframes chromatic-shift-right {
+  0%,
+  100% {
+    transform: translateX(2px);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(-2px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes message-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+.particle-fall {
+  animation: particle-fall linear infinite;
+  will-change: transform;
+}
+
+.chromatic-layer-accent {
+  animation: chromatic-shift-left 0.15s linear infinite;
+}
+
+.chromatic-layer-cyan {
+  animation: chromatic-shift-right 0.12s linear infinite;
+}
+
+.glow-orb {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.scanline-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 77, 0, 0.3) 50%,
+    transparent 100%
+  );
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.escape-message {
+  animation: message-fade-out 0.6s forwards;
+}
+
+/* ============================================================================
    ADMIN LIGHT THEME
    ============================================================================ */
 
