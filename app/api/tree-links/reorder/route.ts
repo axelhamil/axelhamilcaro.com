@@ -1,8 +1,8 @@
-import { db } from "@/app/_lib/db";
-import { treeLinks } from "@/app/_lib/db/schema";
-import { requireAdminAuth } from "@/app/_lib/api-auth";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { requireAdminAuth } from "@/app/_lib/api-auth";
+import { db } from "@/drizzle";
+import { treeLinks } from "@/drizzle/schema";
 
 export async function POST(request: Request) {
   const authResult = await requireAdminAuth();
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     if (!Array.isArray(orderedIds)) {
       return NextResponse.json(
         { error: "orderedIds must be an array" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -27,11 +27,10 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Failed to reorder links:", error);
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to reorder links" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

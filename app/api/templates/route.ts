@@ -1,8 +1,8 @@
-import { db } from "@/app/_lib/db";
-import { formTemplates } from "@/app/_lib/db/schema";
-import { requireAdminAuth } from "@/app/_lib/api-auth";
 import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { requireAdminAuth } from "@/app/_lib/api-auth";
+import { db } from "@/drizzle";
+import { formTemplates } from "@/drizzle/schema";
 
 export async function GET() {
   const authResult = await requireAdminAuth();
@@ -15,11 +15,10 @@ export async function GET() {
       .orderBy(desc(formTemplates.createdAt));
 
     return NextResponse.json(templates);
-  } catch (error) {
-    console.error("Failed to fetch templates:", error);
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to fetch templates" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -40,11 +39,10 @@ export async function POST(request: Request) {
       .returning();
 
     return NextResponse.json(newTemplate, { status: 201 });
-  } catch (error) {
-    console.error("Failed to create template:", error);
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to create template" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -60,7 +58,7 @@ export async function DELETE(request: Request) {
     if (!id) {
       return NextResponse.json(
         { error: "Template ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -72,16 +70,15 @@ export async function DELETE(request: Request) {
     if (!deletedTemplate) {
       return NextResponse.json(
         { error: "Template not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Failed to delete template:", error);
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to delete template" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

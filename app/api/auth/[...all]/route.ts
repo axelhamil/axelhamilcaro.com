@@ -1,6 +1,6 @@
-import { auth } from "@/app/_lib/auth";
 import { toNextJsHandler } from "better-auth/next-js";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { auth } from "@/app/_lib/auth";
 
 const { GET: originalGET, POST: originalPOST } = toNextJsHandler(auth);
 

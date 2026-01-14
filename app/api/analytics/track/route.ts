@@ -1,6 +1,6 @@
-import { db } from "@/app/_lib/db";
-import { linkClicks, pageViews } from "@/app/_lib/db/schema";
 import { NextResponse } from "next/server";
+import { db } from "@/drizzle";
+import { linkClicks, pageViews } from "@/drizzle/schema";
 
 function parseUserAgent(ua: string | null) {
   if (!ua) return { device: "unknown", browser: "unknown", os: "unknown" };
@@ -68,8 +68,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Failed to track:", error);
+  } catch (_error) {
     return NextResponse.json({ success: false }, { status: 500 });
   }
 }

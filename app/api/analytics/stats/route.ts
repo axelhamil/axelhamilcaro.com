@@ -1,13 +1,3 @@
-import { db } from "@/app/_lib/db";
-import {
-  forms,
-  leads,
-  linkClicks,
-  loginAttempts,
-  pageViews,
-  treeLinks,
-} from "@/app/_lib/db/schema";
-import { requireAdminAuth } from "@/app/_lib/api-auth";
 import {
   and,
   count,
@@ -20,6 +10,16 @@ import {
   sql,
 } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { requireAdminAuth } from "@/app/_lib/api-auth";
+import { db } from "@/drizzle";
+import {
+  forms,
+  leads,
+  linkClicks,
+  loginAttempts,
+  pageViews,
+  treeLinks,
+} from "@/drizzle/schema";
 
 function parseDateRange(searchParams: URLSearchParams) {
   const from = searchParams.get("from");
@@ -31,12 +31,12 @@ function parseDateRange(searchParams: URLSearchParams) {
       endDate: new Date(to),
       days: Math.ceil(
         (new Date(to).getTime() - new Date(from).getTime()) /
-          (1000 * 60 * 60 * 24)
+          (1000 * 60 * 60 * 24),
       ),
     };
   }
 
-  const days = Number.parseInt(searchParams.get("days") || "30");
+  const days = Number.parseInt(searchParams.get("days") || "30", 10);
   const endDate = new Date();
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - days);
@@ -54,7 +54,7 @@ export async function GET(request: Request) {
 
     const dateFilter = and(
       gte(pageViews.createdAt, startDate),
-      lt(pageViews.createdAt, endDate)
+      lt(pageViews.createdAt, endDate),
     );
 
     const previousPeriodEnd = new Date(startDate);
@@ -94,8 +94,8 @@ export async function GET(request: Request) {
           .where(
             and(
               gte(pageViews.createdAt, previousPeriodStart),
-              lt(pageViews.createdAt, previousPeriodEnd)
-            )
+              lt(pageViews.createdAt, previousPeriodEnd),
+            ),
           )
           .then(([r]) => r?.count || 0),
         db
@@ -104,8 +104,8 @@ export async function GET(request: Request) {
           .where(
             and(
               gte(leads.createdAt, previousPeriodStart),
-              lt(leads.createdAt, previousPeriodEnd)
-            )
+              lt(leads.createdAt, previousPeriodEnd),
+            ),
           )
           .then(([r]) => r?.count || 0),
         db
@@ -114,8 +114,8 @@ export async function GET(request: Request) {
           .where(
             and(
               gte(linkClicks.createdAt, previousPeriodStart),
-              lt(linkClicks.createdAt, previousPeriodEnd)
-            )
+              lt(linkClicks.createdAt, previousPeriodEnd),
+            ),
           )
           .then(([r]) => r?.count || 0),
       ]),
@@ -189,8 +189,8 @@ export async function GET(request: Request) {
           and(
             eq(linkClicks.linkId, treeLinks.id),
             gte(linkClicks.createdAt, startDate),
-            lt(linkClicks.createdAt, endDate)
-          )
+            lt(linkClicks.createdAt, endDate),
+          ),
         )
         .groupBy(treeLinks.id, treeLinks.title, treeLinks.url)
         .orderBy(desc(count(linkClicks.id)))
@@ -212,7 +212,9 @@ export async function GET(request: Request) {
           count: count(),
         })
         .from(leads)
-        .where(and(gte(leads.createdAt, startDate), lt(leads.createdAt, endDate)))
+        .where(
+          and(gte(leads.createdAt, startDate), lt(leads.createdAt, endDate)),
+        )
         .groupBy(sql`DATE(${leads.createdAt})`)
         .orderBy(sql`DATE(${leads.createdAt})`),
 
@@ -226,7 +228,9 @@ export async function GET(request: Request) {
         })
         .from(leads)
         .innerJoin(forms, eq(leads.formId, forms.id))
-        .where(and(gte(leads.createdAt, startDate), lt(leads.createdAt, endDate)))
+        .where(
+          and(gte(leads.createdAt, startDate), lt(leads.createdAt, endDate)),
+        )
         .orderBy(desc(leads.createdAt))
         .limit(5),
 
@@ -243,8 +247,8 @@ export async function GET(request: Request) {
         .where(
           and(
             gte(loginAttempts.createdAt, startDate),
-            lt(loginAttempts.createdAt, endDate)
-          )
+            lt(loginAttempts.createdAt, endDate),
+          ),
         )
         .orderBy(desc(loginAttempts.createdAt))
         .limit(10),
@@ -274,36 +278,37 @@ export async function GET(request: Request) {
       ]),
     ]);
 
-    const [
-      [totalClicks],
-      [totalLeads],
-      [activeForms],
-      [totalLoginAttempts],
-    ] = await Promise.all([
-      db
-        .select({ count: count() })
-        .from(linkClicks)
-        .where(
-          and(
-            gte(linkClicks.createdAt, startDate),
-            lt(linkClicks.createdAt, endDate)
-          )
-        ),
-      db
-        .select({ count: count() })
-        .from(leads)
-        .where(and(gte(leads.createdAt, startDate), lt(leads.createdAt, endDate))),
-      db.select({ count: count() }).from(forms).where(eq(forms.isActive, true)),
-      db
-        .select({ count: count() })
-        .from(loginAttempts)
-        .where(
-          and(
-            gte(loginAttempts.createdAt, startDate),
-            lt(loginAttempts.createdAt, endDate)
-          )
-        ),
-    ]);
+    const [[totalClicks], [totalLeads], [activeForms], [totalLoginAttempts]] =
+      await Promise.all([
+        db
+          .select({ count: count() })
+          .from(linkClicks)
+          .where(
+            and(
+              gte(linkClicks.createdAt, startDate),
+              lt(linkClicks.createdAt, endDate),
+            ),
+          ),
+        db
+          .select({ count: count() })
+          .from(leads)
+          .where(
+            and(gte(leads.createdAt, startDate), lt(leads.createdAt, endDate)),
+          ),
+        db
+          .select({ count: count() })
+          .from(forms)
+          .where(eq(forms.isActive, true)),
+        db
+          .select({ count: count() })
+          .from(loginAttempts)
+          .where(
+            and(
+              gte(loginAttempts.createdAt, startDate),
+              lt(loginAttempts.createdAt, endDate),
+            ),
+          ),
+      ]);
 
     const [previousViews, previousLeads, previousClicks] = previousStats;
 
@@ -313,16 +318,20 @@ export async function GET(request: Request) {
 
     const viewsChange =
       previousViews > 0
-        ? Math.round(((currentViewsCount - previousViews) / previousViews) * 100)
+        ? Math.round(
+            ((currentViewsCount - previousViews) / previousViews) * 100,
+          )
         : 0;
     const leadsChange =
       previousLeads > 0
-        ? Math.round(((currentLeadsCount - previousLeads) / previousLeads) * 100)
+        ? Math.round(
+            ((currentLeadsCount - previousLeads) / previousLeads) * 100,
+          )
         : 0;
     const clicksChange =
       previousClicks > 0
         ? Math.round(
-            ((currentClicksCount - previousClicks) / previousClicks) * 100
+            ((currentClicksCount - previousClicks) / previousClicks) * 100,
           )
         : 0;
 
@@ -336,19 +345,18 @@ export async function GET(request: Request) {
         : 0;
     const avgViewsPerSession =
       overviewStats?.uniqueSessions > 0
-        ? Math.round(
-            (currentViewsCount / overviewStats.uniqueSessions) * 100
-          ) / 100
+        ? Math.round((currentViewsCount / overviewStats.uniqueSessions) * 100) /
+          100
         : 0;
 
     const peakHour = viewsByHour.reduce(
       (max, h) => (h.count > max.count ? h : max),
-      { hour: 0, count: 0 }
+      { hour: 0, count: 0 },
     );
     const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
     const peakDay = viewsByDayOfWeek.reduce(
       (max, d) => (d.count > max.count ? d : max),
-      { day: 0, count: 0 }
+      { day: 0, count: 0 },
     );
 
     return NextResponse.json({
@@ -401,11 +409,10 @@ export async function GET(request: Request) {
       recentLeads,
       recentLoginAttempts,
     });
-  } catch (error) {
-    console.error("Failed to fetch analytics:", error);
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to fetch analytics" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

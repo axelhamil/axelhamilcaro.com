@@ -1,12 +1,12 @@
-import { db } from "@/app/_lib/db";
-import { treeLinks } from "@/app/_lib/db/schema";
-import { requireAdminAuth } from "@/app/_lib/api-auth";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { requireAdminAuth } from "@/app/_lib/api-auth";
+import { db } from "@/drizzle";
+import { treeLinks } from "@/drizzle/schema";
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const authResult = await requireAdminAuth();
   if (!authResult.success) return authResult.response;
@@ -35,18 +35,17 @@ export async function PUT(
     }
 
     return NextResponse.json(updatedLink);
-  } catch (error) {
-    console.error("Failed to update tree link:", error);
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to update tree link" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const authResult = await requireAdminAuth();
   if (!authResult.success) return authResult.response;
@@ -64,11 +63,10 @@ export async function DELETE(
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Failed to delete tree link:", error);
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to delete tree link" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
