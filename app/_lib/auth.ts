@@ -100,6 +100,10 @@ export const auth = betterAuth({
   baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   secret: process.env.BETTER_AUTH_SECRET,
 
+  onAPIError: {
+    errorURL: "/nice-try",
+  },
+
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
