@@ -32,10 +32,14 @@ CREATE TABLE "forms" (
 	"title" text NOT NULL,
 	"description" text,
 	"button_text" text DEFAULT 'Envoyer' NOT NULL,
-	"email_subject" text NOT NULL,
-	"email_body" text NOT NULL,
-	"email_to" text NOT NULL,
+	"button_subtext" text,
+	"badge_color" text DEFAULT '#ff4d00',
+	"badge_style" text DEFAULT 'filled',
 	"is_active" boolean DEFAULT true,
+	"email_subject" text,
+	"email_body" text,
+	"email_cta_text" text,
+	"email_cta_url" text,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
 	CONSTRAINT "forms_slug_unique" UNIQUE("slug")
@@ -46,6 +50,57 @@ CREATE TABLE "leads" (
 	"form_id" uuid NOT NULL,
 	"first_name" text NOT NULL,
 	"email" text NOT NULL,
+	"score" integer DEFAULT 50,
+	"source" text,
+	"status" text DEFAULT 'new',
+	"notes" text,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE "link_clicks" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"link_id" uuid,
+	"path" text NOT NULL,
+	"target_url" text NOT NULL,
+	"referrer" text,
+	"user_agent" text,
+	"country" text,
+	"session_id" text,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE "login_attempts" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"github_id" text NOT NULL,
+	"github_username" text,
+	"github_email" text,
+	"github_avatar" text,
+	"github_name" text,
+	"github_company" text,
+	"github_location" text,
+	"github_blog" text,
+	"github_twitter" text,
+	"ip_address" text,
+	"user_agent" text,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE "page_views" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"path" text NOT NULL,
+	"referrer" text,
+	"user_agent" text,
+	"country" text,
+	"city" text,
+	"device" text,
+	"browser" text,
+	"os" text,
+	"session_id" text,
+	"duration_ms" integer,
+	"is_bounce" boolean DEFAULT true,
+	"utm_source" text,
+	"utm_medium" text,
+	"utm_campaign" text,
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
@@ -59,6 +114,19 @@ CREATE TABLE "sessions" (
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
 	CONSTRAINT "sessions_token_unique" UNIQUE("token")
+);
+--> statement-breakpoint
+CREATE TABLE "tree_links" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"title" text NOT NULL,
+	"url" text NOT NULL,
+	"description" text,
+	"icon" text DEFAULT 'link' NOT NULL,
+	"featured" boolean DEFAULT false,
+	"is_active" boolean DEFAULT true,
+	"order" integer DEFAULT 0 NOT NULL,
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
@@ -83,4 +151,5 @@ CREATE TABLE "verifications" (
 --> statement-breakpoint
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "leads" ADD CONSTRAINT "leads_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "link_clicks" ADD CONSTRAINT "link_clicks_link_id_tree_links_id_fk" FOREIGN KEY ("link_id") REFERENCES "public"."tree_links"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
