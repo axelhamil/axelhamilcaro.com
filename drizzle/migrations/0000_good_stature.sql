@@ -1,4 +1,4 @@
-CREATE TABLE "accounts" (
+CREATE TABLE IF NOT EXISTS "accounts" (
 	"id" text PRIMARY KEY NOT NULL,
 	"user_id" text NOT NULL,
 	"account_id" text NOT NULL,
@@ -13,14 +13,14 @@ CREATE TABLE "accounts" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "form_templates" (
+CREATE TABLE IF NOT EXISTS "form_templates" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"config" jsonb NOT NULL,
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "forms" (
+CREATE TABLE IF NOT EXISTS "forms" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"slug" text NOT NULL,
 	"background_type" text DEFAULT 'color' NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE "forms" (
 	CONSTRAINT "forms_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
-CREATE TABLE "leads" (
+CREATE TABLE IF NOT EXISTS "leads" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"form_id" uuid NOT NULL,
 	"first_name" text NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE "leads" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "link_clicks" (
+CREATE TABLE IF NOT EXISTS "link_clicks" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"link_id" uuid,
 	"path" text NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE "link_clicks" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "login_attempts" (
+CREATE TABLE IF NOT EXISTS "login_attempts" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"github_id" text NOT NULL,
 	"github_username" text,
@@ -85,7 +85,7 @@ CREATE TABLE "login_attempts" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "page_views" (
+CREATE TABLE IF NOT EXISTS "page_views" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"path" text NOT NULL,
 	"referrer" text,
@@ -104,7 +104,7 @@ CREATE TABLE "page_views" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "sessions" (
+CREATE TABLE IF NOT EXISTS "sessions" (
 	"id" text PRIMARY KEY NOT NULL,
 	"user_id" text NOT NULL,
 	"token" text NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE "sessions" (
 	CONSTRAINT "sessions_token_unique" UNIQUE("token")
 );
 --> statement-breakpoint
-CREATE TABLE "tree_links" (
+CREATE TABLE IF NOT EXISTS "tree_links" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" text NOT NULL,
 	"url" text NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE "tree_links" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE "users" (
+CREATE TABLE IF NOT EXISTS "users" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
 	"email" text NOT NULL,
@@ -140,7 +140,7 @@ CREATE TABLE "users" (
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
-CREATE TABLE "verifications" (
+CREATE TABLE IF NOT EXISTS "verifications" (
 	"id" text PRIMARY KEY NOT NULL,
 	"identifier" text NOT NULL,
 	"value" text NOT NULL,
@@ -149,13 +149,34 @@ CREATE TABLE "verifications" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "leads" ADD CONSTRAINT "leads_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "link_clicks" ADD CONSTRAINT "link_clicks_link_id_tree_links_id_fk" FOREIGN KEY ("link_id") REFERENCES "public"."tree_links"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-CREATE INDEX "idx_leads_form_id" ON "leads" USING btree ("form_id");--> statement-breakpoint
-CREATE INDEX "idx_leads_created_at" ON "leads" USING btree ("created_at");--> statement-breakpoint
-CREATE UNIQUE INDEX "idx_leads_form_email" ON "leads" USING btree ("form_id","email");--> statement-breakpoint
-CREATE INDEX "idx_link_clicks_link_created" ON "link_clicks" USING btree ("link_id","created_at");--> statement-breakpoint
-CREATE INDEX "idx_page_views_created_at" ON "page_views" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "idx_page_views_session" ON "page_views" USING btree ("session_id");
+DO $$ BEGIN
+  ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+  ALTER TABLE "leads" ADD CONSTRAINT "leads_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+  ALTER TABLE "link_clicks" ADD CONSTRAINT "link_clicks_link_id_tree_links_id_fk" FOREIGN KEY ("link_id") REFERENCES "public"."tree_links"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+  ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "idx_leads_form_id" ON "leads" USING btree ("form_id");
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "idx_leads_created_at" ON "leads" USING btree ("created_at");
+--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "idx_leads_form_email" ON "leads" USING btree ("form_id","email");
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "idx_link_clicks_link_created" ON "link_clicks" USING btree ("link_id","created_at");
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "idx_page_views_created_at" ON "page_views" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "idx_page_views_session" ON "page_views" USING btree ("session_id");
