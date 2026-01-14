@@ -1,6 +1,30 @@
 import useSWR from "swr";
 import { fetcher } from "@/app/_lib/swr-config";
 
+export type TrafficCategory =
+  | "direct"
+  | "organic_search"
+  | "social"
+  | "email"
+  | "paid"
+  | "referral";
+
+export interface TrafficSourceAggregated {
+  name: string;
+  category: TrafficCategory;
+  categoryLabel: string;
+  color: string;
+  count: number;
+}
+
+export interface TrafficByCategory {
+  category: TrafficCategory;
+  label: string;
+  color: string;
+  count: number;
+  percentage: number;
+}
+
 export interface AnalyticsData {
   period: {
     from: string;
@@ -60,6 +84,11 @@ export interface AnalyticsData {
     ipAddress: string | null;
     createdAt: string | null;
   }>;
+  trafficSources: {
+    bySource: TrafficSourceAggregated[];
+    byCategory: TrafficByCategory[];
+    total: number;
+  };
 }
 
 export type DateRange = {

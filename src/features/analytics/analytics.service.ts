@@ -1,4 +1,10 @@
 import { formatRelativeDate } from "@/src/lib/utils/date.utils";
+import {
+  type TrafficCategory,
+  getTrafficSource,
+  CATEGORY_LABELS,
+  CATEGORY_COLORS,
+} from "@/src/lib/utils/traffic.utils";
 import { analyticsRepository } from "./analytics.repository";
 import { type TrackEventInput, trackEventSchema } from "./analytics.schema";
 
@@ -28,6 +34,80 @@ function parseUserAgent(ua: string | null) {
 function calculateChange(current: number, previous: number): number {
   if (previous === 0) return current > 0 ? 100 : 0;
   return Math.round(((current - previous) / previous) * 100);
+}
+
+interface TrafficSourceAggregated {
+  name: string;
+  category: TrafficCategory;
+  categoryLabel: string;
+  color: string;
+  count: number;
+}
+
+interface TrafficByCategory {
+  category: TrafficCategory;
+  label: string;
+  color: string;
+  count: number;
+  percentage: number;
+}
+
+function aggregateTrafficSources(
+  rawData: {
+    referrer: string | null;
+    utmSource: string | null;
+    utmMedium: string | null;
+    utmCampaign: string | null;
+    count: number;
+  }[],
+): {
+  bySource: TrafficSourceAggregated[];
+  byCategory: TrafficByCategory[];
+  total: number;
+} {
+  const sourceMap = new Map<string, TrafficSourceAggregated>();
+  const categoryMap = new Map<TrafficCategory, number>();
+  let total = 0;
+
+  for (const row of rawData) {
+    const source = getTrafficSource(row.referrer, row.utmSource, row.utmMedium);
+    const key = `${source.category}:${source.name}`;
+    total += row.count;
+
+    const existing = sourceMap.get(key);
+    if (existing) {
+      existing.count += row.count;
+    } else {
+      sourceMap.set(key, {
+        name: source.name,
+        category: source.category,
+        categoryLabel: CATEGORY_LABELS[source.category],
+        color: CATEGORY_COLORS[source.category],
+        count: row.count,
+      });
+    }
+
+    categoryMap.set(
+      source.category,
+      (categoryMap.get(source.category) || 0) + row.count,
+    );
+  }
+
+  const bySource = Array.from(sourceMap.values())
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+
+  const byCategory = Array.from(categoryMap.entries())
+    .map(([category, count]) => ({
+      category,
+      label: CATEGORY_LABELS[category],
+      color: CATEGORY_COLORS[category],
+      count,
+      percentage: total > 0 ? Math.round((count / total) * 1000) / 10 : 0,
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  return { bySource, byCategory, total };
 }
 
 export const analyticsService = {
@@ -227,6 +307,7 @@ export const analyticsService = {
       totalLeads,
       activeForms,
       totalLoginAttempts,
+      rawTrafficSources,
     ] = await Promise.all([
       analyticsRepository.getViewStats(startDate, endDate),
       analyticsRepository.getViewStats(previousPeriodStart, previousPeriodEnd),
@@ -249,6 +330,7 @@ export const analyticsService = {
       analyticsRepository.getLeadCount(startDate, endDate),
       analyticsRepository.getActiveFormCount(),
       analyticsRepository.getLoginAttemptCountInRange(startDate, endDate),
+      analyticsRepository.getRawTrafficSources(startDate, endDate),
     ]);
 
     const currentViewsCount = overviewStats.count;
@@ -350,6 +432,7 @@ export const analyticsService = {
       leadsOverTime,
       recentLeads,
       recentLoginAttempts,
+      trafficSources: aggregateTrafficSources(rawTrafficSources),
     };
   },
 };

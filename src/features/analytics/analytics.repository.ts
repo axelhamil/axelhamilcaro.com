@@ -389,4 +389,24 @@ export const analyticsRepository = {
       .where(eq(forms.isActive, true));
     return result?.count || 0;
   },
+
+  async getRawTrafficSources(from: Date, to: Date) {
+    return db
+      .select({
+        referrer: pageViews.referrer,
+        utmSource: pageViews.utmSource,
+        utmMedium: pageViews.utmMedium,
+        utmCampaign: pageViews.utmCampaign,
+        count: count(),
+      })
+      .from(pageViews)
+      .where(and(gte(pageViews.createdAt, from), lt(pageViews.createdAt, to)))
+      .groupBy(
+        pageViews.referrer,
+        pageViews.utmSource,
+        pageViews.utmMedium,
+        pageViews.utmCampaign,
+      )
+      .orderBy(desc(count()));
+  },
 };
