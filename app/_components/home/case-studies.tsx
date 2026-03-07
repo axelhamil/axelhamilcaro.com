@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Briefcase, Layers, Zap } from "lucide-react";
+import { ArrowRight, Briefcase, Zap } from "lucide-react";
 import Image from "next/image";
 import { DotGrid, GlowOrb } from "@/components/effects/geometric-shapes";
 import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
@@ -294,27 +294,6 @@ const CaseStudies = () => {
             </RevealItem>
           );
         })}
-      </RevealContainer>
-
-      <RevealContainer className="text-center mt-10 sm:mt-12">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.025}>
-            <motion.div
-              className="badge inline-flex"
-              whileHover={{ scale: 1.02 }}
-            >
-              <motion.span
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              >
-                <Layers className="w-4 h-4 text-accent" />
-              </motion.span>
-              <span className="text-xs sm:text-sm text-secondary">
-                Plus de projets disponibles sur demande
-              </span>
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
       </RevealContainer>
     </section>
   );
