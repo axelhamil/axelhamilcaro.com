@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { blurDataURLs } from "@/app/_config/blur-placeholders";
 import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/components/effects/reveal";
 import { TiltCard } from "@/components/effects/tilt-card";
@@ -774,6 +775,8 @@ export default function HomecafeShowcase() {
                         height={active.height}
                         className="w-full h-auto"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
+                        placeholder="blur"
+                        blurDataURL={blurDataURLs[active.src]}
                         priority={activeScreenshot === 0}
                       />
                     </motion.div>

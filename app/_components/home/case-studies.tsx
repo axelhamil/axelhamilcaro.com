@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Briefcase, Zap } from "lucide-react";
 import Image from "next/image";
+import { blurDataURLs } from "@/app/_config/blur-placeholders";
 import { DotGrid, GlowOrb } from "@/components/effects/geometric-shapes";
 import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/components/effects/reveal";
@@ -198,6 +199,8 @@ const CaseStudies = () => {
                               height={1125}
                               className="w-full h-full object-cover object-top"
                               sizes="(max-width: 768px) 100vw, 50vw"
+                              placeholder="blur"
+                              blurDataURL={blurDataURLs[project.thumbnail]}
                             />
                             <div
                               className="absolute inset-0"
