@@ -58,12 +58,15 @@ const projects = [
     title: "Billetterie Interne",
     type: "Dashboard · Freelance",
     description:
-      "Dashboard interne de gestion d'événements et ventes en temps réel. Visibilité opérationnelle instantanée, sécurité et stabilité.",
+      "Dashboard interne de gestion d'événements et ventes en temps réel. Plan de salle Seats.io 2D/3D, tarification multi-TVA, WebSocket bidirectionnel. Projet sous NDA.",
     tech: ["Next.js", "NestJS", "WebSocket", "PostgreSQL"],
-    metric: "Temps réel",
-    metricLabel: "fluide et fiable",
-    gradient: "from-blue-500 to-cyan-500",
+    metric: "<200ms",
+    metricLabel: "latence WebSocket",
+    gradient: "from-violet-600 to-amber-500",
     logo: "BI",
+    logoSrc: "/portfolio/billetterie/logo.svg",
+    href: "/portfolio/billetterie",
+    thumbnail: "/portfolio/billetterie/dashboard.webp",
   },
 ];
 
@@ -143,7 +146,7 @@ const CaseStudies = () => {
         className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto"
       >
         {projects.map((project, index) => {
-          const hasPage = "href" in project && project.href;
+          const hasPage = project.href;
           const Wrapper = hasPage
             ? ({ children }: { children: React.ReactNode }) => (
                 <TransitionLink
@@ -185,7 +188,7 @@ const CaseStudies = () => {
                         transition={{ duration: 0.3 }}
                       />
 
-                      {"thumbnail" in project && project.thumbnail && (
+                      {project.thumbnail && (
                         <div className="relative -mx-5 sm:-mx-6 -mt-5 sm:-mt-6 mb-4 overflow-hidden rounded-t-2xl">
                           <div className="relative h-36 sm:h-44">
                             <Image
@@ -194,7 +197,7 @@ const CaseStudies = () => {
                               width={1200}
                               height={1125}
                               className="w-full h-full object-cover object-top"
-                              unoptimized
+                              sizes="(max-width: 768px) 100vw, 50vw"
                             />
                             <div
                               className="absolute inset-0"
@@ -214,6 +217,7 @@ const CaseStudies = () => {
                               className={`text-xs uppercase tracking-wider font-semibold bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}
                               initial={{ opacity: 0, x: -10 }}
                               whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
                               transition={{ delay: 0.2 }}
                             >
                               {project.type}
@@ -225,7 +229,7 @@ const CaseStudies = () => {
 
                           <motion.div
                             className={`w-12 h-12 rounded-xl ${
-                              "logoSrc" in project
+                              project.logoSrc
                                 ? "bg-white/80 backdrop-blur-sm border border-border/30"
                                 : `bg-gradient-to-br ${project.gradient}`
                             } flex items-center justify-center shadow-lg overflow-hidden`}
@@ -236,14 +240,14 @@ const CaseStudies = () => {
                               damping: 17,
                             }}
                           >
-                            {"logoSrc" in project && project.logoSrc ? (
+                            {project.logoSrc ? (
                               <Image
                                 src={project.logoSrc}
                                 alt={`${project.title} logo`}
                                 width={36}
                                 height={36}
                                 className="w-9 h-9 object-contain"
-                                unoptimized
+                                sizes="36px"
                               />
                             ) : (
                               <span
@@ -279,6 +283,7 @@ const CaseStudies = () => {
                           }
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
+                          viewport={{ once: true }}
                           transition={{ delay: 0.3 }}
                         >
                           <div className="flex items-center gap-2">

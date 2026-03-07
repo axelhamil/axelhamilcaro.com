@@ -162,6 +162,7 @@ const TechStack = () => {
                             className={`text-xs uppercase tracking-wider font-semibold bg-gradient-to-r ${b.gradient} bg-clip-text text-transparent`}
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
                           >
                             {b.eyebrow}
@@ -201,6 +202,7 @@ const TechStack = () => {
                             className="flex items-start gap-2"
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
                             transition={{ delay: 0.3 + bulletIndex * 0.1 }}
                           >
                             <motion.span

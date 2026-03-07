@@ -9,24 +9,24 @@ import {
 } from "framer-motion";
 import {
   ArrowLeft,
-  Bell,
-  BookOpen,
-  Code2,
-  Coffee,
-  Figma,
-  Heart,
-  Kanban,
-  LayoutDashboard,
-  Mail,
-  MessageCircle,
-  Palette,
-  Rss,
-  Server,
-  Smartphone,
-  Target,
+  BarChart3,
+  Box,
   TestTube2,
-  Trophy,
-  Users,
+  Calendar,
+  ClipboardList,
+  Cloud,
+  Database,
+  Grid3X3,
+  Layers,
+  LayoutDashboard,
+  Lock,
+  Monitor,
+  Receipt,
+  Server,
+  Shield,
+  Target,
+  Ticket,
+  Wifi,
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -37,251 +37,202 @@ import TransitionLink from "@/components/shared/navigation/transition-link";
 import { Heading2 } from "@/components/typography/heading2";
 import { Paragraph } from "@/components/typography/paragraph";
 
-const HC = {
-  pink: "#F691C3",
-  orange: "#F46604",
-  green: "#04A056",
-  yellow: "#FDCB08",
-  blue: "#0062DD",
-  red: "#F21622",
-  beige: "#FDECCE",
+const BI = {
+  navy: "#0F172A",
+  violet: "#7C3AED",
+  purple: "#A855F7",
+  gold: "#F59E0B",
+  amber: "#D97706",
+  slate: "#334155",
+  light: "#F8FAFF",
 } as const;
 
 const stats = [
   {
-    value: "2",
-    label: "Plateformes",
-    sublabel: "Web + Mobile",
-    color: HC.pink,
+    value: "1",
+    label: "Mois",
+    sublabel: "Conception à production",
+    color: BI.navy,
   },
-  { value: "51+", label: "Écrans", color: HC.orange },
-  { value: "78", label: "Use Cases", color: HC.blue },
-  { value: "29", label: "Domain Events", color: HC.red },
-  { value: "+525", label: "Tests", color: HC.green },
+  { value: "WebSocket", label: "Temps réel", color: BI.violet },
+  { value: "3D", label: "Visualisation sièges", color: BI.purple },
+  { value: "<200ms", label: "Latence WS", color: BI.gold },
+  { value: "100%", label: "Couverture fiscale", color: BI.amber },
 ] as const;
 
 const secondaryStats = [
-  "29 pages web",
-  "22+ écrans mobile",
-  "73 routes API",
-  "32 tables",
-  "15+ achievements",
+  "Dashboard temps réel",
+  "Plan de salle 2D/3D",
+  "Gestion tarifs & TVA",
+  "WebSocket bidirectionnel",
+  "NDA",
 ] as const;
 
 const screenshots = [
   {
-    src: "/portfolio/homecafe/dashboard.webp",
-    alt: "HomeCafe - Tableau de bord avec suivi d'humeur, objectifs et activité quotidienne",
+    src: "/portfolio/billetterie/dashboard.webp",
+    alt: "Billetterie - Dashboard temps réel avec KPIs",
     label: "Dashboard",
-    icon: LayoutDashboard,
-    color: HC.pink,
-    width: 1200,
-    height: 1125,
+    icon: BarChart3,
+    color: BI.violet,
+    width: 1776,
+    height: 1055,
   },
   {
-    src: "/portfolio/homecafe/journal.webp",
-    alt: "HomeCafe - Journal intime avec entrées datées et tags émotionnels",
-    label: "Journal",
-    icon: BookOpen,
-    color: HC.orange,
-    width: 1200,
-    height: 1317,
+    src: "/portfolio/billetterie/plan-de-salle.webp",
+    alt: "Billetterie - Plan de salle interactif 2D",
+    label: "Plan de salle",
+    icon: Grid3X3,
+    color: BI.purple,
+    width: 1776,
+    height: 1055,
   },
   {
-    src: "/portfolio/homecafe/moodboard.webp",
-    alt: "HomeCafe - Moodboard personnalisable avec images et citations inspirantes",
-    label: "Moodboard",
-    icon: Palette,
-    color: HC.green,
-    width: 1200,
-    height: 1370,
+    src: "/portfolio/billetterie/vue-3d.webp",
+    alt: "Billetterie - Vue 3D isométrique du théâtre",
+    label: "Vue 3D",
+    icon: Box,
+    color: BI.gold,
+    width: 1776,
+    height: 1055,
   },
   {
-    src: "/portfolio/homecafe/organisation.webp",
-    alt: "HomeCafe - Gestionnaire de tâches Kanban avec catégories et priorités",
-    label: "Organisation",
-    icon: Kanban,
-    color: HC.blue,
-    width: 1200,
-    height: 3038,
+    src: "/portfolio/billetterie/tarification.webp",
+    alt: "Billetterie - Gestion tarifs et TVA",
+    label: "Tarification",
+    icon: Receipt,
+    color: BI.amber,
+    width: 1776,
+    height: 1055,
   },
   {
-    src: "/portfolio/homecafe/social.webp",
-    alt: "HomeCafe - Feed social communautaire avec posts, likes et commentaires",
-    label: "Social",
-    icon: Rss,
-    color: HC.yellow,
-    width: 1200,
-    height: 1060,
-  },
-  {
-    src: "/portfolio/homecafe/messagerie.webp",
-    alt: "HomeCafe - Messagerie temps réel avec conversations privées et groupes",
-    label: "Messagerie",
-    icon: Mail,
-    color: HC.red,
-    width: 1200,
-    height: 1060,
+    src: "/portfolio/billetterie/reservations.webp",
+    alt: "Billetterie - Liste des réservations",
+    label: "Réservations",
+    icon: ClipboardList,
+    color: BI.slate,
+    width: 1776,
+    height: 1055,
   },
 ] as const;
 
 const features = [
   {
     icon: LayoutDashboard,
-    title: "Dashboard",
+    title: "Dashboard Temps Réel",
     description:
-      "Layout customisable avec drag & drop (@dnd-kit). Widgets repositionnables : galerie, calendrier, to-do, messagerie, journal et suivi d'humeur.",
-    color: HC.pink,
+      "KPIs actualisés en temps réel via WebSocket : billets vendus, revenus, taux de remplissage, événements actifs. Feed d'activité avec indicateur de connexion live.",
+    color: BI.violet,
   },
   {
-    icon: BookOpen,
-    title: "Journal",
+    icon: Grid3X3,
+    title: "Plan de Salle 2D",
     description:
-      "Éditeur rich text (Tiptap), posts privés/publics, galerie photo, stickers et badges de régularité (streaks 7/14/30j).",
-    color: HC.orange,
+      "Plan de salle interactif Seats.io avec code couleur : disponible, occupé, sélectionné, inaccessible. Sélection multiple, calcul automatique du sous-total, légende contextuelle.",
+    color: BI.purple,
   },
   {
-    icon: Palette,
-    title: "Moodboard",
+    icon: Box,
+    title: "Visualisation 3D",
     description:
-      "Grille annuelle de 9 émotions trackées, suivi d'humeur quotidien, graphiques hebdomadaires et mensuels.",
-    color: HC.green,
+      "Vue isométrique du théâtre via Seats.io avec perspective 3D. Toggle 2D/3D instantané, scène visible au premier plan, même interactivité qu'en 2D.",
+    color: BI.gold,
   },
   {
-    icon: Kanban,
-    title: "Organisation",
+    icon: Receipt,
+    title: "Tarification & TVA",
     description:
-      "4 outils : Kanban boards, Tableaux (spreadsheet-like), Chronologies (Gantt) et Calendrier mensuel intégré.",
-    color: HC.blue,
+      "Gestion multi-tarifs avec calcul automatique TTC. Support des taux de TVA différenciés (20%, 5.5%, 0%). Tableau CRUD avec statut actif/fermé par catégorie.",
+    color: BI.amber,
   },
   {
-    icon: Rss,
-    title: "Feed Social",
+    icon: Calendar,
+    title: "Gestion Événements",
     description:
-      "Système d'amis (invitations, QR code, liens), posts publics avec réactions, galerie partagée et stickers.",
-    color: HC.yellow,
+      "Création et pilotage d'événements avec dates, lieux, capacités. Association plan de salle, suivi des ventes par événement, statuts et archivage.",
+    color: BI.navy,
   },
   {
-    icon: MessageCircle,
-    title: "Messagerie",
+    icon: ClipboardList,
+    title: "Réservations",
     description:
-      "Chat temps réel SSE (9 types d'events), conversations privées/groupe, réactions et pièces jointes média.",
-    color: HC.red,
+      "Liste exhaustive des réservations avec filtres avancés, recherche instantanée, statuts colorés (confirmé, en attente, annulé). Export CSV et pagination.",
+    color: BI.slate,
   },
 ] as const;
 
 const crossCutting = [
   {
-    icon: Trophy,
-    title: "Gamification",
+    icon: Wifi,
+    title: "WebSocket Bidirectionnel",
     description:
-      "15+ achievements débloquables, badges visuels, stickers collectionnables, streaks 7/14/30 jours. Évaluation automatique via domain events après chaque action utilisateur.",
-    color: HC.yellow,
+      "NestJS WebSocket Gateway pour la diffusion temps réel. Events : nouvelles réservations, mises à jour de statut, notifications. Reconnexion automatique, heartbeat.",
+    color: BI.violet,
   },
   {
-    icon: Bell,
-    title: "Notifications",
+    icon: Shield,
+    title: "Sécurité & Accès",
     description:
-      "Push notifications (Expo), SSE temps réel pour le chat et les alertes, cron jobs pour les rappels quotidiens, emails transactionnels via Resend.",
-    color: HC.red,
+      "Authentification JWT, rôles admin/opérateur, validation Zod de toutes les entrées. Rate limiting, CORS strict, logs d'audit sur les opérations sensibles.",
+    color: BI.navy,
   },
-] as const;
-
-const techStack = [
-  { name: "Next.js 16.1", category: "frontend" },
-  { name: "React 19", category: "frontend" },
-  { name: "Expo 54", category: "mobile" },
-  { name: "React Native 0.81", category: "mobile" },
-  { name: "TypeScript 5.9", category: "language" },
-  { name: "Drizzle ORM", category: "backend" },
-  { name: "PostgreSQL", category: "backend" },
-  { name: "BetterAuth 1.4", category: "backend" },
-  { name: "Tailwind CSS 4.1", category: "frontend" },
-  { name: "Turborepo", category: "infra" },
-  { name: "shadcn/ui", category: "frontend" },
-  { name: "Tiptap 3.19", category: "frontend" },
-  { name: "TanStack Query 5.90", category: "frontend" },
-  { name: "Zod 4.2", category: "language" },
-  { name: "Resend", category: "backend" },
-  { name: "AWS S3/R2", category: "infra" },
-  { name: "CQRS", category: "architecture" },
-  { name: "DDD", category: "architecture" },
-  { name: "Clean Architecture", category: "architecture" },
 ] as const;
 
 const archHighlights = [
   {
     icon: Server,
-    title: "Clean Architecture + DDD",
+    title: "NestJS + WS Gateway",
     description:
-      "16 aggregates, 44 value objects, 126 fichiers domain. Couches strictes : Domain, Application, Adapters, Infrastructure. Injection de dépendances custom.",
-    color: HC.orange,
+      "API REST + WebSocket Gateway sur NestJS. Modules : auth, events, seats, bookings, pricing. Guards JWT, pipes de validation, interceptors de logging.",
+    color: BI.violet,
   },
   {
-    icon: Kanban,
-    title: "CQRS",
+    icon: Database,
+    title: "PostgreSQL",
     description:
-      "78 commands (use cases) + 30 queries read-side. Séparation write/read complète. Chaque use case = 1 fichier testable isolément.",
-    color: HC.blue,
+      "Schéma relationnel optimisé : events, seats, bookings, pricing_tiers. Index sur les requêtes temps réel, transactions ACID pour les réservations concurrentes.",
+    color: BI.purple,
   },
   {
-    icon: Users,
-    title: "18 Bounded Contexts",
+    icon: Monitor,
+    title: "Next.js Frontend",
     description:
-      "User, Auth, Profile, Post, Chat, Board, Tableau, Chronologie, CalendarEvent, Mood, Emotion, Gallery, Friend, Notification, Reward, PushToken, Upload, UserPreference.",
-    color: HC.green,
+      "Dashboard React avec Server Components, Seats.io pour le plan de salle, state management léger. RTK Query pour le cache, WebSocket natif pour le temps réel.",
+    color: BI.gold,
   },
   {
-    icon: Heart,
-    title: "Event-Driven",
+    icon: Cloud,
+    title: "Déploiement",
     description:
-      "29 domain events, 5 handlers (Gamification, Push, Chat SSE, Notification SSE, Email). Évaluation automatique des achievements après chaque mutation.",
-    color: HC.pink,
+      "Conteneurs Docker, CI/CD GitHub Actions, PostgreSQL managé. Variables d'environnement validées au boot, health checks, zero-downtime deployments.",
+    color: BI.amber,
   },
 ] as const;
 
-const monorepo = [
-  {
-    name: "apps/nextjs",
-    desc: "Web + API (29 pages protégées)",
-    color: HC.pink,
-  },
-  {
-    name: "apps/expo",
-    desc: "Mobile iOS + Android (22+ écrans)",
-    color: HC.green,
-  },
-  { name: "packages/ddd-kit", desc: "Primitives DDD custom", color: HC.blue },
-  {
-    name: "packages/drizzle",
-    desc: "Schema DB (32 tables, 18 domaines)",
-    color: HC.orange,
-  },
-  {
-    name: "packages/ui",
-    desc: "25 composants shadcn/ui partagés",
-    color: HC.yellow,
-  },
-  {
-    name: "packages/i18n",
-    desc: "Internationalisation (FR + EN)",
-    color: HC.red,
-  },
-  { name: "packages/test", desc: "Config Vitest partagée", color: HC.green },
-  {
-    name: "packages/typescript-config",
-    desc: "TSConfig partagée",
-    color: HC.pink,
-  },
+const techStack = [
+  { name: "Next.js 15", category: "frontend" },
+  { name: "React 19", category: "frontend" },
+  { name: "Tailwind CSS 4", category: "frontend" },
+  { name: "RTK Query", category: "frontend" },
+  { name: "Seats.io", category: "frontend" },
+  { name: "NestJS", category: "backend" },
+  { name: "Drizzle ORM", category: "backend" },
+  { name: "PostgreSQL", category: "backend" },
+  { name: "WebSocket", category: "backend" },
+  { name: "Zod", category: "backend" },
+  { name: "Docker", category: "infra" },
+  { name: "GitHub Actions", category: "infra" },
+  { name: "Nginx", category: "infra" },
+  { name: "Clean Architecture", category: "architecture" },
+  { name: "DDD", category: "architecture" },
+  { name: "CQRS", category: "architecture" },
 ] as const;
 
 const categoryColors: Record<string, string> = {
-  architecture: HC.pink,
-  backend: HC.blue,
-  mobile: HC.green,
-  frontend: HC.orange,
-  language: HC.yellow,
-  infra: HC.red,
+  architecture: BI.navy,
+  backend: BI.violet,
+  frontend: BI.purple,
+  infra: BI.gold,
 };
 
 const cardVariants: Variants = {
@@ -289,7 +240,7 @@ const cardVariants: Variants = {
   hover: { y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.08)" },
 };
 
-export default function HomecafeShowcase() {
+export default function BilletterieShowcase() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -304,11 +255,10 @@ export default function HomecafeShowcase() {
 
   return (
     <div className="relative">
-      {/* Warm ambient glow */}
       <div
         className="absolute top-0 left-0 right-0 h-[700px] pointer-events-none -z-10"
         style={{
-          background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${HC.beige}30 0%, ${HC.pink}08 50%, transparent 80%)`,
+          background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${BI.light}50 0%, ${BI.violet}08 50%, transparent 80%)`,
         }}
       />
 
@@ -332,29 +282,40 @@ export default function HomecafeShowcase() {
             <RevealItem>
               <div className="flex items-center gap-2.5 mb-5 flex-wrap">
                 <span className="badge text-xs uppercase tracking-widest font-semibold text-secondary">
-                  Mission Freelance
+                  Freelance
                 </span>
                 <span
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                   style={{
-                    background: `${HC.pink}12`,
-                    color: HC.pink,
-                    borderColor: `${HC.pink}30`,
+                    background: `${BI.violet}12`,
+                    color: BI.violet,
+                    borderColor: `${BI.violet}30`,
                   }}
                 >
-                  <Smartphone className="w-3 h-3" />
-                  Web + Mobile
+                  <Ticket className="w-3 h-3" />
+                  Billetterie
                 </span>
                 <span
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                   style={{
-                    background: `${HC.blue}12`,
-                    color: HC.blue,
-                    borderColor: `${HC.blue}30`,
+                    background: `${BI.gold}12`,
+                    color: BI.gold,
+                    borderColor: `${BI.gold}30`,
                   }}
                 >
-                  <Code2 className="w-3 h-3" />
-                  Lead Dev
+                  <Wifi className="w-3 h-3" />
+                  Temps réel
+                </span>
+                <span
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
+                  style={{
+                    background: `${BI.navy}12`,
+                    color: BI.navy,
+                    borderColor: `${BI.navy}30`,
+                  }}
+                >
+                  <Lock className="w-3 h-3" />
+                  NDA
                 </span>
               </div>
             </RevealItem>
@@ -362,25 +323,18 @@ export default function HomecafeShowcase() {
             <RevealItem>
               <div className="flex items-center gap-4 sm:gap-6">
                 <Image
-                  src="/portfolio/homecafe/logo.svg"
-                  alt="HomeCafe logo"
+                  src="/portfolio/billetterie/logo.svg"
+                  alt="Billetterie logo"
                   width={80}
-                  height={50}
-                  className="w-16 sm:w-20 md:w-24 h-auto"
+                  height={80}
+                  className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
                   unoptimized
                 />
                 <h1
                   className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.9]"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                 >
-                  <span style={{ color: HC.red }}>H</span>
-                  <span style={{ color: HC.green }}>o</span>
-                  <span style={{ color: HC.pink }}>m</span>
-                  <span style={{ color: HC.yellow }}>e</span>
-                  <span style={{ color: HC.orange }}>C</span>
-                  <span style={{ color: HC.blue }}>a</span>
-                  <span style={{ color: HC.green }}>f</span>
-                  <span style={{ color: HC.green }}>é</span>
+                  Billetterie Interne
                 </h1>
               </div>
             </RevealItem>
@@ -390,7 +344,7 @@ export default function HomecafeShowcase() {
                 className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-secondary max-w-2xl"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Application web & mobile de bien-être et productivité
+                Dashboard de gestion d'événements et ventes en temps réel
               </p>
             </RevealItem>
 
@@ -399,12 +353,10 @@ export default function HomecafeShowcase() {
                 variant="secondary"
                 className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
               >
-                Conception et développement from scratch d'une application
-                complète déployée sur web (Next.js) et mobile (Expo/React
-                Native). Mood tracking, journaling, organisation, chat temps
-                réel, feed social et gamification. Monorepo de 8 packages,
-                architecture Clean Architecture + DDD + CQRS, +525 tests
-                unitaires et d'intégration.
+                Dashboard interne conçu et développé en freelance pour un
+                organisateur d'événements. Plan de salle 2D/3D, ventes en temps
+                réel via WebSocket, gestion automatisée des tarifs et TVA.
+                Projet sous NDA.
               </Paragraph>
             </RevealItem>
           </RevealContainer>
@@ -414,18 +366,18 @@ export default function HomecafeShowcase() {
       {/* STATS */}
       <section
         className="relative py-6 sm:py-8"
-        style={{ background: `${HC.beige}18` }}
+        style={{ background: `${BI.light}25` }}
       >
         <div
           className="absolute inset-x-0 top-0 h-px"
           style={{
-            background: `linear-gradient(to right, transparent 10%, ${HC.pink}40, ${HC.orange}40, ${HC.green}40, ${HC.blue}40, transparent 90%)`,
+            background: `linear-gradient(to right, transparent 10%, ${BI.violet}40, ${BI.purple}40, ${BI.gold}40, ${BI.amber}40, transparent 90%)`,
           }}
         />
         <div
           className="absolute inset-x-0 bottom-0 h-px"
           style={{
-            background: `linear-gradient(to right, transparent 10%, ${HC.blue}40, ${HC.green}40, ${HC.orange}40, ${HC.pink}40, transparent 90%)`,
+            background: `linear-gradient(to right, transparent 10%, ${BI.amber}40, ${BI.gold}40, ${BI.purple}40, ${BI.violet}40, transparent 90%)`,
           }}
         />
         <RevealContainer
@@ -475,7 +427,7 @@ export default function HomecafeShowcase() {
         </RevealContainer>
       </section>
 
-      {/* CONTEXTE & RÔLE */}
+      {/* CONTEXTE & ROLE */}
       <section className="relative py-12 sm:py-16">
         <RevealContainer className="container mx-auto max-w-4xl">
           <RevealItem direction="scale">
@@ -496,7 +448,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              La mission
+              Le projet
             </Heading2>
           </RevealItem>
         </RevealContainer>
@@ -511,7 +463,7 @@ export default function HomecafeShowcase() {
               style={{
                 background: "var(--primary-background)",
                 border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.orange}`,
+                borderLeft: `3px solid ${BI.violet}`,
               }}
               variants={cardVariants}
               initial="rest"
@@ -522,14 +474,13 @@ export default function HomecafeShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Problématique
+                Le problème
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Le client souhaitait une application tout-en-un de bien-être
-                personnel : suivi d'humeur, journaling, organisation et
-                dimension sociale. Le défi : créer un produit cohérent sur web
-                et mobile avec un code partagé maximum, tout en maintenant une
-                architecture capable d'évoluer avec les besoins.
+                Les salles de spectacle et organisateurs d'événements gèrent
+                leurs réservations avec des tableurs Excel ou des outils
+                fragmentés. Aucune visibilité temps réel sur les ventes, pas de
+                plan de salle interactif, gestion fiscale manuelle.
               </p>
             </motion.div>
           </RevealItem>
@@ -540,7 +491,34 @@ export default function HomecafeShowcase() {
               style={{
                 background: "var(--primary-background)",
                 border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.blue}`,
+                borderLeft: `3px solid ${BI.purple}`,
+              }}
+              variants={cardVariants}
+              initial="rest"
+              whileHover="hover"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <h3
+                className="text-sm sm:text-base font-semibold text-primary mb-2"
+                style={{ fontFamily: "var(--font-space-grotesk)" }}
+              >
+                La solution
+              </h3>
+              <p className="text-xs sm:text-sm text-secondary leading-relaxed">
+                Un dashboard unifié avec plan de salle 2D/3D, ventes en temps
+                réel via WebSocket, gestion automatisée des tarifs et TVA.
+                L'organisateur pilote ses événements depuis une interface unique.
+              </p>
+            </motion.div>
+          </RevealItem>
+
+          <RevealItem direction="left">
+            <motion.div
+              className="rounded-xl p-5 sm:p-6 h-full"
+              style={{
+                background: "var(--primary-background)",
+                border: "1px solid var(--border)",
+                borderLeft: `3px solid ${BI.gold}`,
               }}
               variants={cardVariants}
               initial="rest"
@@ -554,43 +532,10 @@ export default function HomecafeShowcase() {
                 Mon rôle
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Lead développeur full-stack et architecte technique. J'ai conçu
-                l'architecture from scratch (Clean Architecture + DDD + CQRS),
-                développé l'intégralité du backend et du frontend web et mobile,
-                mis en place le monorepo Turborepo, et défini la stratégie de
-                tests (+525). Seul développeur sur le projet.
-              </p>
-            </motion.div>
-          </RevealItem>
-
-          <RevealItem direction="left">
-            <motion.div
-              className="rounded-xl p-5 sm:p-6 h-full"
-              style={{
-                background: "var(--primary-background)",
-                border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.pink}`,
-              }}
-              variants={cardVariants}
-              initial="rest"
-              whileHover="hover"
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Figma className="w-4 h-4" style={{ color: HC.pink }} />
-                <h3
-                  className="text-sm sm:text-base font-semibold text-primary"
-                  style={{ fontFamily: "var(--font-space-grotesk)" }}
-                >
-                  Collaboration
-                </h3>
-              </div>
-              <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Travail en binôme avec une designeuse UX/UI. Elle concevait les
-                maquettes Figma, je les implémentais pixel-perfect. Échanges
-                réguliers sur les contraintes techniques, les interactions et
-                les micro-animations pour garantir une expérience fluide sur les
-                deux plateformes.
+                Développement full-stack du dashboard : API NestJS avec
+                WebSocket Gateway, frontend Next.js avec Seats.io, système
+                de tarification multi-TVA, base PostgreSQL optimisée pour le
+                temps réel.
               </p>
             </motion.div>
           </RevealItem>
@@ -601,7 +546,7 @@ export default function HomecafeShowcase() {
               style={{
                 background: "var(--primary-background)",
                 border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.green}`,
+                borderLeft: `3px solid ${BI.amber}`,
               }}
               variants={cardVariants}
               initial="rest"
@@ -612,14 +557,12 @@ export default function HomecafeShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Approche technique
+                Résultats
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Monorepo Turborepo pour partager le maximum de code entre web et
-                mobile : schéma DB, composants UI, primitives DDD,
-                internationalisation et config de tests. Architecture
-                event-driven pour découpler les modules et permettre l'ajout de
-                features sans régression.
+                Dashboard livré en 1 mois. Latence WebSocket &lt; 200ms, 100%
+                de couverture fiscale (TVA multi-taux), visualisation 3D
+                performante, adoption immédiate par l'équipe opérations.
               </p>
             </motion.div>
           </RevealItem>
@@ -629,7 +572,7 @@ export default function HomecafeShowcase() {
       {/* SCREENSHOTS */}
       <section
         className="relative py-12 sm:py-16"
-        style={{ background: `${HC.beige}12` }}
+        style={{ background: `${BI.light}18` }}
       >
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
@@ -638,7 +581,7 @@ export default function HomecafeShowcase() {
                 className="badge mb-3 inline-flex"
                 whileHover={{ scale: 1.05 }}
               >
-                <Coffee className="w-4 h-4 text-accent" />
+                <LayoutDashboard className="w-4 h-4 text-accent" />
                 <span className="text-sm font-medium">Aperçu</span>
               </motion.div>
             </MagneticWrapper>
@@ -650,7 +593,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Interfaces de l'application
+              L'application en images
             </Heading2>
           </RevealItem>
 
@@ -659,8 +602,8 @@ export default function HomecafeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              Design réalisé par la designeuse UX/UI sur Figma, implémenté
-              pixel-perfect sur web (Next.js) et mobile (Expo).
+              Dashboard temps réel, plan de salle interactif 2D/3D, tarification
+              et gestion des réservations.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -718,15 +661,15 @@ export default function HomecafeShowcase() {
                   <div className="flex items-center gap-1 sm:gap-1.5">
                     <span
                       className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                      style={{ background: HC.red }}
+                      style={{ background: "#FF5F57" }}
                     />
                     <span
                       className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                      style={{ background: HC.yellow }}
+                      style={{ background: "#FFBD2E" }}
                     />
                     <span
                       className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                      style={{ background: HC.green }}
+                      style={{ background: "#28C840" }}
                     />
                   </div>
                   <div
@@ -737,7 +680,7 @@ export default function HomecafeShowcase() {
                       border: `1px solid ${active.color}12`,
                     }}
                   >
-                    homecafe.app/{active.label.toLowerCase()}
+                    dashboard.billetterie-interne.local/{active.label.toLowerCase()}
                   </div>
                   <div className="w-6 sm:w-[46px]" />
                 </div>
@@ -755,7 +698,7 @@ export default function HomecafeShowcase() {
                   className="relative overflow-hidden"
                   style={{
                     height: "clamp(280px, 50vw, 640px)",
-                    background: `linear-gradient(180deg, ${HC.beige}20 0%, ${HC.beige}08 100%)`,
+                    background: `linear-gradient(180deg, ${BI.light}20 0%, ${BI.light}08 100%)`,
                   }}
                 >
                   <AnimatePresence mode="wait">
@@ -795,7 +738,10 @@ export default function HomecafeShowcase() {
       </section>
 
       {/* FEATURES */}
-      <section className="relative py-12 sm:py-16">
+      <section
+        className="relative py-12 sm:py-16"
+        style={{ background: `${BI.light}12` }}
+      >
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
             <MagneticWrapper strength={0.03}>
@@ -803,7 +749,7 @@ export default function HomecafeShowcase() {
                 className="badge mb-3 inline-flex"
                 whileHover={{ scale: 1.05 }}
               >
-                <Smartphone className="w-4 h-4 text-accent" />
+                <Layers className="w-4 h-4 text-accent" />
                 <span className="text-sm font-medium">Fonctionnalités</span>
               </motion.div>
             </MagneticWrapper>
@@ -815,7 +761,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Un écosystème complet
+              Ce que j'ai construit
             </Heading2>
           </RevealItem>
 
@@ -824,10 +770,8 @@ export default function HomecafeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              6 modules interconnectés pour le bien-être, l'organisation et le
-              partage. Chaque module implémenté sur les deux plateformes — web
-              (Next.js) et mobile (Expo) — avec un code partagé via monorepo.
-              Bilingue FR/EN.
+              Dashboard temps réel, plan de salle 2D/3D, tarification multi-TVA
+              et gestion complète des réservations et événements.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -951,10 +895,7 @@ export default function HomecafeShowcase() {
       </section>
 
       {/* ARCHITECTURE */}
-      <section
-        className="relative py-12 sm:py-16"
-        style={{ background: `${HC.beige}12` }}
-      >
+      <section className="relative py-12 sm:py-16">
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
             <MagneticWrapper strength={0.03}>
@@ -974,7 +915,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Ingénierie robuste
+              Décisions techniques
             </Heading2>
           </RevealItem>
 
@@ -983,8 +924,9 @@ export default function HomecafeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              Une architecture pensée pour la maintenabilité, la testabilité et
-              l'évolutivité. Chaque décision technique documentée et justifiée.
+              Une architecture Clean avec DDD et CQRS, pensée pour la
+              performance temps réel et la scalabilité des réservations
+              concurrentes.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -1047,7 +989,10 @@ export default function HomecafeShowcase() {
       </section>
 
       {/* TECH STACK */}
-      <section className="relative py-12 sm:py-16">
+      <section
+        className="relative py-12 sm:py-16"
+        style={{ background: `${BI.light}12` }}
+      >
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
             <MagneticWrapper strength={0.03}>
@@ -1078,7 +1023,7 @@ export default function HomecafeShowcase() {
         >
           <div className="flex flex-wrap justify-center gap-2">
             {techStack.map((tech) => {
-              const color = categoryColors[tech.category] || HC.orange;
+              const color = categoryColors[tech.category] || BI.violet;
               return (
                 <RevealItem key={tech.name} direction="scale">
                   <MagneticWrapper strength={0.04}>
@@ -1111,44 +1056,6 @@ export default function HomecafeShowcase() {
               );
             })}
           </div>
-        </RevealContainer>
-
-        <RevealContainer className="container mx-auto mt-8 sm:mt-10 max-w-xl">
-          <RevealItem>
-            <div
-              className="rounded-xl p-5 sm:p-6"
-              style={{
-                background: "var(--primary-background)",
-                border: "1px solid var(--border)",
-              }}
-            >
-              <p
-                className="text-xs uppercase tracking-widest font-semibold text-secondary mb-4"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                Monorepo — 8 packages
-              </p>
-              <div className="space-y-2.5 font-mono text-sm">
-                {monorepo.map((pkg) => (
-                  <div
-                    key={pkg.name}
-                    className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5"
-                  >
-                    <span
-                      className="w-2 h-2 rounded-full flex-shrink-0 self-center"
-                      style={{ background: pkg.color }}
-                    />
-                    <span className="text-primary font-medium text-xs sm:text-sm">
-                      {pkg.name}
-                    </span>
-                    <span className="text-secondary text-[10px] sm:text-xs">
-                      {pkg.desc}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </RevealItem>
         </RevealContainer>
       </section>
 

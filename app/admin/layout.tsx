@@ -1,7 +1,5 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Toaster } from "sonner";
+import { AdminPageWrapper } from "./_components/admin-page-wrapper";
 import { Header } from "./_components/header";
 import { Sidebar } from "./_components/sidebar";
 
@@ -22,13 +20,7 @@ export default function AdminLayout({
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header />
         <main id="admin-main-content" className="flex-1 overflow-y-auto p-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.15 }}
-          >
-            {children}
-          </motion.div>
+          <AdminPageWrapper>{children}</AdminPageWrapper>
         </main>
       </div>
       <Toaster position="bottom-right" />

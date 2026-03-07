@@ -1,10 +1,7 @@
 import type { ReactNode } from "react";
 import Navbar from "@/app/_components/shared/layouts/navbar";
+import { SiteWidgets } from "@/app/_components/shared/layouts/site-widgets";
 import { JsonLd } from "@/app/_components/shared/seo/json-ld";
-import { CustomCursor } from "@/components/effects/custom-cursor";
-import { ClickSpark, EmojiRain } from "@/components/effects/emoji-rain";
-import { ScrollProgress } from "@/components/effects/scroll-progress";
-import { KeyStatsWidget } from "@/components/shared/widgets/key-stats";
 
 export default function SiteLayout({
   children,
@@ -20,11 +17,7 @@ export default function SiteLayout({
         Aller au contenu principal
       </a>
       <JsonLd />
-      <ScrollProgress />
-      <CustomCursor />
-      <EmojiRain />
-      <ClickSpark />
-      <KeyStatsWidget />
+      <SiteWidgets />
       <Navbar />
       <div id="main-content" className="sm:pt-25 px-4 sm:px-6 md:px-10">
         {children}

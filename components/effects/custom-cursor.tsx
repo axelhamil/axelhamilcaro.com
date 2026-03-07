@@ -31,24 +31,32 @@ export function CustomCursor() {
     `;
     document.head.appendChild(style);
 
-    const updatePosition = (e: MouseEvent) => {
+    let cursorTypeRafId = 0;
+    let lastCursorTypeTime = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
       setIsVisible(true);
-    };
 
-    const updateCursorType = (e: MouseEvent) => {
-      const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
-      if (hoveredElement) {
-        const computedStyle = window.getComputedStyle(hoveredElement);
-        setIsPointer(
-          computedStyle.cursor === "pointer" ||
-            hoveredElement.tagName === "A" ||
-            hoveredElement.tagName === "BUTTON" ||
-            hoveredElement.closest("a") !== null ||
-            hoveredElement.closest("button") !== null,
-        );
-      }
+      const now = performance.now();
+      if (now - lastCursorTypeTime < 100) return;
+      lastCursorTypeTime = now;
+
+      cancelAnimationFrame(cursorTypeRafId);
+      cursorTypeRafId = requestAnimationFrame(() => {
+        const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
+        if (hoveredElement) {
+          const computedStyle = window.getComputedStyle(hoveredElement);
+          setIsPointer(
+            computedStyle.cursor === "pointer" ||
+              hoveredElement.tagName === "A" ||
+              hoveredElement.tagName === "BUTTON" ||
+              hoveredElement.closest("a") !== null ||
+              hoveredElement.closest("button") !== null,
+          );
+        }
+      });
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -56,8 +64,7 @@ export function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener("mousemove", updatePosition);
-    window.addEventListener("mousemove", updateCursorType);
+    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
     document.documentElement.addEventListener("mouseleave", handleMouseLeave);
@@ -65,8 +72,8 @@ export function CustomCursor() {
 
     return () => {
       document.head.removeChild(style);
-      window.removeEventListener("mousemove", updatePosition);
-      window.removeEventListener("mousemove", updateCursorType);
+      cancelAnimationFrame(cursorTypeRafId);
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       document.documentElement.removeEventListener(

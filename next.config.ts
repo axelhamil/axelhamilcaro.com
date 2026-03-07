@@ -55,6 +55,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     viewTransition: true,
+    optimizePackageImports: ["framer-motion", "lucide-react"],
   },
   redirects: async () => [
     {

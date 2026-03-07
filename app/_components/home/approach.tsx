@@ -116,6 +116,7 @@ const Approach = () => {
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
                   transition={{ delay: 0.3 + index * 0.1 }}
                 >
                   {p.number}

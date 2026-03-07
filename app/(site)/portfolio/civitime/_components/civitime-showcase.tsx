@@ -106,8 +106,8 @@ const screenshots = [
     label: "Bannière",
     icon: Trophy,
     color: CT.magenta,
-    width: 1200,
-    height: 400,
+    width: 920,
+    height: 230,
   },
 ] as const;
 
@@ -343,7 +343,6 @@ export default function CivitimeShowcase() {
                   width={80}
                   height={80}
                   className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
-                  unoptimized
                 />
                 <h1
                   className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.9]"
@@ -741,8 +740,8 @@ export default function CivitimeShowcase() {
                         width={active.width}
                         height={active.height}
                         className="w-full h-auto"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
                         priority={activeScreenshot === 0}
-                        unoptimized
                       />
                     </motion.div>
                   </AnimatePresence>

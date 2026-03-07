@@ -183,6 +183,7 @@ const WhatIDo = () => {
                   className="flex items-center gap-2"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
                   <Trophy className="w-4 h-4 text-accent hidden sm:block" />
