@@ -31,11 +31,14 @@ const projects = [
     type: "SaaS · Freelance",
     description:
       "Conception et développement complet d'une plateforme SaaS e-learning. Alternative simple aux LMS rigides, architecture multi-tenant, milliers d'utilisateurs.",
-    tech: ["Next.js", "Fastify", "PostgreSQL", "Drizzle"],
+    tech: ["Next.js", "Fastify", "PostgreSQL", "DDD"],
     metric: "Milliers",
     metricLabel: "d'utilisateurs",
     gradient: "from-emerald-500 to-teal-500",
     logo: "SP",
+    logoSrc: "/portfolio/scormpilot/logo.webp",
+    href: "/portfolio/scormpilot",
+    thumbnail: "/portfolio/scormpilot/dashboard.webp",
   },
   {
     title: "HomeCafe",
