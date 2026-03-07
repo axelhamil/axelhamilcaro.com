@@ -172,7 +172,7 @@ const Testimonials = () => {
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base"
           >
-            Retours de CTOs, fondateurs et Product Managers sur nos
+            Retours de CTOs, fondateurs et Product Managers sur mes
             collaborations
           </Paragraph>
         </RevealItem>

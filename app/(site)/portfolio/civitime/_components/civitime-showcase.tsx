@@ -56,17 +56,17 @@ const stats = [
 ] as const;
 
 const secondaryStats = [
-  "B Corp engagee",
+  "B Corp engagée",
   "22 langues",
   "70% taux de connexion",
-  "65% taux de completion",
+  "65% taux de complétion",
   "Tours, France",
 ] as const;
 
 const screenshots = [
   {
     src: "/portfolio/civitime/city-builder.webp",
-    alt: "Civitime City Builder - Vue isometrique du serious game RSE",
+    alt: "Civitime City Builder - Vue isométrique du serious game RSE",
     label: "City Builder",
     icon: Gamepad2,
     color: CT.gold,
@@ -103,7 +103,7 @@ const screenshots = [
   {
     src: "/portfolio/civitime/banner.webp",
     alt: "Civitime - Le serious game qui booste l'engagement RSE",
-    label: "Banniere",
+    label: "Bannière",
     icon: Trophy,
     color: CT.magenta,
     width: 1200,
@@ -116,42 +116,42 @@ const features = [
     icon: Gamepad2,
     title: "Serious Games RSE",
     description:
-      "Conception et developpement de jeux interactifs (city builder, quiz, escape games) avec runtimes H5P et SCORM custom. Deployes sur web et mobile pour sensibiliser aux enjeux RSE.",
+      "Conception et développement de jeux interactifs (city builder, quiz, escape games) avec runtimes H5P et SCORM custom. Déployés sur web et mobile pour sensibiliser aux enjeux RSE.",
     color: CT.gold,
   },
   {
     icon: BookOpen,
-    title: "Editeur de Scenarios",
+    title: "Éditeur de Scénarios",
     description:
-      "Conception et developpement complet d'un editeur interne permettant a l'equipe contenu de creer des scenarios de serious game de maniere autonome, sans intervention developpeur.",
+      "Conception et développement complet d'un éditeur interne permettant à l'équipe contenu de créer des scénarios de serious game de manière autonome, sans intervention développeur.",
     color: CT.charcoal,
   },
   {
     icon: Trophy,
-    title: "Gamification Avancee",
+    title: "Gamification Avancée",
     description:
-      "Systemes de progression, parrainage, classements dynamiques, duels quiz, badges et recompenses. 50+ mecaniques de jeu pour maximiser l'engagement collaborateur.",
+      "Systèmes de progression, parrainage, classements dynamiques, duels quiz, badges et récompenses. 50+ mécaniques de jeu pour maximiser l'engagement collaborateur.",
     color: CT.orange,
   },
   {
     icon: Puzzle,
     title: "Modules SCORM",
     description:
-      "Plateforme SaaS SCORM multi-tenant from scratch : builder d'apps, API dediee (NestJS), runtimes custom, tracking des progressions. Deployable sur n'importe quel LMS.",
+      "Plateforme SaaS SCORM multi-tenant from scratch : builder d'apps, API dédiée (NestJS), runtimes custom, tracking des progressions. Déployable sur n'importe quel LMS.",
     color: CT.magenta,
   },
   {
     icon: Leaf,
     title: "Contenus RSE",
     description:
-      "Plus de 200 modules couvrant 70+ thematiques : bilan carbone, egalite, QVCT, gaspillage alimentaire, biodiversite, numerique responsable.",
+      "Plus de 200 modules couvrant 70+ thématiques : bilan carbone, égalité, QVCT, gaspillage alimentaire, biodiversité, numérique responsable.",
     color: CT.purple,
   },
   {
     icon: LayoutDashboard,
     title: "Backoffice & Dashboards",
     description:
-      "Creation from scratch de dashboards d'administration, backoffice client avec Directus, gestion des stats, des versions et des campagnes de mailing.",
+      "Création from scratch de dashboards d'administration, backoffice client avec Directus, gestion des stats, des versions et des campagnes de mailing.",
     color: CT.charcoal,
   },
 ] as const;
@@ -161,14 +161,14 @@ const crossCutting = [
     icon: BrainCircuit,
     title: "Outils Marketing Internes",
     description:
-      "Developpement d'outils marketing internes : gestion de campagnes mailing, configuration d'acquisition, tableaux de bord analytics, synchronisation des donnees clients.",
+      "Développement d'outils marketing internes : gestion de campagnes mailing, configuration d'acquisition, tableaux de bord analytics, synchronisation des données clients.",
     color: CT.charcoal,
   },
   {
     icon: Building2,
     title: "Clients Grands Comptes",
     description:
-      "Deploiement pour Credit Agricole, L'Oreal, EDF, Societe Generale, ArcelorMittal, SC Johnson et 100+ autres organisations. Campagnes de 1 jour a 4 semaines.",
+      "Déploiement pour Crédit Agricole, L'Oréal, EDF, Société Générale, ArcelorMittal, SC Johnson et 100+ autres organisations. Campagnes de 1 jour à 4 semaines.",
     color: CT.gold,
   },
 ] as const;
@@ -195,9 +195,9 @@ const techStack = [
 const roleEvolution = [
   {
     period: "2021 — 2023",
-    title: "Developpeur Full-Stack",
+    title: "Développeur Full-Stack",
     description:
-      "Serious games RSE (city builder, quiz, escape games), editeur de scenarios, reecriture du legacy en Clean Architecture DDD. TDD/BDD, code reviews, pair programming.",
+      "Serious games RSE (city builder, quiz, escape games), éditeur de scénarios, réécriture du legacy en Clean Architecture DDD. TDD/BDD, code reviews, pair programming.",
     color: CT.gold,
     icon: Code2,
   },
@@ -205,7 +205,7 @@ const roleEvolution = [
     period: "2023 — 2024",
     title: "Lead Full-Stack",
     description:
-      "Referent technique post-depart du CTO. Produit SaaS SCORM from scratch, dashboards, backoffice Directus, outils marketing. SSO grands comptes, formation d'alternants.",
+      "Référent technique post-départ du CTO. Produit SaaS SCORM from scratch, dashboards, backoffice Directus, outils marketing. SSO grands comptes, formation d'alternants.",
     color: CT.magenta,
     icon: LayoutDashboard,
   },
@@ -216,28 +216,28 @@ const archHighlights = [
     icon: Server,
     title: "Architecture Modulaire",
     description:
-      "Separation stricte des couches (domain, application, infrastructure), bounded contexts, injection de dependances. Une codebase maintenable qui a permis a l'equipe de livrer plus vite.",
+      "Séparation stricte des couches (domain, application, infrastructure), bounded contexts, injection de dépendances. Une codebase maintenable qui a permis à l'équipe de livrer plus vite.",
     color: CT.charcoal,
   },
   {
     icon: Database,
     title: "Plateforme SaaS SCORM",
     description:
-      "Produit multi-tenant : gestion des clients, deploiement des contenus, tracking des progressions a l'echelle. API NestJS dediee, builder d'apps SCORM, runtimes custom.",
+      "Produit multi-tenant : gestion des clients, déploiement des contenus, tracking des progressions à l'échelle. API NestJS dédiée, builder d'apps SCORM, runtimes custom.",
     color: CT.gold,
   },
   {
     icon: Boxes,
-    title: "Editeur de Contenu",
+    title: "Éditeur de Contenu",
     description:
-      "Editeur interne transformant le workflow de creation : reduction majeure du temps de production, l'equipe contenu peut iterer sans dev.",
+      "Éditeur interne transformant le workflow de création : réduction majeure du temps de production, l'équipe contenu peut itérer sans dev.",
     color: CT.magenta,
   },
   {
     icon: TestTube2,
     title: "Qualite & Tests",
     description:
-      "Approche TDD/BDD pour garantir la fiabilite des modules de jeu. Tests unitaires et d'integration sur les mecaniques critiques de gamification et scoring.",
+      "Approche TDD/BDD pour garantir la fiabilité des modules de jeu. Tests unitaires et d'intégration sur les mécaniques critiques de gamification et scoring.",
     color: CT.orange,
   },
 ] as const;
@@ -368,10 +368,10 @@ export default function CivitimeShowcase() {
                 variant="secondary"
                 className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
               >
-                4 ans chez Civitime, startup B Corp specialisee dans la
-                sensibilisation RSE par le jeu. De developpeur a referent
+                4 ans chez Civitime, startup B Corp spécialisée dans la
+                sensibilisation RSE par le jeu. De développeur à référent
                 technique de l'entreprise. Serious games, plateforme SaaS SCORM,
-                outils internes, deployes aupres de 100+ entreprises et 250 000+
+                outils internes, déployés auprès de 100+ entreprises et 250 000+
                 collaborateurs.
               </Paragraph>
             </RevealItem>
@@ -493,11 +493,11 @@ export default function CivitimeShowcase() {
                 L'entreprise
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Civitime est une startup B Corp fondee a Tours en 2018,
-                specialisee dans l'engagement RSE en entreprise via des serious
-                games. Avec 200+ modules couvrant 70+ thematiques (carbone,
-                biodiversite, inclusion, QVCT), la plateforme atteint 65-73% de
-                taux de completion vs 10% pour le e-learning classique.
+                Civitime est une startup B Corp fondée à Tours en 2018,
+                spécialisée dans l'engagement RSE en entreprise via des serious
+                games. Avec 200+ modules couvrant 70+ thématiques (carbone,
+                biodiversité, inclusion, QVCT), la plateforme atteint 65-73% de
+                taux de complétion vs 10% pour le e-learning classique.
               </p>
             </motion.div>
           </RevealItem>
@@ -519,12 +519,12 @@ export default function CivitimeShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Mon role
+                Mon rôle
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Arrive comme developpeur dans une equipe de 4-5 devs en
-                methodologie agile (Scrum, sprints, daily standups). Apres le
-                depart du CTO, mon mentor, j'ai pris le relais comme referent
+                Arrivé comme développeur dans une équipe de 4-5 devs en
+                méthodologie agile (Scrum, sprints, daily standups). Après le
+                départ du CTO, mon mentor, j'ai pris le relais comme référent
                 technique : choix techno, relation directe avec les CTO clients
                 pour les SSO, formation d'alternants.
               </p>
@@ -554,9 +554,9 @@ export default function CivitimeShowcase() {
                 </h3>
               </div>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Credit Agricole, L'Oreal, EDF, Societe Generale et 100+ autres
+                Crédit Agricole, L'Oréal, EDF, Société Générale et 100+ autres
                 organisations. 70% de taux de connexion moyen sur plusieurs
-                mois, 250 000+ collaborateurs mobilises. Taux de completion
+                mois, 250 000+ collaborateurs mobilisés. Taux de complétion
                 65-73% vs 10% pour le e-learning classique.
               </p>
             </motion.div>
@@ -579,14 +579,14 @@ export default function CivitimeShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Contributions cles
+                Contributions clés
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Reecriture legacy en Clean Architecture DDD. Editeur de
-                scenarios. Dashboards et backoffice Directus. Outils marketing
+                Réécriture legacy en Clean Architecture DDD. Éditeur de
+                scénarios. Dashboards et backoffice Directus. Outils marketing
                 internes. Plateforme SaaS SCORM multi-tenant from scratch.
-                Integration SSO grands comptes. CI/CD et pipelines de
-                deploiement continu.
+                Intégration SSO grands comptes. CI/CD et pipelines de
+                déploiement continu.
               </p>
             </motion.div>
           </RevealItem>
@@ -606,7 +606,7 @@ export default function CivitimeShowcase() {
                 whileHover={{ scale: 1.05 }}
               >
                 <Gamepad2 className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">Apercu</span>
+                <span className="text-sm font-medium">Aperçu</span>
               </motion.div>
             </MagneticWrapper>
           </RevealItem>
@@ -627,8 +627,8 @@ export default function CivitimeShowcase() {
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
               City builders, quiz interactifs, escape games et univers
-              immersifs. Des jeux deployes sur web et mobile pour sensibiliser a
-              grande echelle.
+              immersifs. Des jeux déployés sur web et mobile pour sensibiliser à
+              grande échelle.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -664,35 +664,98 @@ export default function CivitimeShowcase() {
 
           <RevealItem>
             <TiltCard
-              className="rounded-2xl sm:rounded-3xl"
+              className="rounded-xl sm:rounded-2xl"
               tiltAmount={2}
               glareOpacity={0.03}
             >
               <div
-                className="relative rounded-2xl sm:rounded-3xl overflow-hidden"
+                className="relative rounded-xl sm:rounded-2xl overflow-hidden"
                 style={{
-                  boxShadow: `0 25px 80px ${active.color}12, 0 8px 32px rgba(0,0,0,0.06)`,
+                  border: `1px solid ${active.color}20`,
+                  boxShadow: `0 25px 80px ${active.color}15, 0 8px 32px rgba(0,0,0,0.08)`,
                 }}
               >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.src}
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                  >
-                    <Image
-                      src={active.src}
-                      alt={active.alt}
-                      width={active.width}
-                      height={active.height}
-                      className="w-full h-auto"
-                      priority={activeScreenshot === 0}
-                      unoptimized
+                {/* Browser chrome */}
+                <div
+                  className="relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border-b"
+                  style={{
+                    background: "var(--primary-background)",
+                    borderColor: `${active.color}15`,
+                  }}
+                >
+                  <div className="flex items-center gap-1 sm:gap-1.5">
+                    <span
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
+                      style={{ background: "#FF5F57" }}
                     />
-                  </motion.div>
-                </AnimatePresence>
+                    <span
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
+                      style={{ background: "#FFBD2E" }}
+                    />
+                    <span
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
+                      style={{ background: "#28C840" }}
+                    />
+                  </div>
+                  <div
+                    className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate"
+                    style={{
+                      background: `${active.color}08`,
+                      color: "var(--secondary)",
+                      border: `1px solid ${active.color}12`,
+                    }}
+                  >
+                    app.civitime.com/{active.label.toLowerCase().replace(/\s+/g, '-')}
+                  </div>
+                  <div className="w-6 sm:w-[46px]" />
+                </div>
+
+                {/* Gradient accent line */}
+                <div
+                  className="h-[2px]"
+                  style={{
+                    background: `linear-gradient(to right, ${active.color}, ${screenshots[(activeScreenshot + 1) % screenshots.length].color})`,
+                  }}
+                />
+
+                {/* Screenshot viewport */}
+                <div
+                  className="relative overflow-hidden"
+                  style={{
+                    height: "clamp(280px, 50vw, 640px)",
+                    background: `linear-gradient(180deg, ${CT.warm}20 0%, ${CT.warm}08 100%)`,
+                  }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={active.src}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={active.src}
+                        alt={active.alt}
+                        width={active.width}
+                        height={active.height}
+                        className="w-full h-auto"
+                        priority={activeScreenshot === 0}
+                        unoptimized
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Bottom fade */}
+                  <div
+                    className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(to top, var(--primary-background), transparent)",
+                    }}
+                  />
+                </div>
               </div>
             </TiltCard>
           </RevealItem>
@@ -720,7 +783,7 @@ export default function CivitimeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Evolution du role
+              Évolution du rôle
             </Heading2>
           </RevealItem>
 
@@ -729,9 +792,9 @@ export default function CivitimeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              De developpeur a lead technique en 4 ans, avec une montee en
-              responsabilite progressive sur des produits a forte contrainte
-              metier.
+              De développeur à lead technique en 4 ans, avec une montée en
+              responsabilité progressive sur des produits à forte contrainte
+              métier.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -829,7 +892,7 @@ export default function CivitimeShowcase() {
                 whileHover={{ scale: 1.05 }}
               >
                 <Sparkles className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">Fonctionnalites</span>
+                <span className="text-sm font-medium">Fonctionnalités</span>
               </motion.div>
             </MagneticWrapper>
           </RevealItem>
@@ -849,8 +912,8 @@ export default function CivitimeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              Serious games, editeur de contenu, gamification et plateforme
-              SaaS. Des produits deployes a l'echelle pour des grands comptes
+              Serious games, éditeur de contenu, gamification et plateforme
+              SaaS. Des produits déployés à l'échelle pour des grands comptes
               internationaux.
             </Paragraph>
           </RevealItem>
@@ -995,7 +1058,7 @@ export default function CivitimeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Decisions techniques
+              Décisions techniques
             </Heading2>
           </RevealItem>
 
@@ -1004,8 +1067,8 @@ export default function CivitimeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              Une architecture pensee pour la maintenabilite et l'evolution
-              produit, avec une attention particuliere a l'autonomie des equipes
+              Une architecture pensée pour la maintenabilité et l'évolution
+              produit, avec une attention particulière à l'autonomie des équipes
               non-techniques.
             </Paragraph>
           </RevealItem>
@@ -1092,7 +1155,7 @@ export default function CivitimeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Technologies utilisees
+              Technologies utilisées
             </Heading2>
           </RevealItem>
         </RevealContainer>

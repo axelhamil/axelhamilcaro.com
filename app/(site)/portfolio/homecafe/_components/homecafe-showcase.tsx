@@ -71,7 +71,7 @@ const secondaryStats = [
 const screenshots = [
   {
     src: "/portfolio/homecafe/dashboard.webp",
-    alt: "HomeCafe Dashboard",
+    alt: "HomeCafe - Tableau de bord avec suivi d'humeur, objectifs et activité quotidienne",
     label: "Dashboard",
     icon: LayoutDashboard,
     color: HC.pink,
@@ -80,7 +80,7 @@ const screenshots = [
   },
   {
     src: "/portfolio/homecafe/journal.webp",
-    alt: "HomeCafe Journal",
+    alt: "HomeCafe - Journal intime avec entrées datées et tags émotionnels",
     label: "Journal",
     icon: BookOpen,
     color: HC.orange,
@@ -89,7 +89,7 @@ const screenshots = [
   },
   {
     src: "/portfolio/homecafe/moodboard.webp",
-    alt: "HomeCafe Moodboard",
+    alt: "HomeCafe - Moodboard personnalisable avec images et citations inspirantes",
     label: "Moodboard",
     icon: Palette,
     color: HC.green,
@@ -98,7 +98,7 @@ const screenshots = [
   },
   {
     src: "/portfolio/homecafe/organisation.webp",
-    alt: "HomeCafe Organisation",
+    alt: "HomeCafe - Gestionnaire de tâches Kanban avec catégories et priorités",
     label: "Organisation",
     icon: Kanban,
     color: HC.blue,
@@ -107,7 +107,7 @@ const screenshots = [
   },
   {
     src: "/portfolio/homecafe/social.webp",
-    alt: "HomeCafe Social",
+    alt: "HomeCafe - Feed social communautaire avec posts, likes et commentaires",
     label: "Social",
     icon: Rss,
     color: HC.yellow,
@@ -116,7 +116,7 @@ const screenshots = [
   },
   {
     src: "/portfolio/homecafe/messagerie.webp",
-    alt: "HomeCafe Messagerie",
+    alt: "HomeCafe - Messagerie temps réel avec conversations privées et groupes",
     label: "Messagerie",
     icon: Mail,
     color: HC.red,

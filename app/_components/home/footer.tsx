@@ -92,7 +92,7 @@ const Footer = () => {
 
           <div className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
-              Start here
+              Par ici
             </span>
             <nav className="flex flex-col gap-2">
               <TransitionLink

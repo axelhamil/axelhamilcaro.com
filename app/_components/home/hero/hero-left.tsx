@@ -97,18 +97,16 @@ const HeroLeft = () => {
       <HeroMotionItem>
         <div className="flex flex-col gap-3 md:gap-4 min-w-0">
           <Paragraph size="lg" className="text-base md:text-lg">
-            Je suis <strong>Axel Hamilcaro</strong>, développeur web freelance
-            basé à Paris. Je crée des{" "}
-            <span className="font-semibold text-primary">
-              applications web performantes et scalables
-            </span>{" "}
-            pour startups et entreprises tech.
+            Je suis <strong>Axel Hamilcaro</strong>, développeur full-stack
+            freelance basé à Paris. Je transforme des idées produit en
+            applications web solides — de l'architecture à la mise en
+            production.
           </Paragraph>
 
           <Paragraph size="md" className="text-base md:text-lg text-secondary">
-            Spécialiste <strong>React, Next.js et TypeScript</strong>.
-            J'accompagne mes clients du MVP à la production : SaaS, plateformes
-            métier, et APIs robustes.
+            Spécialiste <strong>React, Next.js et TypeScript</strong>. Du
+            MVP au SaaS en croissance : j'apporte rigueur technique, code
+            maintenable et livraison dans les délais.
           </Paragraph>
         </div>
       </HeroMotionItem>

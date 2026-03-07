@@ -48,7 +48,7 @@ const stats = [
   {
     value: "100%",
     label: "Solo",
-    sublabel: "Conception a production",
+    sublabel: "Conception à production",
     color: SP.navy,
   },
   { value: "Milliers", label: "de players quotidiens", color: SP.blue },
@@ -60,7 +60,7 @@ const stats = [
 const secondaryStats = [
   "Multi-tenant SaaS B2B",
   "RGPD conforme",
-  "Hebergement 100% europeen",
+  "Hébergement 100% européen",
   "SCORM 1.2 & 2004",
   "Tours, France",
 ] as const;
@@ -77,7 +77,7 @@ const screenshots = [
   },
   {
     src: "/portfolio/scormpilot/modules.webp",
-    alt: "ScormPilot - Performance detaillee des modules SCORM",
+    alt: "ScormPilot - Performance détaillée des modules SCORM",
     label: "Modules",
     icon: Layers,
     color: SP.cyan,
@@ -86,8 +86,8 @@ const screenshots = [
   },
   {
     src: "/portfolio/scormpilot/library.webp",
-    alt: "ScormPilot - Bibliotheque de modules avec gestion des versions",
-    label: "Bibliotheque",
+    alt: "ScormPilot - Bibliothèque de modules avec gestion des versions",
+    label: "Bibliothèque",
     icon: Package,
     color: SP.teal,
     width: 1776,
@@ -109,42 +109,42 @@ const features = [
     icon: LayoutDashboard,
     title: "Dashboard Analytics",
     description:
-      "Tableau de bord complet avec KPIs en temps reel : nombre d'utilisateurs, taux de completion, score moyen, duree moyenne, tendance des lancements. Filtrage par client et par date.",
+      "Tableau de bord complet avec KPIs en temps réel : nombre d'utilisateurs, taux de complétion, score moyen, durée moyenne, tendance des lancements. Filtrage par client et par date.",
     color: SP.blue,
   },
   {
     icon: Package,
     title: "Gestion des Modules",
     description:
-      "Upload, versionning et pilotage a distance des fichiers SCORM. Remplacement de la source sans recharger cote client, tracking des progressions par module.",
+      "Upload, versionning et pilotage à distance des fichiers SCORM. Remplacement de la source sans recharger côté client, tracking des progressions par module.",
     color: SP.navy,
   },
   {
     icon: Share2,
     title: "Multi-diffusion",
     description:
-      "Quatre modes de diffusion : lien unique, code iframe, SCORM connecte (tracker injecte), application Microsoft Teams. Le client choisit son canal.",
+      "Quatre modes de diffusion : lien unique, code iframe, SCORM connecté (tracker injecté), application Microsoft Teams. Le client choisit son canal.",
     color: SP.cyan,
   },
   {
     icon: Users,
     title: "Multi-tenant",
     description:
-      "Chaque client dispose d'un pool d'utilisateurs isole via Firebase Identity Platform. Trois modes d'authentification : email, anonyme, LMS.",
+      "Chaque client dispose d'un pool d'utilisateurs isolé via Firebase Identity Platform. Trois modes d'authentification : email, anonyme, LMS.",
     color: SP.teal,
   },
   {
     icon: Shield,
-    title: "RGPD & Securite",
+    title: "RGPD & Sécurité",
     description:
-      "Hebergement 100% europeen (GCP Belgique, DigitalOcean Frankfurt). Aucune donnee personnelle superflue collectee, serveurs dedies par organisme.",
+      "Hébergement 100% européen (GCP Belgique, DigitalOcean Frankfurt). Aucune donnée personnelle superflue collectée, serveurs dédiés par organisme.",
     color: SP.orange,
   },
   {
     icon: Monitor,
     title: "SCORM Player & Runtime",
     description:
-      "Player React avec mode demo et login LMS. Runtime vanilla TypeScript : orchestration SCORM complete, monitoring de connexion, observation des commits.",
+      "Player React avec mode démo et login LMS. Runtime vanilla TypeScript : orchestration SCORM complète, monitoring de connexion, observation des commits.",
     color: SP.navy,
   },
 ] as const;
@@ -154,14 +154,14 @@ const crossCutting = [
     icon: Cloud,
     title: "Infrastructure Production",
     description:
-      "CI/CD GitHub Actions, containers Docker sur Cloud Run, PostgreSQL manage, Firebase Auth/Storage. Status page sur Cloudflare Workers. 99.9% uptime.",
+      "CI/CD GitHub Actions, containers Docker sur Cloud Run, PostgreSQL managé, Firebase Auth/Storage. Status page sur Cloudflare Workers. 99.9% uptime.",
     color: SP.blue,
   },
   {
     icon: Globe,
     title: "Internationalisation",
     description:
-      "Dashboard admin avec next-intl, player SCORM avec i18next. Interface disponible en francais et anglais, extensible a d'autres langues.",
+      "Dashboard admin avec next-intl, player SCORM avec i18next. Interface disponible en français et anglais, extensible à d'autres langues.",
     color: SP.teal,
   },
 ] as const;
@@ -171,7 +171,7 @@ const archHighlights = [
     icon: Database,
     title: "Architecture Hexagonale",
     description:
-      "Separation stricte domain / application / infrastructure. 4 bounded contexts (Organisme, Client, Module, Plan), 22 use cases, 25+ value objects, 7 ports d'abstraction.",
+      "Séparation stricte domain / application / infrastructure. 4 bounded contexts (Organisme, Client, Module, Plan), 22 use cases, 25+ value objects, 7 ports d'abstraction.",
     color: SP.navy,
   },
   {
@@ -185,14 +185,14 @@ const archHighlights = [
     icon: Lock,
     title: "Multi-tenant & Auth",
     description:
-      "Firebase Identity Platform avec tenant dedie par client. Trois modes d'auth (email, anonyme, LMS). Validators domaine pour l'isolation des donnees entre organismes.",
+      "Firebase Identity Platform avec tenant dédié par client. Trois modes d'auth (email, anonyme, LMS). Validators domaine pour l'isolation des données entre organismes.",
     color: SP.cyan,
   },
   {
     icon: TestTube2,
     title: "DI & Qualite",
     description:
-      "InversifyJS pour l'injection de dependances. Validation Zod au demarrage (env vars). Containers Docker non-root, secrets valides au boot.",
+      "InversifyJS pour l'injection de dépendances. Validation Zod au démarrage (env vars). Containers Docker non-root, secrets validés au boot.",
     color: SP.teal,
   },
 ] as const;
@@ -344,7 +344,7 @@ export default function ScormpilotShowcase() {
                 variant="secondary"
                 className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
               >
-                Produit concu, developpe et mis en production en solo. Alternative
+                Produit conçu, développé et mis en production en solo. Alternative
                 simple aux LMS rigides pour les organismes de formation :
                 versioning, multi-diffusion, analytics, multi-tenant. Plusieurs
                 milliers de players quotidiens, dizaines de clients actifs.
@@ -465,12 +465,12 @@ export default function ScormpilotShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Le probleme
+                Le problème
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
                 Les organismes de formation qui vendent des modules SCORM
-                n'ont aucun controle une fois le fichier ZIP envoye au client.
-                Les LMS sont rigides, couteux et surdimensionnes pour la
+                n'ont aucun contrôle une fois le fichier ZIP envoyé au client.
+                Les LMS sont rigides, coûteux et surdimensionnés pour la
                 simple diffusion de contenus e-learning.
               </p>
             </motion.div>
@@ -497,8 +497,8 @@ export default function ScormpilotShowcase() {
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
                 ScormPilot centralise les modules SCORM et permet leur
-                diffusion multi-canal (lien, iframe, SCORM connecte, Teams).
-                L'organisme garde le controle sur le versioning, les acces
+                diffusion multi-canal (lien, iframe, SCORM connecté, Teams).
+                L'organisme garde le contrôle sur le versioning, les accès
                 et les analytics de ses contenus.
               </p>
             </motion.div>
@@ -521,10 +521,10 @@ export default function ScormpilotShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Mon role
+                Mon rôle
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Conception produit, architecture, developpement de 7 applications
+                Conception produit, architecture, développement de 7 applications
                 (API, dashboard, player, runtime, Teams, status page),
                 infrastructure cloud et mise en production. Tout en solo,
                 du premier commit a la premiere facture.
@@ -549,13 +549,13 @@ export default function ScormpilotShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Resultats
+                Résultats
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                MVP robuste livre en 3 mois. Adopte par une dizaine
+                MVP robuste livré en 3 mois. Adopté par une dizaine
                 d'organismes de formation, plusieurs milliers de players
                 quotidiens, dizaines de clients actifs. Produit en croissance
-                continue avec un modele SaaS recurrent.
+                continue avec un modèle SaaS récurrent.
               </p>
             </motion.div>
           </RevealItem>
@@ -575,7 +575,7 @@ export default function ScormpilotShowcase() {
                 whileHover={{ scale: 1.05 }}
               >
                 <LayoutDashboard className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">Apercu</span>
+                <span className="text-sm font-medium">Aperçu</span>
               </motion.div>
             </MagneticWrapper>
           </RevealItem>
@@ -596,7 +596,7 @@ export default function ScormpilotShowcase() {
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
               Dashboard admin, gestion des modules, suivi des clients et
-              analytics detaillees par module.
+              analytics détaillées par module.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -632,35 +632,98 @@ export default function ScormpilotShowcase() {
 
           <RevealItem>
             <TiltCard
-              className="rounded-2xl sm:rounded-3xl"
+              className="rounded-xl sm:rounded-2xl"
               tiltAmount={2}
               glareOpacity={0.03}
             >
               <div
-                className="relative rounded-2xl sm:rounded-3xl overflow-hidden"
+                className="relative rounded-xl sm:rounded-2xl overflow-hidden"
                 style={{
-                  boxShadow: `0 25px 80px ${active.color}12, 0 8px 32px rgba(0,0,0,0.06)`,
+                  border: `1px solid ${active.color}20`,
+                  boxShadow: `0 25px 80px ${active.color}15, 0 8px 32px rgba(0,0,0,0.08)`,
                 }}
               >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.src}
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                  >
-                    <Image
-                      src={active.src}
-                      alt={active.alt}
-                      width={active.width}
-                      height={active.height}
-                      className="w-full h-auto"
-                      priority={activeScreenshot === 0}
-                      unoptimized
+                {/* Browser chrome */}
+                <div
+                  className="relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border-b"
+                  style={{
+                    background: "var(--primary-background)",
+                    borderColor: `${active.color}15`,
+                  }}
+                >
+                  <div className="flex items-center gap-1 sm:gap-1.5">
+                    <span
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
+                      style={{ background: "#FF5F57" }}
                     />
-                  </motion.div>
-                </AnimatePresence>
+                    <span
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
+                      style={{ background: "#FFBD2E" }}
+                    />
+                    <span
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
+                      style={{ background: "#28C840" }}
+                    />
+                  </div>
+                  <div
+                    className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate"
+                    style={{
+                      background: `${active.color}08`,
+                      color: "var(--secondary)",
+                      border: `1px solid ${active.color}12`,
+                    }}
+                  >
+                    dashboard.scormpilot.com/{active.label.toLowerCase()}
+                  </div>
+                  <div className="w-6 sm:w-[46px]" />
+                </div>
+
+                {/* Gradient accent line */}
+                <div
+                  className="h-[2px]"
+                  style={{
+                    background: `linear-gradient(to right, ${active.color}, ${screenshots[(activeScreenshot + 1) % screenshots.length].color})`,
+                  }}
+                />
+
+                {/* Screenshot viewport */}
+                <div
+                  className="relative overflow-hidden"
+                  style={{
+                    height: "clamp(280px, 50vw, 640px)",
+                    background: `linear-gradient(180deg, ${SP.light}20 0%, ${SP.light}08 100%)`,
+                  }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={active.src}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={active.src}
+                        alt={active.alt}
+                        width={active.width}
+                        height={active.height}
+                        className="w-full h-auto"
+                        priority={activeScreenshot === 0}
+                        unoptimized
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Bottom fade */}
+                  <div
+                    className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(to top, var(--primary-background), transparent)",
+                    }}
+                  />
+                </div>
               </div>
             </TiltCard>
           </RevealItem>
@@ -680,7 +743,7 @@ export default function ScormpilotShowcase() {
                 whileHover={{ scale: 1.05 }}
               >
                 <Layers className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">Fonctionnalites</span>
+                <span className="text-sm font-medium">Fonctionnalités</span>
               </motion.div>
             </MagneticWrapper>
           </RevealItem>
@@ -701,7 +764,7 @@ export default function ScormpilotShowcase() {
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
               Dashboard analytics, gestion multi-tenant, diffusion multi-canal
-              et runtime SCORM custom. Un produit complet deploye en production.
+              et runtime SCORM custom. Un produit complet déployé en production.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -845,7 +908,7 @@ export default function ScormpilotShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Decisions techniques
+              Décisions techniques
             </Heading2>
           </RevealItem>
 
@@ -854,8 +917,8 @@ export default function ScormpilotShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              Une architecture hexagonale avec DDD, pensee pour la scalabilite
-              et l'isolation multi-tenant des donnees.
+              Une architecture hexagonale avec DDD, pensée pour la scalabilité
+              et l'isolation multi-tenant des données.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -941,7 +1004,7 @@ export default function ScormpilotShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Technologies utilisees
+              Technologies utilisées
             </Heading2>
           </RevealItem>
         </RevealContainer>
