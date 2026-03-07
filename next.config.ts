@@ -79,6 +79,11 @@ const nextConfig: NextConfig = {
       permanent: true,
     },
     {
+      source: "/projects/:slug",
+      destination: "/portfolio/:slug",
+      permanent: true,
+    },
+    {
       source: "/rdv",
       destination: EXTERNAL_LINKS.calendly,
       permanent: true,
