@@ -14,14 +14,17 @@ import { Paragraph } from "@/components/typography/paragraph";
 const projects = [
   {
     title: "Civitime",
-    type: "4 ans · Lead Full-Stack",
+    type: "4 ans · Référent technique",
     description:
-      "Création, évolution et refonte des solutions RSE d'une B Corp. Éditeur de serious game, architecture DDD/Event Sourcing, puis lead technique sur un nouveau produit SCORM.",
-    tech: ["React", "Next.js", "NestJS", "DDD", "SCORM"],
-    metric: "Délais ÷2",
-    metricLabel: "sur les itérations",
+      "De dev à référent technique d'une startup B Corp RSE. Réécriture legacy en Clean Archi DDD, serious games, plateforme SaaS SCORM multi-tenant, backoffice Directus, SSO grands comptes.",
+    tech: ["React", "NestJS", "DDD", "TDD/BDD", "SCORM"],
+    metric: "250 000+",
+    metricLabel: "collaborateurs",
     gradient: "from-accent to-orange-600",
     logo: "CT",
+    logoSrc: "/portfolio/civitime/logo.webp",
+    href: "/portfolio/civitime",
+    thumbnail: "/portfolio/civitime/city-builder.webp",
   },
   {
     title: "ScormPilot",
@@ -36,14 +39,15 @@ const projects = [
   },
   {
     title: "HomeCafe",
-    type: "App complète · Freelance",
+    type: "Web + Mobile · Freelance",
     description:
-      "App web + mobile de bien-être et productivité : mood tracking, journaling, organisation, chat temps réel et gamification. 78 use cases, +525 tests.",
-    tech: ["Next.js 16", "Expo", "DDD", "Clean Architecture"],
+      "App bien-etre et productivite : dashboard, journal, moodboard, organisation, feed social, messagerie temps reel. Monorepo Next.js 16 + Expo, 18 bounded contexts CQRS.",
+    tech: ["Next.js 16", "Expo", "CQRS", "DDD", "Clean Archi"],
     metric: "+525 tests",
-    metricLabel: "78 use cases",
+    metricLabel: "51+ ecrans",
     gradient: "from-[#F691C3] to-[#F46604]",
     logo: "HC",
+    logoSrc: "/portfolio/homecafe/logo.svg",
     href: "/portfolio/homecafe",
     thumbnail: "/portfolio/homecafe/dashboard.webp",
   },
@@ -217,7 +221,11 @@ const CaseStudies = () => {
                           </div>
 
                           <motion.div
-                            className={`w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center shadow-lg`}
+                            className={`w-12 h-12 rounded-xl ${
+                              "logoSrc" in project
+                                ? "bg-white/80 backdrop-blur-sm border border-border/30"
+                                : `bg-gradient-to-br ${project.gradient}`
+                            } flex items-center justify-center shadow-lg overflow-hidden`}
                             whileHover={{ scale: 1.15, rotate: 8 }}
                             transition={{
                               type: "spring",
@@ -225,14 +233,25 @@ const CaseStudies = () => {
                               damping: 17,
                             }}
                           >
-                            <span
-                              className="text-xs font-bold text-white"
-                              style={{
-                                fontFamily: "var(--font-space-grotesk)",
-                              }}
-                            >
-                              {project.logo}
-                            </span>
+                            {"logoSrc" in project && project.logoSrc ? (
+                              <Image
+                                src={project.logoSrc}
+                                alt={`${project.title} logo`}
+                                width={36}
+                                height={36}
+                                className="w-9 h-9 object-contain"
+                                unoptimized
+                              />
+                            ) : (
+                              <span
+                                className="text-xs font-bold text-white"
+                                style={{
+                                  fontFamily: "var(--font-space-grotesk)",
+                                }}
+                              >
+                                {project.logo}
+                              </span>
+                            )}
                           </motion.div>
                         </div>
 

@@ -9,24 +9,25 @@ import {
 } from "framer-motion";
 import {
   ArrowLeft,
-  Bell,
   BookOpen,
+  Boxes,
+  BrainCircuit,
+  Building2,
   Code2,
-  Coffee,
-  Figma,
-  Heart,
-  Kanban,
+  Database,
+  Gamepad2,
+  Globe,
+  GraduationCap,
   LayoutDashboard,
-  Mail,
-  MessageCircle,
+  Leaf,
   Palette,
-  Rss,
+  Puzzle,
   Server,
-  Smartphone,
+  Sparkles,
   Target,
   TestTube2,
+  TreePine,
   Trophy,
-  Users,
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -37,251 +38,216 @@ import TransitionLink from "@/components/shared/navigation/transition-link";
 import { Heading2 } from "@/components/typography/heading2";
 import { Paragraph } from "@/components/typography/paragraph";
 
-const HC = {
-  pink: "#F691C3",
-  orange: "#F46604",
-  green: "#04A056",
-  yellow: "#FDCB08",
-  blue: "#0062DD",
-  red: "#F21622",
-  beige: "#FDECCE",
+const CT = {
+  charcoal: "#373034",
+  gold: "#FDC300",
+  orange: "#EB5A35",
+  magenta: "#E20963",
+  purple: "#8B1881",
+  warm: "#FAF9F5",
 } as const;
 
 const stats = [
-  {
-    value: "2",
-    label: "Plateformes",
-    sublabel: "Web + Mobile",
-    color: HC.pink,
-  },
-  { value: "51+", label: "Écrans", color: HC.orange },
-  { value: "78", label: "Use Cases", color: HC.blue },
-  { value: "29", label: "Domain Events", color: HC.red },
-  { value: "+525", label: "Tests", color: HC.green },
+  { value: "4", label: "Ans", sublabel: "2021 — 2024", color: CT.charcoal },
+  { value: "10+", label: "Serious Games", color: CT.gold },
+  { value: "200+", label: "Modules RSE", color: CT.orange },
+  { value: "100+", label: "Entreprises clientes", color: CT.magenta },
+  { value: "250k+", label: "Collaborateurs", color: CT.purple },
 ] as const;
 
 const secondaryStats = [
-  "29 pages web",
-  "22+ écrans mobile",
-  "73 routes API",
-  "32 tables",
-  "15+ achievements",
+  "B Corp engagee",
+  "22 langues",
+  "70% taux de connexion",
+  "65% taux de completion",
+  "Tours, France",
 ] as const;
 
 const screenshots = [
   {
-    src: "/portfolio/homecafe/dashboard.webp",
-    alt: "HomeCafe Dashboard",
-    label: "Dashboard",
-    icon: LayoutDashboard,
-    color: HC.pink,
-    width: 1200,
-    height: 1125,
+    src: "/portfolio/civitime/city-builder.webp",
+    alt: "Civitime City Builder - Vue isometrique du serious game RSE",
+    label: "City Builder",
+    icon: Gamepad2,
+    color: CT.gold,
+    width: 1400,
+    height: 930,
   },
   {
-    src: "/portfolio/homecafe/journal.webp",
-    alt: "HomeCafe Journal",
-    label: "Journal",
-    icon: BookOpen,
-    color: HC.orange,
-    width: 1200,
-    height: 1317,
+    src: "/portfolio/civitime/galaxy-universe.webp",
+    alt: "Civitime CiviTamia - Univers multi-mondes avec iles flottantes",
+    label: "Univers",
+    icon: Sparkles,
+    color: CT.purple,
+    width: 1080,
+    height: 1080,
   },
   {
-    src: "/portfolio/homecafe/moodboard.webp",
-    alt: "HomeCafe Moodboard",
-    label: "Moodboard",
-    icon: Palette,
-    color: HC.green,
-    width: 1200,
-    height: 1370,
+    src: "/portfolio/civitime/mobile-engagement.webp",
+    alt: "Civitime - Jeu mobile d'engagement collaborateur",
+    label: "Mobile",
+    icon: Globe,
+    color: CT.orange,
+    width: 1080,
+    height: 1080,
   },
   {
-    src: "/portfolio/homecafe/organisation.webp",
-    alt: "HomeCafe Organisation",
-    label: "Organisation",
-    icon: Kanban,
-    color: HC.blue,
+    src: "/portfolio/civitime/mobile-games.webp",
+    alt: "Civitime - Jeux multi-devices sur smartphones",
+    label: "Multi-devices",
+    icon: Gamepad2,
+    color: CT.charcoal,
     width: 1200,
-    height: 3038,
+    height: 600,
   },
   {
-    src: "/portfolio/homecafe/social.webp",
-    alt: "HomeCafe Social",
-    label: "Social",
-    icon: Rss,
-    color: HC.yellow,
+    src: "/portfolio/civitime/banner.webp",
+    alt: "Civitime - Le serious game qui booste l'engagement RSE",
+    label: "Banniere",
+    icon: Trophy,
+    color: CT.magenta,
     width: 1200,
-    height: 1060,
-  },
-  {
-    src: "/portfolio/homecafe/messagerie.webp",
-    alt: "HomeCafe Messagerie",
-    label: "Messagerie",
-    icon: Mail,
-    color: HC.red,
-    width: 1200,
-    height: 1060,
+    height: 400,
   },
 ] as const;
 
 const features = [
   {
-    icon: LayoutDashboard,
-    title: "Dashboard",
+    icon: Gamepad2,
+    title: "Serious Games RSE",
     description:
-      "Layout customisable avec drag & drop (@dnd-kit). Widgets repositionnables : galerie, calendrier, to-do, messagerie, journal et suivi d'humeur.",
-    color: HC.pink,
+      "Conception et developpement de jeux interactifs (city builder, quiz, escape games) avec runtimes H5P et SCORM custom. Deployes sur web et mobile pour sensibiliser aux enjeux RSE.",
+    color: CT.gold,
   },
   {
     icon: BookOpen,
-    title: "Journal",
+    title: "Editeur de Scenarios",
     description:
-      "Éditeur rich text (Tiptap), posts privés/publics, galerie photo, stickers et badges de régularité (streaks 7/14/30j).",
-    color: HC.orange,
+      "Conception et developpement complet d'un editeur interne permettant a l'equipe contenu de creer des scenarios de serious game de maniere autonome, sans intervention developpeur.",
+    color: CT.charcoal,
   },
   {
-    icon: Palette,
-    title: "Moodboard",
+    icon: Trophy,
+    title: "Gamification Avancee",
     description:
-      "Grille annuelle de 9 émotions trackées, suivi d'humeur quotidien, graphiques hebdomadaires et mensuels.",
-    color: HC.green,
+      "Systemes de progression, parrainage, classements dynamiques, duels quiz, badges et recompenses. 50+ mecaniques de jeu pour maximiser l'engagement collaborateur.",
+    color: CT.orange,
   },
   {
-    icon: Kanban,
-    title: "Organisation",
+    icon: Puzzle,
+    title: "Modules SCORM",
     description:
-      "4 outils : Kanban boards, Tableaux (spreadsheet-like), Chronologies (Gantt) et Calendrier mensuel intégré.",
-    color: HC.blue,
+      "Plateforme SaaS SCORM multi-tenant from scratch : builder d'apps, API dediee (NestJS), runtimes custom, tracking des progressions. Deployable sur n'importe quel LMS.",
+    color: CT.magenta,
   },
   {
-    icon: Rss,
-    title: "Feed Social",
+    icon: Leaf,
+    title: "Contenus RSE",
     description:
-      "Système d'amis (invitations, QR code, liens), posts publics avec réactions, galerie partagée et stickers.",
-    color: HC.yellow,
+      "Plus de 200 modules couvrant 70+ thematiques : bilan carbone, egalite, QVCT, gaspillage alimentaire, biodiversite, numerique responsable.",
+    color: CT.purple,
   },
   {
-    icon: MessageCircle,
-    title: "Messagerie",
+    icon: LayoutDashboard,
+    title: "Backoffice & Dashboards",
     description:
-      "Chat temps réel SSE (9 types d'events), conversations privées/groupe, réactions et pièces jointes média.",
-    color: HC.red,
+      "Creation from scratch de dashboards d'administration, backoffice client avec Directus, gestion des stats, des versions et des campagnes de mailing.",
+    color: CT.charcoal,
   },
 ] as const;
 
 const crossCutting = [
   {
-    icon: Trophy,
-    title: "Gamification",
+    icon: BrainCircuit,
+    title: "Outils Marketing Internes",
     description:
-      "15+ achievements débloquables, badges visuels, stickers collectionnables, streaks 7/14/30 jours. Évaluation automatique via domain events après chaque action utilisateur.",
-    color: HC.yellow,
+      "Developpement d'outils marketing internes : gestion de campagnes mailing, configuration d'acquisition, tableaux de bord analytics, synchronisation des donnees clients.",
+    color: CT.charcoal,
   },
   {
-    icon: Bell,
-    title: "Notifications",
+    icon: Building2,
+    title: "Clients Grands Comptes",
     description:
-      "Push notifications (Expo), SSE temps réel pour le chat et les alertes, cron jobs pour les rappels quotidiens, emails transactionnels via Resend.",
-    color: HC.red,
+      "Deploiement pour Credit Agricole, L'Oreal, EDF, Societe Generale, ArcelorMittal, SC Johnson et 100+ autres organisations. Campagnes de 1 jour a 4 semaines.",
+    color: CT.gold,
   },
 ] as const;
 
 const techStack = [
-  { name: "Next.js 16.1", category: "frontend" },
-  { name: "React 19", category: "frontend" },
-  { name: "Expo 54", category: "mobile" },
-  { name: "React Native 0.81", category: "mobile" },
-  { name: "TypeScript 5.9", category: "language" },
-  { name: "Drizzle ORM", category: "backend" },
+  { name: "React", category: "frontend" },
+  { name: "Next.js", category: "frontend" },
+  { name: "Node.js", category: "backend" },
+  { name: "NestJS", category: "backend" },
+  { name: "TypeScript", category: "language" },
+  { name: "Prisma", category: "backend" },
   { name: "PostgreSQL", category: "backend" },
-  { name: "BetterAuth 1.4", category: "backend" },
-  { name: "Tailwind CSS 4.1", category: "frontend" },
-  { name: "Turborepo", category: "infra" },
-  { name: "shadcn/ui", category: "frontend" },
-  { name: "Tiptap 3.19", category: "frontend" },
-  { name: "TanStack Query 5.90", category: "frontend" },
-  { name: "Zod 4.2", category: "language" },
-  { name: "Resend", category: "backend" },
-  { name: "AWS S3/R2", category: "infra" },
-  { name: "CQRS", category: "architecture" },
-  { name: "DDD", category: "architecture" },
+  { name: "Firebase", category: "infra" },
+  { name: "Google Cloud Platform", category: "infra" },
+  { name: "RTK Query", category: "frontend" },
+  { name: "Directus", category: "backend" },
   { name: "Clean Architecture", category: "architecture" },
+  { name: "TDD", category: "architecture" },
+  { name: "DDD", category: "architecture" },
+  { name: "BDD", category: "architecture" },
+  { name: "SCORM", category: "architecture" },
+] as const;
+
+const roleEvolution = [
+  {
+    period: "2021 — 2023",
+    title: "Developpeur Full-Stack",
+    description:
+      "Serious games RSE (city builder, quiz, escape games), editeur de scenarios, reecriture du legacy en Clean Architecture DDD. TDD/BDD, code reviews, pair programming.",
+    color: CT.gold,
+    icon: Code2,
+  },
+  {
+    period: "2023 — 2024",
+    title: "Lead Full-Stack",
+    description:
+      "Referent technique post-depart du CTO. Produit SaaS SCORM from scratch, dashboards, backoffice Directus, outils marketing. SSO grands comptes, formation d'alternants.",
+    color: CT.magenta,
+    icon: LayoutDashboard,
+  },
 ] as const;
 
 const archHighlights = [
   {
     icon: Server,
-    title: "Clean Architecture + DDD",
+    title: "Architecture Modulaire",
     description:
-      "16 aggregates, 44 value objects, 126 fichiers domain. Couches strictes : Domain, Application, Adapters, Infrastructure. Injection de dépendances custom.",
-    color: HC.orange,
+      "Separation stricte des couches (domain, application, infrastructure), bounded contexts, injection de dependances. Une codebase maintenable qui a permis a l'equipe de livrer plus vite.",
+    color: CT.charcoal,
   },
   {
-    icon: Kanban,
-    title: "CQRS",
+    icon: Database,
+    title: "Plateforme SaaS SCORM",
     description:
-      "78 commands (use cases) + 30 queries read-side. Séparation write/read complète. Chaque use case = 1 fichier testable isolément.",
-    color: HC.blue,
+      "Produit multi-tenant : gestion des clients, deploiement des contenus, tracking des progressions a l'echelle. API NestJS dediee, builder d'apps SCORM, runtimes custom.",
+    color: CT.gold,
   },
   {
-    icon: Users,
-    title: "18 Bounded Contexts",
+    icon: Boxes,
+    title: "Editeur de Contenu",
     description:
-      "User, Auth, Profile, Post, Chat, Board, Tableau, Chronologie, CalendarEvent, Mood, Emotion, Gallery, Friend, Notification, Reward, PushToken, Upload, UserPreference.",
-    color: HC.green,
+      "Editeur interne transformant le workflow de creation : reduction majeure du temps de production, l'equipe contenu peut iterer sans dev.",
+    color: CT.magenta,
   },
   {
-    icon: Heart,
-    title: "Event-Driven",
+    icon: TestTube2,
+    title: "Qualite & Tests",
     description:
-      "29 domain events, 5 handlers (Gamification, Push, Chat SSE, Notification SSE, Email). Évaluation automatique des achievements après chaque mutation.",
-    color: HC.pink,
-  },
-] as const;
-
-const monorepo = [
-  {
-    name: "apps/nextjs",
-    desc: "Web + API (29 pages protégées)",
-    color: HC.pink,
-  },
-  {
-    name: "apps/expo",
-    desc: "Mobile iOS + Android (22+ écrans)",
-    color: HC.green,
-  },
-  { name: "packages/ddd-kit", desc: "Primitives DDD custom", color: HC.blue },
-  {
-    name: "packages/drizzle",
-    desc: "Schema DB (32 tables, 18 domaines)",
-    color: HC.orange,
-  },
-  {
-    name: "packages/ui",
-    desc: "25 composants shadcn/ui partagés",
-    color: HC.yellow,
-  },
-  {
-    name: "packages/i18n",
-    desc: "Internationalisation (FR + EN)",
-    color: HC.red,
-  },
-  { name: "packages/test", desc: "Config Vitest partagée", color: HC.green },
-  {
-    name: "packages/typescript-config",
-    desc: "TSConfig partagée",
-    color: HC.pink,
+      "Approche TDD/BDD pour garantir la fiabilite des modules de jeu. Tests unitaires et d'integration sur les mecaniques critiques de gamification et scoring.",
+    color: CT.orange,
   },
 ] as const;
 
 const categoryColors: Record<string, string> = {
-  architecture: HC.pink,
-  backend: HC.blue,
-  mobile: HC.green,
-  frontend: HC.orange,
-  language: HC.yellow,
-  infra: HC.red,
+  architecture: CT.charcoal,
+  backend: CT.magenta,
+  frontend: CT.gold,
+  language: CT.orange,
+  infra: CT.purple,
 };
 
 const cardVariants: Variants = {
@@ -289,7 +255,7 @@ const cardVariants: Variants = {
   hover: { y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.08)" },
 };
 
-export default function HomecafeShowcase() {
+export default function CivitimeShowcase() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -304,11 +270,10 @@ export default function HomecafeShowcase() {
 
   return (
     <div className="relative">
-      {/* Warm ambient glow */}
       <div
         className="absolute top-0 left-0 right-0 h-[700px] pointer-events-none -z-10"
         style={{
-          background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${HC.beige}30 0%, ${HC.pink}08 50%, transparent 80%)`,
+          background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${CT.warm}50 0%, ${CT.purple}08 50%, transparent 80%)`,
         }}
       />
 
@@ -332,25 +297,36 @@ export default function HomecafeShowcase() {
             <RevealItem>
               <div className="flex items-center gap-2.5 mb-5 flex-wrap">
                 <span className="badge text-xs uppercase tracking-widest font-semibold text-secondary">
-                  Mission Freelance
+                  CDI — 4 ans
                 </span>
                 <span
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                   style={{
-                    background: `${HC.pink}12`,
-                    color: HC.pink,
-                    borderColor: `${HC.pink}30`,
+                    background: `${CT.gold}12`,
+                    color: CT.gold,
+                    borderColor: `${CT.gold}30`,
                   }}
                 >
-                  <Smartphone className="w-3 h-3" />
-                  Web + Mobile
+                  <Gamepad2 className="w-3 h-3" />
+                  Serious Games
                 </span>
                 <span
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                   style={{
-                    background: `${HC.blue}12`,
-                    color: HC.blue,
-                    borderColor: `${HC.blue}30`,
+                    background: `${CT.purple}12`,
+                    color: CT.purple,
+                    borderColor: `${CT.purple}30`,
+                  }}
+                >
+                  <TreePine className="w-3 h-3" />
+                  RSE / B Corp
+                </span>
+                <span
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
+                  style={{
+                    background: `${CT.orange}12`,
+                    color: CT.orange,
+                    borderColor: `${CT.orange}30`,
                   }}
                 >
                   <Code2 className="w-3 h-3" />
@@ -362,25 +338,18 @@ export default function HomecafeShowcase() {
             <RevealItem>
               <div className="flex items-center gap-4 sm:gap-6">
                 <Image
-                  src="/portfolio/homecafe/logo.svg"
-                  alt="HomeCafe logo"
+                  src="/portfolio/civitime/logo.webp"
+                  alt="Civitime logo"
                   width={80}
-                  height={50}
-                  className="w-16 sm:w-20 md:w-24 h-auto"
+                  height={80}
+                  className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
                   unoptimized
                 />
                 <h1
                   className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.9]"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                 >
-                  <span style={{ color: HC.red }}>H</span>
-                  <span style={{ color: HC.green }}>o</span>
-                  <span style={{ color: HC.pink }}>m</span>
-                  <span style={{ color: HC.yellow }}>e</span>
-                  <span style={{ color: HC.orange }}>C</span>
-                  <span style={{ color: HC.blue }}>a</span>
-                  <span style={{ color: HC.green }}>f</span>
-                  <span style={{ color: HC.green }}>é</span>
+                  Civitime
                 </h1>
               </div>
             </RevealItem>
@@ -390,7 +359,7 @@ export default function HomecafeShowcase() {
                 className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-secondary max-w-2xl"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Application web & mobile de bien-être et productivité
+                Serious Games & Plateforme SaaS pour l'engagement RSE
               </p>
             </RevealItem>
 
@@ -399,12 +368,11 @@ export default function HomecafeShowcase() {
                 variant="secondary"
                 className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
               >
-                Conception et développement from scratch d'une application
-                complète déployée sur web (Next.js) et mobile (Expo/React
-                Native). Mood tracking, journaling, organisation, chat temps
-                réel, feed social et gamification. Monorepo de 8 packages,
-                architecture Clean Architecture + DDD + CQRS, +525 tests
-                unitaires et d'intégration.
+                4 ans chez Civitime, startup B Corp specialisee dans la
+                sensibilisation RSE par le jeu. De developpeur a referent
+                technique de l'entreprise. Serious games, plateforme SaaS SCORM,
+                outils internes, deployes aupres de 100+ entreprises et 250 000+
+                collaborateurs.
               </Paragraph>
             </RevealItem>
           </RevealContainer>
@@ -414,18 +382,18 @@ export default function HomecafeShowcase() {
       {/* STATS */}
       <section
         className="relative py-6 sm:py-8"
-        style={{ background: `${HC.beige}18` }}
+        style={{ background: `${CT.warm}25` }}
       >
         <div
           className="absolute inset-x-0 top-0 h-px"
           style={{
-            background: `linear-gradient(to right, transparent 10%, ${HC.pink}40, ${HC.orange}40, ${HC.green}40, ${HC.blue}40, transparent 90%)`,
+            background: `linear-gradient(to right, transparent 10%, ${CT.purple}40, ${CT.gold}40, ${CT.orange}40, ${CT.orange}40, transparent 90%)`,
           }}
         />
         <div
           className="absolute inset-x-0 bottom-0 h-px"
           style={{
-            background: `linear-gradient(to right, transparent 10%, ${HC.blue}40, ${HC.green}40, ${HC.orange}40, ${HC.pink}40, transparent 90%)`,
+            background: `linear-gradient(to right, transparent 10%, ${CT.orange}40, ${CT.orange}40, ${CT.gold}40, ${CT.purple}40, transparent 90%)`,
           }}
         />
         <RevealContainer
@@ -475,7 +443,7 @@ export default function HomecafeShowcase() {
         </RevealContainer>
       </section>
 
-      {/* CONTEXTE & RÔLE */}
+      {/* CONTEXTE & ROLE */}
       <section className="relative py-12 sm:py-16">
         <RevealContainer className="container mx-auto max-w-4xl">
           <RevealItem direction="scale">
@@ -511,7 +479,7 @@ export default function HomecafeShowcase() {
               style={{
                 background: "var(--primary-background)",
                 border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.orange}`,
+                borderLeft: `3px solid ${CT.purple}`,
               }}
               variants={cardVariants}
               initial="rest"
@@ -522,14 +490,14 @@ export default function HomecafeShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Problématique
+                L'entreprise
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Le client souhaitait une application tout-en-un de bien-être
-                personnel : suivi d'humeur, journaling, organisation et
-                dimension sociale. Le défi : créer un produit cohérent sur web
-                et mobile avec un code partagé maximum, tout en maintenant une
-                architecture capable d'évoluer avec les besoins.
+                Civitime est une startup B Corp fondee a Tours en 2018,
+                specialisee dans l'engagement RSE en entreprise via des serious
+                games. Avec 200+ modules couvrant 70+ thematiques (carbone,
+                biodiversite, inclusion, QVCT), la plateforme atteint 65-73% de
+                taux de completion vs 10% pour le e-learning classique.
               </p>
             </motion.div>
           </RevealItem>
@@ -540,7 +508,7 @@ export default function HomecafeShowcase() {
               style={{
                 background: "var(--primary-background)",
                 border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.blue}`,
+                borderLeft: `3px solid ${CT.gold}`,
               }}
               variants={cardVariants}
               initial="rest"
@@ -551,14 +519,14 @@ export default function HomecafeShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Mon rôle
+                Mon role
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Lead développeur full-stack et architecte technique. J'ai conçu
-                l'architecture from scratch (Clean Architecture + DDD + CQRS),
-                développé l'intégralité du backend et du frontend web et mobile,
-                mis en place le monorepo Turborepo, et défini la stratégie de
-                tests (+525). Seul développeur sur le projet.
+                Arrive comme developpeur dans une equipe de 4-5 devs en
+                methodologie agile (Scrum, sprints, daily standups). Apres le
+                depart du CTO, mon mentor, j'ai pris le relais comme referent
+                technique : choix techno, relation directe avec les CTO clients
+                pour les SSO, formation d'alternants.
               </p>
             </motion.div>
           </RevealItem>
@@ -569,7 +537,7 @@ export default function HomecafeShowcase() {
               style={{
                 background: "var(--primary-background)",
                 border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.pink}`,
+                borderLeft: `3px solid ${CT.orange}`,
               }}
               variants={cardVariants}
               initial="rest"
@@ -577,20 +545,19 @@ export default function HomecafeShowcase() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="flex items-center gap-2 mb-2">
-                <Figma className="w-4 h-4" style={{ color: HC.pink }} />
+                <Palette className="w-4 h-4" style={{ color: CT.orange }} />
                 <h3
                   className="text-sm sm:text-base font-semibold text-primary"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                 >
-                  Collaboration
+                  Impact mesurable
                 </h3>
               </div>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Travail en binôme avec une designeuse UX/UI. Elle concevait les
-                maquettes Figma, je les implémentais pixel-perfect. Échanges
-                réguliers sur les contraintes techniques, les interactions et
-                les micro-animations pour garantir une expérience fluide sur les
-                deux plateformes.
+                Credit Agricole, L'Oreal, EDF, Societe Generale et 100+ autres
+                organisations. 70% de taux de connexion moyen sur plusieurs
+                mois, 250 000+ collaborateurs mobilises. Taux de completion
+                65-73% vs 10% pour le e-learning classique.
               </p>
             </motion.div>
           </RevealItem>
@@ -601,7 +568,7 @@ export default function HomecafeShowcase() {
               style={{
                 background: "var(--primary-background)",
                 border: "1px solid var(--border)",
-                borderLeft: `3px solid ${HC.green}`,
+                borderLeft: `3px solid ${CT.orange}`,
               }}
               variants={cardVariants}
               initial="rest"
@@ -612,14 +579,14 @@ export default function HomecafeShowcase() {
                 className="text-sm sm:text-base font-semibold text-primary mb-2"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Approche technique
+                Contributions cles
               </h3>
               <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                Monorepo Turborepo pour partager le maximum de code entre web et
-                mobile : schéma DB, composants UI, primitives DDD,
-                internationalisation et config de tests. Architecture
-                event-driven pour découpler les modules et permettre l'ajout de
-                features sans régression.
+                Reecriture legacy en Clean Architecture DDD. Editeur de
+                scenarios. Dashboards et backoffice Directus. Outils marketing
+                internes. Plateforme SaaS SCORM multi-tenant from scratch.
+                Integration SSO grands comptes. CI/CD et pipelines de
+                deploiement continu.
               </p>
             </motion.div>
           </RevealItem>
@@ -629,7 +596,7 @@ export default function HomecafeShowcase() {
       {/* SCREENSHOTS */}
       <section
         className="relative py-12 sm:py-16"
-        style={{ background: `${HC.beige}12` }}
+        style={{ background: `${CT.warm}18` }}
       >
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
@@ -638,8 +605,8 @@ export default function HomecafeShowcase() {
                 className="badge mb-3 inline-flex"
                 whileHover={{ scale: 1.05 }}
               >
-                <Coffee className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">Aperçu</span>
+                <Gamepad2 className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium">Apercu</span>
               </motion.div>
             </MagneticWrapper>
           </RevealItem>
@@ -650,7 +617,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Interfaces de l'application
+              Les produits Civitime
             </Heading2>
           </RevealItem>
 
@@ -659,8 +626,9 @@ export default function HomecafeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              Design réalisé par la designeuse UX/UI sur Figma, implémenté
-              pixel-perfect sur web (Next.js) et mobile (Expo).
+              City builders, quiz interactifs, escape games et univers
+              immersifs. Des jeux deployes sur web et mobile pour sensibiliser a
+              grande echelle.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -696,105 +664,42 @@ export default function HomecafeShowcase() {
 
           <RevealItem>
             <TiltCard
-              className="rounded-xl sm:rounded-2xl"
+              className="rounded-2xl sm:rounded-3xl"
               tiltAmount={2}
               glareOpacity={0.03}
             >
               <div
-                className="relative rounded-xl sm:rounded-2xl overflow-hidden"
+                className="relative rounded-2xl sm:rounded-3xl overflow-hidden"
                 style={{
-                  border: `1px solid ${active.color}20`,
-                  boxShadow: `0 25px 80px ${active.color}15, 0 8px 32px rgba(0,0,0,0.08)`,
+                  boxShadow: `0 25px 80px ${active.color}12, 0 8px 32px rgba(0,0,0,0.06)`,
                 }}
               >
-                {/* Browser chrome */}
-                <div
-                  className="relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border-b"
-                  style={{
-                    background: "var(--primary-background)",
-                    borderColor: `${active.color}15`,
-                  }}
-                >
-                  <div className="flex items-center gap-1 sm:gap-1.5">
-                    <span
-                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                      style={{ background: HC.red }}
-                    />
-                    <span
-                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                      style={{ background: HC.yellow }}
-                    />
-                    <span
-                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                      style={{ background: HC.green }}
-                    />
-                  </div>
-                  <div
-                    className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate"
-                    style={{
-                      background: `${active.color}08`,
-                      color: "var(--secondary)",
-                      border: `1px solid ${active.color}12`,
-                    }}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active.src}
+                    initial={{ opacity: 0, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
                   >
-                    homecafe.app/{active.label.toLowerCase()}
-                  </div>
-                  <div className="w-6 sm:w-[46px]" />
-                </div>
-
-                {/* Gradient accent line */}
-                <div
-                  className="h-[2px]"
-                  style={{
-                    background: `linear-gradient(to right, ${active.color}, ${screenshots[(activeScreenshot + 1) % screenshots.length].color})`,
-                  }}
-                />
-
-                {/* Screenshot viewport */}
-                <div
-                  className="relative overflow-hidden"
-                  style={{
-                    height: "clamp(280px, 50vw, 640px)",
-                    background: `linear-gradient(180deg, ${HC.beige}20 0%, ${HC.beige}08 100%)`,
-                  }}
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={active.src}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute inset-0"
-                    >
-                      <Image
-                        src={active.src}
-                        alt={active.alt}
-                        width={active.width}
-                        height={active.height}
-                        className="w-full h-auto"
-                        priority={activeScreenshot === 0}
-                        unoptimized
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Bottom fade */}
-                  <div
-                    className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(to top, var(--primary-background), transparent)",
-                    }}
-                  />
-                </div>
+                    <Image
+                      src={active.src}
+                      alt={active.alt}
+                      width={active.width}
+                      height={active.height}
+                      className="w-full h-auto"
+                      priority={activeScreenshot === 0}
+                      unoptimized
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </TiltCard>
           </RevealItem>
         </RevealContainer>
       </section>
 
-      {/* FEATURES */}
+      {/* EVOLUTION DU ROLE */}
       <section className="relative py-12 sm:py-16">
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
@@ -803,8 +708,8 @@ export default function HomecafeShowcase() {
                 className="badge mb-3 inline-flex"
                 whileHover={{ scale: 1.05 }}
               >
-                <Smartphone className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">Fonctionnalités</span>
+                <GraduationCap className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium">Progression</span>
               </motion.div>
             </MagneticWrapper>
           </RevealItem>
@@ -815,7 +720,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Un écosystème complet
+              Evolution du role
             </Heading2>
           </RevealItem>
 
@@ -824,10 +729,129 @@ export default function HomecafeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              6 modules interconnectés pour le bien-être, l'organisation et le
-              partage. Chaque module implémenté sur les deux plateformes — web
-              (Next.js) et mobile (Expo) — avec un code partagé via monorepo.
-              Bilingue FR/EN.
+              De developpeur a lead technique en 4 ans, avec une montee en
+              responsabilite progressive sur des produits a forte contrainte
+              metier.
+            </Paragraph>
+          </RevealItem>
+        </RevealContainer>
+
+        <RevealContainer
+          staggerDelay={0.12}
+          className="container mx-auto max-w-4xl"
+        >
+          <div className="relative">
+            <div
+              className="absolute left-4 sm:left-6 top-0 bottom-0 w-px hidden md:block"
+              style={{
+                background: `linear-gradient(to bottom, ${CT.gold}, ${CT.purple}, ${CT.orange})`,
+              }}
+            />
+
+            <div className="space-y-4 sm:space-y-6">
+              {roleEvolution.map((role, i) => (
+                <RevealItem
+                  key={role.period}
+                  direction={i % 2 === 0 ? "left" : "right"}
+                >
+                  <MagneticWrapper strength={0.03}>
+                    <motion.div
+                      className="rounded-xl p-5 sm:p-6 md:ml-12"
+                      style={{
+                        background: "var(--primary-background)",
+                        border: "1px solid var(--border)",
+                        borderLeft: `3px solid ${role.color}`,
+                      }}
+                      variants={cardVariants}
+                      initial="rest"
+                      whileHover="hover"
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                    >
+                      <div className="flex items-start gap-3">
+                        <motion.div
+                          className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                          style={{ background: `${role.color}12` }}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 17,
+                          }}
+                        >
+                          <role.icon
+                            className="w-4.5 h-4.5"
+                            style={{ color: role.color }}
+                          />
+                        </motion.div>
+                        <div className="min-w-0">
+                          <p
+                            className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest mb-1"
+                            style={{ color: role.color }}
+                          >
+                            {role.period}
+                          </p>
+                          <h3
+                            className="text-sm sm:text-base font-semibold text-primary"
+                            style={{
+                              fontFamily: "var(--font-space-grotesk)",
+                            }}
+                          >
+                            {role.title}
+                          </h3>
+                          <p className="mt-1 text-xs sm:text-sm text-secondary leading-relaxed">
+                            {role.description}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </MagneticWrapper>
+                </RevealItem>
+              ))}
+            </div>
+          </div>
+        </RevealContainer>
+      </section>
+
+      {/* FEATURES */}
+      <section
+        className="relative py-12 sm:py-16"
+        style={{ background: `${CT.warm}12` }}
+      >
+        <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
+          <RevealItem direction="scale">
+            <MagneticWrapper strength={0.03}>
+              <motion.div
+                className="badge mb-3 inline-flex"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium">Fonctionnalites</span>
+              </motion.div>
+            </MagneticWrapper>
+          </RevealItem>
+
+          <RevealItem>
+            <Heading2
+              size="xl"
+              className="text-2xl sm:text-3xl md:text-4xl"
+              style={{ fontFamily: "var(--font-space-grotesk)" }}
+            >
+              Ce que j'ai construit
+            </Heading2>
+          </RevealItem>
+
+          <RevealItem>
+            <Paragraph
+              variant="secondary"
+              className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
+            >
+              Serious games, editeur de contenu, gamification et plateforme
+              SaaS. Des produits deployes a l'echelle pour des grands comptes
+              internationaux.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -896,7 +920,6 @@ export default function HomecafeShowcase() {
           ))}
         </RevealContainer>
 
-        {/* Cross-cutting: Gamification + Notifications */}
         <RevealContainer
           staggerDelay={0.1}
           className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-5xl mt-4"
@@ -952,10 +975,7 @@ export default function HomecafeShowcase() {
       </section>
 
       {/* ARCHITECTURE */}
-      <section
-        className="relative py-12 sm:py-16"
-        style={{ background: `${HC.beige}12` }}
-      >
+      <section className="relative py-12 sm:py-16">
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
             <MagneticWrapper strength={0.03}>
@@ -975,7 +995,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Ingénierie robuste
+              Decisions techniques
             </Heading2>
           </RevealItem>
 
@@ -984,8 +1004,9 @@ export default function HomecafeShowcase() {
               variant="secondary"
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
-              Une architecture pensée pour la maintenabilité, la testabilité et
-              l'évolutivité. Chaque décision technique documentée et justifiée.
+              Une architecture pensee pour la maintenabilite et l'evolution
+              produit, avec une attention particuliere a l'autonomie des equipes
+              non-techniques.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
@@ -1048,7 +1069,10 @@ export default function HomecafeShowcase() {
       </section>
 
       {/* TECH STACK */}
-      <section className="relative py-12 sm:py-16">
+      <section
+        className="relative py-12 sm:py-16"
+        style={{ background: `${CT.warm}12` }}
+      >
         <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
           <RevealItem direction="scale">
             <MagneticWrapper strength={0.03}>
@@ -1068,7 +1092,7 @@ export default function HomecafeShowcase() {
               className="text-2xl sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Technologies utilisées
+              Technologies utilisees
             </Heading2>
           </RevealItem>
         </RevealContainer>
@@ -1079,7 +1103,7 @@ export default function HomecafeShowcase() {
         >
           <div className="flex flex-wrap justify-center gap-2">
             {techStack.map((tech) => {
-              const color = categoryColors[tech.category] || HC.orange;
+              const color = categoryColors[tech.category] || CT.gold;
               return (
                 <RevealItem key={tech.name} direction="scale">
                   <MagneticWrapper strength={0.04}>
@@ -1112,44 +1136,6 @@ export default function HomecafeShowcase() {
               );
             })}
           </div>
-        </RevealContainer>
-
-        <RevealContainer className="container mx-auto mt-8 sm:mt-10 max-w-xl">
-          <RevealItem>
-            <div
-              className="rounded-xl p-5 sm:p-6"
-              style={{
-                background: "var(--primary-background)",
-                border: "1px solid var(--border)",
-              }}
-            >
-              <p
-                className="text-xs uppercase tracking-widest font-semibold text-secondary mb-4"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                Monorepo — 8 packages
-              </p>
-              <div className="space-y-2.5 font-mono text-sm">
-                {monorepo.map((pkg) => (
-                  <div
-                    key={pkg.name}
-                    className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5"
-                  >
-                    <span
-                      className="w-2 h-2 rounded-full flex-shrink-0 self-center"
-                      style={{ background: pkg.color }}
-                    />
-                    <span className="text-primary font-medium text-xs sm:text-sm">
-                      {pkg.name}
-                    </span>
-                    <span className="text-secondary text-[10px] sm:text-xs">
-                      {pkg.desc}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </RevealItem>
         </RevealContainer>
       </section>
 
