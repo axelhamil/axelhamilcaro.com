@@ -48,7 +48,12 @@ const HC = {
 } as const;
 
 const stats = [
-  { value: "2", label: "Plateformes", color: HC.pink },
+  {
+    value: "2",
+    label: "Plateformes",
+    sublabel: "Web + Mobile",
+    color: HC.pink,
+  },
   { value: "51+", label: "Écrans", color: HC.orange },
   { value: "78", label: "Use Cases", color: HC.blue },
   { value: "29", label: "Domain Events", color: HC.red },
@@ -56,8 +61,8 @@ const stats = [
 ] as const;
 
 const secondaryStats = [
-  "16 aggregates",
-  "44 value objects",
+  "29 pages web",
+  "22+ écrans mobile",
   "73 routes API",
   "32 tables",
   "15+ achievements",
@@ -375,7 +380,7 @@ export default function HomecafeShowcase() {
                 className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-secondary max-w-2xl"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                Application de bien-être & productivité personnelle
+                Application web & mobile de bien-être et productivité
               </p>
             </RevealItem>
 
@@ -385,10 +390,11 @@ export default function HomecafeShowcase() {
                 className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
               >
                 Conception et développement from scratch d'une application
-                complète web + mobile. Mood tracking, journaling, organisation,
-                chat temps réel, feed social et gamification. Monorepo de 8
-                packages, architecture Clean Architecture + DDD + CQRS, +525
-                tests unitaires et d'intégration.
+                complète déployée sur web (Next.js) et mobile (Expo/React
+                Native). Mood tracking, journaling, organisation, chat temps
+                réel, feed social et gamification. Monorepo de 8 packages,
+                architecture Clean Architecture + DDD + CQRS, +525 tests
+                unitaires et d'intégration.
               </Paragraph>
             </RevealItem>
           </RevealContainer>
@@ -436,6 +442,14 @@ export default function HomecafeShowcase() {
                   <p className="mt-1 text-xs font-medium text-secondary uppercase tracking-wider">
                     {stat.label}
                   </p>
+                  {"sublabel" in stat && stat.sublabel && (
+                    <p
+                      className="text-[10px] font-medium uppercase tracking-wider mt-0.5"
+                      style={{ color: stat.color }}
+                    >
+                      {stat.sublabel}
+                    </p>
+                  )}
                 </motion.div>
               </MagneticWrapper>
             </RevealItem>
@@ -801,8 +815,9 @@ export default function HomecafeShowcase() {
               className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
             >
               6 modules interconnectés pour le bien-être, l'organisation et le
-              partage. Chaque module disponible sur web et mobile, bilingue
-              FR/EN.
+              partage. Chaque module implémenté sur les deux plateformes — web
+              (Next.js) et mobile (Expo) — avec un code partagé via monorepo.
+              Bilingue FR/EN.
             </Paragraph>
           </RevealItem>
         </RevealContainer>
