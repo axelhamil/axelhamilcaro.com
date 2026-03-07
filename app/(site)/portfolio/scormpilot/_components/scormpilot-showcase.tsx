@@ -102,15 +102,6 @@ const screenshots = [
     width: 1776,
     height: 1055,
   },
-  {
-    src: "/portfolio/scormpilot/pricing.webp",
-    alt: "ScormPilot - Grille tarifaire SaaS",
-    label: "Pricing",
-    icon: Target,
-    color: SP.navy,
-    width: 1500,
-    height: 1061,
-  },
 ] as const;
 
 const features = [
