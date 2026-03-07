@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import * as treeLinkController from "@/src/features/tree-links/tree-link.controller";
 
@@ -6,7 +7,13 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  return treeLinkController.update(id, await request.json(), await headers());
+  const res = await treeLinkController.update(
+    id,
+    await request.json(),
+    await headers(),
+  );
+  if (res.ok) revalidatePath("/tree");
+  return res;
 }
 
 export async function DELETE(
@@ -14,5 +21,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  return treeLinkController.remove(id, await headers());
+  const res = await treeLinkController.remove(id, await headers());
+  if (res.ok) revalidatePath("/tree");
+  return res;
 }

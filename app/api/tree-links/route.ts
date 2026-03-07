@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import * as treeLinkController from "@/src/features/tree-links/tree-link.controller";
 
@@ -6,5 +7,10 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  return treeLinkController.create(await request.json(), await headers());
+  const res = await treeLinkController.create(
+    await request.json(),
+    await headers(),
+  );
+  if (res.ok) revalidatePath("/tree");
+  return res;
 }

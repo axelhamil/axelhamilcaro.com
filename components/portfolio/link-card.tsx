@@ -11,7 +11,7 @@ const linkCardVariants = cva(
         default:
           "bg-primary-background border-border hover:border-accent hover:shadow-md",
         featured:
-          "bg-primary-background border-accent/30 hover:border-accent shadow-md hover:shadow-lg",
+          "bg-accent/5 border-accent/40 hover:border-accent shadow-md hover:shadow-lg ring-1 ring-accent/10",
       },
     },
     defaultVariants: {
