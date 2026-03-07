@@ -65,58 +65,58 @@ const secondaryStats = [
 
 const screenshots = [
   {
-    src: "/portfolio/homecafe/dashboard.png",
+    src: "/portfolio/homecafe/dashboard.webp",
     alt: "HomeCafe Dashboard",
     label: "Dashboard",
     icon: LayoutDashboard,
     color: HC.pink,
-    width: 1440,
-    height: 1350,
+    width: 1200,
+    height: 1125,
   },
   {
-    src: "/portfolio/homecafe/journal.png",
+    src: "/portfolio/homecafe/journal.webp",
     alt: "HomeCafe Journal",
     label: "Journal",
     icon: BookOpen,
     color: HC.orange,
-    width: 1440,
-    height: 1580,
+    width: 1200,
+    height: 1317,
   },
   {
-    src: "/portfolio/homecafe/moodboard.png",
+    src: "/portfolio/homecafe/moodboard.webp",
     alt: "HomeCafe Moodboard",
     label: "Moodboard",
     icon: Palette,
     color: HC.green,
-    width: 1440,
-    height: 1644,
+    width: 1200,
+    height: 1370,
   },
   {
-    src: "/portfolio/homecafe/organisation.png",
+    src: "/portfolio/homecafe/organisation.webp",
     alt: "HomeCafe Organisation",
     label: "Organisation",
     icon: Kanban,
     color: HC.blue,
-    width: 1440,
-    height: 3645,
+    width: 1200,
+    height: 3038,
   },
   {
-    src: "/portfolio/homecafe/social.png",
+    src: "/portfolio/homecafe/social.webp",
     alt: "HomeCafe Social",
     label: "Social",
     icon: Rss,
     color: HC.yellow,
-    width: 1440,
-    height: 1272,
+    width: 1200,
+    height: 1060,
   },
   {
-    src: "/portfolio/homecafe/messagerie.png",
+    src: "/portfolio/homecafe/messagerie.webp",
     alt: "HomeCafe Messagerie",
     label: "Messagerie",
     icon: Mail,
     color: HC.red,
-    width: 1440,
-    height: 1272,
+    width: 1200,
+    height: 1060,
   },
 ] as const;
 
@@ -747,6 +747,7 @@ export default function HomecafeShowcase() {
                         height={active.height}
                         className="w-full h-auto"
                         priority={activeScreenshot === 0}
+                        unoptimized
                       />
                     </motion.div>
                   </AnimatePresence>
