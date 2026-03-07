@@ -63,9 +63,9 @@ const projects = [
 const CaseStudies = () => {
   return (
     <section
-      id="projets"
+      id="portfolio"
       className="relative container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20 overflow-hidden"
-      aria-labelledby="projets-title"
+      aria-labelledby="portfolio-title"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
         <DotGrid
@@ -111,7 +111,7 @@ const CaseStudies = () => {
 
         <RevealItem>
           <Heading2
-            id="projets-title"
+            id="portfolio-title"
             size="xl"
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}

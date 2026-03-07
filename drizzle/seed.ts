@@ -36,7 +36,7 @@ const defaultLinks = [
   },
   {
     title: "Portfolio",
-    url: "/",
+    url: "/#portfolio",
     icon: "globe",
     description: "Mon site personnel",
     featured: false,

@@ -355,7 +355,10 @@ export function TreeLinksClient() {
                   {link.url}
                 </p>
               </div>
-              <div className="flex items-center gap-1 shrink-0">
+              <div
+                className="flex items-center gap-1 shrink-0"
+                onPointerDownCapture={(e) => e.stopPropagation()}
+              >
                 <a
                   href={link.url}
                   target="_blank"

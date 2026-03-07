@@ -321,7 +321,7 @@ export default function HomecafeShowcase() {
           <RevealContainer className="max-w-4xl">
             <RevealItem>
               <TransitionLink
-                href="/#projets"
+                href="/#portfolio"
                 className="inline-flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors mb-6 group"
               >
                 <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
@@ -1149,7 +1149,7 @@ export default function HomecafeShowcase() {
           <RevealItem direction="scale">
             <MagneticWrapper strength={0.02}>
               <TransitionLink
-                href="/#projets"
+                href="/#portfolio"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border border-border hover:border-accent hover:shadow-lg transition-all group"
                 style={{ background: "var(--primary-background)" }}
               >
