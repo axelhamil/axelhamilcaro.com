@@ -58,7 +58,6 @@ const isInternalPageChange = (
   if (targetHref.startsWith("mailto:")) return false;
   if (targetHref.startsWith("tel:")) return false;
   if (targetHref.startsWith("#")) return false;
-  if (targetHref.startsWith("/#")) return false;
 
   const newPath = targetHref.split("#")[0] || "/";
   const normalizedCurrent = currentPath === "" ? "/" : currentPath;
