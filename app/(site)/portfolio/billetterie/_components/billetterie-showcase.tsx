@@ -727,10 +727,10 @@ export default function BilletterieShowcase() {
 
                   {/* Bottom fade */}
                   <div
-                    className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+                    className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
                     style={{
                       background:
-                        "linear-gradient(to top, var(--primary-background), transparent)",
+                        "linear-gradient(to top, var(--primary-background) 0%, rgba(255,255,255,0.6) 40%, transparent 100%)",
                     }}
                   />
                 </div>
