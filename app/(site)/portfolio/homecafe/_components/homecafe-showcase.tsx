@@ -475,127 +475,130 @@ export default function HomecafeShowcase() {
               La mission
             </Heading2>
           </RevealItem>
+        </RevealContainer>
 
-          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <RevealItem direction="left">
-              <motion.div
-                className="rounded-xl p-5 sm:p-6 h-full"
-                style={{
-                  background: "var(--primary-background)",
-                  border: "1px solid var(--border)",
-                  borderLeft: `3px solid ${HC.orange}`,
-                }}
-                variants={cardVariants}
-                initial="rest"
-                whileHover="hover"
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        <RevealContainer
+          staggerDelay={0.1}
+          className="container mx-auto max-w-4xl mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
+        >
+          <RevealItem direction="left">
+            <motion.div
+              className="rounded-xl p-5 sm:p-6 h-full"
+              style={{
+                background: "var(--primary-background)",
+                border: "1px solid var(--border)",
+                borderLeft: `3px solid ${HC.orange}`,
+              }}
+              variants={cardVariants}
+              initial="rest"
+              whileHover="hover"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <h3
+                className="text-sm sm:text-base font-semibold text-primary mb-2"
+                style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
+                Problématique
+              </h3>
+              <p className="text-xs sm:text-sm text-secondary leading-relaxed">
+                Le client souhaitait une application tout-en-un de bien-être
+                personnel : suivi d'humeur, journaling, organisation et
+                dimension sociale. Le défi : créer un produit cohérent sur web
+                et mobile avec un code partagé maximum, tout en maintenant une
+                architecture capable d'évoluer avec les besoins.
+              </p>
+            </motion.div>
+          </RevealItem>
+
+          <RevealItem direction="right">
+            <motion.div
+              className="rounded-xl p-5 sm:p-6 h-full"
+              style={{
+                background: "var(--primary-background)",
+                border: "1px solid var(--border)",
+                borderLeft: `3px solid ${HC.blue}`,
+              }}
+              variants={cardVariants}
+              initial="rest"
+              whileHover="hover"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <h3
+                className="text-sm sm:text-base font-semibold text-primary mb-2"
+                style={{ fontFamily: "var(--font-space-grotesk)" }}
+              >
+                Mon rôle
+              </h3>
+              <p className="text-xs sm:text-sm text-secondary leading-relaxed">
+                Lead développeur full-stack et architecte technique. J'ai conçu
+                l'architecture from scratch (Clean Architecture + DDD + CQRS),
+                développé l'intégralité du backend et du frontend web et mobile,
+                mis en place le monorepo Turborepo, et défini la stratégie de
+                tests (+525). Seul développeur sur le projet.
+              </p>
+            </motion.div>
+          </RevealItem>
+
+          <RevealItem direction="left">
+            <motion.div
+              className="rounded-xl p-5 sm:p-6 h-full"
+              style={{
+                background: "var(--primary-background)",
+                border: "1px solid var(--border)",
+                borderLeft: `3px solid ${HC.pink}`,
+              }}
+              variants={cardVariants}
+              initial="rest"
+              whileHover="hover"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Figma className="w-4 h-4" style={{ color: HC.pink }} />
                 <h3
-                  className="text-sm sm:text-base font-semibold text-primary mb-2"
+                  className="text-sm sm:text-base font-semibold text-primary"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                 >
-                  Problématique
+                  Collaboration
                 </h3>
-                <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                  Le client souhaitait une application tout-en-un de bien-être
-                  personnel : suivi d'humeur, journaling, organisation et
-                  dimension sociale. Le défi : créer un produit cohérent sur web
-                  et mobile avec un code partagé maximum, tout en maintenant une
-                  architecture capable d'évoluer avec les besoins.
-                </p>
-              </motion.div>
-            </RevealItem>
+              </div>
+              <p className="text-xs sm:text-sm text-secondary leading-relaxed">
+                Travail en binôme avec une designeuse UX/UI. Elle concevait les
+                maquettes Figma, je les implémentais pixel-perfect. Échanges
+                réguliers sur les contraintes techniques, les interactions et
+                les micro-animations pour garantir une expérience fluide sur les
+                deux plateformes.
+              </p>
+            </motion.div>
+          </RevealItem>
 
-            <RevealItem direction="right">
-              <motion.div
-                className="rounded-xl p-5 sm:p-6 h-full"
-                style={{
-                  background: "var(--primary-background)",
-                  border: "1px solid var(--border)",
-                  borderLeft: `3px solid ${HC.blue}`,
-                }}
-                variants={cardVariants}
-                initial="rest"
-                whileHover="hover"
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          <RevealItem direction="right">
+            <motion.div
+              className="rounded-xl p-5 sm:p-6 h-full"
+              style={{
+                background: "var(--primary-background)",
+                border: "1px solid var(--border)",
+                borderLeft: `3px solid ${HC.green}`,
+              }}
+              variants={cardVariants}
+              initial="rest"
+              whileHover="hover"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <h3
+                className="text-sm sm:text-base font-semibold text-primary mb-2"
+                style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                <h3
-                  className="text-sm sm:text-base font-semibold text-primary mb-2"
-                  style={{ fontFamily: "var(--font-space-grotesk)" }}
-                >
-                  Mon rôle
-                </h3>
-                <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                  Lead développeur full-stack et architecte technique. J'ai
-                  conçu l'architecture from scratch (Clean Architecture + DDD +
-                  CQRS), développé l'intégralité du backend et du frontend web
-                  et mobile, mis en place le monorepo Turborepo, et défini la
-                  stratégie de tests (+525). Seul développeur sur le projet.
-                </p>
-              </motion.div>
-            </RevealItem>
-
-            <RevealItem direction="left">
-              <motion.div
-                className="rounded-xl p-5 sm:p-6 h-full"
-                style={{
-                  background: "var(--primary-background)",
-                  border: "1px solid var(--border)",
-                  borderLeft: `3px solid ${HC.pink}`,
-                }}
-                variants={cardVariants}
-                initial="rest"
-                whileHover="hover"
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Figma className="w-4 h-4" style={{ color: HC.pink }} />
-                  <h3
-                    className="text-sm sm:text-base font-semibold text-primary"
-                    style={{ fontFamily: "var(--font-space-grotesk)" }}
-                  >
-                    Collaboration
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                  Travail en binôme avec une designeuse UX/UI. Elle concevait
-                  les maquettes Figma, je les implémentais pixel-perfect.
-                  Échanges réguliers sur les contraintes techniques, les
-                  interactions et les micro-animations pour garantir une
-                  expérience fluide sur les deux plateformes.
-                </p>
-              </motion.div>
-            </RevealItem>
-
-            <RevealItem direction="right">
-              <motion.div
-                className="rounded-xl p-5 sm:p-6 h-full"
-                style={{
-                  background: "var(--primary-background)",
-                  border: "1px solid var(--border)",
-                  borderLeft: `3px solid ${HC.green}`,
-                }}
-                variants={cardVariants}
-                initial="rest"
-                whileHover="hover"
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <h3
-                  className="text-sm sm:text-base font-semibold text-primary mb-2"
-                  style={{ fontFamily: "var(--font-space-grotesk)" }}
-                >
-                  Approche technique
-                </h3>
-                <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                  Monorepo Turborepo pour partager le maximum de code entre web
-                  et mobile : schéma DB, composants UI, primitives DDD,
-                  internationalisation et config de tests. Architecture
-                  event-driven pour découpler les modules et permettre l'ajout
-                  de features sans régression.
-                </p>
-              </motion.div>
-            </RevealItem>
-          </div>
+                Approche technique
+              </h3>
+              <p className="text-xs sm:text-sm text-secondary leading-relaxed">
+                Monorepo Turborepo pour partager le maximum de code entre web et
+                mobile : schéma DB, composants UI, primitives DDD,
+                internationalisation et config de tests. Architecture
+                event-driven pour découpler les modules et permettre l'ajout de
+                features sans régression.
+              </p>
+            </motion.div>
+          </RevealItem>
         </RevealContainer>
       </section>
 
@@ -648,7 +651,7 @@ export default function HomecafeShowcase() {
                     key={s.label}
                     type="button"
                     onClick={() => setActiveScreenshot(i)}
-                    className="relative flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200"
+                    className="relative flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-sm font-medium transition-all duration-200"
                     style={{
                       background: isActive ? s.color : `${s.color}08`,
                       color: isActive ? "#fff" : "var(--secondary)",
@@ -659,7 +662,7 @@ export default function HomecafeShowcase() {
                     whileTap={{ scale: 0.97 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <s.icon className="w-3.5 h-3.5" />
+                    <s.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 hidden sm:block" />
                     {s.label}
                   </motion.button>
                 );
@@ -669,12 +672,12 @@ export default function HomecafeShowcase() {
 
           <RevealItem>
             <TiltCard
-              className="rounded-2xl"
+              className="rounded-xl sm:rounded-2xl"
               tiltAmount={2}
               glareOpacity={0.03}
             >
               <div
-                className="relative rounded-2xl overflow-hidden"
+                className="relative rounded-xl sm:rounded-2xl overflow-hidden"
                 style={{
                   border: `1px solid ${active.color}20`,
                   boxShadow: `0 25px 80px ${active.color}15, 0 8px 32px rgba(0,0,0,0.08)`,
@@ -682,28 +685,28 @@ export default function HomecafeShowcase() {
               >
                 {/* Browser chrome */}
                 <div
-                  className="relative flex items-center gap-2 px-4 py-2.5 border-b"
+                  className="relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border-b"
                   style={{
                     background: "var(--primary-background)",
                     borderColor: `${active.color}15`,
                   }}
                 >
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1 sm:gap-1.5">
                     <span
-                      className="w-2.5 h-2.5 rounded-full"
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
                       style={{ background: HC.red }}
                     />
                     <span
-                      className="w-2.5 h-2.5 rounded-full"
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
                       style={{ background: HC.yellow }}
                     />
                     <span
-                      className="w-2.5 h-2.5 rounded-full"
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
                       style={{ background: HC.green }}
                     />
                   </div>
                   <div
-                    className="flex-1 mx-8 px-3 py-1 rounded-md text-[11px] text-center font-mono truncate"
+                    className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate"
                     style={{
                       background: `${active.color}08`,
                       color: "var(--secondary)",
@@ -712,7 +715,7 @@ export default function HomecafeShowcase() {
                   >
                     homecafe.app/{active.label.toLowerCase()}
                   </div>
-                  <div className="w-[46px]" />
+                  <div className="w-6 sm:w-[46px]" />
                 </div>
 
                 {/* Gradient accent line */}
@@ -727,7 +730,7 @@ export default function HomecafeShowcase() {
                 <div
                   className="relative overflow-hidden"
                   style={{
-                    height: "clamp(400px, 50vw, 640px)",
+                    height: "clamp(280px, 50vw, 640px)",
                     background: `linear-gradient(180deg, ${HC.beige}20 0%, ${HC.beige}08 100%)`,
                   }}
                 >
@@ -1103,14 +1106,20 @@ export default function HomecafeShowcase() {
               </p>
               <div className="space-y-2.5 font-mono text-sm">
                 {monorepo.map((pkg) => (
-                  <div key={pkg.name} className="flex items-center gap-2.5">
+                  <div
+                    key={pkg.name}
+                    className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5"
+                  >
                     <span
-                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      className="w-2 h-2 rounded-full flex-shrink-0 self-center"
                       style={{ background: pkg.color }}
                     />
-                    <span className="text-primary font-medium">{pkg.name}</span>
-                    <span className="text-muted">&mdash;</span>
-                    <span className="text-secondary text-xs">{pkg.desc}</span>
+                    <span className="text-primary font-medium text-xs sm:text-sm">
+                      {pkg.name}
+                    </span>
+                    <span className="text-secondary text-[10px] sm:text-xs">
+                      {pkg.desc}
+                    </span>
                   </div>
                 ))}
               </div>
