@@ -32,8 +32,8 @@ const projects = [
     description:
       "Conception et développement complet d'une plateforme SaaS e-learning. Alternative simple aux LMS rigides, architecture multi-tenant, milliers d'utilisateurs.",
     tech: ["Next.js", "Fastify", "PostgreSQL", "DDD"],
-    metric: "Milliers",
-    metricLabel: "d'utilisateurs",
+    metric: "100% solo",
+    metricLabel: "conception a production",
     gradient: "from-emerald-500 to-teal-500",
     logo: "SP",
     logoSrc: "/portfolio/scormpilot/logo.webp",

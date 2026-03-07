@@ -46,22 +46,22 @@ const SP = {
 
 const stats = [
   {
-    value: "7",
-    label: "Applications",
-    sublabel: "Monorepo Turborepo",
+    value: "100%",
+    label: "Solo",
+    sublabel: "Conception a production",
     color: SP.navy,
   },
-  { value: "4", label: "Bounded Contexts", color: SP.blue },
-  { value: "22", label: "Use Cases", color: SP.cyan },
-  { value: "Milliers", label: "d'utilisateurs actifs", color: SP.teal },
-  { value: "10+", label: "Organismes clients", color: SP.orange },
+  { value: "Milliers", label: "de players quotidiens", color: SP.blue },
+  { value: "7", label: "Apps", sublabel: "Monorepo Turborepo", color: SP.cyan },
+  { value: "99.9%", label: "Uptime", color: SP.teal },
+  { value: "Dizaines", label: "de clients actifs", color: SP.orange },
 ] as const;
 
 const secondaryStats = [
+  "Multi-tenant SaaS B2B",
   "RGPD conforme",
   "Hebergement 100% europeen",
-  "Multi-tenant",
-  "SaaS B2B",
+  "SCORM 1.2 & 2004",
   "Tours, France",
 ] as const;
 
