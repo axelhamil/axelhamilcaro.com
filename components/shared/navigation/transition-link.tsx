@@ -4,47 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type ComponentProps, type MouseEvent, startTransition } from "react";
 
-type TransitionLinkProps = ComponentProps<typeof Link>;
+type TransitionLinkProps = ComponentProps<typeof Link> & {
+  variant?: "default" | "soft";
+};
 
 let isTransitioning = false;
-
-const createScanLineOverlay = (): void => {
-  const existingOverlay = document.querySelector(".transition-scan-overlay");
-  if (existingOverlay) {
-    existingOverlay.remove();
-  }
-
-  const overlay = document.createElement("div");
-  overlay.className = "transition-scan-overlay";
-  overlay.setAttribute("aria-hidden", "true");
-  document.body.appendChild(overlay);
-
-  const particles = document.createElement("div");
-  particles.className = "transition-particles";
-  overlay.appendChild(particles);
-
-  for (let i = 0; i < 12; i++) {
-    const particle = document.createElement("div");
-    particle.className = "particle";
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.top = `${Math.random() * 100}%`;
-    particle.style.animationDelay = `${Math.random() * 0.3}s`;
-    particles.appendChild(particle);
-  }
-
-  requestAnimationFrame(() => {
-    overlay.classList.add("active");
-  });
-
-  setTimeout(() => {
-    overlay.classList.remove("active");
-    setTimeout(() => {
-      if (overlay.parentNode) {
-        overlay.remove();
-      }
-    }, 600);
-  }, 300);
-};
 
 const sleep = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
@@ -70,6 +34,7 @@ const TransitionLink = ({
   href,
   children,
   onClick,
+  variant = "default",
   ...props
 }: TransitionLinkProps) => {
   const router = useRouter();
@@ -99,10 +64,6 @@ const TransitionLink = ({
         onClick(e);
       }
 
-      createScanLineOverlay();
-
-      await sleep(50);
-
       const hasViewTransition =
         typeof document !== "undefined" &&
         "startViewTransition" in document &&
@@ -120,7 +81,7 @@ const TransitionLink = ({
         });
       }
 
-      await sleep(700);
+      await sleep(variant === "soft" ? 300 : 700);
     } finally {
       isTransitioning = false;
     }

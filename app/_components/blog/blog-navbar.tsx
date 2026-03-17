@@ -1,48 +1,26 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Calendar, Menu, X } from "lucide-react";
+import { ArrowLeft, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import {
-  CALENDLY_URL,
-  DESKTOP_SECTIONS,
-  NAV_LINKS,
-} from "@/app/_config/navigation";
 import { useMobileMenu } from "@/app/_hooks/use-mobile-menu";
 import { useScrollProgress } from "@/app/_hooks/use-scroll-progress";
 import TransitionLink from "@/components/shared/navigation/transition-link";
 import { heading1Variants } from "@/components/typography/heading1";
 import { cn } from "@/lib/utils";
 
-const Navbar = () => {
+const BLOG_NAV_LINKS = [
+  { href: "/blog", label: "Articles" },
+] as const;
+
+export function BlogNavbar() {
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
   const mobileMenu = useMobileMenu();
-  const { isScrolled, activeSection, scrollProgress } = useScrollProgress({
-    sections: DESKTOP_SECTIONS,
-    pathname,
-  });
+  const { isScrolled, scrollProgress } = useScrollProgress({ pathname });
 
-  const handleNavClick = (href: string) => {
-    mobileMenu.close();
-
-    if (href.startsWith("/#") && pathname === "/") {
-      const id = href.replace("/#", "");
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-    }
-  };
-
-  const isActive = (href: string) => {
-    if (href.startsWith("/#")) {
-      return activeSection === href.replace("/#", "");
-    }
-    return pathname === href;
-  };
+  const isActive = (href: string) => pathname === href;
 
   const headerClassName = useMemo(
     () =>
@@ -58,7 +36,7 @@ const Navbar = () => {
   const underlineMotion = prefersReducedMotion
     ? {}
     : {
-        layoutId: "nav-underline",
+        layoutId: "blog-nav-underline",
         transition: { duration: 0.25, ease: [0.4, 0, 0.2, 1] as const },
       };
 
@@ -68,13 +46,13 @@ const Navbar = () => {
       animate={prefersReducedMotion ? undefined : { y: 0 }}
     >
       <nav
-        className="max-w-7xl mx-auto flex items-center justify-between"
-        aria-label="Navigation principale"
+        className="max-w-3xl mx-auto flex items-center justify-between"
+        aria-label="Navigation blog"
       >
         <TransitionLink
-          href="/"
+          href="/blog"
           className="group flex items-center gap-2"
-          aria-label="Accueil - Axel Hamilcaro"
+          aria-label="Blog - Axel Hamilcaro"
         >
           <span
             className={cn(
@@ -87,14 +65,13 @@ const Navbar = () => {
         </TransitionLink>
 
         <div className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((link) => {
+          {BLOG_NAV_LINKS.map((link) => {
             const active = isActive(link.href);
 
             return (
               <div key={link.href} className="relative">
                 <TransitionLink
                   href={link.href}
-                  onClick={() => handleNavClick(link.href)}
                   className={cn(
                     "relative px-4 py-2 text-sm font-medium rounded-lg",
                     "transition-all duration-300",
@@ -118,34 +95,18 @@ const Navbar = () => {
           })}
 
           <TransitionLink
-            href="/blog"
+            href="/"
             className={cn(
-              "ml-1 px-4 py-2 text-sm font-medium rounded-lg",
-              "transition-all duration-300",
-              "hover:bg-secondary-background",
-              pathname.startsWith("/blog")
-                ? "text-accent"
-                : "text-primary hover:text-accent",
-            )}
-          >
-            Blog
-          </TransitionLink>
-
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "ml-1 px-4 py-2 text-sm font-medium rounded-lg",
+              "ml-3 px-4 py-2 text-sm font-medium rounded-lg",
               "bg-accent text-white",
               "hover:bg-accent-hover hover:scale-[1.02]",
               "transition-all duration-300",
-              "flex items-center gap-2",
+              "inline-flex items-center gap-2",
             )}
           >
-            <Calendar className="w-4 h-4" />
-            <span className="hidden lg:inline">Contact</span>
-          </a>
+            <ArrowLeft className="w-4 h-4" />
+            <span className="hidden lg:inline">Retour au site</span>
+          </TransitionLink>
         </div>
 
         <button
@@ -159,7 +120,7 @@ const Navbar = () => {
           )}
           aria-label={mobileMenu.isOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={mobileMenu.isOpen}
-          aria-controls="mobile-nav"
+          aria-controls="blog-mobile-nav"
         >
           <div className="relative w-6 h-6">
             <Menu
@@ -197,7 +158,7 @@ const Navbar = () => {
 
             <motion.div
               key="panel"
-              id="mobile-nav"
+              id="blog-mobile-nav"
               className="md:hidden relative z-50 mt-4"
               initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
               animate={
@@ -209,7 +170,7 @@ const Navbar = () => {
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
               <div className="flex flex-col gap-2 pb-4 card rounded-xl p-4">
-                {NAV_LINKS.map((link, index) => {
+                {BLOG_NAV_LINKS.map((link, index) => {
                   const active = isActive(link.href);
 
                   return (
@@ -231,7 +192,7 @@ const Navbar = () => {
                     >
                       <TransitionLink
                         href={link.href}
-                        onClick={() => handleNavClick(link.href)}
+                        onClick={mobileMenu.close}
                         className={cn(
                           "px-4 py-3 text-base font-medium rounded-lg",
                           "transition-all duration-300",
@@ -255,13 +216,14 @@ const Navbar = () => {
                   transition={{
                     duration: 0.25,
                     ease: "easeOut",
-                    delay: prefersReducedMotion ? 0 : NAV_LINKS.length * 0.04,
+                    delay: prefersReducedMotion
+                      ? 0
+                      : BLOG_NAV_LINKS.length * 0.04,
                   }}
                 >
-                  <a
-                    href={CALENDLY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <TransitionLink
+                    href="/"
+                    onClick={mobileMenu.close}
                     className={cn(
                       "mt-2 px-4 py-3 text-base font-medium rounded-lg",
                       "bg-accent text-white",
@@ -270,37 +232,8 @@ const Navbar = () => {
                       "flex items-center justify-center gap-2",
                     )}
                   >
-                    <Calendar className="w-5 h-5" />
-                    Prendre rendez-vous
-                  </a>
-                </motion.div>
-
-                <motion.div
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: 6 }}
-                  animate={
-                    prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-                  }
-                  transition={{
-                    duration: 0.25,
-                    ease: "easeOut",
-                    delay: prefersReducedMotion
-                      ? 0
-                      : (NAV_LINKS.length + 1) * 0.04,
-                  }}
-                >
-                  <TransitionLink
-                    href="/blog"
-                    onClick={mobileMenu.close}
-                    className={cn(
-                      "px-4 py-3 text-base font-medium rounded-lg",
-                      "transition-all duration-300",
-                      "hover:bg-secondary-background",
-                      pathname.startsWith("/blog")
-                        ? "text-accent bg-accent-light"
-                        : "text-primary hover:text-accent",
-                    )}
-                  >
-                    Blog
+                    <ArrowLeft className="w-5 h-5" />
+                    Retour au site
                   </TransitionLink>
                 </motion.div>
               </div>
@@ -323,6 +256,4 @@ const Navbar = () => {
       </div>
     </motion.header>
   );
-};
-
-export default Navbar;
+}

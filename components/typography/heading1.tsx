@@ -16,8 +16,8 @@ const heading1Variants = cva("scroll-m-20 font-bold tracking-tight", {
     size: {
       sm: "text-xl",
       md: "text-3xl",
-      lg: "text-4xl",
-      xl: "text-5xl",
+      lg: "text-2xl sm:text-3xl lg:text-4xl",
+      xl: "text-3xl sm:text-4xl lg:text-5xl",
     },
   },
   defaultVariants: {

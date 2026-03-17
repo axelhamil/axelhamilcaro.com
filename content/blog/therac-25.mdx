@@ -1,0 +1,711 @@
+---
+title: "Le Therac-25"
+subtitle: "Quand le logiciel tue : les accidents du Therac-25"
+date: "2025-03-17"
+excerpt: "Traduction française de l'annexe A « Medical Devices: The Therac-25 » tirée de Safeware de Nancy Leveson (1995)."
+tags: ["Sécurité logicielle", "Étude de cas", "Radiothérapie"]
+category: "Traduction"
+pdfUrl: "http://sunnyday.mit.edu/papers/therac.pdf"
+---
+
+# Dispositifs médicaux : Le Therac-25
+
+> Traduction française de l'annexe A *« Medical Devices: The Therac-25 »* de Nancy Leveson, tirée de *Safeware: System Safety and Computers* (Addison-Wesley, 1995). Tous droits réservés à l'autrice. Le texte original est [librement accessible en PDF](http://sunnyday.mit.edu/papers/therac.pdf) sur le site du MIT.
+>
+> \
+> L'affaire du Therac-25 est l'un des cas d'étude les plus importants en sécurité logicielle, et il reste très peu documenté en français. Des bugs logiciels ont directement causé la mort de patients, mais ce sont surtout les défaillances organisationnelles qui les ont rendus possibles. Un texte essentiel pour quiconque écrit du code dont dépendent des vies humaines.
+
+## 1. Introduction
+
+Entre juin 1985 et janvier 1987, une machine de radiothérapie contrôlée par ordinateur, appelée Therac-25, a massivement surdosé six personnes. Ces accidents ont été décrits comme les pires de l'histoire, couvrant 35 ans d'utilisation d'accélérateurs médicaux [6].
+
+On trouvera une enquête détaillée sur l'accident, fondée sur des documents accessibles au public, dans les travaux de Leveson et Turner [4]. Le compte rendu qui suit en est tiré et couvre à la fois les facteurs à l'origine des surdoses et les tentatives des utilisateurs, du fabricant et des autorités pour y remédier. Cet accident n'ayant jamais fait l'objet d'une enquête officielle, certaines informations sur le développement, la gestion et les procédures de contrôle qualité du logiciel Therac-25 demeurent indisponibles. Les éléments présentés ici proviennent de procès, de dépositions, de documents gouvernementaux, ainsi que de correspondances et d'autres pièces obtenues auprès de la Food and Drug Administration (FDA) des États-Unis, qui réglemente ces dispositifs.
+
+## 2. Contexte
+
+Les accélérateurs linéaires médicaux (linacs) accélèrent les électrons pour créer des faisceaux de haute énergie qui peuvent détruire les tumeurs avec un impact minimal sur les tissus sains. Les tissus superficiels sont traités avec des électrons accélérés ; pour atteindre les tissus plus profonds, le faisceau d'électrons est converti en photons X.
+
+Au début des années 1970, Atomic Energy of Canada Limited (AECL) et une entreprise française appelée CGR ont uni leurs forces pour concevoir et fabriquer des accélérateurs linéaires. Les produits de cette collaboration étaient (1) le Therac-6, un accélérateur de 6 millions d'électronvolts (MeV) capable de produire uniquement des rayons X, et plus tard (2) le Therac-20, un accélérateur de 20 MeV, à double mode (rayons X ou électrons). Les deux étaient des versions de machines CGR plus anciennes, respectivement la Neptune et la Sagittaire, qui ont été améliorées avec un contrôle informatique utilisant un micro-ordinateur DEC PDP-11. Nous savons que certaines des anciennes routines logicielles du Therac-6 ont été réutilisées dans le Therac-20 et que CGR a développé le logiciel initial.
+
+Le rôle du logiciel restait limité dans ces deux machines : l'ordinateur se contentait de compléter des composants matériels existants, eux-mêmes capables de fonctionner de manière autonome. Les dispositifs de sécurité et les systèmes de verrouillage conformes aux normes de l'industrie, présents dans les machines d'origine, avaient été conservés.
+
+La relation commerciale entre AECL et CGR a vacillé après le projet Therac-20. Invoquant des pressions concurrentielles, les deux entreprises n'ont pas renouvelé leur accord de coopération, comme prévu, en 1981.
+
+Au milieu des années 1970, AECL avait développé un concept radicalement nouveau, un « double passage », pour l'accélération des électrons. Un accélérateur à double passage nécessite beaucoup moins d'espace pour atteindre des niveaux d'énergie comparables, car il replie le long mécanisme physique nécessaire pour accélérer les électrons, et il est plus économique à produire. En utilisant ce concept de double passage, AECL a conçu le Therac-25, un accélérateur linéaire à double mode capable de délivrer soit des photons à 25 MeV, soit des électrons à divers niveaux d'énergie.
+
+Comparé au Therac-20, le Therac-25 est nettement plus compact, plus polyvalent et, selon toute vraisemblance, plus facile à utiliser. L'énergie plus élevée exploite le phénomène de la dose en profondeur : à mesure que l'énergie augmente, la profondeur dans le corps où l'accumulation maximale de la dose se produit augmente également, ce qui protège les tissus situés au-dessus de la zone cible. Des avantages économiques sont également offerts au client, puisqu'une seule machine est nécessaire pour les deux modalités de traitement (électrons et photons).
+
+AECL était une entité indépendante, appelée société d'État, du gouvernement canadien. Depuis les événements relatés dans cet article, la division AECL Medical, qui faisait partie d'AECL, a été privatisée et s'appelle désormais Theratronics International, Ltd. Actuellement, l'activité principale d'AECL est la conception et l'installation de réacteurs nucléaires.
+
+Plusieurs caractéristiques du Therac-25 sont importantes pour comprendre les accidents. Tout d'abord, comme le Therac-6 et le Therac-20, le Therac-25 est contrôlé par un ordinateur PDP-11. Cependant, AECL a conçu le Therac-25 pour profiter du contrôle informatique dès le départ ; ils ne se sont pas basés sur une machine autonome. Le Therac-6 et le Therac-20 avaient été conçus autour de machines qui avaient déjà fait l'objet d'une utilisation clinique sans contrôle informatique.
+
+De plus, le logiciel du Therac-25 est davantage responsable du maintien de la sécurité que le logiciel des machines précédentes. Le Therac-20 dispose de circuits de protection indépendants pour surveiller le balayage du faisceau d'électrons, ainsi que de dispositifs de verrouillage mécaniques pour contrôler le fonctionnement de la machine et garantir une utilisation sûre. Le Therac-25 s'appuie davantage sur le logiciel pour ces fonctions. AECL a profité des capacités de l'ordinateur pour contrôler et surveiller le matériel et a décidé de ne pas dupliquer tous les mécanismes de sécurité et les dispositifs de verrouillage existants.
+
+Certaines parties du logiciel pour les machines étaient interconnectées ou réutilisées. Dans une lettre adressée à un utilisateur de Therac-25, le responsable de l'assurance qualité de l'AECL a déclaré : « Le même package Therac-6 a été utilisé par les développeurs de logiciels de l'AECL lorsqu'ils ont commencé le développement du logiciel Therac-25. Les programmes logiciels Therac-20 et Therac-25 ont été développés indépendamment, à partir d'une base commune » [4]. La réutilisation de certaines caractéristiques ou modules de la conception Therac-6 peut expliquer certains aspects problématiques de la conception du logiciel Therac-25. Le responsable de l'assurance qualité semblait ignorer que certaines routines Therac-20 étaient également utilisées dans le logiciel Therac-25 ; cela a été découvert après qu'un bug lié à l'un des accidents de Therac-25 a été détecté dans le logiciel Therac-20.
+
+AECL a produit le premier prototype « hardwired » du Therac-25 en 1976, et la version commerciale entièrement contrôlée par ordinateur a été disponible fin 1982.
+
+### Positionnement de la table rotative
+
+La conception de la table rotative du Therac-25 joue un rôle important dans les accidents. La table rotative supérieure (voir la Figure 1) fait pivoter l'équipement auxiliaire dans le trajet du faisceau pour produire deux modes thérapeutiques : le mode électron et le mode photon. Une troisième position (appelée la position de la lumière de champ) ne comporte aucun faisceau, mais sert plutôt à faciliter le positionnement correct du patient. Étant donné que les accessoires appropriés à chaque mode sont physiquement fixés au plateau tournant, le bon fonctionnement du Therac-25 dépend fortement de la position du plateau, qui est surveillée par trois micro-interrupteurs.
+
+![Figure 1 : Ensemble de la platine supérieure.](/therac-25/fig1-turntable.png)
+
+> *Figure originale en anglais. Légende traduite ci-dessous.*
+
+| Anglais | Français |
+|---|---|
+| Turntable microswitch assembly | Ensemble micro-interrupteur de la platine |
+| Plunger | Piston |
+| Counterweight | Contrepoids |
+| Mirror | Miroir |
+| X-ray mode target | Cible du mode rayons X |
+| Flattener | Aplatisseur de faisceau |
+| Microswitch actuators | Actionneurs de micro-interrupteur |
+| Electron mode scan magnet | Aimant de balayage en mode électron |
+
+Le faisceau d'accélérateur, brut et très concentré, est dangereux pour les tissus vivants. En radiothérapie par électrons, l'ordinateur contrôle l'énergie du faisceau (de 5 à 25 MeV) et le courant, tandis que des aimants de balayage sont utilisés pour étaler le faisceau à une concentration sûre et thérapeutique. Ces aimants de balayage sont montés sur le plateau rotatif et sont déplacés à la position appropriée par l'ordinateur. De même, une chambre d'ionisation pour mesurer les électrons est montée sur le plateau rotatif et est également déplacée à la position appropriée par l'ordinateur. De plus, des ajusteurs d'électrons montés sur la console peuvent être utilisés pour façonner le faisceau si nécessaire.
+
+Pour la radiothérapie par rayons X (ou photons), un seul niveau d'énergie est disponible : 25 MeV. Un courant de faisceau d'électrons beaucoup plus important est nécessaire en mode rayons X (environ 100 fois supérieur à celui de la radiothérapie par électrons) [6] pour produire une puissance de sortie comparable. Une telle capacité de débit de dose élevé est requise parce qu'un « aplatisseur de faisceau » est utilisé pour produire un champ de traitement uniforme. Cet aplatisseur, qui ressemble à un cône de glace à l'envers, est un atténuateur très efficace ; par conséquent, pour obtenir un débit de dose de traitement raisonnable à partir de l'aplatisseur, un débit de dose d'entrée très élevé est nécessaire. Si la machine devait produire un faisceau de photons avec l'aplatisseur de faisceau non positionné, une dose élevée serait délivrée au patient. C'est le principal danger des machines à double mode : si le plateau rotatif est dans la mauvaise position, l'aplatisseur de faisceau ne sera pas en place.
+
+Dans le Therac-25, l'ordinateur est responsable du positionnement de la platine tournante (et de la vérification de la position de cette platine) afin que la cible, le filtre d'aplatissement et la chambre d'ionisation aux rayons X soient directement dans le trajet du faisceau. Avec la cible en place, le bombardement d'électrons produit des rayons X. Le faisceau de rayons X est façonné par le filtre d'aplatissement et mesuré par la chambre d'ionisation aux rayons X.
+
+Aucun faisceau d'accélérateur n'est prévu dans la troisième position de la table rotative, celle de la lumière de champ. Un miroir en acier inoxydable est placé sur le trajet du faisceau, et une lumière simule le faisceau. Cela permet à l'opérateur de voir précisément où le faisceau atteindra le patient et de faire les ajustements nécessaires avant le début du traitement. Il n'y a pas de chambre d'ionisation à cette position de la table rotative, car aucun faisceau n'est prévu.
+
+Traditionnellement, des systèmes de verrouillage électromécaniques étaient utilisés sur ce type d'équipement pour assurer la sécurité (dans ce cas, pour garantir que la table rotative et l'équipement associé se trouvent dans la position correcte avant le début du traitement). Dans le cas du Therac-25, des contrôles logiciels ont remplacé de nombreux systèmes de verrouillage matériels traditionnels.
+
+### L'interface opérateur
+
+La description de l'interface opérateur présentée ici s'applique à la version du logiciel utilisée lors des accidents. Les modifications apportées suite à un rappel de la FDA sont décrites plus loin.
+
+L'opérateur du Therac-25 contrôle la machine via un terminal DEC VT100. Dans le cas général, l'opérateur positionne le patient sur la table de traitement, règle manuellement les dimensions du champ de traitement et la rotation du bras, et attache les accessoires à la machine. Après avoir quitté la salle de traitement, l'opérateur retourne à la console pour saisir l'identification du patient, la prescription du traitement (y compris le mode ou le type de faisceau, le niveau d'énergie, la dose, le débit de dose et le temps), les dimensions du champ, la rotation du bras et les données des accessoires. Le système compare ensuite les valeurs réglées manuellement avec celles saisies à la console. Si elles correspondent, un message de vérification s'affiche et le traitement est autorisé. Si elles ne correspondent pas, le traitement n'est pas autorisé à se poursuivre tant que l'incohérence n'est pas corrigée. La figure 2 montre la disposition de l'écran.
+
+![Figure 2 : Disposition de l'écran de l'interface opérateur.](/therac-25/fig2-operator-screen.png)
+
+> *Figure originale en anglais. Légende traduite ci-dessous.*
+
+| Anglais | Français |
+|---|---|
+| PATIENT NAME | Nom du patient |
+| TREATMENT MODE | Mode de traitement |
+| BEAM TYPE | Type de faisceau |
+| ENERGY (MeV) | Énergie (MeV) |
+| MONITOR UNITS | Unités de dose |
+| GANTRY ROTATION | Rotation du bras |
+| COLLIMATOR (UPPER/LOWER) | Collimateur (supérieur/inférieur) |
+| BEAM READY | Faisceau prêt |
+| TREAT PAUSE | Pause du traitement |
+| DATE COMPLETE | Saisie terminée |
+| VERIFIED | Vérifié |
+
+Lors de la mise en service initiale, les opérateurs se sont plaints de la lenteur de la saisie des données de traitement. En réponse, AECL a modifié le logiciel avant l'installation de la première unité : au lieu de ressaisir les données au clavier, les opérateurs pouvaient simplement utiliser la touche « Entrée » pour reprendre les données du site de traitement précédent [5]. Une série rapide d'appuis sur « Entrée » suffisait ainsi à compléter la saisie. Cette modification a joué un rôle dans plusieurs accidents.
+
+Le Therac-25 pouvait s'arrêter de deux manières après avoir détecté une condition d'erreur. L'une était une **suspension du traitement**, qui nécessitait une réinitialisation complète de la machine pour pouvoir redémarrer. L'autre, moins grave, était une **pause du traitement**, qui ne nécessitait qu'une seule commande de touche pour redémarrer la machine. Si une pause du traitement se produisait, l'opérateur pouvait appuyer sur la touche « P » pour « procéder » et reprendre le traitement rapidement et facilement. Les paramètres du traitement précédent restaient en vigueur, et aucune réinitialisation n'était nécessaire. Cette fonction pouvait être invoquée un maximum de cinq fois avant que la machine ne suspende automatiquement le traitement et que l'opérateur doive effectuer une réinitialisation du système.
+
+Les messages d'erreur affichés à l'opérateur étaient cryptiques : certains se limitaient au mot « MALFUNCTION » suivi d'un nombre de 1 à 64, correspondant à un numéro de canal analogique/numérique. Selon une note de la FDA rédigée après un accident :
+
+> Le manuel d'utilisation fourni avec la machine n'explique pas, et ne traite même pas, les codes de dysfonctionnement. Le manuel de maintenance liste les différents numéros de dysfonctionnement, mais ne donne aucune explication. Les documents fournis ne donnent aucune indication que ces dysfonctionnements pourraient mettre un patient en danger.
+>
+> Le programme n'informe pas l'opérateur si une situation se présente où les chambres d'ion utilisées pour surveiller le patient sont saturées, et donc dépassent les limites de mesure de l'appareil. Ce logiciel ne semble pas contenir un système de sécurité pour empêcher l'entrée et la combinaison de paramètres qui entraîneraient une dose de rayonnement excessive administrée au patient.
+
+Un technicien impliqué dans l'un des accidents a témoigné qu'il s'était habitué aux dysfonctionnements de la machine. Les messages d'erreur étaient fréquents, et la plupart ne mettaient pas en danger la sécurité des patients. Les techniciens de maintenance corrigeaient les problèmes, ou le physicien de l'hôpital réalignait la machine pour la remettre en service. Il a déclaré :
+
+> « Il n'était pas rare que quelque chose arrête la machine. ... Elle émettait souvent un faible débit de dose, auquel cas on redémarrait la machine. ... Elle affichait des messages indiquant un faible débit de dose, un angle de titrage vertical (V-tilt), un angle de titrage horizontal (H-tilt), et d'autres choses ; je ne me souviens pas de toutes les raisons pour lesquelles elle pouvait s'arrêter, mais il y en avait beaucoup. »
+
+Un radiothérapeute d'une autre clinique a rapporté que, certains jours, jusqu'à 40 dysfonctionnements liés au débit de dose, interprétés comme des sous-doses, se produisaient.
+
+L'opératrice a également témoigné que, durant sa formation, on lui avait expliqué qu'il existait « tant de mécanismes de sécurité » qu'elle en avait déduit qu'il était pratiquement impossible de provoquer une surdose chez un patient.
+
+### Analyse des risques
+
+En mars 1983, AECL a effectué une analyse de sécurité concernant le Therac-25. Cette analyse a pris la forme d'un arbre de défaillance et a apparemment exclu le logiciel. Selon le rapport final, l'analyse a fait plusieurs hypothèses concernant l'ordinateur et son logiciel :
+
+1. Les erreurs de programmation ont été réduites grâce à des tests approfondis sur un simulateur matériel et dans des conditions réelles sur des appareils de télothérapie. Les éventuelles erreurs logicielles résiduelles ne sont pas incluses dans l'analyse.
+
+2. Le logiciel ne se dégrade pas en raison de l'usure, de la fatigue ou du processus de reproduction.
+
+3. Les erreurs d'exécution des ordinateurs sont causées par des composants matériels défectueux et par des erreurs « logicielles » (aléatoires) induites par les particules alpha et le bruit électromagnétique.
+
+L'arbre de défaillance résultant de cette analyse semble inclure une défaillance de l'ordinateur, bien qu'apparemment, d'après les hypothèses de base mentionnées ci-dessus, il ne prenne en compte que les défaillances matérielles. Par exemple, dans une porte OU menant à l'événement d'obtenir une énergie incorrecte, une case contient « L'ordinateur sélectionne une énergie incorrecte », et une probabilité de 10⁻¹¹ est attribuée à cet événement. Pour « L'ordinateur sélectionne un mode incorrect », une probabilité de 4 × 10⁻⁹ est donnée. Le rapport ne justifie aucun de ces nombres.
+
+## 3. Événements
+
+Onze machines Therac-25 ont été installées : cinq aux États-Unis et six au Canada. Six accidents se sont produits entre 1985 et 1987, date à laquelle la machine a finalement été retirée du marché pour y apporter des modifications de conception importantes. Ces modifications comprennent l'ajout de dispositifs de sécurité matériels pour prévenir les erreurs logicielles.
+
+Des problèmes similaires ont été détectés dans le logiciel Therac-20, mais ils n'ont pas été reconnus avant les accidents du Therac-25, car le Therac-20 intègre des dispositifs de sécurité matériels. Par conséquent, aucune blessure n'a été causée.
+
+### 3.1 Centre régional d'oncologie de Kennestone, juin 1985
+
+Les détails de cet accident survenu à Marietta, en Géorgie, sont fragmentaires car il n'a jamais fait l'objet d'une enquête. Personne n'a reconnu que la blessure avait été causée par le Therac-25 avant très longtemps, et ce malgré les affirmations de la patiente selon lesquelles elle avait été blessée pendant le traitement, les brûlures radiologiques graves et manifestes qu'elle avait subies, et les soupçons du physicien des rayonnements impliqué.
+
+Après une lumpectomie pour retirer une tumeur maligne du sein, une femme de 61 ans suivait un traitement de radiothérapie complémentaire ciblant les ganglions lymphatiques voisins, administré par un Therac-25 dans l'établissement de Kennestone à Marietta. L'appareil était en service à Kennestone depuis environ six mois ; d'autres Therac-25 fonctionnaient apparemment sans incident depuis 1983.
+
+Le 3 juin 1985, la patiente a été préparée pour un traitement aux électrons de 10 MeV ciblant la région de la clavicule. Lorsque la machine a été activée, elle a ressenti une « énorme force de chaleur… cette sensation de chaleur intense ». Quand le technicien est entré, elle lui a dit : « Vous m'avez brûlée. » Il a répondu que c'était impossible. Bien qu'aucune marque ne fût visible sur la patiente à ce moment-là, la zone traitée était « chaude au toucher ».
+
+Il est difficile de déterminer précisément quand AECL a pris connaissance de cet incident. Tim Still, le physicien de Kennestone, a déclaré avoir contacté AECL pour savoir si le Therac-25 pouvait fonctionner en mode électron sans balayage du faisceau. Trois jours plus tard, les ingénieurs d'AECL l'ont rappelé pour lui assurer qu'un balayage incorrect était impossible.
+
+Dans une lettre du 19 août 1986 adressée à la FDA, le responsable qualité d'AECL a déclaré : « En mars 1986, AECL a reçu une plainte de la patiente concernée. Cet incident ne nous avait jamais été signalé auparavant. »
+
+Le physicien d'un hôpital de Tyler, au Texas, où un accident ultérieur s'est produit, a rapporté : « Selon Tim Still, le patient a intenté une action en justice en octobre 1985, nommant l'hôpital, le fabricant et l'organisation de maintenance responsable de l'appareil. AECL a été informée de manière informelle de cette action par l'hôpital, et AECL a reçu une notification officielle d'une action en justice en novembre 1985. »
+
+En raison de la poursuite judiciaire (déposée le 13 novembre 1985), certains administrateurs de l'AECL devaient être au courant de l'accident de Marietta, bien qu'aucune enquête n'ait été menée à ce moment-là. Les mémos de la FDA soulignent l'absence d'un mécanisme au sein de l'AECL pour donner suite aux rapports d'incidents présumés [4].
+
+La patiente est rentrée chez elle, mais peu après, une rougeur et un gonflement sont apparus au centre de la zone traitée. La douleur s'est intensifiée au point que son épaule « s'est bloquée », accompagnée de spasmes. Elle a été admise dans un hôpital d'Atlanta, mais ses oncologues ont continué de l'envoyer à Kennestone pour des traitements avec le Therac-25. On a cherché une explication clinique à la rougeur cutanée, que son oncologue a d'abord attribuée à sa maladie ou à une réaction normale au traitement.
+
+Environ deux semaines plus tard, le physicien de Kennestone a constaté que la patiente présentait une rougeur similaire dans le dos, comme si une brûlure avait traversé tout son corps, et que la zone enflée avait commencé à desquamer. Son épaule était immobile, et elle semblait souffrir intensément. Il était désormais évident qu'elle avait subi une brûlure radiologique, mais ni l'hôpital ni ses médecins ne parvenaient à fournir une explication satisfaisante.
+
+Le physicien de Kennestone a estimé par la suite que la patiente avait reçu une ou deux doses comprises entre 15 000 et 20 000 rads (dose absorbée de radiation). Selon lui, sa blessure n'aurait pas pu être causée par moins de 8 000 rads. Pour mesurer l'ampleur du phénomène, il faut savoir que les doses thérapeutiques unitaires se situent typiquement autour de 200 rads. Une dose de 1 000 rads peut être mortelle si elle est administrée à l'ensemble du corps ; 500 rads est d'ailleurs le seuil généralement admis pour une irradiation corporelle totale entraînant la mort dans 50 % des cas. Les conséquences d'une surdose localisée dépendent de la radiosensibilité du tissu touché. Le directeur de l'oncologie radiothérapeutique de Kennestone a expliqué leur confusion en soulignant qu'ils n'avaient jamais été confrontés à un surtraitement d'une telle ampleur [7].
+
+Le sein de la patiente a finalement dû être retiré à cause des brûlures radiologiques. Son épaule et son bras étaient paralysés, et elle souffrait de douleurs permanentes. Elle avait subi une grave brûlure par irradiation, mais le fabricant comme les opérateurs de la machine refusaient de croire que le Therac-25 pouvait en être la cause. La fonction d'impression des prescriptions de traitement était désactivée au moment de l'accident : il n'existait donc aucune trace écrite des données du traitement. Le procès a finalement été réglé à l'amiable.
+
+D'après ce que l'on peut établir, l'accident n'a pas été signalé à la FDA avant les incidents ultérieurs de 1986. À l'époque, les obligations de signalement des incidents liés aux dispositifs médicaux ne s'appliquaient qu'aux fabricants et aux importateurs, pas aux utilisateurs. La réglementation exigeait que fabricants et importateurs signalent les décès, blessures graves ou dysfonctionnements susceptibles d'entraîner de telles conséquences, mais les professionnels de santé et les établissements n'étaient pas tenus de signaler les incidents aux fabricants. Le contrôleur général du Government Accountability Office (GAO) des États-Unis, lors d'une audition devant le Congrès le 6 novembre 1989, a exprimé de vives préoccupations quant à l'efficacité de ces réglementations pour prévenir ou détecter les problèmes liés aux dispositifs médicaux. Selon une étude du GAO de 1990, la FDA n'avait connaissance que de moins de 1 % des décès, blessures graves ou dysfonctionnements survenus dans les hôpitaux [2]. La loi a été amendée en 1990 pour obliger les établissements de santé à signaler les incidents aux fabricants et à la FDA.
+
+À ce moment-là, les autres utilisateurs du Therac-25 ignoraient également qu'un incident s'était produit et n'ont appris les problèmes liés à la machine qu'après d'autres accidents. Même dans ce cas, la plupart de leurs informations provenaient de communications personnelles entre eux.
+
+### 3.2 Fondation du cancer de l'Ontario, juillet 1985
+
+Le deuxième incident de cette série s'est produit environ sept semaines après la surdose de Kennestone. Le Therac-25 de la Ontario Cancer Foundation, à Hamilton (Ontario, Canada), était alors en service depuis plus de six mois. Le 26 juillet 1985, une patiente de quarante ans s'est présentée à la clinique pour sa vingt-quatrième séance de traitement au Therac-25, dans le cadre d'un cancer du col de l'utérus. L'opérateur a mis la machine en marche, mais le Therac s'est arrêté après cinq secondes, affichant un message d'erreur HTILT. L'écran de la console du Therac-25 indiquait « NO DOSE » (pas de dose) et signalait une « TREATMENT PAUSE » (pause du traitement).
+
+La machine n'ayant pas suspendu le traitement et l'écran de contrôle indiquant qu'aucune dose n'avait été administrée, l'opérateur a procédé à une deuxième tentative en appuyant sur la touche « P » (la commande « continuer »), s'attendant à ce que la machine délivre la dose correcte cette fois. C'était la procédure habituelle : les opérateurs du Therac-25 s'étaient habitués aux pannes fréquentes sans conséquences pour le patient. La machine s'est de nouveau arrêtée de la même manière. L'opérateur a répété cette procédure quatre fois après la tentative initiale, l'écran indiquant à chaque fois qu'aucune dose n'avait été administrée. Après la cinquième pause, la machine est passée en mode de suspension du traitement, et un technicien de l'hôpital a été appelé. Il n'a rien trouvé d'anormal. Selon un opérateur du Therac-25, ce type de scénario n'avait rien d'inhabituel.
+
+Après le traitement, la patiente s'est plainte d'une sensation de brûlure, qu'elle a décrite comme un « choc électrique avec des picotements » dans la zone traitée de sa hanche. Six autres patients ont été traités ce jour-là sans incident. La patiente est revenue le 29 juillet pour une nouvelle séance et s'est plainte de brûlures, de douleurs à la hanche et d'un gonflement excessif dans la zone traitée. Elle a été hospitalisée le 30 juillet, et l'appareil a été retiré du service.
+
+AECL a été informée de la lésion radiologique apparente et a envoyé un ingénieur de service pour enquêter. La FDA américaine, le Bureau canadien de protection contre les radiations (RPB) et les utilisateurs ont été avertis d'un problème, bien que les utilisateurs affirment n'avoir jamais été informés qu'un patient avait été blessé. On leur a simplement demandé de vérifier visuellement l'alignement du plateau tournant jusqu'à nouvel ordre — consigne levée trois mois plus tard.
+
+La patiente est décédée le 3 novembre 1985 d'un cancer extrêmement virulent. L'autopsie a confirmé que la cause du décès était le cancer, mais a noté que, si la patiente avait survécu, un remplacement total de la hanche aurait été nécessaire en raison de la surexposition aux radiations. Un technicien d'AECL a estimé par la suite qu'elle avait reçu entre 13 000 et 17 000 rads.
+
+#### 3.2.1 Réponse du fabricant
+
+AECL n'a pas pu reproduire la panne qui s'était produite, mais a suspecté une défaillance transitoire dans le micro-interrupteur utilisé pour déterminer la position du plateau tournant. Lors de l'enquête sur l'accident, AECL a « câblé » les conditions d'erreur qu'elle supposait nécessaires à la panne et, par conséquent, a découvert certaines faiblesses de la conception du positionnement du plateau tournant et des problèmes mécaniques potentiels.[^1]
+
+[^1]: Le 1er avril 1986, le Bureau de la protection contre les radiations et le Bureau des dispositifs médicaux ont été fusionnés pour former le Bureau de la radioprotection et des dispositifs médicaux (BRMD).
+
+L'ordinateur détecte et contrôle la position de la platine en lisant un signal de 3 bits concernant l'état de trois micro-interrupteurs dans l'ensemble de commutation de la platine. En substance, AECL a déterminé qu'une erreur d'un bit dans les codes des micro-interrupteurs (qui pourrait être causée par un simple défaut de circuit ouvert sur les lignes de commutation) pouvait produire un message de position ambigu pour l'ordinateur. Le problème était aggravé par la conception du mécanisme qui étend un piston pour verrouiller la platine lorsqu'elle se trouve dans l'une des trois positions cardinales : le piston pouvait être étendu lorsque la platine était très éloignée de sa position, ce qui donnait une deuxième fausse indication de position. AECL a conçu une méthode pour indiquer la position de la platine qui tolère une erreur d'un bit, de sorte que le code révèle toujours de manière non ambiguë la position correcte, même en cas de défaillance d'un seul micro-interrupteur.
+
+De plus, AECL a modifié le logiciel de manière à ce que l'ordinateur vérifie l'état « en transit » des interrupteurs afin de suivre plus précisément le fonctionnement des interrupteurs et la position du plateau, et afin de fournir une assurance supplémentaire que les interrupteurs fonctionnaient correctement et que le plateau était en mouvement.
+
+En conséquence de ces améliorations, AECL a affirmé dans son rapport et dans ses correspondances avec les hôpitaux que « l'analyse du taux de risque de la nouvelle solution indique une amélioration par rapport à l'ancien système d'au moins cinq ordres de grandeur ». Cependant, dans son rapport final d'incident à la FDA, AECL a conclu qu'elle « ne peut pas déterminer avec certitude la cause exacte de l'accident, mais ne peut que suspecter... », ce qui soulignait son incapacité à déterminer la cause de l'accident avec une quelconque certitude. Le responsable de l'assurance qualité d'AECL a témoigné qu'ils n'ont pas pu reproduire le dysfonctionnement du commutateur et que les tests du micro-interrupteur étaient « inconclusifs ». La similitude du comportement erroné et des blessures chez les patients dans cet accident et dans un autre ultérieur à Yakima, Washington, fournit une bonne raison de croire que la surdose de Hamilton était probablement due à une erreur logicielle plutôt qu'à une défaillance du micro-interrupteur.
+
+#### 3.2.2 Réponse des pouvoirs publics et des utilisateurs
+
+L'accident de Hamilton a entraîné un rappel volontaire de la part d'AECL, et la FDA a qualifié ce rappel de rappel de classe II. La classe II signifie « une situation dans laquelle l'utilisation ou l'exposition à un produit non conforme peut entraîner des conséquences néfastes pour la santé, temporaires ou médicalement réversibles, ou dans laquelle la probabilité de conséquences néfastes graves est faible ». La FDA a audité les modifications ultérieures apportées par AECL, et après que ces modifications aient été réalisées, les utilisateurs ont été informés qu'ils pouvaient reprendre les procédures de fonctionnement normales.
+
+Suite à l'accident de Hamilton, le chef du département des systèmes de radiographie avancés de la Commission de la radioprotection du Canada (RPB), Gordon Symonds, a rédigé un rapport analysant la conception et les caractéristiques de performance du Therac-25 en termes de sécurité radiologique. Outre la mention du micro-interrupteur défectueux, le rapport a pointé du doigt à la fois les composants matériels et logiciels de la conception du Therac. Il s'est conclu par une liste de quatre modifications nécessaires au Therac-25 pour se conformer à la loi canadienne sur les appareils émetteurs de rayonnement (RED). La loi RED, adoptée en 1971, confère aux fonctionnaires gouvernementaux le pouvoir de garantir la sécurité des appareils émetteurs de rayonnement.
+
+Les modifications spécifiées dans le rapport de Symonds comprenaient la redéfinition du micro-interrupteur et la modification de la manière dont l'ordinateur gérait les conditions de dysfonctionnement. En particulier, le traitement devait être interrompu en cas de dysfonctionnement du débit de dose, ce qui entraînerait une « suspension » du traitement. Ce changement aurait supprimé la possibilité de poursuivre simplement en appuyant sur la touche « P ». Le rapport contenait également des recommandations concernant les procédures de test du collimateur ainsi que les formats des messages et des commandes. Une lettre du 8 novembre 1985, signée par le directeur du RPB canadien, demandait à AECL de modifier le Therac-25 sur la base du rapport de Symonds « afin de se conformer à la loi RED ».
+
+Bien que, comme mentionné ci-dessus, AECL ait effectué les modifications du micro-interrupteur, elle n'a pas respecté l'instruction de modifier le comportement de la pause en cas de dysfonctionnement pour le transformer en suspension du traitement, réduisant plutôt le nombre maximal de tentatives de cinq à trois. Selon Symonds, les lacunes décrites dans la lettre du RPB du 8 novembre étaient toujours en suspens lorsque le prochain accident s'est produit cinq mois plus tard.
+
+Immédiatement après l'accident de Hamilton, la Fondation du cancer de l'Ontario a engagé un consultant indépendant pour mener une enquête. Il a conclu dans un rapport de septembre 1985 qu'un système indépendant (en plus de l'ordinateur) était nécessaire pour vérifier la position du plateau tournant et a suggéré l'utilisation d'un potentiomètre. La RPB a écrit une lettre à AECL en novembre 1985, demandant à AECL d'installer un tel système de sécurité indépendant sur le Therac-25. De plus, en janvier 1986, AECL a reçu une lettre de l'avocat représentant la clinique de Hamilton. Cette lettre indiquait qu'il y avait eu des problèmes continus avec le plateau tournant, y compris quatre incidents à Hamilton, et demandait l'installation d'un système indépendant (potentiomètre) pour vérifier la position du plateau tournant. AECL n'a pas donné suite : aucun système de sécurité indépendant n'a été installé par AECL sur les Therac-25 à cette époque. Cependant, la clinique de Hamilton a décidé d'en installer elle-même un sur sa machine.
+
+### 3.3 Hôpital Yakima Valley Memorial, décembre 1985
+
+Comme pour la surdose de Kennestone, le dysfonctionnement de la machine n'a été reconnu qu'après que d'autres accidents eurent été élucidés.
+
+Le Therac-25 de Yakima (État de Washington) avait été modifié par AECL en septembre 1985, à la suite de la surdose de Hamilton. En décembre 1985, une femme traitée avec le Therac-25 a développé un érythème (rougeur excessive de la peau) formant des rayures parallèles sur sa hanche droite. Malgré cela, elle a continué à être traitée par le Therac-25, car sa réaction n'a été jugée anormale qu'en janvier 1986. Le 6 janvier, ses traitements ont pris fin.
+
+Le personnel a surveillé attentivement la réaction cutanée et tenté d'en identifier les causes. Les espaces libres dans les plateaux de blocage du Therac-25 auraient pu produire un tel motif rayé, mais lorsque la réaction a été jugée anormale, les plateaux avaient déjà été jetés, empêchant toute reconstitution de l'agencement des blocs. Une réaction à la chimiothérapie a été écartée : elle aurait dû provoquer des réactions sur les autres sites de traitement et n'aurait pas produit de rayures. Lorsque les médecins ont appris que la patiente dormait avec un coussin chauffant, ils ont envisagé que les fils parallèles du coussin aient pu causer ce motif. Le personnel a radiographié le coussin, mais le motif des fils ne correspondait pas à l'érythème sur la hanche de la patiente.
+
+Le personnel de l'hôpital a envoyé une lettre à AECL le 31 janvier, et ils ont également discuté par téléphone avec le superviseur du support technique d'AECL. Le 24 février, le superviseur du support technique d'AECL a envoyé une réponse écrite au directeur de la radiothérapie de Yakima, déclarant : « Après mûre réflexion, nous sommes d'avis que ces dommages n'auraient pas pu être causés par un dysfonctionnement du Therac-25 ou par une erreur de l'opérateur. » La lettre continue de soutenir cette opinion en énumérant deux pages de raisons techniques expliquant pourquoi un surdosage par le Therac-25 était impossible, ainsi que l'argument supplémentaire selon lequel « il semble qu'il n'y ait eu aucune autre occurrence de dommages similaires à ce ou à d'autres patients ». La lettre se termine par : « En conclusion, je tiens à vous informer que cette question a été portée à l'attention de notre comité des risques, comme c'est la pratique habituelle. »
+
+Le personnel de l'hôpital a finalement attribué la réaction cutanée du patient à une « cause inconnue ». Dans un rapport rédigé un an après l'incident de Yakima, le physicien médical impliqué a écrit :
+
+> À cette époque, nous ne pensions pas que [le patient] avait reçu une dose excessive, car le fabricant avait installé des dispositifs de sécurité matériels et logiciels supplémentaires sur l'accélérateur.
+>
+> Dans une lettre du fabricant datée du 16-09-85, il est indiqué que « l'analyse du taux de risque résultant de ces modifications révèle une amélioration d'au moins cinq ordres de grandeur ! ». Avec une telle amélioration en matière de sécurité (10 000 000 %), nous ne pensions pas qu'il pouvait y avoir eu un dysfonctionnement de l'accélérateur. Ces modifications de l'accélérateur ont été achevées le 5 et 6 septembre 1985.
+
+Même avec un support technique assez sophistiqué, le personnel de l'hôpital, en tant qu'utilisateurs, n'avait pas la possibilité d'enquêter plus avant sur la possibilité d'un dysfonctionnement de la machine. Ils n'étaient pas au courant d'autres incidents et, en fait, on leur a dit qu'il n'y en avait eu aucun, il n'y avait donc aucune raison pour qu'ils approfondissent la question. Aucune autre enquête sur cet incident n'a été menée par le fabricant ou par aucune agence gouvernementale (qui n'était pas au courant).
+
+Environ un an plus tard (février 1987), après que la deuxième surdose de Yakima ait amené le personnel hospitalier à suspecter que cette première blessure était due à un dysfonctionnement du Therac-25, le personnel a mené une enquête et a découvert que la première victime de surdose avait une ulcération cutanée chronique, une nécrose tissulaire sous la peau, et souffrait de douleurs constantes. Les dommages ont été réparés chirurgicalement, des greffes de peau ont été réalisées, et les symptômes ont été atténués. La patiente est toujours en vie aujourd'hui, avec une légère invalidité et quelques cicatrices liées à la surdose. Le personnel hospitalier a conclu que la dose administrée accidentellement lors du premier incident devait être beaucoup plus faible que lors du deuxième, car la réaction était significativement moins intense et la nécrose ne s'est développée que six à huit mois après l'exposition. Certains autres facteurs liés à la zone du corps où la surdose s'est produite ont également contribué à éviter des problèmes plus importants.
+
+### 3.4 Centre de cancérologie de l'est du Texas, mars 1986
+
+On dispose de davantage d'informations sur les incidents de Tyler (Texas) que sur les autres, grâce au travail assidu du physicien de l'hôpital, Fritz Hager. Sans ses efforts, la découverte des problèmes logiciels aurait pu être retardée encore davantage.
+
+Le Therac-25 était installé à l'East Texas Cancer Center (ETCC) depuis deux ans, et plus de 500 patients avaient été traités sans incident majeur. Le 21 mars 1986, un patient s'est rendu à l'ETCC pour sa neuvième séance de traitement au Therac-25, dans le cadre d'une série prescrite après l'ablation d'une tumeur dorsale.
+
+Ce traitement devait consister en une irradiation par faisceau d'électrons de 22 MeV, délivrant 180 rads sur le haut du dos, légèrement à gauche de la colonne vertébrale, pour un total de 6 000 rads répartis sur six semaines et demie. Le patient a été installé face contre table dans la salle de traitement. L'opératrice a ensuite quitté la salle, fermé la porte et pris place au terminal de contrôle.
+
+L'opératrice occupait ce poste depuis un certain temps, et son efficacité de saisie avait augmenté avec l'expérience. Elle était capable de saisir rapidement les données des prescriptions et de les modifier aisément grâce aux fonctions d'édition du Therac. Ce jour-là, elle a saisi rapidement la prescription du patient, puis a remarqué qu'elle avait tapé « x » (rayons X) au lieu de « e » (mode électron). C'était une erreur courante, la plupart des traitements impliquant des rayons X. La correction était simple : il suffisait d'utiliser la touche « @ » pour modifier le mode.
+
+Les autres paramètres étant corrects, elle a appuyé plusieurs fois sur la touche Entrée pour les conserver. Arrivée au bas de l'écran, les paramètres étaient indiqués comme VÉRIFIÉS et le terminal affichait BEAM READY, comme prévu. Elle a appuyé sur la commande « @ » pour activer le faisceau et lancer le traitement. Après un instant, la machine s'est arrêtée et la console a affiché MALFUNCTION 54, accompagné d'un message TREATMENT PAUSE indiquant un problème de faible priorité. Une fiche collée sur le côté de la machine précisait que cette panne correspondait à une erreur de « dose input 2 ». L'ETCC ne disposait d'aucune autre information, ni dans le manuel d'instructions ni dans aucun autre document du Therac-25, pour expliquer la signification de MALFUNCTION 54. Un technicien d'AECL a par la suite témoigné que « dose input 2 » signifiait qu'une dose trop élevée ou trop faible avait été délivrée. Ces messages n'étaient censés être utilisés que durant le développement interne de l'entreprise.
+
+La machine indiquait une sous-dose importante : 6 unités de dose affichées, alors que l'opératrice en avait demandé 202. Habituée aux dysfonctionnements de la machine, qui s'arrêtait ou retardait fréquemment le traitement sans conséquences jusqu'ici, elle a immédiatement appliqué la procédure habituelle en cas de simple pause : appuyer sur la touche « P » pour poursuivre. La machine s'est de nouveau arrêtée aussitôt, affichant la même erreur MALFUNCTION 54 et la même sous-dose au dosimètre.
+
+L'opératrice était isolée du patient, l'appareil se trouvant dans une salle blindée. Seuls des moniteurs audio et vidéo permettaient de détecter d'éventuelles difficultés du patient. Ce jour-là, l'écran vidéo était débranché et le moniteur audio hors service.
+
+Après la première tentative de traitement, le patient a déclaré avoir eu l'impression de recevoir un choc électrique, ou que quelqu'un avait versé du café chaud sur son dos : il avait ressenti un choc et de la chaleur, et entendu un bourdonnement provenant de l'équipement. Étant à sa neuvième séance, il savait que cela n'avait rien de normal. Il a commencé à se lever de la table pour appeler à l'aide. C'est à ce moment-là que l'opératrice a appuyé sur la touche « P » pour poursuivre le traitement. Le patient a déclaré avoir eu l'impression que son bras était secoué par l'électricité et que sa main se détachait de son corps. Il s'est traîné jusqu'à la porte de la salle de traitement et a frappé. L'opératrice, choquée, a immédiatement ouvert. Le patient semblait visiblement ébranlé et bouleversé.
+
+Le patient a été immédiatement examiné par un médecin, qui a observé une rougeur intense de la zone traitée sans suspecter rien de plus grave qu'un choc électrique. Le patient a été renvoyé chez lui avec la consigne de revenir en cas de réaction supplémentaire. Le physicien de l'hôpital, appelé sur place, a constaté que l'étalonnage de la machine était conforme aux spécifications. La signification du message d'erreur n'a pas été comprise. La machine a été remise en service pour traiter d'autres patients le reste de la journée.
+
+En réalité, sans que quiconque le sache à l'époque, le patient avait reçu une dose massive, concentrée au centre de la zone de traitement. Les simulations rétrospectives ont révélé des doses potentielles de 16 500 à 25 000 rads en moins d'une seconde, sur une zone d'environ 1 cm.
+
+Au cours des semaines qui ont suivi l'accident, le patient a continué à ressentir des douleurs au cou et à l'épaule. Il a perdu la fonction de son bras gauche et a souffert de crises périodiques de nausées et de vomissements. Il a finalement été hospitalisé pour une myélite cervicale induite par les radiations, ce qui a provoqué une paralysie de son bras gauche et de ses deux jambes, une paralysie du larynx gauche (qui l'a rendu incapable de parler), un dysfonctionnement neurogène du côlon et de la vessie, et une paralysie du diaphragme gauche. Il avait également une lésion au niveau de son poumon gauche et des infections récurrentes de l'herpès simplex cutané. Il est décédé des complications liées à la surdose cinq mois après l'accident.
+
+#### 3.4.1 Réponse de l'utilisateur et du fabricant
+
+Le Therac-25 a été arrêté pour des tests le jour suivant cet accident. Un ingénieur local de l'AECL et un autre du siège social au Canada sont venus à l'ETCC pour enquêter. Ils ont passé une journée à soumettre la machine à des tests, mais n'ont pas pu reproduire un dysfonctionnement 54. L'ingénieur de l'AECL du siège social aurait expliqué qu'il était impossible pour le Therac-25 de surdoser un patient. Le physicien de l'ETCC affirme qu'il a demandé à l'AECL à ce moment précis s'il existait d'autres rapports de surexposition aux radiations, et que le personnel de l'AECL (y compris le responsable de l'assurance qualité) lui a répondu que l'AECL n'était pas au courant d'accidents impliquant une surexposition aux radiations causée par le Therac-25. Cela semble étrange, étant donné que l'AECL était certainement au moins au courant de l'accident de Hamilton qui s'était produit sept mois auparavant, et de l'accident de Yakima, et, même selon leur propre récit, a appris l'existence du procès en Géorgie à peu près à ce moment-là (qui avait été déposé quatre mois auparavant). Les ingénieurs de l'AECL ont ensuite suggéré qu'un problème électrique pourrait avoir causé le problème.
+
+La théorie de l'électrocution a été examinée en profondeur par une entreprise d'ingénierie indépendante. Le rapport final a indiqué qu'il n'y avait aucun problème de mise à la terre dans la machine, et qu'elle ne semblait pas capable de provoquer une électrocution chez un patient. Le physicien de l'ETCC a vérifié l'étalonnage du Therac-25 et l'a trouvé satisfaisant. Il a remis la machine en service le 7 avril 1986, convaincu qu'elle fonctionnait correctement.
+
+### 3.5 Centre de cancérologie de l'est du Texas, avril 1986
+
+Trois semaines plus tard, le 11 avril 1986, un autre patient était programmé pour un traitement par électrons à l'ETCC, pour un cancer de la peau sur le côté du visage. La prescription était de 10 MeV. La même opératrice que lors du premier accident de Tyler a préparé ce patient. L'essentiel de ce qui suit provient de son témoignage.
+
+Comme la fois précédente, elle a saisi les données de la prescription, puis a remarqué une erreur dans le mode. Elle a de nouveau utilisé la touche d'édition « @ » pour passer de « rayons X » à « électrons ». Après la correction, elle a appuyé plusieurs fois sur « Entrée » pour amener le curseur au bas de l'écran. Le message « BEAM READY » s'est affiché et elle a activé le faisceau.
+
+En quelques secondes, la machine s'est arrêtée, émettant un bruit fort audible via l'interphone (qui fonctionnait cette fois). L'écran affichait de nouveau MALFUNCTION 54. L'opératrice s'est précipitée dans la salle de traitement, entendant le patient gémir de douleur. Celui-ci arrachait le ruban qui maintenait sa tête en place en disant que quelque chose n'allait pas. L'opératrice lui a demandé ce qu'il ressentait ; il a répondu : « une sensation de brûlure » sur le côté du visage. Elle s'est immédiatement rendue auprès du physicien de l'hôpital pour l'informer qu'un autre patient semblait avoir été brûlé. Interrogé par le physicien, le patient a expliqué qu'il avait reçu un choc sur le côté du visage, qu'il avait vu un éclair de lumière et entendu un grésillement rappelant la cuisson d'un œuf dans une poêle. Il était très agité et ne cessait de demander : « Qu'est-ce qui m'est arrivé ? Qu'est-ce qui m'est arrivé ? »
+
+Ce patient est décédé le 1er mai 1986, trois semaines après l'accident. Il avait d'abord présenté une désorientation qui a évolué vers un coma, accompagné d'une fièvre atteignant 40 °C et de lésions neurologiques. L'autopsie a révélé une lésion aiguë du lobe temporal droit et du tronc cérébral, causée par une irradiation à forte dose.
+
+#### 3.5.1 Réponse de l'utilisateur et du fabricant
+
+Après ce deuxième accident à Tyler, le physicien de l'ETCC a immédiatement mis la machine hors service et contacté AECL pour signaler cette deuxième surdose apparente. Il a ensuite mené une enquête approfondie en collaboration avec l'opératrice, qui se souvenait précisément de ses manipulations. Après de nombreux essais, ils sont finalement parvenus à reproduire le message MALFUNCTION 54. Ils ont déterminé que la vitesse de saisie lors de la modification était le facteur déclenchant : lorsque les données de prescription étaient modifiées rapidement — ce qui est naturel pour un opérateur expérimenté — une surdose se produisait. Le physicien a dû s'entraîner avant de pouvoir reproduire la procédure assez vite pour déclencher le MALFUNCTION 54 à volonté.
+
+Le lendemain, un ingénieur d'AECL a appelé pour annoncer qu'il ne parvenait pas à reproduire l'erreur. Après que le physicien de l'ETCC lui eut expliqué que la procédure devait être exécutée rapidement, AECL a fini par reproduire une panne similaire sur sa propre machine. Deux jours après l'accident, AECL a annoncé avoir mesuré la dose au centre du champ à 25 000 rads. Un ingénieur d'AECL a précisé que le grésillement entendu par les patients était dû à la saturation des chambres d'ionisation.
+
+Dans l'une des affaires judiciaires découlant des accidents de Tyler, le responsable du contrôle qualité d'AECL a témoigné qu'un problème de « curseur bloqué » avait été détecté en mode maintenance dans d'autres cliniques en février-mars 1985, puis à nouveau durant l'été 1985. Les deux fois, AECL avait cru le problème logiciel résolu. Il est impossible de déterminer s'il existe un lien entre ces dysfonctionnements et les accidents de Tyler.
+
+#### 3.5.2 Problèmes liés à l'appareil Therac-25
+
+Le logiciel des Therac-25 et Therac-20 avait « évolué » à partir de celui du Therac-6. Des fonctions supplémentaires avaient dû être ajoutées car le Therac-20 (et le Therac-25) fonctionnent en mode rayons X et en mode électrons, tandis que le Therac-6 ne fonctionne qu'en mode rayons X. CGR avait modifié le logiciel du Therac-20 pour gérer ces deux modes. Lorsque le développement du Therac-25 a débuté, les ingénieurs d'AECL ont repris le logiciel du Therac-6, tout en empruntant des routines du Therac-20 pour gérer le mode électrons, ce que leurs accords de coopération autorisaient.
+
+Après le deuxième accident de Tyler, un physicien du Joint Center for Radiation Therapy de l'Université de Chicago, ayant eu vent du problème logiciel du Therac-25, a décidé de vérifier si le même défaut existait sur le Therac-20. Dans un premier temps, il n'a pas réussi à reproduire l'erreur sur sa machine, mais deux mois plus tard, il a fait le rapprochement.
+
+Le Therac-20 de l'Université de Chicago servait à former les étudiants d'une école de radiothérapie rattachée au centre. Le physicien, Frank Borger, avait remarqué que chaque fois qu'une nouvelle promotion commençait à utiliser le Therac-20, les fusibles et les disjoncteurs de la machine sautaient, mettant l'appareil hors service. Ces pannes, récurrentes depuis l'acquisition de la machine, pouvaient survenir trois fois par semaine avec de nouveaux étudiants, puis disparaître pendant des mois. Borger a constaté que les débutants commettaient de nombreuses erreurs et utilisaient des « méthodes créatives » pour modifier les paramètres à la console. Par expérimentation, il a découvert que certaines séquences de modifications provoquaient les fusibles grillés, et a déterminé que le même bug informatique que dans le logiciel du Therac-25 en était responsable. Il a informé la FDA, qui a ensuite averti les utilisateurs du Therac-20.
+
+L'erreur logicielle n'est qu'un inconvénient sur le Therac-20, car cette machine possède des circuits de protection matériels indépendants pour surveiller le balayage du faisceau d'électrons. Les circuits de protection n'autorisent pas l'allumage du faisceau, ce qui élimine tout risque d'exposition aux radiations pour le patient. Bien que le Therac-20 repose sur des dispositifs de verrouillage mécaniques pour surveiller la machine, le Therac-25 repose en grande partie sur des logiciels.
+
+#### 3.5.3 Le « bug » du logiciel
+
+L'une des leçons de l'histoire du Therac-25 est que se focaliser sur des « erreurs » spécifiques dans un logiciel ne suffit pas à rendre un système sûr. Presque tous les logiciels complexes peuvent se comporter de manière inattendue dans certaines conditions. Les erreurs fondamentales résidaient ici dans de mauvaises pratiques d'ingénierie logicielle et dans la construction d'une machine dont la sécurité reposait sur le logiciel. L'erreur de codage particulière importe d'ailleurs moins que la conception globalement non sécurisée du logiciel. Cependant, examiner la portion du code mise en cause dans les accidents de Tyler reste instructif, car elle met en lumière les défauts de conception d'ensemble du logiciel. La conception du logiciel est d'abord décrite, puis les erreurs supposées impliquées dans les accidents de Tyler — et peut-être d'autres.
+
+**Développement et conception du logiciel Therac-25.** AECL revendique des droits de propriété intellectuelle sur la conception de son logiciel. Néanmoins, grâce à la documentation abondante portant sur les accidents, les corrections et les modifications ultérieures, il est possible d'en reconstituer une image approximative.
+
+Le logiciel a pour rôle de surveiller l'état de la machine, d'accepter les informations relatives au traitement souhaité et de configurer la machine en conséquence. Il active le faisceau sur commande de l'opérateur, sous réserve que certaines vérifications sur l'état physique de la machine soient satisfaites, et le désactive lorsque le traitement est terminé, lorsqu'un opérateur le demande, ou lorsqu'une panne est détectée. L'opérateur peut également imprimer des copies papier de l'affichage CRT ou des paramètres de configuration de la machine.
+
+L'unité de traitement est équipée d'un système de verrouillage conçu pour couper l'alimentation de l'unité en cas de dysfonctionnement matériel. L'ordinateur surveille ce système de verrouillage et fournit des messages de diagnostic. Selon la nature de la panne, l'ordinateur empêche le démarrage d'un traitement ou, si le traitement est en cours, il provoque une pause ou une suspension du traitement.
+
+Il existe deux modes de fonctionnement de base : le **mode traitement** et le **mode service**. Le mode traitement contrôle le processus de traitement normal. En mode service, l'appareil peut être utilisé avec certains dispositifs de sécurité et certaines fonctions de traitement désactivées, et des commandes de fonctionnement et des paramètres supplémentaires peuvent être sélectionnés. Le mode service n'est accessible qu'en utilisant un mot de passe au niveau du clavier de service.
+
+Le fabricant décrit le logiciel du Therac-25 comme reposant sur un système d'exploitation temps réel autonome et dédié. Le système ne fait pas appel à un système d'exploitation ou à un gestionnaire standard : le gestionnaire temps réel a été spécialement conçu pour le Therac-25 et tourne sur un PDP-11/23 avec 32 Ko de mémoire. Les cycles de traitement sont alloués aux tâches critiques et non critiques au moyen d'un planificateur préemptif.
+
+Le logiciel, écrit en assembleur PDP-11, comporte quatre composants principaux : les données stockées, un planificateur, un ensemble de tâches critiques et non critiques, et les gestionnaires d'interruption. Les données stockées comprennent les paramètres de calibration de l'accélérateur ainsi que les données relatives au traitement des patients. Les routines d'interruption sont les suivantes :
+
+- Routine de service d'interruption pour l'horloge
+- Routine de gestion des interruptions de numérisation
+- Traps (pour les débordements logiciels et les interruptions générées par le matériel)
+- Power up (démarrage, initié au démarrage pour initialiser le système et passer le contrôle au planificateur)
+- Gestionnaire d'interruptions pour l'écran de la console de traitement
+- Gestionnaire d'interruption du clavier de la console de traitement
+- Gestionnaire d'interruption de l'imprimante de service
+- Gestionnaire d'interruption du clavier de service
+
+Le planificateur contrôle la séquence de tous les événements non interruptibles et coordonne l'ensemble des processus concurrents. Les tâches sont lancées toutes les 0,1 seconde : les tâches critiques sont exécutées en premier, les tâches non critiques occupant le temps de cycle restant.
+
+**Tâches critiques :**
+
+- **Treat** (moniteur de traitement) : dirige et surveille la configuration du patient et le traitement au travers de huit phases de fonctionnement. Ces phases correspondent à des sous-routines, déterminées par la valeur de la variable de contrôle Tphase. Après l'exécution d'une sous-routine donnée, Treat se reprogramme. Treat interagit avec la tâche de traitement du clavier, qui gère la communication avec la console de l'opérateur. Les données de prescription sont vérifiées et validées par d'autres tâches (telles que le processeur du clavier ou le capteur de configuration des paramètres), qui transmettent à la tâche de traitement l'état de la vérification par l'intermédiaire de variables partagées.
+
+- **Servo** (tâche de contrôle) : gère l'émission du faisceau, le débit de dose (fréquence de répétition des impulsions), la symétrie (orientation du faisceau) et les mouvements de la machine. La tâche de contrôle configure également les paramètres de la machine et surveille les systèmes de sécurité liés aux erreurs d'inclinaison et de planéité du faisceau.
+
+- **Housekeeper** (Hkeper) : gère les interverrouillages d'état du système et les vérifications de limites, et affiche les messages appropriés sur l'écran CRT. Elle décode certaines informations et vérifie la cohérence de la configuration.
+
+**Tâches non critiques :**
+
+- **Processeur de checksum** : s'exécute périodiquement
+- **Processeur du clavier de la console de traitement** : s'exécute uniquement sur appel d'autres tâches ou sur interruption clavier ; sert d'interface de communication entre le reste du logiciel et l'opérateur
+- **Processeur de l'écran de la console de traitement** : s'exécute périodiquement ; détermine les formats d'affichage appropriés, qu'il s'agisse d'écrans CRT ou de copies papier
+- **Processeur du clavier de service** : s'exécute sur demande ; gère les communications non liées au traitement entre le système et l'opérateur
+- **Snapshot** : s'exécute périodiquement ; capture les valeurs des paramètres sélectionnés et est appelé par la tâche de traitement à la fin d'un traitement
+- **Processeur de contrôle manuel** : s'exécute périodiquement
+- **Processeur de calibration** : assure un ensemble de fonctions permettant à l'opérateur d'examiner et de modifier les paramètres de configuration du système ainsi que les limites des systèmes de sécurité
+
+La documentation d'AECL relative aux modifications révèle clairement que le logiciel autorise un accès concurrent à la mémoire partagée, qu'il n'existe aucune synchronisation réelle hormis les données stockées dans les variables partagées, et que les opérations de « test » et de « définition » sur ces variables ne sont pas atomiques. Les conditions de concurrence découlant de cette implémentation du multitâche ont joué un rôle déterminant dans les accidents.
+
+**Erreurs de conception spécifiques.** L'explication ci-après des problèmes logiciels identifiés est tirée de la description fournie par AECL à la FDA, avec quelques clarifications mineures. Certaines questions restent sans réponse, mais c'est tout ce qu'il est possible d'établir à partir des informations disponibles.
+
+![Figure 3 : Tâches et sous-routines présentes dans le code impliqué dans les accidents de Tyler.](/therac-25/fig3-software-states.png)
+
+> *Figure originale en anglais. Légende traduite ci-dessous.*
+
+| Anglais | Français |
+|---|---|
+| Keyboard Handler | Gestionnaire de clavier |
+| Data Entry | Saisie de données |
+| Reset | Réinitialisation |
+| Set Up Done | Configuration terminée |
+| Set Up Test | Test de configuration |
+| Patient Treatment | Traitement du patient |
+| Pause/Terminate Treatment | Pause/Arrêt du traitement |
+| Calibration tables | Tables de calibration |
+| Mode/Energy Offset (MEOS) | Décalage mode/énergie (MEOS) |
+| Treat | Moniteur de traitement |
+
+La tâche de surveillance du traitement (Treat) contrôle les différentes phases du traitement en exécutant ses huit sous-routines. La variable d'indicateur de phase (Tphase) détermine quelle sous-routine doit être exécutée (Figure 3). Après l'exécution d'une sous-routine donnée, Treat se reprogramme.
+
+L'une des sous-routines de Treat, appelée **Datent** (saisie de données), communique avec la tâche du gestionnaire de clavier — qui s'exécute en parallèle avec Treat — par l'intermédiaire d'une variable partagée (indicateur « Saisie de données terminée »), afin de déterminer si les données de prescription ont été saisies. Le gestionnaire de clavier détecte la fin de la saisie et positionne cette variable en conséquence. Une fois la variable définie, Datent en détecte le changement et fait passer Tphase de 1 (Datent) à 3 (Configuration du test) ; Datent se termine alors et rend la main à Treat, qui se reprogramme pour exécuter la sous-routine « Configuration du test ». Si la variable « Saisie de données terminée » n'a pas encore été définie, Datent laisse Tphase inchangée, se termine et rend la main à Treat, qui reprogramme sa propre exécution — ce qui revient à reprogrammer Datent.
+
+La ligne de commande, située dans le coin inférieur droit de l'écran (voir la figure 2), est la position normale du curseur lorsque l'opérateur a apporté toutes les modifications nécessaires à la prescription. Toute modification déplace le curseur hors de cette ligne. Dans la conception initiale du programme, la variable « Saisie des données terminée » seule ne suffit pas : elle ne garantit pas que le curseur se trouve effectivement sur la ligne de commande, car dans certaines circonstances, la phase de saisie peut être interrompue avant que toutes les modifications ne soient reportées à l'écran.
+
+Le gestionnaire du clavier analyse le mode et le niveau d'énergie spécifiés par l'opérateur et stocke un résultat encodé dans une autre variable partagée, la variable Mode/Énergie Décalée de 2 octets (**MEOS**). L'octet de poids faible est utilisé par une autre tâche (Hand) pour positionner le collimateur/la table rotative à la position appropriée selon le mode et l'énergie sélectionnés. L'octet de poids fort est utilisé par Datent pour définir plusieurs paramètres de fonctionnement.
+
+Au démarrage, le processus de saisie contraint l'opérateur à renseigner le mode et l'énergie, sauf en mode photon où l'énergie est fixée par défaut à 25 MeV. L'opérateur peut ensuite modifier le mode et l'énergie séparément. Si le gestionnaire du clavier positionne l'indicateur « Saisie terminée » avant que l'opérateur n'ait modifié les données dans MEOS, Datent ne prend pas en compte ces modifications : il a déjà terminé son exécution et ne sera pas relancé. Parallèlement, le collimateur supérieur (table rotative) est positionné par la tâche Hand selon l'octet de poids faible de MEOS, et peut ainsi se retrouver en contradiction avec les paramètres configurés à partir de l'octet de poids fort. Le logiciel ne semble comporter aucune vérification pour détecter une telle incohérence.
+
+À son activation, Datent commence par vérifier si le gestionnaire du clavier a défini le mode et l'énergie dans MEOS. Si c'est le cas, il utilise l'octet de poids fort pour accéder à une table de paramètres de fonctionnement prédéfinis et les place dans la table de sortie numérique-analogique. Le contenu de cette table est transféré au convertisseur numérique-analogique lors du cycle d'horloge suivant. Une fois tous les paramètres définis, Datent appelle la sous-routine Magnet, qui configure les aimants de flexion. Voici une description simplifiée en pseudo-code des parties pertinentes du logiciel :
+
+```pascal
+Datent:
+  if mode/energy specified then begin
+    calculate table index
+    repeat
+      fetch parameter
+      output parameter
+      point to next parameter
+    until all parameters set
+    call Magnet
+    if mode/energy changed then
+      return
+    end if
+  if data entry is complete then
+    set Tphase to 3
+  if data entry is not complete then
+    if reset command entered then
+      set Tphase to 0
+      return
+
+Magnet:
+  set "bending magnet" flag
+  repeat
+    set next magnet
+    call Ptime
+    if mode/energy changed then exit
+  until all magnets set
+  return
+
+Ptime:
+  repeat
+    if "bending magnet" flag set then
+      if edit in progress then
+        if mode/energy changed then exit
+    clear "bending magnet" flag
+  until hysteresis delay expired
+  return
+```
+
+La configuration des aimants de flexion prend environ huit secondes. Magnet appelle une sous-routine appelée Ptime pour introduire un délai. Plusieurs aimants devant être configurés, Ptime est appelée et retournée plusieurs fois. Un indicateur signalant que les aimants de flexion sont en cours de configuration est initialisé à l'entrée de Magnet et effacé à la fin de Ptime. De plus, Ptime consulte une variable partagée, positionnée par le gestionnaire du clavier, qui signale la présence de demandes de modification. Si des modifications sont en attente, Ptime efface l'indicateur des aimants de flexion et rend la main à Magnet, qui rend la main à Datent. Cependant, Ptime ne consulte cette variable de modification que si l'indicateur des aimants de flexion est activé. Comme Ptime l'efface dès sa première exécution, toute modification effectuée lors des itérations suivantes de Ptime passe inaperçue. Ainsi, un changement de mode ou d'énergie, bien que visible à l'écran de l'opérateur et reflété dans la variable MEOS, ne sera pas détecté par Datent, qui indexera alors des tableaux de calibration inadaptés aux paramètres réels de la machine.
+
+Rappelons que l'incident de Tyler s'est produit lorsque l'opérateur a saisi une valeur de mode et d'énergie, s'est rendu à la ligne de commande, a ensuite déplacé le curseur vers le haut pour modifier le mode ou l'énergie, puis est revenu à la ligne de commande, le tout en moins de huit secondes. Le réglage des aimants prenant environ huit secondes, et Magnet ne prenant pas en compte les modifications après la première exécution de Ptime, la modification avait eu lieu avant que Datent ne reprenne la main — et celui-ci n'en a jamais eu connaissance. Une partie du problème a été corrigée après l'accident en effaçant l'indicateur des aimants de flexion à la fin de Magnet (une fois tous les aimants réglés) plutôt qu'à la fin de Ptime.
+
+Ce n'est cependant pas le seul problème. À la sortie de Magnet, Datent vérifie la variable « Data Entry Complete ». Si celle-ci indique que la saisie est terminée, Datent fixe Tphase à 3 et n'est pas relancée. Dans le cas contraire, Datent laisse Tphase inchangée, ce qui entraîne sa reprogrammation. Or, la variable « Data Entry Complete » signifie seulement que le curseur a été placé sur la ligne de commande, et non qu'il s'y trouve encore, créant ainsi une condition de concurrence potentielle. Pour y remédier, AECL a introduit une autre variable partagée, gérée par le gestionnaire de clavier, qui indique que le curseur n'est plus sur la ligne de commande. Lorsque cette variable est positionnée, la saisie de la prescription est considérée comme encore en cours, et Tphase reste inchangée.
+
+#### 3.5.4 La réponse du gouvernement et des utilisateurs
+
+La FDA n'approuve pas individuellement chaque nouveau dispositif médical mis sur le marché : tous les dispositifs médicaux font l'objet d'un processus de classification qui détermine le niveau d'approbation requis. Les accélérateurs médicaux suivent une procédure dite de **notification préalable à la commercialisation**. L'entreprise doit alors démontrer que le produit est substantiellement équivalent, en termes de sécurité et d'efficacité, à un produit déjà commercialisé. Si cette démonstration ne satisfait pas la FDA, une approbation préalable à la commercialisation est requise. Pour le Therac-25, la FDA s'est contentée d'exiger une simple notification préalable. À la suite des accidents impliquant le Therac-25, de nouvelles procédures d'approbation pour les dispositifs contrôlés par logiciel ont été adoptées.
+
+L'agence intervient principalement en réaction aux problèmes signalés et exige des fabricants qu'ils déclarent les incidents graves. Dès qu'un défaut est identifié dans un produit émettant des radiations, la FDA est chargée d'approuver le **plan d'actions correctives (CAP)**.
+
+Les premiers rapports sur les incidents de Tyler sont parvenus à la FDA par le biais du Département de la Santé de l'État du Texas, déclenchant une réaction de l'agence. L'enquête de la FDA était déjà bien avancée lorsque AECL a soumis un rapport officiel sur un dispositif médical détaillant les surexpositions aux radiations survenues à Tyler. La FDA a déclaré le Therac-25 défectueux au titre de la loi sur le contrôle des radiations pour la santé et la sécurité, et a ordonné à l'entreprise de notifier tous les acheteurs, d'enquêter sur le problème, d'identifier une solution et de soumettre un plan d'action corrective pour approbation.
+
+Le CAP final comprenait plus de vingt modifications apportées au matériel et aux logiciels du système, ainsi qu'à sa documentation et à ses manuels. Certaines de ces modifications n'étaient pas directement liées aux accidents en question, mais visaient à améliorer la sécurité générale de la machine. La mise en œuvre complète du CAP, y compris une analyse de sécurité approfondie, n'a été achevée que plus de deux ans après les accidents de Tyler.
+
+AECL a transmis son rapport d'accident à la FDA le 15 avril 1986. Le même jour, AECL a envoyé à chaque utilisateur du Therac une lettre recommandant une « solution » provisoire permettant de continuer à utiliser l'appareil en clinique. La lettre (reproduite intégralement) indiquait :
+
+> **OBJET : MODIFICATION DES PROCÉDURES D'EXPLOITATION POUR L'ACCÉLÉRATEUR LINÉAIRE THERAC 25**
+>
+> À compter de la date d'aujourd'hui et jusqu'à nouvel ordre, la touche utilisée pour déplacer le curseur vers le début de la séquence de prescription (c'est-à-dire, la touche avec la flèche pointant vers le haut) ne doit plus être utilisée pour la modification ou à d'autres fins.
+>
+> Pour éviter une utilisation accidentelle de cette touche, le capuchon de la touche doit être retiré et les contacts du contacteur doivent être fixés en position ouverte à l'aide de ruban isolant ou d'un autre matériau isolant. Pour obtenir de l'aide concernant cette dernière étape, vous devez contacter votre représentant du service AECL local.
+>
+> Désactiver cette clé signifie que si des données de prescription saisies sont incorrectes, une commande de réinitialisation « R » doit être utilisée et l'ensemble de la prescription doit être réintroduite.
+>
+> Pour les utilisateurs de l'option Multiport, cela signifie également que la modification du débit de dose, de la dose et du temps ne sera pas possible entre les ports.
+
+Le 2 mai 1986, la FDA a déclaré le Therac défectueux, exigé un plan d'actions correctives (CAP) et ordonné qu'une nouvelle notification soit adressée à l'ensemble des clients. Dans sa lettre à AECL, le Directeur de la Conformité du Centre des Dispositifs et de la Santé Radiologique a écrit :
+
+> Nous avons examiné la lettre du 15 avril [d'AECL] adressée aux acheteurs et nous avons conclu qu'elle ne satisfait pas aux exigences relatives à la notification aux acheteurs d'un défaut dans un produit électronique. Plus précisément, elle ne décrit ni le défaut ni les dangers qui y sont associés. La lettre ne fournit aucune raison de désactiver la touche de déplacement et le ton employé ne correspond pas à l'urgence de le faire. En fait, la lettre suggère que le désagrément causé aux utilisateurs est plus important que la nécessité de désactiver cette touche. Nous vous demandons de renvoyer immédiatement une nouvelle notification aux acheteurs.
+
+AECL a rapidement publié une nouvelle notification destinée aux utilisateurs et a également demandé une prolongation pour produire un CAP. La FDA a accordé cette demande.
+
+À cette même période, les utilisateurs du Therac-25 ont constitué un **groupe d'utilisateurs** et ont tenu leur première réunion lors de la conférence annuelle de l'American Association of Physicists in Medicine. Les participants ont discuté de l'accident de Tyler et ont entendu un représentant d'AECL exposer les mesures envisagées par l'entreprise. AECL a promis d'adresser à tous les utilisateurs une lettre détaillant le CAP.
+
+Plusieurs utilisateurs ont décrit les dispositifs de sécurité matérielle supplémentaires qu'ils avaient eux-mêmes ajoutés à leurs machines. Un système de verrouillage installé par la clinique de Vancouver — qui contrôlait les valeurs de courant du tube — avait été qualifié de redondant par AECL ; les utilisateurs n'ont pas partagé cet avis. Des discussions ont également porté sur des défauts de conception entraînant une sous-dose de 10 à 30 % dans les deux modes. Les notes de la réunion indiquaient :
+
+> Il y avait une plainte générale de la part de tous les utilisateurs présents concernant le manque de diffusion d'informations. Les utilisateurs n'étaient pas satisfaits de recevoir des informations incomplètes. Le représentant d'AECL a répondu en affirmant qu'AECL ne souhaite pas diffuser de rumeurs et qu'AECL n'a pas de politique consistant à « garder les choses secrètes ». Le consensus parmi les utilisateurs était qu'une amélioration était nécessaire.
+
+À la suite de cette première réunion, le groupe d'utilisateurs a publié deux bulletins. Le premier, daté de l'automne 1986, contenait des lettres de Tim Still, le physicien de Kennestone, qui soulevait ce qu'il estimait être huit problèmes majeurs rencontrés avec le Therac-25. Parmi ceux-ci figuraient de mauvaises routines de rafraîchissement de l'écran laissant des informations erronées et des « débris » sur la console de l'opérateur, ainsi que des problèmes de chargement des bandes au démarrage. Il avait découvert que ces derniers impliquaient l'utilisation de « tables fantômes » pour déclencher le système de verrouillage en cas d'échec de chargement, au lieu d'une somme de contrôle. Il posait la question : « La sécurité de la programmation ne repose-t-elle pas trop sur les routines de verrouillage logicielles ? » Le second bulletin, publié en décembre 1986, approfondissait les implications du problème des tables fantômes.
+
+AECL a soumis son premier CAP le 13 juin 1986. La FDA a demandé des modifications et des informations complémentaires sur le logiciel, notamment un plan de tests. AECL a répondu le 26 septembre en fournissant plusieurs documents décrivant le logiciel et ses modifications, mais sans plan de tests. L'entreprise a expliqué comment le logiciel du Therac-25 avait évolué à partir de celui du Therac-6, et a indiqué qu'« aucun plan de test ni rapport unique n'existe pour le logiciel, car le matériel et le logiciel ont été testés et utilisés séparément et conjointement pendant de nombreuses années ». AECL a conclu que le CAP en vigueur améliorait « la sécurité de la machine de plusieurs ordres de grandeur et élimine pratiquement la possibilité de doses létales, comme celles observées dans l'incident de Tyler ».
+
+Une note interne de la FDA, datée du 20 octobre, a examiné les dossiers soumis par AECL et soulevé plusieurs préoccupations :
+
+> Malheureusement, la réponse de l'AECL semble également souligner un manque apparent de documentation concernant les spécifications logicielles et le plan de tests logiciels.
+>
+> ...les préoccupations incluent la question de la connaissance préalable des problèmes par AECL, le manque apparent de contrôle qualité des logiciels dans l'usine de fabrication, et la diffusion possible d'avertissements et d'informations concernant les problèmes de nature générale.
+>
+> ...Comme mentionné dans mon premier rapport, il existe une certaine confusion quant à savoir si le fabricant aurait dû être au courant des problèmes logiciels avant les cas de surdose accidentelle de radiation (ARO) au Texas. AECL avait reçu une notification officielle d'une poursuite en novembre 1985, déposée par un patient affirmant avoir subi une surdose accidentelle provenant d'un appareil Therac-25 à Marietta, en Géorgie... Si la connaissance de ces défauts logiciels avait été connue à l'avance, quelle aurait été la position de la FDA dans ce cas ?
+>
+> ...Les documents fournis par le fabricant ne sont pas suffisamment détaillés et clairs pour garantir l'existence d'un programme de contrôle qualité logiciel adéquat. Par exemple, une réponse n'a pas été fournie concernant la partie logicielle du CAP en réponse à la demande de documentation de la part du CDRH concernant les exigences et spécifications révisées pour le nouveau logiciel. De plus, une analyse, comme demandé, n'a pas été fournie sur l'interaction avec les autres parties du logiciel afin de démontrer que le logiciel corrigé n'affecte pas négativement les autres fonctions du logiciel.
+>
+> La lettre du 23 juillet, provenant du CDRH, demandait un plan de test documenté, incluant plusieurs informations spécifiques identifiées dans la lettre. Cette demande a été ignorée jusqu'à présent par le fabricant. Compte tenu des conséquences du problème logiciel actuel, des changements dans les attitudes en matière de contrôle qualité logiciel sont nécessaires chez AECL.
+
+AECL avait également prévu de conserver les codes de dysfonctionnement tels quels, mais la FDA a exigé de meilleures instructions pour les opérateurs. Par ailleurs, AECL n'avait pas prévu de tests de contrôle qualité pour garantir la conformité des copies du logiciel, mais la FDA a insisté pour qu'ils soient mis en place. La FDA a également demandé que des tests rigoureux soient intégrés aux procédures de modification des logiciels d'AECL :
+
+> Les tests rigoureux doivent être effectués à chaque fois qu'une modification est apportée, afin de garantir que cette modification n'affecte pas négativement la sécurité du système.
+
+AECL a également été chargé d'élaborer un plan de tests d'installation afin de s'assurer que les modifications matérielles et logicielles fonctionnent comme prévu une fois déployées. AECL a soumis la version 2 du CAP et la documentation associée le 22 décembre 1986. L'entreprise a modifié le CAP pour que les dysfonctionnements liés à la dose entraînent l'interruption du traitement, et a prévu un plan de messages d'erreur clairs et précis, en mettant en particulier en évidence ceux relatifs à la dose. Elle a également enrichi ses schémas des modifications logicielles et étendu son plan de tests pour couvrir à la fois le matériel et le logiciel.
+
+### 3.6 Hôpital Yakima Valley Memorial, janvier 1987
+
+Le samedi 17 janvier 1987, le deuxième patient de la journée devait être traité pour un carcinome. Ce patient devait recevoir deux expositions de vérification avec un film de 4 et 3 rads, plus un traitement photonique de 79 rads (pour une exposition totale de 86 rads).
+
+Un film a été placé sous le patient et 4 rads ont été administrés. Après que la machine se soit arrêtée pour ouvrir davantage les lamelles du collimateur, une deuxième exposition de 3 rads a été administrée. La machine s'est arrêtée à nouveau.
+
+L'opérateur est entré dans la salle de traitement pour retirer le film et vérifier la position du patient. Il a utilisé le panneau de commande de la salle pour faire pivoter la table rotative vers la position du faisceau, afin de vérifier l'alignement de la machine par rapport au corps du patient. Il a ensuite soit appuyé sur le bouton « set » du panneau de commande, soit quitté la salle pour saisir la commande « set » à la console — le déroulement exact reste incertain. En sortant, il a oublié de retirer le film placé sous le patient. La console affichait « faisceau prêt », et l'opérateur a appuyé sur « @ » pour activer le faisceau.
+
+Le faisceau s'est allumé, mais la console n'affichait ni dose ni taux de dose. Après cinq ou six secondes, l'appareil s'est arrêté, a marqué une pause, puis a affiché un message. Ce message « a peut-être disparu rapidement » — l'opératrice n'en était pas certaine. Cependant, comme l'appareil s'était simplement mis en pause, elle a pu appuyer sur la touche « P » pour reprendre le traitement.
+
+La machine s'est arrêtée à nouveau, affichant cette fois le message « FLATNESS ». L'opératrice a entendu le patient dire quelque chose par l'interphone, sans comprendre ses paroles. Elle est entrée dans la salle pour lui parler : il a signalé « une sensation de brûlure » dans la poitrine. La console n'affichait que la dose totale des deux expositions de film (7 rads), sans aucune autre information.
+
+Plus tard dans la journée, le patient a présenté une brûlure cutanée sur toute la zone de traitement. Quatre jours après, la rougeur a évolué en un motif strié correspondant aux ouvertures du plateau de blocage. Ce motif était identique à la brûlure survenue un an plus tôt dans ce même hôpital — brûlure initialement attribuée à un coussin chauffant, puis officiellement classée par l'hôpital comme « cause inconnue ».
+
+AECL a lancé une enquête et invité les utilisateurs à vérifier visuellement la position du plateau de rotation avant de déclencher le faisceau. Tous les tests effectués par les ingénieurs d'AECL ont indiqué que la machine fonctionnait correctement. À partir des informations disponibles à ce stade, on soupçonnait que le faisceau d'électrons s'était déclenché alors que le plateau de rotation était en position de lumière de champ. Les enquêteurs n'ont cependant pas réussi à reproduire la condition de dysfonctionnement.
+
+Le jeudi suivant, AECL a dépêché un ingénieur d'Ottawa pour mener une enquête. Entre-temps, le physicien de l'hôpital avait lui-même effectué des tests. Il a placé un film dans le faisceau du Therac, puis a effectué deux expositions avec différents paramètres de rayons X, en plaçant la table de rotation en position de champ éclairé. Le film obtenu semblait correspondre à celui qui avait été laissé (par erreur) sous le patient lors de l'accident.
+
+Après une semaine de vérifications matérielles, AECL a déterminé que « le dysfonctionnement de la machine était probablement dû non pas uniquement à un problème matériel ». Après avoir examiné le logiciel, les ingénieurs d'AECL ont découvert un défaut (décrit ci-dessous) qui pourrait expliquer ce comportement erroné. Les problèmes de codage expliquant cet accident sont complètement différents de ceux associés aux incidents de Tyler.
+
+Les premières mesures de dose effectuées par AECL ont indiqué que la dose délivrée dans ces conditions (c'est-à-dire lorsque le plateau tournant est en position de lumière du champ) se situe entre 4 000 et 5 000 rads. Après deux tentatives, le patient aurait pu recevoir entre 8 000 et 10 000 rads au lieu des 86 rads prescrits. AECL a de nouveau contacté les utilisateurs le 26 janvier (neuf jours après l'accident) et leur a fourni des instructions détaillées sur la manière d'éviter ce problème. Dans un rapport interne de la FDA concernant l'accident, le responsable de l'assurance qualité d'AECL, qui enquêtait sur le problème, est cité comme affirmant que les modifications logicielles et matérielles prévues à la suite de l'accident de Tyler — survenu neuf mois plus tôt mais dont l'installation n'avait pas encore eu lieu — auraient permis d'éviter l'accident de Yakima.
+
+Le patient est décédé en avril des suites de complications liées à la surdose. Il souffrait d'une forme de cancer incurable, mais sa famille a intenté une action en justice, alléguant qu'il était décédé prématurément et qu'il avait subi des douleurs et des souffrances inutiles en raison de la surdose de radiothérapie. Comme toutes les autres affaires similaires, celle-ci a été réglée à l'amiable hors tribunal.
+
+#### 3.6.1 Le « bug » du logiciel Yakima
+
+Le problème logiciel lié au deuxième accident de Yakima est relativement bien établi et diffère de celui impliqué dans les accidents de Tyler. Il est impossible de déterminer quelles erreurs de conception spécifiques du logiciel sont à l'origine des accidents de Kennestone, de Hamilton et du premier accident de Yakima. Compte tenu des pratiques de programmation peu sûres observées dans le code, des conditions de concurrence ou des erreurs inconnues pourraient en être la cause. Certains pensent toutefois que l'accident de Hamilton était identique à ce deuxième cas de surdosage de Yakima. Dans le compte rendu d'une conférence téléphonique du 26 janvier 1987, entre le responsable de l'assurance qualité de l'AECL et Ed Miller de la FDA, qui discutaient de l'accident de Yakima, Miller note :
+
+> Cette situation s'est probablement produite lors de l'accident survenu à Hamilton, en Ontario, il y a quelques années. Elle n'a pas été détectée à ce moment-là, et la cause a été attribuée à une défaillance intermittente du système de verrouillage. Le rappel ultérieur du réseau logique de micro-interrupteurs n'a pas vraiment résolu le problème.
+
+Le deuxième accident de Yakima a lui aussi été attribué à une condition de concurrence dans le logiciel. Cette fois, elle a permis à l'appareil d'être activé dans un état d'erreur (une « défaillance » d'un verrouillage logiciel). Les accidents de Tyler étaient liés à des problèmes dans les routines de saisie de données, permettant au code de passer à la phase de « Mise en essai » avant que la prescription complète n'ait été saisie et traitée. L'accident de Yakima, quant à lui, a impliqué des problèmes survenant plus tard dans la logique d'exécution, après que le moniteur de traitement « Treat » ait atteint la phase de « Mise en essai ».
+
+La fonction de lumière de champ du Therac-25 permet un positionnement très précis du patient pour le traitement. L'opérateur peut contrôler la machine directement sur le site de traitement à l'aide d'une petite télécommande qui offre certaines fonctions limitées pour la préparation du patient, notamment le réglage de la rotation, du collimateur et du mouvement de la table.
+
+![Figure 4 : La faille logicielle de Yakima.](/therac-25/fig4-setup-test.png)
+
+> *Figure originale en anglais. Légende traduite ci-dessous.*
+
+| Anglais | Français |
+|---|---|
+| Hkeper (Housekeeper) | Gestionnaire système |
+| Lmtchk (Limit Check) | Vérification des limites |
+| Chkcol (Check Collimator) | Vérification du collimateur |
+| Set Up Test | Test de configuration |
+| Class3 | Variable Class3 |
+| F$mal | Variable de dysfonctionnement |
+| Tphase | Phase de traitement |
+
+Normalement, l'opérateur saisit toutes les données de la prescription à la console (en dehors de la salle de traitement) avant que la configuration finale de tous les paramètres de la machine ne soit terminée dans la salle de traitement. Cela donne lieu à une condition de NON-VÉRIFICATION à la console. L'opérateur effectue ensuite la configuration du patient dans la salle de traitement, et tous les paramètres pertinents sont alors VÉRIFIÉS. La console affiche un message indiquant « POUR LANCER, APPUYEZ SUR LE BOUTON SET » pendant que la table rotative est en position de lumière du champ. L'opérateur appuie alors sur le bouton « set » de la télécommande ou tape « set » à la console. Cette action est censée amener le collimateur à la position appropriée pour le traitement.
+
+Dans le logiciel, après que la prescription a été saisie et vérifiée par la routine Datent, la variable de contrôle Tphase est modifiée afin que la routine de **Set Up Test** soit exécutée (Figure 4). Chaque passage dans la routine de Set Up Test incrémente la vérification de la position du collimateur supérieur, une variable partagée appelée **Class3**. Si Class3 est différent de zéro, cela signale une incohérence et le traitement ne doit pas se poursuivre. Une valeur de zéro indique que les paramètres sont compatibles avec le traitement, et le logiciel n'empêche pas l'émission du faisceau.
+
+Après avoir défini la variable Class3, la phase « Set Up Test » vérifie ensuite tout dysfonctionnement du système en consultant une autre variable partagée (définie par une routine qui gère réellement les vérifications de verrouillage), appelée **F$mal**, pour voir si elle a une valeur non nulle. Une valeur non nulle dans F$mal indique que la machine n'est pas prête pour le traitement, et la sous-routine « Set Up Test » est reprogrammée. Lorsque F$mal est égal à zéro (indiquant que tout est prêt pour le traitement), la sous-routine « Set Up Test » définit la variable Tphase à 2, ce qui entraîne la programmation de la sous-routine « Set Up Done », et le traitement peut alors continuer.
+
+La vérification réelle du verrouillage est effectuée par une tâche concurrente appelée **Housekeeper** (Hkeper). La vérification de la position du premier collimateur est effectuée par une sous-routine de Hkeper appelée **Lmtchk** (vérification analogique-numérique des limites). Lmtchk vérifie d'abord la variable Class3. Si Class3 contient une valeur non nulle, Lmtchk appelle la sous-routine **Check Collimator** (Chkcol). Si Class3 contient zéro, Chkcol est contourné et la vérification de la position du premier collimateur n'est pas effectuée. La sous-routine Chkcol définit ou réinitialise le bit 9 de la variable partagée F$mal, en fonction de la position du premier collimateur, ce qui est à son tour vérifié par la sous-routine Set Up Test de Treat pour décider s'il faut la relancer ou passer à Set Up Done.
+
+Pendant la configuration de la machine, le test « Set Up Test » est exécuté plusieurs centaines de fois, car il se reprogramme en attendant que d'autres événements se produisent. Dans le code, la variable Class3 est incrémentée d'une unité à chaque exécution du test « Set Up Test ». **La variable Class3 étant codée sur un octet, elle ne peut contenir qu'une valeur maximale de 255 en décimal. Ainsi, à chaque 256e exécution du code du test « Set Up Test », la variable déborde et prend la valeur zéro.** Cela signifie que, à chaque 256e exécution du test « Set Up Test », le collimateur supérieur ne sera pas vérifié et qu'une défaillance du collimateur supérieur ne sera pas détectée.
+
+L'exposition excessive s'est produite lorsque l'opératrice a appuyé sur le bouton « set » au moment précis où la variable Class3 est tombée à zéro. Par conséquent, Chkcol n'a pas été exécuté et F$mal n'a pas été défini pour indiquer que le collimateur supérieur était toujours en position de champ de lumière. Le logiciel a activé la pleine puissance de 25 MeV sans cible et sans balayage. Il en a résulté un faisceau d'électrons très concentré, diffusé et dévié par le miroir en acier inoxydable se trouvant sur son trajet.
+
+La correction technique apportée à ce défaut logiciel est décrite par AECL comme simple : le programme est modifié de façon que la variable Class3 soit initialisée à une valeur fixe non nulle à chaque exécution de la phase de configuration, au lieu d'être incrémentée.
+
+#### 3.6.2 Réponse du fabricant, des autorités gouvernementales et des utilisateurs
+
+Le 3 février 1987, après des échanges avec la FDA et d'autres parties, y compris le groupe d'utilisateurs, AECL a annoncé à ses clients :
+
+1. Une nouvelle version du logiciel pour corriger les problèmes liés aux logiciels Tyler et Yakima.
+2. Un circuit de mise hors tension par impulsion unique, basé sur du matériel.
+3. Un potentiomètre pour platine, permettant de surveiller indépendamment la position de la platine.
+4. Un circuit de verrouillage matériel pour platine.
+
+Le deuxième élément, un circuit de coupure par impulsion unique de nature matérielle, agit comme un système de sécurité pour prévenir les surdoses : il détecte un niveau de radiation dangereux et coupe l'émission du faisceau après une seule impulsion de haute énergie. Ce dispositif offre ainsi une protection indépendante contre un large éventail de défaillances matérielles et d'erreurs logicielles potentielles. Le troisième élément, un potentiomètre rotatif, était le dispositif de sécurité recommandé par plusieurs groupes après l'accident de Hamilton.
+
+Après le deuxième accident de Yakima, la FDA a estimé que l'utilisation du Therac-25 pendant le processus de certification, même avec les instructions opérationnelles temporaires d'AECL, faisait courir un risque trop élevé aux patients. La FDA a conclu que les accidents démontraient que le logiciel seul ne pouvait pas constituer une garantie suffisante du fonctionnement sûr de l'appareil. Dans une note interne de la FDA datée du 18 février 1987, le directeur de la division des produits radiologiques a écrit :
+
+> Il est impossible pour le CDRH d'identifier toutes les modes de défaillance potentielles et les conditions du logiciel. AECL a indiqué que la « simple correction logicielle » résoudra le problème de positionnement du plateau visible à Yakima. Nous n'avons pas encore eu l'occasion d'évaluer cette modification. Même si cela s'avère être le cas, et compte tenu du passé, je ne suis pas convaincu qu'il n'existe pas d'autres anomalies logicielles susceptibles d'entraîner des blessures graves.
+>
+> ...Nous sommes dans une position où nous pouvons affirmer que le CAP proposé peut raisonnablement être censé corriger les lacunes pour lesquelles il a été conçu (Tyler). Nous ne pouvons pas affirmer que nous sommes raisonnablement confiants quant à la sécurité de l'ensemble du système pour prévenir ou minimiser l'exposition résultant d'autres conditions de défaillance.
+
+Le 6 février 1987, Ed Miller de la FDA a contacté Pavel Dvorak de la Santé et du Bien-être du Canada pour l'informer que la FDA allait recommander l'arrêt de tous les appareils Therac-25 jusqu'à ce que des modifications permanentes puissent être apportées. D'après les notes de Miller sur cet appel, Dvorak a accepté et a indiqué que la Santé et le Bien-être coordonneraient leurs actions avec la FDA.
+
+AECL a répondu le 13 avril en fournissant une mise à jour sur l'état du CAP et un calendrier pour les neuf actions demandées par les utilisateurs lors d'une réunion du groupe d'utilisateurs en mars. Cette réunion, à la fois unique et très productive, a offert une occasion rare d'associer les utilisateurs au processus d'évaluation du CAP. Elle a réuni toutes les parties concernées en un même lieu et au même moment, afin qu'un plan d'action puisse être arrêté et approuvé dans les meilleurs délais. Les participants comprenaient des représentants de :
+
+- Le fabricant (AECL)
+- Tous les utilisateurs, y compris leur personnel technique et juridique
+- La FDA et le Bureau canadien des dispositifs médicaux et des radiations, ainsi que l'Agence canadienne de réglementation nucléaire
+- La province de l'Ontario
+- Le Comité de réglementation sur les rayonnements de l'Association canadienne des physiciens
+
+Selon Gordon Symonds, du BRMD canadien, cette réunion a été très importante pour la résolution des problèmes, car les organismes de réglementation, les utilisateurs et le fabricant sont parvenus à un consensus en une seule journée.
+
+Lors de cette deuxième réunion avec les utilisateurs, les participants ont passé en revue les six principaux accidents impliquant le Therac-25 connus à cette date, et ont discuté des éléments du CAP ainsi que de modifications supplémentaires possibles. Ils ont établi une liste priorisée des modifications qu'ils souhaitaient voir intégrées dans le CAP, et ont exprimé leurs inquiétudes quant au manque d'évaluation indépendante du logiciel et à l'absence de trace écrite facilitant le diagnostic des anomalies.
+
+Le représentant de l'AECL, en l'occurrence le responsable de l'assurance qualité, a indiqué que des tests avaient bien été effectués sur les modifications du CAP, mais qu'ils n'avaient pas été documentés et qu'une évaluation indépendante du logiciel « pourrait ne pas être possible ». Il a affirmé que deux experts externes avaient examiné le logiciel, mais n'a pas été en mesure de fournir leurs noms. En réponse aux demandes des utilisateurs concernant une piste d'audit papier et un accès au code source, il a expliqué que les contraintes de mémoire ne permettraient pas d'inclure de telles fonctionnalités, et que le code source ne serait pas communiqué aux utilisateurs.
+
+Le 1er mai, AECL a publié la révision 4 du CAP, en tenant compte des observations de la FDA et des contributions des utilisateurs recueillies lors de la réunion. La réponse de la FDA, datée du 26 mai, a approuvé le CAP sous réserve de la transmission des résultats du plan de test final et d'une analyse de sécurité indépendante, de la distribution du projet de manuel révisé aux clients, et de la finalisation du CAP avant le 30 juin 1987. La FDA a conclu en classant ce cas comme un **rappel de classe I** : un rappel pour lequel il existe une probabilité raisonnable que l'utilisation ou l'exposition à un produit non conforme puisse entraîner de graves conséquences sur la santé ou la mort [1].
+
+AECL a envoyé à la FDA des documents complémentaires le 5 juin 1987, notamment le plan de test CAP, une version préliminaire du manuel d'utilisation et une version préliminaire de la nouvelle analyse de sécurité. Cette fois, l'analyse intégrait le logiciel dans les arbres de défaillance, mais retenait un « taux de défaillance générique » de 10⁻⁴ pour les événements liés au logiciel. Ce chiffre était justifié par les performances historiques du logiciel Therac-25. Le rapport final de l'analyse de sécurité indique que de nombreux arbres de défaillance comportaient une défaillance informatique comme événement causal, et que le résultat de la quantification dépendait donc du taux de défaillance retenu pour le logiciel. Il paraît pour le moins surprenant de supposer que toutes les erreurs logicielles sont également probables.
+
+Une inspection minutieuse du code a également été menée dans le cadre de cette analyse de sécurité, afin de « recueillir davantage d'informations sur lesquelles fonder les décisions ». Un consultant externe a effectué cette inspection, qui comprenait un examen détaillé de l'implémentation de chaque fonction, une recherche d'erreurs de codage et une évaluation qualitative de la fiabilité du logiciel. Le rapport final d'analyse de sécurité ne précise ni les méthodologies ni les outils employés lors de cette inspection, et ne permet pas de déterminer si quelqu'un s'est simplement contenté de lire le code à la recherche d'erreurs.
+
+AECL a prévu une cinquième révision du CAP pour y intégrer les résultats des tests et de l'analyse de sécurité finale. En référence au plan de tests à ce stade final du processus CAP, un examinateur de la FDA a déclaré :
+
+> Étonnamment, les données de test présentées pour montrer que les modifications du logiciel, destinées à résoudre les problèmes d'édition du Therac-25, sont appropriées, prouvent en réalité le contraire. Une analyse du tableau de données dans les résultats des tests indique que le type et l'énergie du faisceau finaux (modification d'édition) n'ont aucun effet sur le type et l'énergie initiaux du faisceau. Je ne peux qu'assumer que soit la correction n'est pas correcte, soit que les données ont été saisies incorrectement. Le fabricant devrait être mis en garde contre cette erreur. Où est la revue de contrôle qualité pour le programme de test ? AECL doit : (1) clarifier cette situation, (2) modifier le protocole de test pour empêcher ce type d'erreur de se produire, et (3) mettre en place un contrôle qualité approprié lors de la vérification des données.
+
+Un autre mémorandum de la FDA indiquait :
+
+> [Le responsable de l'assurance qualité de l'AECL] n'a pas pu donner d'explication et vérifiera les circonstances. Il a ensuite rappelé et a confirmé que le technicien avait rempli le formulaire de manière incorrecte. Le fonctionnement correct a été constaté par lui-même et par d'autres. Ils vont refaire l'opération et nous envoyer la fiche de données correcte.
+
+En marge de la réunion de l'American Association of Physicists in Medicine en juillet 1987, une troisième réunion des utilisateurs a eu lieu. Le représentant d'AECL a dressé un état des dernières mises à jour (CAP) et a indiqué que la FDA avait donné une approbation verbale, prévoyant une mise en œuvre complète d'ici la fin août 1987. Il a ensuite passé en revue et commenté les principales préoccupations soulevées lors de la réunion précédente. Trois des modifications matérielles demandées par les utilisateurs avaient été intégrées aux mises à jour (CAP). Les modifications relatives aux messages d'erreur de chargement des bandes et aux sommes de contrôle sur les données chargées seraient mises en œuvre après la finalisation des mises à jour (CAP). La documentation logicielle a été présentée comme une tâche de priorité secondaire, encore à définir, et qui ne serait pas communiquée à la FDA sous quelque forme que ce soit avant plus d'un an.
+
+Le 6 juillet 1987, AECL a adressé une lettre à tous les utilisateurs pour les informer de l'approbation verbale de la FDA concernant le CAP et pour préciser les modalités de mise en œuvre. Le 21 juillet 1987, AECL a publié la version finale et cinquième révision du CAP. Les principales caractéristiques de cette version finale sont les suivantes :
+
+- Toutes les interruptions liées au système de dosimétrie entraîneront une **suspension** du traitement, et non une simple pause : les opérateurs ne pourront pas redémarrer la machine sans ressaisir tous les paramètres.
+- Une fonctionnalité de mise hors tension par impulsion unique sera ajoutée.
+- Une fonctionnalité de mise hors tension par impulsion unique, contrôlée par un matériel indépendant, sera ajoutée.
+- La logique de surveillance de la position du plateau tournant sera améliorée afin de s'assurer que le plateau occupe l'une des trois positions autorisées.
+- Un potentiomètre sera ajouté à la platine, dont le signal permettra de surveiller sa position exacte et de la rendre visible à l'opérateur.
+- Un système d'interverrouillage avec l'aimant de flexion à 270 degrés sera ajouté afin de s'assurer que la cible et le correcteur de faisceau sont en position lorsque le mode rayons X est sélectionné.
+- L'émission du faisceau sera bloquée lorsque le plateau est en position de champ lumineux ou dans toute position intermédiaire.
+- Les messages d'erreur cryptiques seront remplacés par des messages clairs et explicites, et les alertes relatives au taux de dose seront mises en évidence.
+- Les touches d'édition seront limitées aux touches flèche haut, suppression et entrée. Toutes les autres touches seront inopérantes.
+- Une pédale de sécurité sensible au mouvement sera ajoutée. L'opérateur devra la maintenir enfoncée lors du déplacement de certaines parties de la machine, afin d'éviter tout mouvement involontaire en son absence.
+- Vingt-trois autres modifications seront apportées au logiciel pour améliorer son fonctionnement et sa fiabilité, notamment :
+  - Désactivation des touches inutilisées
+  - Modification du fonctionnement des commandes de configuration et de réinitialisation
+  - Interdiction de copier le programme de contrôle sur site
+  - Révision de la gestion des pannes matérielles détectées
+  - Correction des erreurs logicielles détectées lors du processus de révision
+  - Ajout de plusieurs dispositifs de sécurité supplémentaires
+  - Interdiction de modifier le mode de service pendant qu'un traitement est en cours
+  - Ajout de messages d'erreur explicites
+- Les problèmes logiciels identifiés lors des accidents de Tyler et de Yakima seront corrigés.
+- Les manuels seront mis à jour pour refléter ces modifications.
+
+La figure 5 montre une installation typique du Therac-25 après les modifications apportées par le CAP.
+
+![Figure 5 : Une installation Therac-25 typique après le dernier plan d'action correctif (CAP).](/therac-25/fig5-installation.png)
+
+> *Figure originale en anglais. Légende traduite ci-dessous.*
+
+| Anglais | Français |
+|---|---|
+| Therac-25 unit | Unité Therac-25 |
+| Treatment table | Table de traitement |
+| Motion power switch | Interrupteur d'alimentation des mouvements |
+| Intercom | Interphone |
+| TV camera | Caméra de surveillance |
+| Turntable position monitor | Moniteur de position de la platine |
+| Control console | Console de commande |
+| Printer | Imprimante |
+| TV Monitor | Écran de surveillance |
+| Display terminal | Terminal d'affichage |
+| Motion enable footswitch | Pédale d'activation des mouvements |
+| Beam on/off light | Voyant de faisceau actif/inactif |
+| Door Interlock Switch | Interrupteur de verrouillage de porte |
+| Room Emergency Switches | Interrupteurs d'urgence de la salle |
+
+Ed Miller, le directeur de la Division de l'application des normes, au sein du Centre pour les dispositifs et la santé radiologique de la FDA, a écrit en 1987 :
+
+> La FDA a mené un examen approfondi des systèmes de sécurité matériels et logiciels du Therac-25. Nous ne pouvons affirmer avec une certitude absolue que tous les problèmes logiciels susceptibles d'entraîner une dose incorrecte ont été détectés et éliminés. Cependant, nous sommes convaincus que les fonctionnalités de sécurité matérielles et logicielles récemment ajoutées empêcheront de futures conséquences catastrophiques en cas de défaillance.
+
+Aucun accident impliquant le Therac-25 n'a été signalé depuis la mise en œuvre du dernier plan d'action correctif.
+
+## 4. Facteurs causaux
+
+De nombreuses leçons peuvent être tirées de cette série d'accidents. En voici quelques-unes.
+
+### La confiance excessive dans les logiciels
+
+Placer une trop grande confiance dans le logiciel est une erreur fréquente en ingénierie, illustrée ici comme dans de nombreux autres cas. Il semble exister, chez les professionnels non spécialistes du logiciel, une idée reçue selon laquelle le logiciel ne peut pas ou ne va pas défaillir, ce qui engendre de la complaisance et une dépendance excessive aux fonctions informatiques.
+
+Les ingénieurs ont tendance à sous-estimer le logiciel. La première analyse de sécurité du Therac-25 ne l'incluait pas, alors que la responsabilité de la sécurité reposait presque entièrement sur lui. Lorsque des problèmes ont commencé à apparaître, on a supposé que le matériel en était la cause, et l'enquête s'est limitée à son examen.
+
+### Confondre la fiabilité avec la sécurité
+
+Ce logiciel était extrêmement fiable. Il a fonctionné des dizaines de milliers de fois sans provoquer de surdosage, et les comportements erronés étaient rares. AECL a conclu que son logiciel était sûr parce qu'il était fiable, et cette assurance a engendré de la complaisance.
+
+### Manque de conception axée sur la sécurité
+
+Le logiciel ne contenait pas de mécanismes de vérification intégrés ni de fonctionnalités de détection et de gestion des erreurs qui auraient permis de repérer les incohérences et les erreurs de codage. Les journaux d'audit étaient limités par le manque de mémoire disponible. Aujourd'hui, les mémoires plus importantes permettent d'intégrer ces journaux et d'autres techniques de conception dès le départ, et ceux-ci doivent être traités comme des priorités lors des arbitrages.
+
+Les réactions des patients étaient les seuls indicateurs réels de la gravité des problèmes liés au Therac-25 ; aucune vérification indépendante ne permettait de s'assurer que la machine et son logiciel fonctionnaient correctement. Confier une telle vérification aux opérateurs sans leur donner les moyens de détecter les erreurs est insuffisant : le logiciel du Therac-25 « mentait » aux opérateurs, et la machine elle-même était incapable de détecter qu'un surdosage massif avait eu lieu. Les chambres d'ionisation ne pouvaient pas supporter la densité élevée d'ionisation produite par le faisceau d'électrons non balayé à fort courant ; elles se sont saturées et ont affiché un faible dosage. Les ingénieurs doivent concevoir en tenant compte du pire cas possible.
+
+### Manque d'élimination des causes profondes
+
+L'une des leçons à tirer des accidents du Therac-25 est que se concentrer sur des erreurs de conception spécifiques du logiciel ne suffit pas à rendre un système sûr. Presque tout logiciel complexe peut se comporter de manière inattendue dans certaines conditions : il y aura toujours un autre bogue. De même qu'un ingénieur ne devrait pas concevoir un système reposant sur un seul point de défaillance matériel susceptible d'entraîner une catastrophe, il ne devrait pas davantage le faire lorsque ce point de défaillance unique est un logiciel.
+
+Le Therac-20 contenait la même erreur logicielle qui a été impliquée dans les décès à Tyler, mais cette machine disposait de dispositifs de sécurité matériels qui en atténuaient les conséquences. La protection contre les erreurs logicielles peut et doit être intégrée à la fois au système et au logiciel lui-même. Nous ne pouvons pas éliminer toutes les erreurs logicielles, mais nous pouvons souvent nous prémunir contre leurs effets les plus graves, et nous pouvons tenir compte de leur probabilité dans nos processus de décision.
+
+L'une des fautes graves qui a conduit aux accidents répétés du Therac-25 était la tendance à croire qu'une cause avait été identifiée (par exemple, la panne d'un micro-interrupteur dans le cas de Hamilton), sans preuves suffisantes et sans avoir examiné tous les facteurs contributifs possibles. Sans enquête approfondie, il est impossible de déterminer si un capteur a fourni des informations incorrectes, si le logiciel a émis une commande erronée, ou si un actionneur a connu une défaillance transitoire. Dans le cas de l'accident de Hamilton, un dysfonctionnement temporaire du micro-interrupteur a été retenu comme cause, bien que les ingénieurs n'aient pas réussi à reproduire le défaut ni à déceler quoi que ce soit d'anormal dans la pièce.
+
+En général, ne corriger qu'un seul facteur causal, comme un bogue logiciel, en supposant que cela préviendra les accidents futurs est une erreur. Les accidents ne se reproduisent pas exactement de la même manière. Si l'on ne traite que les symptômes en ignorant les causes profondes, ou si l'on ne corrige que la cause spécifique d'un accident, l'impact sur les accidents futurs sera faible. La série d'accidents du Therac-25 en est un exemple parlant : corriger chaque bogue logiciel au fur et à mesure de sa découverte n'a pas résolu les problèmes de sécurité de l'appareil.
+
+### La complaisance
+
+Il faut souvent qu'un accident survienne pour que les gens prennent conscience des dangers d'une technologie. Un physicien médical a écrit à propos des accidents du Therac-25 :
+
+> Au cours de la dernière décennie ou deux, l'« industrie » des accélérateurs médicaux est peut-être devenue un peu complaisante en matière de sécurité. Nous avons supposé que les fabricants possédaient tout type d'expérience en matière de conception de la sécurité, étant donné qu'ils sont dans ce secteur depuis longtemps. Nous savons qu'il existe de nombreux codes, guides et réglementations pour les orienter, et nous avons été rassurés par l'excellent bilan de ces machines jusqu'à présent. À l'exception de quelques incidents dans les années 1960 (par exemple, à Hammersmith, Hambourg), l'utilisation des accélérateurs médicaux a été remarquablement exempte d'accidents graves liés aux radiations jusqu'à présent. Peut-être que nous avons été gâtés par ce succès [6].
+
+Ce phénomène semble se retrouver dans tous les domaines.
+
+### Évaluations des risques irréalistes
+
+Les premières analyses de risques ignoraient le logiciel, puis l'ont traité superficiellement en supposant que toutes les erreurs logicielles étaient également probables. Les évaluations probabilistes des risques ont engendré une confiance excessive dans la machine et dans leurs propres résultats. Lorsque le premier accident de Yakima a été signalé à AECL, l'entreprise n'a pas ouvert d'enquête. Pour preuve de sa conviction que la brûlure par radiation ne pouvait pas avoir été causée par sa machine, elle invoquait une évaluation probabiliste des risques montrant que la sécurité avait augmenté de cinq ordres de grandeur grâce à la correction du micro-interrupteur.
+
+Une amélioration aussi importante de la sécurité semble difficile à justifier. Elle reposait peut-être sur la probabilité de défaillance du micro-interrupteur combinée aux autres systèmes de verrouillage. Le problème inhérent à ce type d'analyses est qu'elles reposent sur de nombreuses hypothèses d'indépendance et excluent des aspects difficiles à quantifier, comme le logiciel, qui peuvent pourtant avoir un impact plus important sur la sécurité que les facteurs effectivement pris en compte.
+
+### Enquête ou suivi inadéquats concernant les rapports d'accidents
+
+Toute entreprise concevant des systèmes critiques pour la sécurité doit disposer de procédures d'audit et d'analyse des incidents, appliquées dès qu'un signe de problème susceptible d'entraîner un accident est détecté. Le premier appel téléphonique de Tim Still aurait dû déclencher une enquête approfondie sur les événements survenus chez Kennestone. La connaissance de la première action en justice aurait certainement dû provoquer une réaction immédiate.
+
+### Pratiques de génie logiciel inadéquates
+
+Certains principes de base du génie logiciel qui ont apparemment été violés dans le cas du Therac-25 comprennent les éléments suivants :
+
+- Les spécifications logicielles et la documentation doivent être élaborées dès le début du projet, et non ajoutées après coup.
+- Des pratiques et des normes rigoureuses d'assurance qualité logicielle doivent être mises en place.
+- Les conceptions doivent être simples et les pratiques de codage dangereuses doivent être évitées.
+- Les mécanismes permettant de détecter les erreurs et d'obtenir des informations à leur sujet, tels que les journaux d'audit des logiciels, doivent être intégrés au logiciel dès le début de sa conception.
+- Le logiciel doit être soumis à des tests approfondis et à une analyse formelle, tant au niveau des modules qu'au niveau du logiciel ; les tests système seuls ne suffisent pas. Des tests de régression doivent être effectués sur toutes les modifications du logiciel.
+- Les écrans d'ordinateur et la présentation des informations aux opérateurs, tels que les messages d'erreur, ainsi que les manuels d'utilisation et autres documentations, doivent être soigneusement conçus.
+
+Le fabricant a déclaré que le matériel et les logiciels avaient été « testés et utilisés séparément ou ensemble pendant de nombreuses années ». Lors de son témoignage dans l'une des poursuites judiciaires, le responsable de l'assurance qualité a expliqué que les tests étaient réalisés en deux parties. Une « petite quantité » de tests logiciels était effectuée sur simulateur, mais la plupart des tests portaient sur le système dans son ensemble. Les tests unitaires et les tests logiciels semblaient minimaux, l'essentiel des efforts étant consacré aux tests du système intégré. Lors d'une réunion d'utilisateurs du Therac-25, le même responsable a indiqué que le logiciel du Therac-25 avait été testé pendant 2 700 heures. Interrogé par les utilisateurs, il a précisé que cela signifiait « 2 700 heures d'utilisation ». La difficulté de la FDA à obtenir un plan de test satisfaisant de la part de l'entreprise, ainsi que l'absence de tests de régression, attestent que les tests n'ont pas été menés de manière adéquate.
+
+La conception est inutilement complexe pour un logiciel aussi critique, et elle s'avère de surcroît difficile à tester : elle a empêché la détection des erreurs connues — et il est fort probable qu'il en existe d'autres qui n'ont tout simplement pas été découvertes — avec les techniques standard de test et de vérification. Cela ne signifie pas que les tests logiciels ne sont pas importants, mais qu'un logiciel doit être conçu pour être testable, et qu'une conception simple peut prévenir les erreurs dès le départ.
+
+### Réutilisation de logiciels
+
+Ces incidents offrent des enseignements importants sur la réutilisation des logiciels. On formule souvent l'hypothèse naïve que réutiliser un logiciel ou recourir à un logiciel commercial éprouvé améliorera la sécurité, au motif que ce logiciel aura été largement testé. Or, réutiliser des modules logiciels ne garantit pas la sécurité dans le nouveau système auquel ils sont intégrés, et peut parfois conduire à des conceptions maladroites et dangereuses. La sécurité est une propriété du système dans lequel le logiciel s'exécute, et non du logiciel lui-même. Dans bien des cas, réécrire entièrement le logiciel pour obtenir une conception propre et simple est une meilleure option.
+
+### Interfaces utilisateur : sécurité versus convivialité
+
+Rendre une machine aussi facile à utiliser que possible peut entrer en conflit avec les impératifs de sécurité. Si la conception de l'interface utilisateur du Therac-25 laissait certes beaucoup à désirer, supprimer les étapes de saisie multiples et supposer que les opérateurs vérifieraient attentivement les valeurs avant d'appuyer sur « Entrée » était irréaliste.
+
+### Surveillance et normes
+
+Une fois impliquée dans l'affaire Therac-25, la FDA a réagi de manière remarquable, compte tenu de sa faible expérience avec ce type de problème lié aux dispositifs médicaux contrôlés par ordinateur. Depuis ces événements, elle a mis en place des mesures pour améliorer le système de signalement et renforcer ses procédures et directives relatives au logiciel. Les retours et demandes du groupe d'utilisateurs ont également joué un rôle important dans la correction de la machine, ce qui constitue un enseignement précieux pour les utilisateurs d'autres secteurs.
+
+## Références
+
+1. C.A. Bowsher. *Rappels de dispositifs médicaux : Examen de cas sélectionnés.* Rapport technique GAO, rapport GAO/PEMD-90-6, U.S. Government Accounting Organization, octobre 1990.
+
+2. C.A. Bowsher. *Dispositifs médicaux : La santé publique en danger.* Rapport technique GAO, Rapport GAO/T-PEMD-90-2, U.S. Government Accounting Organization, 1990.
+
+3. M. Kivel, éditeur. *Bulletin de santé radiologique*, volume XX:8. Center for Devices and Radiological Health, Food and Drug Administration, Rockville, Maryland, décembre 1986.
+
+4. Nancy G. Leveson et Clark S. Turner. « Enquête sur les accidents du Therac-25. » *IEEE Computer*, 26(7):18-41, juillet 1993.
+
+5. Ed Miller. « L'expérience du Therac-25. » In : *Conférence des directeurs de programmes de contrôle des radiations des États*, 1987.
+
+6. J.A. Rawlinson. « Rapport sur le Therac-25. » Présenté lors de la réunion des physiciens de l'OCTRF/OCI, à Kingston, Ontario, en mai 1987.
+
+7. R. Saltos. « Un homme tué accidentellement par une exposition à des radiations médicales. » *Boston Globe*, 20 juin 1986.

@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 import { EXTERNAL_LINKS, SOCIAL_LINKS } from "./app/_config/site.constants";
 
@@ -45,6 +46,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  pageExtensions: ["tsx", "ts", "mdx"],
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
@@ -99,6 +101,11 @@ const nextConfig: NextConfig = {
       destination: SOCIAL_LINKS.tiktok,
       permanent: true,
     },
+    {
+      source: "/therac-25",
+      destination: "/blog/therac-25",
+      permanent: true,
+    },
   ],
   headers: async () => [
     {
@@ -108,4 +115,10 @@ const nextConfig: NextConfig = {
   ],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ["remark-gfm"],
+  },
+});
+
+export default withMDX(nextConfig);
