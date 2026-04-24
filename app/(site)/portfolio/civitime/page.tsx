@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import {
+  CivitimeFaq,
+  civitimeFaqItems,
+} from "@/src/features/portfolio-civitime/components/civitime-faq";
+import {
   CivitimeArchitecture,
   CivitimeBackdrop,
   CivitimeBottomCta,
@@ -11,10 +15,6 @@ import {
   CivitimeStats,
   CivitimeTechStack,
 } from "@/src/features/portfolio-civitime/components/civitime-showcase";
-import {
-  CivitimeFaq,
-  civitimeFaqItems,
-} from "@/src/features/portfolio-civitime/components/civitime-faq";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 

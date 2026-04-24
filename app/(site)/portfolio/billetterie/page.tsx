@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import {
+  BilletterieFaq,
+  billetterieFaqItems,
+} from "@/src/features/portfolio-billetterie/components/billetterie-faq";
+import {
   BilletterieArchitecture,
   BilletterieBackdrop,
   BilletterieBottomCta,
@@ -10,10 +14,6 @@ import {
   BilletterieStats,
   BilletterieTechStack,
 } from "@/src/features/portfolio-billetterie/components/billetterie-showcase";
-import {
-  BilletterieFaq,
-  billetterieFaqItems,
-} from "@/src/features/portfolio-billetterie/components/billetterie-faq";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 

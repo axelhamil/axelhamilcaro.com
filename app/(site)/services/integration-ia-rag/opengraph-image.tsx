@@ -4,8 +4,7 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt =
-  "Service Intégration IA / RAG Freelance — Axel Hamilcaro";
+export const alt = "Service Intégration IA / RAG Freelance — Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 

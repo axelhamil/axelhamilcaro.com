@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import {
+  ScormpilotFaq,
+  scormpilotFaqItems,
+} from "@/src/features/portfolio-scormpilot/components/scormpilot-faq";
+import {
   ScormpilotArchitecture,
   ScormpilotBackdrop,
   ScormpilotBottomCta,
@@ -10,10 +14,6 @@ import {
   ScormpilotStats,
   ScormpilotTechStack,
 } from "@/src/features/portfolio-scormpilot/components/scormpilot-showcase";
-import {
-  ScormpilotFaq,
-  scormpilotFaqItems,
-} from "@/src/features/portfolio-scormpilot/components/scormpilot-faq";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 

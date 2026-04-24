@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import {
+  HomecafeFaq,
+  homecafeFaqItems,
+} from "@/src/features/portfolio-homecafe/components/homecafe-faq";
+import {
   HomecafeArchitecture,
   HomecafeBackdrop,
   HomecafeBottomCta,
@@ -10,10 +14,6 @@ import {
   HomecafeStats,
   HomecafeTechStack,
 } from "@/src/features/portfolio-homecafe/components/homecafe-showcase";
-import {
-  HomecafeFaq,
-  homecafeFaqItems,
-} from "@/src/features/portfolio-homecafe/components/homecafe-faq";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 

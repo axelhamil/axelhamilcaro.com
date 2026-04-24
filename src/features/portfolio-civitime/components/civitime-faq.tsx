@@ -1,6 +1,7 @@
 export const civitimeFaqItems = [
   {
-    question: "Pourquoi une refonte Clean Architecture + DDD + event sourcing ?",
+    question:
+      "Pourquoi une refonte Clean Architecture + DDD + event sourcing ?",
     answer:
       "La codebase legacy de Civitime souffrait de couplage fort métier/techno. Refonte progressive vers DDD et event sourcing pour permettre l'audit complet de l'historique RSE et faciliter l'ajout de nouvelles métriques sans casser l'existant.",
   },

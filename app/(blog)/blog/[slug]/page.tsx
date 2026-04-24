@@ -16,6 +16,7 @@ import {
   getAllPosts,
   getPostBySlug,
 } from "@/src/features/blog/lib/blog";
+import { buildBlogPostingSchema } from "@/src/shared/seo/schemas/blog-posting";
 import { Button } from "@/src/shared/ui/portfolio/button";
 import { Heading1 } from "@/src/shared/ui/typography/heading1";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
@@ -77,27 +78,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     day: "numeric",
   });
 
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
+  const wordCount = post.content.trim().split(/\s+/).length;
+
+  const blogPostingJsonLd = buildBlogPostingSchema({
     headline: post.title,
     description: post.excerpt,
+    url: `${SITE_URL}/blog/${slug}`,
     datePublished: post.date,
-    author: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-      url: SITE_URL,
-    },
-    publisher: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-      url: SITE_URL,
-    },
-    mainEntityOfPage: `${SITE_URL}/blog/${slug}`,
+    author: "Axel Hamilcaro",
     keywords: post.tags,
-    inLanguage: "fr-FR",
     articleSection: post.category,
-  };
+    wordCount,
+  });
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -129,7 +121,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingJsonLd),
+        }}
       />
       <script
         type="application/ld+json"
