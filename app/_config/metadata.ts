@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default:
-      "Axel Hamilcaro | Développeur Full-Stack Freelance Paris - TypeScript & React",
+      "Axel Hamilcaro | Développeur Full-Stack Freelance France - Next.js & TypeScript",
     template: "%s | Axel Hamilcaro - Dev Full-Stack",
   },
   description: siteConfig.description,
@@ -14,8 +14,12 @@ export const metadata: Metadata = {
     "développeur freelance",
     "développeur web",
     "développeur full-stack freelance",
-    "développeur freelance Paris",
-    "développeur web Paris",
+    "développeur freelance France",
+    "développeur freelance remote",
+    "freelance Touraine",
+    "développeur Next.js freelance",
+    "intégration IA freelance",
+    "développement SaaS Next.js",
     "TypeScript",
     "Next.js",
     "React",
@@ -32,9 +36,7 @@ export const metadata: Metadata = {
     "création site internet",
     "développement sur mesure",
     "application web sur mesure",
-    "Paris",
     "France",
-    "Île-de-France",
     "clean architecture",
     "scalable",
     "performant",
@@ -63,7 +65,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     title:
-      "Axel Hamilcaro | Développeur Full-Stack Freelance Paris - TypeScript & React",
+      "Axel Hamilcaro | Développeur Full-Stack Freelance France - Next.js & TypeScript",
     description: siteConfig.description,
     images: [
       {
@@ -76,7 +78,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Axel Hamilcaro | Dev Full-Stack Freelance Paris",
+    title: "Axel Hamilcaro | Dev Full-Stack Freelance France",
     description: siteConfig.description,
     images: ["/og-image.png"],
     creator: "@axelhamilcaro",

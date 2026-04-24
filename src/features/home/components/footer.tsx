@@ -47,16 +47,16 @@ const socialLinks = [
 
 const primaryCtas = [
   {
-    name: "Email",
+    name: "Écrire en 3 lignes",
     href: CONTACT.mailto,
     icon: Mail,
-    hint: "Réponse rapide",
+    hint: "Réponse sous 1h en journée",
   },
   {
-    name: "Calendly",
+    name: "Réserver mon audit",
     href: EXTERNAL_LINKS.calendly,
     icon: Calendar,
-    hint: "15-20 min",
+    hint: "30 min, sans engagement",
   },
 ] as const;
 

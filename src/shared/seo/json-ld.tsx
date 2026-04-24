@@ -4,44 +4,6 @@ import {
   SITE_URL,
 } from "@/app/_config/site.constants";
 
-const testimonials = [
-  {
-    name: "Léo",
-    role: "CTO @ ScormPilot",
-    content:
-      "Intervention rapide et qualitative sur notre stack Next.js. Axel a restructuré notre architecture frontend et ajouté des fonctionnalités clés sans casser l'existant. Pro et autonome.",
-    rating: 5,
-  },
-  {
-    name: "Anthony M.",
-    role: "Product Manager @ Civitime",
-    content:
-      "Axel a développé plusieurs modules critiques de notre plateforme e-learning. Son code est propre, bien testé, et il pose les bonnes questions. Un renfort technique solide.",
-    rating: 5,
-  },
-  {
-    name: "Aboubacar",
-    role: "Fondateur @ MentorTroc",
-    content:
-      "Mission réussie sur notre app Next.js. Axel a livré dans les temps, avec un code maintenable et une vraie attention aux détails UX. Je recommande.",
-    rating: 5,
-  },
-  {
-    name: "Sophie L.",
-    role: "CEO @ Startup EdTech",
-    content:
-      "Excellent travail sur notre MVP. Axel a su comprendre nos besoins métier et proposer des solutions techniques pragmatiques. Le produit est sorti en 6 semaines.",
-    rating: 5,
-  },
-  {
-    name: "Thomas R.",
-    role: "Développeur @ Agence Web",
-    content:
-      "J'ai suivi le mentorat d'Axel pendant 3 mois. Ses explications sur React et Clean Architecture m'ont fait progresser très vite. Pédagogue et patient.",
-    rating: 5,
-  },
-];
-
 export function JsonLd() {
   const personSchema = {
     "@context": "https://schema.org",
@@ -53,7 +15,7 @@ export function JsonLd() {
     image: PROFILE_IMAGE,
     jobTitle: "Développeur Full-Stack TypeScript",
     description:
-      "Développeur Full-Stack freelance spécialisé TypeScript, Next.js, React et Node.js. Je conçois des applications web et SaaS robustes, scalables et orientées produit pour startups et entreprises en France.",
+      "Développeur Full-Stack freelance basé en Touraine, intervient à 100% en remote sur la France. Spécialisé TypeScript, Next.js, React, Node.js et intégration IA. Lead technique 4 ans Civitime, 10+ projets livrés en autonomie depuis 2021.",
     sameAs: [
       EXTERNAL_LINKS.linkedin,
       EXTERNAL_LINKS.github,
@@ -76,6 +38,16 @@ export function JsonLd() {
       "Web Development",
       "Vercel",
       "Docker",
+      "React Native",
+      "Expo",
+      "NestJS",
+      "Fastify",
+      "RAG",
+      "Vercel AI SDK",
+      "Multi-tenancy SaaS",
+      "Event Sourcing",
+      "CQRS",
+      "Turborepo",
     ],
     worksFor: {
       "@type": "Organization",
@@ -83,12 +55,28 @@ export function JsonLd() {
     },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Paris",
+      addressLocality: "Tours",
       addressCountry: "FR",
     },
     nationality: {
       "@type": "Country",
       name: "France",
+    },
+    alumniOf: {
+      "@type": "EducationalOrganization",
+      name: "Wild Code School",
+      url: "https://www.wildcodeschool.com/",
+    },
+    hasCredential: [
+      {
+        "@type": "EducationalOccupationalCredential",
+        name: "Concepteur Développeur d'applications Web & Mobile (Bac+3/4)",
+        credentialCategory: "degree",
+      },
+    ],
+    workLocation: {
+      "@type": "Place",
+      name: "Remote — France",
     },
   };
 
@@ -112,9 +100,6 @@ export function JsonLd() {
     },
   };
 
-  const averageRating =
-    testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length;
-
   const professionalServiceSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -134,10 +119,6 @@ export function JsonLd() {
         "@type": "Country",
         name: "France",
       },
-      {
-        "@type": "City",
-        name: "Paris",
-      },
     ],
     serviceType: [
       "Développement Web Full-Stack",
@@ -149,28 +130,6 @@ export function JsonLd() {
       "Refonte de Site Web",
       "Maintenance et Support",
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: averageRating.toString(),
-      reviewCount: testimonials.length.toString(),
-      bestRating: "5",
-      worstRating: "1",
-    },
-    review: testimonials.map((testimonial) => ({
-      "@type": "Review",
-      author: {
-        "@type": "Person",
-        name: testimonial.name,
-        jobTitle: testimonial.role,
-      },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: testimonial.rating.toString(),
-        bestRating: "5",
-        worstRating: "1",
-      },
-      reviewBody: testimonial.content,
-    })),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Services de développement web",

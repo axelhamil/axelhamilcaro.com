@@ -144,7 +144,7 @@ const Navbar = () => {
             )}
           >
             <Calendar className="w-4 h-4" />
-            <span className="hidden lg:inline">Contact</span>
+            <span className="hidden lg:inline">Audit gratuit 30min</span>
           </a>
         </div>
 
@@ -271,7 +271,7 @@ const Navbar = () => {
                     )}
                   >
                     <Calendar className="w-5 h-5" />
-                    Prendre rendez-vous
+                    Audit gratuit 30min
                   </a>
                 </motion.div>
 

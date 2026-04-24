@@ -1,0 +1,32 @@
+# Axel Hamilcaro — Développeur Full-Stack Freelance
+
+> Développeur full-stack freelance basé en Touraine, 100% remote France.
+> Spécialisé Next.js, React, Node.js, TypeScript, intégration IA (RAG, Vercel AI SDK).
+> 10+ projets livrés en autonomie depuis 2021. TJM 450€.
+
+## Pages principales
+
+- [Accueil](https://axelhamilcaro.com): vue d'ensemble services, case studies, témoignages
+- [À propos](https://axelhamilcaro.com/about): parcours, valeurs, crédentiels
+- [Blog](https://axelhamilcaro.com/blog): articles techniques
+
+## Services
+
+- [Développeur Next.js freelance](https://axelhamilcaro.com/services/developpeur-nextjs-freelance)
+- [Développement SaaS](https://axelhamilcaro.com/services/developpement-saas)
+- [Intégration IA / RAG](https://axelhamilcaro.com/services/integration-ia-rag)
+
+## Case studies
+
+- [ScormPilot](https://axelhamilcaro.com/portfolio/scormpilot): SaaS e-learning multi-tenant, 5 apps en solo
+- [HomeCafé](https://axelhamilcaro.com/portfolio/homecafe): app web + mobile native, 70+ parcours, 545+ tests
+- [Civitime](https://axelhamilcaro.com/portfolio/civitime): plateforme RSE, lead tech 4 ans, IA RAG
+- [Billetterie](https://axelhamilcaro.com/portfolio/billetterie): plan 2D/3D + WebSocket, solo en 1 mois
+
+## Contact
+
+- Email: contact@axelhamilcaro.com
+- Calendly: https://calendly.com/axel-hamilcaro-pro/appel-decouverte
+- Malt: https://www.malt.fr/profile/axelhamilcaro
+- LinkedIn: https://www.linkedin.com/in/axelhamilcaro/
+- GitHub: https://github.com/axelhamil

@@ -126,7 +126,7 @@ const HeroLeft = () => {
               >
                 <Calendar className="w-5 h-5" />
               </span>
-              Discuter de ton projet
+              Lancer mon projet sous 24h
             </Button>
           </MagneticWrapper>
 
