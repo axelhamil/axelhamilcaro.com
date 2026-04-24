@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import TreeFooter from "@/app/_components/tree/footer";
-import TreeHeader from "@/app/_components/tree/header";
-import { treeLinkService } from "@/src/features/tree-links/tree-link.service";
-import TreeLinksWrapper from "./_components/tree-links-wrapper";
+import { treeLinkService } from "@/src/backend/tree-links/tree-link.service";
+import TreeFooter from "@/src/features/tree/components/footer";
+import TreeHeader from "@/src/features/tree/components/header";
+import TreeLinksWrapper from "@/src/features/tree/components/tree-links-wrapper";
 
 export const metadata: Metadata = {
   title: "Liens et Réseaux",

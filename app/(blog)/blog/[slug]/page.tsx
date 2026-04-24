@@ -5,16 +5,20 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkGfm from "remark-gfm";
-import { Heading1 } from "@/components/typography/heading1";
-import { Paragraph } from "@/components/typography/paragraph";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/portfolio/button";
-import { TableOfContents } from "@/app/_components/blog/table-of-contents";
-import { MobileTableOfContents } from "@/app/_components/blog/mobile-table-of-contents";
-import { ArticleNavigation } from "@/app/_components/blog/article-navigation";
 import { SITE_URL } from "@/app/_config/site.constants";
-import { extractHeadings, getAllPosts, getPostBySlug } from "@/app/_lib/blog";
+import { Badge } from "@/components/ui/badge";
 import { useMDXComponents } from "@/mdx-components";
+import { ArticleNavigation } from "@/src/features/blog/components/article-navigation";
+import { MobileTableOfContents } from "@/src/features/blog/components/mobile-table-of-contents";
+import { TableOfContents } from "@/src/features/blog/components/table-of-contents";
+import {
+  extractHeadings,
+  getAllPosts,
+  getPostBySlug,
+} from "@/src/features/blog/lib/blog";
+import { Button } from "@/src/shared/ui/portfolio/button";
+import { Heading1 } from "@/src/shared/ui/typography/heading1";
+import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -124,10 +128,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <main className="min-h-screen bg-primary-background">
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <header className="border-b border-border">
@@ -144,10 +150,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span className="text-sm text-muted">{post.readingTime}</span>
           </div>
 
-          <Heading1
-            size="xl"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
+          <Heading1 size="xl" style={{ fontFamily: "var(--font-display)" }}>
             {post.title}
           </Heading1>
 

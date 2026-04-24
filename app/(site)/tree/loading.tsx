@@ -7,7 +7,11 @@ export default function TreeLoading() {
         <div className="w-32 h-4 bg-primary/10 rounded" />
         <div className="w-full space-y-3 mt-4">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-primary/10 rounded-xl" />
+            <div
+              // biome-ignore lint/suspicious/noArrayIndexKey: static skeleton list
+              key={i}
+              className="h-14 bg-primary/10 rounded-xl"
+            />
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { Toaster } from "sonner";
-import { AdminPageWrapper } from "./_components/admin-page-wrapper";
-import { Header } from "./_components/header";
-import { Sidebar } from "./_components/sidebar";
+import { AdminPageWrapper } from "@/src/features/admin/components/admin-page-wrapper";
+import { Header } from "@/src/features/admin/components/header";
+import { Sidebar } from "@/src/features/admin/components/sidebar";
 
 export default function AdminLayout({
   children,

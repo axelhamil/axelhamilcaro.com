@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-
-const BilletterieShowcase = dynamic(
-  () => import("./_components/billetterie-showcase"),
-  { ssr: true },
-);
+import {
+  BilletterieArchitecture,
+  BilletterieBackdrop,
+  BilletterieBottomCta,
+  BilletterieContext,
+  BilletterieFeatures,
+  BilletterieHero,
+  BilletterieScreenshots,
+  BilletterieStats,
+  BilletterieTechStack,
+} from "@/src/features/portfolio-billetterie/components/billetterie-showcase";
 
 export const metadata: Metadata = {
   title: "Billetterie Interne - Dashboard de gestion d'événements",
@@ -43,7 +48,17 @@ export const metadata: Metadata = {
 export default function BilletteriePage() {
   return (
     <main className="pb-8">
-      <BilletterieShowcase />
+      <div className="relative">
+        <BilletterieBackdrop />
+        <BilletterieHero />
+        <BilletterieStats />
+        <BilletterieContext />
+        <BilletterieScreenshots />
+        <BilletterieFeatures />
+        <BilletterieArchitecture />
+        <BilletterieTechStack />
+        <BilletterieBottomCta />
+      </div>
     </main>
   );
 }

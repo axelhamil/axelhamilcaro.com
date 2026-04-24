@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { formService } from "@/src/backend/forms/form.service";
 import { NotFoundError } from "@/src/core/errors/domain.error";
-import { formService } from "@/src/features/forms/form.service";
-import { FormPageBackground } from "./_components/form-background";
-import { FormCard } from "./_components/form-card";
+import { FormPageBackground } from "@/src/features/form-public/components/form-background";
+import { FormCard } from "@/src/features/form-public/components/form-card";
 
 export const revalidate = 3600;
 

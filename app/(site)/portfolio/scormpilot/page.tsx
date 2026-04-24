@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-
-const ScormpilotShowcase = dynamic(
-  () => import("./_components/scormpilot-showcase"),
-  { ssr: true },
-);
+import {
+  ScormpilotArchitecture,
+  ScormpilotBackdrop,
+  ScormpilotBottomCta,
+  ScormpilotContext,
+  ScormpilotFeatures,
+  ScormpilotHero,
+  ScormpilotScreenshots,
+  ScormpilotStats,
+  ScormpilotTechStack,
+} from "@/src/features/portfolio-scormpilot/components/scormpilot-showcase";
 
 export const metadata: Metadata = {
   title: "ScormPilot - Plateforme SaaS e-learning SCORM",
@@ -42,7 +47,17 @@ export const metadata: Metadata = {
 export default function ScormpilotPage() {
   return (
     <main className="pb-8">
-      <ScormpilotShowcase />
+      <div className="relative">
+        <ScormpilotBackdrop />
+        <ScormpilotHero />
+        <ScormpilotStats />
+        <ScormpilotContext />
+        <ScormpilotScreenshots />
+        <ScormpilotFeatures />
+        <ScormpilotArchitecture />
+        <ScormpilotTechStack />
+        <ScormpilotBottomCta />
+      </div>
     </main>
   );
 }

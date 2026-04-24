@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import * as templateController from "@/src/features/templates/template.controller";
+import * as templateController from "@/src/backend/templates/template.controller";
 
 export async function GET() {
   return templateController.list(await headers());

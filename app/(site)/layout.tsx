@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import Navbar from "@/app/_components/shared/layouts/navbar";
-import { SiteWidgets } from "@/app/_components/shared/layouts/site-widgets";
-import { JsonLd } from "@/app/_components/shared/seo/json-ld";
+import Navbar from "@/src/shared/layouts/navbar";
+import { SiteWidgets } from "@/src/shared/layouts/site-widgets";
+import { JsonLd } from "@/src/shared/seo/json-ld";
 
 export default function SiteLayout({
   children,

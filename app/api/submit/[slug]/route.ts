@@ -1,4 +1,4 @@
-import * as leadController from "@/src/features/leads/lead.controller";
+import * as leadController from "@/src/backend/leads/lead.controller";
 import { getClientIdentifier } from "@/src/lib/rate-limit";
 
 export async function POST(

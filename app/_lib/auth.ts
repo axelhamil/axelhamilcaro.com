@@ -114,8 +114,8 @@ export const auth = betterAuth({
 
   socialProviders: {
     github: {
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      clientId: process.env.GITHUB_CLIENT_ID ?? "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
       mapProfileToUser: async (profile) => {
         if (!ALLOWED_GITHUB_ID) {
           throw new APIError("FORBIDDEN", {

@@ -1,6 +1,6 @@
 import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
-import { requireAdminAuth } from "@/app/_lib/api-auth";
+import { requireAdminAuth } from "@/src/shared/api/api-auth";
 
 export async function POST(request: Request) {
   const authResult = await requireAdminAuth();

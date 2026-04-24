@@ -2,159 +2,227 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Product
 
-Portfolio website for Axel Hamilcaro, built with Next.js 16, React 19, TypeScript, and Tailwind CSS v4. The project uses Biome for linting/formatting instead of ESLint.
+Portfolio + site personnel d'Axel Hamilcaro. Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4, Biome (pas ESLint), Drizzle + PostgreSQL (Neon), better-auth (GitHub), Resend (email).
 
-## Development Commands
+**Pages publiques** : home, portfolio (4 cases), tree, blog, 404.
+**Admin privé** : dashboard, formulaires (CRUD + editor), leads, templates, analytics, tree links.
+**Formulaires publics** : `/f/[slug]` avec capture leads.
+
+## Quick Start
 
 ```bash
-pnpm dev        # Start development server on http://localhost:3000
-pnpm build      # Build for production
-pnpm start      # Start production server
-pnpm lint       # Run Biome linter checks
-pnpm format     # Format code with Biome
+pnpm dev        # dev server http://localhost:3000
+pnpm build      # production build
+pnpm start      # production server
+pnpm lint       # Biome lint
+pnpm format     # Biome format
 ```
 
-## Project Structure
+## Architecture
+
+Inspirée de `raphael-openup-app` (openup), adaptée Next.js App Router.
 
 ```
-/app
-  /_components
-    /ui              # Reusable UI components
-    /shared
-      /layouts       # Navbar, Footer
-      /navigation    # TransitionLink, PageTransition
-      /seo           # JsonLd
-    /home            # Home page-specific components
-  /_config           # Configuration files (metadata, viewport, fonts, site)
-  /_lib              # App utilities (cn.ts)
-  /api               # API routes (minimal wrappers for controllers)
-    /forms           # Forms CRUD
-    /leads           # Leads CRUD
-    /submit/[slug]   # Public lead submission
-    /admin/dashboard # Dashboard stats
-    /analytics       # Analytics tracking & stats
-    /tree-links      # Tree links CRUD & reorder
-    /templates       # Form templates CRUD
-  layout.tsx         # Root layout
-  page.tsx           # Homepage
-
-/src
-  /core
-    /errors          # Domain errors (NotFoundError, ValidationError, ConflictError)
-  /features
-    /auth            # Auth feature
-      auth.service.ts      # Admin auth (framework-agnostic)
-    /email           # Email feature
-      email.service.ts     # Email sending (Resend)
-    /forms           # Form feature
-      form.controller.ts   # HTTP handling
-      form.repository.ts   # CRUD operations
-      form.service.ts      # Business logic
-      form.schema.ts       # Zod schemas
-    /leads           # Lead feature
-      lead.controller.ts
-      lead.repository.ts
-      lead.service.ts
-      lead.schema.ts
-    /analytics       # Analytics feature
-      analytics.controller.ts
-      analytics.repository.ts
-      analytics.service.ts
-      analytics.schema.ts
-    /tree-links      # Tree links feature
-      tree-link.controller.ts
-      tree-link.repository.ts
-      tree-link.service.ts
-      tree-link.schema.ts
-    /templates       # Form templates feature
-      template.controller.ts
-      template.repository.ts
-      template.service.ts
-      template.schema.ts
-  /lib
-    http.ts          # HTTP response helpers (NextResponse abstraction)
-    /utils
-      date.utils.ts   # Date formatting
-      slug.utils.ts   # Slug generation/validation
-      email.utils.ts  # Email normalization/validation
-
-/drizzle             # Database layer
-  schema.ts          # Drizzle schema definitions
-  index.ts           # DB connection
-
-/public              # Static assets
+Routes (Next.js app/)  → orchestrateurs minces, composition de sections
+    ↓
+Features (src/features)  → UI par workflow (une feature = un écran ou un flow)
+    ↓
+Entities (src/entities)  → concepts métier stables partagés entre ≥2 features
+    ↓
+Shared (src/shared)  → infra transverse, zéro métier
+    ↓
+Backend (src/backend)  → logique serveur (controller/service/repository)
 ```
 
-**Note:** `/app` contains Next.js routes and UI. `/src` contains business logic with Clean Architecture.
+**Direction d'imports stricte** : `app → features → entities → shared → backend`. Une strate n'importe QUE d'une strate inférieure. **Aucun import latéral entre features.**
 
-**IMPORTANT - No direct database calls in /app:**
-- All Drizzle calls must be in `/src/features/*/[feature].repository.ts`
-- API routes delegate to controllers, never import from `@/drizzle` directly
-- Server Components can call services directly (e.g., `formService.getById()`)
-- Exception: `app/_lib/auth.ts` uses Drizzle adapter for better-auth configuration
-
-## Refactoring Guidelines
-
-### 1. Code Cleanliness
-
-- **NO comments in code**: Code must be self-documenting through explicit names and short functions
-- Prioritize clarity over brevity
-- Functions should be short and focused on a single responsibility
-
-### 2. Target Component Organization
-
-The goal is to reorganize components into this structure:
+### Structure
 
 ```
-/components
-  /ui              # Shadcn components ONLY (currently in app/_components/ui)
-  /shared          # Reusable cross-cutting components
-    /layouts       # Shared layouts (Header, Footer, Sidebar, etc.)
-    /forms         # Reusable form components
-    /cards         # Reusable cards
-    /modals        # Reusable modals
-  /[feature]       # Feature-specific components
-    /home          # Homepage-specific components
-    /tree          # Tree page-specific components
+app/                              # Next.js routes + layouts + api — SEUL endroit Next.js-specific
+├── (site)/                       # Layout group : site public
+│   ├── page.tsx                  # Home (orchestrateur de sections)
+│   ├── portfolio/
+│   │   ├── billetterie/page.tsx  # Compose sections de portfolio-billetterie
+│   │   ├── civitime/page.tsx     # Idem
+│   │   ├── homecafe/page.tsx     # Idem
+│   │   └── scormpilot/page.tsx   # Idem
+│   ├── tree/page.tsx             # Compose TreeHeader + TreeLinksWrapper + TreeFooter
+│   └── login/page.tsx            # Compose LoginForm + LoginFooter
+├── (blog)/
+│   ├── blog/page.tsx             # Liste articles
+│   └── blog/[slug]/page.tsx      # Article MDX
+├── admin/                        # Admin protégé
+│   ├── layout.tsx                # Compose Sidebar + Header + AdminPageWrapper
+│   ├── page.tsx                  # Dashboard : compose 6 sections (header, today, overview, secondary, charts, recent)
+│   ├── analytics/page.tsx        # Compose 9 sections analytics via AnalyticsProvider
+│   ├── forms/page.tsx            # Compose FormsHeader + FormsSearch + FormsTable via FormsProvider
+│   ├── forms/new/page.tsx        # FormEditor standalone
+│   ├── forms/[id]/page.tsx       # FormEditor standalone
+│   ├── leads/page.tsx            # Compose LeadsHeader + LeadsFilters + LeadsTable via LeadsProvider
+│   ├── templates/page.tsx        # Compose TemplatesHeader + TemplatesSearch + TemplatesGrid via TemplatesProvider
+│   └── tree/page.tsx             # Compose TreeAdminHeader + TreeLinkEditor + TreeLinksList via TreeLinksProvider
+├── api/                          # Routes API (wrappers minces → controllers)
+│   ├── forms/, leads/, templates/, tree-links/, analytics/, admin/, upload/, auth/
+├── f/[slug]/page.tsx             # Form public (capture lead)
+├── nice-try/page.tsx             # 403 détecté login non-autorisé (sections)
+├── not-found.tsx                 # 404 (sections)
+├── sitemap.ts, robots.ts         # Next.js metadata routes
+├── _config/                      # Config Next.js-liée (metadata, viewport, fonts, site)
+│   ├── metadata.ts, viewport.ts, fonts.ts, site.ts, site.constants.ts
+│   ├── navigation.ts, tree-links.ts, blur-placeholders.ts
+└── _lib/                         # auth.ts UNIQUEMENT (BetterAuth server config + Drizzle adapter — exception couplage Next.js)
+    └── auth.ts
+
+src/
+├── features/                     # UI par workflow (chaque feature = un ou plusieurs écrans)
+│   ├── home/                     # Home page sections
+│   │   └── components/           # hero/, experience-timeline, case-studies, tech-stack, testimonials, footer, what-i-do, approach, trusted-by
+│   ├── blog/                     # Blog list + article
+│   │   ├── components/           # article-card, blog-navbar, table-of-contents (mobile + desktop), article-navigation, scroll-to-top
+│   │   └── lib/                  # blog.ts (getAllPosts, getPostBySlug, extractHeadings)
+│   ├── not-found/                # 404 page sections
+│   │   └── components/           # caught-counter, glitch-text, particle, success-message
+│   ├── tree/                     # Tree public page
+│   │   └── components/           # header, footer, links, tree-links-wrapper
+│   ├── nice-try/                 # 403 page sections
+│   │   └── components/           # nice-try-{backdrop,header,terminal,data-points,warning,return-link,incident-info}, hacker-terminal, use-typewriter
+│   ├── auth/                     # UI auth (login)
+│   │   └── components/           # login-form, login-loading, login-footer
+│   ├── form-public/              # /f/[slug] page
+│   │   └── components/           # form-background, form-card
+│   ├── portfolio-billetterie/    # Case billetterie (1 feature = 1 page showcase)
+│   │   └── components/billetterie-showcase.tsx  # named exports: Backdrop, Hero, Stats, Context, Screenshots, Features, Architecture, TechStack, BottomCta
+│   ├── portfolio-civitime/       # Case civitime (même pattern)
+│   ├── portfolio-homecafe/       # Case homecafe (même pattern)
+│   ├── portfolio-scormpilot/     # Case scormpilot (même pattern)
+│   ├── admin/                    # Admin shell + dashboard
+│   │   └── components/
+│   │       ├── admin-page-wrapper, header, sidebar
+│   │       ├── dashboard/        # 7 sections dashboard : week-chart, dashboard-{header,loading}, today-stats, overview-stats, secondary-stats, weekly-charts, recent-activity
+│   │       └── shared/           # admin-{empty-state,search-input,stat-card} (cross-admin atoms)
+│   ├── admin-analytics/          # Analytics page
+│   │   └── components/
+│   │       ├── analytics-provider (context state : date range, refresh interval, filters)
+│   │       ├── analytics-loading, analytics-header, custom-date-range
+│   │       ├── 7 sections : insights-panel, overview-stats, activity-charts, breakdown-panels, traffic-sources, top-links-panel, recent-activity-panels
+│   │       ├── helpers : hourly-chart, day-chart, analytics-constants, generate-insights
+│   ├── admin-forms/              # Forms list + editor
+│   │   └── components/
+│   │       ├── forms-provider (context : search + SWR forms)
+│   │       ├── 3 sections : forms-header, forms-search, forms-table
+│   │       ├── helpers : copy-slug-button, delete-form-button
+│   │       └── form-editor/      # Éditeur complet (form-editor.tsx + tabs : background, content, email + hooks + types)
+│   ├── admin-leads/              # Leads list
+│   │   └── components/
+│   │       ├── leads-provider (context : search, filter formId, SWR leads)
+│   │       ├── 3 sections : leads-header, leads-filters, leads-table
+│   │       ├── cell-helpers : status-select, notes-editor, delete-lead-button, export-button
+│   │       └── lead-status-config.ts
+│   ├── admin-templates/          # Templates list
+│   │   └── components/
+│   │       ├── templates-provider (context : search, props templates)
+│   │       ├── 3 sections : templates-header, templates-search, templates-grid
+│   │       └── template-card, delete-template-button
+│   └── admin-tree/               # Tree admin (drag-and-drop)
+│       └── components/
+│           ├── tree-links-provider (context : editing state, CRUD, reorder)
+│           ├── 3 sections : tree-admin-header, tree-link-editor, tree-links-list
+│           └── tree-icon-options.ts
+├── entities/                     # Concepts métier stables partagés cross-feature
+│   ├── form/api.ts               # useForms() — SWR hook CRUD formulaires
+│   ├── lead/api.ts               # useLeads() — SWR hook CRUD leads
+│   └── tree-link/api.ts          # useTreeLinks() — SWR hook CRUD tree links
+├── shared/                       # Infra transverse, zéro métier
+│   ├── api/                      # Infra API client
+│   │   ├── swr-config.ts         # swrConfig + fetcher
+│   │   ├── auth-client.ts        # BetterAuth React client (createAuthClient)
+│   │   └── api-auth.ts           # requireAdminAuth() pour routes API Next.js
+│   ├── ui/                       # Atomes UI spécifiques (pas shadcn)
+│   │   ├── typography/           # heading1, heading2, paragraph
+│   │   ├── effects/              # reveal, tilt-card, magnetic-wrapper, scroll-progress, emoji-rain, etc.
+│   │   ├── navigation/           # transition-link, page-transition
+│   │   ├── portfolio/            # button (site-wide custom button), link-card
+│   │   └── widgets/              # key-stats (homepage widget)
+│   ├── layouts/                  # navbar, site-widgets
+│   ├── seo/                      # json-ld
+│   └── hooks/                    # use-mobile-menu, use-scroll-progress
+├── backend/                      # Clean Architecture backend (controller → service → repository)
+│   ├── forms/, leads/, templates/, tree-links/, analytics/, auth/
+│   │   └── *.controller.ts, *.service.ts, *.repository.ts, *.schema.ts
+│   └── email/                    # Email infrastructure
+│       ├── email.service.ts      # sendLeadEmail, sendAdminNotification
+│       ├── resend.ts             # SDK init + helpers legacy (resend instance + send helpers)
+│       └── templates/            # lead-email.tsx, admin-notification.tsx
+├── core/errors/                  # NotFoundError, ValidationError, ConflictError
+└── lib/                          # http.ts (abstraction NextResponse), utils (date, slug, email)
+
+components/ui/                    # shadcn primitives UNIQUEMENT (button, card, dialog, input, etc.)
+drizzle/                          # schema.ts + db connection
+public/                           # assets statiques
 ```
 
-**Organization rules:**
-- `/components/ui`: Reserved for Shadcn components only
-- `/components/shared`: Components reused in 2+ different features
-- `/components/[feature]`: Components used in only 1 feature/page
-- If a component is used 2+ times across features → move to shared
-- If a component is used only once → keep in feature folder
+## Key Rules
 
-### 3. Next.js - Server Components First
+1. **La route Next.js EST la page.** Pas de `<feature>-page.tsx` wrapper. Le fichier `app/**/page.tsx` compose les sections directement. Extraire des helpers dans `/src/features/<feature>/components/` ou `/src/shared/` — jamais de wrapper intermédiaire qui rerender la même composition.
 
-**Default to Server Components:**
-- Use Server Components by default for all new components
-- Only use Client Components (`'use client'`) when strictly necessary:
-  - Interactivity (onClick, onChange, useState, etc.)
-  - React hooks (useEffect, useContext, etc.)
-  - Browser APIs (localStorage, window, etc.)
-  - Event listeners
-- Explicitly mark all Client Components with `'use client'` at the top of the file
+2. **Une page = composition visible de sections.** Quand on ouvre `app/.../page.tsx`, on DOIT voir la structure : `<Hero />`, `<Stats />`, `<Features />`, etc. Pas `return <BigComponent />`. Exception unique : pages triviales qui n'ont qu'un seul composant logique (ex: `form-public` n'a qu'un `FormCard` dans un `FormPageBackground`).
 
-**Example - Current navbar.tsx uses 'use client' (app/_components/navbar.tsx):**
-```tsx
-'use client';
-// Uses useState for mobile menu → correctly marked as client component
-```
+3. **État partagé entre sections = Provider dans la feature.** Si 2+ sections partagent du state (search, filters, selection, SWR data), créer `<feature>-provider.tsx` avec React Context. Sections lisent via `use<Feature>Context()`. Exemples existants : `admin-forms`, `admin-leads`, `admin-analytics`, `admin-templates`, `admin-tree`.
 
-### 4. Pages as Pure Orchestrators
+4. **État local à UNE section = local à la section.** Si un state ne concerne qu'une section (ex: `activeScreenshot` dans `Screenshots`), garder `useState` INSIDE la section. Pas de provider inutile.
 
-Pages (`app/*/page.tsx`) must be **orchestrators only**:
+5. **No barrel exports.** Pas de `index.ts` qui re-exporte. Toujours import direct vers le fichier : `@/src/features/admin-forms/components/forms-table` pas `@/src/features/admin-forms`.
 
-**Current good example (app/page.tsx):**
+6. **Direction d'imports stricte.** `app → features → entities → shared → backend`. Une feature ne peut PAS importer une autre feature. Si besoin cross-feature : remonter d'une strate (concept métier → `entities/`, UI pure → `shared/ui/`).
+
+7. **Server Components par défaut.** `'use client'` uniquement si : interactivité (onClick/onChange), React hooks (useState/useEffect), browser APIs (localStorage/window). Les routes qui font du data fetching server-side restent Server Components — passent data en props à des Client Components enfants.
+
+8. **Pages portfolio : sections exportées nommées dans le SAME fichier.** Chaque `portfolio-<case>/components/<case>-showcase.tsx` exporte plusieurs sections nommées (`<Case>Backdrop`, `<Case>Hero`, `<Case>Stats`, etc.) plutôt que de créer 9 fichiers par case. Data constants et helpers restent en tête du fichier. Route importe et compose.
+
+9. **No direct Drizzle in `/app`.** Tous les appels Drizzle passent par `/src/backend/<feature>/<feature>.repository.ts`. Routes API délèguent aux controllers. Server Components peuvent appeler services directement (`formService.getById()`). Exception : `app/_lib/auth.ts` pour l'adapter better-auth.
+
+10. **Routes API minces.** `app/api/**/route.ts` ne fait que : extraire request, appeler controller. ~5 lignes max. Toute logique dans `/src/backend/*/[feature].controller.ts`.
+
+11. **Framework decoupling backend.** Controllers importent `@/src/lib/http` (abstraction NextResponse), auth service reçoit `Headers` en paramètre. Pour changer de framework : changer seulement les routes + `src/lib/http.ts`.
+
+12. **Errors domain.** Jamais swallow les erreurs. Lancer `NotFoundError`, `ValidationError`, `ConflictError` depuis services — controllers les traduisent en HTTP. Ne JAMAIS wrapper `redirect()` dans try/catch (`NEXT_REDIRECT` doit propager).
+
+13. **Zod v4 `.parse` vs `.safeParse`.** Préférer `safeParse` dans les services (renvoie result). `parse` uniquement si tu veux catcher plus haut.
+
+14. **No comments.** Code self-documenting. Pas de commentaires explicatifs — noms de fonctions/variables doivent suffire. Exceptions : `biome-ignore` justifiés, markers de section `{/* HERO */}` dans showcases pour navigation visuelle.
+
+15. **Nom fichiers kebab-case, composants PascalCase.** `forms-header.tsx` exporte `FormsHeader`. Hooks `use-<name>.ts` exportent `use<Name>`.
+
+16. **Types avec `import type`.** Toujours `import type { Metadata } from "next"`. Biome warn si manquant.
+
+17. **shadcn dans `/components/ui` uniquement.** Ne pas créer de composants UI custom dans `/components/ui`. Les atomes UI app-specific vont dans `/src/shared/ui/`. Les composants métier vont dans `/src/features/<feature>/components/` ou `/src/entities/<entity>/components/`.
+
+18. **Figma/screenshots = référence absolue.** Pixel-perfect ou c'est faux. Signaler contraintes techniques AVANT d'implémenter.
+
+19. **SWR hooks dans `/src/entities/<entity>/api.ts`.** Hooks SWR de domain stable (forms, leads, tree-links) dans entities. Hooks de feature admin (analytics, dashboard) dans `/src/features/admin*/hooks/`. Ne PAS créer de hooks SWR dans `/app/`.
+
+## Page Structure
+
+### Layouts
+
+- `app/layout.tsx` : root (fonts, metadata, JsonLd, SiteWidgets, PageTransition)
+- `app/(site)/layout.tsx` : layout du site public (Navbar + main)
+- `app/(blog)/layout.tsx` : layout blog (BlogNavbar)
+- `app/admin/layout.tsx` : admin shell (Sidebar + Header + AdminPageWrapper + Toaster)
+
+### Patterns de composition
+
+**Orchestrateur simple (home, tree public) :**
 ```tsx
 export default function Home() {
   return (
     <main>
       <Hero />
       <WhatIDo />
+      <CaseStudies />
       <TechStack />
       <Footer />
     </main>
@@ -162,225 +230,65 @@ export default function Home() {
 }
 ```
 
-**Page responsibilities:**
-- Data fetching (Server Components only)
-- Handling params/searchParams
-- Composing 1-3 components maximum
-- NO complex JSX (50+ lines)
-- NO business logic
-
-**Current layout.tsx has too much JSX** - this should be refactored:
-- Extract font configuration
-- Extract metadata to separate file
-- Extract viewport config to separate file
-- Keep layout.tsx minimal
-
-### 5. Clean Architecture (Route → Controller → Service → Repository)
-
-```
-Route (Next.js) → Controller → Service → Repository → Database
-```
-
-**Layer responsibilities:**
-
-| Layer | Location | Responsibility |
-|-------|----------|----------------|
-| Route | `/app/api/**` | Next.js specific (headers, params extraction) |
-| Controller | `/src/features/*/[feature].controller.ts` | Business flow, error handling, response formatting |
-| Service | `/src/features/*/[feature].service.ts` | Business logic, validation, orchestration |
-| Repository | `/src/features/*/[feature].repository.ts` | CRUD operations only, no business logic |
-| Schema | `/src/features/*/[feature].schema.ts` | Zod validation schemas |
-
-**Framework decoupling:**
-- Controllers use `@/src/lib/http` (abstraction over NextResponse)
-- Auth service receives `Headers` as parameter (no direct Next.js imports)
-- Routes are minimal wrappers (~5 lines max)
-- To switch framework: only change routes and `src/lib/http.ts`
-
-**Example route (minimal Next.js code):**
-```typescript
-// app/api/forms/route.ts
-import { headers } from "next/headers";
-import * as formController from "@/src/features/forms/form.controller";
-
-export async function GET() {
-  return formController.list(await headers());
-}
-
-export async function POST(request: Request) {
-  return formController.create(await request.json(), await headers());
-}
-```
-
-**Example controller (framework-agnostic):**
-```typescript
-// src/features/forms/form.controller.ts
-import { json, error } from "@/src/lib/http";
-import { authService } from "@/src/features/auth/auth.service";
-import { formService } from "./form.service";
-
-export async function list(headers: Headers) {
-  const auth = await authService.requireAdmin(headers);
-  if (!auth.success) return error(auth.error, auth.status);
-
-  const forms = await formService.list();
-  return json(forms);
-}
-```
-
-### 6. Naming Conventions
-
-- **Components**: `PascalCase.tsx` (e.g., `ProductCard.tsx`)
-- **Client Components**: Optional `.client.tsx` suffix for clarity
-- **Hooks**: `use*.ts` (e.g., `useProductFilters.ts`)
-- **Utils/helpers**: `*.util.ts` or `*.helper.ts`
-- **Services**: `*.service.ts`
-- **Types**: `*.types.ts` or colocated in the file
-- **Exports**: Named exports by default, default export only for Next.js pages
-- **No barrel exports**: Import directly from component files, not from index.ts
-
-### 7. TypeScript Best Practices
-
-- Strict types, no `any`
-- Interfaces for component props
-- Types for function returns
-- Colocate types when specific to a single file
-- Use type imports: `import type { Metadata } from "next"`
-
-### 8. Performance Patterns
-
-- **Server Components by default** = fetch closest to data
-- **Lazy loading**: Use `dynamic()` for large Client Components
-- **Images**: Always use `next/image` with proper `sizes` attribute
-- **Suspense boundaries**: For sections that fetch data
-- **Parallel fetching**: Use `Promise.all()` for independent fetches
-
-**Example optimized page pattern:**
+**Avec Provider (admin forms/leads/templates/tree, analytics) :**
 ```tsx
-export default async function DashboardPage() {
-  const [stats, activity] = await Promise.all([
-    fetchStats(),
-    fetchRecentActivity(),
-  ]);
-
+export default function FormsPage() {
   return (
-    <>
-      <DashboardStats data={stats} />
-      <Suspense fallback={<ActivitySkeleton />}>
-        <RecentActivity data={activity} />
-      </Suspense>
-    </>
+    <FormsProvider>
+      <div className="space-y-6">
+        <FormsHeader />
+        <FormsSearch />
+        <FormsTable />
+      </div>
+    </FormsProvider>
   );
 }
 ```
 
-### 9. Refactoring Priority Order
-
-When refactoring existing code:
-
-1. **Remove all comments** first
-2. **Extract complex JSX** from pages into components
-3. **Identify and convert** to Server Components where possible
-4. **Organize components** (shared vs feature-specific)
-5. **Separate concerns** (infrastructure/domain/application if mixed)
-6. **Clean imports** (direct imports, no barrel exports)
-
-**When to create a new component:**
-- Reused 2+ times → shared
-- More than 50 lines of JSX → extract
-- Complex or isolable logic → extract
-- Needs Suspense or Error boundary → extract
-
-## Configuration Details
-
-### Biome Configuration (biome.json)
-
-- Formatter: 2 spaces, 80 char line width, double quotes, semicolons
-- Import organization enabled
-- Strict TypeScript rules (no unused variables/imports)
-- No console warnings (except console.log allowed)
-- Accessibility rules enabled
-
-### Next.js Configuration (next.config.ts)
-
-- React strict mode enabled
-- Compression enabled
-- View transitions experimental feature enabled
-- Security headers configured (DNS prefetch, nosniff, referrer policy)
-- Redirects configured:
-  - `/linkedin` → LinkedIn profile
-  - `/github` → GitHub profile
-  - `/malt` → Malt profile
-  - `/rdv` → Calendly booking
-
-### Styling
-
-- **Tailwind CSS v4** with `@tailwindcss/postcss`
-- Editorial/Magazine theme with single accent color
-  - Primary: `#0a0a0a` (black), Background: `#ffffff` (white)
-  - Single accent: `#ff4d00` (electric orange)
-- **Utility function**: `cn()` in `lib/cn.tsx` for merging Tailwind classes
-- **Card system**: `.card`, `.card-accent`, `.badge` utility classes
-- **Clean animations**: Fade-in, fade-in-up with Framer Motion
-
-### Fonts
-
-- Geist Sans (primary body text)
-- Geist Mono (monospace for code-like elements)
-- Space Grotesk (display font for headlines)
-- Loaded via `next/font/google` with variable fonts
-
-### Analytics
-
-- Vercel Analytics
-- Vercel Speed Insights
-- Both integrated in root layout
-
-## Key Architectural Patterns
-
-### Component Composition Pattern
-
-**Current pattern (to maintain):**
-- Pages compose high-level sections
-- Sections compose smaller components
-- UI components are atomic and reusable
-
-**Example from homepage:**
-```
-Home Page
-  ├─ Hero (section)
-  │   ├─ Heading1 (typography)
-  │   ├─ Heading2 (typography)
-  │   ├─ Paragraph (typography)
-  │   └─ Button (ui)
-  ├─ WhatIDo (section)
-  ├─ TechStack (section)
-  └─ Footer (layout)
+**Avec Loading boundary (dashboard, analytics) :**
+```tsx
+export default function AdminDashboard() {
+  return (
+    <div className="space-y-6">
+      <DashboardHeader />
+      <DashboardLoading>
+        <TodayStats />
+        <OverviewStats />
+        <WeeklyCharts />
+        <RecentActivity />
+      </DashboardLoading>
+    </div>
+  );
+}
 ```
 
-### Metadata & SEO Pattern
+**Portfolio case (sections exportées nommées) :**
+```tsx
+export default function BilletteriePage() {
+  return (
+    <main className="pb-8">
+      <div className="relative">
+        <BilletterieBackdrop />
+        <BilletterieHero />
+        <BilletterieStats />
+        <BilletterieContext />
+        <BilletterieScreenshots />
+        <BilletterieFeatures />
+        <BilletterieArchitecture />
+        <BilletterieTechStack />
+        <BilletterieBottomCta />
+      </div>
+    </main>
+  );
+}
+```
 
-Extensive SEO optimization in layout.tsx:
-- Structured metadata with keywords
-- OpenGraph tags
-- Twitter cards
-- JSON-LD structured data (JsonLd component)
-- Viewport configuration
-- Manifest for PWA
+## Backend Patterns
 
-### Animation Pattern
-
-- CSS animations defined in global.css
-- Staggered fade-in animations with `animationDelay`
-- Hover effects with Tailwind utilities
-- View transitions enabled (Next.js experimental)
-
-## Backend Architecture
-
-### Zod v4 Conventions
+### Zod v4
 
 ```typescript
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 const schema = z.object({
   email: z.email("Email invalide"),
@@ -396,7 +304,7 @@ try {
 }
 ```
 
-### Domain Errors
+### Domain errors
 
 ```typescript
 import { NotFoundError, ValidationError, ConflictError } from "@/src/core/errors/domain.error";
@@ -406,7 +314,7 @@ throw new ValidationError("Ce formulaire n'est plus actif");
 throw new ConflictError("Un formulaire avec ce slug existe déjà");
 ```
 
-### Repository Pattern
+### Repository
 
 ```typescript
 export const formRepository = {
@@ -417,7 +325,7 @@ export const formRepository = {
 };
 ```
 
-### Service Pattern
+### Service
 
 ```typescript
 export const formService = {
@@ -432,82 +340,70 @@ export const formService = {
 };
 ```
 
-### API Route Pattern (Controller)
+### Controller + Route
 
 ```typescript
-export async function POST(request: Request) {
-  const authResult = await requireAdminAuth();
-  if (!authResult.success) return authResult.response;
+// app/api/forms/route.ts — route thin
+import { headers } from "next/headers";
+import * as formController from "@/src/backend/forms/form.controller";
 
-  try {
-    const body = await request.json();
-    const result = await formService.create(body);
-    return NextResponse.json(result, { status: 201 });
-  } catch (error) {
-    if (error instanceof ZodError) {
-      return NextResponse.json({ error: error.issues[0].message }, { status: 400 });
-    }
-    if (error instanceof ConflictError) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-    return NextResponse.json({ error: "Internal error" }, { status: 500 });
-  }
+export async function GET() {
+  return formController.list(await headers());
+}
+
+export async function POST(request: Request) {
+  return formController.create(await request.json(), await headers());
+}
+
+// src/backend/forms/form.controller.ts — framework-agnostic
+import { json, error } from "@/src/lib/http";
+import { authService } from "@/src/backend/auth/auth.service";
+import { formService } from "./form.service";
+
+export async function list(headers: Headers) {
+  const auth = await authService.requireAdmin(headers);
+  if (!auth.success) return error(auth.error, auth.status);
+  const forms = await formService.list();
+  return json(forms);
 }
 ```
 
-## Important Notes
+## Configuration
 
-- Shared components are in `/components` (ui, typography, effects, portfolio)
-- Page-specific components are in `/app/_components`
-- Business logic is in `/src/features` (Clean Architecture)
-- Shadcn components in `/components/ui`
-- Database: Drizzle ORM with PostgreSQL (Neon)
-- Auth: better-auth with GitHub provider
-- **No direct DB calls in /app** - use services or controllers
+### Biome (`biome.json`)
 
-## Component Structure
+- Formatter : 2 spaces, 80 char, double quotes, semicolons
+- Import organization enabled
+- Strict TS (no unused variables/imports)
+- a11y rules enabled
+- `console.log` OK, `console.warn` non
 
-```
-/components
-├── /ui/             # Shadcn components (Button, Card, Dialog, Input, etc.)
-├── /typography/     # Typography components (Heading1, Heading2, Paragraph)
-├── /effects/        # Wrappers d'animation (Reveal, Tilt, Magnetic)
-└── /portfolio/      # Composants spécifiques au portfolio
-```
+### Next.js (`next.config.ts`)
 
-### Pattern d'import (imports directs, pas de barrel exports)
+- React strict mode, compression, view transitions
+- Headers security (DNS prefetch, nosniff, referrer policy)
+- Redirects : `/linkedin`, `/github`, `/malt`, `/rdv` → externes
 
-```typescript
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Heading1 } from "@/components/typography/heading1";
-import { Heading2 } from "@/components/typography/heading2";
-import { Paragraph } from "@/components/typography/paragraph";
-import { Button as PortfolioButton } from "@/components/portfolio/button";
-import { LinkCard } from "@/components/portfolio/link-card";
-import { MagneticWrapper } from "@/components/effects/magnetic-wrapper";
-import { RevealContainer } from "@/components/effects/reveal";
-```
+### Tailwind v4 + design system
 
-### Principes
+- `@tailwindcss/postcss`
+- Editorial/Magazine theme, accent unique `#ff4d00`
+- Fonts : Geist Sans, Geist Mono, Space Grotesk (display)
+- Utility `cn()` dans `lib/cn.tsx`
+- Classes utilitaires custom : `.card`, `.card-accent`, `.badge`
 
-1. **UI**: Composants Shadcn - ne pas modifier directement, étendre si nécessaire.
-2. **Typography**: Composants typographiques réutilisables (Heading1, Heading2, Paragraph).
-3. **Effects**: Wrappers Framer Motion pour animations déclaratives.
-4. **Portfolio**: Composants spécifiques au site portfolio.
+## Environment
 
-## Refactoring Status
+- Analytics Vercel + Speed Insights (layout racine)
+- Auth : better-auth + GitHub provider
+- DB : Drizzle + Neon PostgreSQL
+- Email : Resend (templates dans `src/backend/email/templates/`)
 
-✅ **Completed:**
-- Clean Architecture: Route → Controller → Service → Repository
-- Framework decoupling: Controllers don't import Next.js
-- Feature-based structure: `/src/features/{auth,email,forms,leads,analytics,tree-links,templates}`
-- HTTP abstraction: `src/lib/http.ts` wraps NextResponse
-- Auth service receives Headers as parameter
-- Routes are minimal (~5 lines)
-- Component structure: ui, typography, effects, portfolio
-- No barrel exports (imports directs uniquement)
-- No direct Drizzle calls in /app (except auth adapter)
-- All API routes use controllers
-- Server Components use services directly
-- Build successful
+## Checklist refacto future
+
+- [x] Migrer `/app/_hooks/swr/use-*` → `/src/entities/<entity>/api.ts` (pattern raphael)
+- [x] Migrer `/app/_lib/{auth,auth-client,swr-config,api-auth}` → `/src/shared/api/`
+- [x] Migrer `/app/_lib/{emails,resend}` → `/src/backend/email/`
+- [ ] Créer `src/entities/form/components/` si des composants form sont réutilisés cross-feature
+- [ ] Créer `src/entities/lead/components/` si pertinent
+- [x] Décomposer `admin-forms/components/form-editor/` (reste monolithique à ~275 lignes dans `form-editor.tsx`)

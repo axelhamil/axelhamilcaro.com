@@ -3,13 +3,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Compass, Home } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import Navbar from "@/app/_components/shared/layouts/navbar";
-import { CustomCursor } from "@/components/effects/custom-cursor";
-import { Button } from "@/components/portfolio/button";
-import { CaughtCounter } from "./_components/not-found/caught-counter";
-import { GlitchText } from "./_components/not-found/glitch-text";
-import { Particle, type ParticleData } from "./_components/not-found/particle";
-import { SuccessMessage } from "./_components/not-found/success-message";
+import { CaughtCounter } from "@/src/features/not-found/components/caught-counter";
+import { GlitchText } from "@/src/features/not-found/components/glitch-text";
+import {
+  Particle,
+  type ParticleData,
+} from "@/src/features/not-found/components/particle";
+import { SuccessMessage } from "@/src/features/not-found/components/success-message";
+import Navbar from "@/src/shared/layouts/navbar";
+import { Button } from "@/src/shared/ui/portfolio/button";
 
 const PARTICLE_CHARS = ["4", "0", "4", "?", "!", "#", "@", "*", "0", "4"];
 const PARTICLE_COUNT = 30;
@@ -56,7 +58,6 @@ export default function NotFound() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-primary-background">
-      <CustomCursor />
       <Navbar />
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

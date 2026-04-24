@@ -1,4 +1,4 @@
-import * as analyticsController from "@/src/features/analytics/analytics.controller";
+import * as analyticsController from "@/src/backend/analytics/analytics.controller";
 import { getClientIdentifier } from "@/src/lib/rate-limit";
 
 export async function POST(request: Request) {

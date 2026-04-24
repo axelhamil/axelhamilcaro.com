@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-
-const CivitimeShowcase = dynamic(
-  () => import("./_components/civitime-showcase"),
-  { ssr: true },
-);
+import {
+  CivitimeArchitecture,
+  CivitimeBackdrop,
+  CivitimeBottomCta,
+  CivitimeContext,
+  CivitimeFeatures,
+  CivitimeHero,
+  CivitimeRoleEvolution,
+  CivitimeScreenshots,
+  CivitimeStats,
+  CivitimeTechStack,
+} from "@/src/features/portfolio-civitime/components/civitime-showcase";
 
 export const metadata: Metadata = {
   title: "Civitime - Serious Games & Plateforme SaaS RSE",
@@ -42,7 +48,18 @@ export const metadata: Metadata = {
 export default function CivitimePage() {
   return (
     <main className="pb-8">
-      <CivitimeShowcase />
+      <div className="relative">
+        <CivitimeBackdrop />
+        <CivitimeHero />
+        <CivitimeStats />
+        <CivitimeContext />
+        <CivitimeScreenshots />
+        <CivitimeRoleEvolution />
+        <CivitimeFeatures />
+        <CivitimeArchitecture />
+        <CivitimeTechStack />
+        <CivitimeBottomCta />
+      </div>
     </main>
   );
 }

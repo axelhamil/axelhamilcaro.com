@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import * as leadController from "@/src/features/leads/lead.controller";
+import * as leadController from "@/src/backend/leads/lead.controller";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

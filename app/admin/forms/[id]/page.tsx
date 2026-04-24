@@ -1,10 +1,10 @@
 export const dynamic = "force-dynamic";
 
 import { notFound } from "next/navigation";
+import { formService } from "@/src/backend/forms/form.service";
+import { templateService } from "@/src/backend/templates/template.service";
 import { NotFoundError } from "@/src/core/errors/domain.error";
-import { formService } from "@/src/features/forms/form.service";
-import { templateService } from "@/src/features/templates/template.service";
-import { FormEditor } from "../_components/form-editor";
+import { FormEditor } from "@/src/features/admin-forms/components/form-editor/form-editor";
 
 export default async function EditFormPage({
   params,

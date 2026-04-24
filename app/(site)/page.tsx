@@ -1,21 +1,25 @@
 import dynamic from "next/dynamic";
-import Footer from "@/app/_components/home/footer";
-import Hero from "@/app/_components/home/hero/hero";
+import Footer from "@/src/features/home/components/footer";
+import Hero from "@/src/features/home/components/hero/hero";
 
 const ExperienceTimeline = dynamic(
-  () => import("@/app/_components/home/experience-timeline"),
+  () => import("@/src/features/home/components/experience-timeline"),
 );
 
-const WhatIDo = dynamic(() => import("@/app/_components/home/what-i-do"));
+const WhatIDo = dynamic(
+  () => import("@/src/features/home/components/what-i-do"),
+);
 
 const CaseStudies = dynamic(
-  () => import("@/app/_components/home/case-studies"),
+  () => import("@/src/features/home/components/case-studies"),
 );
 
-const TechStack = dynamic(() => import("@/app/_components/home/tech-stack"));
+const TechStack = dynamic(
+  () => import("@/src/features/home/components/tech-stack"),
+);
 
 const Testimonials = dynamic(
-  () => import("@/app/_components/home/testimonials"),
+  () => import("@/src/features/home/components/testimonials"),
 );
 
 export default function Home() {

@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-
-const HomecafeShowcase = dynamic(
-  () => import("./_components/homecafe-showcase"),
-  { ssr: true },
-);
+import {
+  HomecafeArchitecture,
+  HomecafeBackdrop,
+  HomecafeBottomCta,
+  HomecafeContext,
+  HomecafeFeatures,
+  HomecafeHero,
+  HomecafeScreenshots,
+  HomecafeStats,
+  HomecafeTechStack,
+} from "@/src/features/portfolio-homecafe/components/homecafe-showcase";
 
 export const metadata: Metadata = {
   title: "HomeCafe - Application de bien-être & productivité",
@@ -42,7 +47,17 @@ export const metadata: Metadata = {
 export default function HomecafePage() {
   return (
     <main className="pb-8">
-      <HomecafeShowcase />
+      <div className="relative">
+        <HomecafeBackdrop />
+        <HomecafeHero />
+        <HomecafeStats />
+        <HomecafeContext />
+        <HomecafeScreenshots />
+        <HomecafeFeatures />
+        <HomecafeArchitecture />
+        <HomecafeTechStack />
+        <HomecafeBottomCta />
+      </div>
     </main>
   );
 }

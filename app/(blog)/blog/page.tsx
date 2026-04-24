@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
 import { BookOpen } from "lucide-react";
-import { Heading1 } from "@/components/typography/heading1";
-import { Paragraph } from "@/components/typography/paragraph";
-import { RevealContainer, RevealItem } from "@/components/effects/reveal";
-import { ArticleCard } from "@/app/_components/blog/article-card";
+import type { Metadata } from "next";
 import { SITE_URL } from "@/app/_config/site.constants";
-import { getAllPosts } from "@/app/_lib/blog";
+import { ArticleCard } from "@/src/features/blog/components/article-card";
+import { getAllPosts } from "@/src/features/blog/lib/blog";
+import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
+import { Heading1 } from "@/src/shared/ui/typography/heading1";
+import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
-const blogDescription =
+const BLOG_DESCRIPTION =
   "Articles, traductions et réflexions sur le développement logiciel, la sécurité et les études de cas techniques par Axel Hamilcaro.";
 
 export const metadata: Metadata = {
   title: "Blog — Axel Hamilcaro",
-  description: blogDescription,
+  description: BLOG_DESCRIPTION,
   keywords: [
     "blog développeur",
     "sécurité logicielle",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: "Blog — Axel Hamilcaro",
-    description: blogDescription,
+    description: BLOG_DESCRIPTION,
     url: `${SITE_URL}/blog`,
     siteName: "Axel Hamilcaro",
     locale: "fr_FR",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blog — Axel Hamilcaro",
-    description: blogDescription,
+    description: BLOG_DESCRIPTION,
   },
 };
 
@@ -45,7 +45,7 @@ export default function BlogPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Blog — Axel Hamilcaro",
-    description: blogDescription,
+    description: BLOG_DESCRIPTION,
     url: `${SITE_URL}/blog`,
     inLanguage: "fr-FR",
     mainEntity: {
@@ -63,12 +63,7 @@ export default function BlogPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Accueil",
-        item: SITE_URL,
-      },
+      { "@type": "ListItem", position: 1, name: "Accueil", item: SITE_URL },
       {
         "@type": "ListItem",
         position: 2,
@@ -82,10 +77,12 @@ export default function BlogPage() {
     <main className="mx-auto max-w-4xl px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
       />
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <header className="mb-8 sm:mb-12">
@@ -93,10 +90,7 @@ export default function BlogPage() {
           <BookOpen className="w-4 h-4" />
           Blog
         </span>
-        <Heading1
-          size="xl"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <Heading1 size="xl" style={{ fontFamily: "var(--font-display)" }}>
           Blog
         </Heading1>
         <Paragraph variant="secondary" size="lg" className="mt-3">

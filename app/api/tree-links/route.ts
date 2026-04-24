@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-import * as treeLinkController from "@/src/features/tree-links/tree-link.controller";
+import * as treeLinkController from "@/src/backend/tree-links/tree-link.controller";
 
 export async function GET() {
   return treeLinkController.list();

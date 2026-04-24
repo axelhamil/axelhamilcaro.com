@@ -1,5 +1,8 @@
 import { Suspense } from "react";
-import { LeadsListClient } from "./_components/leads-list-client";
+import { LeadsFilters } from "@/src/features/admin-leads/components/leads-filters";
+import { LeadsHeader } from "@/src/features/admin-leads/components/leads-header";
+import { LeadsProvider } from "@/src/features/admin-leads/components/leads-provider";
+import { LeadsTable } from "@/src/features/admin-leads/components/leads-table";
 
 function LeadsLoading() {
   return (
@@ -12,7 +15,13 @@ function LeadsLoading() {
 export default function LeadsPage() {
   return (
     <Suspense fallback={<LeadsLoading />}>
-      <LeadsListClient />
+      <LeadsProvider>
+        <div className="space-y-6">
+          <LeadsHeader />
+          <LeadsFilters />
+          <LeadsTable />
+        </div>
+      </LeadsProvider>
     </Suspense>
   );
 }

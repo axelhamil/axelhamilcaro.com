@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import * as formController from "@/src/features/forms/form.controller";
+import * as formController from "@/src/backend/forms/form.controller";
 
 type Params = { params: Promise<{ id: string }> };
 
