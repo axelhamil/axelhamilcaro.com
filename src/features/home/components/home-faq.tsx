@@ -4,7 +4,7 @@ const items = [
   {
     question: "Quels types de projets prends-tu ?",
     answer:
-      "Applications web sur mesure, SaaS B2B multi-tenant, intégration IA (RAG, agents, Vercel AI SDK), refonte d'architecture, lead tech temps partiel. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
+      "Applications web sur mesure, SaaS B2B multi-tenant, refonte d'architecture, lead tech temps partiel sur engagement long. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
   },
   {
     question: "Quels sont tes délais ?",

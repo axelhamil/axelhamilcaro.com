@@ -4,15 +4,15 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "Service Intégration IA / RAG Freelance — Axel Hamilcaro";
+export const alt = "Service Lead Technique Fractional — Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
 export default function Image() {
   return renderOgImage({
     eyebrow: "Service freelance",
-    title: "Intégration IA / RAG",
+    title: "Lead tech fractional",
     subtitle:
-      "Vercel AI SDK · OpenAI · Claude · RAG · Agents · Pragmatique, pas du hype",
+      "Architecture · Mentorat · 1-3 jours/sem · Référence Civitime 4 ans",
   });
 }

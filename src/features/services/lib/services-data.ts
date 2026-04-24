@@ -7,7 +7,7 @@ import {
 export type ServiceSlug =
   | "developpeur-nextjs-freelance"
   | "developpement-saas"
-  | "integration-ia-rag";
+  | "lead-tech-fractional";
 
 export type RelatedCaseSlug =
   | "billetterie"
@@ -64,7 +64,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       eyebrow: "Service freelance",
       title: "Développeur Next.js freelance qui livre vraiment.",
       subtitle:
-        "Tu cherches un freelance Next.js senior qui prend en charge ton produit de A à Z et livre en production sans surprise ? J'interviens sur architecture, MVP, refonte et intégration IA.",
+        "Tu cherches un freelance Next.js senior qui prend en charge ton produit de A à Z et livre en production sans surprise ? J'interviens sur architecture, MVP, refonte et lead tech temps partiel.",
       ...baseHero,
     },
     problem: {
@@ -230,90 +230,90 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     },
   },
 
-  "integration-ia-rag": {
-    slug: "integration-ia-rag",
-    url: `${SITE_URL}/services/integration-ia-rag`,
+  "lead-tech-fractional": {
+    slug: "lead-tech-fractional",
+    url: `${SITE_URL}/services/lead-tech-fractional`,
     metaTitle:
-      "Intégration IA / RAG Freelance — Vercel AI SDK, OpenAI, Claude | Axel Hamilcaro",
+      "Lead Technique Fractional Freelance — Architecture, Équipe, Mentorat | Axel Hamilcaro",
     metaDescription:
-      "Développeur freelance spécialisé intégration IA pragmatique : RAG, agents, AI SDK Vercel, OpenAI, Claude API. Référence : éditeur IA RAG Civitime (délais d'itération divisés par 2). Devis sous 24h.",
+      "Lead technique freelance temps partiel pour startups et PME. Référence : 4 ans lead tech Civitime (refonte Clean Architecture, baisse du churn, hausse engagement). Devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
-      title: "Intégration IA pragmatique dans ton produit.",
+      title: "Lead technique fractional pour ton équipe.",
       subtitle:
-        "RAG, agents, génération assistée. Pas de hype : on identifie où l'IA crée de la vraie valeur business, on livre, on mesure.",
+        "Tu as une équipe dev mais pas de senior pour structurer l'architecture, cadrer les choix techno et accompagner la montée en compétence ? J'interviens en lead tech temps partiel sur des engagements de 3 à 18 mois.",
       ...baseHero,
     },
     problem: {
       title: "Tu reconnais une de ces situations ?",
       bullets: [
-        "Ton équipe veut intégrer l'IA mais ne sait pas par où commencer.",
-        "Tu as testé ChatGPT en interne mais ça ne s'intègre pas proprement à ton produit.",
-        "Tu veux un copilote interne qui connaît tes données (RAG) sans envoyer ton corpus à OpenAI.",
-        "Tu as besoin d'agents qui automatisent des workflows complexes dans ton produit.",
+        "Ton équipe code vite mais l'architecture dérive et la dette s'accumule.",
+        "Tu n'as pas le budget pour un CTO senior à plein temps mais tu as besoin d'un structurant.",
+        "Tes devs juniors ont besoin d'un mentor technique pour progresser sans bloquer la livraison.",
+        "Tu prépares une levée et tu dois rassurer les investisseurs sur la qualité de la stack.",
       ],
     },
     approach: {
       title: "Comment je travaille.",
       steps: [
         {
-          title: "Cadrage cas d'usage",
-          body: "On identifie 1 à 3 cas d'usage IA qui ont le ROI le plus clair pour ton produit. Pas 50 features gadget.",
+          title: "Audit technique + équipe (1 à 2 semaines)",
+          body: "Lecture de la codebase, interviews dev, audit pratique CI/CD et infra. Diagnostic écrit avec priorités et impact business.",
         },
         {
-          title: "POC en 1 à 2 semaines",
-          body: "Un POC fonctionnel, pas une slide. Vercel AI SDK + OpenAI ou Claude + retrieval (Pinecone, pg_vector ou simple). Tu valides avant qu'on industrialise.",
+          title: "Plan d'action 3 à 6 mois",
+          body: "Roadmap technique alignée business : refonte critique vs incremental, formation équipe, recrutement éventuel. Tu valides chaque chantier avant qu'on démarre.",
         },
         {
-          title: "Intégration produit",
-          body: "Streaming, gestion des erreurs LLM, observabilité (Langfuse / Helicone), gestion des coûts par tenant, fallbacks.",
+          title: "Lead opérationnel temps partiel",
+          body: "1 à 3 jours par semaine selon scope : revues de code, pair programming, conception d'architecture, accompagnement des devs, points produit.",
         },
         {
-          title: "Mesure et itération",
-          body: "On instrumente l'usage. Si une feature IA ne sert à personne, on la coupe. Pas de prod-show.",
+          title: "Transmission progressive",
+          body: "Objectif : ton équipe devient autonome. Je documente, je forme, et je sors quand tu n'as plus besoin de moi (pas avant).",
         },
       ],
     },
-    relatedCases: ["civitime"],
+    relatedCases: ["civitime", "scormpilot"],
     faq: [
       {
-        question: "Quels modèles tu utilises ?",
+        question: "Combien de temps par semaine ?",
         answer:
-          "OpenAI (GPT-4o, GPT-5), Anthropic (Claude Opus / Sonnet / Haiku), Vercel AI SDK pour l'orchestration. Choix dicté par le cas d'usage et le budget, pas par la mode.",
+          "Selon scope : 1 à 3 jours par semaine. Pour un démarrage 'audit + plan d'action', 5 jours sur 2-3 semaines. Pour du lead opérationnel récurrent, généralement 2 jours par semaine.",
       },
       {
-        question: "Tu peux faire du RAG sans envoyer mes données à OpenAI ?",
+        question: "Quelle durée d'engagement minimum ?",
         answer:
-          "Oui : modèles auto-hébergés (Llama, Mistral via vLLM), embeddings open source, vector store self-hosted (pg_vector PostgreSQL). Compromis qualité / coût / sécurité à arbitrer ensemble.",
+          "3 mois minimum pour avoir un vrai impact. Idéal : 6 à 18 mois. Engagement renouvelable au trimestre, sortie possible avec préavis raisonnable.",
       },
       {
-        question: "Combien ça coûte de faire tourner ça en production ?",
+        question: "Tu peux gérer le recrutement de devs ?",
         answer:
-          "Très variable. Je t'aide à modéliser le coût par utilisateur dès le POC pour que tu saches si le business case tient avant d'industrialiser.",
+          "Oui : définition du profil, screening technique, entretiens, validation. Je ne fais pas de chasse, mais je travaille avec ton recruteur ou ton cabinet sur la partie technique.",
       },
       {
-        question: "Tu fais aussi de l'automatisation type n8n ou agents ?",
+        question: "Et si on a besoin que tu codes aussi sur le produit ?",
         answer:
-          "Oui, agents avec AI SDK Vercel ou stack custom. Pour des workflows internes, n8n peut suffire. Pour de l'IA dans le produit, je code l'orchestration en TypeScript pour garder la maîtrise.",
+          "C'est fréquent. Je peux mixer lead tech et dev hands-on. La répartition dépend de ce dont l'équipe a besoin (mentorat lourd vs accélérer une feature critique).",
       },
     ],
     schema: {
-      serviceType: "AI integration consulting",
+      serviceType: "Software engineering leadership",
       offers: [
         {
-          name: "POC IA / RAG en 1-2 semaines",
+          name: "Audit technique d'équipe",
           description:
-            "Un POC fonctionnel pour valider un cas d'usage IA dans ton produit avant industrialisation.",
+            "Audit complet de la codebase, des process et de l'organisation tech avec plan d'action priorisé.",
         },
         {
-          name: "Intégration IA en production",
+          name: "Lead tech fractional 3 à 18 mois",
           description:
-            "Intégration complète d'IA dans ton produit : RAG, agents, observabilité, gestion des coûts.",
+            "Lead technique temps partiel sur engagement long. 1 à 3 jours par semaine selon scope.",
         },
         {
-          name: "Conseil stratégie IA",
+          name: "Mentorat technique d'équipe",
           description:
-            "Aide au choix des cas d'usage IA à fort ROI, des modèles et de l'architecture adaptée.",
+            "Accompagnement de devs juniors et mid-level via revues de code, pair programming et formations ciblées.",
         },
       ],
     },

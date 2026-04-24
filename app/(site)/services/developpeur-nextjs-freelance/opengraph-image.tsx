@@ -12,6 +12,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "Service freelance",
     title: "Développeur Next.js freelance",
-    subtitle: "Architecture, MVP, refonte, intégration IA · Devis sous 24h",
+    subtitle: "Architecture, MVP, refonte, lead tech · Devis sous 24h",
   });
 }

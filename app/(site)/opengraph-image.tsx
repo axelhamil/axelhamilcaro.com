@@ -13,6 +13,6 @@ export default function Image() {
     eyebrow: "Portfolio",
     title: "Axel Hamilcaro",
     subtitle:
-      "Développeur Full-Stack Freelance · Next.js · React · TypeScript · Intégration IA",
+      "Développeur Full-Stack Freelance · Next.js · React · TypeScript · Lead tech",
   });
 }

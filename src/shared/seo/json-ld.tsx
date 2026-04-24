@@ -15,7 +15,7 @@ export function JsonLd() {
     image: PROFILE_IMAGE,
     jobTitle: "Développeur Full-Stack TypeScript",
     description:
-      "Développeur Full-Stack freelance basé en Touraine, intervient à 100% en remote sur la France. Spécialisé TypeScript, Next.js, React, Node.js et intégration IA. Lead technique 4 ans Civitime, 10+ projets livrés en autonomie depuis 2021.",
+      "Développeur Full-Stack freelance basé en Touraine, intervient à 100% en remote sur la France. Spécialisé TypeScript, Next.js, React, Node.js, architecture Clean / DDD et lead tech temps partiel. Lead technique 4 ans Civitime, 10+ projets livrés en autonomie depuis 2021.",
     sameAs: [
       EXTERNAL_LINKS.linkedin,
       EXTERNAL_LINKS.github,
@@ -106,7 +106,7 @@ export function JsonLd() {
     "@id": `${SITE_URL}/#service`,
     name: "Axel Hamilcaro - Développeur Full-Stack Freelance",
     description:
-      "Services de développement web Full-Stack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, intégration IA (RAG, agents), conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
+      "Services de développement web Full-Stack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
     url: SITE_URL,
     image: PROFILE_IMAGE,
     priceRange: "€€€",

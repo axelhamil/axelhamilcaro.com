@@ -26,10 +26,10 @@ export function AboutStory() {
         <p className="text-secondary text-lg leading-relaxed mb-6">
           Aujourd'hui je travaille en parallèle sur ScormPilot (SaaS e-learning
           multi-tenant, 5 apps en solo), HomeCafé (app web Next.js + mobile
-          native Expo, 70+ parcours métier, 545+ tests BDD) et des missions
-          courtes d'audit ou consulting. Mon focus actuel : intégration IA
-          pragmatique (RAG, agents, AI SDK Vercel) pour augmenter les produits
-          sans tomber dans le hype.
+          native Expo, 70+ parcours métier, 545+ tests BDD) et des missions de
+          lead tech temps partiel. En parallèle, je teste et intègre l'IA dans
+          mes workflows quotidiens (Claude Code, Vercel AI SDK) pour gagner en
+          vélocité de livraison sans sacrifier la qualité.
         </p>
       </div>
     </section>

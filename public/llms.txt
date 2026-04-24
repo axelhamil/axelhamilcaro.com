@@ -1,7 +1,7 @@
 # Axel Hamilcaro — Développeur Full-Stack Freelance
 
 > Développeur full-stack freelance basé en Touraine, 100% remote France.
-> Spécialisé Next.js, React, Node.js, TypeScript, intégration IA (RAG, Vercel AI SDK).
+> Spécialisé Next.js, React, Node.js, TypeScript, architecture Clean / DDD et lead tech.
 > 10+ projets livrés en autonomie depuis 2021. TJM 450€.
 
 ## Pages principales
@@ -14,7 +14,7 @@
 
 - [Développeur Next.js freelance](https://axelhamilcaro.com/services/developpeur-nextjs-freelance)
 - [Développement SaaS](https://axelhamilcaro.com/services/developpement-saas)
-- [Intégration IA / RAG](https://axelhamilcaro.com/services/integration-ia-rag)
+- [Lead tech fractional](https://axelhamilcaro.com/services/lead-tech-fractional)
 
 ## Case studies
 

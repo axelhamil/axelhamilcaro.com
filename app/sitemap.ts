@@ -54,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/services/integration-ia-rag`,
+      url: `${SITE_URL}/services/lead-tech-fractional`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.9,

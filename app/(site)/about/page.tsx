@@ -12,12 +12,12 @@ const ABOUT_URL = "https://axelhamilcaro.com/about";
 export const metadata: Metadata = {
   title: "À propos — Axel Hamilcaro, développeur full-stack freelance",
   description:
-    "Développeur full-stack freelance depuis 2021. Formé à la Wild Code School. Lead technique 4 ans chez Civitime. 10+ projets livrés en autonomie. Focus Next.js, React, Node.js, intégration IA.",
+    "Développeur full-stack freelance depuis 2021. Formé à la Wild Code School. Lead technique 4 ans chez Civitime. 10+ projets livrés en autonomie. Focus Next.js, React, Node.js, architecture Clean / DDD et lead tech.",
   alternates: { canonical: ABOUT_URL },
   openGraph: {
     title: "À propos — Axel Hamilcaro",
     description:
-      "Développeur full-stack freelance basé en Touraine. 5 ans d'expérience, 10+ projets livrés. Focus Next.js, React, Node.js, intégration IA.",
+      "Développeur full-stack freelance basé en Touraine. 5 ans d'expérience, 10+ projets livrés. Focus Next.js, React, Node.js, architecture Clean / DDD et lead tech.",
     url: ABOUT_URL,
     type: "profile",
   },

@@ -7,14 +7,14 @@ import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 const SERVICES_URL = `${SITE_URL}/services`;
 
 export const metadata: Metadata = {
-  title: "Services freelance — Développement Next.js, SaaS, Intégration IA",
+  title: "Services freelance — Développement Next.js, SaaS, Lead tech",
   description:
-    "3 services freelance Axel Hamilcaro : développement Next.js, développement SaaS multi-tenant, intégration IA / RAG. Devis sous 24h, démarrage sous 1-3 semaines, 100% remote France.",
+    "3 services freelance Axel Hamilcaro : développement Next.js, développement SaaS multi-tenant, lead tech fractional. Devis sous 24h, démarrage sous 1-3 semaines, 100% remote France.",
   alternates: { canonical: SERVICES_URL },
   openGraph: {
     title: "Services freelance — Axel Hamilcaro",
     description:
-      "Développement Next.js, SaaS multi-tenant, intégration IA / RAG. 5 ans d'expérience, devis sous 24h.",
+      "Développement Next.js, SaaS multi-tenant, lead tech fractional. 5 ans d'expérience, devis sous 24h.",
     url: SERVICES_URL,
     type: "website",
   },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services freelance — Axel Hamilcaro",
     description:
-      "Développement Next.js, SaaS, intégration IA / RAG. 5 ans d'expérience.",
+      "Développement Next.js, SaaS, lead tech fractional. 5 ans d'expérience.",
   },
 };
 

@@ -140,10 +140,10 @@ const Footer = () => {
                 Développement SaaS
               </TransitionLink>
               <TransitionLink
-                href="/services/integration-ia-rag"
+                href="/services/lead-tech-fractional"
                 className="text-sm text-primary hover:text-accent transition-colors"
               >
-                Intégration IA / RAG
+                Lead tech fractional
               </TransitionLink>
               <TransitionLink
                 href="/services"

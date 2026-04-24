@@ -4,7 +4,7 @@ import { servicesData } from "@/src/features/services/lib/services-data";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 import { buildServiceSchema } from "@/src/shared/seo/schemas/service-schema";
 
-const data = servicesData["integration-ia-rag"];
+const data = servicesData["lead-tech-fractional"];
 
 export const metadata: Metadata = {
   title: data.metaTitle,
@@ -33,7 +33,7 @@ const serviceSchema = buildServiceSchema({
 
 const faqSchema = buildFaqPageSchema(data.faq);
 
-export default function AiRagServicePage() {
+export default function LeadTechFractionalPage() {
   return (
     <>
       <script

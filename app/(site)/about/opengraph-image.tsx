@@ -13,7 +13,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "À propos",
     title: "5 ans freelance · 10+ projets livrés",
-    subtitle:
-      "Touraine, remote France · Next.js · React · Node.js · Intégration IA",
+    subtitle: "Touraine, remote France · Next.js · React · Node.js · Lead tech",
   });
 }
