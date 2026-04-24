@@ -1,8 +1,8 @@
 import { EXTERNAL_LINKS } from "./site.constants";
 
 export const NAV_LINKS = [
-  { href: "/#parcours", label: "Parcours" },
-  { href: "/#services", label: "Services" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "À propos" },
   { href: "/#portfolio", label: "Portfolio" },
   { href: "/#stack", label: "Stack" },
   { href: "/tree", label: "Liens" },

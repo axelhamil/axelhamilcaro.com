@@ -96,22 +96,60 @@ const Footer = () => {
             </span>
             <nav className="flex flex-col gap-2">
               <TransitionLink
-                href="/#services"
+                href="/about"
                 className="text-sm text-primary hover:text-accent transition-colors"
               >
-                Services
+                À propos
               </TransitionLink>
               <TransitionLink
-                href="/#parcours"
+                href="/#portfolio"
                 className="text-sm text-primary hover:text-accent transition-colors"
               >
-                Parcours
+                Portfolio
+              </TransitionLink>
+              <TransitionLink
+                href="/blog"
+                className="text-sm text-primary hover:text-accent transition-colors"
+              >
+                Blog
               </TransitionLink>
               <TransitionLink
                 href="/tree"
                 className="text-sm text-primary hover:text-accent transition-colors"
               >
                 Liens
+              </TransitionLink>
+            </nav>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
+              Services
+            </span>
+            <nav className="flex flex-col gap-2">
+              <TransitionLink
+                href="/services/developpeur-nextjs-freelance"
+                className="text-sm text-primary hover:text-accent transition-colors"
+              >
+                Développeur Next.js
+              </TransitionLink>
+              <TransitionLink
+                href="/services/developpement-saas"
+                className="text-sm text-primary hover:text-accent transition-colors"
+              >
+                Développement SaaS
+              </TransitionLink>
+              <TransitionLink
+                href="/services/integration-ia-rag"
+                className="text-sm text-primary hover:text-accent transition-colors"
+              >
+                Intégration IA / RAG
+              </TransitionLink>
+              <TransitionLink
+                href="/services"
+                className="text-sm text-secondary hover:text-accent transition-colors"
+              >
+                Tous les services →
               </TransitionLink>
             </nav>
           </div>
@@ -179,7 +217,7 @@ const Footer = () => {
           </Paragraph>
 
           <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">
-            Paris, France
+            Touraine, remote France
           </Paragraph>
         </div>
       </div>
