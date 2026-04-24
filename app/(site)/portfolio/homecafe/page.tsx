@@ -10,6 +10,36 @@ import {
   HomecafeStats,
   HomecafeTechStack,
 } from "@/src/features/portfolio-homecafe/components/homecafe-showcase";
+import {
+  HomecafeFaq,
+  homecafeFaqItems,
+} from "@/src/features/portfolio-homecafe/components/homecafe-faq";
+import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
+import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
+
+const creativeWorkSchema = buildCreativeWorkSchema({
+  name: "HomeCafé — App bien-être et productivité",
+  description:
+    "Application web (Next.js) et mobile native (Expo / React Native) en monorepo Turborepo. 70+ parcours métier sur 12 domaines, 545+ tests BDD, Clean Architecture + DDD + CQRS.",
+  url: "https://axelhamilcaro.com/portfolio/homecafe",
+  dateCreated: "2025",
+  keywords: [
+    "bien-être",
+    "productivité",
+    "Next.js",
+    "React Native",
+    "Expo",
+    "Turborepo",
+    "Clean Architecture",
+    "DDD",
+    "CQRS",
+    "BDD",
+    "mobile native",
+  ],
+  applicationCategory: "LifestyleApplication",
+});
+
+const faqSchema = buildFaqPageSchema(homecafeFaqItems);
 
 export const metadata: Metadata = {
   title: "HomeCafe - Application de bien-être & productivité",
@@ -46,18 +76,31 @@ export const metadata: Metadata = {
 
 export default function HomecafePage() {
   return (
-    <main className="pb-8">
-      <div className="relative">
-        <HomecafeBackdrop />
-        <HomecafeHero />
-        <HomecafeStats />
-        <HomecafeContext />
-        <HomecafeScreenshots />
-        <HomecafeFeatures />
-        <HomecafeArchitecture />
-        <HomecafeTechStack />
-        <HomecafeBottomCta />
-      </div>
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <main className="pb-8">
+        <div className="relative">
+          <HomecafeBackdrop />
+          <HomecafeHero />
+          <HomecafeStats />
+          <HomecafeContext />
+          <HomecafeScreenshots />
+          <HomecafeFeatures />
+          <HomecafeArchitecture />
+          <HomecafeTechStack />
+          <HomecafeFaq />
+          <HomecafeBottomCta />
+        </div>
+      </main>
+    </>
   );
 }

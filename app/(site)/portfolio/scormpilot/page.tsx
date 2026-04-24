@@ -10,6 +10,35 @@ import {
   ScormpilotStats,
   ScormpilotTechStack,
 } from "@/src/features/portfolio-scormpilot/components/scormpilot-showcase";
+import {
+  ScormpilotFaq,
+  scormpilotFaqItems,
+} from "@/src/features/portfolio-scormpilot/components/scormpilot-faq";
+import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
+import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
+
+const creativeWorkSchema = buildCreativeWorkSchema({
+  name: "ScormPilot — SaaS e-learning multi-tenant",
+  description:
+    "SaaS e-learning multi-tenant développé en solo : 5 applications (API, dashboard, lecteur SCORM, runtime SCORM, app Microsoft Teams). Multi-tenancy schema-per-tenant PostgreSQL, milliers de sessions quotidiennes.",
+  url: "https://axelhamilcaro.com/portfolio/scormpilot",
+  dateCreated: "2025",
+  keywords: [
+    "SaaS",
+    "e-learning",
+    "SCORM",
+    "multi-tenant",
+    "Next.js",
+    "Fastify",
+    "PostgreSQL",
+    "GCP",
+    "Microsoft Teams",
+    "Clean Architecture",
+  ],
+  applicationCategory: "BusinessApplication",
+});
+
+const faqSchema = buildFaqPageSchema(scormpilotFaqItems);
 
 export const metadata: Metadata = {
   title: "ScormPilot - Plateforme SaaS e-learning SCORM",
@@ -46,18 +75,31 @@ export const metadata: Metadata = {
 
 export default function ScormpilotPage() {
   return (
-    <main className="pb-8">
-      <div className="relative">
-        <ScormpilotBackdrop />
-        <ScormpilotHero />
-        <ScormpilotStats />
-        <ScormpilotContext />
-        <ScormpilotScreenshots />
-        <ScormpilotFeatures />
-        <ScormpilotArchitecture />
-        <ScormpilotTechStack />
-        <ScormpilotBottomCta />
-      </div>
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <main className="pb-8">
+        <div className="relative">
+          <ScormpilotBackdrop />
+          <ScormpilotHero />
+          <ScormpilotStats />
+          <ScormpilotContext />
+          <ScormpilotScreenshots />
+          <ScormpilotFeatures />
+          <ScormpilotArchitecture />
+          <ScormpilotTechStack />
+          <ScormpilotFaq />
+          <ScormpilotBottomCta />
+        </div>
+      </main>
+    </>
   );
 }

@@ -53,6 +53,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
+    {
+      url: `${SITE_URL}/portfolio/billetterie`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/portfolio/civitime`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/portfolio/homecafe`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/portfolio/scormpilot`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.8,
+    },
     ...blogPosts,
   ];
 }
