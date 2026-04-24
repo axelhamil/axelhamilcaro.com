@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-import Footer from "@/src/features/home/components/footer";
 import Hero from "@/src/features/home/components/hero/hero";
 import { HomeFaq } from "@/src/features/home/components/home-faq";
+import Footer from "@/src/shared/layouts/footer";
 
 const ExperienceTimeline = dynamic(
   () => import("@/src/features/home/components/experience-timeline"),

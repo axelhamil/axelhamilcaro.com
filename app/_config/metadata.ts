@@ -72,7 +72,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Axel Hamilcaro - Développeur Full-Stack Freelance Paris",
+        alt: "Axel Hamilcaro - Développeur Full-Stack Freelance France",
       },
     ],
   },

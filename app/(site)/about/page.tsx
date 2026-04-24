@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { AboutCredentials } from "@/src/features/about/components/about-credentials";
-import { AboutCta } from "@/src/features/about/components/about-cta";
 import { AboutHero } from "@/src/features/about/components/about-hero";
 import { AboutProof } from "@/src/features/about/components/about-proof";
 import { AboutStory } from "@/src/features/about/components/about-story";
 import { AboutValues } from "@/src/features/about/components/about-values";
+import Footer from "@/src/shared/layouts/footer";
 import { buildAboutPageSchema } from "@/src/shared/seo/schemas/about-page";
 
 const ABOUT_URL = "https://axelhamilcaro.com/about";
@@ -49,7 +49,7 @@ export default function AboutPage() {
       <AboutValues />
       <AboutCredentials />
       <AboutProof />
-      <AboutCta />
+      <Footer />
     </main>
   );
 }

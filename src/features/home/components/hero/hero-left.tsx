@@ -37,7 +37,7 @@ const HeroLeft = () => {
           >
             <PulsingDot size="sm" />
             <span className="text-xs sm:text-sm font-medium">
-              Disponible · Paris & Remote
+              Disponible · Touraine · Remote France
             </span>
           </RunawayBadge>
         </div>
@@ -98,9 +98,9 @@ const HeroLeft = () => {
         <div className="flex flex-col gap-3 md:gap-4 min-w-0">
           <Paragraph size="lg" className="text-base md:text-lg">
             Je suis <strong>Axel Hamilcaro</strong>, développeur full-stack
-            freelance basé à Paris. Je transforme des idées produit en
-            applications web solides — de l'architecture à la mise en
-            production.
+            freelance basé en Touraine, 100% remote France. Je transforme des
+            idées produit en applications web solides — de l'architecture à la
+            mise en production.
           </Paragraph>
 
           <Paragraph size="md" className="text-base md:text-lg text-secondary">

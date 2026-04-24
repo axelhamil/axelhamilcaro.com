@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { BlogNavbar } from "@/src/features/blog/components/blog-navbar";
 import { ScrollToTop } from "@/src/features/blog/components/scroll-to-top";
-import Footer from "@/src/features/home/components/footer";
+import Footer from "@/src/shared/layouts/footer";
 
 export default function BlogLayout({
   children,

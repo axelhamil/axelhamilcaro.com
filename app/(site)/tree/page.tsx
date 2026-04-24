@@ -7,14 +7,14 @@ import TreeLinksWrapper from "@/src/features/tree/components/tree-links-wrapper"
 export const metadata: Metadata = {
   title: "Liens et Réseaux",
   description:
-    "Retrouvez tous mes liens professionnels : LinkedIn, GitHub, Malt, et plus. Connectez-vous avec Axel Hamilcaro, développeur Full-Stack freelance à Paris.",
+    "Retrouvez tous mes liens professionnels : LinkedIn, GitHub, Malt, et plus. Connectez-vous avec Axel Hamilcaro, développeur Full-Stack freelance basé en Touraine, 100% remote France.",
   alternates: {
     canonical: "/tree",
   },
   openGraph: {
     title: "Liens et Réseaux",
     description:
-      "Retrouvez tous mes liens professionnels : LinkedIn, GitHub, Malt, et plus. Connectez-vous avec Axel Hamilcaro, développeur Full-Stack freelance à Paris.",
+      "Retrouvez tous mes liens professionnels : LinkedIn, GitHub, Malt, et plus. Connectez-vous avec Axel Hamilcaro, développeur Full-Stack freelance basé en Touraine, 100% remote France.",
     url: "/tree",
   },
 };

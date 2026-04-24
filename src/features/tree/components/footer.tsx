@@ -97,7 +97,7 @@ export default function TreeFooter() {
       </motion.div>
 
       <p className="text-[10px] sm:text-xs text-muted text-center">
-        &copy; {new Date().getFullYear()} Axel Hamilcaro • Paris, France
+        &copy; {new Date().getFullYear()} Axel Hamilcaro • Touraine, France
       </p>
     </motion.footer>
   );
