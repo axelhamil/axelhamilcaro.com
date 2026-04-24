@@ -35,6 +35,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
+    {
+      url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/services/developpement-saas`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/services/integration-ia-rag`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
     ...blogPosts,
   ];
 }
