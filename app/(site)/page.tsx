@@ -19,10 +19,6 @@ const TechStack = dynamic(
   () => import("@/src/features/home/components/tech-stack"),
 );
 
-const Testimonials = dynamic(
-  () => import("@/src/features/home/components/testimonials"),
-);
-
 export default function Home() {
   return (
     <main>
@@ -31,7 +27,6 @@ export default function Home() {
       <WhatIDo />
       <CaseStudies />
       <TechStack />
-      <Testimonials />
       <HomeFaq />
       <Footer />
     </main>
