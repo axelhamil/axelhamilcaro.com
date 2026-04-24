@@ -87,7 +87,7 @@ export function JsonLd() {
     alternateName: "Axel Hamilcaro Portfolio",
     url: SITE_URL,
     description:
-      "Portfolio d'Axel Hamilcaro, développeur Full-Stack freelance basé à Paris. Expertise TypeScript, Next.js, React, Node.js pour applications web et SaaS.",
+      "Portfolio d'Axel Hamilcaro, développeur Full-Stack freelance basé en Touraine, intervient à 100% en remote sur la France. Expertise TypeScript, Next.js, React, Node.js pour applications web et SaaS.",
     author: {
       "@type": "Person",
       name: "Axel Hamilcaro",
@@ -106,7 +106,7 @@ export function JsonLd() {
     "@id": `${SITE_URL}/#service`,
     name: "Axel Hamilcaro - Développeur Full-Stack Freelance",
     description:
-      "Services de développement web Full-Stack freelance à Paris : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
+      "Services de développement web Full-Stack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, intégration IA (RAG, agents), conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
     url: SITE_URL,
     image: PROFILE_IMAGE,
     priceRange: "€€€",
@@ -163,6 +163,30 @@ export function JsonLd() {
         },
       ],
     },
+    review: [
+      {
+        "@type": "Review",
+        author: {
+          "@type": "Person",
+          name: "Bryan Kaneb",
+          jobTitle: "Développeur web freelance",
+        },
+        datePublished: "2025-12-19",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+          worstRating: "1",
+        },
+        reviewBody:
+          "J'ai fait appel à Axel pour un projet React/Node et la collaboration s'est très bien passée. Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué, il respecte ses engagements et sait anticiper les problèmes avant qu'ils n'arrivent. La communication était simple et directe, ce qui facilite grandement le suivi du projet. C'est un profil sur lequel on peut s'appuyer. Je le recommande vivement pour vos projets de développements web ou mobile.",
+        publisher: {
+          "@type": "Organization",
+          name: "Malt",
+          url: "https://www.malt.fr",
+        },
+      },
+    ],
   };
 
   const breadcrumbSchema = {
