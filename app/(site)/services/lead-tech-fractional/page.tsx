@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ServicePageShell } from "@/src/features/services/components/service-page-shell";
 import { servicesData } from "@/src/features/services/lib/services-data";
+import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 import { buildServiceSchema } from "@/src/shared/seo/schemas/service-schema";
 
@@ -33,6 +34,12 @@ const serviceSchema = buildServiceSchema({
 
 const faqSchema = buildFaqPageSchema(data.faq);
 
+const breadcrumbSchema = buildBreadcrumbListSchema([
+  { name: "Accueil", url: "/" },
+  { name: "Services", url: "/services" },
+  { name: "Lead tech fractional", url: "/services/lead-tech-fractional" },
+]);
+
 export default function LeadTechFractionalPage() {
   return (
     <>
@@ -45,6 +52,11 @@ export default function LeadTechFractionalPage() {
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <ServicePageShell data={data} />
     </>

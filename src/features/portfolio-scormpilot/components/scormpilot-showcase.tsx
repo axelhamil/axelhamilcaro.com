@@ -9,10 +9,12 @@ import {
 } from "framer-motion";
 import {
   ArrowLeft,
+  ArrowUpRight,
   BarChart3,
   Cloud,
   Code2,
   Database,
+  ExternalLink,
   Globe,
   Layers,
   LayoutDashboard,
@@ -348,6 +350,51 @@ export function ScormpilotHero() {
               milliers de players quotidiens, dizaines de clients actifs.
             </Paragraph>
           </RevealItem>
+
+          <RevealItem>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <MagneticWrapper strength={0.04}>
+                <motion.a
+                  href="https://scormpilot.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg group"
+                  style={{
+                    background: SP.blue,
+                    color: "#fff",
+                  }}
+                  whileHover={{ y: -2, boxShadow: `0 12px 24px ${SP.blue}40` }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Voir scormpilot.com
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.a>
+              </MagneticWrapper>
+              <MagneticWrapper strength={0.04}>
+                <motion.a
+                  href="https://dashboard.scormpilot.com/dashboard"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border group"
+                  style={{
+                    background: "var(--primary-background)",
+                    color: SP.teal,
+                    borderColor: `${SP.teal}40`,
+                  }}
+                  whileHover={{
+                    y: -2,
+                    borderColor: SP.teal,
+                    boxShadow: `0 8px 20px ${SP.teal}25`,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  Ouvrir le dashboard
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.a>
+              </MagneticWrapper>
+            </div>
+          </RevealItem>
         </RevealContainer>
       </motion.div>
     </section>
@@ -674,8 +721,11 @@ export function ScormpilotScreenshots() {
                     style={{ background: "#28C840" }}
                   />
                 </div>
-                <div
-                  className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate"
+                <a
+                  href="https://dashboard.scormpilot.com/dashboard"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate hover:opacity-80 transition-opacity"
                   style={{
                     background: `${active.color}08`,
                     color: "var(--secondary)",
@@ -683,7 +733,7 @@ export function ScormpilotScreenshots() {
                   }}
                 >
                   dashboard.scormpilot.com/{active.label.toLowerCase()}
-                </div>
+                </a>
                 <div className="w-6 sm:w-[46px]" />
               </div>
 

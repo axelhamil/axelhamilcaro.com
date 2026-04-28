@@ -6,6 +6,7 @@ import { AboutStory } from "@/src/features/about/components/about-story";
 import { AboutValues } from "@/src/features/about/components/about-values";
 import Footer from "@/src/shared/layouts/footer";
 import { buildAboutPageSchema } from "@/src/shared/seo/schemas/about-page";
+import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 
 const ABOUT_URL = "https://axelhamilcaro.com/about";
 
@@ -36,6 +37,11 @@ const aboutSchema = buildAboutPageSchema({
     "Page de présentation d'Axel Hamilcaro, développeur full-stack freelance basé en Touraine.",
 });
 
+const breadcrumbSchema = buildBreadcrumbListSchema([
+  { name: "Accueil", url: "/" },
+  { name: "À propos", url: "/about" },
+]);
+
 export default function AboutPage() {
   return (
     <main className="pb-8">
@@ -43,6 +49,11 @@ export default function AboutPage() {
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <AboutHero />
       <AboutStory />

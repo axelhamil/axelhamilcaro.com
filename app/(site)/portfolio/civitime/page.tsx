@@ -15,6 +15,7 @@ import {
   CivitimeStats,
   CivitimeTechStack,
 } from "@/src/features/portfolio-civitime/components/civitime-showcase";
+import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 
@@ -40,6 +41,12 @@ const creativeWorkSchema = buildCreativeWorkSchema({
 });
 
 const faqSchema = buildFaqPageSchema(civitimeFaqItems);
+
+const breadcrumbSchema = buildBreadcrumbListSchema([
+  { name: "Accueil", url: "/" },
+  { name: "Projets", url: "/#portfolio" },
+  { name: "Civitime", url: "/portfolio/civitime" },
+]);
 
 export const metadata: Metadata = {
   title: "Civitime - Serious Games & Plateforme SaaS RSE",
@@ -86,6 +93,11 @@ export default function CivitimePage() {
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <main className="pb-8">
         <div className="relative">

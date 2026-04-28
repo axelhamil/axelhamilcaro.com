@@ -2,9 +2,15 @@ import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/app/_config/site.constants";
 import { servicesData } from "@/src/features/services/lib/services-data";
+import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
 const SERVICES_URL = `${SITE_URL}/services`;
+
+const breadcrumbSchema = buildBreadcrumbListSchema([
+  { name: "Accueil", url: "/" },
+  { name: "Services", url: "/services" },
+]);
 
 export const metadata: Metadata = {
   title: "Services freelance — Développement Next.js, SaaS, Lead tech",
@@ -31,6 +37,11 @@ const services = Object.values(servicesData);
 export default function ServicesIndexPage() {
   return (
     <main className="pb-8">
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section className="py-20 sm:py-32 px-6">
         <div className="max-w-5xl mx-auto text-center mb-16">
           <p className="text-accent font-medium uppercase tracking-wider text-sm mb-4">

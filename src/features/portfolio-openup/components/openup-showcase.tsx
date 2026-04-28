@@ -8,25 +8,27 @@ import {
   type Variants,
 } from "framer-motion";
 import {
+  Anchor,
   ArrowLeft,
-  Bell,
-  BookOpen,
+  ArrowUpRight,
+  BarChart3,
   Code2,
-  Coffee,
-  Figma,
-  Heart,
-  Kanban,
-  LayoutDashboard,
-  Mail,
-  MessageCircle,
+  CreditCard,
+  ExternalLink,
+  Globe2,
+  Link2,
+  Network,
   Palette,
-  Rss,
+  QrCode,
   Server,
+  Settings2,
   Smartphone,
+  Sparkles,
   Target,
   TestTube2,
-  Trophy,
-  Users,
+  UserCog,
+  Wallet,
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -38,176 +40,193 @@ import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
-const HC = {
-  pink: "#F691C3",
-  orange: "#F46604",
-  green: "#04A056",
-  yellow: "#FDCB08",
-  blue: "#0062DD",
-  red: "#F21622",
-  beige: "#FDECCE",
+const OU = {
+  blue: "#0066FF",
+  violet: "#7C3AED",
+  emerald: "#10B981",
+  pink: "#EC4899",
+  amber: "#F59E0B",
+  slate: "#475569",
+  sky: "#0EA5E9",
 } as const;
 
 const stats = [
   {
-    value: "2",
-    label: "Plateformes",
-    sublabel: "Web + Mobile",
-    color: HC.pink,
+    value: "5",
+    label: "Piliers",
+    sublabel: "Liens · QR · Bio · Analytics · Domaines",
+    color: OU.blue,
   },
-  { value: "51+", label: "Écrans", color: HC.orange },
-  { value: "78", label: "Use Cases", color: HC.blue },
-  { value: "29", label: "Domain Events", color: HC.red },
-  { value: "+525", label: "Tests", color: HC.green },
+  {
+    value: "4",
+    label: "Plans Stripe",
+    sublabel: "EUR + USD auto",
+    color: OU.emerald,
+  },
+  { value: "76", label: "Tests BDD API", color: OU.violet },
+  { value: "~25j", label: "Scope solo", color: OU.amber },
+  {
+    value: "3",
+    label: "Plateformes",
+    sublabel: "iOS · Android · PWA",
+    color: OU.pink,
+  },
 ] as const;
 
 const secondaryStats = [
-  "29 pages web",
-  "22+ écrans mobile",
-  "73 routes API",
-  "32 tables",
-  "15+ achievements",
+  "+940 fichiers TypeScript",
+  "+190 fichiers domain/application",
+  "8 packages monorepo",
+  "Edge <50ms via Cloudflare Worker",
+  "Apple Wallet + Google Wallet",
 ] as const;
 
 const screenshots = [
   {
-    src: "/portfolio/homecafe/dashboard.webp",
-    alt: "HomeCafe - Tableau de bord avec suivi d'humeur, objectifs et activité quotidienne",
+    src: "/portfolio/openup/links-dashboard.webp",
+    alt: "OpenUp - Dashboard de gestion des liens raccourcis avec sidebar et tableau de stats",
     label: "Dashboard",
-    icon: LayoutDashboard,
-    color: HC.pink,
-    width: 1200,
-    height: 1125,
+    icon: Link2,
+    color: OU.blue,
+    width: 1920,
+    height: 1080,
   },
   {
-    src: "/portfolio/homecafe/journal.webp",
-    alt: "HomeCafe - Journal intime avec entrées datées et tags émotionnels",
-    label: "Journal",
-    icon: BookOpen,
-    color: HC.orange,
-    width: 1200,
-    height: 1317,
+    src: "/portfolio/openup/analytics.webp",
+    alt: "OpenUp - Analytics global avec courbes de clics, répartition par appareil et géographie",
+    label: "Analytics",
+    icon: BarChart3,
+    color: OU.violet,
+    width: 1920,
+    height: 1080,
   },
   {
-    src: "/portfolio/homecafe/moodboard.webp",
-    alt: "HomeCafe - Moodboard personnalisable avec images et citations inspirantes",
-    label: "Moodboard",
+    src: "/portfolio/openup/bio-editor.webp",
+    alt: "OpenUp - Éditeur Link-in-bio WYSIWYG avec preview iPhone temps réel",
+    label: "Bio editor",
     icon: Palette,
-    color: HC.green,
-    width: 1200,
-    height: 1370,
+    color: OU.pink,
+    width: 1920,
+    height: 1080,
   },
   {
-    src: "/portfolio/homecafe/organisation.webp",
-    alt: "HomeCafe - Gestionnaire de tâches Kanban avec catégories et priorités",
-    label: "Organisation",
-    icon: Kanban,
-    color: HC.blue,
-    width: 1200,
-    height: 3038,
+    src: "/portfolio/openup/qr-customizer.webp",
+    alt: "OpenUp - Personnalisation de QR Code dynamique avec motifs, repères, logo et couleurs",
+    label: "QR codes",
+    icon: QrCode,
+    color: OU.amber,
+    width: 1920,
+    height: 1080,
   },
   {
-    src: "/portfolio/homecafe/social.webp",
-    alt: "HomeCafe - Feed social communautaire avec posts, likes et commentaires",
-    label: "Social",
-    icon: Rss,
-    color: HC.yellow,
-    width: 1200,
-    height: 1060,
+    src: "/portfolio/openup/pricing.webp",
+    alt: "OpenUp - Page pricing avec 4 plans Stripe en EUR ou USD selon géolocalisation IP",
+    label: "Pricing",
+    icon: CreditCard,
+    color: OU.emerald,
+    width: 1920,
+    height: 1080,
   },
   {
-    src: "/portfolio/homecafe/messagerie.webp",
-    alt: "HomeCafe - Messagerie temps réel avec conversations privées et groupes",
-    label: "Messagerie",
-    icon: Mail,
-    color: HC.red,
-    width: 1200,
-    height: 1060,
+    src: "/portfolio/openup/link-advanced.webp",
+    alt: "OpenUp - Création de lien avec paramètres avancés : expiration, geo, password, UTM, deep links",
+    label: "Lien avancé",
+    icon: Settings2,
+    color: OU.slate,
+    width: 1920,
+    height: 1080,
   },
 ] as const;
 
 const features = [
   {
-    icon: LayoutDashboard,
-    title: "Dashboard",
+    icon: Link2,
+    title: "Liens raccourcis",
     description:
-      "Layout customisable avec drag & drop (@dnd-kit). Widgets repositionnables : galerie, calendrier, to-do, messagerie, journal et suivi d'humeur.",
-    color: HC.pink,
+      "URLs courtes openup.to/xxx avec slug custom, expiration, limite de clics, filtre géo, mot de passe, UTM, scheduling et deep links iOS/Android natifs.",
+    color: OU.blue,
   },
   {
-    icon: BookOpen,
-    title: "Journal",
+    icon: QrCode,
+    title: "QR Codes dynamiques",
     description:
-      "Éditeur rich text (Tiptap), posts privés/publics, galerie photo, stickers et badges de régularité (streaks 7/14/30j).",
-    color: HC.orange,
+      "8 motifs, repères Pro, logo (auto-détecté plateforme ou custom image), palette + couleurs custom. Export PNG/JPG/SVG, ajout Apple Wallet en 1 tap.",
+    color: OU.amber,
   },
   {
     icon: Palette,
-    title: "Moodboard",
+    title: "Link-in-bio WYSIWYG",
     description:
-      "Grille annuelle de 9 émotions trackées, suivi d'humeur quotidien, graphiques hebdomadaires et mensuels.",
-    color: HC.green,
+      "Éditeur avec preview iPhone temps réel. Widgets audio, Google Maps, contact chat, Calendly, Spotify. Thèmes, dark mode, drag & drop.",
+    color: OU.pink,
   },
   {
-    icon: Kanban,
-    title: "Organisation",
+    icon: BarChart3,
+    title: "Analytics complet",
     description:
-      "4 outils : Kanban boards, Tableaux (spreadsheet-like), Chronologies (Gantt) et Calendrier mensuel intégré.",
-    color: HC.blue,
+      "Dashboard liens + QR + bio. KPIs, évolution temporelle, répartition appareil/OS/navigateur/géo/heures, top sources de trafic.",
+    color: OU.violet,
   },
   {
-    icon: Rss,
-    title: "Feed Social",
+    icon: Globe2,
+    title: "Domaine personnalisé",
     description:
-      "Système d'amis (invitations, QR code, liens), posts publics avec réactions, galerie partagée et stickers.",
-    color: HC.yellow,
-  },
-  {
-    icon: MessageCircle,
-    title: "Messagerie",
-    description:
-      "Chat temps réel SSE (9 types d'events), conversations privées/groupe, réactions et pièces jointes média.",
-    color: HC.red,
+      "Branding total via Cloudflare for SaaS. Configuration DNS guidée, vérification automatique, certificats SSL provisionnés à la volée.",
+    color: OU.sky,
   },
 ] as const;
 
-const crossCutting = [
+const techHighlights = [
   {
-    icon: Trophy,
-    title: "Gamification",
+    icon: Anchor,
+    title: "Deep links iOS + Android",
     description:
-      "15+ achievements débloquables, badges visuels, stickers collectionnables, streaks 7/14/30 jours. Évaluation automatique via domain events après chaque action utilisateur.",
-    color: HC.yellow,
+      "Un tap sur openup.to/xxx ouvre l'app native si elle est installée (UA parser + interstitial dédié), sinon fallback web propre. Contournement des in-app browsers Instagram/TikTok via guide d'ouverture navigateur.",
+    color: OU.sky,
   },
   {
-    icon: Bell,
-    title: "Notifications",
+    icon: CreditCard,
+    title: "Multi-devise EUR + USD",
     description:
-      "Push notifications (Expo), SSE temps réel pour le chat et les alertes, cron jobs pour les rappels quotidiens, emails transactionnels via Resend.",
-    color: HC.red,
+      "Détection auto de la devise via geo IP, override possible. Stripe gère un Product avec un Price par couple devise/période. Promos appliquées sur les 2 devises automatiquement.",
+    color: OU.emerald,
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile natif iOS + Android",
+    description:
+      "Capacitor partage 100% du code avec la PWA web. Wrappers natifs pour clipboard, share, haptics. Releases via Fastlane vers TestFlight + Play Store automatiques sur tag.",
+    color: OU.blue,
   },
 ] as const;
 
 const techStack = [
-  { name: "Next.js 16.1", category: "frontend" },
-  { name: "React 19", category: "frontend" },
-  { name: "Expo 54", category: "mobile" },
-  { name: "React Native 0.81", category: "mobile" },
-  { name: "TypeScript 5.9", category: "language" },
+  { name: "Hono", category: "backend" },
+  { name: "TypeScript 5", category: "language" },
   { name: "Drizzle ORM", category: "backend" },
   { name: "PostgreSQL", category: "backend" },
-  { name: "BetterAuth 1.4", category: "backend" },
-  { name: "Tailwind CSS 4.1", category: "frontend" },
-  { name: "Turborepo", category: "infra" },
-  { name: "shadcn/ui", category: "frontend" },
-  { name: "Tiptap 3.19", category: "frontend" },
-  { name: "TanStack Query 5.90", category: "frontend" },
-  { name: "Zod 4.2", category: "language" },
+  { name: "Cloudflare Workers", category: "infra" },
+  { name: "Cloudflare for SaaS", category: "infra" },
+  { name: "Capacitor", category: "mobile" },
+  { name: "React 19", category: "frontend" },
+  { name: "Vite + PWA", category: "frontend" },
+  { name: "TanStack Router", category: "frontend" },
+  { name: "TanStack Query", category: "frontend" },
+  { name: "Hono RPC client", category: "frontend" },
+  { name: "BetterAuth", category: "backend" },
+  { name: "Stripe", category: "backend" },
   { name: "Resend", category: "backend" },
-  { name: "AWS S3/R2", category: "infra" },
-  { name: "CQRS", category: "architecture" },
-  { name: "DDD", category: "architecture" },
+  { name: "Cloudflare R2", category: "infra" },
+  { name: "Apple Wallet", category: "mobile" },
+  { name: "Google Wallet", category: "mobile" },
+  { name: "shadcn/ui", category: "frontend" },
+  { name: "Tailwind 4", category: "frontend" },
+  { name: "i18next", category: "frontend" },
+  { name: "Zod", category: "language" },
+  { name: "inwire DI", category: "architecture" },
   { name: "Clean Architecture", category: "architecture" },
+  { name: "DDD", category: "architecture" },
+  { name: "Fastlane CI/CD", category: "infra" },
 ] as const;
 
 const archHighlights = [
@@ -215,74 +234,75 @@ const archHighlights = [
     icon: Server,
     title: "Clean Architecture + DDD",
     description:
-      "16 aggregates, 44 value objects, 126 fichiers domain. Couches strictes : Domain, Application, Adapters, Infrastructure. Injection de dépendances custom.",
-    color: HC.orange,
+      "Zéro import externe dans le domaine (ddd-kit + Zod uniquement). Result<T,E>, Option<T>, ValueObjects, Aggregates avec events. Use cases purs : zéro logique métier, tout dans les agrégats.",
+    color: OU.blue,
   },
   {
-    icon: Kanban,
-    title: "CQRS",
+    icon: Zap,
+    title: "Edge <50ms partout",
     description:
-      "78 commands (use cases) + 30 queries read-side. Séparation write/read complète. Chaque use case = 1 fichier testable isolément.",
-    color: HC.blue,
+      "Cloudflare Worker dédié pour les redirections courtes openup.to/xxx + le proxy Framer du site marketing. Latence sub-50ms partout dans le monde, scaling auto, coût négligeable.",
+    color: OU.amber,
   },
   {
-    icon: Users,
-    title: "18 Bounded Contexts",
+    icon: Network,
+    title: "Event-driven découplé",
     description:
-      "User, Auth, Profile, Post, Chat, Board, Tableau, Chronologie, CalendarEvent, Mood, Emotion, Gallery, Friend, Notification, Reward, PushToken, Upload, UserPreference.",
-    color: HC.green,
-  },
-  {
-    icon: Heart,
-    title: "Event-Driven",
-    description:
-      "29 domain events, 5 handlers (Gamification, Push, Chat SSE, Notification SSE, Email). Évaluation automatique des achievements après chaque mutation.",
-    color: HC.pink,
+      "Domain events après chaque mutation persistée. Handlers idempotents pour les side effects (emails, logs, notifs). Zéro appel direct à un service externe depuis un use case.",
+    color: OU.emerald,
   },
 ] as const;
 
 const monorepo = [
   {
-    name: "apps/nextjs",
-    desc: "Web + API (29 pages protégées)",
-    color: HC.pink,
+    name: "apps/api",
+    desc: "Backend Hono (DDD, 9 modules domaine)",
+    color: OU.blue,
   },
   {
-    name: "apps/expo",
-    desc: "Mobile iOS + Android (22+ écrans)",
-    color: HC.green,
+    name: "apps/app",
+    desc: "Mobile Capacitor + PWA (TanStack Router, Hono RPC)",
+    color: OU.pink,
   },
-  { name: "packages/ddd-kit", desc: "Primitives DDD custom", color: HC.blue },
+  {
+    name: "apps/link-router",
+    desc: "Cloudflare Worker (redirections + proxy Framer)",
+    color: OU.amber,
+  },
+  {
+    name: "packages/ddd-kit",
+    desc: "Result, Option, Entity, ValueObject, EventDispatcher",
+    color: OU.violet,
+  },
   {
     name: "packages/drizzle",
-    desc: "Schema DB (32 tables, 18 domaines)",
-    color: HC.orange,
+    desc: "Schema DB + migrations + seeds",
+    color: OU.emerald,
+  },
+  {
+    name: "packages/reserved-slugs",
+    desc: "Slugs interdits partagés API + worker",
+    color: OU.sky,
   },
   {
     name: "packages/ui",
-    desc: "25 composants shadcn/ui partagés",
-    color: HC.yellow,
+    desc: "shadcn/ui partagé Tailwind 4",
+    color: OU.slate,
   },
   {
-    name: "packages/i18n",
-    desc: "Internationalisation (FR + EN)",
-    color: HC.red,
-  },
-  { name: "packages/test", desc: "Config Vitest partagée", color: HC.green },
-  {
-    name: "packages/typescript-config",
-    desc: "TSConfig partagée",
-    color: HC.pink,
+    name: "packages/test",
+    desc: "Utilitaires de test (mocks, factories)",
+    color: OU.blue,
   },
 ] as const;
 
 const categoryColors: Record<string, string> = {
-  architecture: HC.pink,
-  backend: HC.blue,
-  mobile: HC.green,
-  frontend: HC.orange,
-  language: HC.yellow,
-  infra: HC.red,
+  architecture: OU.violet,
+  backend: OU.blue,
+  mobile: OU.pink,
+  frontend: OU.sky,
+  language: OU.amber,
+  infra: OU.emerald,
 };
 
 const cardVariants: Variants = {
@@ -290,18 +310,18 @@ const cardVariants: Variants = {
   hover: { y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.08)" },
 };
 
-export function HomecafeBackdrop() {
+export function OpenupBackdrop() {
   return (
     <div
       className="absolute top-0 left-0 right-0 h-[700px] pointer-events-none -z-10"
       style={{
-        background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${HC.beige}30 0%, ${HC.pink}08 50%, transparent 80%)`,
+        background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${OU.blue}18 0%, ${OU.violet}10 50%, transparent 80%)`,
       }}
     />
   );
 }
 
-export function HomecafeHero() {
+export function OpenupHero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -335,24 +355,24 @@ export function HomecafeHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${HC.pink}12`,
-                  color: HC.pink,
-                  borderColor: `${HC.pink}30`,
+                  background: `${OU.blue}12`,
+                  color: OU.blue,
+                  borderColor: `${OU.blue}30`,
                 }}
               >
-                <Smartphone className="w-3 h-3" />
-                Web + Mobile
+                <Sparkles className="w-3 h-3" />
+                En production
               </span>
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${HC.blue}12`,
-                  color: HC.blue,
-                  borderColor: `${HC.blue}30`,
+                  background: `${OU.violet}12`,
+                  color: OU.violet,
+                  borderColor: `${OU.violet}30`,
                 }}
               >
                 <Code2 className="w-3 h-3" />
-                Lead Dev
+                Solo + founder
               </span>
             </div>
           </RevealItem>
@@ -360,25 +380,21 @@ export function HomecafeHero() {
           <RevealItem>
             <div className="flex items-center gap-4 sm:gap-6">
               <Image
-                src="/portfolio/homecafe/logo.svg"
-                alt="HomeCafe logo"
-                width={80}
-                height={50}
-                className="w-16 sm:w-20 md:w-24 h-auto"
+                src="/portfolio/openup/logo.svg"
+                alt="OpenUp logo"
+                width={120}
+                height={48}
+                className="w-24 sm:w-28 md:w-32 h-auto"
                 unoptimized
               />
               <h1
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.9]"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
+                style={{
+                  fontFamily: "var(--font-space-grotesk)",
+                  color: OU.blue,
+                }}
               >
-                <span style={{ color: HC.red }}>H</span>
-                <span style={{ color: HC.green }}>o</span>
-                <span style={{ color: HC.pink }}>m</span>
-                <span style={{ color: HC.yellow }}>e</span>
-                <span style={{ color: HC.orange }}>C</span>
-                <span style={{ color: HC.blue }}>a</span>
-                <span style={{ color: HC.green }}>f</span>
-                <span style={{ color: HC.green }}>é</span>
+                OpenUp
               </h1>
             </div>
           </RevealItem>
@@ -388,7 +404,7 @@ export function HomecafeHero() {
               className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-secondary max-w-2xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Application web & mobile de bien-être et productivité
+              SaaS de gestion de liens tout-en-un, live sur openup.to
             </p>
           </RevealItem>
 
@@ -397,12 +413,59 @@ export function HomecafeHero() {
               variant="secondary"
               className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
             >
-              Conception et développement from scratch d'une application
-              complète déployée sur web (Next.js) et mobile (Expo/React Native).
-              Mood tracking, journaling, organisation, chat temps réel, feed
-              social et gamification. Monorepo de 8 packages, architecture Clean
-              Architecture + DDD + CQRS, +525 tests unitaires et d'intégration.
+              Livraison from scratch en quelques semaines, en solo avec le
+              founder. Concurrent direct de Bitly + Linktree + Beacons combinés
+              : 5 piliers (liens raccourcis, QR codes, link-in-bio, analytics,
+              custom domains), deep links iOS/Android natifs, 4 plans Stripe
+              multi-devise EUR/USD, mobile natif via Capacitor, edge {"<"}50ms
+              via Cloudflare Worker. Architecture Clean + DDD, 76 tests BDD côté
+              API.
             </Paragraph>
+          </RevealItem>
+
+          <RevealItem>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <MagneticWrapper strength={0.04}>
+                <motion.a
+                  href="https://openup.to"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg group"
+                  style={{
+                    background: OU.blue,
+                    color: "#fff",
+                  }}
+                  whileHover={{ y: -2, boxShadow: `0 12px 24px ${OU.blue}40` }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Voir openup.to
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.a>
+              </MagneticWrapper>
+              <MagneticWrapper strength={0.04}>
+                <motion.a
+                  href="https://app.openup.to"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border group"
+                  style={{
+                    background: "var(--primary-background)",
+                    color: OU.violet,
+                    borderColor: `${OU.violet}40`,
+                  }}
+                  whileHover={{
+                    y: -2,
+                    borderColor: OU.violet,
+                    boxShadow: `0 8px 20px ${OU.violet}25`,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  Ouvrir l&apos;app
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.a>
+              </MagneticWrapper>
+            </div>
           </RevealItem>
         </RevealContainer>
       </motion.div>
@@ -410,22 +473,22 @@ export function HomecafeHero() {
   );
 }
 
-export function HomecafeStats() {
+export function OpenupStats() {
   return (
     <section
       className="relative py-6 sm:py-8"
-      style={{ background: `${HC.beige}18` }}
+      style={{ background: `${OU.blue}06` }}
     >
       <div
         className="absolute inset-x-0 top-0 h-px"
         style={{
-          background: `linear-gradient(to right, transparent 10%, ${HC.pink}40, ${HC.orange}40, ${HC.green}40, ${HC.blue}40, transparent 90%)`,
+          background: `linear-gradient(to right, transparent 10%, ${OU.blue}40, ${OU.violet}40, ${OU.emerald}40, ${OU.amber}40, transparent 90%)`,
         }}
       />
       <div
         className="absolute inset-x-0 bottom-0 h-px"
         style={{
-          background: `linear-gradient(to right, transparent 10%, ${HC.blue}40, ${HC.green}40, ${HC.orange}40, ${HC.pink}40, transparent 90%)`,
+          background: `linear-gradient(to right, transparent 10%, ${OU.amber}40, ${OU.emerald}40, ${OU.violet}40, ${OU.blue}40, transparent 90%)`,
         }}
       />
       <RevealContainer
@@ -477,7 +540,7 @@ export function HomecafeStats() {
   );
 }
 
-export function HomecafeContext() {
+export function OpenupContext() {
   return (
     <section className="relative py-12 sm:py-16">
       <RevealContainer className="container mx-auto max-w-4xl">
@@ -514,7 +577,7 @@ export function HomecafeContext() {
             style={{
               background: "var(--primary-background)",
               border: "1px solid var(--border)",
-              borderLeft: `3px solid ${HC.orange}`,
+              borderLeft: `3px solid ${OU.blue}`,
             }}
             variants={cardVariants}
             initial="rest"
@@ -528,11 +591,11 @@ export function HomecafeContext() {
               Problématique
             </h3>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Le client souhaitait une application tout-en-un de bien-être
-              personnel : suivi d'humeur, journaling, organisation et dimension
-              sociale. Le défi : créer un produit cohérent sur web et mobile
-              avec un code partagé maximum, tout en maintenant une architecture
-              capable d'évoluer avec les besoins.
+              Les créateurs, marques et entreprises jonglent avec 3 abonnements
+              séparés (Bitly pour shortlinks, Linktree pour la page bio, Beacons
+              pour les QR codes) sans analytics unifié. Le client voulait un
+              seul outil cohérent, premium côté UX et capable de passer à
+              l&apos;échelle internationale dès le jour 1.
             </p>
           </motion.div>
         </RevealItem>
@@ -543,7 +606,7 @@ export function HomecafeContext() {
             style={{
               background: "var(--primary-background)",
               border: "1px solid var(--border)",
-              borderLeft: `3px solid ${HC.blue}`,
+              borderLeft: `3px solid ${OU.violet}`,
             }}
             variants={cardVariants}
             initial="rest"
@@ -557,11 +620,12 @@ export function HomecafeContext() {
               Mon rôle
             </h3>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Lead développeur full-stack et architecte technique. J'ai conçu
-              l'architecture from scratch (Clean Architecture + DDD + CQRS),
-              développé l'intégralité du backend et du frontend web et mobile,
-              mis en place le monorepo Turborepo, et défini la stratégie de
-              tests (+525). Seul développeur sur le projet.
+              Tout, en solo et from scratch avec le founder en quelques
+              semaines. Architecture, backend Hono DDD, app mobile Capacitor
+              (iOS + Android + PWA depuis une seule codebase), Cloudflare Worker
+              pour les redirections edge et les deep links, intégration Stripe
+              multi-devise, BetterAuth, Cloudflare for SaaS pour les domaines
+              custom, CI/CD Fastlane pour les releases mobiles.
             </p>
           </motion.div>
         </RevealItem>
@@ -572,7 +636,7 @@ export function HomecafeContext() {
             style={{
               background: "var(--primary-background)",
               border: "1px solid var(--border)",
-              borderLeft: `3px solid ${HC.pink}`,
+              borderLeft: `3px solid ${OU.pink}`,
             }}
             variants={cardVariants}
             initial="rest"
@@ -580,7 +644,7 @@ export function HomecafeContext() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <div className="flex items-center gap-2 mb-2">
-              <Figma className="w-4 h-4" style={{ color: HC.pink }} />
+              <UserCog className="w-4 h-4" style={{ color: OU.pink }} />
               <h3
                 className="text-sm sm:text-base font-semibold text-primary"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
@@ -589,11 +653,12 @@ export function HomecafeContext() {
               </h3>
             </div>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Travail en binôme avec une designeuse UX/UI. Elle concevait les
-              maquettes Figma, je les implémentais pixel-perfect. Échanges
-              réguliers sur les contraintes techniques, les interactions et les
-              micro-animations pour garantir une expérience fluide sur les deux
-              plateformes.
+              Duo direct avec le founder : itérations courtes, décisions produit
+              prises à deux, design system construit en chemin sur shadcn/ui +
+              Tailwind 4. Le site marketing openup.to est sur Framer (hors
+              monorepo), proxifié via le worker pour garder un domaine unique :
+              openup.to (Framer) + app.openup.to (PWA) + openup.to/xxx
+              (redirections edge).
             </p>
           </motion.div>
         </RevealItem>
@@ -604,7 +669,7 @@ export function HomecafeContext() {
             style={{
               background: "var(--primary-background)",
               border: "1px solid var(--border)",
-              borderLeft: `3px solid ${HC.green}`,
+              borderLeft: `3px solid ${OU.emerald}`,
             }}
             variants={cardVariants}
             initial="rest"
@@ -618,11 +683,11 @@ export function HomecafeContext() {
               Approche technique
             </h3>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Monorepo Turborepo pour partager le maximum de code entre web et
-              mobile : schéma DB, composants UI, primitives DDD,
-              internationalisation et config de tests. Architecture event-driven
-              pour découpler les modules et permettre l'ajout de features sans
-              régression.
+              Monorepo basé sur CleanStack (mon template open-source) : Clean
+              Architecture + DDD, type-safety bout-en-bout via Hono RPC. Les
+              redirections shortlinks vivent sur l&apos;edge Cloudflare pour
+              rester sub-50ms partout. iOS et Android compilent depuis le même
+              code que la PWA grâce à Capacitor.
             </p>
           </motion.div>
         </RevealItem>
@@ -631,14 +696,14 @@ export function HomecafeContext() {
   );
 }
 
-export function HomecafeScreenshots() {
+export function OpenupScreenshots() {
   const [activeScreenshot, setActiveScreenshot] = useState(0);
   const active = screenshots[activeScreenshot];
 
   return (
     <section
       className="relative py-12 sm:py-16"
-      style={{ background: `${HC.beige}12` }}
+      style={{ background: `${OU.blue}06` }}
     >
       <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
         <RevealItem direction="scale">
@@ -647,7 +712,7 @@ export function HomecafeScreenshots() {
               className="badge mb-3 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
-              <Coffee className="w-4 h-4 text-accent" />
+              <Sparkles className="w-4 h-4 text-accent" />
               <span className="text-sm font-medium">Aperçu</span>
             </motion.div>
           </MagneticWrapper>
@@ -659,7 +724,7 @@ export function HomecafeScreenshots() {
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Interfaces de l'application
+            Captures de l&apos;application
           </Heading2>
         </RevealItem>
 
@@ -668,8 +733,7 @@ export function HomecafeScreenshots() {
             variant="secondary"
             className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
           >
-            Design réalisé par la designeuse UX/UI sur Figma, implémenté
-            pixel-perfect sur web (Next.js) et mobile (Expo).
+            Captures réelles de la version live, prises sur app.openup.to.
           </Paragraph>
         </RevealItem>
       </RevealContainer>
@@ -726,27 +790,30 @@ export function HomecafeScreenshots() {
                 <div className="flex items-center gap-1 sm:gap-1.5">
                   <span
                     className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                    style={{ background: HC.red }}
+                    style={{ background: OU.pink }}
                   />
                   <span
                     className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                    style={{ background: HC.yellow }}
+                    style={{ background: OU.amber }}
                   />
                   <span
                     className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                    style={{ background: HC.green }}
+                    style={{ background: OU.emerald }}
                   />
                 </div>
-                <div
-                  className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate"
+                <a
+                  href="https://app.openup.to"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate hover:opacity-80 transition-opacity"
                   style={{
                     background: `${active.color}08`,
                     color: "var(--secondary)",
                     border: `1px solid ${active.color}12`,
                   }}
                 >
-                  homecafe.app/{active.label.toLowerCase()}
-                </div>
+                  app.openup.to
+                </a>
                 <div className="w-6 sm:w-[46px]" />
               </div>
 
@@ -761,7 +828,7 @@ export function HomecafeScreenshots() {
                 className="relative overflow-hidden"
                 style={{
                   height: "clamp(280px, 50vw, 640px)",
-                  background: `linear-gradient(180deg, ${HC.beige}20 0%, ${HC.beige}08 100%)`,
+                  background: `linear-gradient(180deg, ${OU.blue}10 0%, ${OU.blue}03 100%)`,
                 }}
               >
                 <AnimatePresence mode="wait">
@@ -803,7 +870,7 @@ export function HomecafeScreenshots() {
   );
 }
 
-export function HomecafeFeatures() {
+export function OpenupFeatures() {
   return (
     <section className="relative py-12 sm:py-16">
       <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
@@ -813,7 +880,7 @@ export function HomecafeFeatures() {
               className="badge mb-3 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
-              <Smartphone className="w-4 h-4 text-accent" />
+              <Wallet className="w-4 h-4 text-accent" />
               <span className="text-sm font-medium">Fonctionnalités</span>
             </motion.div>
           </MagneticWrapper>
@@ -825,7 +892,7 @@ export function HomecafeFeatures() {
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Un écosystème complet
+            5 piliers, un seul outil
           </Heading2>
         </RevealItem>
 
@@ -834,22 +901,21 @@ export function HomecafeFeatures() {
             variant="secondary"
             className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
           >
-            6 modules interconnectés pour le bien-être, l'organisation et le
-            partage. Chaque module implémenté sur les deux plateformes — web
-            (Next.js) et mobile (Expo) — avec un code partagé via monorepo.
-            Bilingue FR/EN.
+            Tout ce que les créateurs, marques et entreprises veulent dans un
+            outil de gestion de liens, sans les compromis. Bilingue FR/EN.
           </Paragraph>
         </RevealItem>
       </RevealContainer>
 
       <RevealContainer
         staggerDelay={0.08}
-        className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-5xl"
+        className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4 max-w-5xl"
       >
         {features.map((feature, i) => (
           <RevealItem
             key={feature.title}
             direction={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
+            className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}
           >
             <MagneticWrapper strength={0.03}>
               <TiltCard
@@ -908,10 +974,13 @@ export function HomecafeFeatures() {
 
       <RevealContainer
         staggerDelay={0.1}
-        className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-5xl mt-4"
+        className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 max-w-5xl mt-4"
       >
-        {crossCutting.map((item, i) => (
-          <RevealItem key={item.title} direction={i === 0 ? "left" : "right"}>
+        {techHighlights.map((item, i) => (
+          <RevealItem
+            key={item.title}
+            direction={i === 0 ? "left" : i === 2 ? "right" : "up"}
+          >
             <MagneticWrapper strength={0.03}>
               <motion.div
                 className="rounded-xl p-4 sm:p-5 h-full"
@@ -962,11 +1031,11 @@ export function HomecafeFeatures() {
   );
 }
 
-export function HomecafeArchitecture() {
+export function OpenupArchitecture() {
   return (
     <section
       className="relative py-12 sm:py-16"
-      style={{ background: `${HC.beige}12` }}
+      style={{ background: `${OU.violet}06` }}
     >
       <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
         <RevealItem direction="scale">
@@ -987,7 +1056,7 @@ export function HomecafeArchitecture() {
             className="text-2xl sm:text-3xl md:text-4xl"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Ingénierie robuste
+            Pensée pour la prod, pas pour le démo
           </Heading2>
         </RevealItem>
 
@@ -996,20 +1065,20 @@ export function HomecafeArchitecture() {
             variant="secondary"
             className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
           >
-            Une architecture pensée pour la maintenabilité, la testabilité et
-            l'évolutivité. Chaque décision technique documentée et justifiée.
+            Chaque couche isolée et testable. Chaque décision technique
+            justifiée par un besoin produit, pas par la mode.
           </Paragraph>
         </RevealItem>
       </RevealContainer>
 
       <RevealContainer
         staggerDelay={0.1}
-        className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl"
+        className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 max-w-5xl"
       >
         {archHighlights.map((item, i) => (
           <RevealItem
             key={item.title}
-            direction={i % 2 === 0 ? "left" : "right"}
+            direction={i === 0 ? "left" : i === 2 ? "right" : "up"}
           >
             <MagneticWrapper strength={0.03}>
               <motion.div
@@ -1061,7 +1130,7 @@ export function HomecafeArchitecture() {
   );
 }
 
-export function HomecafeTechStack() {
+export function OpenupTechStack() {
   return (
     <section className="relative py-12 sm:py-16">
       <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
@@ -1094,7 +1163,7 @@ export function HomecafeTechStack() {
       >
         <div className="flex flex-wrap justify-center gap-2">
           {techStack.map((tech) => {
-            const color = categoryColors[tech.category] || HC.orange;
+            const color = categoryColors[tech.category] || OU.blue;
             return (
               <RevealItem key={tech.name} direction="scale">
                 <MagneticWrapper strength={0.04}>
@@ -1142,7 +1211,7 @@ export function HomecafeTechStack() {
               className="text-xs uppercase tracking-widest font-semibold text-secondary mb-4"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              Monorepo — 8 packages
+              Monorepo · 8 packages
             </p>
             <div className="space-y-2.5 font-mono text-sm">
               {monorepo.map((pkg) => (
@@ -1170,7 +1239,7 @@ export function HomecafeTechStack() {
   );
 }
 
-export function HomecafeBottomCta() {
+export function OpenupBottomCta() {
   return (
     <section className="py-10 sm:py-14">
       <RevealContainer className="container mx-auto text-center">

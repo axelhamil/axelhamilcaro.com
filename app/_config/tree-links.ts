@@ -50,9 +50,9 @@ export const treeLinks: ILink[] = [
     description: "Mon site personnel",
   },
   {
-    title: "Email",
+    title: "Contact",
     url: CONTACT.mailto,
     icon: Mail,
-    description: CONTACT.email,
+    description: "Réponse sous 1h en journée",
   },
 ];

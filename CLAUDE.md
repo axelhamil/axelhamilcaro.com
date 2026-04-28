@@ -47,7 +47,7 @@ app/                              # Next.js routes + layouts + api — SEUL endr
 │   ├── portfolio/
 │   │   ├── billetterie/page.tsx  # Compose sections de portfolio-billetterie
 │   │   ├── civitime/page.tsx     # Idem
-│   │   ├── homecafe/page.tsx     # Idem
+│   │   ├── openup/page.tsx       # Idem
 │   │   └── scormpilot/page.tsx   # Idem
 │   ├── tree/page.tsx             # Compose TreeHeader + TreeLinksWrapper + TreeFooter
 │   └── login/page.tsx            # Compose LoginForm + LoginFooter
@@ -96,7 +96,7 @@ src/
 │   ├── portfolio-billetterie/    # Case billetterie (1 feature = 1 page showcase)
 │   │   └── components/billetterie-showcase.tsx  # named exports: Backdrop, Hero, Stats, Context, Screenshots, Features, Architecture, TechStack, BottomCta
 │   ├── portfolio-civitime/       # Case civitime (même pattern)
-│   ├── portfolio-homecafe/       # Case homecafe (même pattern)
+│   ├── portfolio-openup/         # Case openup (même pattern)
 │   ├── portfolio-scormpilot/     # Case scormpilot (même pattern)
 │   ├── admin/                    # Admin shell + dashboard
 │   │   └── components/

@@ -9,8 +9,8 @@ const Hero = () => {
       id="hero"
       className="
         relative container mx-auto
-        min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-100px)]
-        pt-20 md:pt-24 pb-6 md:pb-10
+        min-h-[calc(100vh-100px)]
+        py-8 md:py-12
 
         flex flex-col-reverse
         gap-10

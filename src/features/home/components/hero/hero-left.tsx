@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Code2, Rocket, Zap } from "lucide-react";
-import { EXTERNAL_LINKS } from "@/app/_config/site.constants";
+import { ArrowRight, Code2, Mail, Rocket, Zap } from "lucide-react";
+import { ContactModal } from "@/src/features/contact/components/contact-modal";
 import { AnimatedCounter } from "@/src/shared/ui/effects/animated-counter";
 import { PulsingDot } from "@/src/shared/ui/effects/floating-element";
 import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
@@ -114,20 +114,17 @@ const HeroLeft = () => {
       <HeroMotionItem>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
           <MagneticWrapper strength={0.06}>
-            <Button
-              href={EXTERNAL_LINKS.calendly}
-              external
-              size="lg"
-              className="w-full sm:w-auto justify-center group"
-            >
-              <span
-                className="animate-wiggle"
-                style={{ animationDuration: "3s" }}
-              >
-                <Calendar className="w-5 h-5" />
-              </span>
-              Lancer mon projet sous 24h
-            </Button>
+            <ContactModal>
+              <Button size="lg" className="w-full sm:w-auto justify-center group">
+                <span
+                  className="animate-wiggle"
+                  style={{ animationDuration: "3s" }}
+                >
+                  <Mail className="w-5 h-5" />
+                </span>
+                Lancer mon projet sous 24h
+              </Button>
+            </ContactModal>
           </MagneticWrapper>
 
           <MagneticWrapper strength={0.06}>

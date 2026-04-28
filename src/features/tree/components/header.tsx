@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { Calendar, Mail, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { CONTACT, EXTERNAL_LINKS } from "@/app/_config/site.constants";
+import { EXTERNAL_LINKS } from "@/app/_config/site.constants";
+import { ContactModal } from "@/src/features/contact/components/contact-modal";
 import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { Heading1 } from "@/src/shared/ui/typography/heading1";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
@@ -82,15 +83,17 @@ export default function TreeHeader() {
             transition={{ delay: 0.5 }}
           >
             <MagneticWrapper strength={0.04}>
-              <motion.a
-                href={CONTACT.mailto}
-                className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl card-accent flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-primary hover:text-accent transition-colors duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                Email
-              </motion.a>
+              <ContactModal>
+                <motion.button
+                  type="button"
+                  className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl card-accent flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-primary hover:text-accent transition-colors duration-300 cursor-pointer"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  Contact
+                </motion.button>
+              </ContactModal>
             </MagneticWrapper>
 
             <MagneticWrapper strength={0.04}>

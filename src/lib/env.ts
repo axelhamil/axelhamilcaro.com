@@ -7,9 +7,12 @@ const envSchema = z.object({
   GITHUB_CLIENT_SECRET: z.string().min(1),
   RESEND_API_KEY: z.string().startsWith("re_").optional(),
   BLOB_READ_WRITE_TOKEN: z.string().optional(),
-  NEXT_PUBLIC_APP_URL: z.string().url().optional(),
+  NEXT_PUBLIC_APP_URL: z.url().optional(),
   ADMIN_GITHUB_ID: z.string().optional(),
+  ADMIN_EMAIL: z.email().optional(),
   ALLOW_DEV_AUTH_BYPASS: z.enum(["true", "false"]).optional(),
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().optional(),
+  TURNSTILE_SECRET_KEY: z.string().optional(),
 });
 
 function validateEnv() {

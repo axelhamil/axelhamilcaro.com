@@ -42,18 +42,18 @@ const projects = [
     thumbnail: "/portfolio/scormpilot/dashboard.webp",
   },
   {
-    title: "HomeCafe",
-    type: "Web + Mobile · Freelance",
+    title: "OpenUp",
+    type: "SaaS · Freelance solo",
     description:
-      "App bien-être et productivité : dashboard, journal, moodboard, organisation, feed social, messagerie temps réel. Monorepo Next.js 16 + Expo, 18 bounded contexts CQRS.",
-    tech: ["Next.js 16", "Expo", "CQRS", "DDD", "Clean Archi"],
-    metric: "+525 tests",
-    metricLabel: "51+ écrans",
-    gradient: "from-[#F691C3] to-[#F46604]",
-    logo: "HC",
-    logoSrc: "/portfolio/homecafe/logo.svg",
-    href: "/portfolio/homecafe",
-    thumbnail: "/portfolio/homecafe/dashboard.webp",
+      "SaaS de gestion de liens tout-en-un (Bitly + Linktree + Beacons). Mobile natif iOS + Android + PWA depuis une codebase, edge Cloudflare <50ms, Stripe multi-devise. Live sur openup.to.",
+    tech: ["Hono", "Capacitor", "Cloudflare Workers", "DDD", "Deep links"],
+    metric: "En production",
+    metricLabel: "iOS · Android · PWA",
+    gradient: "from-[#0066FF] to-[#7C3AED]",
+    logo: "OU",
+    logoSrc: "/portfolio/openup/logo.svg",
+    href: "/portfolio/openup",
+    thumbnail: "/portfolio/openup/links-dashboard.webp",
   },
   {
     title: "Billetterie Interne",
@@ -75,7 +75,7 @@ const CaseStudies = () => {
   return (
     <section
       id="portfolio"
-      className="relative container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20 overflow-hidden"
+      className="relative container mx-auto pt-2 pb-16 sm:pt-3 sm:pb-20 md:pt-4 md:pb-24 scroll-mt-16 overflow-hidden"
       aria-labelledby="portfolio-title"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">

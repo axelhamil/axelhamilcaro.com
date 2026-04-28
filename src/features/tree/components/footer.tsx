@@ -10,11 +10,8 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
-import {
-  CONTACT,
-  EXTERNAL_LINKS,
-  SOCIAL_LINKS,
-} from "@/app/_config/site.constants";
+import { EXTERNAL_LINKS, SOCIAL_LINKS } from "@/app/_config/site.constants";
+import { ContactModal } from "@/src/features/contact/components/contact-modal";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
 const socialLinks = [
@@ -43,11 +40,6 @@ const socialLinks = [
     href: SOCIAL_LINKS.tiktok,
     icon: Music2,
   },
-  {
-    name: "Email",
-    href: CONTACT.mailto,
-    icon: Mail,
-  },
 ];
 
 export default function TreeFooter() {
@@ -63,12 +55,8 @@ export default function TreeFooter() {
           <motion.a
             key={link.name}
             href={link.href}
-            target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-            rel={
-              link.href.startsWith("mailto:")
-                ? undefined
-                : "noopener noreferrer"
-            }
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={link.name}
             className="p-2.5 rounded-xl bg-primary-background border border-border text-secondary hover:text-accent hover:border-accent transition-all duration-300"
             initial={{ opacity: 0, y: 10 }}
@@ -80,6 +68,21 @@ export default function TreeFooter() {
             <link.icon className="w-4 h-4" />
           </motion.a>
         ))}
+
+        <ContactModal>
+          <motion.button
+            type="button"
+            aria-label="Contact"
+            className="p-2.5 rounded-xl bg-primary-background border border-border text-secondary hover:text-accent hover:border-accent transition-all duration-300 cursor-pointer"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 + socialLinks.length * 0.05 }}
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Mail className="w-4 h-4" />
+          </motion.button>
+        </ContactModal>
       </div>
 
       <motion.div

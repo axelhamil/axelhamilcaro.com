@@ -9,6 +9,7 @@ import { SITE_URL } from "@/app/_config/site.constants";
 import { Badge } from "@/components/ui/badge";
 import { useMDXComponents } from "@/mdx-components";
 import { ArticleNavigation } from "@/src/features/blog/components/article-navigation";
+import { BlogPostCta } from "@/src/features/blog/components/blog-post-cta";
 import { MobileTableOfContents } from "@/src/features/blog/components/mobile-table-of-contents";
 import { TableOfContents } from "@/src/features/blog/components/table-of-contents";
 import {
@@ -201,6 +202,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               }}
             />
           </article>
+
+          <BlogPostCta />
 
           <ArticleNavigation currentSlug={slug} />
         </div>

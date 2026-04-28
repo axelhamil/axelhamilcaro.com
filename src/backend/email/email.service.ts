@@ -2,9 +2,10 @@ import { Resend } from "resend";
 import { CONTACT } from "@/app/_config/site.constants";
 import { AdminNotification } from "@/src/backend/email/templates/admin-notification";
 import { LeadEmail } from "@/src/backend/email/templates/lead-email";
+import { env } from "@/src/lib/env";
 
-const resendApiKey = process.env.RESEND_API_KEY;
-const adminEmail = process.env.ADMIN_EMAIL;
+const resendApiKey = env.RESEND_API_KEY;
+const adminEmail = env.ADMIN_EMAIL;
 
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
@@ -26,6 +27,12 @@ interface SendAdminNotificationParams {
   source?: string | null;
 }
 
+interface SendContactMessageParams {
+  email: string;
+  name?: string;
+  message: string;
+}
+
 export const emailService = {
   async sendLeadEmail({ to, firstName, subject, body }: SendLeadEmailParams) {
     if (!resend) {
@@ -40,6 +47,39 @@ export const emailService = {
         to: [to],
         subject: parsedSubject,
         react: LeadEmail({ firstName, subject: parsedSubject, body }),
+      });
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+
+      return { success: true, data };
+    } catch (err: unknown) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : "Unknown error",
+      };
+    }
+  },
+
+  async sendContactMessage({ email, name, message }: SendContactMessageParams) {
+    if (!resend) {
+      return { success: false, error: "Resend not configured" };
+    }
+    if (!adminEmail) {
+      return { success: false, error: "ADMIN_EMAIL not configured" };
+    }
+
+    const displayName = name?.trim();
+    const fromLine = displayName ? `${displayName} <${email}>` : email;
+
+    try {
+      const { data, error } = await resend.emails.send({
+        from: `Contact <${CONTACT.noreply}>`,
+        to: [adminEmail],
+        replyTo: email,
+        subject: `Nouveau contact${displayName ? ` de ${displayName}` : ""}`,
+        text: `De: ${fromLine}\n\n${message}`,
       });
 
       if (error) {

@@ -1,6 +1,5 @@
 import {
   Briefcase,
-  Calendar,
   Coffee,
   Github,
   Heart,
@@ -9,11 +8,8 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
-import {
-  CONTACT,
-  EXTERNAL_LINKS,
-  SOCIAL_LINKS,
-} from "@/app/_config/site.constants";
+import { EXTERNAL_LINKS, SOCIAL_LINKS } from "@/app/_config/site.constants";
+import { ContactModal } from "@/src/features/contact/components/contact-modal";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
@@ -42,21 +38,6 @@ const socialLinks = [
     name: "TikTok",
     href: SOCIAL_LINKS.tiktok,
     icon: Music2,
-  },
-] as const;
-
-const primaryCtas = [
-  {
-    name: "Écrire en 3 lignes",
-    href: CONTACT.mailto,
-    icon: Mail,
-    hint: "Réponse sous 1h en journée",
-  },
-  {
-    name: "Réserver mon audit",
-    href: EXTERNAL_LINKS.calendly,
-    icon: Calendar,
-    hint: "30 min, sans engagement",
   },
 ] as const;
 
@@ -119,6 +100,12 @@ const Footer = () => {
               >
                 Liens
               </TransitionLink>
+              <a
+                href="/sitemap.xml"
+                className="text-xs text-secondary/70 hover:text-accent transition-colors mt-1"
+              >
+                Sitemap
+              </a>
             </nav>
           </div>
 
@@ -160,25 +147,20 @@ const Footer = () => {
             </span>
 
             <div className="flex flex-col gap-2">
-              {primaryCtas.map((cta) => (
-                <a
-                  key={cta.name}
-                  href={cta.href}
-                  target={cta.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={
-                    cta.href.startsWith("mailto:")
-                      ? undefined
-                      : "noopener noreferrer"
-                  }
-                  className="group flex items-center justify-between gap-3 rounded-xl px-4 py-3 bg-secondary-background/30 border border-secondary/20 hover:border-accent/40 hover:bg-secondary-background/50 transition-all duration-300"
+              <ContactModal>
+                <button
+                  type="button"
+                  className="group flex items-center justify-between gap-3 rounded-xl px-4 py-3 bg-accent text-white hover:bg-accent-hover hover:shadow-lg transition-all duration-300 text-left cursor-pointer"
                 >
-                  <span className="flex items-center gap-2 text-sm text-primary group-hover:text-accent transition-colors">
-                    <cta.icon className="w-4 h-4" />
-                    {cta.name}
+                  <span className="flex items-center gap-2 text-sm font-semibold">
+                    <Mail className="w-4 h-4" />
+                    Me contacter
                   </span>
-                  <span className="text-xs text-secondary">{cta.hint}</span>
-                </a>
-              ))}
+                  <span className="text-xs text-white/80">
+                    Réponse sous 1h en journée
+                  </span>
+                </button>
+              </ContactModal>
             </div>
 
             <div className="flex flex-wrap items-center gap-2 pt-2">

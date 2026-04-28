@@ -1,10 +1,10 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentProps, ReactNode } from "react";
+import { type ComponentProps, forwardRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
 const linkCardVariants = cva(
-  "group relative flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl transition-all duration-300 ease-out cursor-pointer border active:scale-[0.98]",
+  "group relative flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl transition-all duration-300 ease-out cursor-pointer border active:scale-[0.98] w-full text-left",
   {
     variants: {
       variant: {
@@ -20,28 +20,16 @@ const linkCardVariants = cva(
   },
 );
 
-interface ILinkCardProps {
-  href: string;
-  icon: ReactNode;
-  title: string;
-  description?: string;
-}
-
-const LinkCard = ({
-  href,
+function LinkCardContent({
   icon,
   title,
   description,
-  variant,
-  className,
-  ...props
-}: ILinkCardProps &
-  Omit<ComponentProps<"a">, "href"> &
-  VariantProps<typeof linkCardVariants>) => {
-  const isExternal = href.startsWith("http") || href.startsWith("mailto:");
-  const classes = cn(linkCardVariants({ variant, className }));
-
-  const content = (
+}: {
+  icon: ReactNode;
+  title: string;
+  description?: string;
+}) {
+  return (
     <>
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light" />
 
@@ -76,26 +64,91 @@ const LinkCard = ({
       </div>
     </>
   );
+}
 
-  if (isExternal) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={classes}
-        {...props}
-      >
-        {content}
-      </a>
+interface ILinkCardCommonProps {
+  icon: ReactNode;
+  title: string;
+  description?: string;
+}
+
+interface ILinkCardLinkProps extends ILinkCardCommonProps {
+  href: string;
+  asButton?: false;
+}
+
+interface ILinkCardButtonProps extends ILinkCardCommonProps {
+  asButton: true;
+  href?: undefined;
+}
+
+type LinkCardProps = (ILinkCardLinkProps | ILinkCardButtonProps) &
+  VariantProps<typeof linkCardVariants> & {
+    className?: string;
+  };
+
+type ButtonExtraProps = Omit<
+  ComponentProps<"button">,
+  keyof ILinkCardButtonProps | "className" | "ref"
+>;
+type AnchorExtraProps = Omit<
+  ComponentProps<"a">,
+  keyof ILinkCardLinkProps | "className" | "ref"
+>;
+
+const LinkCard = forwardRef<HTMLElement, LinkCardProps & (ButtonExtraProps | AnchorExtraProps)>(
+  function LinkCard(props, ref) {
+    const classes = cn(
+      linkCardVariants({ variant: props.variant, className: props.className }),
     );
-  }
+    const inner = (
+      <LinkCardContent
+        icon={props.icon}
+        title={props.title}
+        description={props.description}
+      />
+    );
 
-  return (
-    <TransitionLink href={href} className={classes} {...props}>
-      {content}
-    </TransitionLink>
-  );
-};
+    if (props.asButton) {
+      const { icon, title, description, variant, className, asButton, ...rest } =
+        props;
+      return (
+        <button
+          ref={ref as React.Ref<HTMLButtonElement>}
+          type="button"
+          className={classes}
+          {...(rest as ButtonExtraProps)}
+        >
+          {inner}
+        </button>
+      );
+    }
+
+    const { icon, title, description, variant, className, href, ...rest } =
+      props;
+    const isExternal = href.startsWith("http") || href.startsWith("mailto:");
+
+    if (isExternal) {
+      return (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes}
+          {...(rest as AnchorExtraProps)}
+        >
+          {inner}
+        </a>
+      );
+    }
+
+    return (
+      <TransitionLink href={href} className={classes}>
+        {inner}
+      </TransitionLink>
+    );
+  },
+);
 
 export { LinkCard };

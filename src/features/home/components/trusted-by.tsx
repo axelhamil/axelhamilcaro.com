@@ -2,24 +2,45 @@
 
 import { motion } from "framer-motion";
 import { Award, Building2 } from "lucide-react";
+import Image from "next/image";
 import { AnimatedCounter } from "@/src/shared/ui/effects/animated-counter";
 import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
-const companies = [
+type Company = {
+  name: string;
+  type: string;
+  logoSrc?: string;
+  logo?: string;
+  gradient: string;
+};
+
+const companies: Company[] = [
   {
     name: "Civitime",
-    type: "EdTech",
-    logo: "CT",
+    type: "EdTech B Corp",
+    logoSrc: "/portfolio/civitime/logo.webp",
     gradient: "from-accent to-orange-600",
   },
   {
     name: "ScormPilot",
-    type: "SaaS B2B",
-    logo: "SP",
+    type: "SaaS e-learning",
+    logoSrc: "/portfolio/scormpilot/logo.webp",
     gradient: "from-emerald-500 to-teal-500",
+  },
+  {
+    name: "OpenUp",
+    type: "SaaS gestion de liens",
+    logoSrc: "/portfolio/openup/logo.svg",
+    gradient: "from-[#0066FF] to-[#7C3AED]",
+  },
+  {
+    name: "Billetterie",
+    type: "Dashboard événementiel",
+    logoSrc: "/portfolio/billetterie/logo.svg",
+    gradient: "from-violet-600 to-amber-500",
   },
   {
     name: "Superprof",
@@ -45,9 +66,9 @@ const companies = [
     logo: "S+",
     gradient: "from-cyan-500 to-blue-500",
   },
-] as const;
+];
 
-const CompanyCard = ({ company }: { company: (typeof companies)[number] }) => (
+const CompanyCard = ({ company }: { company: Company }) => (
   <MagneticWrapper strength={0.04}>
     <motion.div
       className="flex items-center gap-3 px-5 py-3 rounded-xl bg-white border border-border/50 shadow-sm hover:shadow-lg transition-all cursor-pointer shrink-0"
@@ -55,15 +76,30 @@ const CompanyCard = ({ company }: { company: (typeof companies)[number] }) => (
       transition={{ type: "spring", stiffness: 400, damping: 20 }}
     >
       <motion.div
-        className={`w-10 h-10 rounded-lg bg-gradient-to-br ${company.gradient} flex items-center justify-center shadow-md`}
+        className={
+          company.logoSrc
+            ? "w-10 h-10 rounded-lg bg-white border border-border/30 flex items-center justify-center shadow-sm overflow-hidden"
+            : `w-10 h-10 rounded-lg bg-gradient-to-br ${company.gradient} flex items-center justify-center shadow-md`
+        }
         whileHover={{ rotate: 8, scale: 1.1 }}
       >
-        <span
-          className="text-xs font-bold text-white"
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-        >
-          {company.logo}
-        </span>
+        {company.logoSrc ? (
+          <Image
+            src={company.logoSrc}
+            alt={`${company.name} logo`}
+            width={32}
+            height={32}
+            className="w-8 h-8 object-contain"
+            unoptimized={company.logoSrc.endsWith(".svg")}
+          />
+        ) : (
+          <span
+            className="text-xs font-bold text-white"
+            style={{ fontFamily: "var(--font-space-grotesk)" }}
+          >
+            {company.logo}
+          </span>
+        )}
       </motion.div>
       <div>
         <p

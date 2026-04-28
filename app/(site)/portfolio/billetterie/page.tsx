@@ -14,6 +14,7 @@ import {
   BilletterieStats,
   BilletterieTechStack,
 } from "@/src/features/portfolio-billetterie/components/billetterie-showcase";
+import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 
@@ -37,6 +38,12 @@ const creativeWorkSchema = buildCreativeWorkSchema({
 });
 
 const faqSchema = buildFaqPageSchema(billetterieFaqItems);
+
+const breadcrumbSchema = buildBreadcrumbListSchema([
+  { name: "Accueil", url: "/" },
+  { name: "Projets", url: "/#portfolio" },
+  { name: "Billetterie événementielle", url: "/portfolio/billetterie" },
+]);
 
 export const metadata: Metadata = {
   title: "Billetterie Interne - Dashboard de gestion d'événements",
@@ -84,6 +91,11 @@ export default function BilletteriePage() {
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <main className="pb-8">
         <div className="relative">

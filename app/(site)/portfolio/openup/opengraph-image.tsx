@@ -4,15 +4,15 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "Case study HomeCafé — Axel Hamilcaro";
+export const alt = "Case study OpenUp — Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
 export default function Image() {
   return renderOgImage({
     eyebrow: "Case study",
-    title: "HomeCafé — App bien-être",
+    title: "OpenUp — SaaS gestion de liens",
     subtitle:
-      "Web + mobile native · 70+ parcours · 545+ tests BDD · 12 domaines DDD",
+      "Solo + founder en quelques semaines · Hono + Capacitor + Cloudflare",
   });
 }

@@ -12,7 +12,7 @@ export type ServiceSlug =
 export type RelatedCaseSlug =
   | "billetterie"
   | "civitime"
-  | "homecafe"
+  | "openup"
   | "scormpilot";
 
 export type ServiceData = {
@@ -97,7 +97,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
         },
       ],
     },
-    relatedCases: ["scormpilot", "homecafe", "billetterie"],
+    relatedCases: ["scormpilot", "openup", "billetterie"],
     faq: [
       {
         question: "Quel est ton TJM ?",
@@ -114,9 +114,9 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
           "Les deux. En autonomie sur un produit complet, ou intégré à une équipe existante (revues, pair programming, lead tech temps partiel).",
       },
       {
-        question: "Tu fais du React Native aussi ?",
+        question: "Tu fais du mobile aussi ?",
         answer:
-          "Oui, mobile native via Expo et React Native. HomeCafé est ma référence récente : app web Next.js et app mobile native dans le même monorepo Turborepo.",
+          "Oui, mobile natif iOS et Android via Capacitor (PWA + apps natives depuis une seule codebase, releases auto via Fastlane CI/CD vers TestFlight et Play Store). OpenUp est ma référence récente : SaaS gestion de liens en production sur app.openup.to, dispo iOS, Android et web.",
       },
     ],
     schema: {

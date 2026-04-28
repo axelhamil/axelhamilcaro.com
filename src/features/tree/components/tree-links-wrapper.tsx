@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useEffect } from "react";
 import type { TreeLink } from "@/drizzle/schema";
+import { ContactModal } from "@/src/features/contact/components/contact-modal";
 import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { LinkCard } from "@/src/shared/ui/portfolio/link-card";
 
@@ -120,10 +121,34 @@ export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
     >
       {links.map((link) => {
         const IconComponent = iconMap[link.icon] || LinkIcon;
+        const isMailto = link.url.startsWith("mailto:");
+
+        if (isMailto) {
+          return (
+            <ContactModal key={link.id}>
+              <MagneticWrapper strength={0.03}>
+                <motion.div
+                  variants={item}
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleClick(link)}
+                >
+                  <LinkCard
+                    asButton
+                    icon={<IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    title={link.title}
+                    description={link.description || undefined}
+                    variant={link.featured ? "featured" : "default"}
+                  />
+                </motion.div>
+              </MagneticWrapper>
+            </ContactModal>
+          );
+        }
+
         return (
           <MagneticWrapper key={link.id} strength={0.03}>
             <motion.div
-              key={link.id}
               variants={item}
               whileHover={{ scale: 1.02, x: 4 }}
               whileTap={{ scale: 0.98 }}

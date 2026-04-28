@@ -13,10 +13,10 @@ const CASE_META: Record<
     name: "Civitime",
     description: "Plateforme RSE B Corp, lead tech 4 ans, IA RAG.",
   },
-  homecafe: {
-    name: "HomeCafé",
+  openup: {
+    name: "OpenUp",
     description:
-      "App web + mobile native, 70+ parcours métier, 545+ tests BDD.",
+      "SaaS gestion de liens, iOS + Android + PWA, edge Cloudflare <50ms.",
   },
   scormpilot: {
     name: "ScormPilot",

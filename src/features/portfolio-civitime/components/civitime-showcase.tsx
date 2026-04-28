@@ -9,12 +9,14 @@ import {
 } from "framer-motion";
 import {
   ArrowLeft,
+  ArrowUpRight,
   BookOpen,
   Boxes,
   BrainCircuit,
   Building2,
   Code2,
   Database,
+  ExternalLink,
   Gamepad2,
   Globe,
   GraduationCap,
@@ -373,6 +375,32 @@ export function CivitimeHero() {
               collaborateurs.
             </Paragraph>
           </RevealItem>
+
+          <RevealItem>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <MagneticWrapper strength={0.04}>
+                <motion.a
+                  href="https://civitime.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg group"
+                  style={{
+                    background: CT.purple,
+                    color: "#fff",
+                  }}
+                  whileHover={{
+                    y: -2,
+                    boxShadow: `0 12px 24px ${CT.purple}40`,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Voir civitime.com
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.a>
+              </MagneticWrapper>
+            </div>
+          </RevealItem>
         </RevealContainer>
       </motion.div>
     </section>
@@ -705,17 +733,19 @@ export function CivitimeScreenshots() {
                     style={{ background: "#28C840" }}
                   />
                 </div>
-                <div
-                  className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate"
+                <a
+                  href="https://civitime.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate hover:opacity-80 transition-opacity"
                   style={{
                     background: `${active.color}08`,
                     color: "var(--secondary)",
                     border: `1px solid ${active.color}12`,
                   }}
                 >
-                  app.civitime.com/
-                  {active.label.toLowerCase().replace(/\s+/g, "-")}
-                </div>
+                  civitime.com
+                </a>
                 <div className="w-6 sm:w-[46px]" />
               </div>
 

@@ -15,6 +15,7 @@
     "db:seed": "tsx drizzle/seed.ts"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "^1.5.1",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/mdx": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
