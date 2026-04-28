@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 1800;
+export const revalidate = 60;
 
 export default async function TreePage() {
   const links = await treeLinkService.listActive();

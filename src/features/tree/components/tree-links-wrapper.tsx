@@ -125,8 +125,8 @@ export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
 
         if (isMailto) {
           return (
-            <ContactModal key={link.id}>
-              <MagneticWrapper strength={0.03}>
+            <MagneticWrapper key={link.id} strength={0.03}>
+              <ContactModal>
                 <motion.div
                   variants={item}
                   whileHover={{ scale: 1.02, x: 4 }}
@@ -141,8 +141,8 @@ export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
                     variant={link.featured ? "featured" : "default"}
                   />
                 </motion.div>
-              </MagneticWrapper>
-            </ContactModal>
+              </ContactModal>
+            </MagneticWrapper>
           );
         }
 
