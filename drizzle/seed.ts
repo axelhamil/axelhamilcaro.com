@@ -43,10 +43,10 @@ const defaultLinks = [
     order: 4,
   },
   {
-    title: "Email",
+    title: "Contact",
     url: "mailto:contact@axelhamilcaro.com",
     icon: "mail",
-    description: "contact@axelhamilcaro.com",
+    description: "Réponse sous 1h en journée",
     featured: false,
     order: 5,
   },
@@ -69,13 +69,20 @@ const defaultLinks = [
 ];
 
 async function main() {
+  const force = process.argv.includes("--force");
   console.log("🌱 Seeding database...");
 
   const existingLinks = await db.select().from(treeLinks);
 
   if (existingLinks.length > 0) {
-    console.log(`ℹ️  ${existingLinks.length} liens existent déjà, skip seed`);
-    process.exit(0);
+    if (!force) {
+      console.log(
+        `ℹ️  ${existingLinks.length} liens existent déjà, skip seed (utilise --force pour reset)`,
+      );
+      process.exit(0);
+    }
+    console.log(`⚠️  --force : suppression de ${existingLinks.length} liens existants`);
+    await db.delete(treeLinks);
   }
 
   await db.insert(treeLinks).values(defaultLinks);
@@ -84,6 +91,7 @@ async function main() {
   process.exit(0);
 }
 
-main().catch((_error) => {
+main().catch((error) => {
+  console.error("❌ Seed failed:", error);
   process.exit(1);
 });
