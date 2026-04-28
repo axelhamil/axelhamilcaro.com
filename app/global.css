@@ -45,37 +45,37 @@
 }
 
 .dark {
-  --primary-background: #0a0a0a;
-  --secondary-background: #171717;
+  --primary-background: oklch(0.2204 0.0198 275.8439);
+  --secondary-background: oklch(0.2703 0.0407 281.3036);
 
-  --primary: #fafafa;
-  --primary-foreground: #0a0a0a;
-  --secondary: #a3a3a3;
-  --secondary-foreground: #fafafa;
-  --muted: #737373;
-  --muted-foreground: #525252;
+  --primary: oklch(0.9366 0.0129 266.6974);
+  --primary-foreground: oklch(0.2204 0.0198 275.8439);
+  --secondary: oklch(0.6243 0.0412 262.0375);
+  --secondary-foreground: oklch(0.9366 0.0129 266.6974);
+  --muted: oklch(0.2424 0.0324 281.0890);
+  --muted-foreground: oklch(0.6243 0.0412 262.0375);
 
   --accent: #ff5e1a;
   --accent-hover: #ff7a3d;
-  --accent-light: rgba(255, 94, 26, 0.12);
-  --accent-foreground: #0a0a0a;
+  --accent-light: rgba(255, 94, 26, 0.14);
+  --accent-foreground: oklch(0.2204 0.0198 275.8439);
 
-  --border: #262626;
-  --border-hover: #525252;
+  --border: oklch(0.3072 0.0287 281.7681);
+  --border-hover: oklch(0.4500 0.0350 281.0000);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.7);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.8);
 
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --card: #171717;
-  --card-foreground: #fafafa;
-  --popover: #171717;
-  --popover-foreground: #fafafa;
-  --destructive: #f87171;
-  --input: #262626;
+  --background: oklch(0.2204 0.0198 275.8439);
+  --foreground: oklch(0.9366 0.0129 266.6974);
+  --card: oklch(0.2703 0.0407 281.3036);
+  --card-foreground: oklch(0.9366 0.0129 266.6974);
+  --popover: oklch(0.2703 0.0407 281.3036);
+  --popover-foreground: oklch(0.9366 0.0129 266.6974);
+  --destructive: oklch(0.5280 0.1200 357.1130);
+  --input: oklch(0.3072 0.0287 281.7681);
   --ring: #ff5e1a;
 }
 
@@ -183,6 +183,22 @@ body {
   ::view-transition-new(root) {
     animation: none;
   }
+}
+
+/* Theme toggle : circle reveal depuis le bouton.
+   On neutralise le fade global et on laisse le JS animer le clip-path. */
+html.theme-transitioning::view-transition-old(root),
+html.theme-transitioning::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-transitioning::view-transition-old(root) {
+  z-index: 1;
+}
+
+html.theme-transitioning::view-transition-new(root) {
+  z-index: 2;
 }
 
 /* ============================================================================

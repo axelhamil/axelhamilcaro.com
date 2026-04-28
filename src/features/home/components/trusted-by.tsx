@@ -71,14 +71,14 @@ const companies: Company[] = [
 const CompanyCard = ({ company }: { company: Company }) => (
   <MagneticWrapper strength={0.04}>
     <motion.div
-      className="flex items-center gap-3 px-5 py-3 rounded-xl bg-white border border-border/50 shadow-sm hover:shadow-lg transition-all cursor-pointer shrink-0"
+      className="flex items-center gap-3 px-5 py-3 rounded-xl bg-card border border-border/50 shadow-sm hover:shadow-lg hover:border-accent/40 transition-all cursor-pointer shrink-0"
       whileHover={{ y: -4, scale: 1.03 }}
       transition={{ type: "spring", stiffness: 400, damping: 20 }}
     >
       <motion.div
         className={
           company.logoSrc
-            ? "w-10 h-10 rounded-lg bg-white border border-border/30 flex items-center justify-center shadow-sm overflow-hidden"
+            ? "w-10 h-10 rounded-lg bg-white dark:bg-secondary-background border border-border/30 flex items-center justify-center shadow-sm overflow-hidden"
             : `w-10 h-10 rounded-lg bg-gradient-to-br ${company.gradient} flex items-center justify-center shadow-md`
         }
         whileHover={{ rotate: 8, scale: 1.1 }}
