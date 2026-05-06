@@ -16,6 +16,7 @@ export type TmaForfait = {
   name: string;
   tagline: string;
   description: string;
+  targetAudience: string[];
   price: number;
   currency: string;
   hours: number;
@@ -125,6 +126,12 @@ export const TMA_FORFAITS: TmaForfait[] = [
     tagline: "Pour garder ton app fiable et à jour.",
     description:
       "Forfait Pro de TMA pour applications en production : 5h/mois d'intervention (correctifs, optimisation, mises à jour sécurité/dépendances, ajustements techniques mineurs, petites évolutions, support e-mail). Prise en charge sous 1 jour ouvré. 1h de visio incluse par mois. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
+    targetAudience: [
+      "MVPs en production avec premiers utilisateurs",
+      "SaaS B2B early-stage (jusqu'à ~100 utilisateurs payants)",
+      "Apps internes ou outils métier d'équipe",
+      "Sites ou apps sans astreinte critique 24/7",
+    ],
     price: 350,
     currency: "EUR",
     hours: 5,
@@ -155,6 +162,12 @@ export const TMA_FORFAITS: TmaForfait[] = [
     tagline: "Pour les apps critiques, monitoring et reporting compris.",
     description:
       "Forfait Premium de TMA pour applications critiques : monitoring proactif (Sentry, UptimeRobot, Better Stack à provisionner par le client), mises à jour de sécurité, correction de bugs, optimisations, reporting mensuel et support. Inclus : 10h/mois, 2h de visio, prise en charge sous une demi-journée ouvrée. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
+    targetAudience: [
+      "SaaS B2B avec utilisateurs payants à fiabiliser",
+      "Apps e-commerce, billetterie, flux financiers ou réservation",
+      "MVPs en croissance avec objectifs uptime et performance",
+      "Équipes qui ont besoin de reporting pour board, client ou audit",
+    ],
     price: 800,
     currency: "EUR",
     hours: 10,

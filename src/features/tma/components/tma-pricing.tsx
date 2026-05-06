@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Target } from "lucide-react";
 import { TMA_FORFAITS } from "../lib/tma-data";
 
 const PAYMENT_LINKS: Record<"pro" | "premium", string> = {
@@ -62,6 +62,29 @@ export function TmaPricing() {
                   {forfait.tagline}
                 </p>
               </header>
+
+              <div className="mb-6 pb-6 border-b border-border">
+                <p className="flex items-center gap-2 text-xs uppercase tracking-wider text-secondary mb-3">
+                  <Target className="w-4 h-4 text-accent" aria-hidden="true" />
+                  Pour qui
+                </p>
+                <ul className="space-y-2">
+                  {forfait.targetAudience.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-sm text-primary"
+                    >
+                      <span
+                        className="text-accent mt-0.5 shrink-0"
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-8">
                 <span
