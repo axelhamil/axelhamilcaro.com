@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { treeLinkService } from "@/src/backend/tree-links/tree-link.service";
-import TreeFooter from "@/src/features/tree/components/footer";
 import TreeHeader from "@/src/features/tree/components/header";
 import TreeLinksWrapper from "@/src/features/tree/components/tree-links-wrapper";
 
@@ -29,7 +28,6 @@ export default async function TreePage() {
       <div className="relative z-10 w-full max-w-sm sm:max-w-md flex flex-col items-center gap-4 sm:gap-6">
         <TreeHeader />
         <TreeLinksWrapper links={links} />
-        <TreeFooter />
       </div>
     </main>
   );

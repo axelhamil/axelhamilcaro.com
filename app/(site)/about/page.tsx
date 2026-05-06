@@ -4,7 +4,6 @@ import { AboutHero } from "@/src/features/about/components/about-hero";
 import { AboutProof } from "@/src/features/about/components/about-proof";
 import { AboutStory } from "@/src/features/about/components/about-story";
 import { AboutValues } from "@/src/features/about/components/about-values";
-import Footer from "@/src/shared/layouts/footer";
 import { buildAboutPageSchema } from "@/src/shared/seo/schemas/about-page";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 
@@ -60,7 +59,6 @@ export default function AboutPage() {
       <AboutValues />
       <AboutCredentials />
       <AboutProof />
-      <Footer />
     </main>
   );
 }

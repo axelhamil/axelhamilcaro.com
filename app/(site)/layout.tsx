@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Toaster } from "sonner";
+import Footer from "@/src/shared/layouts/footer";
 import Navbar from "@/src/shared/layouts/navbar";
 import { SiteWidgets } from "@/src/shared/layouts/site-widgets";
 import { JsonLd } from "@/src/shared/seo/json-ld";
@@ -23,6 +24,7 @@ export default function SiteLayout({
       <div id="main-content" className="sm:pt-25 px-4 sm:px-6 md:px-10">
         {children}
       </div>
+      <Footer />
       <Toaster position="bottom-right" richColors />
     </>
   );

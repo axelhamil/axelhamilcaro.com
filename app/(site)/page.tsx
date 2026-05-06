@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 import Hero from "@/src/features/home/components/hero/hero";
 import { HomeFaq } from "@/src/features/home/components/home-faq";
-import Footer from "@/src/shared/layouts/footer";
 
 const ExperienceTimeline = dynamic(
   () => import("@/src/features/home/components/experience-timeline"),
@@ -33,7 +32,6 @@ export default function Home() {
       <TrustedBy />
       <TechStack />
       <HomeFaq />
-      <Footer />
     </main>
   );
 }
