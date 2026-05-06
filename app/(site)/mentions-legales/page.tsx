@@ -11,7 +11,7 @@ import {
   User,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { CONTACT, SITE_URL } from "@/app/_config/site.constants";
+import { SITE_URL } from "@/app/_config/site.constants";
 import { LegalContactLink } from "@/src/features/legal/components/legal-contact-link";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 
@@ -25,7 +25,6 @@ const LEGAL = {
   apeActivity: "Programmation informatique",
   vatStatus: "TVA non applicable, art. 293 B du CGI",
   address: "60 rue François Ier, 75008 Paris, France",
-  email: CONTACT.email,
   phoneNote:
     "Prestations B2B uniquement : joignable par email ou via le formulaire de contact, réponse sous 1 h en journée.",
   publisher: "Axel Hamilcaro",
@@ -136,14 +135,9 @@ const SECTIONS: LegalSection[] = [
             Contact
           </dt>
           <dd>
-            <a
-              href={CONTACT.mailto}
-              className="text-accent font-medium hover:underline"
-            >
-              {LEGAL.email}
-            </a>
+            <LegalContactLink label="Ouvrir le formulaire de contact" />
           </dd>
-          <dd className="text-secondary text-xs mt-1">{LEGAL.phoneNote}</dd>
+          <dd className="text-secondary text-xs mt-2">{LEGAL.phoneNote}</dd>
         </div>
       </dl>
     ),
@@ -264,14 +258,9 @@ const SECTIONS: LegalSection[] = [
           aux libertés, tu disposes d'un droit d'accès, de rectification,
           d'effacement, de limitation, d'opposition, de portabilité et de
           définition de directives post-mortem sur tes données. Pour exercer
-          ces droits, écris à{" "}
-          <a
-            href={CONTACT.mailto}
-            className="text-accent font-medium hover:underline"
-          >
-            {LEGAL.email}
-          </a>
-          . Tu peux également introduire une réclamation auprès de la{" "}
+          ces droits, passe par le{" "}
+          <LegalContactLink label="formulaire de contact" variant="inline" />.
+          Tu peux également introduire une réclamation auprès de la{" "}
           <a
             href="https://www.cnil.fr/fr/plaintes"
             target="_blank"
@@ -326,13 +315,8 @@ const SECTIONS: LegalSection[] = [
         des professionnels (B2B). Conformément à l'article L.441-1 du Code de
         commerce, les conditions générales de vente applicables sont{" "}
         <strong className="text-primary">communiquées sur simple demande</strong>{" "}
-        à{" "}
-        <a
-          href={CONTACT.mailto}
-          className="text-accent font-medium hover:underline"
-        >
-          {LEGAL.email}
-        </a>{" "}
+        via le{" "}
+        <LegalContactLink label="formulaire de contact" variant="inline" />,
         avant la conclusion du contrat. Pour les forfaits TMA souscrits via
         Stripe Payment Link, les conditions spécifiques (durée, résiliation,
         SLA) sont rappelées sur la page{" "}
@@ -353,10 +337,8 @@ const SECTIONS: LegalSection[] = [
         Referrer-Policy strict-origin-when-cross-origin). Les sauvegardes,
         l'isolation des environnements et la haute disponibilité sont assurées
         par l'infrastructure Vercel. Si tu découvres une vulnérabilité,
-        contacte-moi en privé via{" "}
-        <a href={CONTACT.mailto} className="text-accent hover:underline">
-          {LEGAL.email}
-        </a>{" "}
+        contacte-moi en privé via le{" "}
+        <LegalContactLink label="formulaire de contact" variant="inline" />{" "}
         avant toute divulgation publique (responsible disclosure).
       </p>
     ),

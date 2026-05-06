@@ -1,4 +1,4 @@
-import { CONTACT, SITE_URL } from "@/app/_config/site.constants";
+import { SITE_URL } from "@/app/_config/site.constants";
 
 export type ServiceSlug =
   | "developpeur-nextjs-freelance"
@@ -21,7 +21,6 @@ export type ServiceData = {
     title: string;
     subtitle: string;
     primaryCtaLabel: string;
-    primaryCtaHref: string;
     secondaryCtaLabel: string;
     secondaryCtaHref: string;
   };
@@ -43,7 +42,6 @@ export type ServiceData = {
 
 const baseHero = {
   primaryCtaLabel: "Lancer mon projet sous 24h",
-  primaryCtaHref: CONTACT.mailto,
   secondaryCtaLabel: "Voir mes liens",
   secondaryCtaHref: "/tree",
 };

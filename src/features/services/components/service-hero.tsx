@@ -1,5 +1,6 @@
 import { Button } from "@/src/shared/ui/portfolio/button";
 import type { ServiceData } from "../lib/services-data";
+import { ServicePrimaryCta } from "./service-primary-cta";
 
 export function ServiceHero({ data }: { data: ServiceData["hero"] }) {
   return (
@@ -18,9 +19,7 @@ export function ServiceHero({ data }: { data: ServiceData["hero"] }) {
           {data.subtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button href={data.primaryCtaHref} variant="primary" size="lg">
-            {data.primaryCtaLabel}
-          </Button>
+          <ServicePrimaryCta label={data.primaryCtaLabel} />
           <Button href={data.secondaryCtaHref} variant="secondary" size="lg">
             {data.secondaryCtaLabel}
           </Button>

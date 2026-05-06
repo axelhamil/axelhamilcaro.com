@@ -1,4 +1,4 @@
-import { CONTACT, SITE_URL } from "@/app/_config/site.constants";
+import { SITE_URL } from "@/app/_config/site.constants";
 
 export type TmaPersona = {
   eyebrow: string;
@@ -228,8 +228,3 @@ export const TMA_FAQ: TmaFaqItem[] = [
       "Oui, c'est même fréquent : agences, ESN, ou freelances qui veulent déléguer la TMA d'un client final. On signe un contrat de sous-traitance, je reste invisible côté client si tu préfères, et tu gardes la relation commerciale. Conditions détaillées sur demande.",
   },
 ];
-
-export const TMA_CONTACT = {
-  email: CONTACT.email,
-  mailto: CONTACT.mailto,
-} as const;
