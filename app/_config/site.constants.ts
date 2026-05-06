@@ -15,7 +15,7 @@ export const SOCIAL_LINKS = {
 export const CONTACT = {
   email: "contact@axelhamilcaro.com",
   mailto: "mailto:contact@axelhamilcaro.com",
-  noreply: "noreply@axelhamilcaro.com",
+  noreply: "noreply@send.axelhamilcaro.com",
 } as const;
 
 export const PROFILE_IMAGE = `${SITE_URL}/profil_pp.jpeg`;
