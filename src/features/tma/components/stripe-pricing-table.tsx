@@ -19,7 +19,7 @@ export function StripePricingTable({
     <>
       <Script
         src="https://js.stripe.com/v3/pricing-table.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
       <stripe-pricing-table
         pricing-table-id={pricingTableId}
