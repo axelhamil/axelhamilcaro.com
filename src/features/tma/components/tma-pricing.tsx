@@ -1,8 +1,10 @@
-import { StripePricingTable } from "./stripe-pricing-table";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
+import { TMA_FORFAITS } from "../lib/tma-data";
 
-const PRICING_TABLE_ID = "prctbl_1TU7tx4IcJtCDFydX07JM7Wl";
-const PUBLISHABLE_KEY =
-  "pk_live_51Sex8N4IcJtCDFydyHC13CUlXt957Bl3bBBDdZejHT1W5IaixhuYzAS6mTKGka02jj7IuMaoDRHKyTIgPEKGC9hN008fsJaWIn";
+const PAYMENT_LINKS: Record<"pro" | "premium", string> = {
+  pro: "https://buy.stripe.com/REPLACE_PRO",
+  premium: "https://buy.stripe.com/REPLACE_PREMIUM",
+};
 
 export function TmaPricing() {
   return (
@@ -27,10 +29,133 @@ export function TmaPricing() {
             mois, TVA gérée selon ton pays de facturation.
           </p>
         </div>
-        <StripePricingTable
-          pricingTableId={PRICING_TABLE_ID}
-          publishableKey={PUBLISHABLE_KEY}
-        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {TMA_FORFAITS.map((forfait) => (
+            <article
+              key={forfait.slug}
+              className={`relative card p-8 sm:p-10 flex flex-col ${
+                forfait.recommended ? "border-accent/40" : ""
+              }`}
+            >
+              {forfait.recommended ? (
+                <div className="absolute -top-3 left-8 inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                  <Sparkles className="w-3 h-3" aria-hidden="true" />
+                  Recommandé
+                </div>
+              ) : null}
+
+              <header className="mb-6">
+                <p
+                  className="text-accent font-semibold tracking-wider text-sm mb-2"
+                  style={{ fontFamily: "var(--font-geist-mono)" }}
+                >
+                  {forfait.slug.toUpperCase()}
+                </p>
+                <h3
+                  className="text-2xl sm:text-3xl font-bold text-primary mb-2"
+                  style={{ fontFamily: "var(--font-space-grotesk)" }}
+                >
+                  {forfait.name}
+                </h3>
+                <p className="text-secondary leading-relaxed">
+                  {forfait.tagline}
+                </p>
+              </header>
+
+              <div className="flex items-baseline gap-2 mb-8">
+                <span
+                  className="text-5xl font-bold text-primary"
+                  style={{ fontFamily: "var(--font-space-grotesk)" }}
+                >
+                  {forfait.price}€
+                </span>
+                <span className="text-secondary text-lg">HT / mois</span>
+              </div>
+
+              <a
+                href={PAYMENT_LINKS[forfait.slug]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center justify-center gap-2 w-full px-6 py-3 mb-8 rounded-lg font-semibold transition-all ${
+                  forfait.recommended
+                    ? "bg-accent text-white hover:bg-accent-hover"
+                    : "bg-primary text-primary-background hover:opacity-90"
+                }`}
+              >
+                M'abonner
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </a>
+
+              <dl className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-border">
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
+                    Heures incluses
+                  </dt>
+                  <dd className="text-primary font-semibold">
+                    {forfait.hours}h / mois
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
+                    Hors-forfait
+                  </dt>
+                  <dd className="text-primary font-semibold">
+                    {forfait.hourlyOverflow}€ / h
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
+                    Délai de prise en compte
+                  </dt>
+                  <dd className="text-primary font-semibold">
+                    {forfait.responseTime}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
+                    Visio max / mois
+                  </dt>
+                  <dd className="text-primary font-semibold">
+                    {forfait.meetingHours}
+                  </dd>
+                </div>
+              </dl>
+
+              <p className="text-xs uppercase tracking-wider text-secondary mb-3">
+                Fonctionnalités
+              </p>
+              <ul className="space-y-3 flex-1">
+                {forfait.features.map((feature) => (
+                  <li
+                    key={feature.label}
+                    className="flex items-start gap-3 text-primary"
+                  >
+                    <Check
+                      className={`w-5 h-5 mt-0.5 shrink-0 ${
+                        feature.premiumOnly ? "text-accent" : "text-accent/70"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <span
+                      className={
+                        feature.premiumOnly ? "font-medium" : "text-secondary"
+                      }
+                    >
+                      {feature.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <p className="text-center text-secondary text-sm mt-8 max-w-2xl mx-auto">
+          Paiement sécurisé via Stripe (Payment Link). Tu reçois ta facture
+          par email à chaque renouvellement et tu gères tout depuis ton
+          portail Stripe : moyen de paiement, factures, résiliation.
+        </p>
       </div>
     </section>
   );
