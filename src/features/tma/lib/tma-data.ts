@@ -255,6 +255,11 @@ export const TMA_FAQ: TmaFaqItem[] = [
       "Tu t'abonnes via Stripe directement depuis cette page. La facture est générée automatiquement chaque mois et envoyée à l'email du compte. Tu retrouves l'historique dans ton portail Stripe (Customer Portal) et tu peux mettre à jour ton moyen de paiement à tout moment.",
   },
   {
+    question: "Tu acceptes les paiements par virement ou sur facture ?",
+    answer:
+      "Stripe (CB, prélèvement automatique) est l'option par défaut : la facture est envoyée à chaque renouvellement et tout est self-service. Pour les structures qui ont un process fournisseur obligatoire (ETI, grands comptes, secteur public, associations) ou qui veulent un règlement par virement SEPA avec devis et bon de commande, je facture sur demande, mensuel ou trimestriel. Engagement annuel et tarif négocié possibles à partir d'un certain volume — on en discute via la modale de contact.",
+  },
+  {
     question: "Et si tu es en vacances ou indisponible ?",
     answer:
       "Je préviens 2 semaines à l'avance pour les périodes prévues (>2 jours d'indisponibilité). Sur PREMIUM, si l'indisponibilité dépasse 3 jours ouvrés sur le mois, on prorate les heures non consommées. Le monitoring continue de tourner et de t'alerter pendant ces périodes.",
