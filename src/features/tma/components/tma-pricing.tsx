@@ -2,8 +2,8 @@ import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { TMA_FORFAITS } from "../lib/tma-data";
 
 const PAYMENT_LINKS: Record<"pro" | "premium", string> = {
-  pro: "https://buy.stripe.com/REPLACE_PRO",
-  premium: "https://buy.stripe.com/REPLACE_PREMIUM",
+  pro: "https://buy.stripe.com/8x200cdlZggqfhE991c3m01",
+  premium: "https://buy.stripe.com/dRm00ceq31lwd9w2KDc3m00",
 };
 
 export function TmaPricing() {
