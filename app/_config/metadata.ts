@@ -69,20 +69,11 @@ export const metadata: Metadata = {
     title:
       "Axel Hamilcaro | Développeur Full-Stack Freelance France - Next.js & TypeScript",
     description: siteConfig.description,
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Axel Hamilcaro - Développeur Full-Stack Freelance France",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Axel Hamilcaro | Dev Full-Stack Freelance France",
     description: siteConfig.description,
-    images: ["/og-image.png"],
     creator: "@axelhamilcaro",
   },
   icons: {
