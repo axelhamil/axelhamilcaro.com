@@ -26,8 +26,8 @@ export function TmaHero() {
             <span className="text-accent">●</span> Sans engagement
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-accent">●</span> Réponse sous 1 j ouvré (1/2
-            j sur PREMIUM)
+            <span className="text-accent">●</span> Réponse sous 1 j ouvré (1/2 j
+            sur PREMIUM)
           </li>
           <li className="flex items-center gap-2">
             <span className="text-accent">●</span> Next.js, React, Node, infra

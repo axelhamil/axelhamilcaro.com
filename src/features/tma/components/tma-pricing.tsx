@@ -24,8 +24,8 @@ export function TmaPricing() {
             PRO ou PREMIUM, tu sais ce que tu paies.
           </h2>
           <p className="text-secondary text-lg max-w-2xl mx-auto">
-            Aucune feature cachée, aucun upsell. Sans engagement, résiliable
-            en self-service via ton portail Stripe. Facture automatique chaque
+            Aucune feature cachée, aucun upsell. Sans engagement, résiliable en
+            self-service via ton portail Stripe. Facture automatique chaque
             mois, TVA gérée selon ton pays de facturation.
           </p>
         </div>
@@ -154,9 +154,9 @@ export function TmaPricing() {
         </div>
 
         <p className="text-center text-secondary text-sm mt-8 max-w-2xl mx-auto">
-          Paiement sécurisé via Stripe (Payment Link). Tu reçois ta facture
-          par email à chaque renouvellement et tu gères tout depuis ton
-          portail Stripe : moyen de paiement, factures, résiliation.
+          Paiement sécurisé via Stripe (Payment Link). Tu reçois ta facture par
+          email à chaque renouvellement et tu gères tout depuis ton portail
+          Stripe : moyen de paiement, factures, résiliation.
         </p>
         <p className="text-center text-secondary/80 text-xs mt-3 max-w-2xl mx-auto">
           TVA non applicable, art. 293 B du CGI.

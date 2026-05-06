@@ -38,6 +38,23 @@ export type TmaFaqItem = {
   answer: string;
 };
 
+export type TmaMonitoringTool = {
+  name: string;
+  tagline: string;
+  body: string;
+  url: string;
+};
+
+export type TmaPrerequisite = {
+  title: string;
+  body: string;
+};
+
+export type TmaExclusion = {
+  title: string;
+  body: string;
+};
+
 export const TMA_URL = `${SITE_URL}/tma`;
 
 export const TMA_META = {
@@ -129,7 +146,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
     currency: "EUR",
     hours: 10,
     hoursLabel: "10h d'intervention incluses par mois",
-    hourlyOverflow: 70,
+    hourlyOverflow: 80,
     responseTime: "1 demi-journée ouvrée",
     meetingHours: "2h/mois",
     recommended: true,
@@ -147,7 +164,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
         premiumOnly: true,
       },
       { label: "2h de visioconférence par mois (selon dispos communes)" },
-      { label: "Hors-forfait : 70€/h", premiumOnly: true },
+      { label: "Hors-forfait : 80€/h", premiumOnly: true },
       { label: "Sans engagement, interventions du lundi au vendredi" },
     ],
   },
@@ -180,7 +197,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Et si je dépasse les heures incluses dans le forfait ?",
     answer:
-      "Les heures supplémentaires sont facturées au tarif hors-forfait : 80€/h sur le forfait PRO, 70€/h sur le forfait PREMIUM, avec ton accord écrit avant intervention. Pas de surprise sur la facture. Si le dépassement devient récurrent, on rebascule sur le forfait au-dessus.",
+      "Les heures supplémentaires sont facturées 80€/h sur les deux forfaits, avec ton accord écrit avant intervention. Pas de surprise sur la facture. Si le dépassement devient récurrent, on rebascule sur le forfait au-dessus (PRO → PREMIUM) plutôt que d'empiler les heures hors-forfait.",
   },
   {
     question: "Comment se passe la résiliation ?",
@@ -223,8 +240,96 @@ export const TMA_FAQ: TmaFaqItem[] = [
       "Je préviens 2 semaines à l'avance pour les périodes prévues (>2 jours d'indisponibilité). Sur PREMIUM, si l'indisponibilité dépasse 3 jours ouvrés sur le mois, on prorate les heures non consommées. Le monitoring continue de tourner et de t'alerter pendant ces périodes.",
   },
   {
+    question: "Qui paie les outils de monitoring (Sentry, UptimeRobot, etc.) ?",
+    answer:
+      "Les outils sont provisionnés à ton nom (souveraineté des données, tu en restes propriétaire). Dans 90% des cas, les free tiers suffisent largement (Sentry 5k events/mois, UptimeRobot 50 monitors, Better Stack 1GB de logs/jour). Si ton volume dépasse, le surcoût est à ta charge directement chez l'éditeur (≈26$/mois sur Sentry au-delà du free tier). Le setup, la configuration et la surveillance restent inclus dans tes 10h PREMIUM.",
+  },
+  {
+    question: "Quels accès tu as besoin pour démarrer ?",
+    answer:
+      "Repo Git (ou ZIP du code source à défaut), accès au hosting (Vercel, Railway, DigitalOcean, etc.), domaine et zone DNS si pertinent, secrets et variables d'environnement transmis via un gestionnaire (1Password, Bitwarden, repo privé chiffré, etc.), accès admin de l'application si applicable, et un référent technique côté client pour le cadrage initial. Tout est listé en checklist au moment de l'onboarding pour ne rien oublier.",
+  },
+  {
+    question: "Mes données sont-elles protégées ?",
+    answer:
+      "Oui. Tout transite et reste sur tes propres outils (souveraineté), pas de copie sur mon infrastructure. Suppression de tous les accès à la résiliation, NDA possible sur demande, RGPD respecté. Les sous-traitants utilisés (Resend pour les emails de service, Stripe pour la facturation, hébergement Vercel) sont détaillés dans les mentions légales. Aucune donnée client n'est utilisée pour entraîner un modèle, exporter, ou partager avec un tiers.",
+  },
+  {
     question: "Tu peux gérer la TMA d'un client à moi ?",
     answer:
       "Oui, c'est même fréquent : agences, ESN, ou freelances qui veulent déléguer la TMA d'un client final. On signe un contrat de sous-traitance, je reste invisible côté client si tu préfères, et tu gardes la relation commerciale. Conditions détaillées sur demande.",
+  },
+];
+
+export const TMA_MONITORING_TOOLS: TmaMonitoringTool[] = [
+  {
+    name: "Sentry",
+    tagline: "Error tracking + APM",
+    body: "Capture des erreurs front et back, traces de performance, alertes en temps réel. Free tier 5k events/mois, suffisant pour la plupart des PME.",
+    url: "https://sentry.io",
+  },
+  {
+    name: "UptimeRobot",
+    tagline: "Uptime des endpoints critiques",
+    body: "Vérifications HTTP toutes les 5 minutes sur tes routes clés (API, checkout, login). Alerte email/SMS si down. Free tier 50 monitors.",
+    url: "https://uptimerobot.com",
+  },
+  {
+    name: "Better Stack",
+    tagline: "Logs centralisés + status page",
+    body: "Agrégation des logs applicatifs, recherche pleine, et status page publique pour communiquer avec tes utilisateurs en cas d'incident. Free tier 1GB/jour.",
+    url: "https://betterstack.com",
+  },
+  {
+    name: "Vercel Speed Insights",
+    tagline: "RUM web vitals",
+    body: "Mesure des Core Web Vitals (LCP, INP, CLS) sur les vrais utilisateurs. Inclus si l'app est hébergée sur Vercel, sinon on bascule sur une alternative équivalente.",
+    url: "https://vercel.com/docs/speed-insights",
+  },
+];
+
+export const TMA_PREREQUISITES: TmaPrerequisite[] = [
+  {
+    title: "App déjà en production",
+    body: "La TMA n'est pas un service de développement from scratch. Ton produit doit déjà tourner avec des utilisateurs réels (ou un déploiement de staging stable au minimum).",
+  },
+  {
+    title: "Code source accessible",
+    body: "Repo Git (GitHub, GitLab, Bitbucket, self-hosted) de préférence. À défaut, archive ZIP versionnée. Pas de TMA possible sans accès au code.",
+  },
+  {
+    title: "Stack dans la zone supportée",
+    body: "Next.js, React, Node, NestJS, Fastify, Prisma, Drizzle, Expo, Capacitor, hébergé sur Vercel, Railway, DigitalOcean ou équivalent, avec PostgreSQL ou MySQL. Si proche, on regarde ensemble avant de signer.",
+  },
+  {
+    title: "Un référent technique côté client",
+    body: "Une personne joignable côté client pour le cadrage initial, les arbitrages produit, et la validation des évolutions. Pas besoin que ce soit un dev, un PM ou un fondateur technique suffit.",
+  },
+];
+
+export const TMA_EXCLUSIONS: TmaExclusion[] = [
+  {
+    title: "Nouvelles fonctionnalités > 3 jours",
+    body: "Les évolutions lourdes (refonte d'un module, nouveau workflow métier, intégration tierce conséquente) sortent du forfait et passent en mission séparée sur devis, pour ne pas cannibaliser tes heures de support.",
+  },
+  {
+    title: "Refonte ou migration de stack",
+    body: "Passer de CRA à Next.js, migrer une base PostgreSQL, refondre une UI complète : c'est un projet en soi, traité en mission dédiée avec cadrage et chiffrage propres.",
+  },
+  {
+    title: "Formation ou support utilisateur final",
+    body: "La TMA s'adresse à toi (l'éditeur de l'app), pas à tes utilisateurs finaux. Pas de hotline, pas de formation des équipes utilisatrices, pas de réponse directe à tes clients.",
+  },
+  {
+    title: "Astreinte 24/7 ou hors heures ouvrées",
+    body: "Interventions du lundi au vendredi en heures ouvrées. Pas d'astreinte nuit, week-end ou jours fériés. Si ton app est critique 24/7, on cadre une mission d'astreinte séparée avec rémunération adaptée.",
+  },
+  {
+    title: "Coûts des outils tiers",
+    body: "Sentry payant, hébergement Vercel/Railway, domaines, certificats, services SaaS tiers : tout est à ta charge directement chez l'éditeur. Je n'avance ni ne refacture aucun coût d'infrastructure.",
+  },
+  {
+    title: "Stacks non supportées",
+    body: "PHP/WordPress, .NET, Java/Spring, Ruby on Rails, Python (autre que scripts ponctuels), Go : pas de TMA sur ces stacks. Si ton app mélange du Node et du PHP, on regarde au cas par cas.",
   },
 ];

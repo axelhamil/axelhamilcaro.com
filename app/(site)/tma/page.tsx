@@ -3,6 +3,9 @@ import { SITE_URL } from "@/app/_config/site.constants";
 import { TmaCta } from "@/src/features/tma/components/tma-cta";
 import { TmaFaq } from "@/src/features/tma/components/tma-faq";
 import { TmaHero } from "@/src/features/tma/components/tma-hero";
+import { TmaMonitoring } from "@/src/features/tma/components/tma-monitoring";
+import { TmaNotIncluded } from "@/src/features/tma/components/tma-not-included";
+import { TmaPrerequisites } from "@/src/features/tma/components/tma-prerequisites";
 import { TmaPricing } from "@/src/features/tma/components/tma-pricing";
 import { TmaProcess } from "@/src/features/tma/components/tma-process";
 import { TmaWhoFor } from "@/src/features/tma/components/tma-who-for";
@@ -108,7 +111,10 @@ export default function TmaPage() {
       <TmaHero />
       <TmaWhoFor />
       <TmaPricing />
+      <TmaMonitoring />
       <TmaProcess />
+      <TmaPrerequisites />
+      <TmaNotIncluded />
       <TmaFaq />
       <TmaCta />
     </main>

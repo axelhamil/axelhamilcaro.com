@@ -18,8 +18,8 @@ export function TmaProcess() {
             De l'abonnement au premier ticket en 48h.
           </h2>
           <p className="text-secondary text-lg max-w-2xl">
-            Aucune phase d'audit payante, aucun engagement annuel. Tu
-            t'abonnes, on cadre, on commence à bosser.
+            Aucune phase d'audit payante, aucun engagement annuel. Tu t'abonnes,
+            on cadre, on commence à bosser.
           </p>
         </div>
 
