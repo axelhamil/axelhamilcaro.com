@@ -184,7 +184,13 @@ const Footer = () => {
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">
-            &copy; {currentYear} Axel Hamilcaro. Tous droits réservés.
+            &copy; {currentYear} Axel Hamilcaro · SIRET 939 291 415 00015 ·{" "}
+            <TransitionLink
+              href="/mentions-legales"
+              className="hover:text-accent transition-colors"
+            >
+              Mentions légales
+            </TransitionLink>
           </Paragraph>
 
           <Paragraph

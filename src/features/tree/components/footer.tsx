@@ -100,7 +100,13 @@ export default function TreeFooter() {
       </motion.div>
 
       <p className="text-[10px] sm:text-xs text-muted text-center">
-        &copy; {new Date().getFullYear()} Axel Hamilcaro • Touraine, France
+        &copy; {new Date().getFullYear()} Axel Hamilcaro • Touraine, France ·{" "}
+        <TransitionLink
+          href="/mentions-legales"
+          className="hover:text-accent transition-colors"
+        >
+          Mentions légales
+        </TransitionLink>
       </p>
     </motion.footer>
   );

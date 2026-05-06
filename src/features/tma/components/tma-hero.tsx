@@ -21,12 +21,13 @@ export function TmaHero() {
         <p className="text-secondary text-lg leading-relaxed max-w-3xl mx-auto mb-8">
           {TMA_HERO.subtitle}
         </p>
-        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-secondary mb-10">
+        <ul className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm text-secondary mb-10 max-w-3xl mx-auto">
           <li className="flex items-center gap-2">
             <span className="text-accent">●</span> Sans engagement
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-accent">●</span> Réponse sous 1 jour ouvré
+            <span className="text-accent">●</span> Réponse sous 1 j ouvré (1/2
+            j sur PREMIUM)
           </li>
           <li className="flex items-center gap-2">
             <span className="text-accent">●</span> Next.js, React, Node, infra

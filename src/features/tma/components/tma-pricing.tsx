@@ -34,7 +34,7 @@ export function TmaPricing() {
           {TMA_FORFAITS.map((forfait) => (
             <article
               key={forfait.slug}
-              className={`relative card p-8 sm:p-10 flex flex-col ${
+              className={`relative card p-6 sm:p-8 lg:p-10 flex flex-col ${
                 forfait.recommended ? "border-accent/40" : ""
               }`}
             >
@@ -63,14 +63,16 @@ export function TmaPricing() {
                 </p>
               </header>
 
-              <div className="flex items-baseline gap-2 mb-8">
+              <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-8">
                 <span
-                  className="text-5xl font-bold text-primary"
+                  className="text-4xl sm:text-5xl font-bold text-primary"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                 >
                   {forfait.price}€
                 </span>
-                <span className="text-secondary text-lg">HT / mois</span>
+                <span className="text-secondary text-base sm:text-lg">
+                  HT / mois
+                </span>
               </div>
 
               <a
@@ -87,7 +89,7 @@ export function TmaPricing() {
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>
 
-              <dl className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-border">
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 pb-6 border-b border-border">
                 <div>
                   <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
                     Heures incluses
@@ -155,6 +157,9 @@ export function TmaPricing() {
           Paiement sécurisé via Stripe (Payment Link). Tu reçois ta facture
           par email à chaque renouvellement et tu gères tout depuis ton
           portail Stripe : moyen de paiement, factures, résiliation.
+        </p>
+        <p className="text-center text-secondary/80 text-xs mt-3 max-w-2xl mx-auto">
+          TVA non applicable, art. 293 B du CGI.
         </p>
       </div>
     </section>

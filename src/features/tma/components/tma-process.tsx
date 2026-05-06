@@ -25,7 +25,7 @@ export function TmaProcess() {
 
         <ol className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {TMA_PROCESS.map((step) => (
-            <li key={step.step} className="card p-8 flex flex-col">
+            <li key={step.step} className="card p-6 sm:p-8 flex flex-col">
               <span
                 className="text-5xl font-bold text-accent block mb-4"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
