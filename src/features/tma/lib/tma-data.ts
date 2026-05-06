@@ -42,7 +42,7 @@ export const TMA_URL = `${SITE_URL}/tma`;
 
 export const TMA_META = {
   title:
-    "TMA — Tierce Maintenance Applicative web/mobile à partir de 350€/mois | Axel Hamilcaro",
+    "TMA — Tierce Maintenance Applicative web/mobile à partir de 350€/mois",
   description:
     "Forfait mensuel de Tierce Maintenance Applicative (TMA) pour ton app web ou mobile : Next.js, React, Node, infra légère (Vercel, Railway, PostgreSQL). Bugs, sécurité, support, monitoring. PRO 350€/mois (5h) ou PREMIUM 600€/mois (10h). Sans engagement, résiliation self-service via Stripe.",
   keywords: [
