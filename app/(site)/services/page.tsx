@@ -13,14 +13,14 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "Services freelance — Développement Next.js, SaaS, Lead tech",
+  title: "Services freelance — Next.js, SaaS, Lead tech, TMA",
   description:
-    "3 services freelance Axel Hamilcaro : développement Next.js, développement SaaS multi-tenant, lead tech fractional. Devis sous 24h, démarrage sous 1-3 semaines, 100% remote France.",
+    "4 services freelance Axel Hamilcaro : développement Next.js, développement SaaS multi-tenant, lead tech fractional, Tierce Maintenance Applicative (TMA) au mois. Devis sous 24h, démarrage sous 1-3 semaines, 100% remote France.",
   alternates: { canonical: SERVICES_URL },
   openGraph: {
     title: "Services freelance — Axel Hamilcaro",
     description:
-      "Développement Next.js, SaaS multi-tenant, lead tech fractional. 5 ans d'expérience, devis sous 24h.",
+      "Développement Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h.",
     url: SERVICES_URL,
     type: "website",
   },
@@ -28,11 +28,24 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services freelance — Axel Hamilcaro",
     description:
-      "Développement Next.js, SaaS, lead tech fractional. 5 ans d'expérience.",
+      "Développement Next.js, SaaS, lead tech fractional, TMA. 5 ans d'expérience.",
   },
 };
 
-const services = Object.values(servicesData);
+const services = Object.values(servicesData).map((service) => ({
+  href: `/services/${service.slug}`,
+  eyebrow: service.hero.eyebrow,
+  title: service.hero.title,
+  subtitle: service.hero.subtitle,
+}));
+
+services.push({
+  href: "/tma",
+  eyebrow: "Forfait mensuel",
+  title: "Tierce Maintenance Applicative (TMA)",
+  subtitle:
+    "Forfait mensuel sans engagement pour garder ton app en prod vivante : bugs, sécurité, monitoring, support. PRO 350€/mois (5h) ou PREMIUM 600€/mois (10h).",
+});
 
 export default function ServicesIndexPage() {
   return (
@@ -51,7 +64,7 @@ export default function ServicesIndexPage() {
             className="text-4xl sm:text-6xl font-bold text-primary mb-6"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            3 façons de travailler ensemble
+            4 façons de travailler ensemble
           </h1>
           <p className="text-secondary text-lg sm:text-xl max-w-3xl mx-auto">
             Chaque service est cadré, chiffré, et basé sur des références
@@ -59,24 +72,24 @@ export default function ServicesIndexPage() {
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-3">
+        <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-2">
           {services.map((service) => (
             <TransitionLink
-              key={service.slug}
-              href={`/services/${service.slug}`}
+              key={service.href}
+              href={service.href}
               className="group flex flex-col p-8 rounded-2xl border border-secondary/20 bg-secondary-background/30 hover:border-accent/40 hover:bg-secondary-background/50 transition-all duration-300"
             >
               <p className="text-accent font-medium uppercase tracking-wider text-xs mb-4">
-                {service.hero.eyebrow}
+                {service.eyebrow}
               </p>
               <h2
                 className="text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
-                {service.hero.title}
+                {service.title}
               </h2>
               <p className="text-secondary leading-relaxed mb-6 flex-1">
-                {service.hero.subtitle}
+                {service.subtitle}
               </p>
               <span className="inline-flex items-center gap-2 text-accent font-medium text-sm">
                 Découvrir
