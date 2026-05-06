@@ -63,7 +63,6 @@ const stats = [
     sublabel: "EUR + USD auto",
     color: OU.emerald,
   },
-  { value: "76", label: "Tests BDD API", color: OU.violet },
   { value: "~25j", label: "Scope solo", color: OU.amber },
   {
     value: "3",
@@ -418,8 +417,7 @@ export function OpenupHero() {
               : 5 piliers (liens raccourcis, QR codes, link-in-bio, analytics,
               custom domains), deep links iOS/Android natifs, 4 plans Stripe
               multi-devise EUR/USD, mobile natif via Capacitor, edge {"<"}50ms
-              via Cloudflare Worker. Architecture Clean + DDD, 76 tests BDD côté
-              API.
+              via Cloudflare Worker. Architecture Clean + DDD.
             </Paragraph>
           </RevealItem>
 
