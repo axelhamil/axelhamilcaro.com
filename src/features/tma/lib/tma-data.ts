@@ -227,7 +227,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Je peux changer de forfait en cours de route ?",
     answer:
-      "Oui, à tout moment. Si tu démarres en PRO et que ton volume grimpe, on passe en PREMIUM dès le mois suivant (ou tout de suite, au prorata). Inversement, tu peux redescendre en PRO si tu n'as plus besoin du monitoring proactif et du reporting.",
+      "Oui, à tout moment sur simple demande par email. Pour un upgrade PRO → PREMIUM, je fais la bascule immédiate au prorata (tu paies la différence pour les jours restants du mois). Pour un downgrade PREMIUM → PRO, le changement prend effet à la fin de la période en cours pour éviter tout chevauchement de prélèvement.",
   },
   {
     question: "Quels canaux de support et quels délais ?",
