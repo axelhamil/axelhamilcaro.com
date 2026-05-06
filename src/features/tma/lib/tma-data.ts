@@ -177,7 +177,8 @@ export const TMA_FORFAITS: TmaForfait[] = [
         premiumOnly: true,
       },
       {
-        label: "Canal de support dédié (Slack ou Discord partagé)",
+        label:
+          "Canal de support dédié (Slack, Discord, WhatsApp, Teams, au choix)",
         premiumOnly: true,
       },
       { label: "Mises à jour des dépendances et correctifs de sécurité" },
@@ -235,7 +236,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Quels canaux de support et quels délais ?",
     answer:
-      "Sur PRO, le canal est défini au démarrage : email, WhatsApp ou autre, selon ton organisation. Sur PREMIUM, tu bénéficies en plus d'un canal de support dédié (Slack ou Discord, channel partagé permanent) pour un suivi plus fluide et plus traçable. Du lundi au vendredi dans tous les cas. Prise en compte sous 1 jour ouvré max sur PRO, sous 1 demi-journée ouvrée sur PREMIUM, avec monitoring proactif et alertes pour anticiper les incidents avant que tu les remarques.",
+      "Sur PRO, le canal est défini au démarrage : email, WhatsApp, Slack ou autre, selon ton organisation. Sur PREMIUM, tu bénéficies en plus d'un canal de support dédié (channel partagé permanent sur Slack, Discord, WhatsApp, Teams, Google Chat ou l'outil que tu utilises déjà) pour un suivi plus fluide et plus traçable. Du lundi au vendredi dans tous les cas. Prise en compte sous 1 jour ouvré max sur PRO, sous 1 demi-journée ouvrée sur PREMIUM, avec monitoring proactif et alertes pour anticiper les incidents avant que tu les remarques.",
   },
   {
     question: "Sur quelles stacks tu interviens ?",
@@ -351,9 +352,9 @@ export const TMA_PREMIUM_DELIVERABLES: TmaDeliverable[] = [
   },
   {
     title: "Canal de support dédié",
-    tagline: "Slack ou Discord",
+    tagline: "Slack, Discord, WhatsApp, Teams…",
     cadence: "Channel partagé permanent",
-    body: "Channel Slack ou Discord partagé entre toi et moi, pour le suivi des tickets, les questions rapides et les notifications de monitoring. Plus fluide et plus traçable que l'email. Choix du canal selon ta préférence et l'organisation existante.",
+    body: "Un canal dédié partagé entre toi et moi sur l'outil que tu utilises déjà : Slack, Discord, WhatsApp, Microsoft Teams, Google Chat ou autre. Pour le suivi des tickets, les questions rapides et les notifications de monitoring. Plus fluide et plus traçable que l'email, sans imposer un nouvel outil à ton équipe.",
   },
 ];
 
