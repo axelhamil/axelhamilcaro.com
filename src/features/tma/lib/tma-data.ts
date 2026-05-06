@@ -55,6 +55,13 @@ export type TmaExclusion = {
   body: string;
 };
 
+export type TmaDeliverable = {
+  title: string;
+  tagline: string;
+  body: string;
+  cadence: string;
+};
+
 export const TMA_URL = `${SITE_URL}/tma`;
 
 export const TMA_META = {
@@ -157,6 +164,22 @@ export const TMA_FORFAITS: TmaForfait[] = [
         label: "Reporting mensuel et optimisations continues",
         premiumOnly: true,
       },
+      {
+        label: "CHANGELOG mensuel annoté (markdown / PDF)",
+        premiumOnly: true,
+      },
+      {
+        label: "Status page publique sur sous-domaine dédié",
+        premiumOnly: true,
+      },
+      {
+        label: "Audit perf / sécu trimestriel (Lighthouse, CVE, headers)",
+        premiumOnly: true,
+      },
+      {
+        label: "Canal de support dédié (Slack ou Discord partagé)",
+        premiumOnly: true,
+      },
       { label: "Mises à jour des dépendances et correctifs de sécurité" },
       { label: "Support technique prioritaire", premiumOnly: true },
       {
@@ -164,7 +187,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
         premiumOnly: true,
       },
       { label: "2h de visioconférence par mois (selon dispos communes)" },
-      { label: "Hors-forfait : 80€/h", premiumOnly: true },
+      { label: "Hors-forfait : 80€/h" },
       { label: "Sans engagement, interventions du lundi au vendredi" },
     ],
   },
@@ -212,7 +235,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Quels canaux de support et quels délais ?",
     answer:
-      "Le canal est défini avec toi au démarrage : email, WhatsApp, Slack, Discord ou autre, selon ton organisation. Du lundi au vendredi. Sur PRO, prise en compte sous 1 jour ouvré maximum. Sur PREMIUM, sous une demi-journée ouvrée, avec en plus du monitoring proactif et des alertes pour anticiper les incidents avant que tu les remarques.",
+      "Sur PRO, le canal est défini au démarrage : email, WhatsApp ou autre, selon ton organisation. Sur PREMIUM, tu bénéficies en plus d'un canal de support dédié (Slack ou Discord, channel partagé permanent) pour un suivi plus fluide et plus traçable. Du lundi au vendredi dans tous les cas. Prise en compte sous 1 jour ouvré max sur PRO, sous 1 demi-journée ouvrée sur PREMIUM, avec monitoring proactif et alertes pour anticiper les incidents avant que tu les remarques.",
   },
   {
     question: "Sur quelles stacks tu interviens ?",
@@ -299,11 +322,38 @@ export const TMA_PREREQUISITES: TmaPrerequisite[] = [
   },
   {
     title: "Stack dans la zone supportée",
-    body: "Next.js, React, Node, NestJS, Fastify, Prisma, Drizzle, Expo, Capacitor, hébergé sur Vercel, Railway, DigitalOcean ou équivalent, avec PostgreSQL ou MySQL. Si proche, on regarde ensemble avant de signer.",
+    body: "Next.js, React, Node, NestJS, Fastify, Prisma, Drizzle, Expo, Capacitor, hébergé sur Vercel, Railway, DigitalOcean, Cloudflare Workers ou équivalent, avec PostgreSQL ou MySQL. Si proche, on regarde ensemble avant de signer.",
   },
   {
     title: "Un référent technique côté client",
     body: "Une personne joignable côté client pour le cadrage initial, les arbitrages produit, et la validation des évolutions. Pas besoin que ce soit un dev, un PM ou un fondateur technique suffit.",
+  },
+];
+
+export const TMA_PREMIUM_DELIVERABLES: TmaDeliverable[] = [
+  {
+    title: "Status page publique",
+    tagline: "Better Stack",
+    cadence: "Mise à jour temps réel",
+    body: "Page hébergée sur un sous-domaine dédié (type status.tonsite.com) qui affiche l'uptime de l'app et l'historique des incidents. Signal de transparence vers tes utilisateurs finaux : moins de tickets « ça marche pas chez moi », plus de confiance.",
+  },
+  {
+    title: "CHANGELOG mensuel annoté",
+    tagline: "Markdown / PDF",
+    cadence: "Tous les mois",
+    body: "Récapitulatif clair des bugs corrigés, mises à jour appliquées et petites évolutions livrées dans le mois. Vulgarisé pour pouvoir le partager à ton équipe ou à tes clients. Distinct du reporting technique interne, c'est un livrable de communication.",
+  },
+  {
+    title: "Audit perf / sécu trimestriel",
+    tagline: "Lighthouse + CVE + headers",
+    cadence: "Tous les 3 mois",
+    body: "Audit court (1 à 2h prises sur le forfait) avec output PDF : Lighthouse et Core Web Vitals, audit des dépendances (vulnérabilités CVE et obsolescence), sécurité (headers HTTP, expositions, secrets), recommandations priorisées par impact.",
+  },
+  {
+    title: "Canal de support dédié",
+    tagline: "Slack ou Discord",
+    cadence: "Channel partagé permanent",
+    body: "Channel Slack ou Discord partagé entre toi et moi, pour le suivi des tickets, les questions rapides et les notifications de monitoring. Plus fluide et plus traçable que l'email. Choix du canal selon ta préférence et l'organisation existante.",
   },
 ];
 

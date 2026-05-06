@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/app/_config/site.constants";
 import { TmaCta } from "@/src/features/tma/components/tma-cta";
+import { TmaDeliverables } from "@/src/features/tma/components/tma-deliverables";
 import { TmaFaq } from "@/src/features/tma/components/tma-faq";
 import { TmaHero } from "@/src/features/tma/components/tma-hero";
 import { TmaMonitoring } from "@/src/features/tma/components/tma-monitoring";
@@ -111,6 +112,7 @@ export default function TmaPage() {
       <TmaHero />
       <TmaWhoFor />
       <TmaPricing />
+      <TmaDeliverables />
       <TmaMonitoring />
       <TmaProcess />
       <TmaPrerequisites />
