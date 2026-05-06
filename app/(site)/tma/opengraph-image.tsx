@@ -14,6 +14,6 @@ export default function Image() {
     eyebrow: "Tierce Maintenance Applicative",
     title: "TMA web et mobile",
     subtitle:
-      "Next.js · React · Node · infra légère — PRO 350€/mois · PREMIUM 600€/mois — Sans engagement",
+      "Next.js · React · Node · infra légère — PRO 350€/mois · PREMIUM 800€/mois — Sans engagement",
   });
 }

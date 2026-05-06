@@ -44,7 +44,7 @@ services.push({
   eyebrow: "Forfait mensuel",
   title: "Tierce Maintenance Applicative (TMA)",
   subtitle:
-    "Forfait mensuel sans engagement pour garder ton app en prod vivante : bugs, sécurité, monitoring, support. PRO 350€/mois (5h) ou PREMIUM 600€/mois (10h).",
+    "Forfait mensuel sans engagement pour garder ton app en prod vivante : bugs, sécurité, monitoring, support. PRO 350€/mois (5h) ou PREMIUM 800€/mois (10h).",
 });
 
 export default function ServicesIndexPage() {

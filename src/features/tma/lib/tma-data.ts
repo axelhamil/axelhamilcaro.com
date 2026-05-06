@@ -68,7 +68,7 @@ export const TMA_META = {
   title:
     "TMA — Tierce Maintenance Applicative web/mobile à partir de 350€/mois",
   description:
-    "Forfait mensuel de Tierce Maintenance Applicative (TMA) pour ton app web ou mobile : Next.js, React, Node, infra légère (Vercel, Railway, PostgreSQL). Bugs, sécurité, support, monitoring. PRO 350€/mois (5h) ou PREMIUM 600€/mois (10h). Sans engagement, résiliation self-service via Stripe.",
+    "Forfait mensuel de Tierce Maintenance Applicative (TMA) pour ton app web ou mobile : Next.js, React, Node, infra légère (Vercel, Railway, PostgreSQL). Bugs, sécurité, support, monitoring. PRO 350€/mois (5h) ou PREMIUM 800€/mois (10h). Sans engagement, résiliation self-service via Stripe.",
   keywords: [
     "tierce maintenance applicative",
     "TMA freelance",
@@ -155,7 +155,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
     tagline: "Pour les apps critiques, monitoring et reporting compris.",
     description:
       "Forfait Premium de TMA pour applications critiques : monitoring proactif (Sentry, UptimeRobot, Better Stack à provisionner par le client), mises à jour de sécurité, correction de bugs, optimisations, reporting mensuel et support. Inclus : 10h/mois, 2h de visio, prise en charge sous une demi-journée ouvrée. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
-    price: 600,
+    price: 800,
     currency: "EUR",
     hours: 10,
     hoursLabel: "10h d'intervention incluses par mois",
