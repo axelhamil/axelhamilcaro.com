@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { CONTACT, SITE_URL } from "@/app/_config/site.constants";
+import { LegalContactLink } from "@/src/features/legal/components/legal-contact-link";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 
 const LEGAL = {
@@ -447,13 +448,7 @@ export default function MentionsLegalesPage() {
                   communication des CGV, à un signalement de contenu ou à un
                   rapport de vulnérabilité, contacte-moi directement.
                 </p>
-                <a
-                  href={CONTACT.mailto}
-                  className="inline-flex items-center gap-2 text-accent font-semibold hover:underline"
-                >
-                  <Mail className="w-4 h-4" />
-                  {LEGAL.email}
-                </a>
+                <LegalContactLink label={LEGAL.email} />
               </div>
             </div>
           </aside>
