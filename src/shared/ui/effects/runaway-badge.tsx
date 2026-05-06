@@ -105,7 +105,7 @@ export function RunawayBadge({
 
       {message && (
         <motion.span
-          className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium bg-primary text-white px-2 py-1 rounded-lg"
+          className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium bg-accent text-white px-2 py-1 rounded-lg"
           initial={{ opacity: 0, y: 10, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0 }}

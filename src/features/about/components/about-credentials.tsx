@@ -65,7 +65,7 @@ export function AboutCredentials() {
               {stack.map((tech) => (
                 <span
                   key={tech}
-                  className="inline-block px-3 py-1 rounded-full bg-neutral-100 text-primary text-sm"
+                  className="inline-block px-3 py-1 rounded-full bg-secondary-background text-primary border border-border text-sm"
                 >
                   {tech}
                 </span>
@@ -84,7 +84,7 @@ export function AboutCredentials() {
               {architectures.map((item) => (
                 <span
                   key={item}
-                  className="inline-block px-3 py-1 rounded-full bg-neutral-100 text-primary text-sm"
+                  className="inline-block px-3 py-1 rounded-full bg-secondary-background text-primary border border-border text-sm"
                 >
                   {item}
                 </span>

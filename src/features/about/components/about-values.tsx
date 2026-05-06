@@ -43,7 +43,7 @@ export function AboutValues() {
           {values.map(({ Icon, title, text }) => (
             <article
               key={title}
-              className="flex flex-col gap-4 p-6 rounded-xl card border border-neutral-200"
+              className="flex flex-col gap-4 p-6 rounded-xl card border border-border"
             >
               <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-accent/10">
                 <Icon className="w-5 h-5 text-accent" />

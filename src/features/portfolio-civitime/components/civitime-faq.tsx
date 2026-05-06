@@ -39,7 +39,7 @@ export function CivitimeFaq() {
           {civitimeFaqItems.map((item) => (
             <details
               key={item.question}
-              className="group border-b border-neutral-200 py-6"
+              className="group border-b border-border py-6"
             >
               <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent">
                 <dt className="flex-1">{item.question}</dt>

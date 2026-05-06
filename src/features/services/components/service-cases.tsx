@@ -30,7 +30,7 @@ export function ServiceCases({
   relatedCases: RelatedCaseSlug[];
 }) {
   return (
-    <section className="py-20 px-6 bg-neutral-50">
+    <section className="py-20 px-6 bg-secondary-background">
       <div className="max-w-5xl mx-auto">
         <h2
           className="text-3xl sm:text-4xl font-bold text-primary mb-10"

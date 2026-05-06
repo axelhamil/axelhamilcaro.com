@@ -3,7 +3,7 @@ import type { ServiceData } from "../lib/services-data";
 
 export function ServiceCta({ data }: { data: ServiceData["hero"] }) {
   return (
-    <section className="py-20 px-6 bg-primary text-white">
+    <section className="py-20 px-6 bg-accent text-white">
       <div className="max-w-4xl mx-auto text-center">
         <h2
           className="text-3xl sm:text-4xl font-bold mb-4"

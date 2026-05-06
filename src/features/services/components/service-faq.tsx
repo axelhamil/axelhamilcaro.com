@@ -17,7 +17,7 @@ export function ServiceFaq({ items }: { items: ServiceData["faq"] }) {
           {items.map((item) => (
             <details
               key={item.question}
-              className="group border-b border-neutral-200 py-6"
+              className="group border-b border-border py-6"
             >
               <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent">
                 {item.question}

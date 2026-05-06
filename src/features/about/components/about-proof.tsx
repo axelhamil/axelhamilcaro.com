@@ -25,7 +25,7 @@ export function AboutProof() {
           {stats.map(({ value, label }) => (
             <div
               key={label}
-              className="flex flex-col items-center text-center px-6 py-8 rounded-xl card border border-neutral-200"
+              className="flex flex-col items-center text-center px-6 py-8 rounded-xl card border border-border"
             >
               <span
                 className="text-4xl font-bold text-accent mb-2"
