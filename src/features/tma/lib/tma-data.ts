@@ -341,10 +341,10 @@ export const TMA_PREMIUM_DELIVERABLES: TmaDeliverable[] = [
     body: "Récapitulatif clair des bugs corrigés, mises à jour appliquées et petites évolutions livrées dans le mois. Vulgarisé pour pouvoir le partager à ton équipe ou à tes clients. Distinct du reporting technique interne, c'est un livrable de communication.",
   },
   {
-    title: "Audit perf / sécu trimestriel",
-    tagline: "Lighthouse + CVE + headers",
+    title: "Audit performance et sécurité",
+    tagline: "Performance + dépendances + sécurité",
     cadence: "Tous les 3 mois",
-    body: "Audit court (1 à 2h prises sur le forfait) avec output PDF : Lighthouse et Core Web Vitals, audit des dépendances (vulnérabilités CVE et obsolescence), sécurité (headers HTTP, expositions, secrets), recommandations priorisées par impact.",
+    body: "Audit court (1 à 2h pris sur le forfait) avec rapport PDF actionnable. Trois axes : la performance perçue par tes utilisateurs (vitesse de chargement, Core Web Vitals), les failles de sécurité (dépendances obsolètes, headers HTTP, secrets exposés) et les optimisations rentables à court terme. Chaque recommandation est priorisée par impact pour que tu saches quoi traiter en premier.",
   },
   {
     title: "Canal de support dédié",
