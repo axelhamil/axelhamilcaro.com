@@ -448,7 +448,7 @@ export default function MentionsLegalesPage() {
                   communication des CGV, à un signalement de contenu ou à un
                   rapport de vulnérabilité, contacte-moi directement.
                 </p>
-                <LegalContactLink label={LEGAL.email} />
+                <LegalContactLink label="Me contacter" />
               </div>
             </div>
           </aside>

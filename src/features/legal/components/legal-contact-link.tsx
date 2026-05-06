@@ -12,7 +12,7 @@ export function LegalContactLink({ label }: LegalContactLinkProps) {
     <ContactModal>
       <button
         type="button"
-        className="inline-flex items-center gap-2 text-accent font-semibold hover:underline cursor-pointer"
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent-hover transition-all duration-300 cursor-pointer"
       >
         <Mail className="w-4 h-4" />
         {label}
