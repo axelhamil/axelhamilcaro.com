@@ -83,6 +83,10 @@ export async function POST(request: Request) {
 
   if (!result.success) {
     console.error("[contact] send failed", result.error);
+    return json(
+      { success: false, error: "Le message n'a pas pu être envoyé." },
+      500,
+    );
   }
 
   return json({ success: true });

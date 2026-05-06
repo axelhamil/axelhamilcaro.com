@@ -71,17 +71,27 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
 
     setSubmitting(true);
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      }).catch(() => null);
-    } finally {
+      });
+
+      if (!res.ok) {
+        toast.error(
+          "Envoi impossible pour le moment. Réessaie dans quelques minutes.",
+        );
+        return;
+      }
+
       toast.success("Message envoyé. Je te réponds en journée.");
       form.reset();
       setOpen(false);
       turnstileRef.current?.reset();
       setToken(null);
+    } catch {
+      toast.error("Connexion interrompue. Réessaie dans quelques minutes.");
+    } finally {
       setSubmitting(false);
     }
   }
