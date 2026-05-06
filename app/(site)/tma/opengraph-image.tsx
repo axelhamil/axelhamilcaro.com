@@ -4,15 +4,16 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "TMA Next.js — Tierce Maintenance Applicative | Axel Hamilcaro";
+export const alt =
+  "TMA — Tierce Maintenance Applicative pour app web et mobile | Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
 export default function Image() {
   return renderOgImage({
-    eyebrow: "Forfait mensuel",
-    title: "TMA Next.js",
+    eyebrow: "Tierce Maintenance Applicative",
+    title: "TMA web et mobile",
     subtitle:
-      "PRO 350€/mois (5h) · PREMIUM 600€/mois (10h, monitoring) · Sans engagement",
+      "Next.js · React · Node · infra légère — PRO 350€/mois · PREMIUM 600€/mois — Sans engagement",
   });
 }

@@ -21,18 +21,19 @@ export const metadata: Metadata = {
   keywords: [...TMA_META.keywords],
   alternates: { canonical: TMA_URL },
   openGraph: {
-    title: "TMA Next.js — Forfaits mensuels | Axel Hamilcaro",
+    title:
+      "TMA — Tierce Maintenance Applicative à partir de 350€/mois | Axel Hamilcaro",
     description:
-      "Forfait PRO 350€/mois (5h, 1 jour ouvré) ou PREMIUM 600€/mois (10h, monitoring proactif, demi-journée). Sans engagement.",
+      "Forfait mensuel pour ton app Next.js, React, Node ou mobile. PRO 350€ (5h, 1 jour ouvré) ou PREMIUM 600€ (10h, monitoring proactif, demi-journée). Sans engagement, résiliation Stripe.",
     url: TMA_URL,
     type: "website",
     siteName: "Axel Hamilcaro",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TMA Next.js — Forfaits mensuels",
+    title: "TMA — Forfaits 350€ ou 600€/mois | Axel Hamilcaro",
     description:
-      "Maintenance Applicative au mois pour ton app Next.js / React / Node. PRO 350€ ou PREMIUM 600€, sans engagement.",
+      "Maintenance Applicative au mois pour ton app web ou mobile : Next.js, React, Node, infra légère. Sans engagement.",
   },
 };
 
@@ -46,7 +47,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Tierce Maintenance Applicative Next.js",
+  name: "Tierce Maintenance Applicative — Next.js, React, Node, mobile",
   description: TMA_META.description,
   url: TMA_URL,
   serviceType: "Tierce Maintenance Applicative",

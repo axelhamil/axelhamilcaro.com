@@ -42,18 +42,22 @@ export const TMA_URL = `${SITE_URL}/tma`;
 
 export const TMA_META = {
   title:
-    "TMA Next.js — Tierce Maintenance Applicative à partir de 350€/mois | Axel Hamilcaro",
+    "TMA — Tierce Maintenance Applicative web/mobile à partir de 350€/mois | Axel Hamilcaro",
   description:
-    "Forfait mensuel de Tierce Maintenance Applicative pour app Next.js / TypeScript : corrections de bugs, mises à jour sécurité, support technique, monitoring. PRO 350€/mois (5h) ou PREMIUM 600€/mois (10h). Sans engagement, prise en compte sous 1 jour ouvré.",
+    "Forfait mensuel de Tierce Maintenance Applicative (TMA) pour ton app web ou mobile : Next.js, React, Node, infra légère (Vercel, Railway, PostgreSQL). Bugs, sécurité, support, monitoring. PRO 350€/mois (5h) ou PREMIUM 600€/mois (10h). Sans engagement, résiliation self-service via Stripe.",
   keywords: [
     "tierce maintenance applicative",
-    "TMA Next.js",
     "TMA freelance",
+    "TMA Next.js",
+    "TMA React",
+    "TMA Node",
     "maintenance application web",
-    "forfait maintenance Next.js",
-    "support technique Next.js",
-    "monitoring application web",
+    "maintenance app mobile",
+    "forfait maintenance application",
+    "support technique application web",
+    "monitoring application",
     "freelance TMA France",
+    "infogérance applicative freelance",
   ],
 } as const;
 
