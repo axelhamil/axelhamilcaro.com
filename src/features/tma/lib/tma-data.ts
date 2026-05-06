@@ -127,10 +127,10 @@ export const TMA_FORFAITS: TmaForfait[] = [
     description:
       "Forfait Pro de TMA pour applications en production : 5h/mois d'intervention (correctifs, optimisation, mises à jour sécurité/dépendances, ajustements techniques mineurs, petites évolutions, support e-mail). Prise en charge sous 1 jour ouvré. 1h de visio incluse par mois. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
     targetAudience: [
-      "MVPs en production avec premiers utilisateurs",
-      "SaaS B2B early-stage (jusqu'à ~100 utilisateurs payants)",
-      "Apps internes ou outils métier d'équipe",
-      "Sites ou apps sans astreinte critique 24/7",
+      "Tu as une app en production qui tourne et qui a besoin de suivi régulier",
+      "Tu n'as pas besoin d'astreinte critique 24/7",
+      "Tu veux garder ton app à jour sans recruter en interne",
+      "Un volume horaire raisonnable et flexible te suffit",
     ],
     price: 350,
     currency: "EUR",
@@ -163,10 +163,10 @@ export const TMA_FORFAITS: TmaForfait[] = [
     description:
       "Forfait Premium de TMA pour applications critiques : monitoring proactif (Sentry, UptimeRobot, Better Stack à provisionner par le client), mises à jour de sécurité, correction de bugs, optimisations, reporting mensuel et support. Inclus : 10h/mois, 2h de visio, prise en charge sous une demi-journée ouvrée. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
     targetAudience: [
-      "SaaS B2B avec utilisateurs payants à fiabiliser",
-      "Apps e-commerce, billetterie, flux financiers ou réservation",
-      "MVPs en croissance avec objectifs uptime et performance",
-      "Équipes qui ont besoin de reporting pour board, client ou audit",
+      "Ton app est critique pour ton activité (revenu, opérations, image)",
+      "Tu as besoin de monitoring proactif et d'alertes avant tes utilisateurs",
+      "Tu veux un canal de support dédié et un délai de réponse plus court",
+      "Tu dois présenter un suivi régulier à ton équipe, ton board ou tes clients",
     ],
     price: 800,
     currency: "EUR",
