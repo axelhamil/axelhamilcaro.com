@@ -124,20 +124,26 @@ export const TMA_FORFAITS: TmaForfait[] = [
     name: "TMA PRO",
     tagline: "Pour garder ton app fiable et à jour.",
     description:
-      "Suivi régulier de ton application en production : corrections de bugs, mises à jour de sécurité, support technique et interventions sous 1 jour ouvré pour garder ton application fiable et à jour.",
+      "Forfait Pro de TMA pour applications en production : 5h/mois d'intervention (correctifs, optimisation, mises à jour sécurité/dépendances, ajustements techniques mineurs, petites évolutions, support e-mail). Prise en charge sous 1 jour ouvré. 1h de visio incluse par mois. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
     price: 350,
     currency: "EUR",
     hours: 5,
     hoursLabel: "5h de maintenance incluses par mois",
     hourlyOverflow: 80,
-    responseTime: "1 jour ouvré max",
+    responseTime: "1 jour ouvré",
     meetingHours: "1h/mois",
     features: [
       { label: "5h de maintenance incluses par mois" },
       { label: "Corrections de bugs et optimisation des performances" },
       { label: "Mises à jour des dépendances et correctifs de sécurité" },
+      {
+        label: "Ajustements techniques mineurs (logs, requêtes, stabilité)",
+      },
+      {
+        label: "Petites évolutions (exports, configurations, documentation)",
+      },
       { label: "Support technique" },
-      { label: "Prise en compte sous 1 jour ouvré maximum" },
+      { label: "Prise en compte sous 1 jour ouvré" },
       { label: "1h de visioconférence par mois (selon dispos communes)" },
       { label: "Hors-forfait : 80€/h" },
       { label: "Sans engagement, interventions du lundi au vendredi" },
@@ -148,7 +154,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
     name: "TMA PREMIUM",
     tagline: "Pour les apps critiques, monitoring et reporting compris.",
     description:
-      "Accompagnement complet pour les applications critiques : monitoring proactif, optimisations continues, reporting mensuel et priorité sur les interventions sous une demi-journée ouvrée.",
+      "Forfait Premium de TMA pour applications critiques : monitoring proactif (Sentry, UptimeRobot, Better Stack à provisionner par le client), mises à jour de sécurité, correction de bugs, optimisations, reporting mensuel et support. Inclus : 10h/mois, 2h de visio, prise en charge sous une demi-journée ouvrée. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
     price: 600,
     currency: "EUR",
     hours: 10,
@@ -159,26 +165,13 @@ export const TMA_FORFAITS: TmaForfait[] = [
     recommended: true,
     features: [
       { label: "10h d'intervention incluses par mois" },
-      { label: "Monitoring proactif et alertes", premiumOnly: true },
-      {
-        label: "Reporting mensuel et optimisations continues",
-        premiumOnly: true,
-      },
-      {
-        label: "CHANGELOG mensuel annoté (markdown / PDF)",
-        premiumOnly: true,
-      },
-      {
-        label: "Status page publique sur sous-domaine dédié",
-        premiumOnly: true,
-      },
-      {
-        label: "Audit perf / sécu trimestriel (Lighthouse, CVE, headers)",
-        premiumOnly: true,
-      },
       {
         label:
-          "Canal de support dédié (Slack, Discord, WhatsApp, Teams, au choix)",
+          "Monitoring proactif et alertes (Sentry, UptimeRobot, Better Stack)",
+        premiumOnly: true,
+      },
+      {
+        label: "Reporting mensuel et optimisations continues",
         premiumOnly: true,
       },
       { label: "Mises à jour des dépendances et correctifs de sécurité" },
@@ -187,8 +180,11 @@ export const TMA_FORFAITS: TmaForfait[] = [
         label: "Prise en compte sous 1 demi-journée ouvrée",
         premiumOnly: true,
       },
-      { label: "2h de visioconférence par mois (selon dispos communes)" },
+      { label: "2h de visioconférence incluses par mois" },
       { label: "Hors-forfait : 80€/h" },
+      { label: "CHANGELOG mensuel annoté", premiumOnly: true },
+      { label: "Audit perf / sécu trimestriel", premiumOnly: true },
+      { label: "Status page publique", premiumOnly: true },
       { label: "Sans engagement, interventions du lundi au vendredi" },
     ],
   },
