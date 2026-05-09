@@ -207,7 +207,7 @@ export const TMA_PROCESS: TmaProcessStep[] = [
   {
     step: "01",
     title: "Tu choisis ton forfait",
-    body: "PRO ou PREMIUM, paiement Stripe sécurisé, facture automatique chaque mois. Sans engagement : tu peux changer de forfait, mettre à jour ton moyen de paiement ou résilier en self-service depuis ton portail Stripe à tout moment.",
+    body: "PRO ou PREMIUM, paiement Stripe sécurisé, facture automatique chaque mois. Sans engagement : tu peux mettre à jour ton moyen de paiement ou résilier en self-service depuis ton portail Stripe à tout moment. Les changements de forfait se font sur simple demande par email.",
   },
   {
     step: "02",
@@ -240,7 +240,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Je peux changer de forfait en cours de route ?",
     answer:
-      "Oui, à tout moment sur simple demande par email. Pour un upgrade PRO → PREMIUM, je fais la bascule immédiate au prorata (tu paies la différence pour les jours restants du mois). Pour un downgrade PREMIUM → PRO, le changement prend effet à la fin de la période en cours pour éviter tout chevauchement de prélèvement.",
+      "Oui à tout moment, sur simple demande par email — c'est moi qui pilote la bascule pour qu'elle reste propre des deux côtés. Pour un upgrade PRO → PREMIUM, je fais la bascule immédiate au prorata (tu paies la différence pour les jours restants du mois) et je mets en place les outils Premium dans la foulée (Sentry, monitoring, status page). Pour un retour vers PRO, on en discute ensemble pour ne pas casser ton observabilité en plein vol.",
   },
   {
     question: "Quels canaux de support et quels délais ?",
