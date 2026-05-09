@@ -240,7 +240,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Je peux changer de forfait en cours de route ?",
     answer:
-      "Oui à tout moment, sur simple demande par email — c'est moi qui pilote la bascule pour qu'elle reste propre des deux côtés. Pour un upgrade PRO → PREMIUM, je fais la bascule immédiate au prorata (tu paies la différence pour les jours restants du mois) et je mets en place les outils Premium dans la foulée (Sentry, monitoring, status page). Pour un retour vers PRO, on en discute ensemble pour ne pas casser ton observabilité en plein vol.",
+      "Oui à tout moment, sur simple demande par email — c'est moi qui pilote la bascule pour qu'elle reste propre des deux côtés. Pour un upgrade PRO → PREMIUM, je fais la bascule immédiate au prorata (tu paies la différence pour les jours restants du mois) et je mets en place les outils Premium au début de la période complète suivante (Sentry, monitoring, status page). Pour un retour vers PRO, on en discute ensemble pour ne pas casser ton observabilité en plein vol.",
   },
   {
     question: "Quels canaux de support et quels délais ?",
