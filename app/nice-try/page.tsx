@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { NiceTryBackdrop } from "@/src/features/nice-try/components/nice-try-backdrop";
 import { NiceTryDataPoints } from "@/src/features/nice-try/components/nice-try-data-points";
 import { NiceTryHeader } from "@/src/features/nice-try/components/nice-try-header";
@@ -5,6 +6,12 @@ import { NiceTryIncidentInfo } from "@/src/features/nice-try/components/nice-try
 import { NiceTryReturnLink } from "@/src/features/nice-try/components/nice-try-return-link";
 import { NiceTryTerminal } from "@/src/features/nice-try/components/nice-try-terminal";
 import { NiceTryWarning } from "@/src/features/nice-try/components/nice-try-warning";
+
+export const metadata: Metadata = {
+  title: "Accès refusé",
+  description: "Tentative d'accès non autorisée détectée.",
+  robots: { index: false, follow: false },
+};
 
 export default function NiceTryPage() {
   return (

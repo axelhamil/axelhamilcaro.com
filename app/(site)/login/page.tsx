@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { LoginFooter } from "@/src/features/auth/components/login-footer";
 import { LoginForm } from "@/src/features/auth/components/login-form";
 import { LoginLoading } from "@/src/features/auth/components/login-loading";
+
+export const metadata: Metadata = {
+  title: "Connexion",
+  description: "Espace de connexion réservé à l'administration du site.",
+  robots: { index: false, follow: false },
+};
 
 export default function LoginPage() {
   return (

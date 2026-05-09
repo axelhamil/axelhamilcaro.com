@@ -26,10 +26,14 @@ export async function generateMetadata({
     return {
       title: form.title,
       description: form.description || undefined,
+      robots: { index: false, follow: false },
     };
   } catch (error) {
     if (error instanceof NotFoundError) {
-      return { title: "Formulaire introuvable" };
+      return {
+        title: "Formulaire introuvable",
+        robots: { index: false, follow: false },
+      };
     }
     throw error;
   }
