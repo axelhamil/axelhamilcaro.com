@@ -1,4 +1,5 @@
 import { Button } from "@/src/shared/ui/portfolio/button";
+import { TMA_LAST_UPDATED } from "../lib/tma-data";
 import { TmaContactButton } from "./tma-contact-button";
 
 export function TmaCta() {
@@ -9,7 +10,7 @@ export function TmaCta() {
           className="text-white/80 font-medium tracking-wider text-sm mb-4"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
-          // prêt_à_démarrer()
+          {"// prêt_à_démarrer()"}
         </p>
         <h2
           className="text-3xl sm:text-5xl font-bold mb-6 text-white"
@@ -22,11 +23,30 @@ export function TmaCta() {
           convient (volume trop bas, stack hors scope, besoin différent), je te
           le dis aussi et on cherche autre chose ensemble.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <TmaContactButton label="Discuter de ton besoin" />
-          <Button href="/tree" variant="secondary" size="lg">
-            Voir mes liens
+          <Button href="/services" variant="secondary" size="lg">
+            Découvrir mes autres services
           </Button>
+        </div>
+        <div className="pt-8 border-t border-white/20 space-y-2 text-white/70 text-xs">
+          <p>
+            Tarifs et conditions en vigueur au{" "}
+            <time dateTime={TMA_LAST_UPDATED.iso}>
+              {TMA_LAST_UPDATED.display}
+            </time>
+            . Les clients ayant souscrit conservent leurs conditions pour toute
+            la durée de leur abonnement actif.
+          </p>
+          <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <a href="/cgv" className="underline hover:text-white">
+              Conditions Générales de Vente
+            </a>
+            <span aria-hidden="true">·</span>
+            <a href="/mentions-legales" className="underline hover:text-white">
+              Mentions légales
+            </a>
+          </p>
         </div>
       </div>
     </section>

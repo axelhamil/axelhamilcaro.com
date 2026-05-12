@@ -9,7 +9,7 @@ export function TmaProcess() {
             className="text-accent font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
-            // comment_ça_marche()
+            {"// comment_ça_marche()"}
           </p>
           <h2
             className="text-3xl sm:text-5xl font-bold text-primary mb-4"

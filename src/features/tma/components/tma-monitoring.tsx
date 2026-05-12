@@ -1,4 +1,11 @@
-import { Activity, Bell, ExternalLink, Gauge, ScrollText } from "lucide-react";
+import {
+  Activity,
+  Bell,
+  ExternalLink,
+  Gauge,
+  ScrollText,
+  Sparkles,
+} from "lucide-react";
 import { TMA_MONITORING_TOOLS } from "../lib/tma-data";
 
 const ICONS = [Bell, Activity, ScrollText, Gauge] as const;
@@ -8,11 +15,15 @@ export function TmaMonitoring() {
     <section className="py-20 sm:py-28 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
+          <span className="inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+            <Sparkles className="w-3 h-3" aria-hidden="true" />
+            Premium uniquement
+          </span>
           <p
             className="text-accent font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
-            // monitoring_premium()
+            {"// monitoring_premium()"}
           </p>
           <h2
             className="text-3xl sm:text-5xl font-bold text-primary mb-4"
@@ -21,9 +32,10 @@ export function TmaMonitoring() {
             Outils de monitoring inclus sur PREMIUM.
           </h2>
           <p className="text-secondary text-lg max-w-2xl">
-            Setup, configuration et surveillance compris dans tes 10h
-            mensuelles. Tu es alerté avant tes utilisateurs, et tu disposes d'un
-            reporting mensuel écrit.
+            Setup, configuration des alertes et intervention sur incident
+            compris dans tes 10h mensuelles. Les outils t'alertent (et
+            m'alertent) avant tes utilisateurs ; les incidents sont documentés
+            dans le reporting mensuel.
           </p>
         </div>
 

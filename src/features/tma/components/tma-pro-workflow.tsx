@@ -1,45 +1,38 @@
-import {
-  Activity,
-  CalendarClock,
-  FileText,
-  MessagesSquare,
-  Sparkles,
-} from "lucide-react";
-import { TMA_PREMIUM_DELIVERABLES } from "../lib/tma-data";
+import { Clock, MessageCircle, MessagesSquare, Video } from "lucide-react";
+import { TMA_PRO_WORKFLOW } from "../lib/tma-data";
 
-const ICONS = [Activity, FileText, CalendarClock, MessagesSquare] as const;
+const ICONS = [MessagesSquare, Clock, MessageCircle, Video] as const;
 
-export function TmaDeliverables() {
+export function TmaProWorkflow() {
   return (
-    <section id="premium-details" className="py-20 sm:py-28 px-6 scroll-mt-24">
+    <section className="py-20 sm:py-28 px-6 bg-secondary-background">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
-            <Sparkles className="w-3 h-3" aria-hidden="true" />
-            Premium uniquement
+          <span className="inline-flex items-center gap-1.5 bg-primary text-primary-background text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+            PRO
           </span>
           <p
             className="text-accent font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
-            {"// livrables_premium()"}
+            {"// communication_et_suivi_pro()"}
           </p>
           <h2
             className="text-3xl sm:text-5xl font-bold text-primary mb-4"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Ce que tu obtiens en plus, en 10h / mois.
+            Comment ça se passe au quotidien.
           </h2>
           <p className="text-secondary text-lg max-w-2xl">
-            Quatre livrables récurrents qui n'existent pas en PRO. Setup,
-            rédaction et maintenance compris dans le forfait : tu n'as pas à
-            arbitrer entre « heures de support » et « heures de livrables ».
+            Pas de portail, pas de boîte noire. Le suivi se fait là où tu
+            communiques déjà, avec une transparence totale sur les heures
+            consommées.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {TMA_PREMIUM_DELIVERABLES.map((item, index) => {
-            const Icon = ICONS[index] ?? Sparkles;
+          {TMA_PRO_WORKFLOW.map((item, index) => {
+            const Icon = ICONS[index] ?? MessagesSquare;
             return (
               <article
                 key={item.title}

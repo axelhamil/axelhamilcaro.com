@@ -1,5 +1,5 @@
 import { Button } from "@/src/shared/ui/portfolio/button";
-import { TMA_HERO } from "../lib/tma-data";
+import { TMA_HERO, TMA_LAST_UPDATED } from "../lib/tma-data";
 import { TmaContactButton } from "./tma-contact-button";
 
 export function TmaHero() {
@@ -18,8 +18,14 @@ export function TmaHero() {
         >
           {TMA_HERO.title}
         </h1>
-        <p className="text-secondary text-lg leading-relaxed max-w-3xl mx-auto mb-8">
+        <p className="text-secondary text-lg leading-relaxed max-w-3xl mx-auto mb-4">
           {TMA_HERO.subtitle}
+        </p>
+        <p
+          className="text-secondary/60 text-xs uppercase tracking-wider mb-8"
+          style={{ fontFamily: "var(--font-geist-mono)" }}
+        >
+          Tarifs en vigueur au {TMA_LAST_UPDATED.display}
         </p>
         <ul className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm text-secondary mb-10 max-w-3xl mx-auto">
           <li className="flex items-center gap-2">

@@ -2,13 +2,7 @@
 
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { Loader2, Mail, Send } from "lucide-react";
-import {
-  type FormEvent,
-  type ReactNode,
-  useId,
-  useRef,
-  useState,
-} from "react";
+import { type FormEvent, type ReactNode, useId, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -210,7 +204,9 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                   setErrors((e) => ({ ...e, email: undefined }));
               }}
               className={
-                errors.email ? "border-destructive focus-visible:ring-destructive/40" : undefined
+                errors.email
+                  ? "border-destructive focus-visible:ring-destructive/40"
+                  : undefined
               }
             />
             {errors.email ? (
@@ -236,9 +232,7 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                 }`}
               >
                 {messageLength}/{MESSAGE_MAX} ·{" "}
-                {messageLength < MESSAGE_MIN
-                  ? `min ${MESSAGE_MIN}`
-                  : "OK"}
+                {messageLength < MESSAGE_MIN ? `min ${MESSAGE_MIN}` : "OK"}
               </span>
             </div>
             <Textarea
@@ -259,7 +253,9 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                   setErrors((err) => ({ ...err, message: undefined }));
               }}
               className={
-                errors.message ? "border-destructive focus-visible:ring-destructive/40" : undefined
+                errors.message
+                  ? "border-destructive focus-visible:ring-destructive/40"
+                  : undefined
               }
             />
             {errors.message ? (

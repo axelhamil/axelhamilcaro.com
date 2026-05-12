@@ -81,7 +81,9 @@ async function main() {
       );
       process.exit(0);
     }
-    console.log(`⚠️  --force : suppression de ${existingLinks.length} liens existants`);
+    console.log(
+      `⚠️  --force : suppression de ${existingLinks.length} liens existants`,
+    );
     await db.delete(treeLinks);
   }
 

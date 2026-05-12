@@ -10,7 +10,7 @@ export function TmaNotIncluded() {
             className="text-accent font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
-            // hors_périmètre()
+            {"// hors_périmètre()"}
           </p>
           <h2
             className="text-3xl sm:text-5xl font-bold text-primary mb-4"

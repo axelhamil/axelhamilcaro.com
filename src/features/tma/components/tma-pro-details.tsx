@@ -1,45 +1,40 @@
-import {
-  Activity,
-  CalendarClock,
-  FileText,
-  MessagesSquare,
-  Sparkles,
-} from "lucide-react";
-import { TMA_PREMIUM_DELIVERABLES } from "../lib/tma-data";
+import { Bug, Search, ShieldCheck, Sparkles } from "lucide-react";
+import { TMA_PRO_DELIVERABLES } from "../lib/tma-data";
 
-const ICONS = [Activity, FileText, CalendarClock, MessagesSquare] as const;
+const ICONS = [Bug, ShieldCheck, Sparkles, Search] as const;
 
-export function TmaDeliverables() {
+export function TmaProDetails() {
   return (
-    <section id="premium-details" className="py-20 sm:py-28 px-6 scroll-mt-24">
+    <section
+      id="pro-details"
+      className="py-20 sm:py-28 px-6 scroll-mt-24 bg-secondary-background"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
-            <Sparkles className="w-3 h-3" aria-hidden="true" />
-            Premium uniquement
+          <span className="inline-flex items-center gap-1.5 bg-primary text-primary-background text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+            PRO
           </span>
           <p
             className="text-accent font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
-            {"// livrables_premium()"}
+            {"// concrètement_sur_le_pro()"}
           </p>
           <h2
             className="text-3xl sm:text-5xl font-bold text-primary mb-4"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            Ce que tu obtiens en plus, en 10h / mois.
+            Ce que tu obtiens en 5h / mois.
           </h2>
           <p className="text-secondary text-lg max-w-2xl">
-            Quatre livrables récurrents qui n'existent pas en PRO. Setup,
-            rédaction et maintenance compris dans le forfait : tu n'as pas à
-            arbitrer entre « heures de support » et « heures de livrables ».
+            Quatre types d'intervention couverts dans ton forfait. Tickets
+            prioritaires (correctifs, sécurité) d'abord, évolutions ensuite.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {TMA_PREMIUM_DELIVERABLES.map((item, index) => {
-            const Icon = ICONS[index] ?? Sparkles;
+          {TMA_PRO_DELIVERABLES.map((item, index) => {
+            const Icon = ICONS[index] ?? Search;
             return (
               <article
                 key={item.title}

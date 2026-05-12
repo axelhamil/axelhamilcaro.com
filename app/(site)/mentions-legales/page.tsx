@@ -148,10 +148,10 @@ const SECTIONS: LegalSection[] = [
     body: (
       <p className="text-secondary leading-relaxed">
         <strong className="text-primary">{LEGAL.publisher}</strong>, en sa
-        qualité d'éditeur unique du site, assume la direction de la
-        publication et la responsabilité éditoriale des contenus, conformément
-        à l'article 6-III de la loi n°2004-575 du 21 juin 2004 pour la
-        confiance dans l'économie numérique (LCEN).
+        qualité d'éditeur unique du site, assume la direction de la publication
+        et la responsabilité éditoriale des contenus, conformément à l'article
+        6-III de la loi n°2004-575 du 21 juin 2004 pour la confiance dans
+        l'économie numérique (LCEN).
       </p>
     ),
   },
@@ -180,9 +180,9 @@ const SECTIONS: LegalSection[] = [
           vercel.com
         </a>
         . Les données techniques (logs serveur, métriques d'audience
-        anonymisées) sont traitées par Vercel dans le cadre de l'hébergement
-        du site, dans des centres de données européens lorsque la
-        configuration du projet le permet.
+        anonymisées) sont traitées par Vercel dans le cadre de l'hébergement du
+        site, dans des centres de données européens lorsque la configuration du
+        projet le permet.
       </p>
     ),
   },
@@ -211,10 +211,9 @@ const SECTIONS: LegalSection[] = [
         <p>
           Les données personnelles soumises via le formulaire de contact (nom,
           email, message) sont collectées par{" "}
-          <strong className="text-primary">{LEGAL.name}</strong>, responsable
-          de traitement, dans l'unique but de répondre à ta demande. Elles ne
-          sont jamais cédées, vendues ou louées à des tiers à des fins
-          commerciales.
+          <strong className="text-primary">{LEGAL.name}</strong>, responsable de
+          traitement, dans l'unique but de répondre à ta demande. Elles ne sont
+          jamais cédées, vendues ou louées à des tiers à des fins commerciales.
         </p>
         <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
           <div>
@@ -253,12 +252,12 @@ const SECTIONS: LegalSection[] = [
           </div>
         </dl>
         <p>
-          Conformément au Règlement (UE) 2016/679 (RGPD) et à la loi n°78-17
-          du 6 janvier 1978 modifiée relative à l'informatique, aux fichiers et
-          aux libertés, tu disposes d'un droit d'accès, de rectification,
+          Conformément au Règlement (UE) 2016/679 (RGPD) et à la loi n°78-17 du
+          6 janvier 1978 modifiée relative à l'informatique, aux fichiers et aux
+          libertés, tu disposes d'un droit d'accès, de rectification,
           d'effacement, de limitation, d'opposition, de portabilité et de
-          définition de directives post-mortem sur tes données. Pour exercer
-          ces droits, passe par le{" "}
+          définition de directives post-mortem sur tes données. Pour exercer ces
+          droits, passe par le{" "}
           <LegalContactLink label="formulaire de contact" variant="inline" />.
           Tu peux également introduire une réclamation auprès de la{" "}
           <a
@@ -280,10 +279,11 @@ const SECTIONS: LegalSection[] = [
     body: (
       <div className="text-secondary leading-relaxed space-y-3">
         <p>
-          Le site n'utilise <strong className="text-primary">aucun cookie</strong>{" "}
-          publicitaire, tracker tiers, pixel ou outil de fingerprinting. Aucun
-          consentement préalable n'est requis car aucun traceur soumis à
-          l'article 82 de la loi Informatique et Libertés n'est déposé.
+          Le site n'utilise{" "}
+          <strong className="text-primary">aucun cookie</strong> publicitaire,
+          tracker tiers, pixel ou outil de fingerprinting. Aucun consentement
+          préalable n'est requis car aucun traceur soumis à l'article 82 de la
+          loi Informatique et Libertés n'est déposé.
         </p>
         <p>
           La mesure d'audience est assurée par{" "}
@@ -311,15 +311,18 @@ const SECTIONS: LegalSection[] = [
     body: (
       <p className="text-secondary leading-relaxed">
         Les prestations proposées sur ce site (forfaits TMA, missions
-        ponctuelles, accompagnement freelance) sont vendues exclusivement à
-        des professionnels (B2B). Conformément à l'article L.441-1 du Code de
-        commerce, les conditions générales de vente applicables sont{" "}
-        <strong className="text-primary">communiquées sur simple demande</strong>{" "}
-        via le{" "}
-        <LegalContactLink label="formulaire de contact" variant="inline" />,
-        avant la conclusion du contrat. Pour les forfaits TMA souscrits via
-        Stripe Payment Link, les conditions spécifiques (durée, résiliation,
-        SLA) sont rappelées sur la page{" "}
+        ponctuelles, accompagnement freelance) sont vendues exclusivement à des
+        professionnels (B2B). Conformément à l'article L.441-1 du Code de
+        commerce, les conditions générales de vente applicables sont accessibles
+        publiquement sur la page{" "}
+        <a href="/cgv" className="text-accent hover:underline font-semibold">
+          /cgv
+        </a>{" "}
+        et communiquées préalablement à la conclusion du contrat. Pour les
+        forfaits TMA souscrits via Stripe Payment Link, l'acceptation des CGV
+        est matérialisée par le règlement de la première mensualité. Les
+        conditions spécifiques (durée, résiliation, SLA, périmètre) sont
+        rappelées sur la page{" "}
         <a href="/tma" className="text-accent hover:underline">
           /tma
         </a>{" "}
@@ -333,11 +336,11 @@ const SECTIONS: LegalSection[] = [
     body: (
       <p className="text-secondary leading-relaxed">
         Le site est servi exclusivement en HTTPS strict, avec en-têtes de
-        sécurité (HSTS, X-Content-Type-Options, X-Frame-Options,
-        Referrer-Policy strict-origin-when-cross-origin). Les sauvegardes,
-        l'isolation des environnements et la haute disponibilité sont assurées
-        par l'infrastructure Vercel. Si tu découvres une vulnérabilité,
-        contacte-moi en privé via le{" "}
+        sécurité (HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy
+        strict-origin-when-cross-origin). Les sauvegardes, l'isolation des
+        environnements et la haute disponibilité sont assurées par
+        l'infrastructure Vercel. Si tu découvres une vulnérabilité, contacte-moi
+        en privé via le{" "}
         <LegalContactLink label="formulaire de contact" variant="inline" />{" "}
         avant toute divulgation publique (responsible disclosure).
       </p>
@@ -348,13 +351,13 @@ const SECTIONS: LegalSection[] = [
     title: "Droit applicable et juridiction",
     body: (
       <p className="text-secondary leading-relaxed">
-        Les présentes mentions légales sont régies par le droit français. En
-        cas de litige relatif à l'utilisation du site ou à l'interprétation
-        des présentes, et à défaut de résolution amiable préalable, les
-        tribunaux du ressort du siège de l'éditeur seront seuls compétents.
-        S'agissant de prestations B2B, l'éditeur n'est pas tenu d'adhérer à
-        un dispositif de médiation de la consommation (article L.612-1 du Code
-        de la consommation).
+        Les présentes mentions légales sont régies par le droit français. En cas
+        de litige relatif à l'utilisation du site ou à l'interprétation des
+        présentes, et à défaut de résolution amiable préalable, les tribunaux du
+        ressort du siège de l'éditeur seront seuls compétents. S'agissant de
+        prestations B2B, l'éditeur n'est pas tenu d'adhérer à un dispositif de
+        médiation de la consommation (article L.612-1 du Code de la
+        consommation).
       </p>
     ),
   },
@@ -375,7 +378,7 @@ export default function MentionsLegalesPage() {
             className="text-accent font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
-            // mentions_légales()
+            {"// mentions_légales()"}
           </p>
           <h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight tracking-tight mb-6"
@@ -385,10 +388,10 @@ export default function MentionsLegalesPage() {
           </h1>
           <p className="text-secondary text-base sm:text-lg leading-relaxed">
             Toutes les informations légales relatives à l'édition, à
-            l'hébergement, au traitement des données et aux conditions de
-            vente du site axelhamilcaro.com. Conformément à l'article 6-III
-            de la LCEN, au RGPD, à la loi Informatique et Libertés modifiée
-            et aux recommandations CNIL 2026.
+            l'hébergement, au traitement des données et aux conditions de vente
+            du site axelhamilcaro.com. Conformément à l'article 6-III de la
+            LCEN, au RGPD, à la loi Informatique et Libertés modifiée et aux
+            recommandations CNIL 2026.
           </p>
         </div>
       </section>
@@ -425,10 +428,10 @@ export default function MentionsLegalesPage() {
                   Une question, une demande ?
                 </h2>
                 <p className="text-secondary leading-relaxed mb-4">
-                  Pour toute question relative aux présentes mentions
-                  légales, à l'exercice de tes droits sur tes données, à la
-                  communication des CGV, à un signalement de contenu ou à un
-                  rapport de vulnérabilité, contacte-moi directement.
+                  Pour toute question relative aux présentes mentions légales, à
+                  l'exercice de tes droits sur tes données, à la communication
+                  des CGV, à un signalement de contenu ou à un rapport de
+                  vulnérabilité, contacte-moi directement.
                 </p>
                 <LegalContactLink label="Me contacter" />
               </div>

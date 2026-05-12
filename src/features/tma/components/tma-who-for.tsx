@@ -11,7 +11,7 @@ export function TmaWhoFor() {
           Pour qui ?
         </h2>
         <p className="text-secondary text-lg mb-12">
-          La TMA est faite pour ces 4 situations.
+          La TMA est faite pour ces {TMA_PERSONAS.length} situations.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {TMA_PERSONAS.map((persona) => (

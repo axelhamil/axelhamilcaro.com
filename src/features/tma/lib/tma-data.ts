@@ -65,6 +65,11 @@ export type TmaDeliverable = {
 
 export const TMA_URL = `${SITE_URL}/tma`;
 
+export const TMA_LAST_UPDATED = {
+  iso: "2026-05-12",
+  display: "12 mai 2026",
+} as const;
+
 export const TMA_META = {
   title:
     "TMA — Tierce Maintenance Applicative web/mobile à partir de 350€/mois",
@@ -217,7 +222,7 @@ export const TMA_PROCESS: TmaProcessStep[] = [
   {
     step: "03",
     title: "On démarre le mois 1",
-    body: "Tu m'envoies tes tickets sur le canal défini ensemble (email, WhatsApp, Slack, Discord). Je les traite selon le SLA du forfait : 1 jour ouvré sur PRO, 1 demi-journée sur PREMIUM. Maintenance et sécurité d'abord, évolutions ensuite.",
+    body: "Tu m'envoies tes tickets sur le canal défini ensemble (email, WhatsApp, Slack, Discord). En PREMIUM, les alertes monitoring (Sentry, UptimeRobot, Better Stack) arrivent aussi directement dans le canal partagé. Je traite tout selon le SLA du forfait : 1 jour ouvré sur PRO, 1 demi-journée sur PREMIUM. Maintenance et sécurité d'abord, évolutions ensuite.",
   },
   {
     step: "04",
@@ -231,6 +236,11 @@ export const TMA_FAQ: TmaFaqItem[] = [
     question: "Et si je dépasse les heures incluses dans le forfait ?",
     answer:
       "Les heures supplémentaires sont facturées 80€/h sur les deux forfaits, avec ton accord écrit avant intervention. Pas de surprise sur la facture. Si le dépassement devient récurrent, on rebascule sur le forfait au-dessus (PRO → PREMIUM) plutôt que d'empiler les heures hors-forfait.",
+  },
+  {
+    question: "Comment tu comptes les heures consommées par ticket ?",
+    answer:
+      "Décompte par tranches de 30 min, arrondi au plus bas avec un minimum de 30 min par ticket. Exemples concrets : un ticket de 12 min compte pour 30 min (minimum atteint), un ticket de 45 min compte pour 30 min (arrondi au plus bas dans la tranche 30-60), un ticket de 1h10 compte pour 1h (tranche 60-90), un ticket de 1h55 compte pour 1h30 (tranche 90-120). C'est plus juste qu'un arrondi systématique au-dessus (standard freelance habituel) et ça évite les disputes pénibles à la minute près.",
   },
   {
     question: "Comment se passe la résiliation ?",
@@ -297,6 +307,21 @@ export const TMA_FAQ: TmaFaqItem[] = [
     answer:
       "Oui, c'est même fréquent : agences, ESN, ou freelances qui veulent déléguer la TMA d'un client final. On signe un contrat de sous-traitance, je reste invisible côté client si tu préfères, et tu gardes la relation commerciale. Conditions détaillées sur demande.",
   },
+  {
+    question: "Combien de clients TMA tu peux prendre en parallèle ?",
+    answer:
+      "Capacité limitée volontairement : maximum 6 clients PRO simultanés, 3 clients PREMIUM. C'est ce qui permet de tenir les SLA (1 j ouvré PRO, 1 demi-journée PREMIUM) sans saturation. Si je suis complet à ton inscription, je te le dis tout de suite et on cale une date de démarrage plutôt que de t'inscrire dans un backlog flou.",
+  },
+  {
+    question: "Que se passe-t-il si mon app tombe le week-end ou la nuit ?",
+    answer:
+      "Pas d'astreinte 24/7 — la TMA reste un service en heures ouvrées (lundi au vendredi). Sur PREMIUM, le monitoring continue de tourner et de t'alerter même hors heures ; si tu veux que j'intervienne en best-effort la nuit ou le week-end, c'est facturé en heures supplémentaires au tarif standard de 80€/h, avec ton accord écrit avant intervention. Pour de l'astreinte garantie 24/7, c'est une mission séparée avec rémunération adaptée à cadrer ensemble.",
+  },
+  {
+    question: "Si j'ai plusieurs projets, ça rentre dans le même forfait ?",
+    answer:
+      "Non, 1 TMA = 1 projet. Même si les stacks sont identiques, chaque projet a son propre historique, sa propre infra, ses propres priorités, et le coût de contexte n'est pas linéaire. Donc 2 projets = 2 forfaits TMA séparés (PRO ou PREMIUM selon les besoins de chacun). Exception unique : un même produit déployé en plusieurs morceaux (ex: SaaS + site marketing sur la même base de code) reste 1 TMA.",
+  },
 ];
 
 export const TMA_MONITORING_TOOLS: TmaMonitoringTool[] = [
@@ -345,37 +370,91 @@ export const TMA_PREREQUISITES: TmaPrerequisite[] = [
   },
 ];
 
+export const TMA_PRO_DELIVERABLES: TmaDeliverable[] = [
+  {
+    title: "Correction de bugs et performance",
+    tagline: "Stabilité au quotidien",
+    cadence: "Sur tickets",
+    body: "Correction des bugs reproductibles signalés par tes utilisateurs ou par toi, traitement des lenteurs (requêtes coûteuses, points de friction UX), stabilisation des régressions déjà identifiées. Prise en charge sous 1 jour ouvré, correction livrée et déployée sans rouvrir un chantier complet. Pour les bugs intermittents ou inexpliqués qui demandent une investigation, voir card « Diagnostic et investigation ».",
+  },
+  {
+    title: "Mises à jour et sécurité",
+    tagline: "Dépendances + patches CVE",
+    cadence: "Passes régulières",
+    body: "Mises à jour des dépendances (npm, pnpm, lockfile), application des patches de sécurité critiques (CVE), audit des packages obsolètes ou abandonnés. Passes régulières dans tes 5h pour anticiper les failles avant qu'elles bloquent un déploiement ou remontent dans un audit client.",
+  },
+  {
+    title: "Petites évolutions et ops admin",
+    tagline: "Ajouts légers + opérations",
+    cadence: "Sur tickets",
+    body: "Ajouter un champ, exporter des données ad hoc, créer un compte admin, débloquer un utilisateur, ajuster un libellé, modifier un comportement métier mineur : tout ce qui rentre dans tes 5h sans cadrage produit. Les évolutions qui dépassent le forfait d'heures sortent en mission séparée sur devis.",
+  },
+  {
+    title: "Diagnostic et investigation",
+    tagline: "Incidents + cause racine",
+    cadence: "Sur incident",
+    body: "Quand un truc casse en prod ou qu'un comportement bizarre revient, je prends en charge le diagnostic : analyse de la cause racine, post-mortem léger écrit, recommandations pour éviter la récidive. Distinct du « je corrige » : ici on cherche le pourquoi avant de patcher, particulièrement utile sur les bugs intermittents ou les régressions inexpliquées.",
+  },
+];
+
+export const TMA_PRO_WORKFLOW: TmaDeliverable[] = [
+  {
+    title: "Canal défini ensemble",
+    tagline: "Email, WhatsApp, Slack, Discord",
+    cadence: "Lundi au vendredi",
+    body: "Tu m'envoies tes tickets sur le canal qui colle à ton organisation, défini à l'onboarding. Pas de portail à apprendre, pas d'outil imposé, pas de friction. Interventions du lundi au vendredi en heures ouvrées.",
+  },
+  {
+    title: "Prise en compte sous 1 jour ouvré",
+    tagline: "SLA garanti",
+    cadence: "Max 1 j ouvré",
+    body: "Tout ticket envoyé est pris en compte sous 1 jour ouvré maximum. Pas de devis à attendre 5 jours, pas de relance à faire. Si je suis indisponible plus de 2 jours, je préviens 2 semaines à l'avance.",
+  },
+  {
+    title: "Communication avant / après tâche",
+    tagline: "Transparence totale",
+    cadence: "Chaque intervention",
+    body: "Avant d'attaquer un ticket, je te confirme ce que je vais faire et le temps estimé. Après la livraison, message récap avec ce qui a été fait. Pas de boîte noire, tu suis ce qui se passe sur ton app au quotidien.",
+  },
+  {
+    title: "Visio mensuelle et décompte transparent",
+    tagline: "1h / mois + suivi heures",
+    cadence: "Tous les mois",
+    body: "1h de visioconférence par mois pour faire le point (priorités, planning, décisions). Décompte des heures consommées par tranches de 30 min, arrondi au plus bas avec minimum 30 min par ticket (plus juste qu'un arrondi systématique au-dessus). Suivi partagé dès qu'on approche des 5h, dépassement uniquement avec ton accord écrit (80€/h).",
+  },
+];
+
 export const TMA_PREMIUM_DELIVERABLES: TmaDeliverable[] = [
   {
     title: "Status page publique",
-    tagline: "Better Stack",
+    tagline: "Uptime + historique incidents",
     cadence: "Mise à jour temps réel",
-    body: "Page hébergée sur un sous-domaine dédié (type status.tonsite.com) qui affiche l'uptime de l'app et l'historique des incidents. Signal de transparence vers tes utilisateurs finaux : moins de tickets « ça marche pas chez moi », plus de confiance.",
+    body: "Page publique sur un sous-domaine dédié (type status.tonsite.com) affichant l'uptime de l'app et l'historique des incidents. Setup initial et maintenance compris dans tes 10h. Signal de transparence vers tes utilisateurs : moins de tickets « ça marche pas chez moi », plus de confiance, et un argument commercial si tu vends en B2B.",
   },
   {
     title: "CHANGELOG mensuel annoté",
-    tagline: "Markdown / PDF",
+    tagline: "Livrable de communication",
     cadence: "Tous les mois",
-    body: "Récapitulatif clair des bugs corrigés, mises à jour appliquées et petites évolutions livrées dans le mois. Vulgarisé pour pouvoir le partager à ton équipe ou à tes clients. Distinct du reporting technique interne, c'est un livrable de communication.",
+    body: "Récapitulatif écrit des bugs corrigés, mises à jour appliquées et petites évolutions livrées dans le mois. Vulgarisé pour pouvoir le partager à ton équipe, ton board ou tes clients. Distinct du reporting technique interne : c'est un livrable de communication, rédaction comprise dans tes 10h.",
   },
   {
     title: "Audit performance et sécurité",
-    tagline: "Performance + dépendances + sécurité",
+    tagline: "Perf + dépendances + headers",
     cadence: "Tous les 3 mois",
-    body: "Audit court (1 à 2h pris sur le forfait) avec rapport PDF actionnable. Trois axes : la performance perçue par tes utilisateurs (vitesse de chargement, Core Web Vitals), les failles de sécurité (dépendances obsolètes, headers HTTP, secrets exposés) et les optimisations rentables à court terme. Chaque recommandation est priorisée par impact pour que tu saches quoi traiter en premier.",
+    body: "Audit trimestriel (1 à 2h pris sur tes 10h du mois concerné) avec rapport PDF actionnable. Trois axes : performance perçue (vitesse de chargement, Core Web Vitals), failles de sécurité (dépendances obsolètes, headers HTTP, secrets exposés) et optimisations rentables à court terme. Chaque recommandation est priorisée par impact, tu sais quoi traiter en premier.",
   },
   {
     title: "Canal de support dédié",
     tagline: "Slack, Discord, WhatsApp, Teams…",
     cadence: "Channel partagé permanent",
-    body: "Un canal dédié partagé entre toi et moi sur l'outil que tu utilises déjà : Slack, Discord, WhatsApp, Microsoft Teams, Google Chat ou autre. Pour le suivi des tickets, les questions rapides et les notifications de monitoring. Plus fluide et plus traçable que l'email, sans imposer un nouvel outil à ton équipe.",
+    body: "Canal dédié partagé sur l'outil que tu utilises déjà : Slack, Discord, WhatsApp, Microsoft Teams ou Google Chat. Suivi des tickets, questions rapides, notifications de monitoring centralisées au même endroit. Couplé au SLA PREMIUM (prise en compte sous une demi-journée ouvrée), c'est ce qui te différencie du support email standard du PRO.",
   },
 ];
 
 export const TMA_EXCLUSIONS: TmaExclusion[] = [
   {
-    title: "Nouvelles fonctionnalités > 3 jours",
-    body: "Les évolutions lourdes (refonte d'un module, nouveau workflow métier, intégration tierce conséquente) sortent du forfait et passent en mission séparée sur devis, pour ne pas cannibaliser tes heures de support.",
+    title: "Évolutions lourdes hors forfait",
+    body: "Les évolutions qui dépassent significativement le forfait d'heures (refonte d'un module, nouveau workflow métier, intégration tierce conséquente) sortent du forfait et passent en mission séparée sur devis, pour ne pas cannibaliser tes heures de support et de maintenance.",
   },
   {
     title: "Refonte ou migration de stack",

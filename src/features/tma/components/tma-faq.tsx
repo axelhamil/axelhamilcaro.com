@@ -8,7 +8,7 @@ export function TmaFaq() {
           className="text-accent font-medium tracking-wider text-sm mb-4"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
-          // questions_fréquentes()
+          {"// questions_fréquentes()"}
         </p>
         <h2
           style={{ fontFamily: "var(--font-space-grotesk)" }}
@@ -20,7 +20,7 @@ export function TmaFaq() {
           Tout ce qui détermine si la TMA est faite pour toi : dépassement
           d'heures, résiliation, support, stack, vacances, sous-traitance.
         </p>
-        <dl>
+        <div>
           {TMA_FAQ.map((item) => (
             <details
               key={item.question}
@@ -35,12 +35,12 @@ export function TmaFaq() {
                   +
                 </span>
               </summary>
-              <dd className="mt-4 text-secondary leading-relaxed">
+              <p className="mt-4 text-secondary leading-relaxed">
                 {item.answer}
-              </dd>
+              </p>
             </details>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   );

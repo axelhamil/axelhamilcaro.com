@@ -2,8 +2,12 @@ import { ArrowRight, Check, Sparkles, Target } from "lucide-react";
 import { TMA_FORFAITS } from "../lib/tma-data";
 
 const PAYMENT_LINKS: Record<"pro" | "premium", string> = {
-  pro: "https://buy.stripe.com/8x200cdlZggqfhE991c3m01",
-  premium: "https://buy.stripe.com/fZu6oA3LpaW64D00Cvc3m02",
+  pro:
+    process.env.NEXT_PUBLIC_STRIPE_TMA_PRO_URL ??
+    "https://buy.stripe.com/8x200cdlZggqfhE991c3m01",
+  premium:
+    process.env.NEXT_PUBLIC_STRIPE_TMA_PREMIUM_URL ??
+    "https://buy.stripe.com/fZu6oA3LpaW64D00Cvc3m02",
 };
 
 export function TmaPricing() {
@@ -15,7 +19,7 @@ export function TmaPricing() {
             className="text-accent font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
-            // souscrire()
+            {"// souscrire()"}
           </p>
           <h2
             className="text-3xl sm:text-5xl font-bold text-primary mb-4"
@@ -172,6 +176,16 @@ export function TmaPricing() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-6 pt-6 border-t border-border flex justify-end">
+                <a
+                  href={`#${forfait.slug}-details`}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+                >
+                  En savoir plus
+                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                </a>
+              </div>
             </article>
           ))}
         </div>

@@ -115,7 +115,10 @@ const HeroLeft = () => {
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
           <MagneticWrapper strength={0.06}>
             <ContactModal>
-              <Button size="lg" className="w-full sm:w-auto justify-center group">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto justify-center group"
+              >
                 <span
                   className="animate-wiggle"
                   style={{ animationDuration: "3s" }}

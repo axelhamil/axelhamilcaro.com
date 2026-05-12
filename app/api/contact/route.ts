@@ -55,7 +55,7 @@ export async function POST(request: Request) {
   const parsed = contactSchema.safeParse(payload);
   if (!parsed.success) {
     if (parsed.error instanceof ZodError) {
-      console.warn("[contact] validation failed", parsed.error.issues);
+      console.log("[contact] validation failed", parsed.error.issues);
     }
     return json({ success: true });
   }
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
 
   const captchaOk = await verifyTurnstile(parsed.data.turnstileToken, ip);
   if (!captchaOk) {
-    console.warn("[contact] captcha invalid", { ip });
+    console.log("[contact] captcha invalid", { ip });
     return json({ success: true });
   }
 

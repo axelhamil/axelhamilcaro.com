@@ -96,59 +96,61 @@ type AnchorExtraProps = Omit<
   keyof ILinkCardLinkProps | "className" | "ref"
 >;
 
-const LinkCard = forwardRef<HTMLElement, LinkCardProps & (ButtonExtraProps | AnchorExtraProps)>(
-  function LinkCard(props, ref) {
-    const classes = cn(
-      linkCardVariants({ variant: props.variant, className: props.className }),
-    );
-    const inner = (
-      <LinkCardContent
-        icon={props.icon}
-        title={props.title}
-        description={props.description}
-      />
-    );
+const LinkCard = forwardRef<
+  HTMLElement,
+  LinkCardProps & (ButtonExtraProps | AnchorExtraProps)
+>(function LinkCard(props, ref) {
+  const classes = cn(
+    linkCardVariants({ variant: props.variant, className: props.className }),
+  );
+  const inner = (
+    <LinkCardContent
+      icon={props.icon}
+      title={props.title}
+      description={props.description}
+    />
+  );
 
-    if (props.asButton) {
-      const { icon, title, description, variant, className, asButton, ...rest } =
-        props;
-      return (
-        <button
-          ref={ref as React.Ref<HTMLButtonElement>}
-          type="button"
-          className={classes}
-          {...(rest as ButtonExtraProps)}
-        >
-          {inner}
-        </button>
-      );
-    }
-
-    const { icon, title, description, variant, className, href, ...rest } =
+  if (props.asButton) {
+    // biome-ignore lint/correctness/noUnusedVariables: strip consumed props before rest spread
+    const { icon, title, description, variant, className, asButton, ...rest } =
       props;
-    const isExternal = href.startsWith("http") || href.startsWith("mailto:");
-
-    if (isExternal) {
-      return (
-        <a
-          ref={ref as React.Ref<HTMLAnchorElement>}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classes}
-          {...(rest as AnchorExtraProps)}
-        >
-          {inner}
-        </a>
-      );
-    }
-
     return (
-      <TransitionLink href={href} className={classes}>
+      <button
+        ref={ref as React.Ref<HTMLButtonElement>}
+        type="button"
+        className={classes}
+        {...(rest as ButtonExtraProps)}
+      >
         {inner}
-      </TransitionLink>
+      </button>
     );
-  },
-);
+  }
+
+  // biome-ignore lint/correctness/noUnusedVariables: strip consumed props before rest spread
+  const { icon, title, description, variant, className, href, ...rest } = props;
+  const isExternal = href.startsWith("http") || href.startsWith("mailto:");
+
+  if (isExternal) {
+    return (
+      <a
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+        {...(rest as AnchorExtraProps)}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <TransitionLink href={href} className={classes}>
+      {inner}
+    </TransitionLink>
+  );
+});
 
 export { LinkCard };
