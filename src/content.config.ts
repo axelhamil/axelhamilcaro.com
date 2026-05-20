@@ -1,5 +1,6 @@
 import { glob } from "astro/loaders";
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "zod";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
@@ -28,7 +29,7 @@ const portfolio = defineCollection({
     logo: z.string().optional(),
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
-    url: z.string().url().optional(),
+    url: z.url().optional(),
     draft: z.boolean().default(false),
   }),
 });

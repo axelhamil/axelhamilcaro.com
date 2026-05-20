@@ -5,8 +5,9 @@ dist/
 # Astro
 .astro/
 
-# Vercel
-.vercel/
+# Cloudflare
+.wrangler/
+.dev.vars
 
 # dependencies
 node_modules/

@@ -1,12 +1,12 @@
 import { ActionError, defineAction } from "astro:actions";
-import { z } from "astro:schema";
+import { z } from "zod";
 
 export const server = {
   contact: defineAction({
     accept: "json",
     input: z.object({
       name: z.string().trim().max(120).optional(),
-      email: z.string().email("Email invalide"),
+      email: z.email("Email invalide"),
       message: z.string().trim().min(80, "Message trop court").max(5000),
       projectType: z.string().min(1, "Type de projet requis"),
       budget: z.string().min(1, "Budget requis"),
