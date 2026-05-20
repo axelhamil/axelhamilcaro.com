@@ -9,7 +9,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check:fix": "biome check --write .",
+    "check:biome": "biome check ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
@@ -27,8 +31,9 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3"
   },
-  "packageManager": "pnpm@9.0.0"
+  "packageManager": "pnpm@11.1.3"
 }

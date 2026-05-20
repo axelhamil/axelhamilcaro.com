@@ -1,0 +1,8 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - '@astrojs/cloudflare@13.5.3'
+  - '@types/react@19.2.15'
+  - astro@6.3.6
