@@ -1,0 +1,35 @@
+{
+  "name": "axelhamilcaro.com",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/react": "^4.2.7",
+    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/vercel": "^8.1.4",
+    "@react-email/components": "^0.0.41",
+    "@tailwindcss/vite": "^4.1.7",
+    "astro": "^5.7.13",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "resend": "^4.5.1",
+    "tailwindcss": "^4.1.7",
+    "typescript": "^5.8.3",
+    "zod": "^3.25.7"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.4"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: hsl(35 40% 97%);
+  --color-foreground: hsl(20 25% 12%);
+
+  --color-card: hsl(35 50% 99%);
+  --color-card-foreground: hsl(20 25% 12%);
+
+  --color-popover: hsl(35 50% 99%);
+  --color-popover-foreground: hsl(20 25% 12%);
+
+  --color-primary: hsl(20 25% 15%);
+  --color-primary-foreground: hsl(35 40% 97%);
+
+  --color-secondary: hsl(34 35% 92%);
+  --color-secondary-foreground: hsl(20 25% 15%);
+
+  --color-muted: hsl(34 30% 93%);
+  --color-muted-foreground: hsl(20 12% 40%);
+
+  --color-accent: hsl(20 90% 55%);
+  --color-accent-foreground: hsl(0 0% 100%);
+
+  --color-destructive: hsl(0 70% 50%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(30 20% 86%);
+  --color-input: hsl(30 20% 86%);
+  --color-ring: hsl(20 90% 55%);
+}
+
+.dark {
+  --color-background: hsl(20 14% 8%);
+  --color-foreground: hsl(35 30% 94%);
+
+  --color-card: hsl(20 14% 11%);
+  --color-card-foreground: hsl(35 30% 94%);
+
+  --color-popover: hsl(20 14% 11%);
+  --color-popover-foreground: hsl(35 30% 94%);
+
+  --color-primary: hsl(35 30% 94%);
+  --color-primary-foreground: hsl(20 14% 8%);
+
+  --color-secondary: hsl(20 12% 16%);
+  --color-secondary-foreground: hsl(35 30% 94%);
+
+  --color-muted: hsl(20 12% 14%);
+  --color-muted-foreground: hsl(35 15% 65%);
+
+  --color-accent: hsl(20 95% 60%);
+  --color-accent-foreground: hsl(0 0% 100%);
+
+  --color-destructive: hsl(0 65% 55%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(20 12% 20%);
+  --color-input: hsl(20 12% 20%);
+  --color-ring: hsl(20 95% 60%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+}
