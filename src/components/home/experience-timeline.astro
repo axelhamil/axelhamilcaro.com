@@ -1,0 +1,176 @@
+---
+import { Briefcase, Code2, GraduationCap, Rocket } from "@lucide/astro";
+
+const experiences = [
+  {
+    period: "2021 - 2024",
+    company: "Civitime",
+    role: "Lead Dev Full-Stack",
+    description: "4 ans à structurer la stack technique d'une startup EdTech : serious games RSE, refonte DDD, éditeur de contenu.",
+    icon: Briefcase,
+    from: "#ff4d00",
+    to: "#ea580c",
+    side: "right",
+    highlight: "4 ans",
+  },
+  {
+    period: "2025 - Présent",
+    company: "ScormPilot",
+    role: "Développeur Full-Stack",
+    description: "SaaS e-learning from scratch. Next.js, NestJS, PostgreSQL.",
+    icon: Code2,
+    from: "#10b981",
+    to: "#14b8a6",
+    side: "left",
+    highlight: "SaaS",
+  },
+  {
+    period: "2024 - 2025",
+    company: "Superprof",
+    role: "Mentor Dev Web",
+    description: "Accompagnement de 10+ devs sur React, Clean Architecture et bonnes pratiques.",
+    icon: GraduationCap,
+    from: "#a855f7",
+    to: "#ec4899",
+    side: "right",
+    highlight: "10+ élèves",
+  },
+  {
+    period: "2025 - Présent",
+    company: "Freelance",
+    role: "Développeur Full-Stack",
+    description: "J'accompagne startups et entrepreneurs. MVP, refontes, SaaS sur mesure.",
+    icon: Rocket,
+    from: "#3b82f6",
+    to: "#06b6d4",
+    side: "left",
+    highlight: "Dispo",
+  },
+] as const;
+---
+
+<section id="parcours" class="container mx-auto px-4 py-16 sm:px-6 sm:py-24 md:px-10 scroll-mt-20" aria-labelledby="parcours-title">
+  <div class="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center">
+    <span class="badge" data-reveal="scale">
+      <Briefcase class="size-4 text-accent" aria-hidden="true" />
+      Parcours
+    </span>
+    <h2 id="parcours-title" class="section-title" data-reveal>Mon expérience professionnelle</h2>
+    <p class="text-sm text-muted-foreground sm:text-base" data-reveal>
+      5+ années à construire des produits web solides et scalables.
+    </p>
+  </div>
+
+  <ol class="timeline mx-auto mt-16 max-w-4xl">
+    {
+      experiences.map((exp) => (
+        <li class:list={["timeline-row", exp.side === "left" ? "is-left" : "is-right"]} data-reveal>
+          <article
+            class="card-accent accent-underline group relative p-6"
+            style={`--gradient-from: ${exp.from}; --gradient-to: ${exp.to};`}
+          >
+            <span class="timeline-highlight">{exp.highlight}</span>
+
+            <div class="flex items-start gap-4 pt-6 sm:pt-0">
+              <span class="icon-tile">
+                <exp.icon class="size-6" aria-hidden="true" />
+              </span>
+              <div class="flex flex-1 flex-col gap-1">
+                <span class="eyebrow">{exp.period}</span>
+                <h3 class="text-lg font-bold sm:text-xl">{exp.company}</h3>
+                <p class="text-sm font-medium text-accent">{exp.role}</p>
+                <p class="mt-2 text-sm leading-relaxed text-secondary">{exp.description}</p>
+              </div>
+            </div>
+          </article>
+
+          <span class="timeline-dot" style={`--gradient-from: ${exp.from}; --gradient-to: ${exp.to};`} aria-hidden="true"></span>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 1rem;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--accent), var(--accent), transparent);
+  }
+
+  .timeline-row {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline-row .timeline-dot {
+    position: absolute;
+    top: 1.5rem;
+    left: 1rem;
+    transform: translateX(-50%);
+  }
+
+  .timeline-highlight {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 12%, transparent);
+    border-radius: 9999px;
+  }
+
+  @media (min-width: 768px) {
+    .timeline {
+      gap: 2.5rem;
+    }
+
+    .timeline::before {
+      inset: 0 50% 0 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+      padding-left: 0;
+    }
+
+    .timeline-row.is-left > article {
+      grid-column: 1;
+    }
+
+    .timeline-row.is-right > article {
+      grid-column: 2;
+    }
+
+    .timeline-row .timeline-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+</style>

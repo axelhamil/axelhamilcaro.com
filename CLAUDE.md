@@ -31,8 +31,9 @@ Portfolio + site personnel d'Axel Hamilcaro. Astro static-first, écrit à la ma
 - Endpoint contact (validation Zod + score lead + appel Resend, ~80 lignes max dans un seul fichier)
 - Layouts, navbar, footer, SEO (JSON-LD à la main)
 
-**Règle** : plomberie → dep officielle Astro. UI ou logique métier → à la main.
-**Aucune lib UI tierce** (pas de shadcn, pas de Radix, pas de Headless UI, pas de framer-motion sur du contenu statique).
+**Règle** : plomberie → dep officielle Astro. UI ou logique métier → à la main, **sauf primitives shadcn** (cf. ci-dessous).
+
+**Primitives UI : shadcn autorisé** (décision 2026-05-20). Raison : l'objectif d'apprentissage du dev sur ce projet est **l'écosystème Astro** (pages, content collections, layouts, actions, view transitions, slots, hydration partielle), pas la rééducation à `cva` + `twMerge` + design tokens. shadcn = primitives standards déjà maîtrisées dans son patrimoine cognitif (Next.js), inutile de les réécrire. Composants installés via la CLI shadcn dans `src/components/ui/`, composés sur Tailwind v4 + tokens CSS de `src/styles/globals.css`. Reste interdit : **Radix UI** brut (overkill ici), **Headless UI**, **framer-motion** sur du contenu statique. Règle : primitives stateless via shadcn OK, tout ce qui apporte un runtime React lourd ou des deps tierces non-shadcn = à challenger.
 
 ## Architecture
 
@@ -61,6 +62,22 @@ public/            ← assets statiques (favicons, og images, photos)
 - Content collections : toujours un schéma Zod sur le frontmatter.
 - Pas de caractères AI slop dans le contenu/copy : pas d'em-dash (—), en-dash (–), ellipse (…), guillemets typographiques (« »).
 
+## Style & composition (règles transversales, inspirées clean-stack)
+
+**Principe** : une page Astro = composition de composants. Le markup applique du **placement**, jamais du look. Si une classe ne fait pas du placement, c'est soit un token de thème, soit un composant à extraire, soit une erreur.
+
+1. **`class` est réservé au placement.** Autorisé : `flex` (défaut pour les stacks), `flex-col`, `flex-row`, `items-*`, `justify-*`, `gap-*`, `w-*`, `h-*`, `min-*`, `max-*`, `mx-auto`, `p[xy]?-*` *de mise en page* (gouttières d'une `section`, container), responsive breakpoints (`md:`, `lg:`, …), `aspect-*`, `order-*`, `z-*`, `sticky`/`fixed`/`absolute`/`relative` + offsets, `overflow-*`, `hidden`/`block`. **`grid` réservé au 2D réel** ; pour empiler verticalement → `flex flex-col gap-*`.
+2. **Interdit inline** : couleurs (`bg-*`, `text-*` sauf utilitaire neutre comme `text-center`), `border-*` (color/radius/width), `shadow-*`, `rounded-*`, `font-*` (size/weight/family), `tracking-*`, `leading-*`, paddings de "look" (padding interne d'une card, d'un bouton — c'est le job du composant). Si tu écris `class="bg-... text-... p-4 rounded-..."` dans une page, **c'est un composant manquant**.
+3. **Le look vit dans 3 endroits, jamais ailleurs** :
+   - **Tokens** : `@theme` dans `src/styles/globals.css` (couleurs, radii, shadows, fonts).
+   - **Utilities sémantiques** : `@layer utilities` dans `globals.css` (`.card`, `.badge`, `.btn-primary`, …) — quand le pattern n'a pas d'état/slot.
+   - **Composants** : `src/components/ui/*` (primitives shadcn et customs partagées) et `src/components/<feature>/*` (sections de page). Tout ce qui a des slots, props, ou variantes va ici.
+4. **Test décisif** avant d'écrire une classe Tailwind sur une page : *"est-ce que cette classe positionne quelque chose dans le flux ?"* Non → extraire. Oui → OK.
+5. **Toujours shadcn d'abord, shadcn-pur ensuite.** Avant un composant custom, check `src/components/ui/` + le [registre shadcn](https://ui.shadcn.com/docs/components). Utilise les **vrais slots** (`Card`+`CardHeader`+`CardTitle`+`CardContent`) — mauvais slot = bricolage (`pt-6`, `space-y-*`). Pas de wrapper-variant ni d'override `data-slot="*"`. Ajustement nécessaire → token de thème ou édition de la primitive, **pas** d'override inline.
+6. **Un seul `<main>` et un seul `<h1>` par page rendue.** `base.astro` ne wrappe pas en `<main>` — chaque `<page>.astro` (ou son layout dédié) owns son `<header>`/`<main>`/`<footer>` + son `<h1>` unique.
+
+**Conséquence pratique** : une page comme `index.astro` doit être lisible comme une table des matières — `<Hero />`, `<Services />`, `<Portfolio />`, `<Testimonials />`, `<Contact />`. Pas de markup décoratif inline entre deux composants.
+
 ## Conventions git
 
 - Messages de commit en **français**, conventional commits : `type(scope): description`
@@ -69,29 +86,25 @@ public/            ← assets statiques (favicons, og images, photos)
   - `nextjs` (sauvegarde de l'ancien Next.js — référence à reprendre au fur et à mesure : `git show nextjs:<path>`)
   - `main` (encore l'ancien Next.js, jusqu'à bascule)
 
-## Mode Sensei
+## Mode
 
-Claude Code est en mode **sensei** sur cette branche — mentor qui guide la migration manuelle, ne code pas.
+Implémentation directe. Le dev cadre, valide les trade-offs aux moments-clés, Claude code.
 
-- **JAMAIS** écrire, éditer ou générer du code source — pas de Write/Edit/NotebookEdit sur `.astro`, `.ts`, `.tsx`, MDX de contenu, configs Astro (`astro.config.*`, `tsconfig.json`, `tailwind.config.*`)
-- **Toujours** guider par la question (design, trade-offs, choix d'architecture) plutôt que par la réponse
-- **Répondre directement** quand c'est factuel : syntaxe Astro, API officielle, nom d'integration, structure d'un content collection, signature d'un endpoint
-- **Lire proactivement** : codebase courant + branche `nextjs` (via `git show nextjs:<path>` ou checkout temporaire) — ne jamais demander au dev de coller du code
-- **Vérifier la doc Astro officielle** (WebSearch/WebFetch) avant d'affirmer sur une feature, surtout content collections v2, view transitions, image optimization, Vercel adapter
-- **Review** chaque chunk écrit par le dev quand demandé : trade-offs, pièges hydration/SSR, simplifications possibles
-- **Profil dev** : TypeScript senior (Next.js, React), scaffold Astro à la main pour éviter le vibecoding et internaliser l'écosystème. Vient de payer le prix du sur-engineering Clean Arch sur la branche `nextjs` (~6 400 LOC backend pour 1 form contact + 1 admin abandonné). Discipline minimaliste exigée cette fois.
-- **Anti-patterns à signaler immédiatement** :
-  - tentation de remettre Clean Arch / services / repositories pour 2-3 endpoints
-  - ajout de libs UI tierces (shadcn, Radix, Headless UI, framer-motion sur du statique)
-  - hydration partielle abusive sur du contenu non interactif
+- **Profil dev** : TypeScript senior (Next.js, React), découvre l'écosystème Astro sur ce projet. Discipline minimaliste exigée — vient de payer le prix du sur-engineering Clean Arch sur la branche `nextjs` (~6 400 LOC backend pour 1 form contact + 1 admin abandonné).
+- **Lire proactivement** : codebase courant + branche `nextjs` (`git show nextjs:<path>`).
+- **Vérifier la doc Astro officielle** (WebSearch/WebFetch) avant d'affirmer sur une feature mouvante : content collections v2, view transitions, image optimization, Vercel/Cloudflare adapter.
+- **Anti-patterns à refuser** :
+  - Clean Arch / services / repositories pour 2-3 endpoints
+  - libs UI tierces **hors shadcn** (Radix brut, Headless UI, framer-motion sur du statique)
+  - hydration partielle abusive (`client:*`) sur du contenu non interactif
   - content collection sans schéma Zod
   - barrel exports `index.ts`
   - commentaires explicatifs sur du code qui s'auto-documente
-- **Commandes git** (commit, push, branch, checkout) — OK si demandées explicitement
-- **CLAUDE.md et fichiers `.claude/`** — responsabilité de Claude, pas du dev
+- **Actions destructrices** (rm, reset hard, force push) : confirmer avant. Tout le reste : exécuter.
 
 ## Historique
 
 - 2026-05-20 : commit `8f707e5` sur `main` — fin de l'ère Next.js (qualification lead contact poussée en dernier)
 - 2026-05-20 : branche `nextjs` créée depuis `main` comme sauvegarde de l'ancien code
 - 2026-05-20 : branche `astro-migration` créée depuis `main`, vidée intégralement, CLAUDE.md réécrit en mode sensei. Prêt pour scaffold Astro manuel.
+- 2026-05-20 : décision shadcn — l'objectif d'apprentissage est l'écosystème Astro, pas la rééducation aux primitives UI. shadcn devient la lib de référence pour `components/ui/`. Mode sensei se recentre sur Astro (slots, content collections, layouts, actions, view transitions, hydration), plus sur la composition Tailwind manuelle.

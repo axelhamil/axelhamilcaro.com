@@ -1,0 +1,168 @@
+---
+import { Briefcase, Coffee, Heart, Mail } from "@lucide/astro";
+import SocialIcon from "@/components/layout/social-icon.astro";
+import { EXTERNAL_LINKS } from "@/lib/site";
+
+const year = new Date().getFullYear();
+
+const socials = [
+  { name: "GitHub", href: EXTERNAL_LINKS.github, kind: "github" as const },
+  { name: "LinkedIn", href: EXTERNAL_LINKS.linkedin, kind: "linkedin" as const },
+  { name: "Malt", href: EXTERNAL_LINKS.malt, kind: "malt" as const },
+  { name: "Instagram", href: EXTERNAL_LINKS.instagram, kind: "instagram" as const },
+  { name: "TikTok", href: EXTERNAL_LINKS.tiktok, kind: "tiktok" as const },
+] as const;
+---
+
+<footer class="relative mt-20 border-t border-border md:mt-24">
+  <div class="container mx-auto px-4 py-12 sm:px-6 sm:py-16 md:px-10">
+    <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div class="flex max-w-sm flex-col gap-3">
+        <div class="font-mono text-xl font-bold sm:text-2xl">axel_hamilcaro()</div>
+        <p class="text-sm text-muted-foreground">
+          Je conçois et développe des produits web premium, avec une architecture lisible, une UI soignée, et une prod pilotable.
+        </p>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <span class="footer-chip">Produit</span>
+          <span class="footer-chip">Clean Architecture</span>
+          <span class="footer-chip">Performance</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <span class="footer-section-title">Par ici</span>
+        <nav class="flex flex-col gap-2">
+          <a href="/about" class="footer-link">À propos</a>
+          <a href="/#portfolio" class="footer-link">Portfolio</a>
+          <a href="/blog" class="footer-link">Blog</a>
+          <a href="/tree" class="footer-link">Liens</a>
+          <a href="/sitemap-index.xml" class="footer-link footer-link-sub">Sitemap</a>
+        </nav>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <span class="footer-section-title">Services</span>
+        <nav class="flex flex-col gap-2">
+          <a href="/services/developpeur-nextjs-freelance" class="footer-link">Développeur Next.js</a>
+          <a href="/services/developpement-saas" class="footer-link">Développement SaaS</a>
+          <a href="/services/lead-tech-fractional" class="footer-link">Lead tech fractional</a>
+          <a href="/tma" class="footer-link">TMA — Forfait mensuel</a>
+          <a href="/services" class="footer-link footer-link-sub">Tous les services</a>
+        </nav>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <span class="footer-section-title">Contact direct</span>
+        <a href="#contact" class="footer-cta">
+          <span class="inline-flex items-center gap-2 text-sm font-semibold">
+            <Mail class="size-4" aria-hidden="true" />
+            Me contacter
+          </span>
+          <span class="text-xs opacity-80">Réponse sous 1h en journée</span>
+        </a>
+
+        <div class="flex flex-wrap items-center gap-2 pt-2">
+          {
+            socials.map((s) => (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.name}
+                class="footer-social"
+              >
+                <SocialIcon kind={s.kind} />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="my-8 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent"></div>
+
+    <div class="flex flex-col gap-4 text-xs sm:flex-row sm:items-center sm:justify-between sm:text-sm">
+      <p class="text-muted-foreground">
+        © {year} Axel Hamilcaro · SIRET 939 291 415 00015 ·{" "}
+        <a href="/mentions-legales" class="footer-link">Mentions légales</a>
+      </p>
+
+      <p class="inline-flex items-center gap-1.5 text-muted-foreground">
+        Fait avec <Heart class="size-3.5 text-accent" aria-hidden="true" />,{" "}
+        <Coffee class="size-3.5 text-accent" aria-hidden="true" /> et beaucoup de{" "}
+        <span class="font-mono text-accent">TypeScript</span>
+      </p>
+
+      <p class="text-muted-foreground">Touraine, remote France</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--secondary) 70%, transparent);
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    color: var(--primary);
+    transition: color 0.25s;
+  }
+
+  .footer-link:hover {
+    color: var(--accent);
+  }
+
+  .footer-link-sub {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    margin-top: 0.25rem;
+  }
+
+  .footer-chip {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    color: var(--secondary);
+    background: var(--secondary-background);
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+  }
+
+  .footer-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    background: var(--accent);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: background-color 0.25s, box-shadow 0.25s;
+  }
+
+  .footer-cta:hover {
+    background: var(--accent-hover);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .footer-social {
+    display: inline-flex;
+    padding: 0.5rem;
+    color: var(--primary);
+    background: var(--secondary-background);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) - 2px);
+    transition: color 0.25s, border-color 0.25s, transform 0.25s;
+  }
+
+  .footer-social:hover {
+    color: var(--accent);
+    border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+    transform: scale(1.1);
+  }
+</style>

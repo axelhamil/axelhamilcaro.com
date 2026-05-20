@@ -1,0 +1,117 @@
+---
+const items = [
+  {
+    question: "Quels types de projets prends-tu ?",
+    answer:
+      "Applications web sur mesure, SaaS B2B multi-tenant, refonte d'architecture, lead tech temps partiel sur engagement long. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
+  },
+  {
+    question: "Quels sont tes délais ?",
+    answer:
+      "Mission ferme : démarrage sous 1 à 3 semaines selon ma charge. MVP : 4 à 8 semaines pour une v1 production-ready. Audit ou consulting court : sous 5 jours ouvrés. Je suis transparent sur ma dispo dès le premier échange.",
+  },
+  {
+    question: "Quel est ton TJM et mode de facturation ?",
+    answer:
+      "TJM 450€ HT (référence Malt). Facturation au temps passé en régie, ou au forfait pour scope fermé. Devis détaillé sous 24h après notre échange découverte.",
+  },
+  {
+    question: "Travailles-tu en remote ou sur site ?",
+    answer:
+      "100% remote, basé en Touraine. Je suis disponible pour des points sur site ponctuels en France selon le projet (kickoff, atelier produit, restitution).",
+  },
+  {
+    question: "Comment se passe le premier contact ?",
+    answer:
+      "Tu m'écris en 3 lignes (objectif business, contexte, deadline) ou tu réserves un appel découverte 30 min sur Calendly. Je reviens avec une analyse honnête et un plan d'action concret. Si je ne suis pas le bon profil, je te le dis.",
+  },
+] as const;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+---
+
+<section id="faq" class="container mx-auto px-4 py-20 sm:px-6 sm:py-28 md:px-10" aria-labelledby="faq-title">
+  <div class="mx-auto flex max-w-3xl flex-col gap-3">
+    <span class="badge self-start" data-reveal="scale">FAQ</span>
+    <h2 id="faq-title" class="faq-title" data-reveal>Tes questions, mes réponses</h2>
+    <p class="text-lg text-muted-foreground" data-reveal>Cinq questions que les clients me posent en premier.</p>
+  </div>
+
+  <dl class="mx-auto mt-10 max-w-3xl">
+    {
+      items.map((item) => (
+        <details class="faq-row group" data-reveal>
+          <summary class="faq-summary">
+            <span>{item.question}</span>
+            <span class="faq-toggle" aria-hidden="true">+</span>
+          </summary>
+          <dd class="faq-answer">{item.answer}</dd>
+        </details>
+      ))
+    }
+  </dl>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+</section>
+
+<style>
+  .faq-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+
+  .faq-row {
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    list-style: none;
+    transition: color 0.25s;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .group[open] .faq-summary {
+    color: var(--accent);
+  }
+
+  .faq-toggle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1;
+    transition: transform 0.25s ease;
+  }
+
+  .group[open] .faq-toggle {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    margin-top: 0.75rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+</style>

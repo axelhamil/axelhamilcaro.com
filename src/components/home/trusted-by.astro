@@ -1,0 +1,125 @@
+---
+import { Award, Building2 } from "@lucide/astro";
+
+type Company = {
+  name: string;
+  type: string;
+  logoSrc?: string;
+  logo?: string;
+  from: string;
+  to: string;
+};
+
+const companies: Company[] = [
+  { name: "Civitime", type: "EdTech B Corp", logoSrc: "/portfolio/civitime/logo.webp", from: "#ff4d00", to: "#ea580c" },
+  { name: "ScormPilot", type: "SaaS e-learning", logoSrc: "/portfolio/scormpilot/logo.webp", from: "#10b981", to: "#14b8a6" },
+  { name: "OpenUp", type: "SaaS gestion de liens", logoSrc: "/portfolio/openup/logo.svg", from: "#0066ff", to: "#7c3aed" },
+  { name: "Billetterie", type: "Dashboard événementiel", logoSrc: "/portfolio/billetterie/logo.svg", from: "#7c3aed", to: "#f59e0b" },
+  { name: "Superprof", type: "Plateforme", logo: "S", from: "#a855f7", to: "#ec4899" },
+  { name: "MentorTroc", type: "App sociale", logo: "MT", from: "#3b82f6", to: "#6366f1" },
+  { name: "Artisans", type: "Sites vitrines", logo: "AL", from: "#f59e0b", to: "#ff4d00" },
+  { name: "Startups", type: "MVPs", logo: "S+", from: "#06b6d4", to: "#3b82f6" },
+];
+
+const track = [...companies, ...companies];
+---
+
+<section id="trusted-by" class="py-16 sm:py-24 scroll-mt-20" aria-labelledby="trusted-by-title">
+  <div class="container mx-auto flex max-w-3xl flex-col items-center gap-3 px-4 text-center sm:px-6 md:px-10">
+    <span class="badge" data-reveal="scale">
+      <Building2 class="size-4 text-accent" aria-hidden="true" />
+      Références
+    </span>
+    <h2 id="trusted-by-title" class="section-title" data-reveal>Projets et collaborations</h2>
+    <p class="text-sm text-muted-foreground sm:text-base" data-reveal>
+      Startups tech, scale-ups et entrepreneurs. Du MVP au produit en production.
+    </p>
+  </div>
+
+  <div class="marquee-mask relative mt-10 overflow-hidden">
+    <div class="marquee-track">
+      {
+        track.map((c, i) => (
+          <article class="company-card" aria-hidden={i >= companies.length ? "true" : undefined}>
+            <span
+              class:list={["company-logo", c.logoSrc && "company-logo-img"]}
+              style={c.logoSrc ? undefined : `--gradient-from: ${c.from}; --gradient-to: ${c.to};`}
+            >
+              {c.logoSrc ? (
+                <img src={c.logoSrc} alt={`${c.name} logo`} width="32" height="32" loading="lazy" decoding="async" />
+              ) : (
+                <span class="text-xs font-bold text-white">{c.logo}</span>
+              )}
+            </span>
+            <div class="flex flex-col">
+              <p class="font-semibold whitespace-nowrap">{c.name}</p>
+              <p class="text-xs text-muted-foreground whitespace-nowrap">{c.type}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="container mx-auto mt-10 flex justify-center px-4 sm:px-6 md:px-10" data-reveal>
+    <span class="badge">
+      <Award class="size-4 text-amber-500" aria-hidden="true" />
+      <span class="text-xs text-secondary sm:text-sm">
+        <strong class="text-accent">20+</strong> applications livrées depuis 2020 · Disponible pour votre projet
+      </span>
+    </span>
+  </div>
+</section>
+
+<style>
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+
+  .company-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--primary-background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  }
+
+  .company-card:hover {
+    border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .company-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: calc(var(--radius) - 4px);
+    background: linear-gradient(135deg, var(--gradient-from, var(--accent)), var(--gradient-to, var(--accent-hover)));
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .company-logo-img {
+    background: #fff;
+    border: 1px solid var(--border);
+  }
+
+  .company-logo img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+  }
+</style>

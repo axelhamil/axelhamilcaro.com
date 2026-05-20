@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@/layouts/base.astro";
+
+const pageTitle = "Titre de la page · Axel Hamilcaro";
+const pageDescription = "Description courte (155 caractères max) qui sera reprise par Google et les réseaux sociaux.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: pageTitle,
+  description: pageDescription,
+  url: new URL(Astro.url.pathname, Astro.site).toString(),
+  inLanguage: "fr-FR",
+  isPartOf: {
+    "@type": "WebSite",
+    name: "Axel Hamilcaro",
+    url: Astro.site?.toString(),
+  },
+  author: {
+    "@type": "Person",
+    name: "Axel Hamilcaro",
+    url: Astro.site?.toString(),
+  },
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  image="/og-default.png"
+  imageAlt="Axel Hamilcaro"
+  type="website"
+>
+  <script
+    slot="head"
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(jsonLd)}
+  />
+
+  <main class="min-h-svh max-w-3xl mx-auto px-6 py-16">
+    <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight mb-6">
+      Titre de la page
+    </h1>
+    <p class="text-lg text-muted-foreground mb-8">
+      Sous-titre ou intro courte.
+    </p>
+
+    <section class="space-y-6">ici
+    </section>
+  </main>
+</BaseLayout>

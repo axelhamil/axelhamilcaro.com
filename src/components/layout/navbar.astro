@@ -1,0 +1,102 @@
+---
+import { Mail } from "@lucide/astro";
+import { NAV_LINKS } from "@/lib/site";
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => {
+  if (href.startsWith("/#")) return false;
+  if (href === "/") return pathname === "/";
+  return pathname.startsWith(href);
+};
+---
+
+<header class="nav-clean fixed inset-x-0 top-0 z-50">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 md:px-10" aria-label="Navigation principale">
+    <a href="/" class="font-mono text-base font-bold sm:text-lg" aria-label="Accueil — Axel Hamilcaro">
+      axel_hamilcaro()
+    </a>
+
+    <div class="hidden items-center gap-1 md:flex">
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "nav-link",
+              isActive(link.href) && "is-active",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+
+      <a href="/blog" class:list={["nav-link", pathname.startsWith("/blog") && "is-active"]}>
+        Blog
+      </a>
+
+      <a href="#contact" class="nav-cta">
+        <Mail class="size-4" aria-hidden="true" />
+        <span class="hidden lg:inline">Me contacter</span>
+      </a>
+    </div>
+
+    <a href="#contact" class="nav-cta md:hidden">
+      <Mail class="size-4" aria-hidden="true" />
+    </a>
+  </nav>
+</header>
+
+<style>
+  .nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--primary);
+    border-radius: calc(var(--radius) - 2px);
+    transition: color 0.25s, background-color 0.25s;
+  }
+
+  .nav-link:hover {
+    color: var(--accent);
+    background: var(--secondary-background);
+  }
+
+  .nav-link.is-active {
+    color: var(--accent);
+  }
+
+  .nav-link.is-active::after {
+    content: "";
+    position: absolute;
+    bottom: 0.125rem;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 1.5rem;
+    border-radius: 9999px;
+    background: var(--accent);
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border-radius: calc(var(--radius) - 2px);
+    box-shadow: var(--shadow-sm);
+    transition: background-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+    box-shadow: var(--shadow-lg);
+  }
+</style>

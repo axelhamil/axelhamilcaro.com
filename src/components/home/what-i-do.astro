@@ -1,0 +1,95 @@
+---
+import { Code2, Lightbulb, Rocket, Sparkles, Trophy, Wrench } from "@lucide/astro";
+
+const services = [
+  {
+    icon: Lightbulb,
+    title: "Conception",
+    description: "Analyse de vos besoins, architecture technique et roadmap claire pour démarrer sur de bonnes bases.",
+    from: "#f59e0b",
+    to: "#ff4d00",
+  },
+  {
+    icon: Code2,
+    title: "Développement",
+    description: "Code TypeScript moderne, testé et documenté. Votre app évolue sans dette technique.",
+    from: "#3b82f6",
+    to: "#06b6d4",
+  },
+  {
+    icon: Rocket,
+    title: "Déploiement",
+    description: "Pipeline CI/CD, monitoring et mise en production automatisée. Zéro stress au lancement.",
+    from: "#a855f7",
+    to: "#ec4899",
+  },
+  {
+    icon: Wrench,
+    title: "Support",
+    description: "Évolutions fonctionnelles, corrections et support réactif. Votre produit reste performant.",
+    from: "#10b981",
+    to: "#14b8a6",
+  },
+] as const;
+
+const stats = [
+  { value: "20+", label: "applications livrées" },
+  { value: "4 ans", label: "expérience lead" },
+  { value: "10+", label: "élèves mentorés" },
+  { value: "48h", label: "sites artisans" },
+] as const;
+---
+
+<section id="services" class="container mx-auto px-4 py-16 sm:px-6 sm:py-24 md:px-10 scroll-mt-20" aria-labelledby="services-title">
+  <div class="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center">
+    <span class="badge" data-reveal="scale">
+      <Sparkles class="size-4 text-accent" aria-hidden="true" />
+      Services
+    </span>
+    <h2 id="services-title" class="section-title" data-reveal>Mes services de développement web</h2>
+    <p class="text-sm text-muted-foreground sm:text-base" data-reveal>
+      Un accompagnement complet de l'idée au lancement, puis au-delà.
+    </p>
+  </div>
+
+  <div class="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      services.map((s) => (
+        <article
+          class="card-accent accent-underline flex flex-col items-center gap-4 p-6 text-center"
+          style={`--gradient-from: ${s.from}; --gradient-to: ${s.to};`}
+          data-reveal="scale"
+        >
+          <span class="icon-tile icon-tile-lg">
+            <s.icon class="size-7" aria-hidden="true" />
+          </span>
+          <h3 class="text-lg font-semibold sm:text-xl">{s.title}</h3>
+          <p class="text-sm leading-relaxed text-secondary">{s.description}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="mx-auto mt-12 flex max-w-3xl flex-wrap items-center justify-center gap-6 rounded-2xl border border-border bg-secondary-background/40 px-6 py-4 sm:gap-10" data-reveal>
+    {
+      stats.map((s) => (
+        <div class="flex items-center gap-2">
+          <Trophy class="hidden size-4 text-accent sm:block" aria-hidden="true" />
+          <span class="text-lg font-bold text-accent sm:text-xl">{s.value}</span>
+          <span class="text-xs text-muted-foreground sm:text-sm">{s.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+</style>

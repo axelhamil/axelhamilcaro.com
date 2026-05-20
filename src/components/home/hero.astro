@@ -1,0 +1,154 @@
+---
+import { ArrowRight, Code2, Mail, Rocket, Zap } from "@lucide/astro";
+
+const techIcons = [
+  { Icon: Code2, label: "React / Next.js" },
+  { Icon: Zap, label: "TypeScript" },
+  { Icon: Rocket, label: "Node.js" },
+] as const;
+
+const stats = [
+  { value: "5+", label: "ans d'expérience" },
+  { value: "20+", label: "apps livrées" },
+  { value: "100%", label: "satisfaction client" },
+] as const;
+---
+
+<section id="hero" class="container mx-auto flex min-h-[calc(100svh-5rem)] flex-col-reverse items-center gap-10 px-4 py-10 sm:px-6 md:px-10 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+  <div class="flex min-w-0 flex-col gap-6 sm:gap-7 lg:gap-8">
+    <span class="badge self-start" data-reveal="scale">
+      <span class="pulsing-dot" aria-hidden="true"></span>
+      <span class="text-xs font-medium sm:text-sm">Disponible · Touraine · Remote France</span>
+    </span>
+
+    <h1 class="hero-title" data-reveal>
+      Développeur<br class="hidden sm:block" />
+      <span class="text-accent">FullStack</span> Freelance
+    </h1>
+
+    <h2 class="flex flex-wrap items-center gap-x-3 gap-y-2 text-lg sm:text-xl md:text-2xl" data-reveal>
+      {
+        techIcons.map(({ Icon, label }, i) => (
+          <span class="inline-flex items-center gap-1.5">
+            <Icon class="size-5 text-accent" aria-hidden="true" />
+            {label}
+            {i < techIcons.length - 1 && <span class="hidden text-muted sm:inline">·</span>}
+          </span>
+        ))
+      }
+    </h2>
+
+    <div class="flex flex-col gap-3 md:gap-4" data-reveal>
+      <p class="text-base md:text-lg">
+        Je suis <strong>Axel Hamilcaro</strong>, développeur full-stack freelance basé en Touraine, 100% remote France. Je transforme des idées produit en applications web solides, de l'architecture à la mise en production.
+      </p>
+      <p class="text-base text-secondary md:text-lg">
+        Spécialiste <strong>React, Next.js et TypeScript</strong>. Du MVP au SaaS en croissance : rigueur technique, code maintenable et livraison dans les délais.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3 pt-2 sm:flex-row sm:gap-4" data-reveal>
+      <a href="#contact" class="btn btn-lg btn-primary w-full sm:w-auto">
+        <Mail class="size-5" aria-hidden="true" />
+        Lancer mon projet sous 24h
+      </a>
+      <a href="/tree" class="btn btn-lg btn-outline w-full sm:w-auto">
+        Mes réseaux
+        <ArrowRight class="size-5" aria-hidden="true" />
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 pt-2 sm:grid-cols-3 sm:gap-4" data-reveal>
+      {
+        stats.map((s) => (
+          <div class="stat-tile">
+            <span class="text-2xl font-bold text-accent sm:text-3xl">{s.value}</span>
+            <span class="text-center text-xs text-muted-foreground sm:text-sm">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="flex w-full justify-center lg:w-auto" data-reveal="scale">
+    <div class="hero-portrait">
+      <img
+        src="/profil_pp.jpeg"
+        alt="Axel Hamilcaro — Développeur Full-Stack"
+        width="288"
+        height="288"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <span class="hero-portrait-badge" aria-hidden="true">
+        <Code2 class="size-5 sm:size-6" />
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    color: var(--primary);
+  }
+
+  .pulsing-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
+    animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent); }
+    50% { box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 0%, transparent); }
+  }
+
+  .hero-portrait {
+    position: relative;
+    width: 12rem;
+    height: 12rem;
+  }
+
+  @media (min-width: 640px) { .hero-portrait { width: 14rem; height: 14rem; } }
+  @media (min-width: 768px) { .hero-portrait { width: 16rem; height: 16rem; } }
+  @media (min-width: 1024px) { .hero-portrait { width: 18rem; height: 18rem; } }
+
+  .hero-portrait img {
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .hero-portrait-badge {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    color: #fff;
+    background: var(--accent);
+    border-radius: calc(var(--radius) - 2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (min-width: 640px) {
+    .hero-portrait-badge {
+      top: -0.5rem;
+      right: -0.5rem;
+      padding: 0.625rem;
+    }
+  }
+</style>

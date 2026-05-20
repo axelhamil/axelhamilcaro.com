@@ -1,34 +1,48 @@
 ---
-import BaseLayout from "@/layouts/base.astro";
+import SiteLayout from "@/layouts/site.astro";
+import Hero from "@/components/home/hero.astro";
+import ExperienceTimeline from "@/components/home/experience-timeline.astro";
+import WhatIDo from "@/components/home/what-i-do.astro";
+import CaseStudies from "@/components/home/case-studies.astro";
+import TrustedBy from "@/components/home/trusted-by.astro";
+import TechStack from "@/components/home/tech-stack.astro";
+import Faq from "@/components/home/faq.astro";
+
+const pageTitle = "Axel Hamilcaro | Développeur Full-Stack Freelance France — Next.js & TypeScript";
+const pageDescription = "Développeur full-stack freelance basé en Touraine, 100% remote France. Next.js, React, TypeScript, SaaS multi-tenant et lead tech fractional. TJM 450€.";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Axel Hamilcaro",
+  jobTitle: "Développeur Full-Stack Freelance",
+  url: "https://axelhamilcaro.com",
+  image: "https://axelhamilcaro.com/profil_pp.jpeg",
+  email: "mailto:contact@axelhamilcaro.com",
+  address: { "@type": "PostalAddress", addressRegion: "Centre-Val de Loire", addressCountry: "FR" },
+  sameAs: [
+    "https://github.com/axelhamil",
+    "https://www.linkedin.com/in/axelhamilcaro/",
+    "https://www.malt.fr/profile/axelhamilcaro",
+  ],
+  knowsAbout: ["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL", "SaaS", "Clean Architecture", "DDD"],
+};
 ---
 
-<BaseLayout
-  title="Axel Hamilcaro · Freelance Next.js & Lead Tech"
-  description="Freelance Next.js, SaaS et lead tech sur la Touraine et remote France."
+<SiteLayout
+  title={pageTitle}
+  description={pageDescription}
+  image="/og-default.png"
+  imageAlt="Axel Hamilcaro — Freelance Next.js, SaaS et Lead Tech"
+  type="website"
 >
-  <main class="min-h-svh flex items-center justify-center px-6">
-    <section class="max-w-2xl text-center space-y-6">
-      <span
-        class="inline-block px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium tracking-wide"
-      >
-        astro-migration · scaffold
-      </span>
-      <h1 class="text-4xl sm:text-6xl font-semibold tracking-tight">
-        Axel Hamilcaro
-      </h1>
-      <p class="text-lg text-muted-foreground">
-        Migration Astro en cours. Le contenu reviendra depuis la branche{" "}
-        <code class="font-mono text-sm bg-muted px-1.5 py-0.5 rounded">
-          nextjs
-        </code>
-        au fur et à mesure.
-      </p>
-      <a
-        href="https://github.com/axelhamil/axelhamilcaro.com"
-        class="inline-flex items-center gap-2 text-accent hover:underline underline-offset-4"
-      >
-        Voir le repo →
-      </a>
-    </section>
-  </main>
-</BaseLayout>
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+  <Hero />
+  <ExperienceTimeline />
+  <WhatIDo />
+  <CaseStudies />
+  <TrustedBy />
+  <TechStack />
+  <Faq />
+</SiteLayout>

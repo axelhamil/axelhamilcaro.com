@@ -1,0 +1,209 @@
+---
+import { ArrowRight, Briefcase, Zap } from "@lucide/astro";
+
+const projects = [
+  {
+    title: "Civitime",
+    type: "4 ans · Référent technique",
+    description:
+      "De dev à référent technique d'une startup B Corp RSE. Réécriture legacy en Clean Archi DDD, serious games, plateforme SaaS SCORM multi-tenant, backoffice Directus, SSO grands comptes.",
+    tech: ["React", "NestJS", "DDD", "TDD/BDD", "SCORM"],
+    metric: "250 000+",
+    metricLabel: "collaborateurs",
+    logoSrc: "/portfolio/civitime/logo.webp",
+    thumbnail: "/portfolio/civitime/city-builder.webp",
+    href: "/portfolio/civitime",
+    from: "#ff4d00",
+    to: "#ea580c",
+  },
+  {
+    title: "ScormPilot",
+    type: "SaaS · Freelance",
+    description:
+      "Conception et développement complet d'une plateforme SaaS e-learning. Alternative simple aux LMS rigides, architecture multi-tenant, milliers d'utilisateurs.",
+    tech: ["Next.js", "Fastify", "PostgreSQL", "DDD"],
+    metric: "100% solo",
+    metricLabel: "conception à production",
+    logoSrc: "/portfolio/scormpilot/logo.webp",
+    thumbnail: "/portfolio/scormpilot/dashboard.webp",
+    href: "/portfolio/scormpilot",
+    from: "#10b981",
+    to: "#14b8a6",
+  },
+  {
+    title: "OpenUp",
+    type: "SaaS · Freelance solo",
+    description:
+      "SaaS de gestion de liens tout-en-un (Bitly + Linktree + Beacons). Mobile natif iOS + Android + PWA depuis une codebase, edge Cloudflare <50ms, Stripe multi-devise. Live sur openup.to.",
+    tech: ["Hono", "Capacitor", "Cloudflare Workers", "DDD", "Deep links"],
+    metric: "En production",
+    metricLabel: "iOS · Android · PWA",
+    logoSrc: "/portfolio/openup/logo.svg",
+    thumbnail: "/portfolio/openup/links-dashboard.webp",
+    href: "/portfolio/openup",
+    from: "#0066ff",
+    to: "#7c3aed",
+  },
+  {
+    title: "Billetterie Interne",
+    type: "Dashboard · Freelance",
+    description:
+      "Dashboard interne de gestion d'événements et ventes en temps réel. Plan de salle Seats.io 2D/3D, tarification multi-TVA, WebSocket bidirectionnel. Projet sous NDA.",
+    tech: ["Next.js", "NestJS", "WebSocket", "PostgreSQL"],
+    metric: "<200ms",
+    metricLabel: "latence WebSocket",
+    logoSrc: "/portfolio/billetterie/logo.svg",
+    thumbnail: "/portfolio/billetterie/dashboard.webp",
+    href: "/portfolio/billetterie",
+    from: "#7c3aed",
+    to: "#f59e0b",
+  },
+] as const;
+---
+
+<section id="portfolio" class="container mx-auto px-4 py-16 sm:px-6 sm:py-24 md:px-10 scroll-mt-16" aria-labelledby="portfolio-title">
+  <div class="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center">
+    <span class="badge" data-reveal="scale">
+      <Briefcase class="size-4 text-accent" aria-hidden="true" />
+      Projets
+    </span>
+    <h2 id="portfolio-title" class="section-title" data-reveal>Projets et réalisations</h2>
+    <p class="text-sm text-muted-foreground sm:text-base" data-reveal>
+      Du MVP au produit en production. Des projets concrets avec des résultats mesurables.
+    </p>
+  </div>
+
+  <div class="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2">
+    {
+      projects.map((p, i) => (
+        <a
+          href={p.href}
+          class="project-card accent-underline group"
+          style={`--gradient-from: ${p.from}; --gradient-to: ${p.to};`}
+          data-reveal={i === 0 ? "left" : i === projects.length - 1 ? "right" : undefined}
+        >
+          <div class="project-thumb">
+            <img
+              src={p.thumbnail}
+              alt={`${p.title} preview`}
+              width="1200"
+              height="600"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="project-thumb-fade" aria-hidden="true"></div>
+          </div>
+
+          <div class="flex flex-col gap-4 p-6">
+            <header class="flex items-start justify-between gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="eyebrow">{p.type}</span>
+                <h3 class="text-lg font-semibold sm:text-xl">{p.title}</h3>
+              </div>
+              <span class="project-logo">
+                <img src={p.logoSrc} alt={`${p.title} logo`} width="36" height="36" loading="lazy" decoding="async" />
+              </span>
+            </header>
+
+            <p class="text-sm leading-relaxed text-secondary">{p.description}</p>
+
+            <div class="flex flex-wrap gap-2">
+              {p.tech.map((t) => (
+                <span class="tech-pill">{t}</span>
+              ))}
+            </div>
+
+            <footer class="mt-2 flex items-center justify-between gap-2 border-t border-border pt-4">
+              <span class="flex items-center gap-2">
+                <Zap class="size-4 text-accent" aria-hidden="true" />
+                <span class="text-sm font-semibold text-accent">{p.metric}</span>
+                <span class="text-xs text-muted-foreground">{p.metricLabel}</span>
+              </span>
+              <span class="inline-flex items-center gap-1 text-xs font-medium text-accent">
+                Voir
+                <ArrowRight class="size-3 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+              </span>
+            </footer>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--primary-background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px);
+    border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+    box-shadow: var(--shadow-xl);
+  }
+
+  .project-thumb {
+    position: relative;
+    height: 11rem;
+    overflow: hidden;
+  }
+
+  .project-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.6s ease;
+  }
+
+  .project-card:hover .project-thumb img {
+    transform: scale(1.04);
+  }
+
+  .project-thumb-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--primary-background) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .project-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: calc(var(--radius) - 4px);
+    background: #fff;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover .project-logo {
+    transform: scale(1.1) rotate(6deg);
+  }
+
+  .project-logo img {
+    width: 2.25rem;
+    height: 2.25rem;
+    object-fit: contain;
+  }
+</style>

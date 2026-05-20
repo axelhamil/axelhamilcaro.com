@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@/layouts/base.astro";
+import Navbar from "@/components/layout/navbar.astro";
+import Footer from "@/components/layout/footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  type?: "website" | "article" | "profile";
+}
+
+const props = Astro.props;
+---
+
+<BaseLayout {...props}>
+  <slot name="head" slot="head" />
+
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+  <Navbar />
+
+  <main id="main" class="pt-16 sm:pt-20">
+    <slot />
+  </main>
+
+  <Footer />
+</BaseLayout>
