@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { CONTACT } from "@/app/_config/site.constants";
 import { AdminNotification } from "@/src/backend/email/templates/admin-notification";
+import { ContactNotification } from "@/src/backend/email/templates/contact-notification";
 import { LeadEmail } from "@/src/backend/email/templates/lead-email";
 import { env } from "@/src/lib/env";
 
@@ -31,6 +32,11 @@ interface SendContactMessageParams {
   email: string;
   name?: string;
   message: string;
+  projectTypeLabel: string;
+  budgetLabel: string;
+  score: number;
+  inScope: boolean;
+  sourcePath?: string;
 }
 
 export const emailService = {
@@ -62,7 +68,16 @@ export const emailService = {
     }
   },
 
-  async sendContactMessage({ email, name, message }: SendContactMessageParams) {
+  async sendContactMessage({
+    email,
+    name,
+    message,
+    projectTypeLabel,
+    budgetLabel,
+    score,
+    inScope,
+    sourcePath,
+  }: SendContactMessageParams) {
     if (!resend) {
       return { success: false, error: "Resend not configured" };
     }
@@ -70,16 +85,27 @@ export const emailService = {
       return { success: false, error: "ADMIN_EMAIL not configured" };
     }
 
-    const displayName = name?.trim();
-    const fromLine = displayName ? `${displayName} <${email}>` : email;
+    const displayName = name?.trim() || "Anonyme";
+    const hotFlag = inScope && score >= 75 ? "🔥 " : "";
+    const scopeFlag = inScope ? "" : "[HORS SCOPE] ";
+    const subject = `${hotFlag}${scopeFlag}[${score}] ${displayName} · ${projectTypeLabel} · ${budgetLabel}`;
 
     try {
       const { data, error } = await resend.emails.send({
         from: `Contact <${CONTACT.noreply}>`,
         to: [adminEmail],
         replyTo: email,
-        subject: `Nouveau contact${displayName ? ` de ${displayName}` : ""}`,
-        text: `De: ${fromLine}\n\n${message}`,
+        subject,
+        react: ContactNotification({
+          name: displayName,
+          email,
+          message,
+          projectTypeLabel,
+          budgetLabel,
+          score,
+          inScope,
+          sourcePath,
+        }),
       });
 
       if (error) {

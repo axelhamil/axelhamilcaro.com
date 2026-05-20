@@ -1,15 +1,15 @@
-import { ZodError, z } from "zod";
+import { ZodError } from "zod";
+import {
+  type BudgetRangeValue,
+  calculateLeadScore,
+  getBudgetRange,
+  getProjectType,
+  type ProjectTypeValue,
+} from "@/src/backend/contact/contact.config";
+import { contactSubmitSchema } from "@/src/backend/contact/contact.schema";
 import { emailService } from "@/src/backend/email/email.service";
 import { env } from "@/src/lib/env";
 import { json } from "@/src/lib/http";
-
-const contactSchema = z.object({
-  name: z.string().trim().max(120).optional(),
-  email: z.email("Email invalide"),
-  message: z.string().trim().min(10, "Message trop court").max(5000),
-  website: z.string().optional(),
-  turnstileToken: z.string().optional(),
-});
 
 const TURNSTILE_TEST_SECRET = "1x0000000000000000000000000000000AA";
 const turnstileSecret =
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     return json({ success: true });
   }
 
-  const parsed = contactSchema.safeParse(payload);
+  const parsed = contactSubmitSchema.safeParse(payload);
   if (!parsed.success) {
     if (parsed.error instanceof ZodError) {
       console.log("[contact] validation failed", parsed.error.issues);
@@ -75,10 +75,26 @@ export async function POST(request: Request) {
     return json({ success: true });
   }
 
+  const projectType = getProjectType(
+    parsed.data.projectType as ProjectTypeValue,
+  );
+  const budget = getBudgetRange(parsed.data.budget as BudgetRangeValue);
+
+  if (!projectType || !budget) {
+    return json({ success: true });
+  }
+
+  const score = calculateLeadScore(projectType.value, budget.value);
+
   const result = await emailService.sendContactMessage({
     email: parsed.data.email,
     name: parsed.data.name,
     message: parsed.data.message,
+    projectTypeLabel: projectType.label,
+    budgetLabel: budget.label,
+    score,
+    inScope: projectType.inScope,
+    sourcePath: parsed.data.sourcePath,
   });
 
   if (!result.success) {
