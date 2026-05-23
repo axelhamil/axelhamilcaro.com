@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, Code2, GraduationCap, Rocket } from "lucide-react";
+import { Briefcase, Code2, GraduationCap, Link2, Rocket } from "lucide-react";
 import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
 import { TiltCard } from "@/src/shared/ui/effects/tilt-card";
@@ -10,25 +10,36 @@ import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 const experiences = [
   {
-    period: "2021 - 2024",
-    company: "Civitime",
-    role: "Lead Dev Full-Stack",
+    period: "2025 - Présent",
+    company: "Freelance",
+    role: "Développeur Full-Stack",
     description:
-      "4 ans à structurer la stack technique d'une startup EdTech : serious games RSE, refonte DDD, éditeur de contenu.",
-    icon: Briefcase,
-    gradient: "from-accent to-orange-600",
+      "J'accompagne startups et entrepreneurs. MVP, refontes, SaaS sur mesure.",
+    icon: Rocket,
+    gradient: "from-blue-500 to-cyan-500",
+    side: "left" as const,
+    highlight: "Dispo",
+  },
+  {
+    period: "2025 - Présent",
+    company: "OpenUp",
+    role: "Fondateur · Produit live",
+    description:
+      "SaaS de gestion de liens live sur openup.to. Courts, QR, link-in-bio, analytics, iOS/Android/PWA.",
+    icon: Link2,
+    gradient: "from-violet-500 to-fuchsia-500",
     side: "right" as const,
-    highlight: "4 ans",
+    highlight: "Live",
   },
   {
     period: "2025 - Présent",
     company: "ScormPilot",
     role: "Développeur Full-Stack",
-    description: "SaaS e-learning from scratch. Next.js, NestJS, PostgreSQL.",
+    description: "SaaS e-learning multi-tenant, 5 apps en solo. Next.js, NestJS, PostgreSQL.",
     icon: Code2,
     gradient: "from-emerald-500 to-teal-500",
     side: "left" as const,
-    highlight: "SaaS",
+    highlight: "5 apps",
   },
   {
     period: "2024 - 2025",
@@ -42,15 +53,15 @@ const experiences = [
     highlight: "10+ élèves",
   },
   {
-    period: "2025 - Présent",
-    company: "Freelance",
-    role: "Développeur Full-Stack",
+    period: "2021 - 2024",
+    company: "Civitime",
+    role: "Lead Dev Full-Stack",
     description:
-      "J'accompagne startups et entrepreneurs. MVP, refontes, SaaS sur mesure.",
-    icon: Rocket,
-    gradient: "from-blue-500 to-cyan-500",
+      "4 ans à structurer la stack technique d'une startup EdTech : serious games RSE, refonte DDD, éditeur de contenu interne.",
+    icon: Briefcase,
+    gradient: "from-accent to-orange-600",
     side: "left" as const,
-    highlight: "Dispo",
+    highlight: "4 ans",
   },
 ] as const;
 
@@ -87,7 +98,7 @@ const ExperienceTimeline = () => {
             variant="secondary"
             className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
           >
-            5+ années à construire des produits web solides et scalables
+            Depuis 2021, je construis des produits web solides et scalables
           </Paragraph>
         </RevealItem>
       </RevealContainer>
