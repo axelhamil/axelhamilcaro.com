@@ -1,9 +1,50 @@
-const stats = [
-  { value: "4 ans", label: "lead tech Civitime" },
-  { value: "5 apps", label: "livrées en solo ScormPilot" },
-  { value: "545+", label: "tests BDD HomeCafé en 6 mois" },
-  { value: "1 mois", label: "Billetterie 2D/3D solo" },
-] as const;
+type Highlight = { value: string; label: string };
+
+type Project = {
+  name: string;
+  tagline: string;
+  highlights: readonly Highlight[];
+};
+
+const projects: readonly Project[] = [
+  {
+    name: "OpenUp",
+    tagline: "SaaS de gestion de liens live sur openup.to",
+    highlights: [
+      { value: "5 piliers", label: "Liens · QR · Bio · Analytics · Domaines" },
+      { value: "3 plateformes", label: "iOS · Android · PWA en solo" },
+      { value: "4 plans Stripe", label: "EUR + USD selon géolocalisation" },
+      { value: "<50ms", label: "redirections edge via Cloudflare Worker" },
+    ],
+  },
+  {
+    name: "Civitime",
+    tagline: "4 ans lead tech sur la plateforme RSE B Corp",
+    highlights: [
+      { value: "Refonte complète", label: "Clean Architecture · DDD · event sourcing" },
+      { value: "Éditeur de contenu interne", label: "délais de livraison pédagogique ÷ 2" },
+      { value: "Lead tech", label: "tech radar, mentoring, code reviews" },
+    ],
+  },
+  {
+    name: "ScormPilot",
+    tagline: "SaaS e-learning multi-tenant",
+    highlights: [
+      { value: "5 apps", label: "livrées en solo" },
+      { value: "Multi-tenant", label: "isolation données + facturation par tenant" },
+      { value: "SCORM", label: "moteur de lecture + tracking conforme" },
+    ],
+  },
+  {
+    name: "Billetterie 2D/3D",
+    tagline: "Mission solo accélérée",
+    highlights: [
+      { value: "1 mois", label: "de la maquette à la prod, en solo" },
+      { value: "Plan 2D/3D", label: "sélection de sièges interactive" },
+      { value: "Stripe", label: "paiement + génération de billets PDF" },
+    ],
+  },
+];
 
 export function AboutProof() {
   return (
@@ -21,22 +62,41 @@ export function AboutProof() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map(({ value, label }) => (
-            <div
-              key={label}
-              className="flex flex-col items-center text-center px-6 py-8 rounded-xl card border border-border"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map(({ name, tagline, highlights }) => (
+            <article
+              key={name}
+              className="flex flex-col gap-5 p-6 rounded-xl card border border-border"
             >
-              <span
-                className="text-4xl font-bold text-accent mb-2"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                {value}
-              </span>
-              <span className="text-sm text-secondary leading-snug">
-                {label}
-              </span>
-            </div>
+              <header>
+                <h3
+                  className="text-2xl font-bold text-primary"
+                  style={{ fontFamily: "var(--font-space-grotesk)" }}
+                >
+                  {name}
+                </h3>
+                <p className="text-secondary text-sm mt-1">{tagline}</p>
+              </header>
+
+              <ul className="flex flex-col gap-3">
+                {highlights.map(({ value, label }) => (
+                  <li
+                    key={label}
+                    className="flex items-baseline gap-3"
+                  >
+                    <span
+                      className="text-accent font-bold whitespace-nowrap shrink-0"
+                      style={{ fontFamily: "var(--font-space-grotesk)" }}
+                    >
+                      {value}
+                    </span>
+                    <span className="text-secondary text-sm leading-snug">
+                      {label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
           ))}
         </div>
       </div>
