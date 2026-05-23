@@ -22,7 +22,7 @@ const projects: readonly Project[] = [
     tagline: "4 ans lead tech sur la plateforme RSE B Corp",
     highlights: [
       { value: "Refonte complète", label: "Clean Architecture · DDD · event sourcing" },
-      { value: "Éditeur IA RAG", label: "délais de livraison pédagogique ÷ 2" },
+      { value: "Éditeur de contenu interne", label: "délais de livraison pédagogique ÷ 2" },
       { value: "Lead tech", label: "tech radar, mentoring, code reviews" },
     ],
   },

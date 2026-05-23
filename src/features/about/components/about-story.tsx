@@ -17,7 +17,7 @@ export function AboutStory() {
         <p className="text-secondary text-lg leading-relaxed mb-6">
           J'y ai passé 4 ans sur la plateforme RSE B Corp. Refonte complète de
           l'architecture en Clean Architecture, DDD et event sourcing.
-          Conception d'un éditeur de contenu IA RAG qui a divisé par 2 les
+          Conception d'un éditeur de contenu interne qui a divisé par 2 les
           délais de livraison de l'équipe pédagogique. 4 ans à porter la
           technique d'un produit que je connaissais par cœur.
         </p>
