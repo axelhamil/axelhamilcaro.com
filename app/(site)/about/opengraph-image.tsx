@@ -12,7 +12,7 @@ export const size = OG_SIZE;
 export default function Image() {
   return renderOgImage({
     eyebrow: "À propos",
-    title: "5 ans freelance · 10+ projets livrés",
+    title: "4 ans lead tech · 2 ans freelance · 10+ projets",
     subtitle: "Touraine, remote France · Next.js · React · Node.js · Lead tech",
   });
 }

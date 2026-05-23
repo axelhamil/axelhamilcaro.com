@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 const kpis = [
-  { value: "5 ans", label: "de freelance" },
-  { value: "10+", label: "projets livrés en autonomie" },
+  { value: "4 ans", label: "lead tech salarié Civitime" },
+  { value: "2 ans", label: "freelance, 10+ projets livrés" },
   { value: "100%", label: "remote France" },
 ] as const;
 
@@ -30,9 +30,10 @@ export function AboutHero() {
               Je conçois des produits web qui servent ton business.
             </h1>
             <p className="text-secondary text-lg leading-relaxed">
-              Depuis 2021, j'aide startups, PME et équipes produit à livrer des
-              applications web et SaaS robustes, scalables, et alignées sur
-              leurs objectifs métier.
+              Wild Code School en 2021, puis 4 ans comme lead technique chez
+              Civitime, et depuis 2 ans en freelance. J'aide startups, PME et
+              équipes produit à livrer des applications web et SaaS robustes,
+              scalables, et alignées sur leurs objectifs métier.
             </p>
           </div>
         </div>
