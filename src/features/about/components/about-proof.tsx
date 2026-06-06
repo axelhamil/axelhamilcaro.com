@@ -21,8 +21,14 @@ const projects: readonly Project[] = [
     name: "Civitime",
     tagline: "4 ans lead tech sur la plateforme RSE B Corp",
     highlights: [
-      { value: "Refonte complète", label: "Clean Architecture · DDD · event sourcing" },
-      { value: "Éditeur de contenu interne", label: "délais de livraison pédagogique ÷ 2" },
+      {
+        value: "Refonte complète",
+        label: "Clean Architecture · DDD · event sourcing",
+      },
+      {
+        value: "Éditeur de contenu interne",
+        label: "délais de livraison pédagogique ÷ 2",
+      },
       { value: "Lead tech", label: "tech radar, mentoring, code reviews" },
     ],
   },
@@ -31,7 +37,10 @@ const projects: readonly Project[] = [
     tagline: "SaaS e-learning multi-tenant",
     highlights: [
       { value: "5 apps", label: "livrées en solo" },
-      { value: "Multi-tenant", label: "isolation données + facturation par tenant" },
+      {
+        value: "Multi-tenant",
+        label: "isolation données + facturation par tenant",
+      },
       { value: "SCORM", label: "moteur de lecture + tracking conforme" },
     ],
   },
@@ -80,10 +89,7 @@ export function AboutProof() {
 
               <ul className="flex flex-col gap-3">
                 {highlights.map(({ value, label }) => (
-                  <li
-                    key={label}
-                    className="flex items-baseline gap-3"
-                  >
+                  <li key={label} className="flex items-baseline gap-3">
                     <span
                       className="text-accent font-bold whitespace-nowrap shrink-0"
                       style={{ fontFamily: "var(--font-space-grotesk)" }}

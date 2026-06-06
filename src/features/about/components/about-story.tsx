@@ -23,13 +23,13 @@ export function AboutStory() {
         </p>
         <p className="text-secondary text-lg leading-relaxed mb-6">
           Depuis 2 ans, je suis passé en freelance — pas par défaut, mais par
-          conviction : garder la liberté de choisir mes projets, mes clients,
-          et de progresser sur les sujets qui me passionnent. Aujourd'hui je
+          conviction : garder la liberté de choisir mes projets, mes clients, et
+          de progresser sur les sujets qui me passionnent. Aujourd'hui je
           travaille en parallèle sur OpenUp (SaaS de gestion de liens live sur
           openup.to — courts, QR, link-in-bio, analytics, iOS/Android/PWA),
           ScormPilot (SaaS e-learning multi-tenant, 5 apps en solo) et des
-          missions de lead tech temps partiel. Je teste et intègre l'IA dans
-          mes workflows quotidiens (Claude Code, Vercel AI SDK) pour gagner en
+          missions de lead tech temps partiel. Je teste et intègre l'IA dans mes
+          workflows quotidiens (Claude Code, Vercel AI SDK) pour gagner en
           vélocité de livraison sans sacrifier la qualité.
         </p>
       </div>
