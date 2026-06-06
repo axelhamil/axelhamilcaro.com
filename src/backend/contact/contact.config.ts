@@ -1,12 +1,12 @@
 export const PROJECT_TYPES = [
   {
     value: "nextjs-app",
-    label: "Refonte / dev d'app Next.js (SaaS, app métier)",
+    label: "Développement / refonte d'app (SaaS, métier)",
     inScope: true,
   },
   {
     value: "tma",
-    label: "TMA / évolutions d'app Next.js existante",
+    label: "TMA / évolutions d'une app existante",
     inScope: true,
   },
   {

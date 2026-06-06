@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import {
   BUDGET_RANGES,
   type BudgetRangeValue,
@@ -46,7 +47,10 @@ const MESSAGE_MAX = 5000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const MESSAGE_PLACEHOLDER =
-  "Ex : scale-up SaaS Next.js, lenteurs sur le dashboard depuis 2 mois, besoin d'un audit perf + plan d'action. Démarrage sous 3 semaines.";
+  "Ex : scale-up SaaS, lenteurs sur le dashboard depuis 2 mois, besoin d'un audit perf + plan d'action. Démarrage sous 3 semaines.";
+
+const SELECT_TRIGGER_CLASS =
+  "w-full min-w-0 *:data-[slot=select-value]:block *:data-[slot=select-value]:truncate";
 
 const MESSAGE_HELPER =
   "Plus c'est concret (stack, contexte, besoin, échéance), plus ma réponse l'est.";
@@ -235,11 +239,11 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                 <SelectTrigger
                   id={`${formId}-projectType`}
                   aria-invalid={errors.projectType ? true : undefined}
-                  className={`w-full ${
-                    errors.projectType
-                      ? "border-destructive focus-visible:ring-destructive/40"
-                      : ""
-                  }`}
+                  className={cn(
+                    SELECT_TRIGGER_CLASS,
+                    errors.projectType &&
+                      "border-destructive focus-visible:ring-destructive/40",
+                  )}
                 >
                   <SelectValue placeholder="Choisis un type..." />
                 </SelectTrigger>
@@ -270,11 +274,11 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                 <SelectTrigger
                   id={`${formId}-budget`}
                   aria-invalid={errors.budget ? true : undefined}
-                  className={`w-full ${
-                    errors.budget
-                      ? "border-destructive focus-visible:ring-destructive/40"
-                      : ""
-                  }`}
+                  className={cn(
+                    SELECT_TRIGGER_CLASS,
+                    errors.budget &&
+                      "border-destructive focus-visible:ring-destructive/40",
+                  )}
                 >
                   <SelectValue placeholder="Choisis une fourchette..." />
                 </SelectTrigger>
