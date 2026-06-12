@@ -16,6 +16,8 @@ export function JsonLd() {
     jobTitle: "Développeur Full-Stack TypeScript",
     description:
       "Développeur Full-Stack freelance basé en Touraine, intervient à 100% en remote sur la France. Spécialisé TypeScript, Next.js, React, Node.js, architecture Clean / DDD et lead tech temps partiel. Lead technique 4 ans Civitime, 10+ projets livrés en autonomie depuis 2021.",
+    email: "mailto:contact@axelhamilcaro.com",
+    knowsLanguage: ["fr-FR", "en"],
     sameAs: [
       EXTERNAL_LINKS.linkedin,
       EXTERNAL_LINKS.github,
@@ -38,8 +40,8 @@ export function JsonLd() {
       "Web Development",
       "Vercel",
       "Docker",
-      "React Native",
-      "Expo",
+      "Capacitor",
+      "Stripe",
       "NestJS",
       "Fastify",
       "RAG",
@@ -136,6 +138,7 @@ export function JsonLd() {
       itemListElement: [
         {
           "@type": "Offer",
+          url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
           itemOffered: {
             "@type": "Service",
             name: "Développement d'Application Web",
@@ -145,6 +148,7 @@ export function JsonLd() {
         },
         {
           "@type": "Offer",
+          url: `${SITE_URL}/services/developpement-saas`,
           itemOffered: {
             "@type": "Service",
             name: "Développement SaaS",
@@ -154,11 +158,22 @@ export function JsonLd() {
         },
         {
           "@type": "Offer",
+          url: `${SITE_URL}/services/lead-tech-fractional`,
           itemOffered: {
             "@type": "Service",
             name: "Conseil et Architecture",
             description:
-              "Accompagnement technique et conception d'architecture logicielle",
+              "Accompagnement technique et conception d'architecture logicielle, lead tech temps partiel",
+          },
+        },
+        {
+          "@type": "Offer",
+          url: `${SITE_URL}/tma`,
+          itemOffered: {
+            "@type": "Service",
+            name: "TMA — Tierce Maintenance Applicative",
+            description:
+              "Maintenance applicative web et mobile au forfait mensuel sans engagement : PRO 350€/mois (5h incluses) ou PREMIUM 800€/mois (10h, monitoring proactif)",
           },
         },
       ],
