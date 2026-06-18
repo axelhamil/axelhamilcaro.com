@@ -2,6 +2,7 @@ import {
   EXTERNAL_LINKS,
   PROFILE_IMAGE,
   SITE_URL,
+  SOCIAL_LINKS,
 } from "@/app/_config/site.constants";
 
 export function JsonLd() {
@@ -23,6 +24,8 @@ export function JsonLd() {
       EXTERNAL_LINKS.linkedin,
       EXTERNAL_LINKS.github,
       EXTERNAL_LINKS.malt,
+      SOCIAL_LINKS.instagram,
+      SOCIAL_LINKS.tiktok,
     ],
     knowsAbout: [
       "Next.js",
@@ -111,6 +114,11 @@ export function JsonLd() {
     url: SITE_URL,
     image: PROFILE_IMAGE,
     priceRange: "€€€",
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "SIRET",
+      value: "93929141500015",
+    },
     provider: { "@id": `${SITE_URL}/#person` },
     areaServed: [
       {

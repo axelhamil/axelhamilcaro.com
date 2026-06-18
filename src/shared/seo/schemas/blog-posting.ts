@@ -22,11 +22,13 @@ export function buildBlogPostingSchema(data: BlogPostingData) {
     dateModified: data.dateModified ?? data.datePublished,
     author: {
       "@type": "Person",
+      "@id": "https://axelhamilcaro.com/#person",
       name: data.author,
       url: "https://axelhamilcaro.com",
     },
     publisher: {
       "@type": "Person",
+      "@id": "https://axelhamilcaro.com/#person",
       name: "Axel Hamilcaro",
       url: "https://axelhamilcaro.com",
     },

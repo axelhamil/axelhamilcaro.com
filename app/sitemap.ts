@@ -5,7 +5,7 @@ import { SITE_URL } from "./_config/site.constants";
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogPosts = getAllPosts().map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
+    lastModified: new Date(post.dateModified ?? post.date),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

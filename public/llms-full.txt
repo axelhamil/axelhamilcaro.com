@@ -1,0 +1,76 @@
+# Axel Hamilcaro — Développeur freelance Next.js, React & Node.js
+
+> Axel Hamilcaro est un développeur freelance spécialisé Next.js, React et Node.js, basé en Touraine (Tours), 100% remote sur la France.
+> Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD, et accompagne les équipes en lead tech temps partiel.
+> Entreprise individuelle (EI), SIRET 939 291 415 00015. TJM 450€ HT/jour.
+
+## Identité et positionnement
+
+- Nom : Axel Hamilcaro
+- Métier : développeur freelance full-stack, focus Next.js, React, Node.js, TypeScript
+- Spécialité : SaaS B2B multi-tenant, applications web sur mesure, lead tech fractional
+- Localisation : Tours (Touraine), 100% remote France
+- Statut : entreprise individuelle, SIRET 939 291 415 00015
+- TJM : 450€ HT/jour
+- Langues : français (natif), anglais
+
+## Parcours
+
+- 2021 : diplômé de la Wild Code School — Concepteur Développeur d'applications Web & Mobile (Bac+3/4)
+- Janvier 2021 → décembre 2024 (4 ans) : lead technique chez Civitime (EdTech, B Corp). Refonte complète d'une plateforme RSE en Clean Architecture + DDD + event sourcing, conception d'un éditeur de contenu interne avec IA RAG (GPT-4) qui a divisé par 2 les délais d'itération de l'équipe pédagogique, tech radar, mentoring, code reviews.
+- Depuis fin 2024 (2 ans) : freelance — 10+ projets livrés en autonomie, dont OpenUp (fondateur) et ScormPilot.
+- Mentor dev web (Superprof) : 10+ développeurs accompagnés sur React et Clean Architecture.
+
+## Services
+
+- Développeur Next.js freelance (https://axelhamilcaro.com/services/developpeur-nextjs-freelance) : architecture moderne, MVP en 4 à 8 semaines, refonte d'applications existantes sans casser l'existant. Stack TypeScript / React 19 / Tailwind v4.
+- Développement SaaS (https://axelhamilcaro.com/services/developpement-saas) : SaaS B2B multi-tenant, de zéro jusqu'en production, Clean Architecture + DDD.
+- Lead tech fractional (https://axelhamilcaro.com/services/lead-tech-fractional) : lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME. Architecture, mentorat, montée en qualité.
+- TMA — Tierce Maintenance Applicative (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement.
+  - PRO : 350€/mois, 5h incluses, SLA 1 jour ouvré, 1h visio/mois.
+  - PREMIUM : 800€/mois, 10h incluses, SLA 1/2 jour, monitoring proactif (Sentry, UptimeRobot, Better Stack), status page, audit trimestriel, changelog mensuel.
+  - Hors-forfait : 80€/h. Capacité max : 6 clients PRO, 3 PREMIUM simultanés.
+
+## Délais et process
+
+- Devis sous 24h.
+- Démarrage sous 1 à 3 semaines.
+- MVP / v1 production-ready en 4 à 8 semaines.
+- Qualification écrite d'abord (périmètre, cadre, état du projet) ; appel découverte après un premier échange par écrit.
+
+## Case studies
+
+- ScormPilot (https://axelhamilcaro.com/portfolio/scormpilot) : SaaS e-learning SCORM multi-tenant développé en solo (7 applications : API Fastify, dashboard Next.js, player React, runtime SCORM, Teams App, app builder, status page). Architecture hexagonale DDD, schema-per-tenant PostgreSQL, conformité RGPD, hébergement 100% européen, 99.9% uptime, plusieurs milliers de sessions quotidiennes.
+- Civitime (https://axelhamilcaro.com/portfolio/civitime) : plateforme RSE B Corp, 250 000+ collaborateurs touchés. Lead technique 4 ans, refonte Clean Architecture + DDD + event sourcing, éditeur de contenu avec IA RAG (GPT-4).
+- OpenUp (https://axelhamilcaro.com/portfolio/openup) : SaaS de gestion de liens tout-en-un (alternative à Bitly + Linktree + Beacons), live sur openup.to. Edge Cloudflare <50ms, 4 plans Stripe (EUR/USD), iOS + Android + PWA depuis une seule codebase Capacitor, deep links natifs, Apple Wallet.
+- Billetterie (https://axelhamilcaro.com/portfolio/billetterie) : dashboard événementiel développé en solo en 1 mois. Plan de salle 2D/3D (Seats.io), WebSocket bidirectionnel <200ms de latence, tarification multi-TVA, paiements Stripe et génération de billets PDF.
+
+## Stack technique
+
+- Langages & frameworks : TypeScript, JavaScript, Next.js, React, Node.js, NestJS, Fastify.
+- Front : Tailwind CSS, Framer Motion, React 19.
+- Data : PostgreSQL, Drizzle ORM, MongoDB, GraphQL, REST.
+- Mobile : Capacitor (iOS, Android, PWA depuis une codebase unique).
+- Infra & outils : Docker, GCP, Cloudflare, Vercel, Stripe, Turborepo, CI/CD.
+- IA : RAG, Vercel AI SDK.
+- Architecture & méthodes : Clean Architecture, Domain-Driven Design, CQRS, Event Sourcing, multi-tenancy SaaS, TDD/BDD, Agile.
+
+## Différenciateurs
+
+- Mobile via Capacitor (une seule codebase web → iOS/Android/PWA), pas de React Native.
+- Architecture pensée pour durer (Clean Archi / DDD) plutôt que livraison jetable.
+- Profil lead tech : capable de structurer une stack et de mentorer une équipe, pas seulement d'exécuter des tickets.
+
+## Témoignage
+
+- Bryan Kaneb (développeur web freelance, via Malt, décembre 2025, 5/5) : « Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué. Je le recommande vivement pour vos projets de développement web ou mobile. »
+
+## Contact
+
+- Email (canal privilégié) : contact@axelhamilcaro.com
+- Malt : https://www.malt.fr/profile/axelhamilcaro
+- LinkedIn : https://www.linkedin.com/in/axelhamilcaro/
+- GitHub : https://github.com/axelhamil
+- Calendly (après un premier échange par écrit) : https://calendly.com/axel-hamilcaro-pro/appel-decouverte
+
+Dernière mise à jour: 2026-06-18
