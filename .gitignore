@@ -41,3 +41,6 @@ firebase-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Process artifacts (subagent reports)
+docs/superpowers/plans/reports/
