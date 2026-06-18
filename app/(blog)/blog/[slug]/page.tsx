@@ -86,6 +86,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     description: post.excerpt,
     url: `${SITE_URL}/blog/${slug}`,
     datePublished: post.date,
+    dateModified: post.dateModified ?? post.date,
+    image: post.image ?? `${SITE_URL}/blog/${slug}/opengraph-image`,
     author: "Axel Hamilcaro",
     keywords: post.tags,
     articleSection: post.category,

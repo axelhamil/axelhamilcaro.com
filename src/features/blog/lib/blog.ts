@@ -10,10 +10,12 @@ interface BlogPostFrontmatter {
   title: string;
   subtitle: string;
   date: string;
+  dateModified?: string;
   excerpt: string;
   tags: string[];
   category: string;
   pdfUrl?: string;
+  image?: string;
 }
 
 interface BlogPost extends BlogPostFrontmatter {
