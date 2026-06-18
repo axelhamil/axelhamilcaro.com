@@ -15,9 +15,9 @@ export function JsonLd() {
     familyName: "Hamilcaro",
     url: SITE_URL,
     image: PROFILE_IMAGE,
-    jobTitle: "Développeur freelance Next.js, React & Node.js",
+    jobTitle: "Développeur Web Fullstack | Next.js | React | Node",
     description:
-      "Axel Hamilcaro est un développeur freelance spécialisé Next.js, React et Node.js, basé en Touraine et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. Lead technique 4 ans chez Civitime, 10+ projets livrés en autonomie depuis 2021. TJM 450€ HT/jour.",
+      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. Lead technique 4 ans chez Civitime, 10+ projets livrés en autonomie depuis 2021. TJM 450€ HT/jour.",
     email: "mailto:contact@axelhamilcaro.com",
     knowsLanguage: ["fr-FR", "en"],
     sameAs: [
@@ -91,11 +91,11 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
-    name: "Axel Hamilcaro - Développeur freelance Next.js, React & Node.js",
+    name: "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
     alternateName: "Axel Hamilcaro Portfolio",
     url: SITE_URL,
     description:
-      "Portfolio d'Axel Hamilcaro, développeur freelance Next.js, React et Node.js basé en Touraine, intervient à 100% en remote sur la France. Expertise SaaS B2B multi-tenant, Clean Architecture et lead tech.",
+      "Portfolio d'Axel Hamilcaro, développeur web fullstack Next.js, React et Node, basé en Touraine, 100% remote France. Expertise SaaS B2B multi-tenant, Clean Architecture et lead tech.",
     inLanguage: "fr-FR",
     copyrightYear: new Date().getFullYear(),
     about: { "@id": `${SITE_URL}/#person` },
@@ -108,7 +108,7 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#service`,
-    name: "Axel Hamilcaro - Développeur freelance Next.js, React & Node.js",
+    name: "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
     description:
       "Services de développement web Full-Stack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
     url: SITE_URL,

@@ -12,12 +12,13 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     title:
-      "Axel Hamilcaro — Développeur freelance Next.js, React, Node.js",
+      "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Axel Hamilcaro | Dev freelance Next.js, React & Node.js",
+    title:
+      "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
     description: siteConfig.description,
     creator: "@axelhamilcaro",
   },
