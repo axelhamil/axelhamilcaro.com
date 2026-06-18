@@ -17,7 +17,7 @@ export function JsonLd() {
     image: PROFILE_IMAGE,
     jobTitle: "Développeur Web Fullstack | Next.js | React | Node",
     description:
-      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. Lead technique 4 ans chez Civitime, 10+ projets livrés en autonomie depuis 2021. TJM 450€ HT/jour.",
+      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. Lead technique 4 ans chez Civitime, 10+ projets livrés en autonomie depuis 2021. TJM 500€ HT/jour.",
     email: "mailto:contact@axelhamilcaro.com",
     knowsLanguage: ["fr-FR", "en"],
     sameAs: [

@@ -2,7 +2,7 @@
 
 > Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine (Tours), 100% remote sur la France.
 > Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD, et accompagne les équipes en lead tech temps partiel.
-> Entreprise individuelle (EI), SIRET 939 291 415 00015. TJM 450€ HT/jour.
+> Entreprise individuelle (EI), SIRET 939 291 415 00015. TJM 500€ HT/jour.
 
 ## Identité et positionnement
 
@@ -11,7 +11,7 @@
 - Spécialité : SaaS B2B multi-tenant, applications web sur mesure, lead tech fractional
 - Localisation : Tours (Touraine), 100% remote France
 - Statut : entreprise individuelle, SIRET 939 291 415 00015
-- TJM : 450€ HT/jour
+- TJM : 500€ HT/jour
 - Langues : français (natif), anglais
 
 ## Parcours

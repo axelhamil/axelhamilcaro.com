@@ -52,7 +52,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
     metaTitle: "Développeur Next.js freelance",
     metaDescription:
-      "Dev Next.js freelance, 5 ans d'expérience. Architecture moderne, MVP 4-8 semaines, refonte apps. TypeScript / React 19 / Tailwind v4. TJM 450€ HT. Devis 24h.",
+      "Dev Next.js freelance, 5 ans d'expérience. Architecture moderne, MVP 4-8 semaines, refonte apps. TypeScript / React 19 / Tailwind v4. TJM 500€ HT. Devis 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Développeur Next.js freelance qui livre vraiment.",
@@ -94,7 +94,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     faq: [
       {
         question: "Quel est ton TJM ?",
-        answer: "450€ HT/jour. Devis au forfait possible pour scope fermé.",
+        answer: "500€ HT/jour. Devis au forfait possible pour scope fermé.",
       },
       {
         question: "Tu peux démarrer quand ?",

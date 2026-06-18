@@ -14,7 +14,7 @@ const items = [
   {
     question: "Quel est ton TJM et mode de facturation ?",
     answer:
-      "TJM 450€ HT (référence Malt). Facturation au temps passé en régie, ou au forfait pour scope fermé. Devis détaillé sous 24h après notre échange découverte.",
+      "TJM 500€ HT (référence Malt). Facturation au temps passé en régie, ou au forfait pour scope fermé. Devis détaillé sous 24h après notre échange découverte.",
   },
   {
     question: "Travailles-tu en remote ou sur site ?",

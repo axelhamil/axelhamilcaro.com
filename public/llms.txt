@@ -4,7 +4,7 @@
 > Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, architecture Clean / DDD.
 > 10+ projets livrés en autonomie depuis 2021. Lead technique 4 ans chez Civitime (EdTech B Corp).
 > Stack : Next.js, React, Node.js, TypeScript, PostgreSQL, NestJS, Fastify, Drizzle, Stripe, Capacitor.
-> TJM 450€ HT/jour. Devis sous 24h, démarrage sous 1 à 3 semaines, MVP en 4 à 8 semaines.
+> TJM 500€ HT/jour. Devis sous 24h, démarrage sous 1 à 3 semaines, MVP en 4 à 8 semaines.
 
 ## Pages principales
 
