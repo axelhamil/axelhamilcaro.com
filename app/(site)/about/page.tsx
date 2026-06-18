@@ -4,8 +4,8 @@ import { AboutHero } from "@/src/features/about/components/about-hero";
 import { AboutProof } from "@/src/features/about/components/about-proof";
 import { AboutStory } from "@/src/features/about/components/about-story";
 import { AboutValues } from "@/src/features/about/components/about-values";
-import { buildAboutPageSchema } from "@/src/shared/seo/schemas/about-page";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
+import { buildProfilePageSchema } from "@/src/shared/seo/schemas/profile-page";
 
 const ABOUT_URL = "https://axelhamilcaro.com/about";
 
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-const aboutSchema = buildAboutPageSchema({
+const profileSchema = buildProfilePageSchema({
   url: ABOUT_URL,
   name: "À propos d'Axel Hamilcaro",
   description:
@@ -47,7 +47,7 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
       />
       <script
         type="application/ld+json"

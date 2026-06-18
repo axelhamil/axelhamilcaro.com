@@ -16,7 +16,7 @@ export function AboutHero() {
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-12">
           <Image
-            src="/profil_pp.jpeg"
+            src="/axel-hamilcaro-developpeur-fullstack.jpeg"
             alt="Axel Hamilcaro, développeur web fullstack freelance"
             width={200}
             height={200}

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/src/features/blog/lib/blog";
-import { SITE_URL } from "./_config/site.constants";
+import { PROFILE_IMAGE, SITE_URL } from "./_config/site.constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogPosts = getAllPosts().map((post) => ({
@@ -16,12 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
+      images: [PROFILE_IMAGE],
     },
     {
       url: `${SITE_URL}/tree`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
+      images: [PROFILE_IMAGE],
     },
     {
       url: `${SITE_URL}/blog`,
@@ -34,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.9,
+      images: [PROFILE_IMAGE],
     },
     {
       url: `${SITE_URL}/services`,

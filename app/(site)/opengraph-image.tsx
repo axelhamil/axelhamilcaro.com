@@ -14,5 +14,6 @@ export default function Image() {
     title: "Axel Hamilcaro",
     subtitle:
       "Développeur Fullstack Freelance · Next.js · React · TypeScript · Lead tech",
+    withPhoto: true,
   });
 }

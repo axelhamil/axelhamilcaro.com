@@ -18,11 +18,11 @@ export const CONTACT = {
   noreply: "noreply@axelhamilcaro.com",
 } as const;
 
-export const PROFILE_IMAGE = `${SITE_URL}/profil_pp.jpeg`;
+export const PROFILE_IMAGE = `${SITE_URL}/axel-hamilcaro-developpeur-fullstack.jpeg`;
 
 export const AUTHOR = {
   name: "Axel Hamilcaro",
-  imagePath: "/profil_pp.jpeg",
+  imagePath: "/axel-hamilcaro-developpeur-fullstack.jpeg",
 } as const;
 
 export const FREELANCE_SINCE_YEAR = 2024;

@@ -19,8 +19,8 @@ const HeroRight = () => {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <Image
-            src="/profil_pp.jpeg"
-            alt="Axel Hamilcaro - Développeur Fullstack"
+            src="/axel-hamilcaro-developpeur-fullstack.jpeg"
+            alt="Axel Hamilcaro, développeur web fullstack freelance"
             fill
             className="object-cover"
             priority

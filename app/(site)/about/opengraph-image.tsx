@@ -14,5 +14,6 @@ export default function Image() {
     eyebrow: "À propos",
     title: "4 ans lead tech · freelance depuis 2024 · 10+ projets",
     subtitle: "Touraine, remote France · Next.js · React · Node.js · Lead tech",
+    withPhoto: true,
   });
 }

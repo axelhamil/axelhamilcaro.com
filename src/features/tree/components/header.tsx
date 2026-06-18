@@ -32,8 +32,8 @@ export default function TreeHeader() {
             whileHover={{ scale: 1.05 }}
           >
             <Image
-              src="/profil_pp.jpeg"
-              alt="Axel Hamilcaro"
+              src="/axel-hamilcaro-developpeur-fullstack.jpeg"
+              alt="Axel Hamilcaro, développeur web fullstack freelance"
               width={96}
               height={96}
               className="object-cover w-full h-full"
