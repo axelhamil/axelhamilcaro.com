@@ -5,7 +5,7 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "Article de blog — Axel Hamilcaro";
+export const alt = "Article de blog, Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
@@ -19,6 +19,6 @@ export default async function Image({ params }: Props) {
     eyebrow: "Article",
     title: post?.title ?? "Article de blog",
     subtitle:
-      post?.excerpt ?? "Axel Hamilcaro — Développeur Full-Stack Freelance",
+      post?.excerpt ?? "Axel Hamilcaro, Développeur Full-Stack Freelance",
   });
 }

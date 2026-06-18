@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   keywords: [...TMA_META.keywords],
   alternates: { canonical: TMA_URL },
   openGraph: {
-    title: "TMA — Maintenance applicative 350€/mois",
+    title: "TMA : maintenance applicative dès 350€/mois",
     description:
       "Forfait TMA pour app Next.js, React, Node ou mobile. PRO 350€ (5h, 1 j ouvré) ou PREMIUM 800€ (10h, monitoring proactif). Sans engagement, résiliation Stripe.",
     url: TMA_URL,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TMA — Forfaits 350€ ou 800€/mois",
+    title: "TMA : forfaits 350€ ou 800€/mois",
     description:
       "Forfait TMA mensuel : Next.js, React, Node, infra légère. PRO 350€/mois (5h) ou PREMIUM 800€/mois (10h, monitoring proactif). Sans engagement.",
   },
@@ -52,7 +52,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Tierce Maintenance Applicative — Next.js, React, Node, mobile",
+  name: "Tierce maintenance applicative pour Next.js, React, Node et mobile",
   description: TMA_META.description,
   url: TMA_URL,
   serviceType: "Tierce Maintenance Applicative",

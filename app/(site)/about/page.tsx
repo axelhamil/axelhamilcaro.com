@@ -10,12 +10,12 @@ import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-l
 const ABOUT_URL = "https://axelhamilcaro.com/about";
 
 export const metadata: Metadata = {
-  title: "À propos — Dev full-stack freelance",
+  title: "À propos : dev full-stack freelance",
   description:
-    "Formé Wild Code School (2021), 4 ans lead tech Civitime, 2 ans freelance. 10+ projets livrés. Next.js, React, Node.js, Clean Architecture, DDD et lead tech.",
+    "Formé Wild Code School (2020), 4 ans lead tech Civitime, 2 ans freelance. 10+ projets livrés. Next.js, React, Node.js, Clean Architecture, DDD et lead tech.",
   alternates: { canonical: ABOUT_URL },
   openGraph: {
-    title: "À propos — Dev full-stack freelance",
+    title: "À propos : dev full-stack freelance",
     description:
       "Dev full-stack, Touraine. 4 ans lead tech Civitime, 2 ans freelance, 10+ projets livrés. Focus Next.js, React, Node.js, Clean Architecture / DDD et lead tech.",
     url: ABOUT_URL,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "À propos — Dev full-stack freelance",
+    title: "À propos : dev full-stack freelance",
     description:
       "Dev full-stack, Touraine. 4 ans lead tech chez Civitime, 2 ans freelance. 10+ projets livrés, Next.js, React, Node.js, Clean Architecture.",
   },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 const aboutSchema = buildAboutPageSchema({
   url: ABOUT_URL,
-  name: "À propos — Axel Hamilcaro",
+  name: "À propos d'Axel Hamilcaro",
   description:
     "Page de présentation d'Axel Hamilcaro, développeur full-stack freelance basé en Touraine.",
 });

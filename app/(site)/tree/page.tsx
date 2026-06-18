@@ -29,7 +29,7 @@ export default async function TreePage() {
     "@type": "ProfilePage",
     "@id": `${SITE_URL}/tree`,
     url: `${SITE_URL}/tree`,
-    name: "Axel Hamilcaro — Liens et réseaux",
+    name: "Axel Hamilcaro : liens et réseaux",
     mainEntity: { "@id": `${SITE_URL}/#person` },
     about: { "@id": `${SITE_URL}/#person` },
     inLanguage: "fr-FR",

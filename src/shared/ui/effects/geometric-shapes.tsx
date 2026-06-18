@@ -78,7 +78,7 @@ export const DotGrid = ({
   >
     {Array.from({ length: rows * cols }).map((_, i) => (
       <motion.div
-        // biome-ignore lint/suspicious/noArrayIndexKey: decorative dot grid — index is structurally stable
+        // biome-ignore lint/suspicious/noArrayIndexKey: decorative dot grid, index is structurally stable
         key={i}
         className="rounded-full bg-accent/20"
         style={{ width: dotSize, height: dotSize }}
@@ -108,7 +108,7 @@ export const DiagonalLines = ({
   <div className={`absolute overflow-hidden pointer-events-none ${className}`}>
     {Array.from({ length: count }).map((_, i) => (
       <motion.div
-        // biome-ignore lint/suspicious/noArrayIndexKey: decorative lines — index is structurally stable
+        // biome-ignore lint/suspicious/noArrayIndexKey: decorative lines, index is structurally stable
         key={i}
         className="absolute h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"
         style={{

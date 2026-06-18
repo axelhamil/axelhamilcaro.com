@@ -99,7 +99,7 @@ const HeroLeft = () => {
           <Paragraph size="lg" className="text-base md:text-lg">
             Je suis <strong>Axel Hamilcaro</strong>, développeur full-stack
             freelance basé en Touraine, 100% remote France. Je transforme des
-            idées produit en applications web solides — de l'architecture à la
+            idées produit en applications web solides, de l'architecture à la
             mise en production.
           </Paragraph>
 

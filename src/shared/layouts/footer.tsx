@@ -136,7 +136,7 @@ const Footer = () => {
                 href="/tma"
                 className="text-sm text-primary hover:text-accent transition-colors"
               >
-                TMA — Forfait mensuel
+                TMA : forfait mensuel
               </TransitionLink>
               <TransitionLink
                 href="/services"

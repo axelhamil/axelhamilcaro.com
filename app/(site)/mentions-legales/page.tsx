@@ -18,7 +18,7 @@ import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-l
 const LEGAL = {
   name: "Axel Hamilcaro",
   legalName: "HAMILCARO Axel",
-  status: "Entrepreneur individuel (EI) — micro-entreprise",
+  status: "Entrepreneur individuel (EI), micro-entreprise",
   siren: "939 291 415",
   siret: "939 291 415 00015",
   rcs: "939 291 415 R.C.S. Paris (immatriculé le 20/01/2025)",

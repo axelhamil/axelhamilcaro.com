@@ -5,7 +5,7 @@ import {
 } from "@/src/shared/seo/og-image-template";
 
 export const alt =
-  "Blog — Axel Hamilcaro, développeur freelance Next.js, React & Node.js";
+  "Blog d'Axel Hamilcaro, développeur freelance Next.js, React & Node.js";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 

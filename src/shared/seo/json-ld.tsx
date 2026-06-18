@@ -83,7 +83,7 @@ export function JsonLd() {
     ],
     workLocation: {
       "@type": "Place",
-      name: "Remote — France",
+      name: "Remote, France",
     },
   };
 
@@ -91,7 +91,7 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
-    name: "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
+    name: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
     alternateName: "Axel Hamilcaro Portfolio",
     url: SITE_URL,
     description:
@@ -108,7 +108,7 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#service`,
-    name: "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
+    name: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
     description:
       "Services de développement web Full-Stack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
     url: SITE_URL,
@@ -175,7 +175,7 @@ export function JsonLd() {
           url: `${SITE_URL}/tma`,
           itemOffered: {
             "@type": "Service",
-            name: "TMA — Tierce Maintenance Applicative",
+            name: "TMA (tierce maintenance applicative)",
             description:
               "Maintenance applicative web et mobile au forfait mensuel sans engagement : PRO 350€/mois (5h incluses) ou PREMIUM 800€/mois (10h, monitoring proactif)",
           },

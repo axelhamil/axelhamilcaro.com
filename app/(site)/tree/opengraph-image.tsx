@@ -4,7 +4,7 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "Liens et réseaux — Axel Hamilcaro";
+export const alt = "Liens et réseaux d'Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 

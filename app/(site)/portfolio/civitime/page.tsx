@@ -20,7 +20,7 @@ import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work"
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 
 const creativeWorkSchema = buildCreativeWorkSchema({
-  name: "Civitime — Plateforme RSE B Corp",
+  name: "Civitime : plateforme RSE B Corp",
   description:
     "Lead technique 4 ans sur la refonte complète d'une plateforme RSE B Corp en Clean Architecture + DDD + event sourcing. Conception d'un éditeur IA RAG qui a divisé par 2 les délais d'itération de l'équipe pédagogique.",
   url: "https://axelhamilcaro.com/portfolio/civitime",
@@ -49,7 +49,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "Civitime — SaaS RSE multi-tenant 4 ans",
+  title: "Civitime : SaaS RSE multi-tenant, 4 ans",
   description:
     "4 ans chez Civitime : développement de serious games RSE, éditeur de scénarios, puis lead technique sur une plateforme SaaS SCORM multi-tenant.",
   keywords: [
@@ -68,14 +68,14 @@ export const metadata: Metadata = {
     canonical: "/portfolio/civitime",
   },
   openGraph: {
-    title: "Civitime — SaaS RSE multi-tenant 4 ans",
+    title: "Civitime : SaaS RSE multi-tenant, 4 ans",
     description:
       "4 ans chez Civitime : serious games RSE gamifiés, éditeur interne, lead technique sur plateforme SaaS SCORM multi-tenant.",
     url: "/portfolio/civitime",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Civitime — SaaS RSE multi-tenant 4 ans",
+    title: "Civitime : SaaS RSE multi-tenant, 4 ans",
     description:
       "4 ans chez Civitime : serious games RSE gamifiés, éditeur interne, lead technique sur plateforme SaaS SCORM multi-tenant.",
   },

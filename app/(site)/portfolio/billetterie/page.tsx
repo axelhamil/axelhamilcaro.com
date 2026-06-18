@@ -46,7 +46,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "Billetterie — Dashboard événements",
+  title: "Billetterie : dashboard événements",
   description:
     "Conception et développement d'un dashboard interne de gestion d'événements et ventes en temps réel. Plan de salle 2D/3D, WebSocket, tarification multi-TVA.",
   keywords: [
@@ -66,14 +66,14 @@ export const metadata: Metadata = {
     canonical: "/portfolio/billetterie",
   },
   openGraph: {
-    title: "Billetterie — Dashboard événements",
+    title: "Billetterie : dashboard événements",
     description:
       "Dashboard interne : plan de salle 2D/3D, ventes temps réel via WebSocket, gestion automatisée tarifs et TVA. Solo, 1 mois (Next.js, NestJS, PostgreSQL).",
     url: "/portfolio/billetterie",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Billetterie — Dashboard événements",
+    title: "Billetterie : dashboard événements",
     description:
       "Dashboard interne : plan de salle 2D/3D, ventes temps réel via WebSocket, gestion automatisée tarifs et TVA. Livré en solo en 1 mois.",
   },

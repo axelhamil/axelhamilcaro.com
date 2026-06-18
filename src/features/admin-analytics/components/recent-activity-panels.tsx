@@ -85,7 +85,7 @@ export function RecentActivityPanels() {
                     {attempt.githubUsername || "Anonyme"}
                   </p>
                   <p className="text-[10px] text-[var(--admin-text-muted)] truncate">
-                    {attempt.githubEmail || attempt.ipAddress || "—"}
+                    {attempt.githubEmail || attempt.ipAddress || "N/A"}
                   </p>
                 </div>
               </div>

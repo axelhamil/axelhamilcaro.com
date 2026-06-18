@@ -24,7 +24,7 @@ import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-l
 const LEGAL = {
   name: "Axel Hamilcaro",
   legalName: "HAMILCARO Axel",
-  status: "Entrepreneur individuel (EI) — micro-entreprise",
+  status: "Entrepreneur individuel (EI), micro-entreprise",
   siren: "939 291 415",
   siret: "939 291 415 00015",
   rcs: "939 291 415 R.C.S. Paris (immatriculé le 20/01/2025)",
@@ -36,12 +36,12 @@ const LEGAL = {
 const PAGE_URL = `${SITE_URL}/cgv`;
 
 export const metadata: Metadata = {
-  title: "CGV — Conditions Générales de Vente B2B",
+  title: "CGV : conditions générales de vente B2B",
   description:
     "CGV des prestations B2B d'Axel Hamilcaro : forfaits TMA PRO/PREMIUM et missions freelance. Art. L.441-1 Code de commerce. SIRET 939 291 415 00015.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "CGV — Conditions Générales de Vente B2B",
+    title: "CGV : conditions générales de vente B2B",
     description:
       "CGV applicables aux forfaits TMA et prestations freelance B2B d'Axel Hamilcaro (EI, SIRET 939 291 415 00015). Art. L.441-1 Code de commerce.",
     url: PAGE_URL,

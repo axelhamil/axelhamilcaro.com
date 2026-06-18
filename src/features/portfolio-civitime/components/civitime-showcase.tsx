@@ -51,7 +51,7 @@ const CT = {
 } as const;
 
 const stats = [
-  { value: "4", label: "Ans", sublabel: "2021 — 2024", color: CT.charcoal },
+  { value: "4", label: "Ans", sublabel: "2021-2024", color: CT.charcoal },
   { value: "10+", label: "Serious Games", color: CT.gold },
   { value: "200+", label: "Modules RSE", color: CT.orange },
   { value: "100+", label: "Entreprises clientes", color: CT.magenta },
@@ -197,7 +197,7 @@ const techStack = [
 
 const roleEvolution = [
   {
-    period: "2021 — 2023",
+    period: "2021-2023",
     title: "Développeur Full-Stack",
     description:
       "Serious games RSE (city builder, quiz, escape games), éditeur de scénarios, réécriture du legacy en Clean Architecture DDD. TDD/BDD, code reviews, pair programming.",
@@ -205,7 +205,7 @@ const roleEvolution = [
     icon: Code2,
   },
   {
-    period: "2023 — 2024",
+    period: "2023-2024",
     title: "Lead Full-Stack",
     description:
       "Référent technique post-départ du CTO. Produit SaaS SCORM from scratch, dashboards, backoffice Directus, outils marketing. SSO grands comptes, formation d'alternants.",
@@ -298,7 +298,7 @@ export function CivitimeHero() {
           <RevealItem>
             <div className="flex items-center gap-2.5 mb-5 flex-wrap">
               <span className="badge text-xs uppercase tracking-widest font-semibold text-secondary">
-                CDI — 4 ans
+                CDI, 4 ans
               </span>
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"

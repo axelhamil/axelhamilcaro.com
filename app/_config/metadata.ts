@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default:
-      "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
+      "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
     template: "%s · Axel Hamilcaro",
   },
   description: siteConfig.description,
@@ -73,13 +73,13 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     title:
-      "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
+      "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node",
+      "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
     description: siteConfig.description,
     creator: "@axelhamilcaro",
   },

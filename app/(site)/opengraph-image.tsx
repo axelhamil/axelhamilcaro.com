@@ -4,7 +4,7 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "Axel Hamilcaro — Développeur Full-Stack Freelance France";
+export const alt = "Axel Hamilcaro, Développeur Full-Stack Freelance France";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 

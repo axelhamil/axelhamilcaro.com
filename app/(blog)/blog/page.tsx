@@ -11,7 +11,7 @@ const BLOG_DESCRIPTION =
   "Articles, traductions et réflexions sur le développement logiciel, la sécurité et les études de cas techniques par Axel Hamilcaro.";
 
 export const metadata: Metadata = {
-  title: "Blog — Dev web, sécurité, études de cas",
+  title: "Blog : dev web, sécurité, études de cas",
   description: BLOG_DESCRIPTION,
   keywords: [
     "blog développeur",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
-    title: "Blog — Dev web, sécurité, études de cas",
+    title: "Blog : dev web, sécurité, études de cas",
     description: BLOG_DESCRIPTION,
     url: `${SITE_URL}/blog`,
     siteName: "Axel Hamilcaro",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog — Dev web, sécurité, études de cas",
+    title: "Blog : dev web, sécurité, études de cas",
     description: BLOG_DESCRIPTION,
   },
 };
@@ -44,7 +44,7 @@ export default function BlogPage() {
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Blog — Axel Hamilcaro",
+    name: "Blog d'Axel Hamilcaro",
     description: BLOG_DESCRIPTION,
     url: `${SITE_URL}/blog`,
     inLanguage: "fr-FR",

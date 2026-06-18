@@ -71,7 +71,7 @@ export const TMA_LAST_UPDATED = {
 } as const;
 
 export const TMA_META = {
-  title: "TMA — Maintenance applicative 350€/mois",
+  title: "TMA : maintenance applicative dès 350€/mois",
   description:
     "Forfait TMA mensuel pour app Next.js, React, Node ou mobile. PRO 350€/mois (5h, 1 jour ouvré) ou PREMIUM 800€/mois (10h, monitoring proactif). Sans engagement.",
   keywords: [
@@ -249,7 +249,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Je peux changer de forfait en cours de route ?",
     answer:
-      "Oui à tout moment, sur simple demande par email — c'est moi qui pilote la bascule pour qu'elle reste propre des deux côtés. Pour un upgrade PRO → PREMIUM, je fais la bascule immédiate au prorata (tu paies la différence pour les jours restants du mois) et je mets en place les outils Premium au début de la période complète suivante (Sentry, monitoring, status page). Pour un retour vers PRO, on en discute ensemble pour ne pas casser ton observabilité en plein vol.",
+      "Oui à tout moment, sur simple demande par email : c'est moi qui pilote la bascule pour qu'elle reste propre des deux côtés. Pour un upgrade PRO → PREMIUM, je fais la bascule immédiate au prorata (tu paies la différence pour les jours restants du mois) et je mets en place les outils Premium au début de la période complète suivante (Sentry, monitoring, status page). Pour un retour vers PRO, on en discute ensemble pour ne pas casser ton observabilité en plein vol.",
   },
   {
     question: "Quels canaux de support et quels délais ?",
@@ -279,7 +279,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Tu acceptes les paiements par virement ou sur facture ?",
     answer:
-      "Stripe (CB, prélèvement automatique) est l'option par défaut : la facture est envoyée à chaque renouvellement et tout est self-service. Pour les structures qui ont un process fournisseur obligatoire (ETI, grands comptes, secteur public, associations) ou qui veulent un règlement par virement SEPA avec devis et bon de commande, je facture sur demande, mensuel ou trimestriel. Engagement annuel et tarif négocié possibles à partir d'un certain volume — on en discute via la modale de contact.",
+      "Stripe (CB, prélèvement automatique) est l'option par défaut : la facture est envoyée à chaque renouvellement et tout est self-service. Pour les structures qui ont un process fournisseur obligatoire (ETI, grands comptes, secteur public, associations) ou qui veulent un règlement par virement SEPA avec devis et bon de commande, je facture sur demande, mensuel ou trimestriel. Engagement annuel et tarif négocié possibles à partir d'un certain volume, à discuter via la modale de contact.",
   },
   {
     question: "Et si tu es en vacances ou indisponible ?",
@@ -314,7 +314,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Que se passe-t-il si mon app tombe le week-end ou la nuit ?",
     answer:
-      "Pas d'astreinte 24/7 — la TMA reste un service en heures ouvrées (lundi au vendredi). Sur PREMIUM, le monitoring continue de tourner et de t'alerter même hors heures ; si tu veux que j'intervienne en best-effort la nuit ou le week-end, c'est facturé en heures supplémentaires au tarif standard de 80€/h, avec ton accord écrit avant intervention. Pour de l'astreinte garantie 24/7, c'est une mission séparée avec rémunération adaptée à cadrer ensemble.",
+      "Pas d'astreinte 24/7 : la TMA reste un service en heures ouvrées (lundi au vendredi). Sur PREMIUM, le monitoring continue de tourner et de t'alerter même hors heures ; si tu veux que j'intervienne en best-effort la nuit ou le week-end, c'est facturé en heures supplémentaires au tarif standard de 80€/h, avec ton accord écrit avant intervention. Pour de l'astreinte garantie 24/7, c'est une mission séparée avec rémunération adaptée à cadrer ensemble.",
   },
   {
     question: "Si j'ai plusieurs projets, ça rentre dans le même forfait ?",

@@ -19,7 +19,7 @@ import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work"
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 
 const creativeWorkSchema = buildCreativeWorkSchema({
-  name: "ScormPilot — SaaS e-learning multi-tenant",
+  name: "ScormPilot : SaaS e-learning multi-tenant",
   description:
     "SaaS e-learning multi-tenant développé en solo : 5 applications (API, dashboard, lecteur SCORM, runtime SCORM, app Microsoft Teams). Multi-tenancy schema-per-tenant PostgreSQL, milliers de sessions quotidiennes.",
   url: "https://axelhamilcaro.com/portfolio/scormpilot",
@@ -48,7 +48,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "ScormPilot — SaaS e-learning SCORM",
+  title: "ScormPilot : SaaS e-learning SCORM",
   description:
     "SaaS e-learning multi-tenant en solo : 5 apps (API, dashboard, lecteur SCORM, runtime, Teams). PostgreSQL schema-per-tenant. Alternative légère aux LMS rigides.",
   keywords: [
@@ -67,14 +67,14 @@ export const metadata: Metadata = {
     canonical: "/portfolio/scormpilot",
   },
   openGraph: {
-    title: "ScormPilot — SaaS e-learning SCORM",
+    title: "ScormPilot : SaaS e-learning SCORM",
     description:
       "SaaS multi-tenant SCORM : 5 apps solo (API, dashboard, lecteur, runtime, Teams). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
     url: "/portfolio/scormpilot",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ScormPilot — SaaS e-learning SCORM",
+    title: "ScormPilot : SaaS e-learning SCORM",
     description:
       "SaaS multi-tenant SCORM : 5 apps solo (API, dashboard, lecteur, runtime, Teams). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
   },

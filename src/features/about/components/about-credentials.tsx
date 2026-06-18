@@ -49,8 +49,8 @@ export function AboutCredentials() {
               Formation
             </h3>
             <p className="text-secondary leading-relaxed">
-              Wild Code School — Concepteur Développeur d'applications Web &
-              Mobile (Bac+3/4) — 2021
+              Wild Code School, Concepteur Développeur d'applications Web &
+              Mobile (Bac+3/4), 2020
             </p>
           </div>
 

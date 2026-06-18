@@ -5,7 +5,7 @@ import {
 } from "@/src/shared/seo/og-image-template";
 
 export const alt =
-  "À propos — Axel Hamilcaro, développeur full-stack freelance";
+  "À propos d'Axel Hamilcaro, développeur full-stack freelance";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 

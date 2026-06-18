@@ -274,7 +274,7 @@ export function ScormpilotHero() {
           <RevealItem>
             <div className="flex items-center gap-2.5 mb-5 flex-wrap">
               <span className="badge text-xs uppercase tracking-widest font-semibold text-secondary">
-                Freelance — SaaS
+                Freelance, SaaS
               </span>
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"

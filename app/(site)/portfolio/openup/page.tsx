@@ -53,7 +53,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "OpenUp — SaaS liens Bitly + Linktree",
+  title: "OpenUp : SaaS de liens Bitly + Linktree",
   description:
     "Mission freelance solo : SaaS Bitly + Linktree + Beacons. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise, Clean Architecture + DDD sur Hono.",
   keywords: [
@@ -76,14 +76,14 @@ export const metadata: Metadata = {
     canonical: "/portfolio/openup",
   },
   openGraph: {
-    title: "OpenUp — SaaS liens Bitly + Linktree",
+    title: "OpenUp : SaaS de liens Bitly + Linktree",
     description:
       "Mission freelance solo : SaaS Bitly + Linktree + Beacons. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise, Clean Architecture + DDD sur Hono.",
     url: "/portfolio/openup",
   },
   twitter: {
     card: "summary_large_image",
-    title: "OpenUp — SaaS liens Bitly + Linktree",
+    title: "OpenUp : SaaS de liens Bitly + Linktree",
     description:
       "Mission freelance solo : SaaS Bitly + Linktree + Beacons. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise, Clean Architecture + DDD sur Hono.",
   },

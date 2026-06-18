@@ -1,4 +1,4 @@
-# Axel Hamilcaro — Développeur Web Fullstack | Next.js | React | Node
+# Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node
 
 > Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine, 100% remote France.
 > Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, architecture Clean / DDD.
@@ -18,7 +18,7 @@
 - [Développeur Next.js freelance](https://axelhamilcaro.com/services/developpeur-nextjs-freelance): architecture moderne, MVP en 4-8 semaines, refonte d'apps existantes
 - [Développement SaaS](https://axelhamilcaro.com/services/developpement-saas): SaaS B2B multi-tenant, Clean Architecture + DDD, de zéro jusqu'en production
 - [Lead tech fractional](https://axelhamilcaro.com/services/lead-tech-fractional): lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME
-- [TMA — maintenance applicative](https://axelhamilcaro.com/tma): forfait mensuel sans engagement, PRO 350€/mois (5h incluses) ou PREMIUM 800€/mois (10h, monitoring proactif)
+- [TMA (maintenance applicative)](https://axelhamilcaro.com/tma): forfait mensuel sans engagement, PRO 350€/mois (5h incluses) ou PREMIUM 800€/mois (10h, monitoring proactif)
 
 ## Case studies
 

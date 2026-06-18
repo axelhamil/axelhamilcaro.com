@@ -5,7 +5,7 @@ import {
 } from "@/src/shared/seo/og-image-template";
 
 export const alt =
-  "TMA — Tierce Maintenance Applicative pour app web et mobile | Axel Hamilcaro";
+  "TMA (tierce maintenance applicative) pour app web et mobile | Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
@@ -14,6 +14,6 @@ export default function Image() {
     eyebrow: "Tierce Maintenance Applicative",
     title: "TMA web et mobile",
     subtitle:
-      "Next.js · React · Node · infra légère — PRO 350€/mois · PREMIUM 800€/mois — Sans engagement",
+      "Next.js · React · Node · infra légère · PRO 350€/mois · PREMIUM 800€/mois · sans engagement",
   });
 }

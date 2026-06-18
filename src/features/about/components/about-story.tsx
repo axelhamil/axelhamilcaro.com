@@ -9,7 +9,7 @@ export function AboutStory() {
           Mon parcours
         </h2>
         <p className="text-secondary text-lg leading-relaxed mb-6">
-          J'ai démarré le développement à la Wild Code School en 2021 en
+          J'ai démarré le développement à la Wild Code School en 2020 en
           formation alternance Bac+3/4. À la sortie, j'ai rejoint Civitime en
           CDI comme lead technique : c'est là que j'ai appris à penser produit
           autant qu'à coder.
@@ -22,11 +22,11 @@ export function AboutStory() {
           technique d'un produit que je connaissais par cœur.
         </p>
         <p className="text-secondary text-lg leading-relaxed mb-6">
-          Depuis 2 ans, je suis passé en freelance — pas par défaut, mais par
+          Depuis 2 ans, je suis passé en freelance, pas par défaut mais par
           conviction : garder la liberté de choisir mes projets, mes clients, et
           de progresser sur les sujets qui me passionnent. Aujourd'hui je
           travaille en parallèle sur OpenUp (SaaS de gestion de liens live sur
-          openup.to — courts, QR, link-in-bio, analytics, iOS/Android/PWA),
+          openup.to : courts, QR, link-in-bio, analytics, iOS/Android/PWA),
           ScormPilot (SaaS e-learning multi-tenant, 5 apps en solo) et des
           missions de lead tech temps partiel. Je teste et intègre l'IA dans mes
           workflows quotidiens (Claude Code, Vercel AI SDK) pour gagner en
