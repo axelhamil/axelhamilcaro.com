@@ -8,6 +8,7 @@ export function JsonLd() {
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
     name: "Axel Hamilcaro",
     givenName: "Axel",
     familyName: "Hamilcaro",
@@ -85,21 +86,18 @@ export function JsonLd() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: "Axel Hamilcaro - Développeur Full-Stack TypeScript",
     alternateName: "Axel Hamilcaro Portfolio",
     url: SITE_URL,
     description:
-      "Portfolio d'Axel Hamilcaro, développeur Full-Stack freelance basé en Touraine, intervient à 100% en remote sur la France. Expertise TypeScript, Next.js, React, Node.js pour applications web et SaaS.",
-    author: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-    },
+      "Portfolio d'Axel Hamilcaro, développeur freelance Next.js, React et Node.js basé en Touraine, intervient à 100% en remote sur la France. Expertise SaaS B2B multi-tenant, Clean Architecture et lead tech.",
     inLanguage: "fr-FR",
     copyrightYear: new Date().getFullYear(),
-    creator: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-    },
+    about: { "@id": `${SITE_URL}/#person` },
+    author: { "@id": `${SITE_URL}/#person` },
+    creator: { "@id": `${SITE_URL}/#person` },
+    publisher: { "@id": `${SITE_URL}/#person` },
   };
 
   const professionalServiceSchema = {
@@ -112,10 +110,7 @@ export function JsonLd() {
     url: SITE_URL,
     image: PROFILE_IMAGE,
     priceRange: "€€€",
-    provider: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-    },
+    provider: { "@id": `${SITE_URL}/#person` },
     areaServed: [
       {
         "@type": "Country",
@@ -177,6 +172,13 @@ export function JsonLd() {
           },
         },
       ],
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      reviewCount: "1",
+      bestRating: "5",
+      worstRating: "1",
     },
     review: [
       {
