@@ -31,6 +31,10 @@ const WhatIDo = dynamic(
   () => import("@/src/features/home/components/what-i-do"),
 );
 
+const Approach = dynamic(
+  () => import("@/src/features/home/components/approach"),
+);
+
 const CaseStudies = dynamic(
   () => import("@/src/features/home/components/case-studies"),
 );
@@ -49,6 +53,7 @@ export default function Home() {
       <Hero />
       <ExperienceTimeline />
       <WhatIDo />
+      <Approach />
       <CaseStudies />
       <TrustedBy />
       <TechStack />

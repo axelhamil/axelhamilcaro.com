@@ -210,7 +210,7 @@ const TrustedBy = () => {
                 <span className="font-semibold text-accent">
                   <AnimatedCounter value="20+" className="inline" />
                 </span>{" "}
-                applications livrées depuis 2020 · Disponible pour votre projet
+                applications livrées depuis 2021 · Disponible pour votre projet
               </span>
             </motion.div>
           </MagneticWrapper>
