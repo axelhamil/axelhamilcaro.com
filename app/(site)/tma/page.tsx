@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   keywords: [...TMA_META.keywords],
   alternates: { canonical: TMA_URL },
   openGraph: {
-    title: "TMA — Tierce Maintenance Applicative à partir de 350€/mois",
+    title: "TMA — Maintenance applicative 350€/mois",
     description:
-      "Forfait mensuel pour ton app Next.js, React, Node ou mobile. PRO 350€ (5h, 1 jour ouvré) ou PREMIUM 800€ (10h, monitoring proactif, demi-journée). Sans engagement, résiliation Stripe.",
+      "Forfait TMA pour app Next.js, React, Node ou mobile. PRO 350€ (5h, 1 j ouvré) ou PREMIUM 800€ (10h, monitoring proactif). Sans engagement, résiliation Stripe.",
     url: TMA_URL,
     type: "website",
     siteName: "Axel Hamilcaro",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TMA — Forfaits 350€ ou 800€/mois",
     description:
-      "Maintenance Applicative au mois pour ton app web ou mobile : Next.js, React, Node, infra légère. Sans engagement.",
+      "Forfait TMA mensuel : Next.js, React, Node, infra légère. PRO 350€/mois (5h) ou PREMIUM 800€/mois (10h, monitoring proactif). Sans engagement.",
   },
 };
 

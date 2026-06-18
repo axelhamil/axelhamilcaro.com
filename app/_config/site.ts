@@ -4,5 +4,5 @@ export const siteConfig = {
   url: SITE_URL,
   name: "Axel Hamilcaro",
   description:
-    "Axel Hamilcaro, développeur freelance Next.js, React et Node.js basé en Touraine, 100% remote France. Je conçois des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, robustes et scalables (Clean Architecture / DDD), et j'accompagne les équipes en lead tech temps partiel.",
+    "Axel Hamilcaro — dev freelance Next.js, React, Node.js, Touraine, remote France. SaaS B2B, applications web sur mesure, lead tech fractional. Devis sous 24h.",
 } as const;

@@ -13,22 +13,22 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "Services freelance — Next.js, SaaS, Lead tech, TMA",
+  title: "Services freelance",
   description:
-    "4 services freelance Axel Hamilcaro : développement Next.js, développement SaaS multi-tenant, lead tech fractional, Tierce Maintenance Applicative (TMA) au mois. Devis sous 24h, démarrage sous 1-3 semaines, 100% remote France.",
+    "4 services freelance : dev Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h, démarrage 1-3 semaines.",
   alternates: { canonical: SERVICES_URL },
   openGraph: {
-    title: "Services freelance — Axel Hamilcaro",
+    title: "Services freelance",
     description:
-      "Développement Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h.",
+      "4 services freelance : dev Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h, démarrage 1-3 semaines.",
     url: SERVICES_URL,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Services freelance — Axel Hamilcaro",
+    title: "Services freelance",
     description:
-      "Développement Next.js, SaaS, lead tech fractional, TMA. 5 ans d'expérience.",
+      "4 services freelance : dev Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h, démarrage 1-3 semaines.",
   },
 };
 

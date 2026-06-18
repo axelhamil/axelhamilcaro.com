@@ -36,14 +36,14 @@ const LEGAL = {
 const PAGE_URL = `${SITE_URL}/cgv`;
 
 export const metadata: Metadata = {
-  title: "Conditions Générales de Vente — TMA et prestations B2B",
+  title: "CGV — Conditions Générales de Vente B2B",
   description:
-    "Conditions générales de vente (CGV) applicables aux prestations B2B d'Axel Hamilcaro (forfaits TMA PRO et PREMIUM, missions ponctuelles, accompagnement). Article L.441-1 du Code de commerce, droit français.",
+    "CGV des prestations B2B d'Axel Hamilcaro : forfaits TMA PRO/PREMIUM et missions freelance. Art. L.441-1 Code de commerce. SIRET 939 291 415 00015.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "CGV — Conditions Générales de Vente B2B",
     description:
-      "Conditions applicables aux forfaits TMA et prestations freelance B2B d'Axel Hamilcaro.",
+      "CGV applicables aux forfaits TMA et prestations freelance B2B d'Axel Hamilcaro (EI, SIRET 939 291 415 00015). Art. L.441-1 Code de commerce.",
     url: PAGE_URL,
     type: "website",
     siteName: "Axel Hamilcaro",

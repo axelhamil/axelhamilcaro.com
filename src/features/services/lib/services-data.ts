@@ -50,10 +50,9 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
   "developpeur-nextjs-freelance": {
     slug: "developpeur-nextjs-freelance",
     url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
-    metaTitle:
-      "Développeur Next.js Freelance — Architecture, MVP, Refonte | Axel Hamilcaro",
+    metaTitle: "Développeur Next.js freelance",
     metaDescription:
-      "Développeur Next.js freelance, 5 ans d'expérience. Architecture moderne, MVP en 4-8 semaines, refonte d'apps existantes. Stack TypeScript / React 19 / Tailwind v4. Devis sous 24h.",
+      "Dev Next.js freelance, 5 ans d'expérience. Architecture moderne, MVP 4-8 semaines, refonte apps. TypeScript / React 19 / Tailwind v4. TJM 450€ HT. Devis 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Développeur Next.js freelance qui livre vraiment.",
@@ -138,10 +137,9 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
   "developpement-saas": {
     slug: "developpement-saas",
     url: `${SITE_URL}/services/developpement-saas`,
-    metaTitle:
-      "Développement SaaS Freelance — Multi-tenant, Architecture, Production | Axel Hamilcaro",
+    metaTitle: "Développement SaaS freelance",
     metaDescription:
-      "Développeur freelance spécialisé SaaS B2B. Architecture multi-tenant, Clean Architecture + DDD, mise en production complète. Référence : ScormPilot (5 apps en solo). Devis sous 24h.",
+      "Dev freelance SaaS B2B. Architecture multi-tenant, Clean Architecture + DDD, mise en prod complète. Référence : ScormPilot (5 apps solo). Devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Je conçois et livre ton SaaS de zéro jusqu'en production.",
@@ -227,10 +225,9 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
   "lead-tech-fractional": {
     slug: "lead-tech-fractional",
     url: `${SITE_URL}/services/lead-tech-fractional`,
-    metaTitle:
-      "Lead Technique Fractional Freelance — Architecture, Équipe, Mentorat | Axel Hamilcaro",
+    metaTitle: "Lead tech fractional freelance",
     metaDescription:
-      "Lead technique freelance temps partiel pour startups et PME. Référence : 4 ans lead tech Civitime (refonte Clean Architecture, baisse du churn, hausse engagement). Devis sous 24h.",
+      "Lead tech freelance, startups et PME. 4 ans lead tech Civitime (Clean Architecture, baisse churn). Engagements 3-18 mois, 1-3 jours par semaine. Devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Lead technique fractional pour ton équipe.",

@@ -48,9 +48,9 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "ScormPilot - Plateforme SaaS e-learning SCORM",
+  title: "ScormPilot — SaaS e-learning SCORM",
   description:
-    "Conception et développement complet d'une plateforme SaaS multi-tenant pour la gestion et diffusion de modules e-learning SCORM. Alternative simple aux LMS rigides.",
+    "SaaS e-learning multi-tenant en solo : 5 apps (API, dashboard, lecteur SCORM, runtime, Teams). PostgreSQL schema-per-tenant. Alternative légère aux LMS rigides.",
   keywords: [
     "ScormPilot",
     "SCORM",
@@ -67,16 +67,16 @@ export const metadata: Metadata = {
     canonical: "/portfolio/scormpilot",
   },
   openGraph: {
-    title: "ScormPilot - Plateforme SaaS e-learning SCORM",
+    title: "ScormPilot — SaaS e-learning SCORM",
     description:
-      "Plateforme SaaS multi-tenant : gestion, test et diffusion de modules SCORM. Architecture hexagonale, DDD, multi-tenant Identity Platform.",
+      "SaaS multi-tenant SCORM : 5 apps solo (API, dashboard, lecteur, runtime, Teams). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
     url: "/portfolio/scormpilot",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ScormPilot - Plateforme SaaS e-learning SCORM",
+    title: "ScormPilot — SaaS e-learning SCORM",
     description:
-      "Plateforme SaaS multi-tenant : gestion, test et diffusion de modules SCORM. Architecture hexagonale, DDD, multi-tenant Identity Platform.",
+      "SaaS multi-tenant SCORM : 5 apps solo (API, dashboard, lecteur, runtime, Teams). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
   },
 };
 

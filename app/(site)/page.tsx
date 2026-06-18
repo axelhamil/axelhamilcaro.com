@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     title:
-      "Axel Hamilcaro | Développeur freelance Next.js, React & Node.js - France",
+      "Axel Hamilcaro — Développeur freelance Next.js, React, Node.js",
     description: siteConfig.description,
   },
   twitter: {

@@ -10,22 +10,22 @@ import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-l
 const ABOUT_URL = "https://axelhamilcaro.com/about";
 
 export const metadata: Metadata = {
-  title: "À propos — Axel Hamilcaro, développeur full-stack freelance",
+  title: "À propos — Dev full-stack freelance",
   description:
-    "Développeur full-stack. Formé à la Wild Code School (2021), 4 ans lead technique chez Civitime, puis 2 ans en freelance. 10+ projets livrés en autonomie. Focus Next.js, React, Node.js, architecture Clean / DDD et lead tech.",
+    "Formé Wild Code School (2021), 4 ans lead tech Civitime, 2 ans freelance. 10+ projets livrés. Next.js, React, Node.js, Clean Architecture, DDD et lead tech.",
   alternates: { canonical: ABOUT_URL },
   openGraph: {
-    title: "À propos — Axel Hamilcaro",
+    title: "À propos — Dev full-stack freelance",
     description:
-      "Développeur full-stack basé en Touraine. 4 ans lead tech Civitime, 2 ans freelance, 10+ projets livrés. Focus Next.js, React, Node.js, architecture Clean / DDD et lead tech.",
+      "Dev full-stack, Touraine. 4 ans lead tech Civitime, 2 ans freelance, 10+ projets livrés. Focus Next.js, React, Node.js, Clean Architecture / DDD et lead tech.",
     url: ABOUT_URL,
     type: "profile",
   },
   twitter: {
     card: "summary_large_image",
-    title: "À propos — Axel Hamilcaro",
+    title: "À propos — Dev full-stack freelance",
     description:
-      "Développeur full-stack basé en Touraine. 4 ans lead tech Civitime, 2 ans freelance, 10+ projets livrés.",
+      "Dev full-stack, Touraine. 4 ans lead tech chez Civitime, 2 ans freelance. 10+ projets livrés, Next.js, React, Node.js, Clean Architecture.",
   },
 };
 

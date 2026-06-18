@@ -53,9 +53,9 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 export const metadata: Metadata = {
-  title: "OpenUp - SaaS de gestion de liens tout-en-un",
+  title: "OpenUp — SaaS liens Bitly + Linktree",
   description:
-    "Mission freelance : SaaS Bitly + Linktree + Beacons livré en solo from scratch avec le founder en quelques semaines. Deep links iOS/Android natifs, mobile via Capacitor, edge Cloudflare <50ms, Stripe multi-devise, Clean Architecture + DDD sur Hono. Live sur openup.to.",
+    "Mission freelance solo : SaaS Bitly + Linktree + Beacons. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise, Clean Architecture + DDD sur Hono.",
   keywords: [
     "OpenUp",
     "gestion de liens",
@@ -76,16 +76,16 @@ export const metadata: Metadata = {
     canonical: "/portfolio/openup",
   },
   openGraph: {
-    title: "OpenUp - SaaS de gestion de liens tout-en-un",
+    title: "OpenUp — SaaS liens Bitly + Linktree",
     description:
-      "Mission freelance solo : SaaS Bitly + Linktree + Beacons combinés. Deep links iOS/Android, edge Cloudflare <50ms, Clean Architecture + DDD sur Hono.",
+      "Mission freelance solo : SaaS Bitly + Linktree + Beacons. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise, Clean Architecture + DDD sur Hono.",
     url: "/portfolio/openup",
   },
   twitter: {
     card: "summary_large_image",
-    title: "OpenUp - SaaS de gestion de liens tout-en-un",
+    title: "OpenUp — SaaS liens Bitly + Linktree",
     description:
-      "Mission freelance solo : SaaS Bitly + Linktree + Beacons combinés. Deep links iOS/Android, edge Cloudflare <50ms, Clean Architecture + DDD sur Hono.",
+      "Mission freelance solo : SaaS Bitly + Linktree + Beacons. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise, Clean Architecture + DDD sur Hono.",
   },
 };
 

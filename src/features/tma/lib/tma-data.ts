@@ -71,10 +71,9 @@ export const TMA_LAST_UPDATED = {
 } as const;
 
 export const TMA_META = {
-  title:
-    "TMA — Tierce Maintenance Applicative web/mobile à partir de 350€/mois",
+  title: "TMA — Maintenance applicative 350€/mois",
   description:
-    "Forfait mensuel de Tierce Maintenance Applicative (TMA) pour ton app web ou mobile : Next.js, React, Node, infra légère (Vercel, Railway, PostgreSQL). Bugs, sécurité, support, monitoring. PRO 350€/mois (5h) ou PREMIUM 800€/mois (10h). Sans engagement, résiliation self-service via Stripe.",
+    "Forfait TMA mensuel pour app Next.js, React, Node ou mobile. PRO 350€/mois (5h, 1 jour ouvré) ou PREMIUM 800€/mois (10h, monitoring proactif). Sans engagement.",
   keywords: [
     "tierce maintenance applicative",
     "TMA freelance",

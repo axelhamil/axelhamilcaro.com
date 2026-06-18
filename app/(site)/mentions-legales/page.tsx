@@ -42,12 +42,12 @@ const PAGE_URL = `${SITE_URL}/mentions-legales`;
 export const metadata: Metadata = {
   title: "Mentions légales",
   description:
-    "Mentions légales du site axelhamilcaro.com conformes à l'art. 6-III de la LCEN et au RGPD : éditeur (Axel Hamilcaro, EI, SIRET 939 291 415 00015), hébergeur Vercel Inc., traitement des données personnelles, cookies, propriété intellectuelle et CGV B2B.",
+    "Mentions légales d'axelhamilcaro.com (LCEN art. 6-III + RGPD) : éditeur Axel Hamilcaro EI (SIRET 939 291 415 00015), hébergeur Vercel, données et cookies.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Mentions légales — Axel Hamilcaro",
+    title: "Mentions légales",
     description:
-      "Éditeur, hébergeur, RGPD, cookies, CGV B2B et propriété intellectuelle du site axelhamilcaro.com.",
+      "Mentions légales LCEN + RGPD du site axelhamilcaro.com : éditeur Axel Hamilcaro (EI, SIRET 939 291 415 00015), hébergeur Vercel Inc.",
     url: PAGE_URL,
     type: "website",
     siteName: "Axel Hamilcaro",
