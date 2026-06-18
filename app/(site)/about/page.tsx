@@ -10,22 +10,22 @@ import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-l
 const ABOUT_URL = "https://axelhamilcaro.com/about";
 
 export const metadata: Metadata = {
-  title: "À propos : dev full-stack freelance",
+  title: "À propos : dev fullstack freelance",
   description:
-    "Formé Wild Code School (2020), 4 ans lead tech Civitime, 2 ans freelance. 10+ projets livrés. Next.js, React, Node.js, Clean Architecture, DDD et lead tech.",
+    "Développeur web fullstack freelance en Touraine, remote France. 4 ans lead tech chez Civitime, freelance depuis 2024, 10+ projets livrés en Next.js et React.",
   alternates: { canonical: ABOUT_URL },
   openGraph: {
-    title: "À propos : dev full-stack freelance",
+    title: "À propos : dev fullstack freelance",
     description:
-      "Dev full-stack, Touraine. 4 ans lead tech Civitime, 2 ans freelance, 10+ projets livrés. Focus Next.js, React, Node.js, Clean Architecture / DDD et lead tech.",
+      "Dev fullstack en Touraine, remote France. 4 ans lead tech chez Civitime, freelance depuis 2024, 10+ projets livrés. Next.js, React, Node.js, Clean Architecture / DDD.",
     url: ABOUT_URL,
     type: "profile",
   },
   twitter: {
     card: "summary_large_image",
-    title: "À propos : dev full-stack freelance",
+    title: "À propos : dev fullstack freelance",
     description:
-      "Dev full-stack, Touraine. 4 ans lead tech chez Civitime, 2 ans freelance. 10+ projets livrés, Next.js, React, Node.js, Clean Architecture.",
+      "Dev fullstack en Touraine, remote France. 4 ans lead tech chez Civitime, freelance depuis 2024. 10+ projets livrés en Next.js, React, Node.js et Clean Architecture.",
   },
 };
 
@@ -33,7 +33,7 @@ const aboutSchema = buildAboutPageSchema({
   url: ABOUT_URL,
   name: "À propos d'Axel Hamilcaro",
   description:
-    "Page de présentation d'Axel Hamilcaro, développeur full-stack freelance basé en Touraine.",
+    "Page de présentation d'Axel Hamilcaro, développeur web fullstack freelance basé en Touraine.",
 });
 
 const breadcrumbSchema = buildBreadcrumbListSchema([

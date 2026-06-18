@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { BlogByline } from "@/src/features/blog/components/blog-byline";
 import type { BlogPost } from "@/src/features/blog/lib/blog";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
@@ -33,11 +34,13 @@ export function ArticleCard({ post, featured = false }: ArticleCardProps) {
             {post.category}
           </span>
           <span className="text-border">|</span>
-          <time dateTime={post.date} className="text-sm text-muted">
+          <time dateTime={post.date} className="text-sm text-muted-foreground">
             {formattedDate}
           </time>
           <span className="text-border">|</span>
-          <span className="text-sm text-muted">{post.readingTime}</span>
+          <span className="text-sm text-muted-foreground">
+            {post.readingTime}
+          </span>
         </div>
 
         <Heading2
@@ -51,6 +54,12 @@ export function ArticleCard({ post, featured = false }: ArticleCardProps) {
           {post.excerpt}
         </Paragraph>
 
+        <BlogByline
+          variant="card"
+          originalAuthor={post.originalAuthor}
+          className="mb-4"
+        />
+
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex flex-wrap gap-2">
             {post.tags.map((tag) => (
@@ -59,7 +68,7 @@ export function ArticleCard({ post, featured = false }: ArticleCardProps) {
               </Badge>
             ))}
           </div>
-          <ArrowRight className="w-4 h-4 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />

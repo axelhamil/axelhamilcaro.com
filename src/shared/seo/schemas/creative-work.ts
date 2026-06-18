@@ -1,3 +1,5 @@
+import { authorPerson } from "./author";
+
 export type CreativeWorkData = {
   name: string;
   description: string;
@@ -21,11 +23,7 @@ export function buildCreativeWorkSchema(data: CreativeWorkData) {
     ...(data.applicationCategory && {
       applicationCategory: data.applicationCategory,
     }),
-    creator: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-      url: "https://axelhamilcaro.com",
-    },
+    creator: authorPerson(),
     inLanguage: "fr-FR",
   };
 }

@@ -72,7 +72,7 @@ export default function TreeHeader() {
             transition={{ delay: 0.4 }}
           >
             <Paragraph variant="secondary" className="text-xs sm:text-sm">
-              Full-Stack TypeScript • Freelance
+              Fullstack TypeScript • Freelance
             </Paragraph>
           </motion.div>
 

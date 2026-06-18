@@ -51,7 +51,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 export const metadata: Metadata = {
   title: "Civitime : SaaS RSE multi-tenant, 4 ans",
   description:
-    "4 ans chez Civitime : développement de serious games RSE, éditeur de scénarios, puis lead technique sur une plateforme SaaS SCORM multi-tenant.",
+    "Lead fullstack 4 ans chez Civitime, B Corp RSE (250 000+ collaborateurs). Clean Architecture + DDD, éditeur IA RAG (délais ÷2), SaaS SCORM multi-tenant.",
   keywords: [
     "Civitime",
     "serious games",

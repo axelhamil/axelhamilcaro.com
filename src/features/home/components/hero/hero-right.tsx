@@ -20,7 +20,7 @@ const HeroRight = () => {
         >
           <Image
             src="/profil_pp.jpeg"
-            alt="Axel Hamilcaro - Développeur Full-Stack"
+            alt="Axel Hamilcaro - Développeur Fullstack"
             fill
             className="object-cover"
             priority

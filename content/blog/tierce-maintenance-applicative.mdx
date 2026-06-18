@@ -1,0 +1,119 @@
+---
+title: "Pourquoi vous avez besoin d'une tierce maintenance applicative"
+subtitle: "Ce que recouvre la TMA, pourquoi une application en production ne peut pas s'en passer, combien ça coûte et comment choisir son prestataire."
+date: "2026-06-18"
+dateModified: "2026-06-18"
+excerpt: "La TMA consiste à confier à un prestataire externe la maintenance d'une application déjà en production, des correctifs à la sécurité jusqu'au support."
+tags: ["TMA", "Tierce maintenance applicative", "Maintenance logicielle", "Freelance"]
+category: "Guide"
+faq:
+  - question: "Quelle est la différence entre TMA et infogérance ?"
+    answer: "L'infogérance couvre l'infrastructure et l'exploitation système, comme les serveurs, le réseau et la supervision. La tierce maintenance applicative se concentre sur le logiciel lui-même, le code, les dépendances, les bugs et les évolutions fonctionnelles. Les deux sont complémentaires et un même prestataire peut parfois assurer une partie des deux, mais ce sont des métiers distincts."
+  - question: "Combien coûte une TMA pour une application web ?"
+    answer: "Le prix dépend du volume d'heures, du niveau de service et de la criticité de l'application. En freelance, un forfait mensuel léger autour de cinq heures se situe souvent entre 300 et 500 euros par mois, et un forfait avec monitoring proactif et reporting autour de dix heures entre 700 et 1000 euros par mois. Les heures hors forfait sont généralement facturées entre 60 et 100 euros de l'heure."
+  - question: "La TMA inclut-elle le développement de nouvelles fonctionnalités ?"
+    answer: "Les petites évolutions rentrent dans le forfait tant qu'elles tiennent dans le volume d'heures convenu. Une fonctionnalité plus lourde, qui demande plusieurs jours de travail, sort généralement du forfait et fait l'objet d'une mission séparée chiffrée à part, pour ne pas consommer les heures réservées à la maintenance et au support."
+  - question: "Faut-il un engagement de durée pour une TMA ?"
+    answer: "Pas nécessairement. Beaucoup de prestataires freelances proposent un forfait mensuel sans engagement, reconductible et résiliable à tout moment. Les grandes structures et les ESN imposent plus souvent un contrat annuel. Le point important reste la réversibilité, la garantie de récupérer les accès et la documentation à la fin du contrat."
+  - question: "Sur quelles technologies peut-on souscrire une TMA ?"
+    answer: "Tout dépend du prestataire. Un freelance spécialisé couvre généralement un périmètre précis, par exemple les applications Next.js, React et Node, plutôt qu'un catalogue large mais superficiel. Vérifiez toujours que votre stack fait partie de la zone réellement maîtrisée avant de signer, car une maintenance sur une technologie mal connue coûte cher et tient mal dans la durée."
+---
+
+**La tierce maintenance applicative, ou TMA, consiste à confier à un prestataire externe l'entretien d'une application déjà en production.** Ce prestataire corrige les bugs, applique les mises à jour de sécurité, surveille les performances et assure le support, sans que vous ayez besoin de recruter un développeur en interne.
+
+Le mot « tierce » vient de l'usage de confier cet entretien à un tiers, distinct de celui qui exploite l'application au quotidien. Rien n'impose pour autant un prestataire différent du développeur d'origine, qui connaît déjà le code et reste souvent le mieux placé pour le maintenir.
+
+Une application ne reste jamais figée une fois livrée. Les dépendances vieillissent, des failles apparaissent, les navigateurs évoluent et des bugs remontent du terrain. La TMA répond à ce besoin de suivi continu, le plus souvent sous la forme d'un forfait mensuel avec un volume d'heures défini et un délai de prise en charge garanti.
+
+## Ce que couvre une TMA
+
+Une TMA bien cadrée couvre cinq chantiers concrets.
+
+- La **correction des bugs** reproductibles, qu'ils soient signalés par vos utilisateurs ou détectés en production.
+- La **sécurité**, avec l'application des correctifs critiques et la mise à jour régulière des dépendances. C'est le volet le plus souvent négligé, alors que les composants obsolètes figurent parmi les risques majeurs de l'[OWASP Top 10](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/). En reprise de maintenance, c'est presque toujours là que je trouve le plus de retard accumulé, des paquets aux failles connues que personne n'avait osé toucher de peur de casser la prod.
+- L'**optimisation des performances**, par exemple le traitement des requêtes lentes ou des points de friction qui dégradent l'expérience.
+- Les **petites évolutions** du quotidien, comme ajouter un champ, exporter des données ou créer un compte administrateur.
+- Le **support et le diagnostic** des incidents. Diagnostiquer ne revient pas à corriger. Sur un bug intermittent, on cherche d'abord la cause avant de poser un correctif durable.
+
+À l'inverse, une TMA ne remplace pas un projet de développement. Elle laisse de côté les refontes complètes, les migrations lourdes de technologie, l'astreinte permanente et la formation des utilisateurs finaux. Poser ce périmètre noir sur blanc dès le départ évite la plupart des malentendus.
+
+## Les quatre types de maintenance
+
+Pour bien situer la TMA, il faut connaître les quatre familles de maintenance logicielle définies par la norme [ISO/IEC 14764](https://www.iso.org/standard/80710.html).
+
+- La maintenance **corrective** répare ce qui dysfonctionne.
+- La maintenance **évolutive** (la norme parle de maintenance *perfective*) ajoute ou modifie des fonctionnalités pour suivre les besoins métier.
+- La maintenance **adaptative** met l'application à niveau face aux changements techniques, comme une nouvelle version de système, de navigateur ou de dépendance.
+- La maintenance **préventive** anticipe les problèmes avant qu'ils surviennent, à travers les mises à jour de sécurité et le nettoyage de la dette technique.
+
+Une TMA combine surtout les volets correctif et préventif, avec une part d'évolutif léger. Elle se distingue de l'**infogérance**, terme plus large souvent centré sur l'infrastructure et les serveurs. L'infogérance s'occupe de la machine, la tierce maintenance applicative s'occupe du logiciel qui tourne dessus.
+
+## Pourquoi externaliser sa maintenance
+
+La raison la plus fréquente est l'absence de ressource interne dédiée. Beaucoup d'entreprises lancent un produit avec une agence ou un développeur, puis se retrouvent seules une fois la livraison passée.
+
+Recruter un profil technique à temps plein pour cinq ou dix heures de travail par mois n'a aucun sens économique. Mais laisser l'application sans suivi finit toujours par coûter plus cher. Les correctifs de sécurité s'accumulent, les dépendances deviennent impossibles à mettre à jour d'un coup, et le moindre incident se transforme en chantier. J'ai déjà repris des applications laissées deux ans sans mise à jour, où un simple changement de version de dépendance se payait en plusieurs jours de migration faute de l'avoir fait au fil de l'eau.
+
+La réactivité est l'autre motivation forte. Quand une application critique tombe ou qu'un client se retrouve bloqué, attendre cinq jours un devis n'est pas tenable. Un contrat de TMA fixe à l'avance un délai de prise en charge, par exemple un jour ouvré pour un forfait standard et une demi-journée pour un forfait prioritaire.
+
+Externaliser apporte enfin une continuité de l'expertise. Le prestataire connaît votre code, votre historique et vos priorités. Cette mémoire vaut bien plus qu'un dépannage ponctuel par un intervenant différent à chaque fois, qui doit tout redécouvrir et facture ce temps d'apprentissage.
+
+## Internaliser, agence ou freelance
+
+Pour maintenir une application en production, trois voies sont possibles.
+
+- **Recruter en interne** donne le plus grand contrôle, mais ne se justifie qu'avec un volume de travail suffisant pour un poste à temps plein, ce qui est rare pour un seul produit en maintenance.
+- **Passer par une agence** apporte une équipe et une capacité à absorber les pics, au prix d'un coût plus élevé et d'un interlocuteur qui change souvent. Pour de petits volumes mensuels, beaucoup d'agences sont peu intéressées.
+- **Travailler avec un freelance** expérimenté offre un interlocuteur unique et stable, bien adapté à un besoin variable de cinq à dix heures par mois.
+
+Pour une application qui ne nécessite pas une équipe complète, le freelance reste souvent le meilleur compromis entre coût, réactivité et continuité. Sa seule limite tient à sa capacité, donc vérifiez sa disponibilité réelle et le nombre de clients qu'il suit en parallèle.
+
+## Combien coûte une TMA
+
+Le prix d'une TMA dépend du volume d'heures réservé chaque mois, du niveau de service attendu et de la criticité de l'application. La facturation suit le plus souvent l'un de ces modèles.
+
+- Le **forfait mensuel**, le plus répandu, réserve un nombre d'heures fixe avec un délai de prise en charge garanti.
+- La **régie** facture le temps réellement passé, sans engagement de volume mais avec moins de visibilité budgétaire.
+- Le **paiement au ticket**, plus rare, convient à un besoin très ponctuel mais offre peu de garanties de réactivité.
+
+Sur le marché freelance français, comptez environ **300 à 500 euros par mois** pour un forfait léger de cinq heures, et **700 à 1000 euros par mois** pour un forfait d'une dizaine d'heures avec monitoring et reporting. Les heures consommées au-delà du forfait se facturent en général **entre 60 et 100 euros**. C'est l'ordre de grandeur de [mes forfaits de TMA](/tma), avec un Pro à 350 euros pour cinq heures et un Premium à 800 euros pour dix heures.
+
+Un détail change beaucoup la facture sur la durée, le mode de décompte des heures. Un arrondi systématique à l'heure supérieure gonfle vite le total. Un décompte par tranches de trente minutes, arrondi au plus bas, reste nettement plus juste. Pensez à clarifier ce point avant de signer, car il pèse autant que le tarif horaire affiché.
+
+## Comment choisir son prestataire
+
+Un prestataire de TMA fiable se repère à quelques critères simples.
+
+- Un **périmètre écrit**. Le contrat doit lister ce qui entre dans le forfait, ce qui en sort, le volume d'heures, le délai de prise en charge et le tarif des heures supplémentaires. Méfiez-vous des offres floues qui promettent un support illimité sans rien définir.
+- La **réversibilité**. Vous devez pouvoir récupérer à tout moment vos accès, votre documentation et l'état des chantiers en cours. Vos données et vos outils de surveillance restent à votre nom, ce qui garantit votre souveraineté et facilite un changement éventuel de prestataire.
+- L'**adéquation de la stack**. Un freelance qui maîtrise réellement un périmètre précis, par exemple les applications [Next.js, React et Node](/services/developpeur-nextjs-freelance), maintiendra mieux votre produit qu'un généraliste qui touche à tout sans rien approfondir.
+
+Vérifiez aussi sa capacité réelle, le nombre de clients qu'il suit en parallèle. Un délai de réponse garanti ne tient que si l'agenda n'est pas saturé, et un prestataire honnête vous dira s'il est complet plutôt que de vous inscrire dans une file d'attente sans date.
+
+## Questions fréquentes
+
+### Quelle est la différence entre TMA et infogérance ?
+
+L'infogérance couvre l'infrastructure et l'exploitation système, comme les serveurs, le réseau et la supervision. La tierce maintenance applicative se concentre sur le logiciel lui-même, le code, les dépendances, les bugs et les évolutions fonctionnelles. Les deux sont complémentaires et un même prestataire peut parfois assurer une partie des deux, mais ce sont des métiers distincts.
+
+### Combien coûte une TMA pour une application web ?
+
+Le prix dépend du volume d'heures, du niveau de service et de la criticité de l'application. En freelance, un forfait mensuel léger autour de cinq heures se situe souvent entre 300 et 500 euros par mois, et un forfait avec monitoring proactif et reporting autour de dix heures entre 700 et 1000 euros par mois. Les heures hors forfait sont généralement facturées entre 60 et 100 euros de l'heure.
+
+### La TMA inclut-elle le développement de nouvelles fonctionnalités ?
+
+Les petites évolutions rentrent dans le forfait tant qu'elles tiennent dans le volume d'heures convenu. Une fonctionnalité plus lourde, qui demande plusieurs jours de travail, sort généralement du forfait et fait l'objet d'une mission séparée chiffrée à part, pour ne pas consommer les heures réservées à la maintenance et au support.
+
+### Faut-il un engagement de durée pour une TMA ?
+
+Pas nécessairement. Beaucoup de prestataires freelances proposent un forfait mensuel sans engagement, reconductible et résiliable à tout moment. Les grandes structures et les ESN imposent plus souvent un contrat annuel. Le point important reste la réversibilité, la garantie de récupérer les accès et la documentation à la fin du contrat.
+
+### Sur quelles technologies peut-on souscrire une TMA ?
+
+Tout dépend du prestataire. Un freelance spécialisé couvre généralement un périmètre précis, par exemple les applications Next.js, React et Node, plutôt qu'un catalogue large mais superficiel. Vérifiez toujours que votre stack fait partie de la zone réellement maîtrisée avant de signer, car une maintenance sur une technologie mal connue coûte cher et tient mal dans la durée.
+
+## Par où commencer
+
+Pour la plupart des produits portés par une PME ou une startup, un forfait mensuel chez un freelance spécialisé reste le meilleur compromis entre coût, réactivité et continuité. L'erreur classique consiste à attendre le premier incident grave pour s'en occuper, alors qu'une heure de préventif par mois l'aurait évité.
+
+Si votre application Next.js, React ou Node tourne déjà et mérite un suivi sérieux, consultez le détail de [mes forfaits de TMA](/tma) ou parlons-en pour cadrer votre besoin.

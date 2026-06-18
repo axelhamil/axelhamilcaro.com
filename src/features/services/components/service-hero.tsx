@@ -4,7 +4,7 @@ import { ServicePrimaryCta } from "./service-primary-cta";
 
 export function ServiceHero({ data }: { data: ServiceData["hero"] }) {
   return (
-    <section className="py-20 sm:py-32 px-6">
+    <section className="py-12 sm:py-16 px-6">
       <div className="max-w-5xl mx-auto text-center">
         <p className="text-accent font-medium uppercase tracking-wider text-sm mb-4">
           {data.eyebrow}

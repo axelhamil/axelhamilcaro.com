@@ -1,4 +1,5 @@
 import {
+  AUTHOR,
   EXTERNAL_LINKS,
   PROFILE_IMAGE,
   SITE_URL,
@@ -10,14 +11,14 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": `${SITE_URL}/#person`,
-    name: "Axel Hamilcaro",
+    name: AUTHOR.name,
     givenName: "Axel",
     familyName: "Hamilcaro",
     url: SITE_URL,
     image: PROFILE_IMAGE,
     jobTitle: "Développeur Web Fullstack | Next.js | React | Node",
     description:
-      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. Lead technique 4 ans chez Civitime, 10+ projets livrés en autonomie depuis 2021. TJM 500€ HT/jour.",
+      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. Lead technique 4 ans chez Civitime (de développeur à lead), 10+ projets livrés en freelance depuis 2024. TJM 500€ HT/jour.",
     email: "mailto:contact@axelhamilcaro.com",
     knowsLanguage: ["fr-FR", "en"],
     sameAs: [
@@ -110,7 +111,7 @@ export function JsonLd() {
     "@id": `${SITE_URL}/#service`,
     name: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
     description:
-      "Services de développement web Full-Stack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
+      "Services de développement web fullstack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
     url: SITE_URL,
     image: PROFILE_IMAGE,
     priceRange: "€€€",
@@ -127,7 +128,7 @@ export function JsonLd() {
       },
     ],
     serviceType: [
-      "Développement Web Full-Stack",
+      "Développement Web Fullstack",
       "Création d'Applications Web",
       "Développement SaaS",
       "Développement d'API",

@@ -19,3 +19,13 @@ export const CONTACT = {
 } as const;
 
 export const PROFILE_IMAGE = `${SITE_URL}/profil_pp.jpeg`;
+
+export const AUTHOR = {
+  name: "Axel Hamilcaro",
+  imagePath: "/profil_pp.jpeg",
+} as const;
+
+export const FREELANCE_SINCE_YEAR = 2024;
+
+export const getFreelanceYears = (): number =>
+  Math.max(1, new Date().getFullYear() - FREELANCE_SINCE_YEAR);

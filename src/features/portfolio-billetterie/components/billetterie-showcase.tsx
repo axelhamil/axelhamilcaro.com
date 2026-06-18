@@ -537,7 +537,7 @@ export function BilletterieContext() {
               Mon rôle
             </h3>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Développement full-stack du dashboard : API NestJS avec WebSocket
+              Développement fullstack du dashboard : API NestJS avec WebSocket
               Gateway, frontend Next.js avec Seats.io, système de tarification
               multi-TVA, base PostgreSQL optimisée pour le temps réel.
             </p>

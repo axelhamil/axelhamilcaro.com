@@ -1,3 +1,5 @@
+import { authorPerson } from "./author";
+
 export type AboutPageData = {
   url: string;
   name: string;
@@ -11,11 +13,7 @@ export function buildAboutPageSchema(data: AboutPageData) {
     url: data.url,
     name: data.name,
     description: data.description,
-    mainEntity: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-      url: "https://axelhamilcaro.com",
-    },
+    mainEntity: authorPerson(),
     inLanguage: "fr-FR",
   };
 }

@@ -115,7 +115,7 @@ export function renderOgImage({ eyebrow, title, subtitle }: OgImageProps) {
             fontSize: "22px",
           }}
         >
-          Développeur Full-Stack Freelance
+          Développeur Web Fullstack · Freelance
         </div>
       </div>
     </div>,

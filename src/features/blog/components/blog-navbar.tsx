@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { useMobileMenu } from "@/src/shared/hooks/use-mobile-menu";
 import { useScrollProgress } from "@/src/shared/hooks/use-scroll-progress";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { ThemeToggle } from "@/src/shared/ui/theme/theme-toggle";
 import { heading1Variants } from "@/src/shared/ui/typography/heading1";
 
 const BLOG_NAV_LINKS = [{ href: "/blog", label: "Articles" }] as const;
@@ -105,40 +106,48 @@ export function BlogNavbar() {
             <ArrowLeft className="w-4 h-4" />
             <span className="hidden lg:inline">Retour au site</span>
           </TransitionLink>
+
+          <div className="ml-2">
+            <ThemeToggle />
+          </div>
         </div>
 
-        <button
-          type="button"
-          onClick={mobileMenu.toggle}
-          className={cn(
-            "md:hidden p-2 rounded-lg",
-            "text-primary hover:text-accent",
-            "hover:bg-secondary-background",
-            "transition-all duration-300",
-          )}
-          aria-label={mobileMenu.isOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          aria-expanded={mobileMenu.isOpen}
-          aria-controls="blog-mobile-nav"
-        >
-          <div className="relative w-6 h-6">
-            <Menu
-              className={cn(
-                "absolute inset-0 transition-all duration-300",
-                mobileMenu.isOpen
-                  ? "opacity-0 rotate-90 scale-50"
-                  : "opacity-100 rotate-0 scale-100",
-              )}
-            />
-            <X
-              className={cn(
-                "absolute inset-0 transition-all duration-300",
-                mobileMenu.isOpen
-                  ? "opacity-100 rotate-0 scale-100"
-                  : "opacity-0 -rotate-90 scale-50",
-              )}
-            />
-          </div>
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+
+          <button
+            type="button"
+            onClick={mobileMenu.toggle}
+            className={cn(
+              "p-2 rounded-lg",
+              "text-primary hover:text-accent",
+              "hover:bg-secondary-background",
+              "transition-all duration-300",
+            )}
+            aria-label={mobileMenu.isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={mobileMenu.isOpen}
+            aria-controls="blog-mobile-nav"
+          >
+            <div className="relative w-6 h-6">
+              <Menu
+                className={cn(
+                  "absolute inset-0 transition-all duration-300",
+                  mobileMenu.isOpen
+                    ? "opacity-0 rotate-90 scale-50"
+                    : "opacity-100 rotate-0 scale-100",
+                )}
+              />
+              <X
+                className={cn(
+                  "absolute inset-0 transition-all duration-300",
+                  mobileMenu.isOpen
+                    ? "opacity-100 rotate-0 scale-100"
+                    : "opacity-0 -rotate-90 scale-50",
+                )}
+              />
+            </div>
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>

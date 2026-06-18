@@ -81,7 +81,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <nav className="sticky top-24" aria-label="Table des matières">
       <div className="w-8 h-0.5 bg-accent mb-4 rounded-full" />
-      <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">
         Dans cet article
       </p>
       <ul className="space-y-2 text-sm border-l border-border pl-4 max-h-[calc(100vh-10rem)] overflow-y-auto">
@@ -96,7 +96,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
               className={`block leading-snug transition-colors duration-200 ${
                 activeId === heading.id
                   ? "text-accent font-medium"
-                  : "text-muted hover:text-primary"
+                  : "text-muted-foreground hover:text-primary"
               }`}
             >
               {heading.text}

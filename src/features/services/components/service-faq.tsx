@@ -2,7 +2,7 @@ import type { ServiceData } from "../lib/services-data";
 
 export function ServiceFaq({ items }: { items: ServiceData["faq"] }) {
   return (
-    <section className="py-20 sm:py-32 px-6">
+    <section className="py-12 sm:py-16 px-6">
       <div className="max-w-4xl mx-auto">
         <h2
           style={{ fontFamily: "var(--font-space-grotesk)" }}

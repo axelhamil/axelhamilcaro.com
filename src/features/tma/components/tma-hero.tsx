@@ -4,7 +4,7 @@ import { TmaContactButton } from "./tma-contact-button";
 
 export function TmaHero() {
   return (
-    <section className="py-20 sm:py-32 px-6">
+    <section className="py-12 sm:py-16 px-6">
       <div className="max-w-5xl mx-auto text-center">
         <p
           className="text-accent font-medium tracking-wider text-sm mb-4"

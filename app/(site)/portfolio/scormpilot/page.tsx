@@ -50,7 +50,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 export const metadata: Metadata = {
   title: "ScormPilot : SaaS e-learning SCORM",
   description:
-    "SaaS e-learning multi-tenant en solo : 5 apps (API, dashboard, lecteur SCORM, runtime, Teams). PostgreSQL schema-per-tenant. Alternative légère aux LMS rigides.",
+    "Plateforme SaaS de diffusion SCORM pour organismes de formation. 5 apps solo, multi-tenant PostgreSQL, analytics temps réel. Alternative légère aux LMS rigides.",
   keywords: [
     "ScormPilot",
     "SCORM",

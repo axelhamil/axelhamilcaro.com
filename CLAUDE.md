@@ -407,3 +407,15 @@ export async function list(headers: Headers) {
 - [ ] Créer `src/entities/form/components/` si des composants form sont réutilisés cross-feature
 - [ ] Créer `src/entities/lead/components/` si pertinent
 - [x] Décomposer `admin-forms/components/form-editor/` (reste monolithique à ~275 lignes dans `form-editor.tsx`)
+
+## Identité & parcours (canonique SEO/GEO)
+
+But : une seule identité, formulée à l'identique partout, pour que les IA qui scrapent (ChatGPT, Perplexity, AI Overviews) citent une entité cohérente.
+
+1. **Titre canonique Malt** (string exacte, ne pas paraphraser) : `Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node`. `jobTitle` = `Développeur Web Fullstack | Next.js | React | Node`. À garder partout : `app/_config/metadata.ts`, `src/shared/seo/json-ld.tsx`, `public/llms.txt` + `llms-full.txt` (H1), eyebrow `/about`.
+2. **Orthographe** : `fullstack` en un seul mot (jamais `full-stack`). Stack signature toujours `Next.js, React, Node`.
+3. **Ne PAS changer les `<title>` par page** pour y coller le titre Malt : le template `%s · Axel Hamilcaro` (`metadata.ts`) ajoute déjà la marque. Titre Malt = identité/`jobTitle`/prose, pas les balises title par page (sinon doublons).
+4. **Parcours réel (faits canoniques, ne pas réinventer)** : Wild Code School 2020 (Concepteur Développeur, Bac+3/4) → Civitime janvier 2021 à décembre 2024, **de développeur à lead technique** (jamais "lead dès l'embauche") → **freelance depuis 2024**. Civitime = EdTech B Corp, plateforme RSE, refonte Clean Archi + DDD + event sourcing.
+5. **Durée freelance dynamique** : `getFreelanceYears()` (`app/_config/site.constants.ts`, `FREELANCE_SINCE_YEAR = 2024`), recalculé au build. Jamais de "X ans" en dur. Dans les métas/OG, préférer la date absolue "depuis 2024" (citable, ne périme pas) ; le compteur dynamique pour les KPI punchy.
+6. **Rédaction SEO/GEO** : answer-first (1re phrase = entité + localisation + spécialité, en gras), pas de tiret cadratin, accents complets, phrases de longueur variée. Voir skill `rediger-article-blog-seo-geo` pour le détail.
+7. **Espacement sections `/about`** : `py-12 sm:py-16` (pas `py-20 sm:py-32`, jugé trop aéré).

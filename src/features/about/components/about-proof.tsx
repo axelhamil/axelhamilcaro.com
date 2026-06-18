@@ -19,7 +19,7 @@ const projects: readonly Project[] = [
   },
   {
     name: "Civitime",
-    tagline: "4 ans lead tech sur la plateforme RSE B Corp",
+    tagline: "De dev à lead tech en 4 ans, plateforme RSE B Corp",
     highlights: [
       {
         value: "Refonte complète",
@@ -57,7 +57,7 @@ const projects: readonly Project[] = [
 
 export function AboutProof() {
   return (
-    <section className="py-20 sm:py-32 px-6">
+    <section className="py-12 sm:py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10">
           <h2

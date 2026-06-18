@@ -23,7 +23,7 @@ export const billetterieFaqItems = [
 
 export function BilletterieFaq() {
   return (
-    <section className="py-20 sm:py-32 px-6">
+    <section className="py-12 sm:py-16 px-6">
       <div className="max-w-4xl mx-auto">
         <h2
           className="text-4xl sm:text-5xl font-bold text-primary mb-4"

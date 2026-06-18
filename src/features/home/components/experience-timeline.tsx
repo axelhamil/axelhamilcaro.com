@@ -10,9 +10,9 @@ import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 const experiences = [
   {
-    period: "2025 - Présent",
+    period: "2024 - Présent",
     company: "Freelance",
-    role: "Développeur Full-Stack",
+    role: "Développeur Fullstack",
     description:
       "J'accompagne startups et entrepreneurs. MVP, refontes, SaaS sur mesure.",
     icon: Rocket,
@@ -34,7 +34,7 @@ const experiences = [
   {
     period: "2025 - Présent",
     company: "ScormPilot",
-    role: "Développeur Full-Stack",
+    role: "Développeur Fullstack",
     description:
       "SaaS e-learning multi-tenant, 5 apps en solo. Next.js, NestJS, PostgreSQL.",
     icon: Code2,
@@ -56,7 +56,7 @@ const experiences = [
   {
     period: "2021 - 2024",
     company: "Civitime",
-    role: "Lead Dev Full-Stack",
+    role: "Lead Dev Fullstack",
     description:
       "4 ans à structurer la stack technique d'une startup EdTech : serious games RSE, refonte DDD, éditeur de contenu interne.",
     icon: Briefcase,

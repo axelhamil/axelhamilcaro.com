@@ -5,10 +5,12 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkGfm from "remark-gfm";
-import { SITE_URL } from "@/app/_config/site.constants";
+import { AUTHOR, SITE_URL } from "@/app/_config/site.constants";
 import { Badge } from "@/components/ui/badge";
 import { useMDXComponents } from "@/mdx-components";
 import { ArticleNavigation } from "@/src/features/blog/components/article-navigation";
+import { BlogAuthorBio } from "@/src/features/blog/components/blog-author-bio";
+import { BlogByline } from "@/src/features/blog/components/blog-byline";
 import { BlogPostCta } from "@/src/features/blog/components/blog-post-cta";
 import { MobileTableOfContents } from "@/src/features/blog/components/mobile-table-of-contents";
 import { TableOfContents } from "@/src/features/blog/components/table-of-contents";
@@ -18,6 +20,7 @@ import {
   getPostBySlug,
 } from "@/src/features/blog/lib/blog";
 import { buildBlogPostingSchema } from "@/src/shared/seo/schemas/blog-posting";
+import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 import { Button } from "@/src/shared/ui/portfolio/button";
 import { Heading1 } from "@/src/shared/ui/typography/heading1";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
@@ -43,18 +46,18 @@ export async function generateMetadata({
   return {
     title: `${post.title} · Blog`,
     description: post.excerpt,
-    keywords: [...post.tags, "Axel Hamilcaro", "blog", post.category],
-    authors: [{ name: "Axel Hamilcaro", url: SITE_URL }],
+    keywords: [...post.tags, AUTHOR.name, "blog", post.category],
+    authors: [{ name: AUTHOR.name, url: SITE_URL }],
     alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       url,
-      siteName: "Axel Hamilcaro",
+      siteName: AUTHOR.name,
       locale: "fr_FR",
       type: "article",
       publishedTime: post.date,
-      authors: ["Axel Hamilcaro"],
+      authors: [AUTHOR.name],
       tags: post.tags,
     },
     twitter: {
@@ -81,6 +84,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const wordCount = post.content.trim().split(/\s+/).length;
 
+  const isTranslation = Boolean(post.originalAuthor);
+
   const blogPostingJsonLd = buildBlogPostingSchema({
     headline: post.title,
     description: post.excerpt,
@@ -88,7 +93,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     datePublished: post.date,
     dateModified: post.dateModified ?? post.date,
     image: post.image ?? `${SITE_URL}/blog/${slug}/opengraph-image`,
-    author: "Axel Hamilcaro",
+    author: post.originalAuthor ?? AUTHOR.name,
+    authorUrl: post.originalAuthorUrl,
+    translator: isTranslation ? AUTHOR.name : undefined,
     keywords: post.tags,
     articleSection: post.category,
     wordCount,
@@ -119,6 +126,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     ],
   };
 
+  const faqJsonLd =
+    post.faq && post.faq.length > 0 ? buildFaqPageSchema(post.faq) : null;
+
   return (
     <main className="min-h-screen bg-primary-background">
       <script
@@ -133,6 +143,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
       <header className="border-b border-border">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 pt-6 pb-8">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-6">
@@ -140,11 +157,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.category}
             </span>
             <span className="text-border">|</span>
-            <time dateTime={post.date} className="text-sm text-muted">
+            <time
+              dateTime={post.date}
+              className="text-sm text-muted-foreground"
+            >
               {formattedDate}
             </time>
             <span className="text-border">|</span>
-            <span className="text-sm text-muted">{post.readingTime}</span>
+            <span className="text-sm text-muted-foreground">
+              {post.readingTime}
+            </span>
           </div>
 
           <Heading1 size="xl" style={{ fontFamily: "var(--font-display)" }}>
@@ -154,6 +176,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <Paragraph variant="secondary" size="lg" className="mt-2">
             {post.subtitle}
           </Paragraph>
+
+          <BlogByline
+            variant="header"
+            originalAuthor={post.originalAuthor}
+            originalAuthorUrl={post.originalAuthorUrl}
+            className="mt-5"
+          />
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             {post.pdfUrl && (
@@ -182,7 +211,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </aside>
 
         <div>
-          <article className="prose prose-zinc prose-sm sm:prose-base max-w-none first:prose-headings:mt-0 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-accent prose-blockquote:text-secondary prose-table:text-sm prose-th:text-left prose-th:font-semibold">
+          <article className="prose prose-sm sm:prose-base max-w-none first:prose-headings:mt-0 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-accent prose-blockquote:text-secondary prose-table:text-sm prose-th:text-left prose-th:font-semibold">
             <MDXRemote
               source={post.content}
               components={mdxComponents}
@@ -204,6 +233,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               }}
             />
           </article>
+
+          <BlogAuthorBio
+            label={isTranslation ? "À propos du traducteur" : undefined}
+          />
 
           <BlogPostCta />
 

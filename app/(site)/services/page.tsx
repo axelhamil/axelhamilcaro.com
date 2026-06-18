@@ -55,7 +55,7 @@ export default function ServicesIndexPage() {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <section className="py-20 sm:py-32 px-6">
+      <section className="py-12 sm:py-16 px-6">
         <div className="max-w-5xl mx-auto text-center mb-16">
           <p className="text-accent font-medium uppercase tracking-wider text-sm mb-4">
             Services freelance

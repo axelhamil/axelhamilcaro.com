@@ -198,7 +198,7 @@ const techStack = [
 const roleEvolution = [
   {
     period: "2021-2023",
-    title: "Développeur Full-Stack",
+    title: "Développeur Fullstack",
     description:
       "Serious games RSE (city builder, quiz, escape games), éditeur de scénarios, réécriture du legacy en Clean Architecture DDD. TDD/BDD, code reviews, pair programming.",
     color: CT.gold,
@@ -206,7 +206,7 @@ const roleEvolution = [
   },
   {
     period: "2023-2024",
-    title: "Lead Full-Stack",
+    title: "Lead Fullstack",
     description:
       "Référent technique post-départ du CTO. Produit SaaS SCORM from scratch, dashboards, backoffice Directus, outils marketing. SSO grands comptes, formation d'alternants.",
     color: CT.magenta,

@@ -42,7 +42,7 @@ export function MobileTableOfContents({
       >
         Table des matières
         <ChevronDown
-          className={`w-4 h-4 text-muted transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
       <AnimatePresence>
@@ -66,7 +66,7 @@ export function MobileTableOfContents({
                   <a
                     href={`#${heading.id}`}
                     onClick={(e) => handleClick(e, heading.id)}
-                    className="block py-1 text-muted hover:text-accent transition-colors"
+                    className="block py-1 text-muted-foreground hover:text-accent transition-colors"
                   >
                     {heading.text}
                   </a>

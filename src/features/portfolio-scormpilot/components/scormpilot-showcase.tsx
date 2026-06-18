@@ -344,10 +344,11 @@ export function ScormpilotHero() {
               variant="secondary"
               className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
             >
-              Produit conçu, développé et mis en production en solo. Alternative
-              simple aux LMS rigides pour les organismes de formation :
-              versioning, multi-diffusion, analytics, multi-tenant. Plusieurs
-              milliers de players quotidiens, dizaines de clients actifs.
+              ScormPilot s'adresse aux organismes de formation qui vendent des
+              contenus SCORM et veulent garder la main sur la diffusion.
+              Versioning, multi-diffusion, analytics et multi-tenant, développé
+              en solo. Plusieurs milliers de players quotidiens, dizaines de
+              clients actifs.
             </Paragraph>
           </RevealItem>
 
@@ -578,7 +579,7 @@ export function ScormpilotContext() {
               Conception produit, architecture, développement de 7 applications
               (API, dashboard, player, runtime, Teams, status page),
               infrastructure cloud et mise en production. Tout en solo, du
-              premier commit a la premiere facture.
+              premier commit à la première facture.
             </p>
           </motion.div>
         </RevealItem>
@@ -603,10 +604,10 @@ export function ScormpilotContext() {
               Résultats
             </h3>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              MVP robuste livré en 3 mois. Adopté par une dizaine d'organismes
-              de formation, plusieurs milliers de players quotidiens, dizaines
-              de clients actifs. Produit en croissance continue avec un modèle
-              SaaS récurrent.
+              MVP livré en 3 mois. Adopté par une dizaine d'organismes de
+              formation, plusieurs milliers de players quotidiens, dizaines de
+              clients actifs. Produit en croissance continue avec un modèle SaaS
+              récurrent.
             </p>
           </motion.div>
         </RevealItem>

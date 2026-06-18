@@ -17,8 +17,8 @@
 ## Parcours
 
 - 2020 : diplômé de la Wild Code School, Concepteur Développeur d'applications Web & Mobile (Bac+3/4)
-- Janvier 2021 → décembre 2024 (4 ans) : lead technique chez Civitime (EdTech, B Corp). Refonte complète d'une plateforme RSE en Clean Architecture + DDD + event sourcing, conception d'un éditeur de contenu interne avec IA RAG (GPT-4) qui a divisé par 2 les délais d'itération de l'équipe pédagogique, tech radar, mentoring, code reviews.
-- Depuis fin 2024 (2 ans) : freelance, 10+ projets livrés en autonomie, dont OpenUp (fondateur) et ScormPilot.
+- Janvier 2021 → décembre 2024 (4 ans) chez Civitime (EdTech, B Corp), de développeur à lead technique. Refonte complète d'une plateforme RSE en Clean Architecture + DDD + event sourcing, conception d'un éditeur de contenu interne avec IA RAG (GPT-4) qui a divisé par 2 les délais d'itération de l'équipe pédagogique, tech radar, mentoring, code reviews.
+- Depuis 2024 : freelance, 10+ projets livrés en autonomie, dont OpenUp (fondateur) et ScormPilot.
 - Mentor dev web (Superprof) : 10+ développeurs accompagnés sur React et Clean Architecture.
 
 ## Services

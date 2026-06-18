@@ -1,3 +1,5 @@
+import { authorPerson } from "./author";
+
 export type ServiceSchemaData = {
   name: string;
   description: string;
@@ -14,11 +16,7 @@ export function buildServiceSchema(data: ServiceSchemaData) {
     description: data.description,
     url: data.url,
     serviceType: data.serviceType,
-    provider: {
-      "@type": "Person",
-      name: "Axel Hamilcaro",
-      url: "https://axelhamilcaro.com",
-    },
+    provider: authorPerson(),
     areaServed: {
       "@type": "Country",
       name: "France",

@@ -1,6 +1,6 @@
 import { BookOpen } from "lucide-react";
 import type { Metadata } from "next";
-import { SITE_URL } from "@/app/_config/site.constants";
+import { AUTHOR, SITE_URL } from "@/app/_config/site.constants";
 import { ArticleCard } from "@/src/features/blog/components/article-card";
 import { getAllPosts } from "@/src/features/blog/lib/blog";
 import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     "TypeScript",
     "Next.js",
     "études de cas",
-    "Axel Hamilcaro",
+    AUTHOR.name,
   ],
   alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: "Blog : dev web, sécurité, études de cas",
     description: BLOG_DESCRIPTION,
     url: `${SITE_URL}/blog`,
-    siteName: "Axel Hamilcaro",
+    siteName: AUTHOR.name,
     locale: "fr_FR",
     type: "website",
   },

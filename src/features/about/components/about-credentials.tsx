@@ -31,7 +31,7 @@ const architectures = [
 
 export function AboutCredentials() {
   return (
-    <section className="py-20 sm:py-32 px-6">
+    <section className="py-12 sm:py-16 px-6">
       <div className="max-w-4xl mx-auto">
         <h2
           className="text-3xl sm:text-4xl font-bold text-primary mb-10"

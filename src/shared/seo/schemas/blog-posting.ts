@@ -1,3 +1,5 @@
+import { AUTHOR, SITE_URL } from "@/app/_config/site.constants";
+
 export type BlogPostingData = {
   headline: string;
   description: string;
@@ -5,11 +7,23 @@ export type BlogPostingData = {
   datePublished: string;
   dateModified?: string;
   author: string;
+  authorUrl?: string;
+  translator?: string;
   image?: string;
   keywords?: string[];
   articleSection?: string;
   wordCount?: number;
 };
+
+const PERSON_ID = `${SITE_URL}/#person`;
+const SITE_OWNER = AUTHOR.name;
+
+function personRef(name: string, url?: string) {
+  if (name === SITE_OWNER) {
+    return { "@type": "Person", "@id": PERSON_ID, name, url: SITE_URL };
+  }
+  return { "@type": "Person", name, ...(url && { url }) };
+}
 
 export function buildBlogPostingSchema(data: BlogPostingData) {
   return {
@@ -20,18 +34,9 @@ export function buildBlogPostingSchema(data: BlogPostingData) {
     url: data.url,
     datePublished: data.datePublished,
     dateModified: data.dateModified ?? data.datePublished,
-    author: {
-      "@type": "Person",
-      "@id": "https://axelhamilcaro.com/#person",
-      name: data.author,
-      url: "https://axelhamilcaro.com",
-    },
-    publisher: {
-      "@type": "Person",
-      "@id": "https://axelhamilcaro.com/#person",
-      name: "Axel Hamilcaro",
-      url: "https://axelhamilcaro.com",
-    },
+    author: personRef(data.author, data.authorUrl),
+    ...(data.translator && { translator: personRef(data.translator) }),
+    publisher: personRef(SITE_OWNER),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": data.url,

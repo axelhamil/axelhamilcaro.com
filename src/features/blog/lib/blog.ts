@@ -3,19 +3,49 @@ import path from "node:path";
 import GithubSlugger from "github-slugger";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import { z } from "zod";
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
-interface BlogPostFrontmatter {
-  title: string;
-  subtitle: string;
-  date: string;
-  dateModified?: string;
-  excerpt: string;
-  tags: string[];
-  category: string;
-  pdfUrl?: string;
-  image?: string;
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+const faqItemSchema = z.object({
+  question: z.string().min(1),
+  answer: z.string().min(1),
+});
+
+const blogPostFrontmatterSchema = z.object({
+  title: z.string().min(1).max(65, "titre trop long pour le SEO (max 65)"),
+  subtitle: z.string().min(1).max(200),
+  date: z.string().regex(ISO_DATE, "date attendue au format AAAA-MM-JJ"),
+  dateModified: z
+    .string()
+    .regex(ISO_DATE, "dateModified attendue au format AAAA-MM-JJ")
+    .optional(),
+  excerpt: z
+    .string()
+    .min(110, "meta description trop courte pour le SEO (min 110)")
+    .max(160, "meta description trop longue pour le SEO (max 160)"),
+  tags: z.array(z.string().min(1)).min(1, "au moins un tag est requis"),
+  category: z.string().min(1),
+  pdfUrl: z.url().optional(),
+  image: z.string().min(1).optional(),
+  faq: z.array(faqItemSchema).min(1).optional(),
+  originalAuthor: z.string().min(1).optional(),
+  originalAuthorUrl: z.url().optional(),
+});
+
+type BlogPostFrontmatter = z.infer<typeof blogPostFrontmatterSchema>;
+
+function parseFrontmatter(source: string, data: unknown): BlogPostFrontmatter {
+  const result = blogPostFrontmatterSchema.safeParse(data);
+  if (!result.success) {
+    const issues = result.error.issues
+      .map((issue) => `${issue.path.join(".") || "(racine)"}: ${issue.message}`)
+      .join(" · ");
+    throw new Error(`Frontmatter invalide dans ${source} → ${issues}`);
+  }
+  return result.data;
 }
 
 interface BlogPost extends BlogPostFrontmatter {
@@ -35,7 +65,7 @@ function getAllPosts(): BlogPost[] {
       const slug = filename.replace(/\.mdx$/, "");
       const raw = fs.readFileSync(path.join(BLOG_DIR, filename), "utf-8");
       const { data, content } = matter(raw);
-      const frontmatter = data as BlogPostFrontmatter;
+      const frontmatter = parseFrontmatter(filename, data);
       const stats = readingTime(content);
 
       return {
@@ -54,7 +84,7 @@ function getPostBySlug(slug: string): BlogPostWithContent | null {
 
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
-  const frontmatter = data as BlogPostFrontmatter;
+  const frontmatter = parseFrontmatter(`${slug}.mdx`, data);
   const stats = readingTime(content);
 
   return {
