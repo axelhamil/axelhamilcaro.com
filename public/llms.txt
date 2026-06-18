@@ -1,9 +1,10 @@
 # Axel Hamilcaro — Développeur Full-Stack Freelance
 
-> Développeur full-stack freelance basé en Touraine, 100% remote France.
-> Spécialisé Next.js, React, Node.js, TypeScript, architecture Clean / DDD et lead tech.
-> 10+ projets livrés en autonomie depuis 2021. Lead technique 4 ans chez Civitime.
-> TJM 450€ HT/jour. Devis sous 24h, démarrage sous 1 à 3 semaines.
+> Axel Hamilcaro est un développeur freelance spécialisé Next.js, React et Node.js, basé en Touraine, 100% remote France.
+> Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, architecture Clean / DDD.
+> 10+ projets livrés en autonomie depuis 2021. Lead technique 4 ans chez Civitime (EdTech B Corp).
+> Stack : Next.js, React, Node.js, TypeScript, PostgreSQL, NestJS, Fastify, Drizzle, Stripe, Capacitor.
+> TJM 450€ HT/jour. Devis sous 24h, démarrage sous 1 à 3 semaines, MVP en 4 à 8 semaines.
 
 ## Pages principales
 
@@ -34,4 +35,4 @@
 - GitHub: https://github.com/axelhamil
 - Calendly (après un premier échange par écrit): https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-06-12
+Dernière mise à jour: 2026-06-18

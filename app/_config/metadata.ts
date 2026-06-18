@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default:
-      "Axel Hamilcaro | Développeur Full-Stack Freelance France - Next.js & TypeScript",
+      "Axel Hamilcaro | Développeur freelance Next.js, React & Node.js - France",
     template: "%s | Axel Hamilcaro - Dev Full-Stack",
   },
   description: siteConfig.description,
@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     "développeur freelance remote",
     "freelance Touraine",
     "développeur Next.js freelance",
+    "développeur React freelance",
+    "développeur Node.js freelance",
+    "freelance Next.js React Node",
+    "développeur SaaS B2B freelance",
+    "freelance multi-tenant SaaS",
     "lead technique freelance",
     "lead tech fractional",
     "CTO temps partiel",
