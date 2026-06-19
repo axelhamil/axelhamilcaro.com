@@ -1,0 +1,128 @@
+---
+title: "Mon développeur a disparu : récupérer votre projet web"
+subtitle: "Le plan d'action concret quand votre développeur freelance ou votre agence ne répond plus : reprendre vos accès, récupérer le code, savoir à qui il appartient vraiment, et relancer le projet."
+date: "2026-06-19"
+dateModified: "2026-06-19"
+excerpt: "Quand votre développeur disparaît, l'urgence n'est pas le code mais la reprise de contrôle de vos accès. Le plan pour récupérer votre projet web."
+tags: ["Reprise de projet", "Développeur freelance", "Code source", "Propriété intellectuelle"]
+category: "Guide"
+faq:
+  - question: "Mon développeur ne répond plus, est-ce que je perds mon site ?"
+    answer: "Dans la grande majorité des cas, non. Tant que votre site tourne en ligne, le code existe quelque part, sur l'hébergeur, sur un dépôt Git ou sur le serveur de production. La vraie urgence n'est pas le code mais le contrôle de vos accès stratégiques, à commencer par le nom de domaine et l'hébergement. Si le domaine est enregistré au nom du développeur et qu'il expire sans renouvellement, là vous risquez réellement de perdre votre présence en ligne. Agissez vite sur les accès, le reste se récupère presque toujours."
+  - question: "À qui appartient le code de mon site web ?"
+    answer: "Payer la facture ne vous rend pas automatiquement propriétaire du code. En droit français, un prestataire indépendant ou une agence reste titulaire des droits sur le logiciel qu'il livre, sauf cession écrite explicite respectant l'article L131-3 du Code de la propriété intellectuelle. Sans clause de cession dans votre contrat, vous disposez au mieux d'une licence d'usage, pas de la propriété. Vérifiez ce point dans votre contrat avant tout litige."
+  - question: "Comment récupérer le code source de mon application ?"
+    answer: "Trois sources possibles dans l'ordre de préférence : le dépôt Git d'origine si vous y avez accès ou si vous pouvez vous le faire transférer, le serveur de production via un accès SSH ou le panneau de l'hébergeur, et en dernier recours la reconstruction à partir de l'application déployée. Git étant décentralisé, n'importe quel clone complet du dépôt contient tout l'historique du projet. Un développeur de reprise sait extraire le code depuis chacune de ces sources."
+  - question: "Combien coûte la reprise d'un projet web abandonné ?"
+    answer: "La reprise commence presque toujours par un audit, qui demande généralement d'une demi-journée à deux jours selon la taille du projet. Cet audit chiffre ensuite le vrai coût, qui dépend de l'état du code, de la dette technique accumulée et de ce que vous voulez faire ensuite. Reprendre un existant en état correct revient le plus souvent moins cher que tout réécrire. Le piège est de payer une refonte complète alors qu'une remise à niveau aurait suffi."
+  - question: "Puis-je changer de développeur en cours de projet ?"
+    answer: "Oui, c'est un droit, à condition de récupérer proprement vos accès, votre code et l'état des travaux en cours. Un développeur sérieux organise cette réversibilité dès le départ, avec des accès à votre nom et une documentation à jour. Si votre prestataire actuel rend ce transfert difficile, c'est précisément le signe qu'il faut formaliser la réversibilité par écrit avec le suivant."
+---
+
+**Quand votre développeur disparaît, votre première urgence n'est pas le code mais la reprise de contrôle de vos accès stratégiques : nom de domaine, hébergement, dépôt de code et base de données.** Tant que votre site tourne en ligne, le code existe quelque part et se récupère presque toujours. Ce qui se perd vite, en revanche, c'est un nom de domaine enregistré au nom du prestataire qui arrive à expiration.
+
+La situation est plus fréquente qu'on ne le croit. Un freelance débordé qui cesse de répondre, une agence en cessation d'activité, un litige qui tourne au silence radio, et du jour au lendemain le projet sur lequel repose votre activité devient une boîte noire dont personne ne vous donne la clé.
+
+La bonne nouvelle, c'est que la panique est mauvaise conseillère et que la quasi-totalité de ces situations se débloque avec une méthode. J'ai repris assez de projets laissés à l'abandon pour le dire franchement, le problème est d'abord organisationnel avant d'être technique.
+
+## Que faire dans les premières 48 heures
+
+La première règle est de ne rien casser et de ne céder à aucune pression. Si le prestataire réapparaît en réclamant un paiement pour rendre des accès, vous n'êtes pas obligé de payer dans l'urgence sans cadre écrit. Prenez d'abord la mesure de ce que vous contrôlez déjà.
+
+Faites l'inventaire de vos accès stratégiques, dans cet ordre de priorité.
+
+- Le **nom de domaine**, c'est le point le plus critique. Vérifiez chez quel registrar il est enregistré et à quel nom, et surtout sa date d'expiration. Un domaine perdu est bien plus difficile à récupérer qu'un bout de code.
+- Le **compte cloud ou l'hébergement**. Sur un fournisseur cloud comme Google Cloud, AWS ou Azure, un seul compte de facturation regroupe le serveur, la base, le stockage et les clés. Identifiez ce compte et son propriétaire en priorité, car il commande tout le reste de l'infrastructure.
+- Le **dépôt de code**, le plus souvent sur GitHub ou GitLab, et l'organisation ou le compte qui en est propriétaire.
+- Le **stockage objet, les fameux buckets**. Les fichiers déposés par vos utilisateurs, images, documents, exports, vivent dans des buckets S3, Cloud Storage ou équivalent, et n'existent nulle part dans le code. Contrairement au code, ces données ne se reconstruisent pas si vous en perdez l'accès.
+- La **base de données** et les services tiers connectés, paiement, email transactionnel, authentification, chacun avec son propre compte.
+
+Ce simple inventaire vous dit déjà si vous êtes en position de force, propriétaire de la plupart des comptes, ou en position fragile, tout au nom du prestataire. Documentez chaque réponse, c'est la base de travail de quiconque reprendra le projet ensuite.
+
+## Comment récupérer les accès à votre projet
+
+Le nom de domaine prime sur tout le reste. Une requête WHOIS publique vous indique le registrar et, si les coordonnées ne sont pas masquées, le titulaire déclaré. Si le domaine est à votre nom, vous pouvez en reprendre la main directement auprès du registrar. S'il est au nom du développeur, contactez le registrar pour engager une procédure de transfert de titulaire, en vous appuyant sur vos preuves de paiement et votre identité d'entreprise.
+
+Pour l'hébergement, deux cas se présentent. Si le compte est à votre nom, une réinitialisation de mot de passe sur l'email de l'entreprise suffit souvent à reprendre la main. S'il est au nom du prestataire, visez le compte de facturation, car c'est lui qui commande l'infrastructure, et passez par le support de l'hébergeur avec vos justificatifs.
+
+Chez un fournisseur cloud, le compte de facturation est le maître absolu : il contient le serveur, la base, les buckets de stockage, les clés d'API et la gestion des accès. Récupérer ce compte, ou au minimum un rôle administrateur dessus, débloque tout le reste d'un coup. Et soignez particulièrement les buckets, car ils hébergent souvent les fichiers de vos utilisateurs, qui n'existent nulle part ailleurs. J'ai déjà vu des données client uniquement présentes dans un bucket dont plus personne ne connaissait le projet de rattachement, à deux doigts d'être perdues.
+
+Profitez de cette reprise pour faire le ménage côté sécurité. Changez les mots de passe, révoquez les jetons d'accès personnels et les clés SSH du prestataire, et coupez ses droits sur les services tiers. Un ancien développeur qui garde un accès à votre base de production est un risque que vous n'avez aucune raison d'accepter une fois la collaboration terminée.
+
+## Où se trouve votre code et comment le récupérer
+
+Le code source vit généralement à trois endroits, et il suffit d'en tenir un seul pour repartir.
+
+- Le **dépôt Git d'origine**, la source idéale, car il contient tout l'historique du projet. Git étant décentralisé, n'importe quel clone complet du dépôt embarque l'intégralité des versions, pas seulement la dernière. Si le dépôt est dans une organisation GitHub ou GitLab dont vous n'êtes pas propriétaire, demandez un transfert d'organisation ou, à défaut, une invitation en tant qu'administrateur.
+- Le **serveur de production**, qui héberge au minimum le code en cours d'exécution. Un accès SSH ou le gestionnaire de fichiers de l'hébergeur permet de récupérer l'application déployée, et souvent le dépôt Git complet si le déploiement se faisait par `git pull`.
+- L'**application déployée elle-même**, en dernier recours. Même sans accès au serveur, une partie du code, notamment le front-end, est récupérable depuis le navigateur. C'est imparfait et incomplet, mais cela évite de repartir d'une feuille blanche.
+
+J'ai déjà récupéré un projet entier uniquement depuis le serveur de production parce que le dépôt Git d'origine était introuvable et le prestataire injoignable. Inconfortable, mais tout à fait faisable. Le code en ligne est rarement vraiment perdu, il est juste mal rangé.
+
+## À qui appartient le code ? Ce que dit la loi
+
+Voilà le point qui surprend le plus mes clients : **payer la facture ne vous rend pas automatiquement propriétaire du code.** Le droit français distingue nettement le salarié du prestataire indépendant.
+
+Pour un logiciel créé par un **salarié** dans l'exercice de ses fonctions, les droits patrimoniaux sont dévolus de plein droit à l'employeur, en vertu de l'[article L113-9 du Code de la propriété intellectuelle](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000039279818). L'employeur n'a aucune formalité à accomplir, la loi opère le transfert pour lui.
+
+Pour un **freelance ou une agence**, rien de tel. Cet article ne s'applique pas, et il n'existe aucune dévolution automatique vers le client. Le prestataire reste titulaire des droits sur le code qu'il livre, même intégralement payé, tant qu'une cession écrite n'a pas été signée. Et cette cession obéit à un formalisme strict, fixé par l'[article L131-3 du Code de la propriété intellectuelle](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278958) : chaque droit cédé doit être mentionné distinctement, avec son étendue, sa destination, son territoire et sa durée. Une clause vague du type « le client devient propriétaire » sans ces précisions est fragile, voire inopérante.
+
+Conséquence concrète, sans clause de cession conforme, vous disposez au mieux d'une licence d'usage limitée à ce qui était prévu à la commande. [Bpifrance Création le formule sans détour](https://bpifrance-creation.fr/encyclopedie/trouver-proteger-tester-son-idee/proteger-son-idee/protection-juridique-dun-logiciel), commander un logiciel à un prestataire ne fait pas automatiquement du donneur d'ordre le titulaire des droits. Vous ne pouvez ni revendre le code, ni l'exploiter pour un autre usage librement, et le prestataire peut légalement le réemployer ailleurs. La plupart des contrats que j'hérite en reprise n'ont aucune clause de cession sérieuse. Vérifiez le vôtre avant qu'un litige ne vous oblige à le découvrir.
+
+## L'audit de reprise : savoir ce que vous récupérez vraiment
+
+Récupérer le code ne dit rien de son état, et l'état pèse lourd. La maintenance et la dette technique absorbent déjà une part énorme du travail de développement, [41 % du temps des développeurs selon l'étude Developer Coefficient de Stripe](https://stripe.com/files/reports/the-developer-coefficient.pdf). Hériter d'une base sans son auteur, c'est hériter de cette dette sans le mode d'emploi. Avant de relancer quoi que ce soit, un audit de reprise répond à une question simple, qu'est-ce que vous tenez réellement entre les mains. Il porte sur quelques points précis.
+
+- La **reproductibilité du déploiement**. Peut-on relancer le projet de zéro sur une machine neuve, ou seul le serveur actuel sait le faire tourner ? C'est le test le plus révélateur de la santé d'un projet.
+- L'**état des dépendances**. Des composants obsolètes traînent souvent des failles connues, classées parmi les risques majeurs de l'[OWASP Top 10](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/). Le phénomène est massif, le rapport [Black Duck OSSRA 2025](https://news.blackduck.com/2025-02-25-New-Black-Duck-Report-86-of-Commercial-Codebases-Contain-Vulnerable-Open-Source,-Exposing-Organizations-to-Security-Risks) relève que 90 % des bases de code auditées embarquent des composants de plus de quatre ans et 86 % au moins une vulnérabilité connue. En reprise, c'est exactement là que je trouve le plus de retard accumulé.
+- La **gestion des secrets**. Clés d'API, identifiants de base, jetons de paiement, où sont-ils stockés et lesquels faut-il renouveler maintenant que l'ancien développeur n'est plus dans la boucle ?
+- La **documentation et le bus factor**. Combien de personnes comprennent ce projet ? Si la réponse était une seule, et qu'elle a disparu, l'audit doit reconstituer ce savoir avant qu'il ne s'évapore complètement.
+
+Cet audit demande généralement d'une demi-journée à deux jours selon la taille du projet, et il conditionne tout le reste. Chiffrer une reprise sans audit revient à signer un devis les yeux fermés.
+
+## Reprendre l'existant ou tout réécrire ?
+
+C'est la décision où l'on perd le plus d'argent, dans les deux sens. Un prestataire de reprise qui vous pousse vers une refonte complète dès le premier rendez-vous, sans audit, défend rarement votre intérêt. Réécrire est long, coûteux, et fait repartir à zéro des mois de logique métier déjà payés.
+
+Dans la majorité des cas, reprendre l'existant et le remettre à niveau coûte nettement moins cher qu'une réécriture. Même un code imparfait porte des règles métier, des cas limites traités et des heures de mise au point qui ont de la valeur. La remise à niveau cible ce qui pose problème, sécurité, dépendances, points de friction, sans tout détruire.
+
+La réécriture ne se justifie que dans des cas précis, une technologie vraiment morte ou impossible à maintenir, une architecture qui empêche toute évolution, ou un code à ce point dégradé que chaque correctif en casse deux autres. Et même là, on réécrit par morceaux plutôt que d'éteindre l'existant d'un coup. Le tout ou rien est rarement le bon réflexe.
+
+## Comment éviter que ça se reproduise
+
+Une fois le projet repris, l'objectif est de ne plus jamais dépendre d'une seule personne injoignable. Quelques garde-fous suffisent à reprendre durablement le contrôle.
+
+- Tous les **comptes critiques à votre nom**. Domaine, hébergement, dépôt de code et services tiers doivent appartenir à votre entreprise, le prestataire recevant un accès délégué, jamais la propriété.
+- Une **clause de cession des droits** conforme à l'[article L131-3](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278958), écrite noir sur blanc dans le contrat, pour que le code que vous payez vous appartienne vraiment.
+- La **réversibilité organisée dès le départ**, c'est-à-dire la garantie écrite de récupérer à tout moment vos accès, votre documentation et l'état des travaux en cours.
+- Un **suivi régulier plutôt qu'un silence jusqu'au prochain incident**. C'est précisément le rôle d'une [tierce maintenance applicative](/blog/tierce-maintenance-applicative), qui maintient l'application vivante et documentée au fil de l'eau.
+
+La continuité de l'expertise n'est pas un luxe. Un projet suivi en continu par quelqu'un qui en connaît l'historique ne se transforme jamais en boîte noire, et c'est exactement ce qui vous évite de revivre la disparition d'un développeur.
+
+## Questions fréquentes
+
+### Mon développeur ne répond plus, est-ce que je perds mon site ?
+
+Dans la grande majorité des cas, non. Tant que votre site tourne en ligne, le code existe quelque part, sur l'hébergeur, sur un dépôt Git ou sur le serveur de production. La vraie urgence n'est pas le code mais le contrôle de vos accès stratégiques, à commencer par le nom de domaine et l'hébergement. Si le domaine est enregistré au nom du développeur et qu'il expire sans renouvellement, là vous risquez réellement de perdre votre présence en ligne. Agissez vite sur les accès, le reste se récupère presque toujours.
+
+### À qui appartient le code de mon site web ?
+
+Payer la facture ne vous rend pas automatiquement propriétaire du code. En droit français, un prestataire indépendant ou une agence reste titulaire des droits sur le logiciel qu'il livre, sauf cession écrite explicite respectant l'[article L131-3](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278958) du Code de la propriété intellectuelle. Sans clause de cession dans votre contrat, vous disposez au mieux d'une licence d'usage, pas de la propriété. Vérifiez ce point dans votre contrat avant tout litige.
+
+### Comment récupérer le code source de mon application ?
+
+Trois sources possibles dans l'ordre de préférence : le dépôt Git d'origine si vous y avez accès ou si vous pouvez vous le faire transférer, le serveur de production via un accès SSH ou le panneau de l'hébergeur, et en dernier recours la reconstruction à partir de l'application déployée. Git étant décentralisé, n'importe quel clone complet du dépôt contient tout l'historique du projet. Un développeur de reprise sait extraire le code depuis chacune de ces sources.
+
+### Combien coûte la reprise d'un projet web abandonné ?
+
+La reprise commence presque toujours par un audit, qui demande généralement d'une demi-journée à deux jours selon la taille du projet. Cet audit chiffre ensuite le vrai coût, qui dépend de l'état du code, de la dette technique accumulée et de ce que vous voulez faire ensuite. Reprendre un existant en état correct revient le plus souvent moins cher que tout réécrire. Le piège est de payer une refonte complète alors qu'une remise à niveau aurait suffi.
+
+### Puis-je changer de développeur en cours de projet ?
+
+Oui, c'est un droit, à condition de récupérer proprement vos accès, votre code et l'état des travaux en cours. Un développeur sérieux organise cette réversibilité dès le départ, avec des accès à votre nom et une documentation à jour. Si votre prestataire actuel rend ce transfert difficile, c'est précisément le signe qu'il faut formaliser la réversibilité par écrit avec le suivant.
+
+## Reprendre la main sur votre projet
+
+La disparition d'un développeur ne signe pas la fin de votre projet. Elle vous oblige juste à reprendre la main avec méthode. Sécurisez d'abord vos accès, récupérez le code, faites auditer ce que vous tenez, puis décidez en connaissance de cause entre reprise et réécriture. Dans cet ordre, et sans précipitation.
+
+Si votre application [Next.js, React ou Node](/services/developpeur-nextjs-freelance) est en rade et que vous cherchez quelqu'un pour reprendre les commandes, je fais ce travail régulièrement. Voyez le détail de [mes services de développement](/services) et de [ma tierce maintenance applicative](/tma), ou parlons directement de l'état de votre projet pour savoir ce qui se récupère.

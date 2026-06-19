@@ -24,6 +24,33 @@ function MdxImage({ src, alt }: ComponentPropsWithoutRef<"img">) {
   );
 }
 
+function MdxLink({
+  href = "",
+  children,
+  ...props
+}: ComponentPropsWithoutRef<"a">) {
+  if (typeof href === "string" && href.startsWith("#")) {
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  }
+
+  const isExternal = typeof href === "string" && /^https?:\/\//.test(href);
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel={isExternal ? "noopener noreferrer" : "noopener"}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+}
+
 function MdxBlockquote({
   children,
   ...props
@@ -74,6 +101,7 @@ function MdxTd({ children, ...props }: ComponentPropsWithoutRef<"td">) {
 
 export function useMDXComponents(): MDXComponents {
   return {
+    a: MdxLink,
     img: MdxImage,
     blockquote: MdxBlockquote,
     table: MdxTable,
