@@ -144,7 +144,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       eyebrow: "Service freelance",
       title: "Je conçois et livre ton SaaS de zéro jusqu'en production.",
       subtitle:
-        "Multi-tenancy, Clean Architecture, DDD, CI/CD, monitoring. Stack moderne et maintenable, pas de YAGNI déguisé en sur-ingénierie.",
+        "Architecture multi-tenant, mise en production et monitoring compris. Un code clair, pensé pour grandir avec tes clients, sans complexité inutile.",
       ...baseHero,
     },
     problem: {
@@ -177,7 +177,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
         },
       ],
     },
-    relatedCases: ["scormpilot", "civitime"],
+    relatedCases: ["scormpilot", "openup", "civitime"],
     faq: [
       {
         question: "Tu peux faire du multi-tenancy avec quel pattern ?",
