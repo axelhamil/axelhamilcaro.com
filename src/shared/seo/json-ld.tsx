@@ -25,6 +25,7 @@ export function JsonLd() {
       EXTERNAL_LINKS.linkedin,
       EXTERNAL_LINKS.github,
       EXTERNAL_LINKS.malt,
+      EXTERNAL_LINKS.googleBusiness,
       SOCIAL_LINKS.instagram,
       SOCIAL_LINKS.tiktok,
     ],

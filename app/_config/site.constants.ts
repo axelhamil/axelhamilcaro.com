@@ -5,6 +5,7 @@ export const EXTERNAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/axelhamilcaro/",
   github: "https://github.com/axelhamil",
   malt: "https://www.malt.fr/profile/axelhamilcaro",
+  googleBusiness: "https://www.google.com/search?kgmid=/g/11nqct9z28",
 } as const;
 
 export const SOCIAL_LINKS = {
