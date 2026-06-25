@@ -24,6 +24,10 @@ export type ServiceData = {
     secondaryCtaLabel: string;
     secondaryCtaHref: string;
   };
+  card?: {
+    title: string;
+    subtitle: string;
+  };
   problem: {
     title: string;
     bullets: string[];
@@ -57,8 +61,13 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       eyebrow: "Service freelance",
       title: "Développeur Next.js freelance qui livre vraiment.",
       subtitle:
-        "Tu cherches un freelance Next.js senior qui prend en charge ton produit de A à Z et livre en production sans surprise ? J'interviens sur architecture, MVP, refonte et lead tech temps partiel.",
+        "Tu cherches un freelance Next.js senior qui prend en charge ton produit de A à Z et livre en production sans surprise ? Next.js est ma stack de prédilection, mais j'adapte la techno à ton besoin : React/Node découplé, Vite, mobile natif. J'interviens sur architecture, MVP, refonte et lead tech temps partiel.",
       ...baseHero,
+    },
+    card: {
+      title: "Développement web sur mesure",
+      subtitle:
+        "Ton produit web de A à Z : architecture, MVP, refonte, mise en production. Next.js, React/Node ou la stack adaptée à ton besoin, pas l'inverse.",
     },
     problem: {
       title: "Tu reconnais une de ces situations ?",
@@ -105,6 +114,11 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
         question: "Tu travailles seul ou en équipe ?",
         answer:
           "Les deux. En autonomie sur un produit complet, ou intégré à une équipe existante (revues, pair programming, lead tech temps partiel).",
+      },
+      {
+        question: "Tu travailles uniquement avec Next.js ?",
+        answer:
+          "Non. Next.js est ma stack de prédilection et celle où je vais le plus vite, mais je choisis la techno selon ton projet : React + Node/Hono en architecture découplée, Vite, ou Next.js. Le but, c'est de livrer le bon produit, pas d'imposer un framework.",
       },
       {
         question: "Tu fais du mobile aussi ?",

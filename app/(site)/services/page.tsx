@@ -15,12 +15,12 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 export const metadata: Metadata = {
   title: "Services freelance",
   description:
-    "4 services freelance : dev Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h, démarrage 1-3 semaines.",
+    "Développeur web fullstack freelance, toute stack : Next.js, React, Node. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis sous 24h.",
   alternates: { canonical: SERVICES_URL },
   openGraph: {
     title: "Services freelance",
     description:
-      "4 services freelance : dev Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h, démarrage 1-3 semaines.",
+      "Développeur web fullstack freelance, toute stack : Next.js, React, Node. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis sous 24h.",
     url: SERVICES_URL,
     type: "website",
   },
@@ -28,15 +28,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services freelance",
     description:
-      "4 services freelance : dev Next.js, SaaS multi-tenant, lead tech fractional, TMA au mois. 5 ans d'expérience, devis sous 24h, démarrage 1-3 semaines.",
+      "Développeur web fullstack freelance, toute stack : Next.js, React, Node. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis sous 24h.",
   },
 };
 
 const services = Object.values(servicesData).map((service) => ({
   href: `/services/${service.slug}`,
   eyebrow: service.hero.eyebrow,
-  title: service.hero.title,
-  subtitle: service.hero.subtitle,
+  title: service.card?.title ?? service.hero.title,
+  subtitle: service.card?.subtitle ?? service.hero.subtitle,
 }));
 
 services.push({
@@ -67,8 +67,10 @@ export default function ServicesIndexPage() {
             4 façons de travailler ensemble
           </h1>
           <p className="text-secondary text-lg sm:text-xl max-w-3xl mx-auto">
-            Chaque service est cadré, chiffré, et basé sur des références
-            livrées en production. Choisis celui qui colle à ta situation.
+            Développeur web fullstack. Next.js est ma signature, mais je prends
+            ton projet quelle que soit la stack : React/Node, Vite, mobile
+            natif iOS/Android. Chaque service est cadré, chiffré, et basé sur des
+            références livrées en production.
           </p>
         </div>
 
