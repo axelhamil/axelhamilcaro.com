@@ -104,9 +104,10 @@ const HeroLeft = () => {
           </Paragraph>
 
           <Paragraph size="md" className="text-base md:text-lg text-secondary">
-            Spécialiste <strong>React, Next.js et TypeScript</strong>. Du MVP au
-            SaaS en croissance : j'apporte rigueur technique, code maintenable
-            et livraison dans les délais.
+            Spécialiste <strong>React, Next.js et TypeScript</strong>. J'adapte
+            l'architecture à ton stade : simple et rapide sur un MVP,{" "}
+            <strong>Clean Architecture et DDD</strong> quand ton métier se
+            complexifie. Un code qui tient dans le temps, livré dans les délais.
           </Paragraph>
         </div>
       </HeroMotionItem>

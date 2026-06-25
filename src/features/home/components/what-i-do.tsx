@@ -35,7 +35,7 @@ const services = [
     icon: Code2,
     title: "Développement",
     description:
-      "Code TypeScript moderne, testé et documenté. Votre app évolue sans dette technique.",
+      "Du MVP simple à l'architecture DDD et event sourcing selon votre métier. Un code TypeScript testé qui tient 5 ans, pas 6 mois.",
     gradient: "from-blue-500 to-cyan-500",
   },
   {

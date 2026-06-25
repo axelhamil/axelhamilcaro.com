@@ -18,9 +18,9 @@ import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 const pillars = [
   {
     icon: ShieldCheck,
-    title: "Code maintenable",
+    title: "Architecture qui dure",
     description:
-      "Architecture claire, tests automatisés et documentation. Votre produit évolue sereinement.",
+      "Clean Architecture et DDD quand le métier le justifie, simple sinon. Votre produit grandit sans réécriture.",
     gradient: "from-emerald-500 to-teal-500",
     number: "01",
   },
@@ -171,28 +171,16 @@ const Approach = () => {
         <RevealItem>
           <TerminalBlock
             lines={[
-              {
-                prefix: "$",
-                text: "npx create-next-app@latest mon-projet",
-                delay: 0,
-              },
+              { prefix: "$", text: "pnpm test", delay: 0 },
               {
                 prefix: "✓",
-                text: "Project created successfully!",
+                text: "142 tests passed · domain, use-cases, e2e",
                 delay: 600,
               },
-              { prefix: "$", text: "cd mon-projet && pnpm dev", delay: 1200 },
-              { prefix: "▲", text: "Ready in 1.2s", delay: 1800 },
-              {
-                prefix: "→",
-                text: "Local: http://localhost:3000",
-                delay: 2200,
-              },
-              {
-                prefix: "🚀",
-                text: "Let's ship something great!",
-                delay: 2800,
-              },
+              { prefix: "$", text: "pnpm build", delay: 1200 },
+              { prefix: "✓", text: "Type-safe build · 0 error", delay: 1800 },
+              { prefix: "$", text: "git push → CI/CD", delay: 2200 },
+              { prefix: "🚀", text: "Deployed to production", delay: 2800 },
             ]}
           />
         </RevealItem>
