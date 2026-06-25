@@ -36,7 +36,7 @@ export default async function TreePage() {
   };
 
   return (
-    <main className="relative h-full flex flex-col items-center justify-start px-4 pt-20 sm:pt-0 overflow-hidden">
+    <main className="relative min-h-[calc(100svh-var(--nav-h))] flex flex-col items-center pt-6 sm:pt-10 pb-12 overflow-hidden">
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO

@@ -21,7 +21,10 @@ export default function SiteLayout({
       <JsonLd />
       <SiteWidgets />
       <Navbar />
-      <div id="main-content" className="pt-12 sm:pt-25 px-4 sm:px-6 md:px-10">
+      <div
+        id="main-content"
+        className="pt-[var(--nav-h)] px-4 sm:px-6 md:px-10"
+      >
         {children}
       </div>
       <Footer />

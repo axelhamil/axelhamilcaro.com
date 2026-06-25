@@ -9,7 +9,7 @@ const Hero = () => {
       id="hero"
       className="
         relative container mx-auto
-        min-h-[calc(100vh-100px)]
+        min-h-[calc(100svh-var(--nav-h))]
         py-8 md:py-12
 
         flex flex-col-reverse
