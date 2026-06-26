@@ -1,0 +1,43 @@
+name: IndexNow
+
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    if: >
+      github.event.deployment_status.state == 'success' &&
+      contains(github.event.deployment_status.environment, 'Production')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Compute changed blog URLs
+        id: diff
+        run: |
+          mapfile -t files < <(git diff --name-only HEAD^ HEAD -- 'content/blog/*.mdx' || true)
+          urls=()
+          for f in "${files[@]}"; do
+            [ -n "$f" ] || continue
+            slug="$(basename "$f" .mdx)"
+            urls+=("https://axelhamilcaro.com/blog/$slug")
+          done
+          if [ ${#urls[@]} -gt 0 ]; then
+            urls+=("https://axelhamilcaro.com/blog" "https://axelhamilcaro.com")
+          fi
+          printf '%s\n' "${urls[@]}" > changed-urls.txt
+          echo "count=${#urls[@]}" >> "$GITHUB_OUTPUT"
+
+      - name: Submit to IndexNow
+        if: steps.diff.outputs.count != '0'
+        run: node scripts/indexnow.mjs $(tr '\n' ' ' < changed-urls.txt)

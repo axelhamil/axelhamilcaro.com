@@ -12,7 +12,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "tsx drizzle/seed.ts"
+    "db:seed": "tsx drizzle/seed.ts",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.5.1",
