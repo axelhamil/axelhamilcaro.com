@@ -68,8 +68,8 @@ export default function ServicesIndexPage() {
           </h1>
           <p className="text-secondary text-lg sm:text-xl max-w-3xl mx-auto">
             Développeur web fullstack. Next.js est ma signature, mais je prends
-            ton projet quelle que soit la stack : React/Node, Vite, mobile
-            natif iOS/Android. Chaque service est cadré, chiffré, et basé sur des
+            ton projet quelle que soit la stack : React/Node, Vite, mobile natif
+            iOS/Android. Chaque service est cadré, chiffré, et basé sur des
             références livrées en production.
           </p>
         </div>

@@ -21,7 +21,7 @@ import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 const creativeWorkSchema = buildCreativeWorkSchema({
   name: "ScormPilot : SaaS e-learning multi-tenant",
   description:
-    "SaaS e-learning multi-tenant développé en solo : 5 applications (API, dashboard, lecteur SCORM, runtime SCORM, app Microsoft Teams). Multi-tenancy schema-per-tenant PostgreSQL, milliers de sessions quotidiennes.",
+    "SaaS e-learning multi-tenant développé en solo : 7 applications (API, dashboard, lecteur, runtime SCORM, app builder, app Microsoft Teams, status page). Multi-tenancy schema-per-tenant PostgreSQL, milliers de sessions quotidiennes.",
   url: "https://axelhamilcaro.com/portfolio/scormpilot",
   dateCreated: "2025",
   keywords: [
@@ -50,7 +50,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 export const metadata: Metadata = {
   title: "ScormPilot : SaaS e-learning SCORM",
   description:
-    "Plateforme SaaS de diffusion SCORM pour organismes de formation. 5 apps solo, multi-tenant PostgreSQL, analytics temps réel. Alternative légère aux LMS rigides.",
+    "Plateforme SaaS de diffusion SCORM pour organismes de formation. 7 apps solo, multi-tenant PostgreSQL, analytics temps réel. Alternative légère aux LMS rigides.",
   keywords: [
     "ScormPilot",
     "SCORM",
@@ -69,14 +69,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ScormPilot : SaaS e-learning SCORM",
     description:
-      "SaaS multi-tenant SCORM : 5 apps solo (API, dashboard, lecteur, runtime, Teams). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
+      "SaaS multi-tenant SCORM : 7 apps solo (API, dashboard, lecteur, runtime, builder, Teams, status). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
     url: "/portfolio/scormpilot",
   },
   twitter: {
     card: "summary_large_image",
     title: "ScormPilot : SaaS e-learning SCORM",
     description:
-      "SaaS multi-tenant SCORM : 5 apps solo (API, dashboard, lecteur, runtime, Teams). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
+      "SaaS multi-tenant SCORM : 7 apps solo (API, dashboard, lecteur, runtime, builder, Teams, status). Architecture hexagonale, DDD, PostgreSQL schema-per-tenant.",
   },
 };
 

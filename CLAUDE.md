@@ -79,7 +79,7 @@ app/                              # Next.js routes + layouts + api — SEUL endr
 src/
 ├── features/                     # UI par workflow (chaque feature = un ou plusieurs écrans)
 │   ├── home/                     # Home page sections
-│   │   └── components/           # hero/, experience-timeline, case-studies, tech-stack, testimonials, footer, what-i-do, approach, trusted-by
+│   │   └── components/           # hero/, experience-timeline, what-i-do, approach, case-studies, trusted-by, tech-stack, home-faq
 │   ├── blog/                     # Blog list + article
 │   │   ├── components/           # article-card, blog-navbar, table-of-contents (mobile + desktop), article-navigation, scroll-to-top
 │   │   └── lib/                  # blog.ts (getAllPosts, getPostBySlug, extractHeadings)
@@ -221,10 +221,13 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <ExperienceTimeline />
       <WhatIDo />
+      <Approach />
       <CaseStudies />
+      <TrustedBy />
       <TechStack />
-      <Footer />
+      <HomeFaq />
     </main>
   );
 }
@@ -419,3 +422,18 @@ But : une seule identité, formulée à l'identique partout, pour que les IA qui
 5. **Durée freelance dynamique** : `getFreelanceYears()` (`app/_config/site.constants.ts`, `FREELANCE_SINCE_YEAR = 2024`), recalculé au build. Jamais de "X ans" en dur. Dans les métas/OG, préférer la date absolue "depuis 2024" (citable, ne périme pas) ; le compteur dynamique pour les KPI punchy.
 6. **Rédaction SEO/GEO** : answer-first (1re phrase = entité + localisation + spécialité, en gras), pas de tiret cadratin, accents complets, phrases de longueur variée. Voir skill `rediger-article-blog-seo-geo` pour le détail.
 7. **Espacement sections `/about`** : `py-12 sm:py-16` (pas `py-20 sm:py-32`, jugé trop aéré).
+
+## IndexNow (indexation instantanée)
+
+Notifie Bing, Yandex, Seznam, Naver, Yep, Amazon à chaque publication/màj. **Google ne supporte PAS IndexNow** (pour lui : sitemap + Search Console). Endpoint unique `https://api.indexnow.org/indexnow` (hub qui redistribue à tous les participants).
+
+**Composants :**
+1. `public/{clé}.txt` — preuve de propriété servie par Vercel (`/{clé}.txt`). Clé actuelle : `a07af9fbd3a6615ffc58dca83622cc58`. **Ne pas supprimer/renommer** sans régénérer (sinon 403 côté moteurs).
+2. `scripts/indexnow.mjs` — `pnpm indexnow --all` (lit `sitemap.xml` live → soumet tout, pour bootstrap/re-sync), `pnpm indexnow <url…>` (liste ciblée), `--dry-run` (n'envoie rien). La clé est résolue en cherchant dans `public/` le `.txt` dont le **contenu == le nom** (évite de confondre avec `llms.txt`/`llms-full.txt`).
+3. `.github/workflows/indexnow.yml` — déclenché sur `deployment_status` **success + Production** (pas sur `push`), pour ne jamais pinger une URL avant qu'elle soit live. Diff `git HEAD^..HEAD` sur `content/blog/*.mdx` → URLs d'articles ajoutés/modifiés/supprimés + `/blog` + home → ping ciblé.
+
+**Prérequis CI :** Vercel doit créer des GitHub Deployments (Vercel → Settings → Git, actif par défaut ; `vercel[bot]` crée des deployments `environment: Production`).
+
+**Limites assumées :** diff sur le dernier commit uniquement (un push = un article, cas réel). Pour soumettre des pages statiques ajoutées hors blog → `pnpm indexnow --all` à la main.
+
+**Cloudflare :** DNS-only (trafic sort direct de Vercel). **Crawler Hints non utilisable** (faudrait proxifier Vercel derrière CF en orange cloud, déconseillé). L'approche CI ci-dessus est indépendante de l'hébergeur.

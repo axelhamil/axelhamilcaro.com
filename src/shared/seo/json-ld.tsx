@@ -207,6 +207,50 @@ export function JsonLd() {
           url: "https://www.malt.fr",
         },
       },
+      {
+        "@type": "Review",
+        author: {
+          "@type": "Person",
+          name: "Raphael Le Cras",
+          jobTitle: "Fondateur d'OpenUp",
+        },
+        datePublished: "2026-06-30",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+          worstRating: "1",
+        },
+        reviewBody:
+          "Axel est le développeur derrière OpenUp depuis le lancement, et travailler avec lui est un vrai plus. Sur ce projet (désactivation automatique des liens lors d'un downgrade de plan et système de modération/bannissement de comptes), le travail a été propre et livré dans les délais. Il a également pris le temps de mettre à jour l'application et de corriger un bug d'une fonctionnalité. Je lui confie la partie technique de mon produit en confiance et je continue à travailler avec lui. Je ne peux que le recommander de nouveau.",
+        publisher: {
+          "@type": "Organization",
+          name: "Malt",
+          url: "https://www.malt.fr",
+        },
+      },
+      {
+        "@type": "Review",
+        author: {
+          "@type": "Person",
+          name: "Raphael Le Cras",
+          jobTitle: "Fondateur d'OpenUp",
+        },
+        datePublished: "2026-07-01",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+          worstRating: "1",
+        },
+        reviewBody:
+          "J'ai eu besoin d'un changement urgent d'une fonctionnalité sur le plan gratuit de mon app, et Axel l'a modifié dans l'après-midi même de ma demande. Très réactif et la demande a été réalisée correctement.",
+        publisher: {
+          "@type": "Organization",
+          name: "Malt",
+          url: "https://www.malt.fr",
+        },
+      },
     ],
   };
 

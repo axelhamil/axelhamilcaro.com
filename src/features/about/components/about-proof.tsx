@@ -36,7 +36,7 @@ const projects: readonly Project[] = [
     name: "ScormPilot",
     tagline: "SaaS e-learning multi-tenant",
     highlights: [
-      { value: "5 apps", label: "livrées en solo" },
+      { value: "7 apps", label: "livrées en solo" },
       {
         value: "Multi-tenant",
         label: "isolation données + facturation par tenant",

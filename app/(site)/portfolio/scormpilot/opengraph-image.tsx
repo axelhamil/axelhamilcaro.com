@@ -13,6 +13,6 @@ export default function Image() {
     eyebrow: "Case study",
     title: "ScormPilot : SaaS e-learning",
     subtitle:
-      "5 apps en solo · Multi-tenant · Milliers de sessions quotidiennes",
+      "7 apps en solo · Multi-tenant · Milliers de sessions quotidiennes",
   });
 }

@@ -36,11 +36,11 @@ const experiences = [
     company: "ScormPilot",
     role: "Développeur Fullstack",
     description:
-      "SaaS e-learning multi-tenant, 5 apps en solo. Next.js, NestJS, PostgreSQL.",
+      "SaaS e-learning multi-tenant, 7 apps en solo. Next.js, Fastify, PostgreSQL.",
     icon: Code2,
     gradient: "from-emerald-500 to-teal-500",
     side: "left" as const,
-    highlight: "5 apps",
+    highlight: "7 apps",
   },
   {
     period: "2024 - 2025",

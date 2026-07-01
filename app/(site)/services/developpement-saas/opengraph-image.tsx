@@ -13,6 +13,6 @@ export default function Image() {
     eyebrow: "Service freelance",
     title: "Développement SaaS",
     subtitle:
-      "Multi-tenant · Clean Architecture · DDD · Référence ScormPilot (5 apps solo)",
+      "Multi-tenant · Clean Architecture · DDD · Référence ScormPilot (7 apps solo)",
   });
 }

@@ -15,17 +15,25 @@
 
 ## Services
 
-- [Développeur Next.js freelance](https://axelhamilcaro.com/services/developpeur-nextjs-freelance): architecture moderne, MVP en 4-8 semaines, refonte d'apps existantes
+- [Développeur Next.js freelance](https://axelhamilcaro.com/services/developpeur-nextjs-freelance): architecture moderne, MVP en 4-8 semaines, refonte d'apps existantes. Techno adaptée au besoin : Next.js par défaut, aussi React/Node découplé, Vite, mobile natif
 - [Développement SaaS](https://axelhamilcaro.com/services/developpement-saas): SaaS B2B multi-tenant, Clean Architecture + DDD, de zéro jusqu'en production
 - [Lead tech fractional](https://axelhamilcaro.com/services/lead-tech-fractional): lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME
 - [TMA (maintenance applicative)](https://axelhamilcaro.com/tma): forfait mensuel sans engagement, PRO 350€/mois (5h incluses) ou PREMIUM 800€/mois (10h, monitoring proactif)
 
 ## Case studies
 
-- [ScormPilot](https://axelhamilcaro.com/portfolio/scormpilot): SaaS e-learning multi-tenant, 5 apps en solo
-- [Civitime](https://axelhamilcaro.com/portfolio/civitime): plateforme RSE, lead tech 4 ans, IA RAG
-- [OpenUp](https://axelhamilcaro.com/portfolio/openup): SaaS de gestion de liens tout-en-un
-- [Billetterie](https://axelhamilcaro.com/portfolio/billetterie): plan 2D/3D + WebSocket, solo en 1 mois
+- [ScormPilot](https://axelhamilcaro.com/portfolio/scormpilot): SaaS e-learning SCORM multi-tenant, 7 apps en solo (monorepo Turborepo), 99.9% uptime
+- [Civitime](https://axelhamilcaro.com/portfolio/civitime): plateforme RSE B Corp, 250 000+ collaborateurs, lead tech 4 ans, IA RAG
+- [OpenUp](https://axelhamilcaro.com/portfolio/openup): SaaS de gestion de liens tout-en-un, edge Cloudflare <50ms, iOS/Android/PWA
+- [Billetterie](https://axelhamilcaro.com/portfolio/billetterie): plan de salle 2D/3D + WebSocket <200ms, solo en 1 mois
+
+## Blog
+
+- [Combien coûte un MVP SaaS en 2026](https://axelhamilcaro.com/blog/combien-coute-mvp-saas): 15 000 à 35 000 € chez un freelance senior selon le périmètre
+- [Avoir un CTO sans le salaire, le modèle fractional](https://axelhamilcaro.com/blog/fractional-cto-lead-technique-temps-partiel): direction technique à temps partiel, 1 à 3 jours/semaine
+- [Mon développeur a disparu : récupérer votre projet web](https://axelhamilcaro.com/blog/recuperer-projet-web-developpeur-disparu): reprendre le contrôle des accès et du code source
+- [Pourquoi vous avez besoin d'une tierce maintenance applicative](https://axelhamilcaro.com/blog/tierce-maintenance-applicative): maintenir une app en production, des correctifs à la sécurité
+- [Le Therac-25](https://axelhamilcaro.com/blog/therac-25): traduction de l'étude de cas de Nancy Leveson (Safeware, 1995)
 
 ## Contact
 
@@ -35,4 +43,4 @@
 - GitHub: https://github.com/axelhamil
 - Calendly (après un premier échange par écrit): https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-06-18
+Dernière mise à jour: 2026-07-01

@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -17,7 +17,9 @@ function resolveKey() {
     const content = readFileSync(join(publicDir, file), "utf8").trim();
     if (content === name) return name;
   }
-  throw new Error("Clé IndexNow introuvable dans public/ (fichier {clé}.txt dont le contenu == le nom)");
+  throw new Error(
+    "Clé IndexNow introuvable dans public/ (fichier {clé}.txt dont le contenu == le nom)",
+  );
 }
 
 async function urlsFromSitemap() {
@@ -53,7 +55,9 @@ const key = resolveKey();
 const urls = [...new Set(wantAll ? await urlsFromSitemap() : explicit)];
 
 if (urls.length === 0) {
-  console.error("Aucune URL à soumettre. Usage: node scripts/indexnow.mjs [--all|--dry-run] <url> [url...]");
+  console.error(
+    "Aucune URL à soumettre. Usage: node scripts/indexnow.mjs [--all|--dry-run] <url> [url...]",
+  );
   process.exit(1);
 }
 

@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# axelhamilcaro.com
 
-## Getting Started
+Portfolio et site personnel d'Axel Hamilcaro, développeur web fullstack freelance.
 
-First, run the development server:
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Biome, Drizzle + PostgreSQL (Neon), better-auth (GitHub), Resend.
+
+## Développement
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm dev        # serveur de dev sur http://localhost:3000
+pnpm build      # build de production
+pnpm start      # serveur de production
+pnpm lint       # Biome (lint)
+pnpm format     # Biome (format)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Direction d'imports stricte `app → features → entities → shared → backend` : une strate n'importe que d'une strate inférieure, aucun import latéral entre features. Chaque page compose des sections, le backend suit une Clean Architecture (controller → service → repository).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Le détail des conventions, de la structure et des patterns est dans [CLAUDE.md](./CLAUDE.md).
 
-## Learn More
+## SEO / GEO
 
-To learn more about Next.js, take a look at the following resources:
+Metadata et images Open Graph dynamiques par page, données structurées schema.org (Person, WebSite, ProfessionalService, BlogPosting, FAQPage…), `public/llms.txt` + `public/llms-full.txt` pour les IA, indexation instantanée via IndexNow au déploiement.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Déploiement
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Hébergé sur Vercel, base de données Neon. Chaque déploiement Production déclenche la soumission IndexNow des URLs de blog ajoutées ou modifiées (`.github/workflows/indexnow.yml`).

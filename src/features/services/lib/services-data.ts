@@ -153,7 +153,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     url: `${SITE_URL}/services/developpement-saas`,
     metaTitle: "Développement SaaS freelance",
     metaDescription:
-      "Dev freelance SaaS B2B. Architecture multi-tenant, Clean Architecture + DDD, mise en prod complète. Référence : ScormPilot (5 apps solo). Devis sous 24h.",
+      "Dev freelance SaaS B2B. Architecture multi-tenant, Clean Architecture + DDD, mise en prod complète. Référence : ScormPilot (7 apps solo). Devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Je conçois et livre ton SaaS de zéro jusqu'en production.",
@@ -201,7 +201,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       {
         question: "Combien de temps pour livrer un MVP SaaS ?",
         answer:
-          "4 à 12 semaines selon scope. Référence : ScormPilot = 5 applications livrées en solo (API, dashboard, lecteur SCORM, runtime, app Teams).",
+          "4 à 12 semaines selon scope. Référence : ScormPilot = 7 applications livrées en solo (API, dashboard, lecteur, runtime SCORM, app builder, app Teams, status page).",
       },
       {
         question: "Tu peux reprendre un SaaS existant qui a déjà mal vieilli ?",

@@ -20,7 +20,7 @@ const CASE_META: Record<
   },
   scormpilot: {
     name: "ScormPilot",
-    description: "SaaS e-learning multi-tenant, 5 apps en solo.",
+    description: "SaaS e-learning multi-tenant, 7 apps en solo.",
   },
 };
 

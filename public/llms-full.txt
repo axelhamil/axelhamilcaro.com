@@ -19,11 +19,11 @@
 - 2020 : diplômé de la Wild Code School, Concepteur Développeur d'applications Web & Mobile (Bac+3/4)
 - Janvier 2021 → décembre 2024 (4 ans) chez Civitime (EdTech, B Corp), de développeur à lead technique. Refonte complète d'une plateforme RSE en Clean Architecture + DDD + event sourcing, conception d'un éditeur de contenu interne avec IA RAG (GPT-4) qui a divisé par 2 les délais d'itération de l'équipe pédagogique, tech radar, mentoring, code reviews.
 - Depuis 2024 : freelance, 10+ projets livrés en autonomie, dont OpenUp (fondateur) et ScormPilot.
-- Mentor dev web (Superprof) : 10+ développeurs accompagnés sur React et Clean Architecture.
+- 2024-2025 : mentor dev web (Superprof), 10+ développeurs accompagnés sur React et Clean Architecture.
 
 ## Services
 
-- Développeur Next.js freelance (https://axelhamilcaro.com/services/developpeur-nextjs-freelance) : architecture moderne, MVP en 4 à 8 semaines, refonte d'applications existantes sans casser l'existant. Stack TypeScript / React 19 / Tailwind v4.
+- Développeur Next.js freelance (https://axelhamilcaro.com/services/developpeur-nextjs-freelance) : architecture moderne, MVP en 4 à 8 semaines, refonte d'applications existantes sans casser l'existant. Stack TypeScript / React 19 / Tailwind v4. Next.js par défaut, mais techno adaptée au besoin : React/Node découplé, Vite, mobile natif.
 - Développement SaaS (https://axelhamilcaro.com/services/developpement-saas) : SaaS B2B multi-tenant, de zéro jusqu'en production, Clean Architecture + DDD.
 - Lead tech fractional (https://axelhamilcaro.com/services/lead-tech-fractional) : lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME. Architecture, mentorat, montée en qualité.
 - TMA (tierce maintenance applicative) (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement.
@@ -61,9 +61,18 @@
 - Architecture pensée pour durer (Clean Archi / DDD) plutôt que livraison jetable.
 - Profil lead tech : capable de structurer une stack et de mentorer une équipe, pas seulement d'exécuter des tickets.
 
-## Témoignage
+## Articles de blog
 
-- Bryan Kaneb (développeur web freelance, via Malt, décembre 2025, 5/5) : « Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué. Je le recommande vivement pour vos projets de développement web ou mobile. »
+- Combien coûte un MVP SaaS en 2026 (https://axelhamilcaro.com/blog/combien-coute-mvp-saas) : un MVP SaaS coûte de 15 000 à 35 000 euros chez un freelance senior selon le périmètre. Le vrai risque n'est pas le prix mais de payer des fonctions inutiles.
+- Avoir un CTO sans le salaire, le modèle fractional (https://axelhamilcaro.com/blog/fractional-cto-lead-technique-temps-partiel) : un fractional CTO est une direction technique à temps partiel, 1 à 3 jours par semaine, payé pour rendre votre équipe autonome puis s'effacer.
+- Mon développeur a disparu : récupérer votre projet web (https://axelhamilcaro.com/blog/recuperer-projet-web-developpeur-disparu) : quand votre développeur disparaît, l'urgence n'est pas le code mais la reprise de contrôle de vos accès.
+- Pourquoi vous avez besoin d'une tierce maintenance applicative (https://axelhamilcaro.com/blog/tierce-maintenance-applicative) : la TMA consiste à confier à un prestataire externe la maintenance d'une application déjà en production, des correctifs à la sécurité jusqu'au support.
+- Le Therac-25 (https://axelhamilcaro.com/blog/therac-25) : traduction française de l'étude de cas « Medical Devices: The Therac-25 » tirée de Safeware de Nancy Leveson (1995).
+
+## Témoignages
+
+- Raphael Le Cras (fondateur d'OpenUp, via Malt, juin-juillet 2026, 5/5) : « Axel est le développeur derrière OpenUp depuis le lancement, et travailler avec lui est un vrai plus. Le travail a été propre et livré dans les délais. Je lui confie la partie technique de mon produit en confiance et je continue à travailler avec lui. » Sur une autre mission urgente, changement de fonctionnalité livré l'après-midi même de la demande.
+- Bryan Kaneb (développeur web freelance, via Malt, décembre 2025, 5/5) : « J'ai fait appel à Axel pour un projet React/Node et la collaboration s'est très bien passée. Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué, il respecte ses engagements et sait anticiper les problèmes avant qu'ils n'arrivent. La communication était simple et directe, ce qui facilite grandement le suivi du projet. C'est un profil sur lequel on peut s'appuyer. Je le recommande vivement pour vos projets de développements web ou mobile. »
 
 ## Contact
 
@@ -73,4 +82,4 @@
 - GitHub : https://github.com/axelhamil
 - Calendly (après un premier échange par écrit) : https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-06-18
+Dernière mise à jour: 2026-07-01
