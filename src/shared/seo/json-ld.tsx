@@ -106,6 +106,84 @@ export function JsonLd() {
     publisher: { "@id": `${SITE_URL}/#person` },
   };
 
+  const serviceReviews = [
+    {
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: "Bryan Kaneb",
+        jobTitle: "Développeur web freelance",
+      },
+      datePublished: "2025-12-19",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+        worstRating: "1",
+      },
+      reviewBody:
+        "J'ai fait appel à Axel pour un projet React/Node et la collaboration s'est très bien passée. Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué, il respecte ses engagements et sait anticiper les problèmes avant qu'ils n'arrivent. La communication était simple et directe, ce qui facilite grandement le suivi du projet. C'est un profil sur lequel on peut s'appuyer. Je le recommande vivement pour vos projets de développements web ou mobile.",
+      url: EXTERNAL_LINKS.malt,
+      publisher: {
+        "@type": "Organization",
+        name: "Malt",
+        url: "https://www.malt.fr",
+      },
+    },
+    {
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: "Raphael Le Cras",
+        jobTitle: "Fondateur d'OpenUp",
+      },
+      datePublished: "2026-06-30",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+        worstRating: "1",
+      },
+      reviewBody:
+        "Axel est le développeur derrière OpenUp depuis le lancement, et travailler avec lui est un vrai plus. Sur ce projet (désactivation automatique des liens lors d'un downgrade de plan et système de modération/bannissement de comptes), le travail a été propre et livré dans les délais. Il a également pris le temps de mettre à jour l'application et de corriger un bug d'une fonctionnalité. Je lui confie la partie technique de mon produit en confiance et je continue à travailler avec lui. Je ne peux que le recommander de nouveau.",
+      url: EXTERNAL_LINKS.malt,
+      publisher: {
+        "@type": "Organization",
+        name: "Malt",
+        url: "https://www.malt.fr",
+      },
+    },
+    {
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: "Raphael Le Cras",
+        jobTitle: "Fondateur d'OpenUp",
+      },
+      datePublished: "2026-07-01",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+        worstRating: "1",
+      },
+      reviewBody:
+        "J'ai eu besoin d'un changement urgent d'une fonctionnalité sur le plan gratuit de mon app, et Axel l'a modifié dans l'après-midi même de ma demande. Très réactif et la demande a été réalisée correctement.",
+      url: EXTERNAL_LINKS.malt,
+      publisher: {
+        "@type": "Organization",
+        name: "Malt",
+        url: "https://www.malt.fr",
+      },
+    },
+  ];
+
+  const ratingValues = serviceReviews.map((r) =>
+    Number(r.reviewRating.ratingValue),
+  );
+  const averageRating =
+    ratingValues.reduce((sum, value) => sum + value, 0) / ratingValues.length;
+
   const professionalServiceSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -122,6 +200,7 @@ export function JsonLd() {
       value: "93929141500015",
     },
     provider: { "@id": `${SITE_URL}/#person` },
+    sameAs: [EXTERNAL_LINKS.malt],
     areaServed: [
       {
         "@type": "Country",
@@ -184,74 +263,14 @@ export function JsonLd() {
         },
       ],
     },
-    review: [
-      {
-        "@type": "Review",
-        author: {
-          "@type": "Person",
-          name: "Bryan Kaneb",
-          jobTitle: "Développeur web freelance",
-        },
-        datePublished: "2025-12-19",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-          worstRating: "1",
-        },
-        reviewBody:
-          "J'ai fait appel à Axel pour un projet React/Node et la collaboration s'est très bien passée. Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué, il respecte ses engagements et sait anticiper les problèmes avant qu'ils n'arrivent. La communication était simple et directe, ce qui facilite grandement le suivi du projet. C'est un profil sur lequel on peut s'appuyer. Je le recommande vivement pour vos projets de développements web ou mobile.",
-        publisher: {
-          "@type": "Organization",
-          name: "Malt",
-          url: "https://www.malt.fr",
-        },
-      },
-      {
-        "@type": "Review",
-        author: {
-          "@type": "Person",
-          name: "Raphael Le Cras",
-          jobTitle: "Fondateur d'OpenUp",
-        },
-        datePublished: "2026-06-30",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-          worstRating: "1",
-        },
-        reviewBody:
-          "Axel est le développeur derrière OpenUp depuis le lancement, et travailler avec lui est un vrai plus. Sur ce projet (désactivation automatique des liens lors d'un downgrade de plan et système de modération/bannissement de comptes), le travail a été propre et livré dans les délais. Il a également pris le temps de mettre à jour l'application et de corriger un bug d'une fonctionnalité. Je lui confie la partie technique de mon produit en confiance et je continue à travailler avec lui. Je ne peux que le recommander de nouveau.",
-        publisher: {
-          "@type": "Organization",
-          name: "Malt",
-          url: "https://www.malt.fr",
-        },
-      },
-      {
-        "@type": "Review",
-        author: {
-          "@type": "Person",
-          name: "Raphael Le Cras",
-          jobTitle: "Fondateur d'OpenUp",
-        },
-        datePublished: "2026-07-01",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-          worstRating: "1",
-        },
-        reviewBody:
-          "J'ai eu besoin d'un changement urgent d'une fonctionnalité sur le plan gratuit de mon app, et Axel l'a modifié dans l'après-midi même de ma demande. Très réactif et la demande a été réalisée correctement.",
-        publisher: {
-          "@type": "Organization",
-          name: "Malt",
-          url: "https://www.malt.fr",
-        },
-      },
-    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toFixed(1),
+      reviewCount: serviceReviews.length,
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: serviceReviews,
   };
 
   return (
