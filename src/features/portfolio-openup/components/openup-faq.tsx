@@ -13,9 +13,15 @@ export const openupFaqItems = [
   },
   {
     question:
-      "Les deep links iOS/Android, ça marche vraiment ou c'est juste du fallback web ?",
+      "Les deep links, ça marche vraiment ou c'est juste du fallback web ?",
     answer:
-      "Vraiment. Quand quelqu'un tape sur openup.to/xxx, le worker détecte l'user-agent et route vers une page interstitial qui tente d'ouvrir le scheme natif (openup://) si l'app est installée. Si la tentative échoue dans X ms, fallback web. On gère aussi le cas tordu des in-app browsers Instagram/TikTok via un guide pour ouvrir le lien dans Safari/Chrome.",
+      "Vraiment, et c'est le cœur du produit. Un résolveur couvre 57 applications de destination : un lien Spotify ouvre le bon titre dans l'app Spotify, un lien Amazon la bonne fiche produit. Côté iOS on passe par les Universal Links, côté Android par un intent:// avec browser_fallback_url. Il n'y a pas de scheme custom openup:// : l'app OpenUp elle-même s'ouvre via Universal Links et App Links vérifiés.",
+  },
+  {
+    question:
+      "Comment tu sors un lien du navigateur intégré d'Instagram ou de TikTok ?",
+    answer:
+      "11 navigateurs intégrés sont détectés côté serveur à partir du user-agent, avec une stratégie par application. Instagram et Facebook exposent un scheme d'évasion, on l'utilise pour forcer l'ouverture dans le navigateur système. TikTok, WeChat, LINE et Twitter n'en laissent aucun : la seule réponse honnête est une page d'instructions localisée qui pointe le menu au bon endroit selon l'app. Partout ailleurs, un interstitiel tente le deep link natif avec une cascade de secours sur cinq navigateurs iOS. On sait si ça a marché en écoutant visibilitychange, blur et pagehide : si la page passe en arrière-plan avant 1,8s, l'app a pris la main et on annule le repli web.",
   },
   {
     question:

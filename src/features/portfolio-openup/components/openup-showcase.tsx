@@ -52,23 +52,28 @@ const OU = {
 
 const stats = [
   {
-    value: "5",
-    label: "Piliers",
-    sublabel: "Liens · QR · Bio · Analytics · Domaines",
+    value: "57",
+    label: "Apps ouvertes en natif",
+    sublabel: "Spotify · Amazon · YouTube · Uber…",
     color: OU.blue,
   },
   {
-    value: "4",
-    label: "Plans Stripe",
-    sublabel: "EUR + USD auto",
+    value: "10-15%",
+    label: "Conversion payante",
+    sublabel: "Sur plusieurs milliers d'utilisateurs",
     color: OU.emerald,
   },
-  { value: "~25j", label: "Scope solo", color: OU.amber },
   {
-    value: "3",
-    label: "Plateformes",
-    sublabel: "iOS · Android · PWA",
+    value: "11",
+    label: "In-app browsers contournés",
+    sublabel: "Instagram · TikTok · WeChat…",
     color: OU.pink,
+  },
+  {
+    value: "<50ms",
+    label: "Edge Cloudflare",
+    sublabel: "Partout dans le monde",
+    color: OU.amber,
   },
 ] as const;
 
@@ -76,8 +81,8 @@ const secondaryStats = [
   "+940 fichiers TypeScript",
   "+190 fichiers domain/application",
   "8 packages monorepo",
-  "Edge <50ms via Cloudflare Worker",
-  "Apple Wallet + Google Wallet",
+  "4 plans Stripe EUR + USD",
+  "iOS · Android · PWA",
 ] as const;
 
 const screenshots = [
@@ -139,10 +144,17 @@ const screenshots = [
 
 const features = [
   {
+    icon: Anchor,
+    title: "Deep links natifs",
+    description:
+      "57 applications résolues : un lien Spotify ouvre le bon titre dans l'app, un lien Amazon la bonne fiche produit. Intent Android avec fallback navigateur, Universal Links iOS.",
+    color: OU.sky,
+  },
+  {
     icon: Link2,
     title: "Liens raccourcis",
     description:
-      "URLs courtes openup.to/xxx avec slug custom, expiration, limite de clics, filtre géo, mot de passe, UTM, scheduling et deep links iOS/Android natifs.",
+      "URLs courtes openup.to/xxx avec slug custom, expiration, limite de clics, filtre géo, mot de passe, UTM et scheduling.",
     color: OU.blue,
   },
   {
@@ -178,9 +190,9 @@ const features = [
 const techHighlights = [
   {
     icon: Anchor,
-    title: "Deep links iOS + Android",
+    title: "Sortir des in-app browsers",
     description:
-      "Un tap sur openup.to/xxx ouvre l'app native si elle est installée (UA parser + interstitial dédié), sinon fallback web propre. Contournement des in-app browsers Instagram/TikTok via guide d'ouverture navigateur.",
+      "11 navigateurs intégrés détectés server-side. Scheme d'évasion pour Instagram et Facebook, instructions guidées pour TikTok et WeChat qui n'en laissent aucun. Cascade de secours sur 5 navigateurs iOS, détection d'ouverture réelle via visibilitychange, repli web à 1,8s.",
     color: OU.sky,
   },
   {
@@ -240,7 +252,7 @@ const archHighlights = [
     icon: Zap,
     title: "Edge <50ms partout",
     description:
-      "Cloudflare Worker dédié pour les redirections courtes openup.to/xxx + le proxy Framer du site marketing. Latence sub-50ms partout dans le monde, scaling auto, coût négligeable.",
+      "Cloudflare Worker dédié pour les endpoints critiques : redirections courtes openup.to/xxx et proxy Framer du site marketing. Latence sub-50ms partout dans le monde, scaling auto, coût négligeable.",
     color: OU.amber,
   },
   {
@@ -403,7 +415,7 @@ export function OpenupHero() {
               className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-secondary max-w-2xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              SaaS de gestion de liens tout-en-un, live sur openup.to
+              Générateur de deep links, live sur openup.to
             </p>
           </RevealItem>
 
@@ -412,12 +424,16 @@ export function OpenupHero() {
               variant="secondary"
               className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
             >
-              Livraison from scratch en quelques semaines, en solo avec le
-              founder. Concurrent direct de Bitly + Linktree + Beacons combinés
-              : 5 piliers (liens raccourcis, QR codes, link-in-bio, analytics,
-              custom domains), deep links iOS/Android natifs, 4 plans Stripe
-              multi-devise EUR/USD, mobile natif via Capacitor, edge {"<"}50ms
-              via Cloudflare Worker. Architecture Clean + DDD.
+              <strong>
+                Un lien partagé sur Instagram ouvre l&apos;app Spotify, Amazon
+                ou YouTube
+              </strong>
+              , au lieu d&apos;une WebView où l&apos;utilisateur n&apos;est
+              connecté à rien. 57 applications résolues, 11 in-app browsers
+              contournés. Plusieurs milliers d&apos;utilisateurs, 10 à 15%
+              convertis en payant. Développé from scratch en solo avec le
+              founder : Clean Architecture + DDD, edge {"<"}50ms via Cloudflare
+              Worker, mobile natif via Capacitor.
             </Paragraph>
           </RevealItem>
 

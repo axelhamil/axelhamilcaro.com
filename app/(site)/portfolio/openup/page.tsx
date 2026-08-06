@@ -19,26 +19,28 @@ import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work"
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 
 const creativeWorkSchema = buildCreativeWorkSchema({
-  name: "OpenUp, SaaS de gestion de liens tout-en-un",
+  name: "OpenUp, générateur de deep links",
   description:
-    "Mission freelance solo livrée en quelques semaines avec le founder : SaaS combinant Bitly + Linktree + Beacons. 5 piliers (shortlinks, QR codes, link-in-bio, analytics, custom domains), deep links iOS/Android natifs, mobile natif via Capacitor, edge <50ms via Cloudflare Worker, multi-devise Stripe EUR/USD, Clean Architecture + DDD sur Hono.",
+    "Mission freelance solo livrée from scratch avec le founder : SaaS qui transforme une URL en lien ouvrant l'application native de destination. 57 applications résolues, 11 navigateurs intégrés contournés (Instagram, TikTok, WeChat), plusieurs milliers d'utilisateurs et 10 à 15% convertis en payant. Mobile natif via Capacitor, edge <50ms via Cloudflare Worker, multi-devise Stripe EUR/USD, Clean Architecture + DDD sur Hono.",
   url: "https://axelhamilcaro.com/portfolio/openup",
   dateCreated: "2026",
   keywords: [
+    "deep link",
+    "générateur de deep links",
+    "in-app browser",
+    "Universal Links",
+    "Android App Links",
     "SaaS",
     "gestion de liens",
     "shortlink",
     "link-in-bio",
     "QR code dynamique",
-    "deep link iOS",
-    "deep link Android",
     "Cloudflare Worker",
     "Capacitor",
     "Hono",
     "Clean Architecture",
     "DDD",
     "Stripe",
-    "Apple Wallet",
     "freelance",
   ],
   applicationCategory: "BusinessApplication",
@@ -52,40 +54,42 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
   { name: "OpenUp", url: "/portfolio/openup" },
 ]);
 
+const openupDescription =
+  "OpenUp, générateur de deep links livré solo from scratch. 57 apps ouvertes en natif, 11 in-app browsers contournés, 10 à 15% de conversion payante. Hono, Capacitor, Cloudflare edge <50ms.";
+
 export const metadata: Metadata = {
-  title: "OpenUp : SaaS de liens Bitly + Linktree",
-  description:
-    "OpenUp, SaaS de gestion de liens (Bitly + Linktree + Beacons), livré solo en quelques semaines. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise.",
+  title: "OpenUp : générateur de deep links",
+  description: openupDescription,
   keywords: [
     "OpenUp",
+    "deep link",
+    "générateur de deep links",
+    "in-app browser",
+    "Universal Links",
+    "App Links",
     "gestion de liens",
     "shortlink",
     "link-in-bio",
-    "QR code",
     "SaaS",
     "Hono",
     "Capacitor",
     "Cloudflare Workers",
     "Clean Architecture",
     "DDD",
-    "deep links",
-    "Stripe multi-devise",
     "Axel Hamilcaro",
   ],
   alternates: {
     canonical: "/portfolio/openup",
   },
   openGraph: {
-    title: "OpenUp : SaaS de liens Bitly + Linktree",
-    description:
-      "OpenUp, SaaS de gestion de liens (Bitly + Linktree + Beacons), livré solo en quelques semaines. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise.",
+    title: "OpenUp : générateur de deep links",
+    description: openupDescription,
     url: "/portfolio/openup",
   },
   twitter: {
     card: "summary_large_image",
-    title: "OpenUp : SaaS de liens Bitly + Linktree",
-    description:
-      "OpenUp, SaaS de gestion de liens (Bitly + Linktree + Beacons), livré solo en quelques semaines. Deep links iOS/Android, Cloudflare <50ms, Stripe multi-devise.",
+    title: "OpenUp : générateur de deep links",
+    description: openupDescription,
   },
 };
 
