@@ -120,10 +120,7 @@ const TechStack = () => {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.15}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto"
-      >
+      <RevealContainer className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
         {blocks.map((b, index) => {
           const Icon = b.icon;
 

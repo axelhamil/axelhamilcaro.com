@@ -425,10 +425,7 @@ export function CivitimeStats() {
           background: `linear-gradient(to right, transparent 10%, ${CT.orange}40, ${CT.orange}40, ${CT.gold}40, ${CT.purple}40, transparent 90%)`,
         }}
       />
-      <RevealContainer
-        staggerDelay={0.06}
-        className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6"
-      >
+      <RevealContainer className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
         {stats.map((stat) => (
           <RevealItem key={stat.label} direction="scale">
             <MagneticWrapper strength={0.03}>
@@ -501,10 +498,7 @@ export function CivitimeContext() {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.1}
-        className="container mx-auto max-w-4xl mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
-      >
+      <RevealContainer className="container mx-auto max-w-4xl mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         <RevealItem direction="left">
           <motion.div
             className="rounded-xl p-5 sm:p-6 h-full"
@@ -840,10 +834,7 @@ export function CivitimeRoleEvolution() {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.12}
-        className="container mx-auto max-w-4xl"
-      >
+      <RevealContainer className="container mx-auto max-w-4xl">
         <div className="relative">
           <div
             className="absolute left-4 sm:left-6 top-0 bottom-0 w-px hidden md:block"
@@ -963,10 +954,7 @@ export function CivitimeFeatures() {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.08}
-        className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-5xl"
-      >
+      <RevealContainer className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-5xl">
         {features.map((feature, i) => (
           <RevealItem
             key={feature.title}
@@ -1027,10 +1015,7 @@ export function CivitimeFeatures() {
         ))}
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.1}
-        className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-5xl mt-4"
-      >
+      <RevealContainer className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-5xl mt-4">
         {crossCutting.map((item, i) => (
           <RevealItem key={item.title} direction={i === 0 ? "left" : "right"}>
             <MagneticWrapper strength={0.03}>
@@ -1121,10 +1106,7 @@ export function CivitimeArchitecture() {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.1}
-        className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl"
-      >
+      <RevealContainer className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl">
         {archHighlights.map((item, i) => (
           <RevealItem
             key={item.title}
@@ -1210,10 +1192,7 @@ export function CivitimeTechStack() {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.03}
-        className="container mx-auto max-w-3xl"
-      >
+      <RevealContainer className="container mx-auto max-w-3xl">
         <div className="flex flex-wrap justify-center gap-2">
           {techStack.map((tech) => {
             const color = categoryColors[tech.category] || CT.gold;

@@ -142,10 +142,7 @@ const CaseStudies = () => {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.15}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto"
-      >
+      <RevealContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
         {projects.map((project, index) => {
           const hasPage = project.href;
           const Wrapper = hasPage

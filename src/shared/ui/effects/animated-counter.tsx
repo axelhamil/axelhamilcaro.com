@@ -25,20 +25,23 @@ export function AnimatedCounter({ value, className }: AnimatedCounterProps) {
     Math.round(current).toString(),
   );
 
-  const [displayValue, setDisplayValue] = useState("0");
+  const [displayValue, setDisplayValue] = useState(numericValue.toString());
+  const [counting, setCounting] = useState(false);
 
   useEffect(() => {
-    if (isInView) {
-      spring.set(numericValue);
-    }
+    if (!isInView) return;
+    setCounting(true);
+    setDisplayValue("0");
+    spring.set(numericValue);
   }, [isInView, numericValue, spring]);
 
   useEffect(() => {
+    if (!counting) return;
     const unsubscribe = display.on("change", (latest) => {
       setDisplayValue(latest);
     });
     return unsubscribe;
-  }, [display]);
+  }, [display, counting]);
 
   return (
     <motion.span

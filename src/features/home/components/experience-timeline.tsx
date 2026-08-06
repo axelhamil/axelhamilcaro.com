@@ -123,15 +123,11 @@ const ExperienceTimeline = () => {
             const isLeft = exp.side === "left";
 
             return (
-              <motion.div
+              <div
                 key={exp.company}
-                className={`relative md:flex md:items-center ${
+                className={`reveal-up relative md:flex md:items-center ${
                   isLeft ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: index * 0.08, duration: 0.45 }}
               >
                 <div
                   className={`md:w-1/2 ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12"}`}
@@ -225,7 +221,7 @@ const ExperienceTimeline = () => {
                 </motion.div>
 
                 <div className="hidden md:block md:w-1/2" />
-              </motion.div>
+              </div>
             );
           })}
         </div>

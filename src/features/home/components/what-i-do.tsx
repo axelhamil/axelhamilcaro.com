@@ -103,10 +103,7 @@ const WhatIDo = () => {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.1}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto"
-      >
+      <RevealContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
         {services.map((service, index) => (
           <RevealItem key={service.title} direction="scale">
             <MagneticWrapper strength={0.04}>

@@ -405,6 +405,56 @@ html.theme-transitioning::view-transition-new(root) {
   }
 }
 
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    translate: -20px 0;
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    translate: 20px 0;
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 @keyframes bounce-x {
   0%,
   100% {
@@ -479,6 +529,59 @@ html.theme-transitioning::view-transition-new(root) {
 
 .animate-icon-wiggle {
   animation: icon-wiggle 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-stagger > * {
+    animation: reveal-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-stagger > *:nth-child(1) {
+    animation-delay: 0.03s;
+  }
+
+  .hero-stagger > *:nth-child(2) {
+    animation-delay: 0.11s;
+  }
+
+  .hero-stagger > *:nth-child(3) {
+    animation-delay: 0.19s;
+  }
+
+  .hero-stagger > *:nth-child(4) {
+    animation-delay: 0.27s;
+  }
+
+  .hero-stagger > *:nth-child(5) {
+    animation-delay: 0.35s;
+  }
+
+  .hero-stagger > *:nth-child(n + 6) {
+    animation-delay: 0.43s;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal-up,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      animation: reveal-up cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 65%;
+    }
+
+    .reveal-left {
+      animation-name: reveal-left;
+    }
+
+    .reveal-right {
+      animation-name: reveal-right;
+    }
+
+    .reveal-scale {
+      animation-name: reveal-scale;
+    }
+  }
 }
 
 .hover-lift {

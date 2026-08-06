@@ -96,10 +96,7 @@ const Approach = () => {
         </RevealItem>
       </RevealContainer>
 
-      <RevealContainer
-        staggerDelay={0.12}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto"
-      >
+      <RevealContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
         {pillars.map((p, index) => (
           <RevealItem key={p.title} direction="scale">
             <TiltCard className="h-full rounded-2xl" tiltAmount={8}>

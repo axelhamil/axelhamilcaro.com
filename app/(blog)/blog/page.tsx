@@ -98,7 +98,7 @@ export default function BlogPage() {
         </Paragraph>
       </header>
 
-      <RevealContainer staggerDelay={0.1} className="flex flex-col gap-6">
+      <RevealContainer className="flex flex-col gap-6">
         {posts.map((post, index) => (
           <RevealItem key={post.slug}>
             <ArticleCard post={post} featured={index === 0} />
