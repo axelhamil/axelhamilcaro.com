@@ -408,50 +408,58 @@ html.theme-transitioning::view-transition-new(root) {
 @keyframes reveal-up {
   from {
     opacity: 0;
-    translate: 0 16px;
-    scale: 0.98;
+    translate: 0 42px;
+    scale: 0.94;
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     translate: 0 0;
     scale: 1;
+    filter: blur(0);
   }
 }
 
 @keyframes reveal-left {
   from {
     opacity: 0;
-    translate: -20px 0;
-    scale: 0.98;
+    translate: -48px 0;
+    scale: 0.94;
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     translate: 0 0;
     scale: 1;
+    filter: blur(0);
   }
 }
 
 @keyframes reveal-right {
   from {
     opacity: 0;
-    translate: 20px 0;
-    scale: 0.98;
+    translate: 48px 0;
+    scale: 0.94;
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     translate: 0 0;
     scale: 1;
+    filter: blur(0);
   }
 }
 
 @keyframes reveal-scale {
   from {
     opacity: 0;
-    scale: 0.92;
+    scale: 0.86;
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     scale: 1;
+    filter: blur(0);
   }
 }
 
@@ -533,7 +541,7 @@ html.theme-transitioning::view-transition-new(root) {
 
 @media (prefers-reduced-motion: no-preference) {
   .hero-stagger > * {
-    animation: reveal-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: reveal-up 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 
   .hero-stagger > *:nth-child(1) {
@@ -565,9 +573,9 @@ html.theme-transitioning::view-transition-new(root) {
     .reveal-left,
     .reveal-right,
     .reveal-scale {
-      animation: reveal-up cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: reveal-up cubic-bezier(0.34, 1.56, 0.64, 1) both;
       animation-timeline: view();
-      animation-range: entry 5% entry 65%;
+      animation-range: entry 2% entry 48%;
     }
 
     .reveal-left {
@@ -580,6 +588,26 @@ html.theme-transitioning::view-transition-new(root) {
 
     .reveal-scale {
       animation-name: reveal-scale;
+    }
+
+    :is(.reveal-up, .reveal-left, .reveal-right, .reveal-scale):nth-child(2) {
+      animation-range: entry 9% entry 55%;
+    }
+
+    :is(.reveal-up, .reveal-left, .reveal-right, .reveal-scale):nth-child(3) {
+      animation-range: entry 16% entry 62%;
+    }
+
+    :is(.reveal-up, .reveal-left, .reveal-right, .reveal-scale):nth-child(4) {
+      animation-range: entry 23% entry 69%;
+    }
+
+    :is(.reveal-up, .reveal-left, .reveal-right, .reveal-scale):nth-child(5) {
+      animation-range: entry 30% entry 76%;
+    }
+
+    :is(.reveal-up, .reveal-left, .reveal-right, .reveal-scale):nth-child(n + 6) {
+      animation-range: entry 36% entry 82%;
     }
   }
 }
