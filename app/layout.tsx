@@ -24,6 +24,9 @@ export default function RootLayout({
       )}
     >
       <body className="overflow-x-hidden">
+        <noscript>
+          <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+        </noscript>
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
         <SpeedInsights />
