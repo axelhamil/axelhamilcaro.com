@@ -75,7 +75,7 @@ export function LetterReveal({
     setSplit(true);
   }, [reduced]);
 
-  const wrapperClassName = `inline-block whitespace-nowrap ${className ?? ""}`;
+  const wrapperClassName = `letter-reveal inline-block whitespace-nowrap ${className ?? ""}`;
 
   if (!split) {
     return <span className={wrapperClassName}>{text}</span>;
