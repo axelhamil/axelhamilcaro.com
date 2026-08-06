@@ -44,7 +44,7 @@ export async function generateMetadata({
   const url = `${SITE_URL}/blog/${slug}`;
 
   return {
-    title: `${post.title} · Blog`,
+    title: post.seoTitle ?? post.title,
     description: post.excerpt,
     keywords: [...post.tags, AUTHOR.name, "blog", post.category],
     authors: [{ name: AUTHOR.name, url: SITE_URL }],

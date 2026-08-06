@@ -91,7 +91,7 @@ export default function BlogPage() {
           Blog
         </span>
         <Heading1 size="xl" style={{ fontFamily: "var(--font-display)" }}>
-          Blog
+          Développement web, sécurité et études de cas
         </Heading1>
         <Paragraph variant="secondary" size="lg" className="mt-3">
           Articles, traductions et réflexions sur le développement logiciel.

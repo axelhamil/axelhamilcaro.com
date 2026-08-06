@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ServicePageShell } from "@/src/features/services/components/service-page-shell";
 import { servicesData } from "@/src/features/services/lib/services-data";
+import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 import { buildServiceSchema } from "@/src/shared/seo/schemas/service-schema";
 
@@ -33,6 +34,15 @@ const serviceSchema = buildServiceSchema({
 
 const faqSchema = buildFaqPageSchema(data.faq);
 
+const breadcrumbSchema = buildBreadcrumbListSchema([
+  { name: "Accueil", url: "/" },
+  { name: "Services", url: "/services" },
+  {
+    name: "Développeur Next.js freelance",
+    url: "/services/developpeur-nextjs-freelance",
+  },
+]);
+
 export default function NextJsServicePage() {
   return (
     <>
@@ -45,6 +55,11 @@ export default function NextJsServicePage() {
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <ServicePageShell data={data} />
     </>

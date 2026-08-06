@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 interface TextRevealProps {
   text: string;
@@ -67,28 +67,39 @@ export function LetterReveal({
   className,
   delay = 0,
 }: LetterRevealProps) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const reduced = useReducedMotion();
+  const [split, setSplit] = useState(false);
+
+  useEffect(() => {
+    if (reduced) return;
+    setSplit(true);
+  }, [reduced]);
+
+  const wrapperClassName = `inline-block whitespace-nowrap ${className ?? ""}`;
+
+  if (!split) {
+    return <span className={wrapperClassName}>{text}</span>;
+  }
 
   const letters = text.split("");
 
   return (
-    <span
-      ref={ref}
-      className={`inline-block whitespace-nowrap ${className ?? ""}`}
-    >
+    <span className={wrapperClassName}>
       {letters.map((letter, i) => (
         <motion.span
           // biome-ignore lint/suspicious/noArrayIndexKey: letter position is structurally stable in animation
           key={i}
           className="inline-block"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{
-            duration: 0.4,
-            delay: delay + i * 0.03,
-            ease: [0.33, 1, 0.68, 1],
+            duration: 0.55,
+            delay: delay + i * 0.035,
+            ease: [0.22, 1, 0.36, 1],
           }}
+          onAnimationComplete={
+            i === letters.length - 1 ? () => setSplit(false) : undefined
+          }
         >
           {letter === " " ? "\u00A0" : letter}
         </motion.span>

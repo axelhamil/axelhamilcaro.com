@@ -16,6 +16,14 @@ const faqItemSchema = z.object({
 
 const blogPostFrontmatterSchema = z.object({
   title: z.string().min(1).max(65, "titre trop long pour le SEO (max 65)"),
+  seoTitle: z
+    .string()
+    .min(1)
+    .max(
+      48,
+      "seoTitle trop long : 48 max, le suffixe de marque ajoute 17 caracteres",
+    )
+    .optional(),
   subtitle: z.string().min(1).max(200),
   date: z.string().regex(ISO_DATE, "date attendue au format AAAA-MM-JJ"),
   dateModified: z
