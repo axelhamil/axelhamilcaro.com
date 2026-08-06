@@ -77,6 +77,12 @@ const stats = [
   },
 ] as const;
 
+const featureColSpan = (index: number, total: number) => {
+  if (index < 3) return "lg:col-span-2";
+  const isAloneOnLastRow = (total - 3) % 2 === 1 && index === total - 1;
+  return isAloneOnLastRow ? "lg:col-span-6" : "lg:col-span-3";
+};
+
 const secondaryStats = [
   "+940 fichiers TypeScript",
   "+190 fichiers domain/application",
@@ -505,7 +511,7 @@ export function OpenupStats() {
           background: `linear-gradient(to right, transparent 10%, ${OU.amber}40, ${OU.emerald}40, ${OU.violet}40, ${OU.blue}40, transparent 90%)`,
         }}
       />
-      <RevealContainer className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
+      <RevealContainer className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         {stats.map((stat) => (
           <RevealItem key={stat.label} direction="scale">
             <MagneticWrapper strength={0.03}>
@@ -920,7 +926,7 @@ export function OpenupFeatures() {
           <RevealItem
             key={feature.title}
             direction={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
-            className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}
+            className={featureColSpan(i, features.length)}
           >
             <MagneticWrapper strength={0.03}>
               <TiltCard
