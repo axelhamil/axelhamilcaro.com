@@ -6,6 +6,40 @@ import {
   SOCIAL_LINKS,
 } from "@/app/_config/site.constants";
 
+const DAILY_RATE_EUR = "500";
+const TMA_PRO_MONTHLY_EUR = "350";
+const TMA_PREMIUM_MONTHLY_EUR = "800";
+
+const dailyRateSpecification = {
+  "@type": "UnitPriceSpecification",
+  price: DAILY_RATE_EUR,
+  priceCurrency: "EUR",
+  unitCode: "DAY",
+  unitText: "jour",
+  valueAddedTaxIncluded: false,
+};
+
+const tmaPriceSpecification = [
+  {
+    "@type": "UnitPriceSpecification",
+    name: "PRO",
+    price: TMA_PRO_MONTHLY_EUR,
+    priceCurrency: "EUR",
+    billingDuration: "P1M",
+    unitText: "mois",
+    valueAddedTaxIncluded: false,
+  },
+  {
+    "@type": "UnitPriceSpecification",
+    name: "PREMIUM",
+    price: TMA_PREMIUM_MONTHLY_EUR,
+    priceCurrency: "EUR",
+    billingDuration: "P1M",
+    unitText: "mois",
+    valueAddedTaxIncluded: false,
+  },
+];
+
 export function JsonLd() {
   const personSchema = {
     "@context": "https://schema.org",
@@ -193,7 +227,8 @@ export function JsonLd() {
       "Services de développement web fullstack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
     url: SITE_URL,
     image: PROFILE_IMAGE,
-    priceRange: "€€€",
+    priceRange: `${DAILY_RATE_EUR} EUR HT/jour, TMA de ${TMA_PRO_MONTHLY_EUR} à ${TMA_PREMIUM_MONTHLY_EUR} EUR HT/mois`,
+    currenciesAccepted: "EUR",
     identifier: {
       "@type": "PropertyValue",
       propertyID: "SIRET",
@@ -224,6 +259,7 @@ export function JsonLd() {
         {
           "@type": "Offer",
           url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
+          priceSpecification: dailyRateSpecification,
           itemOffered: {
             "@type": "Service",
             name: "Développement d'Application Web",
@@ -234,6 +270,7 @@ export function JsonLd() {
         {
           "@type": "Offer",
           url: `${SITE_URL}/services/developpement-saas`,
+          priceSpecification: dailyRateSpecification,
           itemOffered: {
             "@type": "Service",
             name: "Développement SaaS",
@@ -244,6 +281,7 @@ export function JsonLd() {
         {
           "@type": "Offer",
           url: `${SITE_URL}/services/lead-tech-fractional`,
+          priceSpecification: dailyRateSpecification,
           itemOffered: {
             "@type": "Service",
             name: "Conseil et Architecture",
@@ -254,6 +292,7 @@ export function JsonLd() {
         {
           "@type": "Offer",
           url: `${SITE_URL}/tma`,
+          priceSpecification: tmaPriceSpecification,
           itemOffered: {
             "@type": "Service",
             name: "TMA (tierce maintenance applicative)",

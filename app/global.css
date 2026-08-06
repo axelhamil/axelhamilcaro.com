@@ -405,6 +405,15 @@ html.theme-transitioning::view-transition-new(root) {
   }
 }
 
+@keyframes clip-reveal {
+  from {
+    clip-path: inset(0 100% -12% 0);
+  }
+  to {
+    clip-path: inset(0 -5% -12% 0);
+  }
+}
+
 @keyframes bounce-x {
   0%,
   100% {
@@ -475,6 +484,16 @@ html.theme-transitioning::view-transition-new(root) {
 
 .animate-bounce-x {
   animation: bounce-x 1.5s ease-in-out infinite;
+}
+
+.animate-clip-reveal {
+  animation: clip-reveal 0.9s cubic-bezier(0.33, 1, 0.68, 1) 0.15s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-clip-reveal {
+    animation: none;
+  }
 }
 
 .animate-icon-wiggle {

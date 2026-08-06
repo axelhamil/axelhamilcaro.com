@@ -7,7 +7,6 @@ import { AnimatedCounter } from "@/src/shared/ui/effects/animated-counter";
 import { PulsingDot } from "@/src/shared/ui/effects/floating-element";
 import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { RunawayBadge } from "@/src/shared/ui/effects/runaway-badge";
-import { LetterReveal } from "@/src/shared/ui/effects/text-reveal";
 import { Button } from "@/src/shared/ui/portfolio/button";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
@@ -45,24 +44,15 @@ const HeroLeft = () => {
 
       <HeroMotionItem>
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight font-bold text-primary"
+          className="animate-clip-reveal text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight font-bold text-primary"
           style={{ fontFamily: "var(--font-space-grotesk)" }}
         >
-          <LetterReveal text="Développeur" delay={0.2} />
+          <span className="block text-lg sm:text-xl md:text-2xl font-medium text-secondary mb-2">
+            Axel Hamilcaro
+          </span>{" "}
+          Développeur Web
           <br className="hidden sm:block" />{" "}
-          <motion.span
-            className="inline-block"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              delay: 0.5,
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <span className="inline-block animate-color-pulse">FullStack</span>
-          </motion.span>{" "}
-          <LetterReveal text="Freelance" delay={0.8} />
+          <span className="animate-color-pulse">Fullstack</span> Freelance
         </h1>
       </HeroMotionItem>
 
