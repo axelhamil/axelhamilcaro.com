@@ -12,7 +12,7 @@ export function ServiceCta({ data }: { data: ServiceData["hero"] }) {
         >
           Prêt à lancer ton projet ?
         </h2>
-        <p className="text-lg mb-10 opacity-80">
+        <p className="text-lg mb-10">
           Décris-moi ta situation en 3 lignes. Réponse sous 1h en journée.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

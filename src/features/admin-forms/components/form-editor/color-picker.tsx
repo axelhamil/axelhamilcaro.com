@@ -104,7 +104,7 @@ export function ColorPicker({
       </div>
       {showAlpha && (
         <div className="flex items-center gap-3">
-          <span className="text-xs text-[var(--admin-text-muted)] w-16">
+          <span className="text-xs text-[var(--admin-text-muted-foreground)] w-16">
             Opacité
           </span>
           <Slider
@@ -115,7 +115,7 @@ export function ColorPicker({
             step={0.01}
             className="flex-1"
           />
-          <span className="text-xs text-[var(--admin-text-muted)] w-10 text-right font-mono">
+          <span className="text-xs text-[var(--admin-text-muted-foreground)] w-10 text-right font-mono">
             {alphaPercent}%
           </span>
         </div>

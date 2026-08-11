@@ -51,7 +51,7 @@ export function FormsTable() {
   if (filteredForms.length === 0) {
     return (
       <div className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg)] py-12 text-center">
-        <p className="text-sm text-[var(--admin-text-muted)]">
+        <p className="text-sm text-[var(--admin-text-muted-foreground)]">
           Aucun résultat pour "{search}"
         </p>
       </div>
@@ -69,22 +69,22 @@ export function FormsTable() {
         <table className="w-full">
           <thead>
             <tr className="border-b border-[var(--admin-border)] bg-[var(--admin-bg-subtle)]">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Formulaire
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Slug
               </th>
-              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Leads
               </th>
-              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Statut
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Créé le
               </th>
-              <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Actions
               </th>
             </tr>
@@ -129,7 +129,7 @@ export function FormsTable() {
                     </span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-sm text-[var(--admin-text-muted)]">
+                <td className="px-4 py-3 text-sm text-[var(--admin-text-muted-foreground)]">
                   {form.createdAtFormatted}
                 </td>
                 <td className="px-4 py-3">
@@ -138,13 +138,13 @@ export function FormsTable() {
                       href={`/f/${form.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
+                      className="rounded-lg p-2 text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
                     >
                       <ExternalLink className="h-4 w-4" />
                     </Link>
                     <Link
                       href={`/admin/forms/${form.id}`}
-                      className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-accent)]"
+                      className="rounded-lg p-2 text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-accent)]"
                     >
                       <Pencil className="h-4 w-4" />
                     </Link>

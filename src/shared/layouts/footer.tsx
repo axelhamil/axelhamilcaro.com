@@ -72,7 +72,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Par ici
             </span>
             <nav className="flex flex-col gap-2">
@@ -102,7 +102,7 @@ const Footer = () => {
               </TransitionLink>
               <a
                 href="/sitemap.xml"
-                className="text-xs text-secondary/70 hover:text-accent transition-colors mt-1"
+                className="text-xs text-muted-foreground hover:text-accent transition-colors mt-1"
               >
                 Sitemap
               </a>
@@ -110,7 +110,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Services
             </span>
             <nav className="flex flex-col gap-2">
@@ -148,7 +148,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-secondary/60">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Contact direct
             </span>
 
@@ -162,7 +162,7 @@ const Footer = () => {
                     <Mail className="w-4 h-4" />
                     Me contacter
                   </span>
-                  <span className="text-xs text-white/80">
+                  <span className="text-xs text-white">
                     Réponse sous 1h en journée
                   </span>
                 </button>

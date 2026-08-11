@@ -37,7 +37,8 @@ export default function TreeHeader() {
               width={96}
               height={96}
               className="object-cover w-full h-full"
-              priority
+              preload
+              fetchPriority="high"
             />
           </motion.div>
 

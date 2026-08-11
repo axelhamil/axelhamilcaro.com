@@ -134,7 +134,7 @@ export function EmailTab({ formData, onChange }: EmailTabProps) {
               <p className="text-sm font-medium text-[var(--admin-text)]">
                 Email de confirmation
               </p>
-              <p className="text-xs text-[var(--admin-text-muted)]">
+              <p className="text-xs text-[var(--admin-text-muted-foreground)]">
                 Envoyé automatiquement au lead après soumission. Utilise{" "}
                 {"{{firstName}}"} pour personnaliser.
               </p>
@@ -176,7 +176,7 @@ export function EmailTab({ formData, onChange }: EmailTabProps) {
             rows={6}
             className="border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] focus:border-[var(--admin-accent)] focus:ring-[var(--admin-accent-muted)]"
           />
-          <p className="text-xs text-[var(--admin-text-muted)]">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)]">
             Tu peux utiliser {"{{firstName}}"} pour personnaliser le message.
           </p>
         </div>

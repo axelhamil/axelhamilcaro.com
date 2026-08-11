@@ -52,7 +52,7 @@ export function DeleteTemplateButton({
       <DialogTrigger asChild>
         <button
           type="button"
-          className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-destructive-muted)] hover:text-[var(--admin-destructive)]"
+          className="rounded-lg p-2 text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-destructive-muted)] hover:text-[var(--admin-destructive)]"
         >
           <Trash2 className="h-4 w-4" />
         </button>
@@ -65,7 +65,7 @@ export function DeleteTemplateButton({
           <DialogTitle className="text-center text-[var(--admin-text)]">
             Supprimer le template
           </DialogTitle>
-          <DialogDescription className="text-center text-[var(--admin-text-muted)]">
+          <DialogDescription className="text-center text-[var(--admin-text-muted-foreground)]">
             Es-tu sûr de vouloir supprimer ce template ? Cette action est
             irréversible.
           </DialogDescription>

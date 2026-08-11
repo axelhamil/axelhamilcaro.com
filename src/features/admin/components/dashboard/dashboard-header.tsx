@@ -19,7 +19,7 @@ export function DashboardHeader() {
           <h1 className="text-2xl font-bold text-[var(--admin-text)]">
             Dashboard
           </h1>
-          <p className="text-sm text-[var(--admin-text-muted)]">
+          <p className="text-sm text-[var(--admin-text-muted-foreground)]">
             {dashboard?.period ?? "Chargement..."}
           </p>
         </div>
@@ -31,7 +31,7 @@ export function DashboardHeader() {
         <button
           type="button"
           onClick={() => refresh()}
-          className="p-2 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted)] hover:text-[var(--admin-text)] transition-colors"
+          className="p-2 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)] transition-colors"
         >
           <RefreshCw className="h-4 w-4" />
         </button>

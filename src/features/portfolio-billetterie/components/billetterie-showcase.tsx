@@ -35,6 +35,7 @@ import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
 import { TiltCard } from "@/src/shared/ui/effects/tilt-card";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { inkOnLight, textOn } from "@/src/shared/ui/portfolio/brand-color";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
@@ -286,9 +287,9 @@ export function BilletterieHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${BI.violet}12`,
-                  color: BI.violet,
-                  borderColor: `${BI.violet}30`,
+                  background: BI.violet,
+                  color: textOn(BI.violet),
+                  borderColor: BI.violet,
                 }}
               >
                 <Ticket className="w-3 h-3" />
@@ -297,9 +298,9 @@ export function BilletterieHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${BI.gold}12`,
-                  color: BI.gold,
-                  borderColor: `${BI.gold}30`,
+                  background: BI.gold,
+                  color: textOn(BI.gold),
+                  borderColor: BI.gold,
                 }}
               >
                 <Wifi className="w-3 h-3" />
@@ -308,9 +309,9 @@ export function BilletterieHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${BI.navy}12`,
-                  color: BI.navy,
-                  borderColor: `${BI.navy}30`,
+                  background: BI.navy,
+                  color: textOn(BI.navy),
+                  borderColor: BI.navy,
                 }}
               >
                 <Lock className="w-3 h-3" />
@@ -395,7 +396,7 @@ export function BilletterieStats() {
                   className="text-3xl sm:text-4xl md:text-5xl font-bold"
                   style={{
                     fontFamily: "var(--font-space-grotesk)",
-                    color: stat.color,
+                    color: inkOnLight(stat.color),
                   }}
                 >
                   {stat.value}
@@ -406,7 +407,7 @@ export function BilletterieStats() {
                 {"sublabel" in stat && stat.sublabel && (
                   <p
                     className="text-[10px] font-medium uppercase tracking-wider mt-0.5"
-                    style={{ color: stat.color }}
+                    style={{ color: inkOnLight(stat.color) }}
                   >
                     {stat.sublabel}
                   </p>
@@ -419,7 +420,7 @@ export function BilletterieStats() {
 
       <RevealContainer className="container mx-auto mt-4">
         <RevealItem>
-          <p className="text-center text-xs text-muted tracking-wide">
+          <p className="text-center text-xs text-muted-foreground tracking-wide">
             {secondaryStats.join(" · ")}
           </p>
         </RevealItem>
@@ -721,7 +722,7 @@ export function BilletterieScreenshots() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
                       placeholder="blur"
                       blurDataURL={blurDataURLs[active.src]}
-                      priority={activeScreenshot === 0}
+                      preload={activeScreenshot === 0}
                     />
                   </motion.div>
                 </AnimatePresence>

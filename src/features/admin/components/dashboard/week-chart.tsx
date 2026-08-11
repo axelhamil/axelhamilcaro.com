@@ -59,7 +59,7 @@ export function WeekChart({ data, color = "accent" }: WeekChartProps) {
                 style={{ height: `${height}%` }}
               />
               <span
-                className={`text-[10px] ${d.isToday ? "font-semibold text-[var(--admin-text)]" : "text-[var(--admin-text-muted)]"}`}
+                className={`text-[10px] ${d.isToday ? "font-semibold text-[var(--admin-text)]" : "text-[var(--admin-text-muted-foreground)]"}`}
               >
                 {d.dayLabel}
               </span>
@@ -67,7 +67,7 @@ export function WeekChart({ data, color = "accent" }: WeekChartProps) {
           );
         })}
       </div>
-      <div className="flex items-center justify-between text-[10px] text-[var(--admin-text-muted)] pt-1 border-t border-[var(--admin-border)]">
+      <div className="flex items-center justify-between text-[10px] text-[var(--admin-text-muted-foreground)] pt-1 border-t border-[var(--admin-border)]">
         <span>
           Total: <span className={`font-semibold ${colors.text}`}>{total}</span>
         </span>

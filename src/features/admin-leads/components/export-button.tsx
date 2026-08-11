@@ -53,7 +53,7 @@ export function ExportButton() {
       type="button"
       onClick={handleExport}
       disabled={filteredLeads.length === 0}
-      className="flex items-center gap-2 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] px-3 py-2 text-sm font-medium text-[var(--admin-text-muted)] transition-colors hover:border-[var(--admin-border-hover)] hover:text-[var(--admin-text)] disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex items-center gap-2 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] px-3 py-2 text-sm font-medium text-[var(--admin-text-muted-foreground)] transition-colors hover:border-[var(--admin-border-hover)] hover:text-[var(--admin-text)] disabled:cursor-not-allowed disabled:opacity-50"
     >
       <Download className="h-4 w-4" />
       Exporter CSV

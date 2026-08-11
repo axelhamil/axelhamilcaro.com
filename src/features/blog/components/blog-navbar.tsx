@@ -51,7 +51,7 @@ export function BlogNavbar() {
         <TransitionLink
           href="/blog"
           className="group flex items-center gap-2"
-          aria-label="Blog - Axel Hamilcaro"
+          aria-label="axel_hamilcaro(), retour au blog"
         >
           <span
             className={cn(

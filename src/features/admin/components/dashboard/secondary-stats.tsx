@@ -58,7 +58,7 @@ export function SecondaryStats() {
       />
       <Link
         href="/admin/analytics"
-        className="flex items-center justify-center gap-2 rounded-xl border border-dashed border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-4 text-sm text-[var(--admin-text-muted)] hover:border-[var(--admin-accent)] hover:text-[var(--admin-accent)] transition-colors"
+        className="flex items-center justify-center gap-2 rounded-xl border border-dashed border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] p-4 text-sm text-[var(--admin-text-muted-foreground)] hover:border-[var(--admin-accent)] hover:text-[var(--admin-accent)] transition-colors"
       >
         <BarChart3 className="h-4 w-4" />
         Analytics complets

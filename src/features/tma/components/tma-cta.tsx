@@ -7,7 +7,7 @@ export function TmaCta() {
     <section className="py-20 sm:py-28 px-6 bg-accent">
       <div className="max-w-4xl mx-auto text-center">
         <p
-          className="text-white/80 font-medium tracking-wider text-sm mb-4"
+          className="text-white font-medium tracking-wider text-sm mb-4"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
           {"// prêt_à_démarrer()"}
@@ -18,7 +18,7 @@ export function TmaCta() {
         >
           Tu hésites entre deux forfaits ?
         </h2>
-        <p className="text-lg sm:text-xl mb-10 text-white/90 max-w-2xl mx-auto">
+        <p className="text-lg sm:text-xl mb-10 text-white max-w-2xl mx-auto">
           On en parle. Je te dis lequel colle à ta situation. Si aucun ne
           convient (volume trop bas, stack hors scope, besoin différent), je te
           le dis aussi et on cherche autre chose ensemble.
@@ -29,7 +29,7 @@ export function TmaCta() {
             Découvrir mes autres services
           </Button>
         </div>
-        <div className="pt-8 border-t border-white/20 space-y-2 text-white/70 text-xs">
+        <div className="pt-8 border-t border-white/30 space-y-2 text-white text-xs">
           <p>
             Tarifs et conditions en vigueur au{" "}
             <time dateTime={TMA_LAST_UPDATED.iso}>

@@ -87,7 +87,7 @@ export function LoginForm() {
         <div className="absolute inset-0 bg-accent/5 rounded-2xl blur-xl" />
 
         <div className="relative bg-primary-background border border-border rounded-2xl p-6 sm:p-8 shadow-lg">
-          <div className="flex items-center gap-2 text-xs text-muted mb-6 font-mono">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-6 font-mono">
             <Terminal className="w-3.5 h-3.5" />
             <span>auth.connect()</span>
           </div>
@@ -121,7 +121,7 @@ export function LoginForm() {
           </motion.button>
 
           <div className="mt-6 pt-6 border-t border-border">
-            <p className="text-xs text-muted text-center leading-relaxed">
+            <p className="text-xs text-muted-foreground text-center leading-relaxed">
               En vous connectant, vous acceptez de vous identifier
               <br />
               via votre compte GitHub autorisé.

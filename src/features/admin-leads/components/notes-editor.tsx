@@ -71,7 +71,7 @@ export function NotesEditor({
             setNotes(currentNotes || "");
             setIsEditing(false);
           }}
-          className="rounded p-1 text-[var(--admin-text-muted)] hover:bg-[var(--admin-bg-elevated)]"
+          className="rounded p-1 text-[var(--admin-text-muted-foreground)] hover:bg-[var(--admin-bg-elevated)]"
         >
           <X className="h-3 w-3" />
         </button>
@@ -83,7 +83,7 @@ export function NotesEditor({
     <button
       type="button"
       onClick={() => setIsEditing(true)}
-      className="flex items-center gap-1 text-xs text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+      className="flex items-center gap-1 text-xs text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
     >
       <MessageSquare className="h-3 w-3" />
       {currentNotes ? (

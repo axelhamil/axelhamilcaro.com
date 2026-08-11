@@ -115,7 +115,7 @@ const SECTIONS: CgvSection[] = [
           <dt className="text-primary font-semibold inline">Forfait : </dt>
           <dd className="inline">
             offre récurrente mensuelle PRO ou PREMIUM décrite sur la page{" "}
-            <a href="/tma" className="text-accent hover:underline">
+            <a href="/tma" className="text-accent underline underline-offset-2">
               /tma
             </a>{" "}
             du site, comprenant un volume d'heures incluses et un périmètre
@@ -167,7 +167,7 @@ const SECTIONS: CgvSection[] = [
             web ou mobile en production, comprenant correctifs, mises à jour,
             support technique et, pour le forfait PREMIUM, monitoring proactif
             et livrables récurrents. Détails complets sur la page{" "}
-            <a href="/tma" className="text-accent hover:underline">
+            <a href="/tma" className="text-accent underline underline-offset-2">
               /tma
             </a>
             , qui constitue un élément contractuel des présentes.
@@ -218,7 +218,7 @@ const SECTIONS: CgvSection[] = [
         <p>
           La souscription à un Forfait s'effectue exclusivement via le lien de
           paiement Stripe (« Stripe Payment Link ») accessible depuis la page{" "}
-          <a href="/tma" className="text-accent hover:underline">
+          <a href="/tma" className="text-accent underline underline-offset-2">
             /tma
           </a>
           . Le paiement de la première mensualité vaut acceptation pleine et
@@ -245,7 +245,7 @@ const SECTIONS: CgvSection[] = [
       <div className="text-secondary leading-relaxed space-y-3">
         <p>
           Les tarifs des Forfaits sont indiqués hors taxes sur la page{" "}
-          <a href="/tma" className="text-accent hover:underline">
+          <a href="/tma" className="text-accent underline underline-offset-2">
             /tma
           </a>{" "}
           et applicables à la date de souscription. À titre informatif :
@@ -574,7 +574,10 @@ const SECTIONS: CgvSection[] = [
           Les modalités complètes de traitement des données personnelles du
           Client en tant que prospect ou cocontractant sont décrites dans la
           section dédiée des{" "}
-          <a href="/mentions-legales" className="text-accent hover:underline">
+          <a
+            href="/mentions-legales"
+            className="text-accent underline underline-offset-2"
+          >
             mentions légales
           </a>
           .
@@ -732,7 +735,7 @@ export default function CgvPage() {
             </div>
           </aside>
 
-          <p className="text-center text-secondary/70 text-xs pt-4">
+          <p className="text-center text-muted-foreground text-xs pt-4">
             Dernière mise à jour :{" "}
             {new Date(LEGAL.lastUpdated).toLocaleDateString("fr-FR", {
               year: "numeric",

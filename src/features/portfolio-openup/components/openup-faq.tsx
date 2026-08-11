@@ -50,24 +50,23 @@ export function OpenupFaq() {
         <p className="text-secondary text-lg mb-12">
           Les questions que mes clients m&apos;ont posées sur cette mission.
         </p>
-        <dl>
-          {openupFaqItems.map((item) => (
-            <details
-              key={item.question}
-              className="group border-b border-border py-6"
-            >
-              <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent">
-                <dt className="flex-1">{item.question}</dt>
-                <span className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform">
-                  +
-                </span>
-              </summary>
-              <dd className="mt-4 text-secondary leading-relaxed">
-                {item.answer}
-              </dd>
-            </details>
-          ))}
-        </dl>
+        {openupFaqItems.map((item) => (
+          <details
+            key={item.question}
+            className="group border-b border-border py-6"
+          >
+            <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent">
+              <span className="flex-1">{item.question}</span>
+              <span
+                className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform"
+                aria-hidden="true"
+              >
+                +
+              </span>
+            </summary>
+            <p className="mt-4 text-secondary leading-relaxed">{item.answer}</p>
+          </details>
+        ))}
       </div>
     </section>
   );

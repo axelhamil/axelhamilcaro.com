@@ -21,7 +21,8 @@ export function AboutHero() {
             width={200}
             height={200}
             className="rounded-full object-cover shrink-0"
-            priority
+            preload
+            fetchPriority="high"
           />
           <div>
             <p className="text-accent font-medium uppercase tracking-wider text-sm mb-4">

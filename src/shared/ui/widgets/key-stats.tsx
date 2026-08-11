@@ -137,7 +137,7 @@ export function KeyStatsWidget() {
               </div>
             </div>
 
-            <p className="text-[10px] text-muted mt-3 opacity-60">
+            <p className="text-[10px] text-muted-foreground mt-3">
               Raccourci: ⌘K
             </p>
           </motion.div>

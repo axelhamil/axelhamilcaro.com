@@ -33,7 +33,7 @@ export function AdminEmptyState({
       <h3 className="mt-4 text-lg font-medium text-[var(--admin-text)]">
         {title}
       </h3>
-      <p className="mt-1 max-w-sm text-center text-sm text-[var(--admin-text-muted)]">
+      <p className="mt-1 max-w-sm text-center text-sm text-[var(--admin-text-muted-foreground)]">
         {description}
       </p>
       {action && (

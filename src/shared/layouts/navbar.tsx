@@ -72,7 +72,7 @@ const Navbar = () => {
         <TransitionLink
           href="/"
           className="group flex items-center gap-2"
-          aria-label="Accueil - Axel Hamilcaro"
+          aria-label="axel_hamilcaro(), retour a l'accueil"
         >
           <span
             className={cn(

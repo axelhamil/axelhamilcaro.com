@@ -28,7 +28,7 @@ export function TemplateCard({ template }: { template: Template }) {
               <h3 className="font-semibold text-[var(--admin-text)]">
                 {template.name}
               </h3>
-              <p className="text-xs text-[var(--admin-text-muted)]">
+              <p className="text-xs text-[var(--admin-text-muted-foreground)]">
                 {template.createdAtFormatted}
               </p>
             </div>

@@ -58,7 +58,7 @@ export function AdminStatCard({
     <div className="flex items-center justify-between">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-1">
-          <p className="text-xs text-[var(--admin-text-muted)] truncate">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)] truncate">
             {title}
           </p>
           {tooltip && (

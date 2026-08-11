@@ -19,17 +19,17 @@ export function TopLinksPanel() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Top liens
           </h3>
-          <Link2 className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Link2 className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         {data.topLinks.length === 0 ? (
-          <p className="text-xs text-[var(--admin-text-muted)] py-6 text-center">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)] py-6 text-center">
             Aucune donnée
           </p>
         ) : (
           <div className="space-y-2">
             {data.topLinks.slice(0, 5).map((link, i) => (
               <div key={link.id} className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)] text-[10px] font-medium text-[var(--admin-text-muted)]">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)] text-[10px] font-medium text-[var(--admin-text-muted-foreground)]">
                   {i + 1}
                 </span>
                 <span className="flex-1 text-xs text-[var(--admin-text)] truncate">

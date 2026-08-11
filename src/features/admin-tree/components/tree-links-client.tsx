@@ -152,7 +152,7 @@ export function TreeLinksClient() {
           <h1 className="text-2xl font-bold text-[var(--admin-text)]">
             Liens Tree
           </h1>
-          <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+          <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
             Gère les liens de ta page /tree
           </p>
         </div>
@@ -179,7 +179,7 @@ export function TreeLinksClient() {
             <button
               type="button"
               onClick={cancelEdit}
-              className="text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+              className="text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
             >
               <X className="h-5 w-5" />
             </button>
@@ -351,7 +351,7 @@ export function TreeLinksClient() {
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-[var(--admin-text-muted)] truncate">
+                <p className="text-sm text-[var(--admin-text-muted-foreground)] truncate">
                   {link.url}
                 </p>
               </div>
@@ -363,14 +363,14 @@ export function TreeLinksClient() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+                  className="p-2 text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
                 >
                   <ExternalLink className="h-4 w-4" />
                 </a>
                 <button
                   type="button"
                   onClick={() => startEdit(link)}
-                  className="p-2 text-[var(--admin-text-muted)] hover:text-[var(--admin-accent)]"
+                  className="p-2 text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-accent)]"
                 >
                   <Pencil className="h-4 w-4" />
                 </button>
@@ -378,7 +378,7 @@ export function TreeLinksClient() {
                   type="button"
                   onClick={() => handleDelete(link.id)}
                   disabled={deletingId === link.id}
-                  className="p-2 text-[var(--admin-text-muted)] hover:text-red-500"
+                  className="p-2 text-[var(--admin-text-muted-foreground)] hover:text-red-500"
                 >
                   {deletingId === link.id ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -393,7 +393,7 @@ export function TreeLinksClient() {
       </Reorder.Group>
 
       {links.length === 0 && !isCreating && (
-        <div className="text-center py-12 text-[var(--admin-text-muted)]">
+        <div className="text-center py-12 text-[var(--admin-text-muted-foreground)]">
           Aucun lien. Clique sur "Nouveau lien" pour commencer.
         </div>
       )}

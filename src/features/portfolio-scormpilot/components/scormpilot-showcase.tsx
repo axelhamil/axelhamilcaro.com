@@ -35,6 +35,7 @@ import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
 import { TiltCard } from "@/src/shared/ui/effects/tilt-card";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { inkOnLight, textOn } from "@/src/shared/ui/portfolio/brand-color";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
@@ -279,9 +280,9 @@ export function ScormpilotHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${SP.blue}12`,
-                  color: SP.blue,
-                  borderColor: `${SP.blue}30`,
+                  background: SP.blue,
+                  color: textOn(SP.blue),
+                  borderColor: SP.blue,
                 }}
               >
                 <Package className="w-3 h-3" />
@@ -290,9 +291,9 @@ export function ScormpilotHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${SP.teal}12`,
-                  color: SP.teal,
-                  borderColor: `${SP.teal}30`,
+                  background: SP.teal,
+                  color: textOn(SP.teal),
+                  borderColor: SP.teal,
                 }}
               >
                 <Shield className="w-3 h-3" />
@@ -301,9 +302,9 @@ export function ScormpilotHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${SP.navy}12`,
-                  color: SP.navy,
-                  borderColor: `${SP.navy}30`,
+                  background: SP.navy,
+                  color: textOn(SP.navy),
+                  borderColor: SP.navy,
                 }}
               >
                 <Code2 className="w-3 h-3" />
@@ -317,9 +318,9 @@ export function ScormpilotHero() {
               <Image
                 src="/portfolio/scormpilot/logo.webp"
                 alt="ScormPilot logo"
-                width={80}
-                height={80}
-                className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
+                width={200}
+                height={160}
+                className="h-16 w-auto sm:h-20 md:h-24"
               />
               <h1
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.9]"
@@ -380,7 +381,7 @@ export function ScormpilotHero() {
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border group"
                   style={{
                     background: "var(--primary-background)",
-                    color: SP.teal,
+                    color: inkOnLight(SP.teal),
                     borderColor: `${SP.teal}40`,
                   }}
                   whileHover={{
@@ -433,7 +434,7 @@ export function ScormpilotStats() {
                   className="text-3xl sm:text-4xl md:text-5xl font-bold"
                   style={{
                     fontFamily: "var(--font-space-grotesk)",
-                    color: stat.color,
+                    color: inkOnLight(stat.color),
                   }}
                 >
                   {stat.value}
@@ -444,7 +445,7 @@ export function ScormpilotStats() {
                 {"sublabel" in stat && stat.sublabel && (
                   <p
                     className="text-[10px] font-medium uppercase tracking-wider mt-0.5"
-                    style={{ color: stat.color }}
+                    style={{ color: inkOnLight(stat.color) }}
                   >
                     {stat.sublabel}
                   </p>
@@ -457,7 +458,7 @@ export function ScormpilotStats() {
 
       <RevealContainer className="container mx-auto mt-4">
         <RevealItem>
-          <p className="text-center text-xs text-muted tracking-wide">
+          <p className="text-center text-xs text-muted-foreground tracking-wide">
             {secondaryStats.join(" · ")}
           </p>
         </RevealItem>
@@ -764,7 +765,7 @@ export function ScormpilotScreenshots() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
                       placeholder="blur"
                       blurDataURL={blurDataURLs[active.src]}
-                      priority={activeScreenshot === 0}
+                      preload={activeScreenshot === 0}
                     />
                   </motion.div>
                 </AnimatePresence>

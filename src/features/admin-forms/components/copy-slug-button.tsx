@@ -18,7 +18,7 @@ export function CopySlugButton({ slug }: { slug: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="group/copy flex items-center gap-1.5 rounded bg-[var(--admin-bg-elevated)] px-2 py-1 font-mono text-xs text-[var(--admin-text-muted)] transition-colors hover:text-[var(--admin-text)]"
+      className="group/copy flex items-center gap-1.5 rounded bg-[var(--admin-bg-elevated)] px-2 py-1 font-mono text-xs text-[var(--admin-text-muted-foreground)] transition-colors hover:text-[var(--admin-text)]"
     >
       /f/{slug}
       {copied ? (

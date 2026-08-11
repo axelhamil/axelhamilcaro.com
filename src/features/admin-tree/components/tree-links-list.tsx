@@ -33,7 +33,7 @@ export function TreeLinksList() {
 
   if (links.length === 0 && !isCreating) {
     return (
-      <div className="text-center py-12 text-[var(--admin-text-muted)]">
+      <div className="text-center py-12 text-[var(--admin-text-muted-foreground)]">
         Aucun lien. Clique sur "Nouveau lien" pour commencer.
       </div>
     );
@@ -72,7 +72,7 @@ export function TreeLinksList() {
                   </span>
                 )}
               </div>
-              <p className="text-sm text-[var(--admin-text-muted)] truncate">
+              <p className="text-sm text-[var(--admin-text-muted-foreground)] truncate">
                 {link.url}
               </p>
             </div>
@@ -84,14 +84,14 @@ export function TreeLinksList() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+                className="p-2 text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
               >
                 <ExternalLink className="h-4 w-4" />
               </a>
               <button
                 type="button"
                 onClick={() => startEdit(link)}
-                className="p-2 text-[var(--admin-text-muted)] hover:text-[var(--admin-accent)]"
+                className="p-2 text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-accent)]"
               >
                 <Pencil className="h-4 w-4" />
               </button>
@@ -99,7 +99,7 @@ export function TreeLinksList() {
                 type="button"
                 onClick={() => handleDelete(link.id)}
                 disabled={deletingId === link.id}
-                className="p-2 text-[var(--admin-text-muted)] hover:text-red-500"
+                className="p-2 text-[var(--admin-text-muted-foreground)] hover:text-red-500"
               >
                 {deletingId === link.id ? (
                   <Loader2 className="h-4 w-4 animate-spin" />

@@ -22,7 +22,7 @@ export function TmaHero() {
           {TMA_HERO.subtitle}
         </p>
         <p
-          className="text-secondary/60 text-xs uppercase tracking-wider mb-8"
+          className="text-muted-foreground text-xs uppercase tracking-wider mb-8"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
           Tarifs en vigueur au {TMA_LAST_UPDATED.display}

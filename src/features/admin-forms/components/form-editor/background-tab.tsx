@@ -92,7 +92,7 @@ export function BackgroundTab({
               className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                 gradientMode === "visual"
                   ? "bg-[var(--admin-accent)] text-white"
-                  : "border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+                  : "border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
               }`}
             >
               Visuel
@@ -103,7 +103,7 @@ export function BackgroundTab({
               className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                 gradientMode === "css"
                   ? "bg-[var(--admin-accent)] text-white"
-                  : "border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+                  : "border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
               }`}
             >
               CSS

@@ -21,7 +21,7 @@ export function FormsHeader() {
           </h1>
           <span className="admin-badge">{forms.length}</span>
         </div>
-        <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+        <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
           Gère tes formulaires de capture de leads
         </p>
       </div>

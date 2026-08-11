@@ -165,7 +165,7 @@ const SECTIONS: LegalSection[] = [
         {LEGAL.host.address}. Téléphone :{" "}
         <a
           href={`tel:${LEGAL.host.phone.replace(/\s/g, "")}`}
-          className="text-accent hover:underline"
+          className="text-accent underline underline-offset-2"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
           {LEGAL.host.phone}
@@ -175,7 +175,7 @@ const SECTIONS: LegalSection[] = [
           href={LEGAL.host.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-accent hover:underline"
+          className="text-accent underline underline-offset-2"
         >
           vercel.com
         </a>
@@ -264,7 +264,7 @@ const SECTIONS: LegalSection[] = [
             href="https://www.cnil.fr/fr/plaintes"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent hover:underline"
+            className="text-accent underline underline-offset-2"
           >
             CNIL
           </a>{" "}
@@ -315,7 +315,10 @@ const SECTIONS: LegalSection[] = [
         professionnels (B2B). Conformément à l'article L.441-1 du Code de
         commerce, les conditions générales de vente applicables sont accessibles
         publiquement sur la page{" "}
-        <a href="/cgv" className="text-accent hover:underline font-semibold">
+        <a
+          href="/cgv"
+          className="text-accent underline underline-offset-2 font-semibold"
+        >
           /cgv
         </a>{" "}
         et communiquées préalablement à la conclusion du contrat. Pour les
@@ -323,7 +326,7 @@ const SECTIONS: LegalSection[] = [
         est matérialisée par le règlement de la première mensualité. Les
         conditions spécifiques (durée, résiliation, SLA, périmètre) sont
         rappelées sur la page{" "}
-        <a href="/tma" className="text-accent hover:underline">
+        <a href="/tma" className="text-accent underline underline-offset-2">
           /tma
         </a>{" "}
         et dans la facture émise par Stripe.
@@ -438,7 +441,7 @@ export default function MentionsLegalesPage() {
             </div>
           </aside>
 
-          <p className="text-center text-secondary/70 text-xs pt-4">
+          <p className="text-center text-muted-foreground text-xs pt-4">
             Dernière mise à jour :{" "}
             {new Date(LEGAL.lastUpdated).toLocaleDateString("fr-FR", {
               year: "numeric",

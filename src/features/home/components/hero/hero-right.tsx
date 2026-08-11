@@ -23,7 +23,8 @@ const HeroRight = () => {
             alt="Axel Hamilcaro, développeur web fullstack freelance"
             fill
             className="object-cover"
-            priority
+            preload
+            fetchPriority="high"
             sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
           />
         </motion.div>

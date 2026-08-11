@@ -21,10 +21,10 @@ export function ActivityCharts() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Activité par heure
           </h3>
-          <Clock className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Clock className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         <HourlyChart data={data.viewsByHour} />
-        <p className="mt-2 text-xs text-[var(--admin-text-muted)]">
+        <p className="mt-2 text-xs text-[var(--admin-text-muted-foreground)]">
           Pic: {data.peakTimes.hourLabel}
         </p>
       </motion.div>
@@ -38,7 +38,7 @@ export function ActivityCharts() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Activité par jour
           </h3>
-          <Calendar className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Calendar className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         <DayChart data={data.viewsByDayOfWeek} />
       </motion.div>

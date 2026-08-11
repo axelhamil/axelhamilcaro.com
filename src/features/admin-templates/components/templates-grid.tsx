@@ -35,7 +35,7 @@ export function TemplatesGrid() {
   if (filteredTemplates.length === 0) {
     return (
       <div className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] py-12 text-center">
-        <p className="text-sm text-[var(--admin-text-muted)]">
+        <p className="text-sm text-[var(--admin-text-muted-foreground)]">
           Aucun résultat pour "{search}"
         </p>
       </div>

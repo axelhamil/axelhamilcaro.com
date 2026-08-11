@@ -22,18 +22,18 @@ export function RecentActivity() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Top liens
           </h3>
-          <Link2 className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Link2 className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         <div className="p-4">
           {dashboard.topLinks.length === 0 ? (
-            <p className="text-xs text-[var(--admin-text-muted)] text-center py-4">
+            <p className="text-xs text-[var(--admin-text-muted-foreground)] text-center py-4">
               Aucun clic
             </p>
           ) : (
             <div className="space-y-2">
               {dashboard.topLinks.map((link, i) => (
                 <div key={link.id} className="flex items-center gap-2">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)] text-[10px] font-medium text-[var(--admin-text-muted)]">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)] text-[10px] font-medium text-[var(--admin-text-muted-foreground)]">
                     {i + 1}
                   </span>
                   <span className="flex-1 text-xs text-[var(--admin-text)] truncate">
@@ -61,7 +61,7 @@ export function RecentActivity() {
           </h3>
           <Link
             href="/admin/leads"
-            className="flex items-center gap-1 text-xs text-[var(--admin-text-muted)] hover:text-[var(--admin-accent)]"
+            className="flex items-center gap-1 text-xs text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-accent)]"
           >
             Voir tout
             <ArrowUpRight className="h-3 w-3" />
@@ -71,7 +71,7 @@ export function RecentActivity() {
           {dashboard.recentActivity.leads.length === 0 ? (
             <div className="flex flex-col items-center py-6">
               <Mail className="h-8 w-8 text-[var(--admin-text-subtle)]" />
-              <p className="mt-2 text-xs text-[var(--admin-text-muted)]">
+              <p className="mt-2 text-xs text-[var(--admin-text-muted-foreground)]">
                 Aucun lead
               </p>
             </div>
@@ -89,7 +89,7 @@ export function RecentActivity() {
                     <p className="text-xs font-medium text-[var(--admin-text)] truncate">
                       {lead.firstName || "Anonyme"}
                     </p>
-                    <p className="text-[10px] text-[var(--admin-text-muted)] truncate">
+                    <p className="text-[10px] text-[var(--admin-text-muted-foreground)] truncate">
                       {lead.email}
                     </p>
                   </div>
@@ -114,13 +114,13 @@ export function RecentActivity() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Tentatives login
           </h3>
-          <LogIn className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <LogIn className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         <div className="p-4">
           {dashboard.recentActivity.logins.length === 0 ? (
             <div className="flex flex-col items-center py-6">
               <LogIn className="h-8 w-8 text-[var(--admin-text-subtle)]" />
-              <p className="mt-2 text-xs text-[var(--admin-text-muted)]">
+              <p className="mt-2 text-xs text-[var(--admin-text-muted-foreground)]">
                 Aucune tentative
               </p>
             </div>
@@ -149,7 +149,7 @@ export function RecentActivity() {
                     <p className="text-xs font-medium text-[var(--admin-text)] truncate">
                       {login.githubUsername || "Anonyme"}
                     </p>
-                    <p className="text-[10px] text-[var(--admin-text-muted)] truncate">
+                    <p className="text-[10px] text-[var(--admin-text-muted-foreground)] truncate">
                       {login.ipAddress || "IP inconnue"}
                     </p>
                   </div>

@@ -34,21 +34,21 @@ export function FormEditorTabs() {
         <TabsList className="grid w-full grid-cols-3 bg-[var(--admin-bg-subtle)] border border-[var(--admin-border)] rounded-lg p-1">
           <TabsTrigger
             value="content"
-            className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted)]"
+            className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted-foreground)]"
           >
             <FileText className="h-4 w-4" />
             Contenu
           </TabsTrigger>
           <TabsTrigger
             value="background"
-            className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted)]"
+            className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted-foreground)]"
           >
             <Palette className="h-4 w-4" />
             Fond
           </TabsTrigger>
           <TabsTrigger
             value="email"
-            className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted)]"
+            className="flex items-center gap-2 rounded-md data-[state=active]:bg-[var(--admin-bg-elevated)] data-[state=active]:text-[var(--admin-text)] text-[var(--admin-text-muted-foreground)]"
           >
             <Mail className="h-4 w-4" />
             Email
@@ -107,7 +107,7 @@ export function FormEditorTabs() {
             type="button"
             onClick={handleSaveTemplate}
             disabled={!templateName.trim() || isSavingTemplate}
-            className="rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] px-4 py-2 text-sm font-medium text-[var(--admin-text-muted)] transition-colors hover:border-[var(--admin-border-hover)] hover:text-[var(--admin-text)] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] px-4 py-2 text-sm font-medium text-[var(--admin-text-muted-foreground)] transition-colors hover:border-[var(--admin-border-hover)] hover:text-[var(--admin-text)] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSavingTemplate ? (
               <Loader2 className="h-4 w-4 animate-spin" />

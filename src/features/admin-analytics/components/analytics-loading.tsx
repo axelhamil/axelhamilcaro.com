@@ -16,7 +16,7 @@ export function AnalyticsLoading({ children }: { children: React.ReactNode }) {
 
   if (!data && !isLoading) {
     return (
-      <div className="text-center py-20 text-[var(--admin-text-muted)]">
+      <div className="text-center py-20 text-[var(--admin-text-muted-foreground)]">
         Erreur de chargement des données
       </div>
     );

@@ -22,10 +22,10 @@ export function BreakdownPanels() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Pages
           </h3>
-          <BarChart3 className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <BarChart3 className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         {data.viewsByPage.length === 0 ? (
-          <p className="text-xs text-[var(--admin-text-muted)] py-6 text-center">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)] py-6 text-center">
             Aucune donnée
           </p>
         ) : (
@@ -56,10 +56,10 @@ export function BreakdownPanels() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Appareils
           </h3>
-          <Laptop className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Laptop className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         {totalDevices === 0 ? (
-          <p className="text-xs text-[var(--admin-text-muted)] py-6 text-center">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)] py-6 text-center">
             Aucune donnée
           </p>
         ) : (
@@ -71,12 +71,12 @@ export function BreakdownPanels() {
                 <div key={d.device} className="space-y-1">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Icon className="h-3 w-3 text-[var(--admin-text-muted)]" />
+                      <Icon className="h-3 w-3 text-[var(--admin-text-muted-foreground)]" />
                       <span className="text-xs text-[var(--admin-text)] capitalize">
                         {d.device}
                       </span>
                     </div>
-                    <span className="text-xs text-[var(--admin-text-muted)]">
+                    <span className="text-xs text-[var(--admin-text-muted-foreground)]">
                       {percent}%
                     </span>
                   </div>
@@ -102,10 +102,10 @@ export function BreakdownPanels() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Pays
           </h3>
-          <Globe className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Globe className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         {data.viewsByCountry.length === 0 ? (
-          <p className="text-xs text-[var(--admin-text-muted)] py-6 text-center">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)] py-6 text-center">
             Aucune donnée
           </p>
         ) : (

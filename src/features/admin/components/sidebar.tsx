@@ -73,7 +73,7 @@ export function Sidebar() {
                   "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                   isActive
                     ? "bg-[var(--admin-accent-muted)] text-[var(--admin-accent)]"
-                    : "text-[var(--admin-text-muted)] hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]",
+                    : "text-[var(--admin-text-muted-foreground)] hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]",
                 )}
               >
                 {isActive && (
@@ -102,7 +102,7 @@ export function Sidebar() {
         <Link
           href="/"
           target="_blank"
-          className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
+          className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
         >
           <ExternalLink className="h-4 w-4" />
           Voir le site

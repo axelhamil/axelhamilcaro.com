@@ -24,7 +24,7 @@ export function DayChart({
               style={{ height: `${height}%` }}
               title={`${dayLabel}: ${count} vues`}
             />
-            <span className="text-[10px] text-[var(--admin-text-muted)]">
+            <span className="text-[10px] text-[var(--admin-text-muted-foreground)]">
               {dayLabel}
             </span>
           </div>

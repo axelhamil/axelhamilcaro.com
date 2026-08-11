@@ -41,24 +41,23 @@ export function HomeFaq() {
         <p className="text-secondary text-lg mb-12">
           Cinq questions que les clients me posent en premier.
         </p>
-        <dl>
-          {items.map((item) => (
-            <details
-              key={item.question}
-              className="group border-b border-border py-6"
-            >
-              <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent">
-                {item.question}
-                <span className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform">
-                  +
-                </span>
-              </summary>
-              <dd className="mt-4 text-secondary leading-relaxed">
-                {item.answer}
-              </dd>
-            </details>
-          ))}
-        </dl>
+        {items.map((item) => (
+          <details
+            key={item.question}
+            className="group border-b border-border py-6"
+          >
+            <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent">
+              {item.question}
+              <span
+                className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform"
+                aria-hidden="true"
+              >
+                +
+              </span>
+            </summary>
+            <p className="mt-4 text-secondary leading-relaxed">{item.answer}</p>
+          </details>
+        ))}
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO

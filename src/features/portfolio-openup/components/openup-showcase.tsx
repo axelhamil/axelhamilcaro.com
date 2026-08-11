@@ -37,6 +37,7 @@ import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
 import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
 import { TiltCard } from "@/src/shared/ui/effects/tilt-card";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { inkOnLight, textOn } from "@/src/shared/ui/portfolio/brand-color";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
@@ -372,9 +373,9 @@ export function OpenupHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${OU.blue}12`,
-                  color: OU.blue,
-                  borderColor: `${OU.blue}30`,
+                  background: OU.blue,
+                  color: textOn(OU.blue),
+                  borderColor: OU.blue,
                 }}
               >
                 <Sparkles className="w-3 h-3" />
@@ -383,9 +384,9 @@ export function OpenupHero() {
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
                 style={{
-                  background: `${OU.violet}12`,
-                  color: OU.violet,
-                  borderColor: `${OU.violet}30`,
+                  background: OU.violet,
+                  color: textOn(OU.violet),
+                  borderColor: OU.violet,
                 }}
               >
                 <Code2 className="w-3 h-3" />
@@ -471,7 +472,7 @@ export function OpenupHero() {
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border group"
                   style={{
                     background: "var(--primary-background)",
-                    color: OU.violet,
+                    color: inkOnLight(OU.violet),
                     borderColor: `${OU.violet}40`,
                   }}
                   whileHover={{
@@ -524,7 +525,7 @@ export function OpenupStats() {
                   className="text-3xl sm:text-4xl md:text-5xl font-bold"
                   style={{
                     fontFamily: "var(--font-space-grotesk)",
-                    color: stat.color,
+                    color: inkOnLight(stat.color),
                   }}
                 >
                   {stat.value}
@@ -535,7 +536,7 @@ export function OpenupStats() {
                 {"sublabel" in stat && stat.sublabel && (
                   <p
                     className="text-[10px] font-medium uppercase tracking-wider mt-0.5"
-                    style={{ color: stat.color }}
+                    style={{ color: inkOnLight(stat.color) }}
                   >
                     {stat.sublabel}
                   </p>
@@ -548,7 +549,7 @@ export function OpenupStats() {
 
       <RevealContainer className="container mx-auto mt-4">
         <RevealItem>
-          <p className="text-center text-xs text-muted tracking-wide">
+          <p className="text-center text-xs text-muted-foreground tracking-wide">
             {secondaryStats.join(" · ")}
           </p>
         </RevealItem>
@@ -863,7 +864,7 @@ export function OpenupScreenshots() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
                       placeholder="blur"
                       blurDataURL={blurDataURLs[active.src]}
-                      priority={activeScreenshot === 0}
+                      preload={activeScreenshot === 0}
                     />
                   </motion.div>
                 </AnimatePresence>

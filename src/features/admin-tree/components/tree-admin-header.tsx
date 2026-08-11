@@ -17,7 +17,7 @@ export function TreeAdminHeader() {
         <h1 className="text-2xl font-bold text-[var(--admin-text)]">
           Liens Tree
         </h1>
-        <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+        <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
           Gère les liens de ta page /tree
         </p>
       </div>

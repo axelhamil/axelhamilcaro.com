@@ -46,7 +46,7 @@ export function AnalyticsHeader() {
               className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                 days === preset.days && !dateRange
                   ? "bg-[var(--admin-accent)] text-white"
-                  : "text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+                  : "text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
               }`}
             >
               {preset.label}
@@ -58,7 +58,7 @@ export function AnalyticsHeader() {
             className={`px-2 py-1 rounded-md transition-colors ${
               dateRange
                 ? "bg-[var(--admin-accent)] text-white"
-                : "text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+                : "text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
             }`}
           >
             <Calendar className="h-3.5 w-3.5" />
@@ -66,7 +66,7 @@ export function AnalyticsHeader() {
         </div>
 
         <div className="flex items-center gap-1 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] p-0.5">
-          <RefreshCw className="h-3 w-3 ml-1.5 text-[var(--admin-text-muted)]" />
+          <RefreshCw className="h-3 w-3 ml-1.5 text-[var(--admin-text-muted-foreground)]" />
           {refreshOptions.map((option) => (
             <button
               key={option.value}
@@ -75,7 +75,7 @@ export function AnalyticsHeader() {
               className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${
                 refreshInterval === option.value
                   ? "bg-[var(--admin-accent)] text-white"
-                  : "text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+                  : "text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
               }`}
             >
               {option.label}
@@ -86,7 +86,7 @@ export function AnalyticsHeader() {
         <button
           type="button"
           onClick={() => refresh()}
-          className="p-1.5 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted)] hover:text-[var(--admin-text)] transition-colors"
+          className="p-1.5 rounded-lg border border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)] transition-colors"
         >
           <RefreshCw className="h-4 w-4" />
         </button>

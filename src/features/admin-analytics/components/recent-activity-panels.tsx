@@ -20,10 +20,10 @@ export function RecentActivityPanels() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Derniers leads
           </h3>
-          <Target className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Target className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         {data.recentLeads.length === 0 ? (
-          <p className="text-xs text-[var(--admin-text-muted)] py-6 text-center">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)] py-6 text-center">
             Aucun lead
           </p>
         ) : (
@@ -34,7 +34,7 @@ export function RecentActivityPanels() {
                   <p className="text-xs font-medium text-[var(--admin-text)]">
                     {lead.firstName}
                   </p>
-                  <p className="text-[10px] text-[var(--admin-text-muted)]">
+                  <p className="text-[10px] text-[var(--admin-text-muted-foreground)]">
                     {lead.email}
                   </p>
                 </div>
@@ -56,10 +56,10 @@ export function RecentActivityPanels() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Tentatives login
           </h3>
-          <LogIn className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <LogIn className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         {data.recentLoginAttempts.length === 0 ? (
-          <p className="text-xs text-[var(--admin-text-muted)] py-6 text-center">
+          <p className="text-xs text-[var(--admin-text-muted-foreground)] py-6 text-center">
             Aucune tentative
           </p>
         ) : (
@@ -77,14 +77,14 @@ export function RecentActivityPanels() {
                   />
                 ) : (
                   <div className="h-6 w-6 rounded-full bg-[var(--admin-bg-elevated)] flex items-center justify-center">
-                    <Users className="h-3 w-3 text-[var(--admin-text-muted)]" />
+                    <Users className="h-3 w-3 text-[var(--admin-text-muted-foreground)]" />
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-medium text-[var(--admin-text)] truncate">
                     {attempt.githubUsername || "Anonyme"}
                   </p>
-                  <p className="text-[10px] text-[var(--admin-text-muted)] truncate">
+                  <p className="text-[10px] text-[var(--admin-text-muted-foreground)] truncate">
                     {attempt.githubEmail || attempt.ipAddress || "N/A"}
                   </p>
                 </div>

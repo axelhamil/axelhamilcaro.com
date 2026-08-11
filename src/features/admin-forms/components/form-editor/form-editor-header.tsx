@@ -34,7 +34,7 @@ export function FormEditorHeader() {
           <h1 className="text-2xl font-bold text-[var(--admin-text)]">
             {isEditing ? "Modifier le formulaire" : "Nouveau formulaire"}
           </h1>
-          <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+          <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
             {isEditing
               ? "Modifie les paramètres de ton formulaire"
               : "Crée un nouveau formulaire de capture"}

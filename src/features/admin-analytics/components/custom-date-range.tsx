@@ -27,7 +27,7 @@ export function CustomDateRange() {
         onChange={(e) => setCustomFrom(e.target.value)}
         className="px-2 py-1.5 text-sm rounded border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] text-[var(--admin-text)]"
       />
-      <span className="text-[var(--admin-text-muted)]">→</span>
+      <span className="text-[var(--admin-text-muted-foreground)]">→</span>
       <input
         type="date"
         value={customTo}

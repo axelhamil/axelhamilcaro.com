@@ -21,7 +21,7 @@ export function TemplatesHeader() {
           </h1>
           <span className="admin-badge">{templates.length}</span>
         </div>
-        <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+        <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
           Tes templates de formulaires réutilisables
         </p>
       </div>

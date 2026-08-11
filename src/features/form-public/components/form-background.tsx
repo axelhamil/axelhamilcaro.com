@@ -80,6 +80,7 @@ export function FormPageBackground({
 
       <motion.div
         className="absolute bottom-6 left-6 text-white/20 text-xs font-mono tracking-widest uppercase hidden sm:block"
+        aria-hidden="true"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.5 }}
@@ -89,6 +90,7 @@ export function FormPageBackground({
 
       <motion.div
         className="absolute top-6 right-6 text-white/20 text-xs font-mono tracking-widest uppercase hidden sm:block"
+        aria-hidden="true"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.5 }}

@@ -18,14 +18,14 @@ export default function NiceTryPage() {
     <div className="min-h-screen bg-zinc-950 text-white relative overflow-hidden selection:bg-red-500/30">
       <NiceTryBackdrop />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12">
+      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12">
         <NiceTryHeader />
         <NiceTryTerminal />
         <NiceTryDataPoints />
         <NiceTryWarning />
         <NiceTryReturnLink />
         <NiceTryIncidentInfo />
-      </div>
+      </main>
     </div>
   );
 }

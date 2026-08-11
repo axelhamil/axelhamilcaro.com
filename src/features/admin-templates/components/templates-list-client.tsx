@@ -52,7 +52,7 @@ function TemplateCard({ template }: { template: Template }) {
               <h3 className="font-semibold text-[var(--admin-text)]">
                 {template.name}
               </h3>
-              <p className="text-xs text-[var(--admin-text-muted)]">
+              <p className="text-xs text-[var(--admin-text-muted-foreground)]">
                 {template.createdAtFormatted}
               </p>
             </div>
@@ -117,7 +117,7 @@ export function TemplatesListClient({ templates }: TemplatesListClientProps) {
             </h1>
             <span className="admin-badge">{templates.length}</span>
           </div>
-          <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+          <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
             Tes templates de formulaires réutilisables
           </p>
         </div>
@@ -151,7 +151,7 @@ export function TemplatesListClient({ templates }: TemplatesListClientProps) {
         />
       ) : filteredTemplates.length === 0 ? (
         <div className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] py-12 text-center">
-          <p className="text-sm text-[var(--admin-text-muted)]">
+          <p className="text-sm text-[var(--admin-text-muted-foreground)]">
             Aucun résultat pour "{search}"
           </p>
         </div>

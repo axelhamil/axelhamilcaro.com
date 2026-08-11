@@ -30,7 +30,7 @@ export function TreeLinkEditor() {
         <button
           type="button"
           onClick={cancelEdit}
-          className="text-[var(--admin-text-muted)] hover:text-[var(--admin-text)]"
+          className="text-[var(--admin-text-muted-foreground)] hover:text-[var(--admin-text)]"
         >
           <X className="h-5 w-5" />
         </button>

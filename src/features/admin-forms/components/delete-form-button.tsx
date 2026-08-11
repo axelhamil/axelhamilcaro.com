@@ -29,7 +29,7 @@ export function DeleteFormButton({ formId, onDelete }: DeleteFormButtonProps) {
       type="button"
       onClick={handleDelete}
       disabled={isDeleting}
-      className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-destructive-muted)] hover:text-[var(--admin-destructive)]"
+      className="rounded-lg p-2 text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-destructive-muted)] hover:text-[var(--admin-destructive)]"
     >
       {isDeleting ? (
         <Loader2 className="h-4 w-4 animate-spin" />

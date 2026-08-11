@@ -45,7 +45,9 @@ export function ContentTab({
           Slug (URL)
         </Label>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-[var(--admin-text-muted)]">/f/</span>
+          <span className="text-sm text-[var(--admin-text-muted-foreground)]">
+            /f/
+          </span>
           <div className="relative flex-1">
             <Input
               id="slug"
@@ -69,7 +71,7 @@ export function ContentTab({
         </div>
         {slugError && <p className="text-xs text-red-500">{slugError}</p>}
         {showSlugPreview && !slugError && (
-          <div className="flex items-center gap-2 text-xs text-[var(--admin-text-muted)]">
+          <div className="flex items-center gap-2 text-xs text-[var(--admin-text-muted-foreground)]">
             <span className="opacity-60">{slugInput}</span>
             <ArrowRight className="h-3 w-3" />
             <code className="rounded bg-[var(--admin-bg-elevated)] px-1.5 py-0.5 font-mono text-[var(--admin-accent)]">
@@ -106,7 +108,7 @@ export function ContentTab({
           <div className="space-y-2">
             <Label
               htmlFor="badgeText"
-              className="text-xs text-[var(--admin-text-muted)]"
+              className="text-xs text-[var(--admin-text-muted-foreground)]"
             >
               Texte
             </Label>
@@ -121,7 +123,7 @@ export function ContentTab({
           <div className="space-y-2">
             <Label
               htmlFor="badgeStyle"
-              className="text-xs text-[var(--admin-text-muted)]"
+              className="text-xs text-[var(--admin-text-muted-foreground)]"
             >
               Style
             </Label>
@@ -147,7 +149,7 @@ export function ContentTab({
         <div className="space-y-2">
           <Label
             htmlFor="badgeColor"
-            className="text-xs text-[var(--admin-text-muted)]"
+            className="text-xs text-[var(--admin-text-muted-foreground)]"
           >
             Couleur
           </Label>
@@ -200,7 +202,7 @@ export function ContentTab({
         <div className="space-y-2">
           <Label
             htmlFor="buttonText"
-            className="text-xs text-[var(--admin-text-muted)]"
+            className="text-xs text-[var(--admin-text-muted-foreground)]"
           >
             Texte principal
           </Label>
@@ -216,7 +218,7 @@ export function ContentTab({
         <div className="space-y-2">
           <Label
             htmlFor="buttonSubtext"
-            className="text-xs text-[var(--admin-text-muted)]"
+            className="text-xs text-[var(--admin-text-muted-foreground)]"
           >
             Sous-texte (optionnel)
           </Label>

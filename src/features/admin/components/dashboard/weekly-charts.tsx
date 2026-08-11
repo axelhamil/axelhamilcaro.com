@@ -21,7 +21,7 @@ export function WeeklyCharts() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Vues (7 jours)
           </h3>
-          <Eye className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Eye className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         <WeekChart data={dashboard.charts.viewsLast7Days} color="accent" />
       </motion.div>
@@ -36,7 +36,7 @@ export function WeeklyCharts() {
           <h3 className="font-semibold text-sm text-[var(--admin-text)]">
             Leads (7 jours)
           </h3>
-          <Target className="h-4 w-4 text-[var(--admin-text-muted)]" />
+          <Target className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
         </div>
         <WeekChart data={dashboard.charts.leadsLast7Days} color="purple" />
       </motion.div>

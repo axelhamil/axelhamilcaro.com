@@ -14,7 +14,7 @@ export function TodayStats() {
       className="grid grid-cols-2 gap-3 rounded-xl border border-[var(--admin-border)] bg-gradient-to-r from-blue-500/5 to-purple-500/5 p-4"
     >
       <div className="text-center">
-        <p className="text-xs text-[var(--admin-text-muted)]">
+        <p className="text-xs text-[var(--admin-text-muted-foreground)]">
           Vues aujourd'hui
         </p>
         <p className="text-2xl font-bold text-blue-500">
@@ -22,7 +22,7 @@ export function TodayStats() {
         </p>
       </div>
       <div className="text-center border-l border-[var(--admin-border)]">
-        <p className="text-xs text-[var(--admin-text-muted)]">
+        <p className="text-xs text-[var(--admin-text-muted-foreground)]">
           Leads aujourd'hui
         </p>
         <p className="text-2xl font-bold text-purple-500">

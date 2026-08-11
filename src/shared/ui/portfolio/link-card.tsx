@@ -40,9 +40,9 @@ function LinkCardContent({
       </div>
 
       <div className="relative z-10 flex-1 min-w-0">
-        <h3 className="font-semibold text-sm sm:text-base text-primary transition-colors duration-300 truncate">
+        <span className="block font-semibold text-sm sm:text-base text-primary transition-colors duration-300 truncate">
           {title}
-        </h3>
+        </span>
         {description && (
           <p className="text-xs sm:text-sm text-secondary truncate">
             {description}
@@ -50,7 +50,7 @@ function LinkCardContent({
         )}
       </div>
 
-      <div className="relative z-10 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 shrink-0">
+      <div className="relative z-10 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 shrink-0">
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5"
           fill="none"

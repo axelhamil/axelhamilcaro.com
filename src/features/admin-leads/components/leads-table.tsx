@@ -57,7 +57,7 @@ export function LeadsTable() {
   if (filteredLeads.length === 0) {
     return (
       <div className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg-subtle)] py-12 text-center">
-        <p className="text-sm text-[var(--admin-text-muted)]">
+        <p className="text-sm text-[var(--admin-text-muted-foreground)]">
           Aucun résultat pour "{search}"
         </p>
       </div>
@@ -75,22 +75,22 @@ export function LeadsTable() {
         <table className="w-full">
           <thead>
             <tr className="border-b border-[var(--admin-border)] bg-[var(--admin-bg)]">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Contact
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Statut
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Notes
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Formulaire
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Date
               </th>
-              <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+              <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                 Actions
               </th>
             </tr>
@@ -105,13 +105,13 @@ export function LeadsTable() {
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)]">
-                      <User className="h-4 w-4 text-[var(--admin-text-muted)]" />
+                      <User className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
                     </div>
                     <div>
                       <p className="font-medium text-[var(--admin-text)]">
                         {lead.firstName || "Anonyme"}
                       </p>
-                      <p className="text-sm text-[var(--admin-text-muted)]">
+                      <p className="text-sm text-[var(--admin-text-muted-foreground)]">
                         {lead.email}
                       </p>
                     </div>
@@ -134,7 +134,7 @@ export function LeadsTable() {
                 <td className="px-4 py-3">
                   <span className="admin-badge">{lead.formTitle}</span>
                 </td>
-                <td className="px-4 py-3 text-sm text-[var(--admin-text-muted)]">
+                <td className="px-4 py-3 text-sm text-[var(--admin-text-muted-foreground)]">
                   {lead.createdAtFormatted}
                 </td>
                 <td className="px-4 py-3">

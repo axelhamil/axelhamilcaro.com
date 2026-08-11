@@ -124,14 +124,14 @@ export function ImageUpload({
           {isUploading ? (
             <>
               <Loader2 className="w-8 h-8 mb-2 text-[var(--admin-accent)] animate-spin" />
-              <p className="text-sm text-[var(--admin-text-muted)]">
+              <p className="text-sm text-[var(--admin-text-muted-foreground)]">
                 Upload en cours...
               </p>
             </>
           ) : (
             <>
-              <ImagePlus className="w-8 h-8 mb-2 text-[var(--admin-text-muted)]" />
-              <p className="text-sm text-[var(--admin-text-muted)]">
+              <ImagePlus className="w-8 h-8 mb-2 text-[var(--admin-text-muted-foreground)]" />
+              <p className="text-sm text-[var(--admin-text-muted-foreground)]">
                 <span className="font-medium text-[var(--admin-accent)]">
                   Clique
                 </span>{" "}

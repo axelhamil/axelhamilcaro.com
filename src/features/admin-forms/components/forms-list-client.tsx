@@ -45,7 +45,7 @@ function CopySlugButton({ slug }: { slug: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="group/copy flex items-center gap-1.5 rounded bg-[var(--admin-bg-elevated)] px-2 py-1 font-mono text-xs text-[var(--admin-text-muted)] transition-colors hover:text-[var(--admin-text)]"
+      className="group/copy flex items-center gap-1.5 rounded bg-[var(--admin-bg-elevated)] px-2 py-1 font-mono text-xs text-[var(--admin-text-muted-foreground)] transition-colors hover:text-[var(--admin-text)]"
     >
       /f/{slug}
       {copied ? (
@@ -83,7 +83,7 @@ function DeleteFormButton({
       type="button"
       onClick={handleDelete}
       disabled={isDeleting}
-      className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-destructive-muted)] hover:text-[var(--admin-destructive)]"
+      className="rounded-lg p-2 text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-destructive-muted)] hover:text-[var(--admin-destructive)]"
     >
       {isDeleting ? (
         <Loader2 className="h-4 w-4 animate-spin" />
@@ -130,7 +130,7 @@ export function FormsListClient() {
             </h1>
             <span className="admin-badge">{forms.length}</span>
           </div>
-          <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+          <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
             Gère tes formulaires de capture de leads
           </p>
         </div>
@@ -164,7 +164,7 @@ export function FormsListClient() {
         />
       ) : filteredForms.length === 0 ? (
         <div className="rounded-xl border border-[var(--admin-border)] bg-[var(--admin-bg)] py-12 text-center">
-          <p className="text-sm text-[var(--admin-text-muted)]">
+          <p className="text-sm text-[var(--admin-text-muted-foreground)]">
             Aucun résultat pour "{search}"
           </p>
         </div>
@@ -179,22 +179,22 @@ export function FormsListClient() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[var(--admin-border)] bg-[var(--admin-bg-subtle)]">
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                     Formulaire
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                     Slug
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                     Leads
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                     Statut
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                     Créé le
                   </th>
-                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted)]">
+                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--admin-text-muted-foreground)]">
                     Actions
                   </th>
                 </tr>
@@ -239,7 +239,7 @@ export function FormsListClient() {
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[var(--admin-text-muted)]">
+                    <td className="px-4 py-3 text-sm text-[var(--admin-text-muted-foreground)]">
                       {form.createdAtFormatted}
                     </td>
                     <td className="px-4 py-3">
@@ -248,13 +248,13 @@ export function FormsListClient() {
                           href={`/f/${form.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
+                          className="rounded-lg p-2 text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-text)]"
                         >
                           <ExternalLink className="h-4 w-4" />
                         </Link>
                         <Link
                           href={`/admin/forms/${form.id}`}
-                          className="rounded-lg p-2 text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-accent)]"
+                          className="rounded-lg p-2 text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-accent)]"
                         >
                           <Pencil className="h-4 w-4" />
                         </Link>

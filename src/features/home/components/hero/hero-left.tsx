@@ -90,7 +90,9 @@ const HeroLeft = () => {
               </span>
               {label}
               {index < techIcons.length - 1 && (
-                <span className="hidden sm:inline text-muted ml-3">·</span>
+                <span className="hidden sm:inline text-muted-foreground ml-3">
+                  ·
+                </span>
               )}
             </motion.span>
           ))}

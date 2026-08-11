@@ -54,7 +54,7 @@ export function NiceTryHeader() {
       </motion.h1>
 
       <motion.div
-        className="flex items-center justify-center gap-2 text-zinc-500 font-mono text-sm"
+        className="flex items-center justify-center gap-2 text-zinc-400 font-mono text-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}

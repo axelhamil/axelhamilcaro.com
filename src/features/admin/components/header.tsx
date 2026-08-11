@@ -51,7 +51,7 @@ function Breadcrumbs() {
           ) : (
             <Link
               href={crumb.href}
-              className="text-[var(--admin-text-muted)] transition-colors hover:text-[var(--admin-text)]"
+              className="text-[var(--admin-text-muted-foreground)] transition-colors hover:text-[var(--admin-text)]"
             >
               {crumb.label}
             </Link>
@@ -80,7 +80,7 @@ function UserMenu() {
       {session?.user && (
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--admin-bg-elevated)] ring-1 ring-[var(--admin-border)]">
-            <User className="h-4 w-4 text-[var(--admin-text-muted)]" />
+            <User className="h-4 w-4 text-[var(--admin-text-muted-foreground)]" />
           </div>
           <span className="hidden text-sm font-medium text-[var(--admin-text)] sm:inline">
             {session.user.name || session.user.email?.split("@")[0]}
@@ -90,7 +90,7 @@ function UserMenu() {
       <button
         type="button"
         onClick={handleSignOut}
-        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-[var(--admin-text-muted)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-destructive)]"
+        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-[var(--admin-text-muted-foreground)] transition-colors hover:bg-[var(--admin-bg-elevated)] hover:text-[var(--admin-destructive)]"
       >
         <LogOut className="h-4 w-4" />
         <span className="hidden sm:inline">Déconnexion</span>

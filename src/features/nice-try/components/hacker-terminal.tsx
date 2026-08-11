@@ -43,7 +43,7 @@ function TerminalLine({
   return (
     <div className="flex gap-2 font-mono text-xs sm:text-sm">
       {isCommand && <span className="text-emerald-400 shrink-0">$</span>}
-      {!isCommand && <span className="text-zinc-600 shrink-0">&gt;</span>}
+      {!isCommand && <span className="text-zinc-400 shrink-0">&gt;</span>}
       <span className={isCommand ? "text-emerald-300" : "text-zinc-400"}>
         {displayed}
         <span className="animate-pulse">▊</span>
@@ -102,7 +102,7 @@ export function HackerTerminal() {
             <div className="w-3 h-3 rounded-full bg-green-500/80" />
           </div>
           <div className="flex-1 text-center">
-            <span className="text-zinc-500 text-xs font-mono">
+            <span className="text-zinc-400 text-xs font-mono">
               root@security-daemon ~ INTRUDER_DETECTED
             </span>
           </div>

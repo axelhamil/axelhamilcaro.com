@@ -20,7 +20,7 @@ export function LeadsHeader() {
             {leads.length}
           </span>
         </div>
-        <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
+        <p className="mt-1 text-sm text-[var(--admin-text-muted-foreground)]">
           Tous les contacts capturés via tes formulaires
         </p>
       </div>
