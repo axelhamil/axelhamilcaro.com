@@ -1,0 +1,168 @@
+---
+title: "Ce que 137 jours de Claude Code disent de mes limites"
+seoTitle: "Limites Claude Code : 137 jours mesurés"
+subtitle: "J'ai analysé 137 jours d'utilisation pour comprendre pourquoi ma limite tombait toujours au mauvais moment. La réponse était dans des headers HTTP que personne ne lit."
+date: "2026-08-14"
+dateModified: "2026-08-14"
+excerpt: "La fenêtre de 5 heures de Claude Code démarre à votre premier message, pas à une heure fixe. L'API renvoie l'heure exacte du reset dans ses headers."
+tags: ["Claude Code", "Rate limiting", "Outillage développeur", "Anthropic"]
+category: "Guide"
+faq:
+  - question: "Quand démarre la fenêtre de 5 heures de Claude Code ?"
+    answer: "Elle démarre à votre premier message envoyé après l'expiration de la fenêtre précédente, pas à une heure fixe de la journée. Si vous commencez à travailler à 15h34, votre limite se réinitialise vers 20h30, puis 01h30. Le lendemain, si vous démarrez à 9h12, tout se décale. C'est ce glissement qui donne l'impression que le reset tombe toujours au mauvais moment."
+  - question: "Peut-on cumuler les tokens non utilisés d'une fenêtre Claude Code ?"
+    answer: "Non. Le quota d'une fenêtre non consommée est perdu, l'utilisation repart de zéro à chaque réinitialisation. C'est le principe d'un rate limit glissant. La seule marge de manœuvre consiste à aligner les frontières de fenêtres sur vos heures de travail réelles, ce qui ne crée aucun quota mais évite les coupures en milieu de session."
+  - question: "Comment connaître l'heure exacte de son prochain reset Claude Code ?"
+    answer: "L'API Messages renvoie le header anthropic-ratelimit-unified-5h-reset, un timestamp Unix, dans la réponse à chaque requête. Le header anthropic-ratelimit-unified-5h-utilization donne la part de quota déjà consommée. Ces deux headers ne sont documentés nulle part chez Anthropic mais sont bien présents dans chaque réponse."
+  - question: "La limite hebdomadaire de Claude Code se réinitialise-t-elle vraiment tous les 7 jours ?"
+    answer: "Le chercheur Martin Monperrus a mesuré des intervalles réels de 71,9 à 72,6 heures entre deux réinitialisations en juin 2026, soit environ 72 heures et non 7 jours, alors que le champ resets_at de l'API annonce une date à 7 jours. Ce comportement n'est pas documenté par Anthropic."
+  - question: "Un cron de warmup permet-il d'ancrer sa fenêtre Claude Code ?"
+    answer: "Un seul ping quotidien ne suffit pas. Il ouvre bien une fenêtre à l'heure voulue, mais dès que celle-ci expire pendant que vous êtes loin du clavier, la suivante démarrera à votre prochain message et la grille se décale à nouveau. Pour tenir un horaire fixe, il faut relancer une requête à chaque expiration, pas une seule fois le matin."
+---
+
+**La fenêtre de 5 heures de Claude Code ne démarre pas à une heure fixe. Elle démarre à votre premier message envoyé après l'expiration de la précédente.** C'est la raison pour laquelle votre limite semble tomber un peu plus tard chaque jour, et toujours au milieu de quelque chose.
+
+J'ai voulu comprendre pourquoi ça m'arrivait si souvent. Plutôt que de deviner, j'ai analysé mes propres données. Claude Code conserve l'horodatage de chaque prompt envoyé dans `~/.claude/history.jsonl`, un fichier qui échappe au nettoyage automatique appliqué aux transcripts. Cent trente-sept jours d'activité, 18 393 prompts, de janvier à août 2026. Voilà ce que j'y ai trouvé, y compris une information que l'API renvoie à chaque requête et que personne n'exploite.
+
+## À quelle heure consomme-t-on réellement son quota ?
+
+Première surprise en traçant mes prompts par heure de la journée. Ils ne sont pas répartis, ils sont massés sur une plage étroite.
+
+| Tranche | Part des prompts |
+|---|---|
+| 02h à 07h | 6,8 % |
+| 07h à 12h | 5,7 % |
+| 12h à 15h | 15,1 % |
+| 15h à 22h | 49,9 % |
+| 22h à 02h | 22,5 % |
+
+Sept heures concentrent la moitié de mon activité, avec un pic net à 16h. Le reste se disperse, y compris quelques nuits.
+
+Cette forme a une conséquence directe. Une session qui court de 15h30 à minuit dure environ neuf heures, donc elle traverse forcément deux fenêtres de cinq heures. La coupure tombe quelque part au milieu, vers 20h30, et il n'y a rien à faire une fois qu'elle est là.
+
+Deuxième surprise, plus utile : l'heure de mon premier prompt varie énormément. Sur ces 137 jours, elle va de minuit à 22h selon les jours. Comme la fenêtre s'accroche à ce premier message, ma grille de resets était différente chaque jour. Je cherchais un horaire là où il n'y avait qu'une dérive.
+
+## Est-ce la limite hebdomadaire ou la fenêtre de 5 heures qui bloque ?
+
+J'étais convaincu que le plafond hebdomadaire était mon problème. Anthropic a introduit ces limites le [28 juillet 2025, avec effet fin août](https://techcrunch.com/2025/07/28/anthropic-unveils-new-rate-limits-to-curb-claude-code-power-users/), en estimant qu'elles toucheraient moins de 5 % des abonnés. Avec 29 millions de tokens de sortie sur les dix-neuf derniers jours de transcripts disponibles, je me voyais volontiers dans ces 5 %.
+
+Les chiffres disent l'inverse. Au moment de mes mesures, mon utilisation hebdomadaire plafonnait à **3 à 8 %**, pendant que ma fenêtre de 5 heures montait à **80 %** en une seule session. Le frein n'était pas là où je le cherchais.
+
+Ce détail compte pour choisir quoi optimiser. Réduire sa consommation globale, basculer sur un modèle plus léger pour les tâches mécaniques, compacter tôt, tout cela aide sur le hebdomadaire. Mais si votre goulot est la fenêtre de 5 heures, le levier est ailleurs : dans le placement des frontières.
+
+À noter qu'Anthropic a [doublé les limites de la fenêtre de 5 heures le 6 mai 2026](https://www.anthropic.com/news/higher-limits-spacex) et supprimé la réduction aux heures de pointe. Si vos souvenirs de saturation datent d'avant cette date, ils ne valent plus.
+
+## Où Claude Code cache-t-il l'heure exacte du reset ?
+
+C'est la partie intéressante. J'ai cherché où était stockée l'heure de réinitialisation, en supposant qu'elle traînait quelque part sur ma machine. Elle n'y est pas : rien dans l'historique des conversations, rien dans les fichiers de configuration.
+
+En revanche, elle arrive dans **chaque réponse de l'API**. Quand un serveur répond, il accompagne le contenu de lignes d'en-tête, invisibles à l'usage, qui transportent des informations de service. Anthropic y glisse l'état complet de vos quotas. Une simple requête d'un token vers `/v1/messages` renvoie ceci :
+
+```
+anthropic-ratelimit-unified-5h-status: allowed
+anthropic-ratelimit-unified-5h-reset: 1786732200
+anthropic-ratelimit-unified-5h-utilization: 0.34
+anthropic-ratelimit-unified-7d-reset: 1787302800
+anthropic-ratelimit-unified-7d-utilization: 0.03
+anthropic-ratelimit-unified-overage-status: rejected
+```
+
+`1786732200` est une date exprimée en secondes écoulées depuis 1970, la convention habituelle. Converti, ce nombre donnait 20h30 précises, et `0.34` disait que j'avais consommé 34 % de la fenêtre en cours. Tout ce que je cherchais était là, à chaque appel, sans rien demander de spécial.
+
+Ces headers ne sont documentés nulle part. La [documentation officielle des rate limits](https://platform.claude.com/docs/en/api/rate-limits) décrit uniquement les familles `anthropic-ratelimit-requests-*` et `anthropic-ratelimit-tokens-*`, qui concernent les quotas par minute. Les headers `unified-5h-*` n'y figurent pas. Ils existent pourtant, et la communauté les connaît : l'[issue #55333 du dépôt claude-code](https://github.com/anthropics/claude-code/issues/55333), ouverte le 1er mai 2026, demande précisément à Anthropic de les persister dans un fichier local. Elle a été fermée en doublon, sans réponse publique.
+
+## Pourquoi les outils existants ne s'en servent pas
+
+J'ai regardé ce que font les outils existants avant d'écrire quoi que ce soit. Le constat est net.
+
+**ccusage** ([10 100 étoiles](https://github.com/ryoppippi/ccusage)) parse les fichiers JSONL locaux pour reconstituer des blocs de 5 heures. C'est une reconstruction a posteriori, pas une lecture de l'état réel côté serveur.
+
+**Claude-Code-Usage-Monitor** ([8 600 étoiles](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor)) fait du monitoring temps réel avec prédictions. Depuis sa version 4, il consulte les informations de rate limit exposées par le statusline interne de Claude Code quand elles sont fraîches, avec repli sur une estimation locale. Il n'émet pas de requête pour aller chercher les headers lui-même.
+
+**claude-warmup** ([162 étoiles](https://github.com/vdsmon/claude-warmup)) attaque le bon problème, celui de l'ancrage, avec une GitHub Action qui envoie un `hi` à heure fixe. Mais il ne lit aucun header : il tire à l'aveugle et espère que la fenêtre était bien expirée.
+
+Personne, à ma connaissance, n'interroge l'API pour lire l'heure de reset et s'en servir. C'est d'autant plus étonnant que l'information est exacte, immédiate, et coûte une requête d'un token.
+
+## Un cron du matin suffit-il à ancrer sa fenêtre ?
+
+C'est l'erreur que j'ai faite, et elle mérite d'être racontée parce qu'elle est intuitive.
+
+Mon raisonnement de départ : si je ping à 7h, j'ouvre une fenêtre 7h-12h, donc la suivante ira de 12h à 17h, puis 17h-22h. Une grille propre, un reset à 22h pile. C'est exactement ce que promettent les scripts de warmup.
+
+C'est faux. La fenêtre suivante ne démarre pas à 12h, elle démarre **à votre premier message après 12h**. Si vous ne touchez pas au clavier avant 15h30, votre grille devient 15h30, 20h30, 01h30. Le ping de 7h n'a servi qu'à consommer une fenêtre pendant que vous dormiez.
+
+Pour tenir un horaire fixe, il faut relancer une requête **à chaque expiration**, pas une fois le matin. Quatre requêtes par jour au lieu d'une, chacune déclenchée au moment exact où la précédente meurt. Et pour connaître ce moment exact, il faut justement lire le header de reset.
+
+## Combien ça rapporte vraiment
+
+Je pourrais m'arrêter là et vous vendre un gain spectaculaire. J'ai préféré le mesurer, en rejouant mes 137 jours selon trois stratégies. Une fenêtre compte comme utile seulement si j'y ai effectivement envoyé au moins un prompt.
+
+| Stratégie | Fenêtres utiles sur 137 jours | Gain |
+|---|---|---|
+| Ne rien faire | 296 | référence |
+| Un ping quotidien à 7h | 315 | +6 % |
+| Un ping à chaque expiration | 359 | +21 % |
+
+L'écart entre les deux dernières lignes est tout l'intérêt du chaînage. Le ping unique du matin ouvre une fenêtre, puis abandonne : quand elle meurt à midi et que vous n'êtes pas devant votre clavier, la suivante attendra votre retour. Relancer à chaque expiration maintient la chaîne, et triple le gain.
+
+Le chaînage améliore **62 de mes 137 journées**, presque une sur deux. Et une fenêtre supplémentaire n'est pas une statistique abstraite : c'est la différence entre une session qui s'arrête net et une session qui va au bout.
+
+Ces chiffres sont reproductibles chez vous. Le script d'analyse est [dans le dépôt](https://github.com/axelhamil/claude-window/blob/main/scripts/analyze-usage.ts), il lit vos propres fichiers locaux et ne transmet rien.
+
+## Placer ses grosses tâches juste avant le reset
+
+Voilà l'usage qui a changé ma façon de travailler, et il découle uniquement du fait de connaître l'heure exacte.
+
+Quand une refonte lourde tombait n'importe où dans la fenêtre, je me faisais couper au milieu. Impossible de finir, impossible de reprendre avant des heures, avec un travail à moitié fait sur les bras. Le pire moment pour s'arrêter est celui qu'on n'a pas choisi.
+
+Maintenant je lance ces tâches **juste avant la réinitialisation**. Le reset tombe pendant l'exécution, le compteur repart de zéro en cours de route, et je dispose d'une fenêtre entière pour aller au bout. La même tâche qui me bloquait me laisse désormais de la marge.
+
+Ça ne fonctionne que si vous savez à la minute près quand la bascule arrive. Avec un reset qui dérive entre 18h et minuit selon l'heure à laquelle vous avez ouvert votre terminal, vous ne pouvez rien planifier. Avec un reset à 22h tous les jours, vous placez votre gros morceau à 21h45 et vous savez ce qui va se passer.
+
+Pour un travail en solo, où [personne d'autre ne prend le relais quand vous êtes bloqué](/blog/fractional-cto-lead-technique-temps-partiel), cette maîtrise du calendrier compte davantage qu'un quota marginal supplémentaire.
+
+## L'outil
+
+J'ai empaqueté le mécanisme dans [claude-window](https://github.com/axelhamil/claude-window). Un petit programme tourne en arrière-plan, envoie une requête d'un token, lit l'heure de reset dans les en-têtes, dort jusqu'à cet instant plus deux minutes, puis recommence. Entre deux réveils il ne fait rien du tout et ne consomme aucun quota. Quatre requêtes par jour au total.
+
+Le mien tourne sur un Raspberry Pi Zero 2 W qui héberge déjà Pi-hole, avec 464 Mo de mémoire partagés entre les deux. Il s'installe comme un service classique sur les trois systèmes, en utilisant le gestionnaire natif de chacun.
+
+```bash
+npm install -g claude-window
+claude-window login "$(claude setup-token)"
+claude-window install
+```
+
+Deux limites que j'assume dans le dépôt comme ici. L'outil ne peut pas déplacer une fenêtre déjà ouverte, donc l'ancre ne tient que si vous êtes inactif à l'heure choisie. Et les nuits tardives cassent la chaîne : 24 n'étant pas divisible par 5, aucune grille ne boucle proprement sur une journée.
+
+## Ce qui reste incertain
+
+Deux choses méritent d'être signalées plutôt que tues.
+
+Le README de claude-warmup indique que depuis avril 2026, la fenêtre démarre à la minute exacte du premier message, alors qu'elle était auparavant arrondie à l'heure inférieure. Mes observations ne collent pas tout à fait : premier message à 15h34, fenêtre annoncée par l'API à 15h30. L'arrondi semble se faire à la demi-heure. Je n'ai qu'une poignée de points de mesure, donc je le donne comme observation, pas comme règle.
+
+Sur la limite hebdomadaire, Martin Monperrus, enseignant-chercheur à KTH, a [mesuré les réinitialisations réelles](https://gist.github.com/monperrus/3ac4b303a84946bbeaf2b1123ee99491) en surveillant l'API d'usage du 9 au 20 juin 2026. Il observe des intervalles de 71,9 à 72,6 heures, soit environ 72 heures, pendant que le champ `resets_at` renvoyé par l'API annonce une date sept jours plus loin. Comportement non documenté, et qui change complètement la façon de planifier une semaine chargée.
+
+Ces deux points ont la même origine : Anthropic ne documente pas la mécanique de ces fenêtres. Tant que ce sera le cas, les seules réponses fiables viendront de la mesure, pas de la lecture de la documentation.
+
+## Questions fréquentes
+
+### Quand démarre la fenêtre de 5 heures de Claude Code ?
+
+Elle démarre à votre premier message envoyé après l'expiration de la fenêtre précédente, pas à une heure fixe de la journée. Si vous commencez à travailler à 15h34, votre limite se réinitialise vers 20h30, puis 01h30. Le lendemain, si vous démarrez à 9h12, tout se décale. C'est ce glissement qui donne l'impression que le reset tombe toujours au mauvais moment.
+
+### Peut-on cumuler les tokens non utilisés d'une fenêtre Claude Code ?
+
+Non. Le quota d'une fenêtre non consommée est perdu, l'utilisation repart de zéro à chaque réinitialisation. C'est le principe d'un rate limit glissant. La seule marge de manœuvre consiste à aligner les frontières de fenêtres sur vos heures de travail réelles, ce qui ne crée aucun quota mais évite les coupures en milieu de session.
+
+### Comment connaître l'heure exacte de son prochain reset Claude Code ?
+
+L'API Messages renvoie le header `anthropic-ratelimit-unified-5h-reset`, un timestamp Unix, dans la réponse à chaque requête. Le header `anthropic-ratelimit-unified-5h-utilization` donne la part de quota déjà consommée. Ces deux headers ne sont documentés nulle part chez Anthropic mais sont bien présents dans chaque réponse.
+
+### La limite hebdomadaire de Claude Code se réinitialise-t-elle vraiment tous les 7 jours ?
+
+Le chercheur Martin Monperrus a mesuré des intervalles réels de 71,9 à 72,6 heures entre deux réinitialisations en juin 2026, soit environ 72 heures et non 7 jours, alors que le champ `resets_at` de l'API annonce une date à 7 jours. Ce comportement n'est pas documenté par Anthropic.
+
+### Un cron de warmup permet-il d'ancrer sa fenêtre Claude Code ?
+
+Un seul ping quotidien ne suffit pas. Il ouvre bien une fenêtre à l'heure voulue, mais dès que celle-ci expire pendant que vous êtes loin du clavier, la suivante démarrera à votre prochain message et la grille se décale à nouveau. Pour tenir un horaire fixe, il faut relancer une requête à chaque expiration, pas une seule fois le matin.
