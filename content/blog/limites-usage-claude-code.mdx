@@ -16,8 +16,8 @@ faq:
     answer: "L'API Messages renvoie le header anthropic-ratelimit-unified-5h-reset, un timestamp Unix, dans la réponse à chaque requête. Le header anthropic-ratelimit-unified-5h-utilization donne la part de quota déjà consommée. Ces deux headers ne sont documentés nulle part chez Anthropic mais sont bien présents dans chaque réponse."
   - question: "La limite hebdomadaire de Claude Code se réinitialise-t-elle vraiment tous les 7 jours ?"
     answer: "Le chercheur Martin Monperrus a mesuré des intervalles réels de 71,9 à 72,6 heures entre deux réinitialisations en juin 2026, soit environ 72 heures et non 7 jours, alors que le champ resets_at de l'API annonce une date à 7 jours. Ce comportement n'est pas documenté par Anthropic."
-  - question: "Une clé API personnelle contourne-t-elle la fenêtre de 5 heures ?"
-    answer: "Oui. La documentation de Claude Code établit un ordre de priorité entre identifiants, dans lequel ANTHROPIC_API_KEY l'emporte sur l'authentification par abonnement. Vous basculez alors sur les limites API classiques, exprimées en requêtes et tokens par minute selon le palier de votre organisation, sans fenêtre glissante ni plafond hebdomadaire. En contrepartie l'usage est facturé à la consommation et sort du forfait Pro ou Max."
+  - question: "Existe-t-il un moyen de supprimer la fenêtre de 5 heures sur Pro ou Max ?"
+    answer: "Non. Tant que Claude Code s'authentifie avec un abonnement Pro ou Max, la fenêtre glissante de 5 heures s'applique et le quota non consommé est perdu. La seule soupape prévue dans le forfait est l'achat de dépassement, facturé au tarif API standard et désactivé par défaut. Basculer sur une clé API facturée à l'usage change de régime de facturation, ce n'est pas une optimisation de l'abonnement."
   - question: "Un cron de warmup permet-il d'ancrer sa fenêtre Claude Code ?"
     answer: "Un seul ping quotidien ne suffit pas. Il ouvre bien une fenêtre à l'heure voulue, mais dès que celle-ci expire pendant que vous êtes loin du clavier, la suivante démarrera à votre prochain message et la grille se décale à nouveau. Pour tenir un horaire fixe, il faut relancer une requête à chaque expiration, pas une seule fois le matin."
 ---
@@ -54,7 +54,7 @@ Ce détail compte pour choisir quoi optimiser. Réduire sa consommation globale,
 
 À noter qu'Anthropic a [doublé les limites de la fenêtre de 5 heures le 6 mai 2026](https://www.anthropic.com/news/higher-limits-spacex) et supprimé la réduction aux heures de pointe. Si vos souvenirs de saturation datent d'avant cette date, ils ne valent plus.
 
-## Quels plans sont concernés, et peut-on y échapper ?
+## Quels plans sont concernés ?
 
 La fenêtre de 5 heures s'applique aux abonnements. La [documentation d'Anthropic](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan) précise que Pro et Max partagent le même pool de limites entre Claude.ai et Claude Code : ce que vous consommez dans le chat ampute ce qu'il vous reste dans le terminal.
 
@@ -68,9 +68,7 @@ Les seuls chiffres officiels par plan datent de l'annonce des limites hebdomadai
 
 Méfiez-vous des tableaux en tokens qui circulent sur le sujet. Les valeurs précises par plan n'apparaissent dans aucune documentation officielle accessible, ce sont des estimations communautaires.
 
-Il existe une vraie porte de sortie, et elle est documentée. Claude Code applique un [ordre de priorité entre vos identifiants](https://code.claude.com/docs/en/authentication) : si `ANTHROPIC_API_KEY` est défini dans votre environnement, cette clé l'emporte sur l'authentification par abonnement. Vous quittez alors le régime de la fenêtre glissante pour celui des limites API classiques, exprimées en requêtes et en tokens par minute selon le palier de votre organisation. Plus de fenêtre de 5 heures, plus de plafond hebdomadaire, mais une facturation à l'usage qui n'a plus rien à voir avec le forfait.
-
-Entre les deux, Anthropic propose d'acheter du dépassement : une fois la limite atteinte, l'usage supplémentaire est facturé au tarif API standard. C'est désactivé par défaut et cela s'active dans les réglages de facturation. Un détail intéressant, l'API vous dit où vous en êtes sur ce point aussi. Le header `anthropic-ratelimit-unified-overage-status` vaut `rejected` quand le dépassement est refusé, et `overage-disabled-reason` en donne la cause, par exemple `org_level_disabled` quand un administrateur l'a bloqué pour toute l'organisation.
+Anthropic propose par ailleurs d'acheter du dépassement : une fois la limite atteinte, l'usage supplémentaire est facturé au tarif API standard. C'est désactivé par défaut et cela s'active dans les réglages de facturation. Là encore, l'API vous dit où vous en êtes : le header `anthropic-ratelimit-unified-overage-status` vaut `rejected` quand le dépassement est refusé, et `overage-disabled-reason` en donne la cause, par exemple `org_level_disabled` quand un administrateur l'a bloqué pour toute l'organisation. C'est la seule soupape prévue à l'intérieur d'un abonnement.
 
 ## Où Claude Code cache-t-il l'heure exacte du reset ?
 
@@ -207,9 +205,9 @@ L'API Messages renvoie le header `anthropic-ratelimit-unified-5h-reset`, un time
 
 Le chercheur Martin Monperrus a mesuré des intervalles réels de 71,9 à 72,6 heures entre deux réinitialisations en juin 2026, soit environ 72 heures et non 7 jours, alors que le champ `resets_at` de l'API annonce une date à 7 jours. Ce comportement n'est pas documenté par Anthropic.
 
-### Une clé API personnelle contourne-t-elle la fenêtre de 5 heures ?
+### Existe-t-il un moyen de supprimer la fenêtre de 5 heures sur Pro ou Max ?
 
-Oui. La documentation de Claude Code établit un ordre de priorité entre identifiants, dans lequel `ANTHROPIC_API_KEY` l'emporte sur l'authentification par abonnement. Vous basculez alors sur les limites API classiques, exprimées en requêtes et tokens par minute selon le palier de votre organisation, sans fenêtre glissante ni plafond hebdomadaire. En contrepartie l'usage est facturé à la consommation et sort du forfait Pro ou Max.
+Non. Tant que Claude Code s'authentifie avec un abonnement Pro ou Max, la fenêtre glissante de 5 heures s'applique et le quota non consommé est perdu. La seule soupape prévue dans le forfait est l'achat de dépassement, facturé au tarif API standard et désactivé par défaut. Basculer sur une clé API facturée à l'usage change de régime de facturation, ce n'est pas une optimisation de l'abonnement.
 
 ### Un cron de warmup permet-il d'ancrer sa fenêtre Claude Code ?
 
