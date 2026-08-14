@@ -16,13 +16,15 @@ faq:
     answer: "L'API Messages renvoie le header anthropic-ratelimit-unified-5h-reset, un timestamp Unix, dans la réponse à chaque requête. Le header anthropic-ratelimit-unified-5h-utilization donne la part de quota déjà consommée. Ces deux headers ne sont documentés nulle part chez Anthropic mais sont bien présents dans chaque réponse."
   - question: "La limite hebdomadaire de Claude Code se réinitialise-t-elle vraiment tous les 7 jours ?"
     answer: "Le chercheur Martin Monperrus a mesuré des intervalles réels de 71,9 à 72,6 heures entre deux réinitialisations en juin 2026, soit environ 72 heures et non 7 jours, alors que le champ resets_at de l'API annonce une date à 7 jours. Ce comportement n'est pas documenté par Anthropic."
+  - question: "Une clé API personnelle contourne-t-elle la fenêtre de 5 heures ?"
+    answer: "Oui. La documentation de Claude Code établit un ordre de priorité entre identifiants, dans lequel ANTHROPIC_API_KEY l'emporte sur l'authentification par abonnement. Vous basculez alors sur les limites API classiques, exprimées en requêtes et tokens par minute selon le palier de votre organisation, sans fenêtre glissante ni plafond hebdomadaire. En contrepartie l'usage est facturé à la consommation et sort du forfait Pro ou Max."
   - question: "Un cron de warmup permet-il d'ancrer sa fenêtre Claude Code ?"
     answer: "Un seul ping quotidien ne suffit pas. Il ouvre bien une fenêtre à l'heure voulue, mais dès que celle-ci expire pendant que vous êtes loin du clavier, la suivante démarrera à votre prochain message et la grille se décale à nouveau. Pour tenir un horaire fixe, il faut relancer une requête à chaque expiration, pas une seule fois le matin."
 ---
 
 **La fenêtre de 5 heures de Claude Code ne démarre pas à une heure fixe. Elle démarre à votre premier message envoyé après l'expiration de la précédente.** C'est la raison pour laquelle votre limite semble tomber un peu plus tard chaque jour, et toujours au milieu de quelque chose.
 
-J'ai voulu comprendre pourquoi ça m'arrivait si souvent. Plutôt que de deviner, j'ai analysé mes propres données. Claude Code conserve l'horodatage de chaque prompt envoyé dans `~/.claude/history.jsonl`, un fichier qui échappe au nettoyage automatique appliqué aux transcripts. Cent trente-sept jours d'activité, 18 393 prompts, de janvier à août 2026. Voilà ce que j'y ai trouvé, y compris une information que l'API renvoie à chaque requête et que personne n'exploite.
+J'ai voulu comprendre pourquoi ça m'arrivait si souvent. Plutôt que de deviner, j'ai analysé mes propres données. Claude Code conserve l'horodatage de chaque prompt envoyé dans `~/.claude/history.jsonl` (`%USERPROFILE%\.claude` sous Windows), un fichier qui échappe au nettoyage automatique appliqué aux transcripts. Cent trente-sept jours d'activité, 18 393 prompts, de janvier à août 2026. Voilà ce que j'y ai trouvé, y compris une information que l'API renvoie à chaque requête et que personne n'exploite.
 
 ## Quand la consommation se concentre-t-elle vraiment ?
 
@@ -51,6 +53,24 @@ Les chiffres disent l'inverse. Au moment de mes mesures, mon utilisation hebdoma
 Ce détail compte pour choisir quoi optimiser. Réduire sa consommation globale, basculer sur un modèle plus léger pour les tâches mécaniques, compacter tôt, tout cela aide sur le quota hebdomadaire. Mais si votre goulot est la fenêtre de 5 heures, le levier est ailleurs : dans le placement des frontières.
 
 À noter qu'Anthropic a [doublé les limites de la fenêtre de 5 heures le 6 mai 2026](https://www.anthropic.com/news/higher-limits-spacex) et supprimé la réduction aux heures de pointe. Si vos souvenirs de saturation datent d'avant cette date, ils ne valent plus.
+
+## Quels plans sont concernés, et peut-on y échapper ?
+
+La fenêtre de 5 heures s'applique aux abonnements. La [documentation d'Anthropic](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan) précise que Pro et Max partagent le même pool de limites entre Claude.ai et Claude Code : ce que vous consommez dans le chat ampute ce qu'il vous reste dans le terminal.
+
+Les seuls chiffres officiels par plan datent de l'annonce des limites hebdomadaires, relayée par TechCrunch en juillet 2025.
+
+| Plan | Sonnet par semaine | Opus par semaine |
+|---|---|---|
+| Pro | 40 à 80 h | non inclus |
+| Max 5x | 140 à 280 h | 15 à 35 h |
+| Max 20x | 240 à 480 h | 24 à 40 h |
+
+Méfiez-vous des tableaux en tokens qui circulent sur le sujet. Les valeurs précises par plan n'apparaissent dans aucune documentation officielle accessible, ce sont des estimations communautaires.
+
+Il existe une vraie porte de sortie, et elle est documentée. Claude Code applique un [ordre de priorité entre vos identifiants](https://code.claude.com/docs/en/authentication) : si `ANTHROPIC_API_KEY` est défini dans votre environnement, cette clé l'emporte sur l'authentification par abonnement. Vous quittez alors le régime de la fenêtre glissante pour celui des limites API classiques, exprimées en requêtes et en tokens par minute selon le palier de votre organisation. Plus de fenêtre de 5 heures, plus de plafond hebdomadaire, mais une facturation à l'usage qui n'a plus rien à voir avec le forfait.
+
+Entre les deux, Anthropic propose d'acheter du dépassement : une fois la limite atteinte, l'usage supplémentaire est facturé au tarif API standard. C'est désactivé par défaut et cela s'active dans les réglages de facturation. Un détail intéressant, l'API vous dit où vous en êtes sur ce point aussi. Le header `anthropic-ratelimit-unified-overage-status` vaut `rejected` quand le dépassement est refusé, et `overage-disabled-reason` en donne la cause, par exemple `org_level_disabled` quand un administrateur l'a bloqué pour toute l'organisation.
 
 ## Où Claude Code cache-t-il l'heure exacte du reset ?
 
@@ -133,7 +153,7 @@ Maintenant, je lance ces tâches **juste avant la réinitialisation**. Le reset 
 
 Ça ne fonctionne que si vous savez à la minute près quand la bascule arrive. Avec un reset qui dérive entre 18h et minuit selon l'heure à laquelle vous avez ouvert votre terminal, vous ne pouvez rien planifier. Avec un reset à 22h tous les jours, vous placez votre gros morceau à 21h45 et vous savez ce qui va se passer.
 
-Pour un travail en solo, où [personne d'autre ne prend le relais quand vous êtes bloqué](/blog/fractional-cto-lead-technique-temps-partiel), cette maîtrise du calendrier compte davantage qu'un quota marginal supplémentaire.
+Quand on travaille seul, personne ne prend le relais pendant que la limite se recharge, et [tout ce qu'une seule personne porte devient une dette](/blog/fractional-cto-lead-technique-temps-partiel). Cette maîtrise du calendrier compte alors davantage qu'un quota marginal supplémentaire.
 
 ## claude-window, ancrer sa fenêtre automatiquement
 
@@ -186,6 +206,10 @@ L'API Messages renvoie le header `anthropic-ratelimit-unified-5h-reset`, un time
 ### La limite hebdomadaire de Claude Code se réinitialise-t-elle vraiment tous les 7 jours ?
 
 Le chercheur Martin Monperrus a mesuré des intervalles réels de 71,9 à 72,6 heures entre deux réinitialisations en juin 2026, soit environ 72 heures et non 7 jours, alors que le champ `resets_at` de l'API annonce une date à 7 jours. Ce comportement n'est pas documenté par Anthropic.
+
+### Une clé API personnelle contourne-t-elle la fenêtre de 5 heures ?
+
+Oui. La documentation de Claude Code établit un ordre de priorité entre identifiants, dans lequel `ANTHROPIC_API_KEY` l'emporte sur l'authentification par abonnement. Vous basculez alors sur les limites API classiques, exprimées en requêtes et tokens par minute selon le palier de votre organisation, sans fenêtre glissante ni plafond hebdomadaire. En contrepartie l'usage est facturé à la consommation et sort du forfait Pro ou Max.
 
 ### Un cron de warmup permet-il d'ancrer sa fenêtre Claude Code ?
 
