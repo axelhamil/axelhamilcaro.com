@@ -12,12 +12,12 @@ const ABOUT_URL = "https://axelhamilcaro.com/about";
 export const metadata: Metadata = {
   title: "À propos : dev fullstack freelance",
   description:
-    "Développeur web fullstack freelance en Touraine, remote France. 4 ans lead tech chez Civitime, freelance depuis 2024, 10+ projets livrés en Next.js et React.",
+    "Développeur web fullstack freelance à Tours, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés depuis 2024 en Next.js et React.",
   alternates: { canonical: ABOUT_URL },
   openGraph: {
     title: "À propos : dev fullstack freelance",
     description:
-      "Dev fullstack en Touraine, remote France. 4 ans lead tech chez Civitime, freelance depuis 2024, 10+ projets livrés. Next.js, React, Node.js, Clean Architecture / DDD.",
+      "Dev fullstack à Tours, Centre-Val de Loire, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés depuis 2024. Next.js, React, DDD.",
     url: ABOUT_URL,
     type: "profile",
   },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "À propos : dev fullstack freelance",
     description:
-      "Dev fullstack en Touraine, remote France. 4 ans lead tech chez Civitime, freelance depuis 2024. 10+ projets livrés en Next.js, React, Node.js et Clean Architecture.",
+      "Dev fullstack à Tours, Centre-Val de Loire, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés en Next.js, React et Clean Archi.",
   },
 };
 
@@ -33,7 +33,7 @@ const profileSchema = buildProfilePageSchema({
   url: ABOUT_URL,
   name: "À propos d'Axel Hamilcaro",
   description:
-    "Page de présentation d'Axel Hamilcaro, développeur web fullstack freelance basé en Touraine.",
+    "Page de présentation d'Axel Hamilcaro, développeur web fullstack freelance basé à Tours, en Centre-Val de Loire.",
 });
 
 const breadcrumbSchema = buildBreadcrumbListSchema([

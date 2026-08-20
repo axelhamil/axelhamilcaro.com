@@ -1,6 +1,6 @@
 # Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node
 
-> Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine, 100% remote France.
+> Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé à Tours, en Centre-Val de Loire, 100% remote France.
 > Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, architecture Clean / DDD.
 > 4 ans chez Civitime (EdTech B Corp), de développeur à lead technique. 10+ projets livrés en freelance depuis 2024.
 > Stack : Next.js, React, Node.js, TypeScript, PostgreSQL, NestJS, Fastify, Drizzle, Stripe, Capacitor.
@@ -23,7 +23,7 @@
 ## Case studies
 
 - [ScormPilot](https://axelhamilcaro.com/portfolio/scormpilot): SaaS e-learning SCORM multi-tenant, 5 apps en solo (monorepo Turborepo), 99.9% uptime
-- [Civitime](https://axelhamilcaro.com/portfolio/civitime): plateforme RSE B Corp, 250 000+ collaborateurs, lead tech 4 ans, IA RAG
+- [Civitime](https://axelhamilcaro.com/portfolio/civitime): plateforme RSE B Corp, 250 000+ collaborateurs, 4 ans de dev à lead tech, IA RAG
 - [OpenUp](https://axelhamilcaro.com/portfolio/openup): SaaS de gestion de liens tout-en-un, edge Cloudflare <50ms, iOS/Android/PWA
 - [Billetterie](https://axelhamilcaro.com/portfolio/billetterie): plan de salle 2D/3D + WebSocket <200ms, solo en 1 mois
 

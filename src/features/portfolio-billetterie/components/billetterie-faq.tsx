@@ -17,7 +17,7 @@ export const billetterieFaqItems = [
   {
     question: "Quelle stack technique as-tu utilisée ?",
     answer:
-      "Next.js (dashboard), Node.js (API + WebSocket), PostgreSQL, Three.js pour le rendu 3D du plan de salle. Déploiement sur infra cliente.",
+      "Next.js 15 et React 19 (dashboard), NestJS (API + WebSocket), PostgreSQL avec Drizzle ORM, Seats.io pour le plan de salle 2D/3D. Déploiement Docker sur infra cliente.",
   },
 ];
 

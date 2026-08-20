@@ -19,7 +19,7 @@ const items = [
   {
     question: "Travailles-tu en remote ou sur site ?",
     answer:
-      "100% remote, basé en Touraine. Je suis disponible pour des points sur site ponctuels en France selon le projet (kickoff, atelier produit, restitution).",
+      "100% remote, basé à Tours, en Centre-Val de Loire. Je suis disponible pour des points sur site ponctuels en France selon le projet (kickoff, atelier produit, restitution).",
   },
   {
     question: "Comment se passe le premier contact ?",

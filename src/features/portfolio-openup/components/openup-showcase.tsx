@@ -390,7 +390,7 @@ export function OpenupHero() {
                 }}
               >
                 <Code2 className="w-3 h-3" />
-                Solo + founder
+                Duo avec le fondateur
               </span>
             </div>
           </RevealItem>
@@ -438,9 +438,9 @@ export function OpenupHero() {
               , au lieu d&apos;une WebView où l&apos;utilisateur n&apos;est
               connecté à rien. 57 applications résolues, 11 in-app browsers
               contournés. Plusieurs milliers d&apos;utilisateurs, 10 à 15%
-              convertis en payant. Développé from scratch en solo avec le
-              founder : Clean Architecture + DDD, edge {"<"}50ms via Cloudflare
-              Worker, mobile natif via Capacitor.
+              convertis en payant. Développé from scratch en duo avec le
+              fondateur : Clean Architecture + DDD, edge {"<"}50ms via
+              Cloudflare Worker, mobile natif via Capacitor.
             </Paragraph>
           </RevealItem>
 
@@ -635,12 +635,13 @@ export function OpenupContext() {
               Mon rôle
             </h3>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Tout, en solo et from scratch avec le founder en quelques
-              semaines. Architecture, backend Hono DDD, app mobile Capacitor
-              (iOS + Android + PWA depuis une seule codebase), Cloudflare Worker
-              pour les redirections edge et les deep links, intégration Stripe
-              multi-devise, BetterAuth, Cloudflare for SaaS pour les domaines
-              custom, CI/CD Fastlane pour les releases mobiles.
+              Toute la technique, from scratch, en duo avec le fondateur, en
+              quelques semaines. Architecture, backend Hono DDD, app mobile
+              Capacitor (iOS + Android + PWA depuis une seule codebase),
+              Cloudflare Worker pour les redirections edge et les deep links,
+              intégration Stripe multi-devise, BetterAuth, Cloudflare for SaaS
+              pour les domaines custom, CI/CD Fastlane pour les releases
+              mobiles.
             </p>
           </motion.div>
         </RevealItem>
@@ -668,11 +669,11 @@ export function OpenupContext() {
               </h3>
             </div>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Duo direct avec le founder : itérations courtes, décisions produit
-              prises à deux, design system construit en chemin sur shadcn/ui +
-              Tailwind 4. Le site marketing openup.to est sur Framer (hors
-              monorepo), proxifié via le worker pour garder un domaine unique :
-              openup.to (Framer) + app.openup.to (PWA) + openup.to/xxx
+              Duo direct avec le fondateur : itérations courtes, décisions
+              produit prises à deux, design system construit en chemin sur
+              shadcn/ui + Tailwind 4. Le site marketing openup.to est sur Framer
+              (hors monorepo), proxifié via le worker pour garder un domaine
+              unique : openup.to (Framer) + app.openup.to (PWA) + openup.to/xxx
               (redirections edge).
             </p>
           </motion.div>

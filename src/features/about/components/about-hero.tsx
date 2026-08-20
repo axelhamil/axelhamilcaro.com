@@ -37,7 +37,8 @@ export function AboutHero() {
             <p className="text-secondary text-lg leading-relaxed">
               <strong className="text-primary">
                 Axel Hamilcaro, développeur web fullstack (Next.js, React,
-                Node), freelance basé en Touraine, 100% remote sur la France.
+                Node), freelance basé à Tours, en Centre-Val de Loire, 100%
+                remote sur la France.
               </strong>{" "}
               Formé à la Wild Code School en 2020, j'ai passé 4 ans chez
               Civitime, de développeur à lead technique, avant de me lancer en

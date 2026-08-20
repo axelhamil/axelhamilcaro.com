@@ -56,7 +56,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
     metaTitle: "Développeur Next.js freelance",
     metaDescription:
-      "Dev Next.js freelance, 5 ans d'expérience. Architecture moderne, MVP 4-8 semaines, refonte apps. TypeScript / React 19 / Tailwind v4. TJM 500€ HT. Devis 24h.",
+      "Dev Next.js freelance, développeur depuis 2021. Architecture moderne, MVP 4-8 semaines, refonte apps. TypeScript / React 19 / Tailwind v4. TJM 500€ HT. Devis 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Développeur Next.js freelance qui livre vraiment.",
@@ -241,7 +241,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     url: `${SITE_URL}/services/lead-tech-fractional`,
     metaTitle: "Lead tech fractional freelance",
     metaDescription:
-      "Lead tech freelance, startups et PME. 4 ans lead tech Civitime (Clean Architecture, baisse churn). Engagements 3-18 mois, 1-3 jours par semaine. Devis sous 24h.",
+      "Lead tech freelance, startups et PME. 4 ans chez Civitime, de dev à lead tech (Clean Architecture, baisse churn). Engagements 3-18 mois, 1-3 jours par semaine. Devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Lead technique fractional pour ton équipe.",

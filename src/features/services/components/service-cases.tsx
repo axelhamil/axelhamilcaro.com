@@ -11,7 +11,7 @@ const CASE_META: Record<
   },
   civitime: {
     name: "Civitime",
-    description: "Plateforme RSE B Corp, lead tech 4 ans, IA RAG.",
+    description: "Plateforme RSE B Corp, 4 ans de dev à lead tech, IA RAG.",
   },
   openup: {
     name: "OpenUp",
