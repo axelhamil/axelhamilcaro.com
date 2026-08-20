@@ -28,15 +28,15 @@ export function AboutStory() {
         </p>
         <p className="text-secondary text-lg leading-relaxed mb-6">
           Depuis 2024, je travaille en freelance. Aujourd'hui, j'avance en
-          parallèle sur OpenUp, un SaaS de gestion de liens dont je suis
-          fondateur (openup.to : liens courts, QR, link-in-bio, analytics,
-          iOS/Android/PWA), sur ScormPilot, un SaaS e-learning multi-tenant (5
-          apps livrées en solo), et sur des missions de lead tech à temps
-          partiel. J'intègre l'IA dans mes workflows quotidiens (Claude Code,
-          Vercel AI SDK) pour gagner en vélocité sans sacrifier la qualité. Le
-          freelance me va bien aujourd'hui, et je reste ouvert à un engagement
-          long, mission au long cours ou poste en CDI, quand le produit et
-          l'équipe en valent la peine.
+          parallèle sur OpenUp, un SaaS de gestion de liens dont je suis le
+          développeur, en duo avec son fondateur (openup.to : liens courts, QR,
+          link-in-bio, analytics, iOS/Android/PWA), sur ScormPilot, un SaaS
+          e-learning multi-tenant (5 apps livrées en solo), et sur des missions
+          de lead tech à temps partiel. J'intègre l'IA dans mes workflows
+          quotidiens (Claude Code, Vercel AI SDK) pour gagner en vélocité sans
+          sacrifier la qualité. Le freelance me va bien aujourd'hui, et je reste
+          ouvert à un engagement long, mission au long cours ou poste en CDI,
+          quand le produit et l'équipe en valent la peine.
         </p>
       </div>
     </section>

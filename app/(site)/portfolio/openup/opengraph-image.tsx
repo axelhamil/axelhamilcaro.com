@@ -12,7 +12,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "Case study",
     title: "OpenUp : SaaS de gestion de liens",
-    subtitle:
-      "Solo + founder en quelques semaines · Hono + Capacitor + Cloudflare",
+    subtitle: "En duo avec le fondateur · Hono + Capacitor + Cloudflare",
   });
 }

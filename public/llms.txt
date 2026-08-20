@@ -22,7 +22,7 @@
 
 ## Case studies
 
-- [ScormPilot](https://axelhamilcaro.com/portfolio/scormpilot): SaaS e-learning SCORM multi-tenant, 7 apps en solo (monorepo Turborepo), 99.9% uptime
+- [ScormPilot](https://axelhamilcaro.com/portfolio/scormpilot): SaaS e-learning SCORM multi-tenant, 5 apps en solo (monorepo Turborepo), 99.9% uptime
 - [Civitime](https://axelhamilcaro.com/portfolio/civitime): plateforme RSE B Corp, 250 000+ collaborateurs, lead tech 4 ans, IA RAG
 - [OpenUp](https://axelhamilcaro.com/portfolio/openup): SaaS de gestion de liens tout-en-un, edge Cloudflare <50ms, iOS/Android/PWA
 - [Billetterie](https://axelhamilcaro.com/portfolio/billetterie): plan de salle 2D/3D + WebSocket <200ms, solo en 1 mois
