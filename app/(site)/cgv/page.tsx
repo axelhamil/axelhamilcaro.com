@@ -23,7 +23,7 @@ import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-l
 
 const LEGAL = {
   name: "Axel Hamilcaro",
-  legalName: "HAMILCARO Axel",
+  legalName: "HAMILCARO AXEL",
   status: "Entrepreneur individuel (EI), micro-entreprise",
   siren: "939 291 415",
   siret: "939 291 415 00015",

@@ -22,7 +22,7 @@ import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 const creativeWorkSchema = buildCreativeWorkSchema({
   name: "Civitime : plateforme RSE B Corp",
   description:
-    "Lead technique 4 ans sur la refonte complète d'une plateforme RSE B Corp en Clean Architecture + DDD + event sourcing. Conception d'un éditeur IA RAG qui a divisé par 2 les délais d'itération de l'équipe pédagogique.",
+    "4 ans chez Civitime, de développeur à lead technique, sur la refonte complète d'une plateforme RSE B Corp en Clean Architecture + DDD + event sourcing. Conception d'un éditeur IA RAG qui a divisé par 2 les délais d'itération de l'équipe pédagogique.",
   url: "https://axelhamilcaro.com/portfolio/civitime",
   dateCreated: "2021",
   keywords: [
@@ -70,14 +70,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Civitime : SaaS RSE multi-tenant, 4 ans",
     description:
-      "4 ans chez Civitime : serious games RSE gamifiés, éditeur interne, lead technique sur plateforme SaaS SCORM multi-tenant.",
+      "4 ans chez Civitime, de dev à lead technique : serious games RSE, éditeur interne, plateforme SaaS SCORM multi-tenant.",
     url: "/portfolio/civitime",
   },
   twitter: {
     card: "summary_large_image",
     title: "Civitime : SaaS RSE multi-tenant, 4 ans",
     description:
-      "4 ans chez Civitime : serious games RSE gamifiés, éditeur interne, lead technique sur plateforme SaaS SCORM multi-tenant.",
+      "4 ans chez Civitime, de dev à lead technique : serious games RSE, éditeur interne, plateforme SaaS SCORM multi-tenant.",
   },
 };
 

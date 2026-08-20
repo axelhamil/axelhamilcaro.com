@@ -1,8 +1,8 @@
 export const scormpilotFaqItems = [
   {
-    question: "Pourquoi 7 applications séparées et pas un monolithe ?",
+    question: "Pourquoi 5 applications séparées et pas un monolithe ?",
     answer:
-      "Chaque app a un cycle de release différent : API et dashboard évoluent vite, lecteur et runtime SCORM doivent être ultra stables et fonctionner offline (clients = organismes de formation), l'app builder sert à créer les modules, l'app Teams suit les contraintes Microsoft, et la status page tourne sur une infra séparée.",
+      "Chaque app a un cycle de release différent : API et dashboard évoluent vite, lecteur et runtime SCORM doivent être ultra stables et fonctionner offline (clients = organismes de formation), et l'app Teams suit les contraintes Microsoft.",
   },
   {
     question: "Multi-tenancy, comment c'est implémenté ?",

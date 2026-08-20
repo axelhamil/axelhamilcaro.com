@@ -43,7 +43,7 @@ const projects = [
   },
   {
     title: "OpenUp",
-    type: "SaaS · Freelance solo",
+    type: "SaaS · Duo avec le fondateur",
     description:
       "SaaS de gestion de liens tout-en-un (Bitly + Linktree + Beacons). Mobile natif iOS + Android + PWA depuis une codebase, edge Cloudflare <50ms, Stripe multi-devise. Live sur openup.to.",
     tech: ["Hono", "Capacitor", "Cloudflare Workers", "DDD", "Deep links"],

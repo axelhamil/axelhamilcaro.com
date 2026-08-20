@@ -52,7 +52,7 @@ export function JsonLd() {
     image: PROFILE_IMAGE,
     jobTitle: "Développeur Web Fullstack | Next.js | React | Node",
     description:
-      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé en Touraine et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. Lead technique 4 ans chez Civitime (de développeur à lead), 10+ projets livrés en freelance depuis 2024. TJM 500€ HT/jour.",
+      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé à Tours, en Centre-Val de Loire, et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. 4 ans chez Civitime, de développeur à lead technique, 10+ projets livrés en freelance depuis 2024. TJM 500€ HT/jour.",
     email: "mailto:contact@axelhamilcaro.com",
     knowsLanguage: ["fr-FR", "en"],
     sameAs: [
@@ -99,6 +99,7 @@ export function JsonLd() {
     address: {
       "@type": "PostalAddress",
       addressLocality: "Tours",
+      addressRegion: "Centre-Val de Loire",
       addressCountry: "FR",
     },
     nationality: {
@@ -131,7 +132,7 @@ export function JsonLd() {
     alternateName: "Axel Hamilcaro Portfolio",
     url: SITE_URL,
     description:
-      "Portfolio d'Axel Hamilcaro, développeur web fullstack Next.js, React et Node, basé en Touraine, 100% remote France. Expertise SaaS B2B multi-tenant, Clean Architecture et lead tech.",
+      "Portfolio d'Axel Hamilcaro, développeur web fullstack Next.js, React et Node, basé à Tours, en Centre-Val de Loire, 100% remote France. Expertise SaaS B2B multi-tenant, Clean Architecture et lead tech.",
     inLanguage: "fr-FR",
     copyrightYear: new Date().getFullYear(),
     about: { "@id": `${SITE_URL}/#person` },
@@ -223,8 +224,9 @@ export function JsonLd() {
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#service`,
     name: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
+    legalName: "HAMILCARO AXEL",
     description:
-      "Services de développement web fullstack freelance, basé en Touraine, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
+      "Services de développement web fullstack freelance, basé à Tours, en Centre-Val de Loire, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
     url: SITE_URL,
     image: PROFILE_IMAGE,
     priceRange: `${DAILY_RATE_EUR} EUR HT/jour, TMA de ${TMA_PRO_MONTHLY_EUR} à ${TMA_PREMIUM_MONTHLY_EUR} EUR HT/mois`,

@@ -12,6 +12,7 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "Case study",
     title: "Civitime : plateforme RSE",
-    subtitle: "Lead technique 4 ans · Clean Architecture + DDD + IA RAG",
+    subtitle:
+      "4 ans, de dev à lead technique · Clean Architecture + DDD + IA RAG",
   });
 }

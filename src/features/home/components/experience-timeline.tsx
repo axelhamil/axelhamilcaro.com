@@ -23,7 +23,7 @@ const experiences = [
   {
     period: "2025 - Présent",
     company: "OpenUp",
-    role: "Fondateur · Produit live",
+    role: "Développeur Fullstack · Produit live",
     description:
       "SaaS de gestion de liens live sur openup.to. Courts, QR, link-in-bio, analytics, iOS/Android/PWA.",
     icon: Link2,
@@ -36,11 +36,11 @@ const experiences = [
     company: "ScormPilot",
     role: "Développeur Fullstack",
     description:
-      "SaaS e-learning multi-tenant, 7 apps en solo. Next.js, Fastify, PostgreSQL.",
+      "SaaS e-learning multi-tenant, 5 apps en solo. Next.js, Fastify, PostgreSQL.",
     icon: Code2,
     gradient: "from-emerald-500 to-teal-500",
     side: "left" as const,
-    highlight: "7 apps",
+    highlight: "5 apps",
   },
   {
     period: "2024 - 2025",

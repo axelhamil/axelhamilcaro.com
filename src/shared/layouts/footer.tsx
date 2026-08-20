@@ -211,7 +211,7 @@ const Footer = () => {
           </Paragraph>
 
           <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">
-            Touraine, remote France
+            Tours, Centre-Val de Loire, remote France
           </Paragraph>
         </div>
       </div>

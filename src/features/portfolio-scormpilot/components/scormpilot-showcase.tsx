@@ -56,7 +56,7 @@ const stats = [
     color: SP.navy,
   },
   { value: "Milliers", label: "de players quotidiens", color: SP.blue },
-  { value: "7", label: "Apps", sublabel: "Monorepo Turborepo", color: SP.cyan },
+  { value: "5", label: "Apps", sublabel: "Monorepo Turborepo", color: SP.cyan },
   { value: "99.9%", label: "Uptime", color: SP.teal },
   { value: "Dizaines", label: "de clients actifs", color: SP.orange },
 ] as const;
@@ -158,7 +158,7 @@ const crossCutting = [
     icon: Cloud,
     title: "Infrastructure Production",
     description:
-      "CI/CD GitHub Actions, containers Docker sur Cloud Run, PostgreSQL managé, Firebase Auth/Storage. Status page sur Cloudflare Workers. 99.9% uptime.",
+      "CI/CD GitHub Actions, containers Docker sur Cloud Run, PostgreSQL managé, Firebase Auth/Storage. 99.9% uptime.",
     color: SP.blue,
   },
   {
@@ -182,7 +182,7 @@ const archHighlights = [
     icon: Server,
     title: "Monorepo Turborepo",
     description:
-      "7 apps (API Fastify, Dashboard Next.js, Player React, Runtime SCORM, Teams App, App Builder, Status Page) et 5 packages partages (drizzle, libs, types, ui, config).",
+      "5 apps (API Fastify, Dashboard Next.js, Player React, Runtime SCORM, Teams App) et 5 packages partages (drizzle, libs, types, ui, config).",
     color: SP.blue,
   },
   {
@@ -571,10 +571,10 @@ export function ScormpilotContext() {
               Mon rôle
             </h3>
             <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Conception produit, architecture, développement de 7 applications
-              (API, dashboard, player, runtime, Teams, status page),
-              infrastructure cloud et mise en production. Tout en solo, du
-              premier commit à la première facture.
+              Conception produit, architecture, développement de 5 applications
+              (API, dashboard, player, runtime, Teams), infrastructure cloud et
+              mise en production. Tout en solo, du premier commit à la première
+              facture.
             </p>
           </motion.div>
         </RevealItem>

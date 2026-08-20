@@ -7,14 +7,14 @@ import TreeLinksWrapper from "@/src/features/tree/components/tree-links-wrapper"
 export const metadata: Metadata = {
   title: "Liens et Réseaux",
   description:
-    "Retrouvez mes liens professionnels : LinkedIn, GitHub, Malt, rendez-vous. Axel Hamilcaro, dev freelance Next.js, React, Node.js, Touraine, remote France.",
+    "Retrouvez mes liens professionnels : LinkedIn, GitHub, Malt, rendez-vous. Axel Hamilcaro, dev freelance Next.js, React, Node.js, Tours, remote France.",
   alternates: {
     canonical: "/tree",
   },
   openGraph: {
     title: "Liens et Réseaux",
     description:
-      "Retrouvez mes liens professionnels : LinkedIn, GitHub, Malt, rendez-vous. Axel Hamilcaro, dev freelance Next.js, React, Node.js, Touraine, remote France.",
+      "Retrouvez mes liens professionnels : LinkedIn, GitHub, Malt, rendez-vous. Axel Hamilcaro, dev freelance Next.js, React, Node.js, Tours, remote France.",
     url: "/tree",
   },
 };

@@ -11,7 +11,7 @@ const CASE_META: Record<
   },
   civitime: {
     name: "Civitime",
-    description: "Plateforme RSE B Corp, lead tech 4 ans, IA RAG.",
+    description: "Plateforme RSE B Corp, 4 ans de dev à lead tech, IA RAG.",
   },
   openup: {
     name: "OpenUp",
@@ -20,7 +20,7 @@ const CASE_META: Record<
   },
   scormpilot: {
     name: "ScormPilot",
-    description: "SaaS e-learning multi-tenant, 7 apps en solo.",
+    description: "SaaS e-learning multi-tenant, 5 apps en solo.",
   },
 };
 

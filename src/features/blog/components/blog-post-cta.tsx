@@ -18,8 +18,9 @@ export function BlogPostCta() {
           Une mission ou un avis technique sur ton projet ?
         </h2>
         <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
-          Lead tech 4 ans, 10+ projets livrés en autonomie. Disponible pour
-          mission Next.js, SaaS B2B ou lead tech temps partiel. Devis sous 24h.
+          4 ans chez Civitime, de dev à lead technique, 10+ projets livrés en
+          autonomie. Disponible pour mission Next.js, SaaS B2B ou lead tech
+          temps partiel. Devis sous 24h.
         </p>
         <ContactModal>
           <button

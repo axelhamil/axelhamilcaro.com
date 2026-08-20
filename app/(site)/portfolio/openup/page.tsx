@@ -21,7 +21,7 @@ import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 const creativeWorkSchema = buildCreativeWorkSchema({
   name: "OpenUp, générateur de deep links",
   description:
-    "Mission freelance solo livrée from scratch avec le founder : SaaS qui transforme une URL en lien ouvrant l'application native de destination. 57 applications résolues, 11 navigateurs intégrés contournés (Instagram, TikTok, WeChat), plusieurs milliers d'utilisateurs et 10 à 15% convertis en payant. Mobile natif via Capacitor, edge <50ms via Cloudflare Worker, multi-devise Stripe EUR/USD, Clean Architecture + DDD sur Hono.",
+    "Mission freelance livrée from scratch en duo avec le fondateur, dont je suis le seul développeur : SaaS qui transforme une URL en lien ouvrant l'application native de destination. 57 applications résolues, 11 navigateurs intégrés contournés (Instagram, TikTok, WeChat), plusieurs milliers d'utilisateurs et 10 à 15% convertis en payant. Mobile natif via Capacitor, edge <50ms via Cloudflare Worker, multi-devise Stripe EUR/USD, Clean Architecture + DDD sur Hono.",
   url: "https://axelhamilcaro.com/portfolio/openup",
   dateCreated: "2026",
   keywords: [
@@ -55,7 +55,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 const openupDescription =
-  "OpenUp, générateur de deep links livré solo from scratch. 57 apps ouvertes en natif, 11 in-app browsers contournés, 10 à 15% de conversion payante. Hono, Capacitor, Cloudflare edge <50ms.";
+  "OpenUp, générateur de deep links livré from scratch en duo avec le fondateur. 57 apps ouvertes en natif, 11 in-app browsers contournés, 10 à 15% de conversion payante. Hono, Capacitor, Cloudflare edge <50ms.";
 
 export const metadata: Metadata = {
   title: "OpenUp : générateur de deep links",
