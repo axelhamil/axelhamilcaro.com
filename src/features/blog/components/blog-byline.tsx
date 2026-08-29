@@ -23,7 +23,7 @@ export function BlogByline({
     <TransitionLink
       href="/about"
       rel="author"
-      className="font-medium text-primary hover:text-accent transition-colors"
+      className="font-medium text-primary hover:text-accent-ink transition-colors"
     >
       {AUTHOR.name}
     </TransitionLink>
@@ -37,7 +37,7 @@ export function BlogByline({
         href={originalAuthorUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-secondary underline-offset-2 hover:text-accent hover:underline transition-colors"
+        className="text-secondary underline-offset-2 hover:text-accent-ink hover:underline transition-colors"
       >
         {originalAuthor}
       </a>

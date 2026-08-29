@@ -34,7 +34,7 @@ function LinkCardContent({
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light" />
 
       <div className="relative z-10 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-secondary-background border border-border group-hover:border-accent group-hover:bg-accent group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span className="text-primary group-hover:text-white transition-colors duration-300">
+        <span className="text-primary group-hover:text-accent-foreground transition-colors duration-300">
           {icon}
         </span>
       </div>
@@ -50,7 +50,7 @@ function LinkCardContent({
         )}
       </div>
 
-      <div className="relative z-10 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 shrink-0">
+      <div className="relative z-10 text-muted-foreground group-hover:text-accent-ink group-hover:translate-x-1 transition-all duration-300 shrink-0">
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5"
           fill="none"

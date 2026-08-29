@@ -3,7 +3,12 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/src/shared/ui/theme/theme-provider";
-import { geistMono, geistSans, spaceGrotesk } from "./_config/fonts";
+import {
+  courierPrime,
+  fraunces,
+  geistMono,
+  instrumentSans,
+} from "./_config/fonts";
 import "./global.css";
 
 export { metadata } from "./_config/metadata";
@@ -19,7 +24,7 @@ export default function RootLayout({
       lang="fr"
       suppressHydrationWarning
       className={cn(
-        `${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`,
+        `${instrumentSans.variable} ${geistMono.variable} ${fraunces.variable} ${courierPrime.variable}`,
         "antialiased bg-primary-background",
       )}
     >

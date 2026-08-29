@@ -56,7 +56,7 @@ export function BlogNavbar() {
           <span
             className={cn(
               heading1Variants({ size: "sm" }),
-              "font-mono transition-colors duration-300 group-hover:text-accent",
+              "font-mono transition-colors duration-300 group-hover:text-accent-ink",
             )}
           >
             axel_hamilcaro()
@@ -75,7 +75,9 @@ export function BlogNavbar() {
                     "relative px-4 py-2 text-sm font-medium rounded-lg",
                     "transition-all duration-300",
                     "hover:bg-secondary-background",
-                    active ? "text-accent" : "text-primary hover:text-accent",
+                    active
+                      ? "text-accent-ink"
+                      : "text-primary hover:text-accent-ink",
                   )}
                 >
                   {link.label}
@@ -120,7 +122,7 @@ export function BlogNavbar() {
             onClick={mobileMenu.toggle}
             className={cn(
               "p-2 rounded-lg",
-              "text-primary hover:text-accent",
+              "text-primary hover:text-accent-ink",
               "hover:bg-secondary-background",
               "transition-all duration-300",
             )}
@@ -205,8 +207,8 @@ export function BlogNavbar() {
                           "transition-all duration-300",
                           "hover:bg-secondary-background",
                           active
-                            ? "text-accent bg-accent-light"
-                            : "text-primary hover:text-accent",
+                            ? "text-accent-ink bg-accent-light"
+                            : "text-primary hover:text-accent-ink",
                         )}
                       >
                         {link.label}

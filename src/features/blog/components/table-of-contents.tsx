@@ -95,7 +95,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
               onClick={(e) => handleClick(e, heading.id)}
               className={`block leading-snug transition-colors duration-200 ${
                 activeId === heading.id
-                  ? "text-accent font-medium"
+                  ? "text-accent-ink font-medium"
                   : "text-muted-foreground hover:text-primary"
               }`}
             >

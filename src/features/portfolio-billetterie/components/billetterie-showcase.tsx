@@ -272,7 +272,7 @@ export function BilletterieHero() {
           <RevealItem>
             <TransitionLink
               href="/#portfolio"
-              className="inline-flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors mb-6 group"
+              className="inline-flex items-center gap-2 text-sm text-secondary hover:text-accent-ink transition-colors mb-6 group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               Retour aux projets
@@ -436,10 +436,10 @@ export function BilletterieContext() {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-3 inline-flex"
+              className="eyebrow mb-3 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
-              <Target className="w-4 h-4 text-accent" />
+              <Target className="w-4 h-4 text-accent-ink" />
               <span className="text-sm font-medium">Contexte</span>
             </motion.div>
           </MagneticWrapper>
@@ -583,10 +583,10 @@ export function BilletterieScreenshots() {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-3 inline-flex"
+              className="eyebrow mb-3 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
-              <LayoutDashboard className="w-4 h-4 text-accent" />
+              <LayoutDashboard className="w-4 h-4 text-accent-ink" />
               <span className="text-sm font-medium">Aperçu</span>
             </motion.div>
           </MagneticWrapper>
@@ -753,10 +753,10 @@ export function BilletterieFeatures() {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-3 inline-flex"
+              className="eyebrow mb-3 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
-              <Layers className="w-4 h-4 text-accent" />
+              <Layers className="w-4 h-4 text-accent-ink" />
               <span className="text-sm font-medium">Fonctionnalités</span>
             </motion.div>
           </MagneticWrapper>
@@ -904,10 +904,10 @@ export function BilletterieArchitecture() {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-3 inline-flex"
+              className="eyebrow mb-3 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
-              <Server className="w-4 h-4 text-accent" />
+              <Server className="w-4 h-4 text-accent-ink" />
               <span className="text-sm font-medium">Architecture</span>
             </motion.div>
           </MagneticWrapper>
@@ -1000,10 +1000,10 @@ export function BilletterieTechStack() {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-3 inline-flex"
+              className="eyebrow mb-3 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
-              <TestTube2 className="w-4 h-4 text-accent" />
+              <TestTube2 className="w-4 h-4 text-accent-ink" />
               <span className="text-sm font-medium">Stack technique</span>
             </motion.div>
           </MagneticWrapper>
@@ -1072,7 +1072,7 @@ export function BilletterieBottomCta() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border border-border hover:border-accent hover:shadow-lg transition-all group"
               style={{ background: "var(--primary-background)" }}
             >
-              <ArrowLeft className="w-4 h-4 text-accent transition-transform group-hover:-translate-x-1" />
+              <ArrowLeft className="w-4 h-4 text-accent-ink transition-transform group-hover:-translate-x-1" />
               Voir tous les projets
             </TransitionLink>
           </MagneticWrapper>

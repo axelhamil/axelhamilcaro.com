@@ -15,7 +15,7 @@ export function ServiceProblem({ data }: { data: ServiceData["problem"] }) {
           {data.bullets.map((bullet) => (
             <li key={bullet} className="flex items-start gap-4">
               <X
-                className="text-accent mt-0.5 shrink-0"
+                className="text-accent-ink mt-0.5 shrink-0"
                 size={20}
                 aria-hidden="true"
               />

@@ -5,7 +5,7 @@ export function TmaFaq() {
     <section className="py-20 sm:py-28 px-6 bg-secondary-background">
       <div className="max-w-4xl mx-auto">
         <p
-          className="text-accent font-medium tracking-wider text-sm mb-4"
+          className="text-accent-ink font-medium tracking-wider text-sm mb-4"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
           {"// questions_fréquentes()"}
@@ -26,7 +26,7 @@ export function TmaFaq() {
               key={item.question}
               className="group border-b border-border py-6"
             >
-              <summary className="cursor-pointer flex justify-between items-start gap-4 text-lg font-semibold text-primary group-open:text-accent">
+              <summary className="cursor-pointer flex justify-between items-start gap-4 text-lg font-semibold text-primary group-open:text-accent-ink">
                 <span>{item.question}</span>
                 <span
                   className="text-2xl font-light group-open:rotate-45 transition-transform shrink-0"

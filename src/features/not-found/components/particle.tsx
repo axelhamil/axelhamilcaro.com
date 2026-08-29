@@ -74,7 +74,7 @@ export function Particle({ particle, onCatch, caught }: ParticleProps) {
       >
         {particle.char}
         {message && (
-          <span className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-accent pointer-events-none escape-message">
+          <span className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-accent-ink pointer-events-none escape-message">
             {message}
           </span>
         )}

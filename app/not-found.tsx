@@ -114,7 +114,7 @@ export default function NotFound() {
               className="chromatic-layer-accent absolute inset-0 flex items-center justify-center"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              <span className="text-[120px] sm:text-[180px] md:text-[220px] font-bold text-accent">
+              <span className="text-[120px] sm:text-[180px] md:text-[220px] font-bold text-accent-ink">
                 404
               </span>
             </div>
@@ -150,10 +150,10 @@ export default function NotFound() {
             transition={{ delay: 0.5 }}
           >
             <Compass
-              className="w-4 h-4 text-accent animate-spin"
+              className="w-4 h-4 text-accent-ink animate-spin"
               style={{ animationDuration: "2s" }}
             />
-            <span className="text-sm text-accent font-medium">
+            <span className="text-sm text-accent-ink font-medium">
               Clique sur les fragments pour reconstruire la page
             </span>
           </motion.div>

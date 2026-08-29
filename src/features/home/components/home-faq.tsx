@@ -46,7 +46,7 @@ export function HomeFaq() {
             key={item.question}
             className="group border-b border-border py-6"
           >
-            <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent">
+            <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent-ink">
               {item.question}
               <span
                 className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform"

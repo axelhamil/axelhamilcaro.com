@@ -4,7 +4,7 @@ import { AUTHOR, EXTERNAL_LINKS } from "@/app/_config/site.constants";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
 const LINK_CLASS =
-  "inline-flex items-center gap-1.5 text-sm font-medium leading-none text-secondary hover:text-accent transition-colors";
+  "inline-flex items-center gap-1.5 text-sm font-medium leading-none text-secondary hover:text-accent-ink transition-colors";
 
 export function BlogAuthorBio({
   label = "À propos de l'auteur",
@@ -29,12 +29,12 @@ export function BlogAuthorBio({
         </TransitionLink>
 
         <div className="flex flex-col gap-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent-ink">
             {label}
           </p>
           <TransitionLink href="/about" rel="author" className="w-fit">
             <span
-              className="text-lg font-bold text-primary hover:text-accent transition-colors"
+              className="text-lg font-bold text-primary hover:text-accent-ink transition-colors"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               {AUTHOR.name}

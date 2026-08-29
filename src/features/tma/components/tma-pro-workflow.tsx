@@ -12,7 +12,7 @@ export function TmaProWorkflow() {
             PRO
           </span>
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// communication_et_suivi_pro()"}
@@ -39,7 +39,7 @@ export function TmaProWorkflow() {
                 className="card p-6 sm:p-8 flex flex-col"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10 text-accent">
+                  <div className="p-2 rounded-lg bg-accent/10 text-accent-ink">
                     <Icon className="w-5 h-5" aria-hidden="true" />
                   </div>
                   <span
@@ -53,7 +53,7 @@ export function TmaProWorkflow() {
                   {item.title}
                 </h3>
                 <p
-                  className="text-xs uppercase tracking-wider text-accent mb-3"
+                  className="text-xs uppercase tracking-wider text-accent-ink mb-3"
                   style={{ fontFamily: "var(--font-geist-mono)" }}
                 >
                   {item.tagline}

@@ -86,7 +86,7 @@ const HeroLeft = () => {
                 className="animate-icon-wiggle"
                 style={{ animationDelay: `${delay * 2}s` }}
               >
-                <Icon className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
+                <Icon className="w-5 h-5 text-accent-ink group-hover:scale-110 transition-transform" />
               </span>
               {label}
               {index < techIcons.length - 1 && (
@@ -167,7 +167,7 @@ const HeroLeft = () => {
             >
               <AnimatedCounter
                 value={v}
-                className="text-2xl sm:text-3xl font-bold text-accent"
+                className="text-2xl sm:text-3xl font-bold text-accent-ink"
               />
               <span className="text-xs sm:text-sm text-secondary text-center">
                 {l}

@@ -8,7 +8,7 @@ export function BlogPostCta() {
       aria-label="Travaillons ensemble"
     >
       <div className="rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/5 to-transparent p-6 sm:p-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
+        <p className="text-xs font-semibold uppercase tracking-widest text-accent-ink mb-3">
           Travaillons ensemble
         </p>
         <h2

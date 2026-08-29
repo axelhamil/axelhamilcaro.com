@@ -96,7 +96,7 @@ function SuccessState({
             </motion.div>
 
             <motion.h2
-              className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-3 tracking-tight"
+              className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-3 tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -105,7 +105,7 @@ function SuccessState({
             </motion.h2>
 
             <motion.p
-              className="text-gray-500 text-lg mb-6"
+              className="text-muted-foreground text-lg mb-6"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
@@ -114,7 +114,7 @@ function SuccessState({
             </motion.p>
 
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-500 text-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-background text-muted-foreground text-sm"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
@@ -159,7 +159,7 @@ function FloatingLabelInput({
         onBlur={() => setIsFocused(false)}
         required
         disabled={disabled}
-        className="peer w-full px-0 py-4 bg-transparent border-0 border-b-2 border-gray-200 text-gray-900 text-lg transition-all duration-300 focus:outline-none focus:border-current disabled:opacity-50 placeholder-transparent"
+        className="peer w-full px-0 py-4 bg-transparent border-0 border-b-2 border-border text-foreground text-lg transition-all duration-300 focus:outline-none focus:border-current disabled:opacity-50 placeholder-transparent"
         style={{ borderColor: isFocused ? accentColor : undefined }}
         placeholder={label}
       />
@@ -346,12 +346,12 @@ export function FormCard({ form }: FormCardProps) {
                     </motion.span>
                   )}
 
-                  <h1 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4 tracking-tight leading-tight">
+                  <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4 tracking-tight leading-tight">
                     {form.title}
                   </h1>
 
                   {form.description && (
-                    <p className="text-gray-500 text-lg leading-relaxed">
+                    <p className="text-muted-foreground text-lg leading-relaxed">
                       {form.description}
                     </p>
                   )}
@@ -386,7 +386,7 @@ export function FormCard({ form }: FormCardProps) {
                   <AnimatePresence>
                     {error && (
                       <motion.div
-                        className="flex items-center gap-3 text-red-600 text-sm bg-red-50/80 backdrop-blur border border-red-100 rounded-2xl px-5 py-4"
+                        className="flex items-center gap-3 text-destructive text-sm bg-destructive/10 backdrop-blur border border-destructive/20 rounded-2xl px-5 py-4"
                         initial={{ opacity: 0, height: 0, marginTop: 0 }}
                         animate={{ opacity: 1, height: "auto", marginTop: 8 }}
                         exit={{ opacity: 0, height: 0, marginTop: 0 }}
@@ -438,7 +438,7 @@ export function FormCard({ form }: FormCardProps) {
                 </motion.form>
 
                 <motion.p
-                  className="mt-8 text-center text-sm text-gray-400 flex items-center justify-center gap-2"
+                  className="mt-8 text-center text-sm text-muted-foreground flex items-center justify-center gap-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6, duration: 0.5 }}

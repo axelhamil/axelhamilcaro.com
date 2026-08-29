@@ -16,7 +16,7 @@ export function TextReveal({
   className,
   delay = 0,
   highlightWords = [],
-  highlightClassName = "text-accent",
+  highlightClassName = "text-accent-ink",
 }: TextRevealProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });

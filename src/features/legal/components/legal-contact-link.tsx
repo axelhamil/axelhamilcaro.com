@@ -14,7 +14,7 @@ const STYLES: Record<Variant, string> = {
   button:
     "inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent-hover transition-all duration-300 cursor-pointer",
   inline:
-    "text-accent font-medium hover:underline cursor-pointer underline underline-offset-2",
+    "text-accent-ink font-medium hover:underline cursor-pointer underline underline-offset-2",
 };
 
 export function LegalContactLink({

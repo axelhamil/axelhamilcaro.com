@@ -165,7 +165,7 @@ const SECTIONS: LegalSection[] = [
         {LEGAL.host.address}. Téléphone :{" "}
         <a
           href={`tel:${LEGAL.host.phone.replace(/\s/g, "")}`}
-          className="text-accent underline underline-offset-2"
+          className="text-accent-ink underline underline-offset-2"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
           {LEGAL.host.phone}
@@ -175,7 +175,7 @@ const SECTIONS: LegalSection[] = [
           href={LEGAL.host.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-accent underline underline-offset-2"
+          className="text-accent-ink underline underline-offset-2"
         >
           vercel.com
         </a>
@@ -264,7 +264,7 @@ const SECTIONS: LegalSection[] = [
             href="https://www.cnil.fr/fr/plaintes"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent underline underline-offset-2"
+            className="text-accent-ink underline underline-offset-2"
           >
             CNIL
           </a>{" "}
@@ -317,7 +317,7 @@ const SECTIONS: LegalSection[] = [
         publiquement sur la page{" "}
         <a
           href="/cgv"
-          className="text-accent underline underline-offset-2 font-semibold"
+          className="text-accent-ink underline underline-offset-2 font-semibold"
         >
           /cgv
         </a>{" "}
@@ -326,7 +326,7 @@ const SECTIONS: LegalSection[] = [
         est matérialisée par le règlement de la première mensualité. Les
         conditions spécifiques (durée, résiliation, SLA, périmètre) sont
         rappelées sur la page{" "}
-        <a href="/tma" className="text-accent underline underline-offset-2">
+        <a href="/tma" className="text-accent-ink underline underline-offset-2">
           /tma
         </a>{" "}
         et dans la facture émise par Stripe.
@@ -378,7 +378,7 @@ export default function MentionsLegalesPage() {
       <section className="py-16 sm:py-24 lg:py-28 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// mentions_légales()"}
@@ -404,7 +404,7 @@ export default function MentionsLegalesPage() {
           {SECTIONS.map(({ icon: Icon, title, body }) => (
             <article key={title} className="card p-6 sm:p-8 lg:p-10">
               <div className="flex items-start gap-4 mb-6">
-                <div className="shrink-0 p-3 rounded-xl bg-accent/10 text-accent">
+                <div className="shrink-0 p-3 rounded-xl bg-accent/10 text-accent-ink">
                   <Icon className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <h2

@@ -6,7 +6,7 @@ export function TmaProcess() {
       <div className="max-w-5xl mx-auto">
         <div className="mb-12">
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// comment_ça_marche()"}
@@ -27,7 +27,7 @@ export function TmaProcess() {
           {TMA_PROCESS.map((step) => (
             <li key={step.step} className="card p-6 sm:p-8 flex flex-col">
               <span
-                className="text-5xl font-bold text-accent block mb-4"
+                className="text-5xl font-bold text-accent-ink block mb-4"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
                 aria-hidden="true"
               >

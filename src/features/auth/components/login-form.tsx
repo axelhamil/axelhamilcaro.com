@@ -55,7 +55,7 @@ export function LoginForm() {
             damping: 15,
           }}
         >
-          <Lock className="w-7 h-7 text-accent" />
+          <Lock className="w-7 h-7 text-accent-ink" />
         </motion.div>
 
         <motion.h1
@@ -138,7 +138,7 @@ export function LoginForm() {
       >
         <a
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors duration-200"
+          className="inline-flex items-center gap-2 text-sm text-secondary hover:text-accent-ink transition-colors duration-200"
         >
           <span>←</span>
           <span>Retour au site</span>

@@ -14,7 +14,8 @@ type Company = {
   type: string;
   logoSrc?: string;
   logo?: string;
-  gradient: string;
+  tone: string;
+  chip: string;
 };
 
 const companies: Company[] = [
@@ -22,49 +23,57 @@ const companies: Company[] = [
     name: "Civitime",
     type: "EdTech B Corp",
     logoSrc: "/portfolio/civitime/logo.webp",
-    gradient: "from-accent to-orange-600",
+    tone: "tone-fact",
+    chip: "chip-ember",
   },
   {
     name: "ScormPilot",
     type: "SaaS e-learning",
     logoSrc: "/portfolio/scormpilot/logo.webp",
-    gradient: "from-emerald-500 to-teal-500",
+    tone: "tone-fact",
+    chip: "chip-jade",
   },
   {
     name: "OpenUp",
     type: "SaaS gestion de liens",
     logoSrc: "/portfolio/openup/logo.svg",
-    gradient: "from-[#0066FF] to-[#7C3AED]",
+    tone: "tone-fact",
+    chip: "chip-openup",
   },
   {
     name: "Billetterie",
     type: "Dashboard événementiel",
     logoSrc: "/portfolio/billetterie/logo.svg",
-    gradient: "from-violet-600 to-amber-500",
+    tone: "tone-fact",
+    chip: "chip-plum",
   },
   {
     name: "Superprof",
     type: "Plateforme",
     logo: "S",
-    gradient: "from-purple-500 to-pink-500",
+    tone: "tone-fact",
+    chip: "chip-magenta",
   },
   {
     name: "MentorTroc",
     type: "App sociale",
     logo: "MT",
-    gradient: "from-blue-500 to-indigo-500",
+    tone: "tone-fact",
+    chip: "chip-indigo",
   },
   {
     name: "Artisans",
     type: "Sites vitrines",
     logo: "AL",
-    gradient: "from-amber-500 to-orange-500",
+    tone: "tone-fact",
+    chip: "chip-amber",
   },
   {
     name: "Startups",
     type: "MVPs",
     logo: "S+",
-    gradient: "from-cyan-500 to-blue-500",
+    tone: "tone-fact",
+    chip: "chip-cyan",
   },
 ];
 
@@ -78,8 +87,8 @@ const CompanyCard = ({ company }: { company: Company }) => (
       <motion.div
         className={
           company.logoSrc
-            ? "w-10 h-10 rounded-lg bg-white dark:bg-secondary-background border border-border/30 flex items-center justify-center shadow-sm overflow-hidden"
-            : `w-10 h-10 rounded-lg bg-gradient-to-br ${company.gradient} flex items-center justify-center shadow-md`
+            ? "w-10 h-10 rounded-lg bg-card border border-border/30 flex items-center justify-center shadow-sm overflow-hidden"
+            : `w-10 h-10 rounded-lg ${company.chip} tone-chip flex items-center justify-center shadow-md`
         }
         whileHover={{ rotate: 8, scale: 1.1 }}
       >
@@ -94,7 +103,7 @@ const CompanyCard = ({ company }: { company: Company }) => (
           />
         ) : (
           <span
-            className="text-xs font-bold text-white"
+            className="text-xs font-bold"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
             {company.logo}
@@ -127,14 +136,14 @@ const TrustedBy = () => {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-4 inline-flex"
+              className="eyebrow mb-4 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
               <motion.span
                 animate={{ y: [0, -3, 0] }}
                 transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
               >
-                <Building2 className="w-4 h-4 text-accent" />
+                <Building2 className="w-4 h-4 text-accent-ink" />
               </motion.span>
               <span className="text-sm font-medium">Références</span>
             </motion.div>
@@ -204,10 +213,10 @@ const TrustedBy = () => {
                   ease: "easeInOut",
                 }}
               >
-                <Award className="w-4 h-4 text-amber-500" />
+                <Award className="w-4 h-4 text-accent-ink" />
               </motion.span>
               <span className="text-xs sm:text-sm text-secondary">
-                <span className="font-semibold text-accent">
+                <span className="font-semibold text-accent-ink">
                   <AnimatedCounter value="20+" className="inline" />
                 </span>{" "}
                 applications livrées depuis 2021 · Disponible pour votre projet

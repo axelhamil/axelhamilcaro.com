@@ -20,7 +20,7 @@ export default function TreeHeader() {
       <div className="flex flex-col items-center gap-2 sm:gap-3">
         <div className="relative">
           <motion.div
-            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-accent shadow-lg"
+            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-primary shadow-lg"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{
@@ -63,7 +63,7 @@ export default function TreeHeader() {
               className="text-xl sm:text-2xl md:text-3xl"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              <span className="text-accent">Axel</span> Hamilcaro
+              <span className="text-accent-ink">Axel</span> Hamilcaro
             </Heading1>
           </motion.div>
 
@@ -87,7 +87,7 @@ export default function TreeHeader() {
               <ContactModal>
                 <motion.button
                   type="button"
-                  className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl card-accent flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-primary hover:text-accent transition-colors duration-300 cursor-pointer"
+                  className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl card-accent flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-primary hover:text-accent-ink transition-colors duration-300 cursor-pointer"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >

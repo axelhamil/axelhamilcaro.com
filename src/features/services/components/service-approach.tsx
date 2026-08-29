@@ -14,7 +14,7 @@ export function ServiceApproach({ data }: { data: ServiceData["approach"] }) {
           {data.steps.map((step, index) => (
             <div key={step.title} className="card p-8">
               <span
-                className="text-5xl font-bold text-accent block mb-4"
+                className="text-5xl font-bold text-accent-ink block mb-4"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
                 aria-hidden="true"
               >

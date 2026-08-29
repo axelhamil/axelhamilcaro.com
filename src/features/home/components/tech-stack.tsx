@@ -16,7 +16,8 @@ const blocks = [
     title: "React & Next.js",
     desc: "TypeScript strict, composants réutilisables et architecture modulaire pour une base de code évolutive.",
     icon: Layers,
-    gradient: "from-blue-500 to-cyan-500",
+    tone: "tone-method",
+    chip: "chip-azure",
     bullets: [
       "Server Components & App Router",
       "State management optimisé",
@@ -28,7 +29,8 @@ const blocks = [
     title: "Design system moderne",
     desc: "Tailwind CSS, animations Framer Motion et composants accessibles pour une expérience utilisateur premium.",
     icon: Gauge,
-    gradient: "from-amber-500 to-orange-500",
+    tone: "tone-method",
+    chip: "chip-amber",
     bullets: [
       "Responsive mobile-first",
       "SEO technique optimisé",
@@ -40,7 +42,8 @@ const blocks = [
     title: "Node.js & PostgreSQL",
     desc: "APIs REST/GraphQL, authentification sécurisée et base de données performante pour des applications robustes.",
     icon: Shield,
-    gradient: "from-emerald-500 to-teal-500",
+    tone: "tone-method",
+    chip: "chip-jade",
     bullets: [
       "APIs documentées",
       "Authentification OAuth/JWT",
@@ -80,7 +83,7 @@ const TechStack = () => {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-4 inline-flex"
+              className="eyebrow mb-4 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
               <motion.span
@@ -91,7 +94,7 @@ const TechStack = () => {
                   ease: "linear",
                 }}
               >
-                <Cpu className="w-4 h-4 text-accent" />
+                <Cpu className="w-4 h-4 text-accent-ink" />
               </motion.span>
               <span className="text-sm font-medium">Stack</span>
             </motion.div>
@@ -147,7 +150,7 @@ const TechStack = () => {
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <motion.div
-                      className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${b.gradient} opacity-0 blur-3xl`}
+                      className={`absolute -top-20 -right-20 w-48 h-48 rounded-full ${b.tone} tone-glow opacity-0 blur-3xl`}
                       whileHover={{ opacity: 0.1 }}
                       transition={{ duration: 0.3 }}
                     />
@@ -156,7 +159,7 @@ const TechStack = () => {
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <motion.p
-                            className={`text-xs uppercase tracking-wider font-semibold bg-gradient-to-r ${b.gradient} bg-clip-text text-transparent`}
+                            className={`text-xs uppercase tracking-wider font-semibold ${b.tone} tone-text`}
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -172,7 +175,7 @@ const TechStack = () => {
                         <motion.div
                           className={cn(
                             "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg",
-                            `bg-gradient-to-br ${b.gradient}`,
+                            `${b.chip} tone-chip`,
                           )}
                           whileHover={{
                             scale: 1.08,
@@ -184,7 +187,7 @@ const TechStack = () => {
                             damping: 17,
                           }}
                         >
-                          <Icon className="w-6 h-6 text-white" />
+                          <Icon className="w-6 h-6" />
                         </motion.div>
                       </div>
 
@@ -206,7 +209,7 @@ const TechStack = () => {
                               whileHover={{ scale: 1.1, rotate: 5 }}
                               transition={{ type: "spring", stiffness: 350 }}
                             >
-                              <Check className="w-4 h-4 mt-0.5 text-accent" />
+                              <Check className="w-4 h-4 mt-0.5 text-accent-ink" />
                             </motion.span>
                             <span className="text-sm text-primary">{txt}</span>
                           </motion.li>
@@ -243,7 +246,7 @@ const TechStack = () => {
                 animate={{ scale: [1, 1.04, 1] }}
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               >
-                <Cpu className="w-4 h-4 text-accent" />
+                <Cpu className="w-4 h-4 text-accent-ink" />
               </motion.span>
               <span className="text-xs sm:text-sm text-secondary">
                 Stack adaptable : MVP rapide, refonte progressive, SaaS

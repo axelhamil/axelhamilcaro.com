@@ -22,7 +22,7 @@ export function SuccessMessage({ onReset }: SuccessMessageProps) {
         transition={{ type: "spring", delay: 0.2 }}
       >
         <motion.div
-          className="text-8xl sm:text-9xl font-bold font-display text-accent"
+          className="text-8xl sm:text-9xl font-bold font-display text-accent-ink"
           animate={{
             textShadow: [
               "0 0 20px rgba(255, 77, 0, 0.5)",

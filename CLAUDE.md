@@ -204,6 +204,10 @@ public/                           # assets statiques
 
 19. **SWR hooks dans `/src/entities/<entity>/api.ts`.** Hooks SWR de domain stable (forms, leads, tree-links) dans entities. Hooks de feature admin (analytics, dashboard) dans `/src/features/admin*/hooks/`. Ne PAS créer de hooks SWR dans `/app/`.
 
+20. **DA centralisée dans `app/global.css`.** Le Tailwind des composants ne fait que du layout et du positionnement. Couleurs, bordures, radius, ombres, typographie, états hover/focus vivent dans `global.css`. Système à 4 primitives (`--brand-a` orange = emphase, `--brand-b` bleu = action/CTA, `--ink`, `--paper`) ; tout le reste dérive en `color-mix(in oklab, ...)`. Le mode dark ne redéfinit que ces 4 primitives. Tons sémantiques de carte : `.tone-conversion` / `.tone-method` / `.tone-fact`. Palette de pastilles d'icônes : `.chip-*` (le JSX porte le nom, jamais la couleur).
+
+21. **EXCEPTION portfolio : les couleurs de marque client restent en dur.** Les showcases `src/features/portfolio-*/components/*-showcase.tsx` sont thématiques du projet/client (hex de marque, pills arrondies, stats multicolores). Ne PAS les convertir aux tokens ni aux angles droits : c'est volontaire.
+
 ## Page Structure
 
 ### Layouts

@@ -92,7 +92,7 @@ export function KeyStatsWidget() {
               className="text-sm font-bold text-primary mb-3 flex items-center gap-2"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
-              <span className="text-accent">⚡</span> Session Stats
+              <span className="text-accent-ink">⚡</span> Session Stats
             </h4>
 
             <div className="space-y-2">
@@ -102,7 +102,7 @@ export function KeyStatsWidget() {
                   Touches
                 </span>
                 <motion.span
-                  className="font-mono font-bold text-accent"
+                  className="font-mono font-bold text-accent-ink"
                   key={stats.keyPresses}
                   initial={{ scale: 1.2 }}
                   animate={{ scale: 1 }}
@@ -117,7 +117,7 @@ export function KeyStatsWidget() {
                   Clics
                 </span>
                 <motion.span
-                  className="font-mono font-bold text-accent"
+                  className="font-mono font-bold text-accent-ink"
                   key={stats.clicks}
                   initial={{ scale: 1.2 }}
                   animate={{ scale: 1 }}
@@ -154,7 +154,7 @@ export function KeyStatsWidget() {
             transition={{ duration: 0.5 }}
           >
             <span
-              className="text-6xl font-bold text-accent/30"
+              className="text-6xl font-bold text-accent-ink/30"
               style={{ fontFamily: "var(--font-space-grotesk)" }}
             >
               {lastKey}

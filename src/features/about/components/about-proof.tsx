@@ -91,7 +91,7 @@ export function AboutProof() {
                 {highlights.map(({ value, label }) => (
                   <li key={label} className="flex items-baseline gap-3">
                     <span
-                      className="text-accent font-bold whitespace-nowrap shrink-0"
+                      className="text-accent-ink font-bold whitespace-nowrap shrink-0"
                       style={{ fontFamily: "var(--font-space-grotesk)" }}
                     >
                       {value}

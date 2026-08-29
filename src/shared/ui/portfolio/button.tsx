@@ -6,21 +6,21 @@ import { cn } from "@/lib/utils";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 ease-out cursor-pointer rounded-lg border-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-background disabled:opacity-50 disabled:cursor-not-allowed",
+  "inline-flex items-center justify-center gap-2 font-mono uppercase tracking-[0.08em] transition-colors duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer rounded-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-info/50 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-background disabled:opacity-50 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
         primary:
-          "bg-accent border-accent text-primary-background hover:bg-accent-hover hover:border-accent-hover hover:scale-[1.02] hover:shadow-lg hover:shadow-accent/20 active:scale-[0.98]",
+          "bg-info border-info text-info-foreground shadow-cta hover:bg-info-hover hover:border-info-hover",
         secondary:
-          "bg-secondary-background/50 border-secondary/30 text-primary hover:border-accent/40 hover:bg-secondary-background/70 hover:scale-[1.02] active:scale-[0.98]",
+          "bg-transparent border-primary text-primary hover:bg-primary hover:text-primary-background",
         ghost:
-          "bg-transparent border-transparent text-primary hover:bg-secondary-background/30 hover:border-secondary/20 active:scale-[0.98]",
+          "bg-transparent border-transparent text-primary underline-offset-[0.3em] decoration-1 hover:underline",
       },
       size: {
-        sm: "px-3 py-1.5 text-sm",
-        md: "px-5 py-2.5 text-base",
-        lg: "px-7 py-3 text-lg",
+        sm: "px-3 py-1.5 text-xs",
+        md: "px-5 py-2.5 text-sm",
+        lg: "px-7 py-3.5 text-sm",
       },
     },
     defaultVariants: {

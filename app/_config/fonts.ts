@@ -1,8 +1,14 @@
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import {
+  Courier_Prime,
+  Fraunces,
+  Geist_Mono,
+  Instrument_Sans,
+} from "next/font/google";
 
-export const geistSans = Geist({
-  variable: "--font-geist-sans",
+export const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const geistMono = Geist_Mono({
@@ -10,8 +16,14 @@ export const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+export const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  axes: ["SOFT", "WONK", "opsz"],
+});
+
+export const courierPrime = Courier_Prime({
+  variable: "--font-courier-prime",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });

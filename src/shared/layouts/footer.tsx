@@ -59,13 +59,13 @@ const Footer = () => {
             </Paragraph>
 
             <div className="flex flex-wrap gap-2 pt-1">
-              <span className="text-xs px-2.5 py-1 rounded-full border border-secondary/20 bg-secondary-background/20 text-secondary">
+              <span className="text-xs px-2.5 py-1 border border-secondary/20 bg-secondary-background/20 text-secondary">
                 Produit
               </span>
-              <span className="text-xs px-2.5 py-1 rounded-full border border-secondary/20 bg-secondary-background/20 text-secondary">
+              <span className="text-xs px-2.5 py-1 border border-secondary/20 bg-secondary-background/20 text-secondary">
                 Clean Architecture
               </span>
-              <span className="text-xs px-2.5 py-1 rounded-full border border-secondary/20 bg-secondary-background/20 text-secondary">
+              <span className="text-xs px-2.5 py-1 border border-secondary/20 bg-secondary-background/20 text-secondary">
                 Performance
               </span>
             </div>
@@ -78,31 +78,31 @@ const Footer = () => {
             <nav className="flex flex-col gap-2">
               <TransitionLink
                 href="/about"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 À propos
               </TransitionLink>
               <TransitionLink
                 href="/#portfolio"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 Portfolio
               </TransitionLink>
               <TransitionLink
                 href="/blog"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 Blog
               </TransitionLink>
               <TransitionLink
                 href="/tree"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 Liens
               </TransitionLink>
               <a
                 href="/sitemap.xml"
-                className="text-xs text-muted-foreground hover:text-accent transition-colors mt-1"
+                className="text-xs text-muted-foreground hover:text-accent-ink transition-colors mt-1"
               >
                 Sitemap
               </a>
@@ -116,31 +116,31 @@ const Footer = () => {
             <nav className="flex flex-col gap-2">
               <TransitionLink
                 href="/services/developpeur-nextjs-freelance"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 Développeur Next.js
               </TransitionLink>
               <TransitionLink
                 href="/services/developpement-saas"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 Développement SaaS
               </TransitionLink>
               <TransitionLink
                 href="/services/lead-tech-fractional"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 Lead tech fractional
               </TransitionLink>
               <TransitionLink
                 href="/tma"
-                className="text-sm text-primary hover:text-accent transition-colors"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
               >
                 TMA : forfait mensuel
               </TransitionLink>
               <TransitionLink
                 href="/services"
-                className="text-sm text-secondary hover:text-accent transition-colors"
+                className="text-sm text-secondary hover:text-accent-ink transition-colors"
               >
                 Tous les services →
               </TransitionLink>
@@ -156,13 +156,13 @@ const Footer = () => {
               <ContactModal>
                 <button
                   type="button"
-                  className="group flex items-center justify-between gap-3 rounded-xl px-4 py-3 bg-accent text-white hover:bg-accent-hover hover:shadow-lg transition-all duration-300 text-left cursor-pointer"
+                  className="group flex items-center justify-between gap-3 rounded-xl px-4 py-3 bg-info text-info-foreground hover:bg-info-hover hover:shadow-lg transition-all duration-300 text-left cursor-pointer"
                 >
                   <span className="flex items-center gap-2 text-sm font-semibold">
                     <Mail className="w-4 h-4" />
                     Me contacter
                   </span>
-                  <span className="text-xs text-white">
+                  <span className="text-xs text-accent-foreground">
                     Réponse sous 1h en journée
                   </span>
                 </button>
@@ -177,7 +177,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.name}
-                  className="p-2 rounded-lg bg-secondary-background/30 border border-secondary/20 text-primary hover:text-accent hover:border-accent/40 hover:bg-secondary-background/50 transition-all duration-300 hover:scale-110"
+                  className="p-2 rounded-lg bg-secondary-background/30 border border-secondary/20 text-primary hover:text-accent-ink hover:border-accent/40 hover:bg-secondary-background/50 transition-all duration-300 hover:scale-110"
                 >
                   <link.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
@@ -193,21 +193,19 @@ const Footer = () => {
             &copy; {currentYear} Axel Hamilcaro · SIRET 939 291 415 00015 ·{" "}
             <TransitionLink
               href="/mentions-legales"
-              className="hover:text-accent transition-colors"
+              className="hover:text-accent-ink transition-colors"
             >
               Mentions légales
             </TransitionLink>
           </Paragraph>
 
-          <Paragraph
-            variant="muted"
-            size="sm"
-            className="text-xs sm:text-sm flex items-center gap-1.5"
-          >
+          <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">
             Fait avec{" "}
-            <Heart className="w-3.5 h-3.5 text-accent animate-pulse" />,{" "}
-            <Coffee className="w-3.5 h-3.5 text-accent" /> et beaucoup de{" "}
-            <span className="font-mono text-accent">TypeScript</span>
+            <Heart className="inline w-3.5 h-3.5 align-[-0.15em] text-accent-ink animate-pulse" />
+            ,{" "}
+            <Coffee className="inline w-3.5 h-3.5 align-[-0.15em] text-accent-ink" />{" "}
+            et beaucoup de{" "}
+            <span className="font-mono text-accent-ink">TypeScript</span>
           </Paragraph>
 
           <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">

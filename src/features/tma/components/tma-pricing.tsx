@@ -16,7 +16,7 @@ export function TmaPricing() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// souscrire()"}
@@ -51,7 +51,7 @@ export function TmaPricing() {
 
               <header className="mb-6">
                 <p
-                  className="text-accent font-semibold tracking-wider text-sm mb-2"
+                  className="text-accent-ink font-semibold tracking-wider text-sm mb-2"
                   style={{ fontFamily: "var(--font-geist-mono)" }}
                 >
                   {forfait.slug.toUpperCase()}
@@ -69,7 +69,10 @@ export function TmaPricing() {
 
               <div className="mb-6 pb-6 border-b border-border">
                 <p className="flex items-center gap-2 text-xs uppercase tracking-wider text-secondary mb-3">
-                  <Target className="w-4 h-4 text-accent" aria-hidden="true" />
+                  <Target
+                    className="w-4 h-4 text-accent-ink"
+                    aria-hidden="true"
+                  />
                   Pour qui
                 </p>
                 <ul className="space-y-2">
@@ -79,7 +82,7 @@ export function TmaPricing() {
                       className="flex items-start gap-2 text-sm text-primary"
                     >
                       <span
-                        className="text-accent mt-0.5 shrink-0"
+                        className="text-accent-ink mt-0.5 shrink-0"
                         aria-hidden="true"
                       >
                         →
@@ -162,7 +165,9 @@ export function TmaPricing() {
                   >
                     <Check
                       className={`w-5 h-5 mt-0.5 shrink-0 ${
-                        feature.premiumOnly ? "text-accent" : "text-accent/70"
+                        feature.premiumOnly
+                          ? "text-accent-ink"
+                          : "text-accent-ink/70"
                       }`}
                       aria-hidden="true"
                     />
@@ -180,7 +185,7 @@ export function TmaPricing() {
               <div className="mt-6 pt-6 border-t border-border flex justify-end">
                 <a
                   href={`#${forfait.slug}-details`}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-ink hover:text-accent-hover transition-colors"
                 >
                   En savoir plus
                   <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />

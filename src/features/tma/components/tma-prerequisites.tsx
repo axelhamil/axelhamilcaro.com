@@ -7,7 +7,7 @@ export function TmaPrerequisites() {
       <div className="max-w-5xl mx-auto">
         <div className="mb-12">
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// pré_requis()"}
@@ -31,7 +31,7 @@ export function TmaPrerequisites() {
               key={item.title}
               className="card p-6 sm:p-8 flex items-start gap-4"
             >
-              <div className="p-2 rounded-lg bg-accent/10 text-accent shrink-0">
+              <div className="p-2 rounded-lg bg-accent/10 text-accent-ink shrink-0">
                 <CheckCircle2 className="w-5 h-5" aria-hidden="true" />
               </div>
               <div>

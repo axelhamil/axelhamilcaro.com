@@ -21,7 +21,8 @@ const pillars = [
     title: "Architecture qui dure",
     description:
       "Clean Architecture et DDD quand le métier le justifie, simple sinon. Votre produit grandit sans réécriture.",
-    gradient: "from-emerald-500 to-teal-500",
+    tone: "tone-method",
+    chip: "chip-jade",
     number: "01",
   },
   {
@@ -29,7 +30,8 @@ const pillars = [
     title: "Performance & SEO",
     description:
       "Core Web Vitals optimisés, accessibilité et UX soignée. Vos utilisateurs restent.",
-    gradient: "from-amber-500 to-orange-500",
+    tone: "tone-method",
+    chip: "chip-amber",
     number: "02",
   },
   {
@@ -37,7 +39,8 @@ const pillars = [
     title: "Livraison continue",
     description:
       "Itérations courtes, releases fréquentes. Vous voyez les résultats rapidement.",
-    gradient: "from-blue-500 to-cyan-500",
+    tone: "tone-method",
+    chip: "chip-azure",
     number: "03",
   },
   {
@@ -45,7 +48,8 @@ const pillars = [
     title: "Monitoring",
     description:
       "Logs structurés, métriques et alertes. Votre prod est pilotable, pas une boîte noire.",
-    gradient: "from-purple-500 to-pink-500",
+    tone: "tone-method",
+    chip: "chip-magenta",
     number: "04",
   },
 ] as const;
@@ -59,7 +63,7 @@ const Approach = () => {
     >
       <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
         <RevealItem direction="scale">
-          <motion.div className="badge mb-4" whileHover={{ scale: 1.05 }}>
+          <motion.div className="eyebrow mb-4" whileHover={{ scale: 1.05 }}>
             <motion.span
               animate={{ rotate: [0, 360] }}
               transition={{
@@ -68,7 +72,7 @@ const Approach = () => {
                 ease: "linear",
               }}
             >
-              <Cpu className="w-4 h-4 text-accent" />
+              <Cpu className="w-4 h-4 text-accent-ink" />
             </motion.span>
             <span className="text-sm font-medium">Approche</span>
           </motion.div>
@@ -120,20 +124,20 @@ const Approach = () => {
                 </motion.span>
 
                 <motion.div
-                  className={`absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-br ${p.gradient} opacity-0 blur-3xl`}
+                  className={`absolute -bottom-20 -left-20 w-40 h-40 rounded-full ${p.tone} tone-glow opacity-0 blur-3xl`}
                   whileHover={{ opacity: 0.15 }}
                   transition={{ duration: 0.3 }}
                 />
 
                 <motion.div
-                  className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center shadow-lg`}
+                  className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl ${p.chip} tone-chip flex items-center justify-center shadow-lg`}
                   whileHover={{
                     scale: 1.2,
                     rotate: 8,
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <p.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                  <p.icon className="w-7 h-7 sm:w-8 sm:h-8" />
                 </motion.div>
 
                 <h3 className="relative z-10 font-semibold text-primary text-lg sm:text-xl">
@@ -193,7 +197,7 @@ const Approach = () => {
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
             >
-              <CheckCircle className="w-4 h-4 text-emerald-500" />
+              <CheckCircle className="w-4 h-4 text-accent-ink" />
             </motion.span>
             <span className="text-xs sm:text-sm text-secondary">
               Résultat : un produit livré rapidement, maintenable et prêt à

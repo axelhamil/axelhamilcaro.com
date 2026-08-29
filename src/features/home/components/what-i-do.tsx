@@ -29,28 +29,32 @@ const services = [
     title: "Conception",
     description:
       "Analyse de vos besoins, architecture technique et roadmap claire pour démarrer sur de bonnes bases.",
-    gradient: "from-amber-500 to-orange-500",
+    tone: "tone-conversion",
+    chip: "chip-amber",
   },
   {
     icon: Code2,
     title: "Développement",
     description:
       "Du MVP simple à l'architecture DDD et event sourcing selon votre métier. Un code TypeScript testé qui tient 5 ans, pas 6 mois.",
-    gradient: "from-blue-500 to-cyan-500",
+    tone: "tone-conversion",
+    chip: "chip-azure",
   },
   {
     icon: Rocket,
     title: "Déploiement",
     description:
       "Pipeline CI/CD, monitoring et mise en production automatisée. Zéro stress au lancement.",
-    gradient: "from-purple-500 to-pink-500",
+    tone: "tone-conversion",
+    chip: "chip-magenta",
   },
   {
     icon: Wrench,
     title: "Support",
     description:
       "Évolutions fonctionnelles, corrections et support réactif. Votre produit reste performant.",
-    gradient: "from-emerald-500 to-teal-500",
+    tone: "tone-conversion",
+    chip: "chip-jade",
   },
 ];
 
@@ -64,7 +68,7 @@ const WhatIDo = () => {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-4 inline-flex"
+              className="eyebrow mb-4 inline-flex"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -76,7 +80,7 @@ const WhatIDo = () => {
                   ease: "easeInOut",
                 }}
               >
-                <Sparkles className="w-4 h-4 text-accent" />
+                <Sparkles className="w-4 h-4 text-accent-ink" />
               </motion.span>
               <span className="text-sm font-medium">Services</span>
             </motion.div>
@@ -114,7 +118,7 @@ const WhatIDo = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 transition-opacity duration-500`}
+                    className={`absolute inset-0 ${service.tone} tone-glow opacity-0 transition-opacity duration-500`}
                     whileHover={{ opacity: 0.05 }}
                   />
 
@@ -132,14 +136,14 @@ const WhatIDo = () => {
                   />
 
                   <motion.div
-                    className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
+                    className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl ${service.chip} tone-chip flex items-center justify-center shadow-lg`}
                     whileHover={{
                       scale: 1.08,
                       rotate: 4,
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <service.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                    <service.icon className="w-7 h-7 sm:w-8 sm:h-8" />
                   </motion.div>
 
                   <h3 className="relative z-10 font-semibold text-primary text-lg sm:text-xl">
@@ -183,8 +187,8 @@ const WhatIDo = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Trophy className="w-4 h-4 text-accent hidden sm:block" />
-                  <span className="font-bold text-accent">
+                  <Trophy className="w-4 h-4 text-accent-ink hidden sm:block" />
+                  <span className="font-bold text-accent-ink">
                     <AnimatedCounter value={stat.value} className="inline" />
                   </span>
                   <span className="text-xs sm:text-sm text-secondary">

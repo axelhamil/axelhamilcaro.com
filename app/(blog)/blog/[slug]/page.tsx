@@ -153,7 +153,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <header className="border-b border-border">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 pt-6 pb-8">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-6">
-            <span className="text-sm font-medium text-accent uppercase tracking-widest">
+            <span className="text-sm font-medium text-accent-ink uppercase tracking-widest">
               {post.category}
             </span>
             <span className="text-border">|</span>
@@ -211,7 +211,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </aside>
 
         <div>
-          <article className="prose prose-sm sm:prose-base max-w-none first:prose-headings:mt-0 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-accent prose-blockquote:text-secondary prose-table:text-sm prose-th:text-left prose-th:font-semibold">
+          <article className="prose prose-sm sm:prose-base max-w-none first:prose-headings:mt-0 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-accent-ink prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-accent prose-blockquote:text-secondary prose-table:text-sm prose-th:text-left prose-th:font-semibold">
             <MDXRemote
               source={post.content}
               components={mdxComponents}

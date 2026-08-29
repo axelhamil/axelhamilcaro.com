@@ -20,7 +20,7 @@ export function TmaMonitoring() {
             Premium uniquement
           </span>
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// monitoring_premium()"}
@@ -49,7 +49,7 @@ export function TmaMonitoring() {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-accent/10 text-accent">
+                    <div className="p-2 rounded-lg bg-accent/10 text-accent-ink">
                       <Icon className="w-5 h-5" aria-hidden="true" />
                     </div>
                     <div>
@@ -68,7 +68,7 @@ export function TmaMonitoring() {
                     href={tool.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-secondary hover:text-accent transition-colors"
+                    className="text-secondary hover:text-accent-ink transition-colors"
                     aria-label={`Site officiel ${tool.name}`}
                   >
                     <ExternalLink className="w-4 h-4" />

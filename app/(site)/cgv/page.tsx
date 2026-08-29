@@ -115,7 +115,10 @@ const SECTIONS: CgvSection[] = [
           <dt className="text-primary font-semibold inline">Forfait : </dt>
           <dd className="inline">
             offre récurrente mensuelle PRO ou PREMIUM décrite sur la page{" "}
-            <a href="/tma" className="text-accent underline underline-offset-2">
+            <a
+              href="/tma"
+              className="text-accent-ink underline underline-offset-2"
+            >
               /tma
             </a>{" "}
             du site, comprenant un volume d'heures incluses et un périmètre
@@ -167,7 +170,10 @@ const SECTIONS: CgvSection[] = [
             web ou mobile en production, comprenant correctifs, mises à jour,
             support technique et, pour le forfait PREMIUM, monitoring proactif
             et livrables récurrents. Détails complets sur la page{" "}
-            <a href="/tma" className="text-accent underline underline-offset-2">
+            <a
+              href="/tma"
+              className="text-accent-ink underline underline-offset-2"
+            >
               /tma
             </a>
             , qui constitue un élément contractuel des présentes.
@@ -218,7 +224,10 @@ const SECTIONS: CgvSection[] = [
         <p>
           La souscription à un Forfait s'effectue exclusivement via le lien de
           paiement Stripe (« Stripe Payment Link ») accessible depuis la page{" "}
-          <a href="/tma" className="text-accent underline underline-offset-2">
+          <a
+            href="/tma"
+            className="text-accent-ink underline underline-offset-2"
+          >
             /tma
           </a>
           . Le paiement de la première mensualité vaut acceptation pleine et
@@ -245,7 +254,10 @@ const SECTIONS: CgvSection[] = [
       <div className="text-secondary leading-relaxed space-y-3">
         <p>
           Les tarifs des Forfaits sont indiqués hors taxes sur la page{" "}
-          <a href="/tma" className="text-accent underline underline-offset-2">
+          <a
+            href="/tma"
+            className="text-accent-ink underline underline-offset-2"
+          >
             /tma
           </a>{" "}
           et applicables à la date de souscription. À titre informatif :
@@ -576,7 +588,7 @@ const SECTIONS: CgvSection[] = [
           section dédiée des{" "}
           <a
             href="/mentions-legales"
-            className="text-accent underline underline-offset-2"
+            className="text-accent-ink underline underline-offset-2"
           >
             mentions légales
           </a>
@@ -668,7 +680,7 @@ export default function CgvPage() {
       <section className="py-16 sm:py-24 lg:py-28 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// conditions_générales_de_vente()"}
@@ -699,7 +711,7 @@ export default function CgvPage() {
           {SECTIONS.map(({ icon: Icon, title, body }) => (
             <article key={title} className="card p-6 sm:p-8 lg:p-10">
               <div className="flex items-start gap-4 mb-6">
-                <div className="shrink-0 p-3 rounded-xl bg-accent/10 text-accent">
+                <div className="shrink-0 p-3 rounded-xl bg-accent/10 text-accent-ink">
                   <Icon className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <h2

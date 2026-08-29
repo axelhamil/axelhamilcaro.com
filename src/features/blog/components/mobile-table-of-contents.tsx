@@ -66,7 +66,7 @@ export function MobileTableOfContents({
                   <a
                     href={`#${heading.id}`}
                     onClick={(e) => handleClick(e, heading.id)}
-                    className="block py-1 text-muted-foreground hover:text-accent transition-colors"
+                    className="block py-1 text-muted-foreground hover:text-accent-ink transition-colors"
                   >
                     {heading.text}
                   </a>

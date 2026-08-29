@@ -57,7 +57,7 @@ export default function ServicesIndexPage() {
       />
       <section className="py-12 sm:py-16 px-6">
         <div className="max-w-5xl mx-auto text-center mb-16">
-          <p className="text-accent font-medium uppercase tracking-wider text-sm mb-4">
+          <p className="text-accent-ink font-medium uppercase tracking-wider text-sm mb-4">
             Services freelance
           </p>
           <h1
@@ -81,11 +81,11 @@ export default function ServicesIndexPage() {
               href={service.href}
               className="group flex flex-col p-8 rounded-2xl border border-secondary/20 bg-secondary-background/30 hover:border-accent/40 hover:bg-secondary-background/50 transition-all duration-300"
             >
-              <p className="text-accent font-medium uppercase tracking-wider text-xs mb-4">
+              <p className="text-accent-ink font-medium uppercase tracking-wider text-xs mb-4">
                 {service.eyebrow}
               </p>
               <h2
-                className="text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors"
+                className="text-2xl font-bold text-primary mb-4 group-hover:text-accent-ink transition-colors"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
                 {service.title}
@@ -93,7 +93,7 @@ export default function ServicesIndexPage() {
               <p className="text-secondary leading-relaxed mb-6 flex-1">
                 {service.subtitle}
               </p>
-              <span className="inline-flex items-center gap-2 text-accent font-medium text-sm">
+              <span className="inline-flex items-center gap-2 text-accent-ink font-medium text-sm">
                 Découvrir
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>

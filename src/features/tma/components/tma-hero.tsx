@@ -7,7 +7,7 @@ export function TmaHero() {
     <section className="py-12 sm:py-16 px-6">
       <div className="max-w-5xl mx-auto text-center">
         <p
-          className="text-accent font-medium tracking-wider text-sm mb-4"
+          className="text-accent-ink font-medium tracking-wider text-sm mb-4"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
           {TMA_HERO.eyebrow}
@@ -29,18 +29,18 @@ export function TmaHero() {
         </p>
         <ul className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm text-secondary mb-10 max-w-3xl mx-auto">
           <li className="flex items-center gap-2">
-            <span className="text-accent">●</span> Sans engagement
+            <span className="text-accent-ink">●</span> Sans engagement
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-accent">●</span> Réponse sous 1 j ouvré (1/2 j
-            sur PREMIUM)
+            <span className="text-accent-ink">●</span> Réponse sous 1 j ouvré
+            (1/2 j sur PREMIUM)
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-accent">●</span> Next.js, React, Node, infra
-            légère
+            <span className="text-accent-ink">●</span> Next.js, React, Node,
+            infra légère
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-accent">●</span> Paiement Stripe sécurisé
+            <span className="text-accent-ink">●</span> Paiement Stripe sécurisé
           </li>
         </ul>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

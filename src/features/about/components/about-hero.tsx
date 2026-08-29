@@ -20,12 +20,12 @@ export function AboutHero() {
             alt="Axel Hamilcaro, développeur web fullstack freelance"
             width={200}
             height={200}
-            className="rounded-full object-cover shrink-0"
+            className="rounded-full object-cover shrink-0 border-4 border-primary"
             preload
             fetchPriority="high"
           />
           <div>
-            <p className="text-accent font-medium uppercase tracking-wider text-sm mb-4">
+            <p className="text-accent-ink font-medium uppercase tracking-wider text-sm mb-4">
               Développeur Web Fullstack | Next.js | React | Node
             </p>
             <h1
@@ -56,7 +56,7 @@ export function AboutHero() {
               key={label}
               className="flex flex-col items-center px-6 py-5 rounded-xl card-accent text-center"
             >
-              <span className="text-3xl font-bold text-accent mb-1">
+              <span className="text-3xl font-bold text-accent-ink mb-1">
                 {value}
               </span>
               <span className="text-sm text-secondary">{label}</span>

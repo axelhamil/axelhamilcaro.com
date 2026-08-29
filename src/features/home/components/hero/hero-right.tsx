@@ -41,7 +41,7 @@ const HeroRight = () => {
           }}
           whileHover={{ scale: 1.1 }}
         >
-          <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+          <Code2 className="w-5 h-5 sm:w-6 sm:h-6" />
         </motion.div>
       </div>
     </motion.div>

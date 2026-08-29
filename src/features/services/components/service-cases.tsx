@@ -53,7 +53,7 @@ export function ServiceCases({
                 <p className="text-secondary text-sm leading-relaxed">
                   {meta.description}
                 </p>
-                <span className="mt-4 inline-block text-accent text-sm font-medium">
+                <span className="mt-4 inline-block text-accent-ink text-sm font-medium">
                   Voir le case →
                 </span>
               </TransitionLink>

@@ -187,7 +187,7 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Mail className="w-5 h-5 text-accent" />
+            <Mail className="w-5 h-5 text-accent-ink" />
             Discutons de ton projet
           </DialogTitle>
           <DialogDescription>
@@ -305,7 +305,7 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                   (messageLength > 0 && messageLength < MESSAGE_MIN)
                     ? "text-destructive"
                     : messageLength >= MESSAGE_MIN
-                      ? "text-accent"
+                      ? "text-accent-ink"
                       : "text-muted-foreground"
                 }`}
               >

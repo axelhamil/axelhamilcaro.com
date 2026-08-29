@@ -6,7 +6,7 @@ interface IHeading2Props {
   children: ReactNode;
 }
 
-const heading2Variants = cva("scroll-m-20 font-semibold tracking-tight ", {
+const heading2Variants = cva("scroll-m-20 heading-display", {
   variants: {
     variant: {
       primary: "text-primary",
@@ -17,8 +17,8 @@ const heading2Variants = cva("scroll-m-20 font-semibold tracking-tight ", {
       xs: "text-base",
       sm: "text-lg",
       md: "text-xl",
-      lg: "text-2xl",
-      xl: "text-3xl",
+      lg: "text-2xl display-expressive",
+      xl: "text-3xl display-expressive",
     },
   },
   defaultVariants: {

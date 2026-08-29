@@ -88,7 +88,7 @@ export function ThemeToggle() {
       type="button"
       onClick={handleClick}
       aria-label={isDark ? "Activer le thème clair" : "Activer le thème sombre"}
-      className="relative p-2 rounded-lg border border-border/40 bg-secondary-background/30 text-primary hover:text-accent hover:border-accent/40 hover:bg-secondary-background/50 transition-colors"
+      className="relative p-2 rounded-lg border border-border/40 bg-secondary-background/30 text-primary hover:text-accent-ink hover:border-accent/40 hover:bg-secondary-background/50 transition-colors"
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.92 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}

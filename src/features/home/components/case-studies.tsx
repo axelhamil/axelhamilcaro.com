@@ -21,7 +21,8 @@ const projects = [
     tech: ["React", "NestJS", "DDD", "TDD/BDD", "SCORM"],
     metric: "250 000+",
     metricLabel: "collaborateurs",
-    gradient: "from-accent to-orange-600",
+    tone: "tone-conversion",
+    chip: "chip-ember",
     logo: "CT",
     logoSrc: "/portfolio/civitime/logo.webp",
     href: "/portfolio/civitime",
@@ -35,7 +36,8 @@ const projects = [
     tech: ["Next.js", "Fastify", "PostgreSQL", "DDD"],
     metric: "100% solo",
     metricLabel: "conception à production",
-    gradient: "from-emerald-500 to-teal-500",
+    tone: "tone-conversion",
+    chip: "chip-jade",
     logo: "SP",
     logoSrc: "/portfolio/scormpilot/logo.webp",
     href: "/portfolio/scormpilot",
@@ -49,7 +51,8 @@ const projects = [
     tech: ["Hono", "Capacitor", "Cloudflare Workers", "DDD", "Deep links"],
     metric: "En production",
     metricLabel: "iOS · Android · PWA",
-    gradient: "from-[#0066FF] to-[#7C3AED]",
+    tone: "tone-conversion",
+    chip: "chip-openup",
     logo: "OU",
     logoSrc: "/portfolio/openup/logo.svg",
     href: "/portfolio/openup",
@@ -63,7 +66,8 @@ const projects = [
     tech: ["Next.js", "NestJS", "WebSocket", "PostgreSQL"],
     metric: "<200ms",
     metricLabel: "latence WebSocket",
-    gradient: "from-violet-600 to-amber-500",
+    tone: "tone-conversion",
+    chip: "chip-plum",
     logo: "BI",
     logoSrc: "/portfolio/billetterie/logo.svg",
     href: "/portfolio/billetterie",
@@ -102,7 +106,7 @@ const CaseStudies = () => {
         <RevealItem direction="scale">
           <MagneticWrapper strength={0.03}>
             <motion.div
-              className="badge mb-4 inline-flex"
+              className="eyebrow mb-4 inline-flex"
               whileHover={{ scale: 1.05 }}
             >
               <motion.span
@@ -113,7 +117,7 @@ const CaseStudies = () => {
                   ease: "easeInOut",
                 }}
               >
-                <Briefcase className="w-4 h-4 text-accent" />
+                <Briefcase className="w-4 h-4 text-accent-ink" />
               </motion.span>
               <span className="text-sm font-medium">Projets</span>
             </motion.div>
@@ -181,7 +185,7 @@ const CaseStudies = () => {
                       }}
                     >
                       <motion.div
-                        className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${project.gradient} opacity-0 blur-3xl`}
+                        className={`absolute -top-20 -right-20 w-48 h-48 rounded-full ${project.tone} tone-glow opacity-0 blur-3xl`}
                         whileHover={{ opacity: 0.1 }}
                         transition={{ duration: 0.3 }}
                       />
@@ -214,7 +218,7 @@ const CaseStudies = () => {
                         <div className="flex items-start justify-between gap-4 mb-4">
                           <div>
                             <motion.p
-                              className={`text-xs uppercase tracking-wider font-semibold bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}
+                              className={`text-xs uppercase tracking-wider font-semibold ${project.tone} tone-text`}
                               initial={{ opacity: 0, x: -10 }}
                               whileInView={{ opacity: 1, x: 0 }}
                               viewport={{ once: true }}
@@ -230,8 +234,8 @@ const CaseStudies = () => {
                           <motion.div
                             className={`w-12 h-12 rounded-xl ${
                               project.logoSrc
-                                ? "bg-white/80 backdrop-blur-sm border border-border/30"
-                                : `bg-gradient-to-br ${project.gradient}`
+                                ? "bg-card/80 backdrop-blur-sm border border-border/30"
+                                : `${project.chip} tone-chip`
                             } flex items-center justify-center shadow-lg overflow-hidden`}
                             whileHover={{ scale: 1.15, rotate: 8 }}
                             transition={{
@@ -251,7 +255,7 @@ const CaseStudies = () => {
                               />
                             ) : (
                               <span
-                                className="text-xs font-bold text-white"
+                                className="text-xs font-bold"
                                 style={{
                                   fontFamily: "var(--font-space-grotesk)",
                                 }}
@@ -287,8 +291,8 @@ const CaseStudies = () => {
                           transition={{ delay: 0.3 }}
                         >
                           <div className="flex items-center gap-2">
-                            <Zap className={"w-4 h-4 text-accent"} />
-                            <span className="text-sm font-semibold text-accent">
+                            <Zap className={"w-4 h-4 text-accent-ink"} />
+                            <span className="text-sm font-semibold text-accent-ink">
                               {project.metric}
                             </span>
                             <span className="text-xs text-secondary">
@@ -296,7 +300,7 @@ const CaseStudies = () => {
                             </span>
                           </div>
                           {hasPage && (
-                            <span className="inline-flex items-center gap-1 text-xs font-medium text-accent group-hover:underline">
+                            <span className="inline-flex items-center gap-1 text-xs font-medium text-accent-ink group-hover:underline">
                               Voir
                               <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                             </span>

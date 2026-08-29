@@ -17,7 +17,7 @@ export function TmaWhoFor() {
           {TMA_PERSONAS.map((persona) => (
             <div key={persona.title} className="card p-6 sm:p-8">
               <span
-                className="text-5xl font-bold text-accent block mb-4"
+                className="text-5xl font-bold text-accent-ink block mb-4"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
                 aria-hidden="true"
               >

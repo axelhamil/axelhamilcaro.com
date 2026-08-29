@@ -30,7 +30,7 @@ export function ArticleCard({ post, featured = false }: ArticleCardProps) {
         }`}
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
-          <span className="text-sm font-medium text-accent uppercase tracking-widest">
+          <span className="text-sm font-medium text-accent-ink uppercase tracking-widest">
             {post.category}
           </span>
           <span className="text-border">|</span>
@@ -45,7 +45,7 @@ export function ArticleCard({ post, featured = false }: ArticleCardProps) {
 
         <Heading2
           size={featured ? "xl" : "lg"}
-          className="group-hover:text-accent transition-colors mb-2"
+          className="group-hover:text-accent-ink transition-colors mb-2"
         >
           {post.title}
         </Heading2>
@@ -68,7 +68,7 @@ export function ArticleCard({ post, featured = false }: ArticleCardProps) {
               </Badge>
             ))}
           </div>
-          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent-ink group-hover:translate-x-1 transition-all duration-300" />
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />

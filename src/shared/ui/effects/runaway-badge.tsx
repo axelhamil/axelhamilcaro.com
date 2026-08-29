@@ -93,7 +93,7 @@ export function RunawayBadge({
 
         {!isCaught && escapeCount > 0 && (
           <motion.span
-            className="absolute -top-2 -right-2 w-5 h-5 bg-accent text-white text-[10px] font-bold rounded-full flex items-center justify-center z-30 shadow-md"
+            className="absolute -top-2 -right-2 w-5 h-5 bg-accent text-accent-foreground text-[10px] font-bold rounded-full flex items-center justify-center z-30 shadow-md"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             key={escapeCount}
@@ -105,7 +105,7 @@ export function RunawayBadge({
 
       {message && (
         <motion.span
-          className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium bg-accent text-white px-2 py-1 rounded-lg"
+          className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium bg-accent text-accent-foreground px-2 py-1 rounded-lg"
           initial={{ opacity: 0, y: 10, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0 }}

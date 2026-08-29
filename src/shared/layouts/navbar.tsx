@@ -77,7 +77,7 @@ const Navbar = () => {
           <span
             className={cn(
               heading1Variants({ size: "sm" }),
-              "font-mono transition-colors duration-300 group-hover:text-accent",
+              "font-mono transition-colors duration-300 group-hover:text-accent-ink",
             )}
           >
             axel_hamilcaro()
@@ -94,10 +94,12 @@ const Navbar = () => {
                   href={link.href}
                   onClick={() => handleNavClick(link.href)}
                   className={cn(
-                    "relative px-4 py-2 text-sm font-medium rounded-lg",
-                    "transition-all duration-300",
-                    "hover:bg-secondary-background",
-                    active ? "text-accent" : "text-primary hover:text-accent",
+                    "relative px-3 py-2 text-sm font-semibold tracking-[0.03em]",
+                    "transition-colors duration-150",
+                    "underline-offset-[0.3em] decoration-1 hover:underline",
+                    active
+                      ? "text-accent-ink"
+                      : "text-primary hover:text-accent-ink",
                   )}
                 >
                   {link.label}
@@ -105,10 +107,10 @@ const Navbar = () => {
                   {active ? (
                     <motion.span
                       {...underlineMotion}
-                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-accent"
+                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 w-6 bg-accent"
                     />
                   ) : (
-                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-accent transition-all duration-300 ease-out w-0 opacity-0" />
+                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 bg-accent transition-all duration-300 ease-out w-0 opacity-0" />
                   )}
                 </TransitionLink>
               </div>
@@ -118,12 +120,12 @@ const Navbar = () => {
           <TransitionLink
             href="/blog"
             className={cn(
-              "ml-1 px-4 py-2 text-sm font-medium rounded-lg",
-              "transition-all duration-300",
-              "hover:bg-secondary-background",
+              "ml-1 px-3 py-2 text-sm font-semibold tracking-[0.03em]",
+              "transition-colors duration-150",
+              "underline-offset-[0.3em] decoration-1 hover:underline",
               pathname.startsWith("/blog")
-                ? "text-accent"
-                : "text-primary hover:text-accent",
+                ? "text-accent-ink"
+                : "text-primary hover:text-accent-ink",
             )}
           >
             Blog
@@ -133,10 +135,10 @@ const Navbar = () => {
             <button
               type="button"
               className={cn(
-                "ml-1 px-4 py-2 text-sm font-semibold rounded-lg",
-                "bg-accent text-white shadow-sm",
-                "hover:bg-accent-hover hover:scale-[1.02] hover:shadow-lg",
-                "transition-all duration-300 cursor-pointer",
+                "ml-2 px-4 py-2 text-xs font-mono uppercase tracking-[0.08em] rounded-none",
+                "bg-info text-info-foreground shadow-cta",
+                "hover:bg-info-hover",
+                "transition-colors duration-150 cursor-pointer",
                 "flex items-center gap-2",
               )}
             >
@@ -157,7 +159,7 @@ const Navbar = () => {
             onClick={mobileMenu.toggle}
             className={cn(
               "p-2 rounded-lg",
-              "text-primary hover:text-accent",
+              "text-primary hover:text-accent-ink",
               "hover:bg-secondary-background",
               "transition-all duration-300",
             )}
@@ -192,7 +194,7 @@ const Navbar = () => {
           <>
             <motion.div
               key="backdrop"
-              className="md:hidden fixed inset-0 z-40 bg-black/20"
+              className="md:hidden fixed inset-0 z-40 bg-foreground/20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -242,8 +244,8 @@ const Navbar = () => {
                           "transition-all duration-300",
                           "hover:bg-secondary-background",
                           active
-                            ? "text-accent bg-accent-light"
-                            : "text-primary hover:text-accent",
+                            ? "text-accent-ink bg-accent-light"
+                            : "text-primary hover:text-accent-ink",
                         )}
                       >
                         {link.label}
@@ -269,8 +271,8 @@ const Navbar = () => {
                       type="button"
                       className={cn(
                         "w-full mt-2 px-4 py-3 text-base font-semibold rounded-lg",
-                        "bg-accent text-white",
-                        "hover:bg-accent-hover",
+                        "bg-info text-info-foreground",
+                        "hover:bg-info-hover",
                         "transition-all duration-300 cursor-pointer",
                         "flex items-center justify-center gap-2",
                       )}
@@ -302,8 +304,8 @@ const Navbar = () => {
                       "transition-all duration-300",
                       "hover:bg-secondary-background",
                       pathname.startsWith("/blog")
-                        ? "text-accent bg-accent-light"
-                        : "text-primary hover:text-accent",
+                        ? "text-accent-ink bg-accent-light"
+                        : "text-primary hover:text-accent-ink",
                     )}
                   >
                     Blog

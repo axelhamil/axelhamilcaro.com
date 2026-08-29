@@ -7,7 +7,7 @@ export function TmaNotIncluded() {
       <div className="max-w-5xl mx-auto">
         <div className="mb-12">
           <p
-            className="text-accent font-medium tracking-wider text-sm mb-4"
+            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {"// hors_périmètre()"}
