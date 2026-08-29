@@ -17,7 +17,7 @@ import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 const stats = [
-  { value: "20+", label: "applications livrées" },
+  { value: "20+", label: "applications depuis 2021" },
   { value: "4 ans", label: "expérience lead" },
   { value: "10+", label: "élèves mentorés" },
   { value: "48h", label: "sites artisans" },

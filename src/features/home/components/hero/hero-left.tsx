@@ -15,7 +15,7 @@ import { HeroMotionItem } from "./hero-motion";
 
 const stats = [
   { v: "7+", l: "ans d'expérience" },
-  { v: "10+", l: "projets livrés" },
+  { v: "10+", l: "projets en freelance" },
   { v: "100%", l: "satisfaction client" },
 ] as const;
 
