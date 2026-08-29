@@ -14,8 +14,8 @@ import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 import { HeroMotionItem } from "./hero-motion";
 
 const stats = [
-  { v: "5+", l: "ans d'expérience" },
-  { v: "20+", l: "apps livrées" },
+  { v: "7+", l: "ans d'expérience" },
+  { v: "10+", l: "projets livrés" },
   { v: "100%", l: "satisfaction client" },
 ] as const;
 
