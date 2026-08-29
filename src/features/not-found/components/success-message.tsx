@@ -25,9 +25,9 @@ export function SuccessMessage({ onReset }: SuccessMessageProps) {
           className="text-8xl sm:text-9xl font-bold font-display text-accent-ink"
           animate={{
             textShadow: [
-              "0 0 20px rgba(255, 77, 0, 0.5)",
-              "0 0 60px rgba(255, 77, 0, 0.8)",
-              "0 0 20px rgba(255, 77, 0, 0.5)",
+              "0 0 20px rgba(194, 65, 12, 0.5)",
+              "0 0 60px rgba(194, 65, 12, 0.8)",
+              "0 0 20px rgba(194, 65, 12, 0.5)",
             ],
           }}
           transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}

@@ -11,7 +11,7 @@ interface PreviewPanelProps {
 }
 
 export function PreviewPanel({ formData, backgroundStyle }: PreviewPanelProps) {
-  const accentColor = formData.badgeColor || "#ff4d00";
+  const accentColor = formData.badgeColor || "#c2410c";
   const hasLargeImage = !!formData.cardImage;
 
   return (

@@ -98,7 +98,7 @@ export function ColorPicker({
           id={textInputId}
           value={showAlpha && alpha < 1 ? hexToRgba(hex, alpha) : hex}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="#ff4d00"
+          placeholder="#c2410c"
           className="flex-1 border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)] font-mono text-sm"
         />
       </div>

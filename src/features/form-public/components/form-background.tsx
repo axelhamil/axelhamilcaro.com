@@ -28,7 +28,7 @@ export function FormPageBackground({
     }
   };
 
-  const accentColor = form.badgeColor || "#ff4d00";
+  const accentColor = form.badgeColor || "#c2410c";
 
   return (
     <div

@@ -74,7 +74,7 @@ export const forms = pgTable("forms", {
   description: text("description"),
   buttonText: text("button_text").notNull().default("Envoyer"),
   buttonSubtext: text("button_subtext"),
-  badgeColor: text("badge_color").default("#ff4d00"),
+  badgeColor: text("badge_color").default("#c2410c"),
   badgeStyle: text("badge_style").default("filled"),
   isActive: boolean("is_active").default(true),
   emailSubject: text("email_subject"),

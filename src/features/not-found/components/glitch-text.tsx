@@ -42,7 +42,7 @@ export function GlitchText({ text, className }: GlitchTextProps) {
       className={className}
       style={{
         textShadow: isGlitching
-          ? "2px 0 #ff4d00, -2px 0 #00ffff, 0 0 10px rgba(255, 77, 0, 0.5)"
+          ? "2px 0 #c2410c, -2px 0 #00ffff, 0 0 10px rgba(194, 65, 12, 0.5)"
           : "none",
         transform: isGlitching
           ? `translateX(${Math.random() * 4 - 2}px)`

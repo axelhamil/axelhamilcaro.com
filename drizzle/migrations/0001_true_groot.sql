@@ -1,0 +1,1 @@
+ALTER TABLE "forms" ALTER COLUMN "badge_color" SET DEFAULT '#c2410c';

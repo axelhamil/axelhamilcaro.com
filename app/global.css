@@ -5,10 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --brand-a: #ff4d00;
-  --brand-b: #1d4ed8;
-  --ink: #0a0a0a;
-  --paper: #ffffff;
+  --brand-a: #c2410c;
+  --brand-b: #10424f;
+  --ink: #12181a;
+  --paper: #fbfaf8;
 
   --primary-background: var(--paper);
   --secondary-background: color-mix(in oklab, var(--ink), var(--paper) 98%);
@@ -31,6 +31,7 @@
   --info-hover: color-mix(in oklab, var(--brand-b), var(--ink) 18%);
   --info-light: color-mix(in oklab, var(--brand-b), transparent 92%);
   --info-foreground: var(--paper);
+  --info-ink: color-mix(in oklab, var(--brand-b), var(--ink) 19%);
 
   --tone-conversion: var(--brand-a);
   --tone-method: var(--brand-b);
@@ -94,21 +95,22 @@
 }
 
 :root.dark {
-  --brand-a: #ff5e1a;
-  --brand-b: #6ea8ff;
-  --ink: oklch(0.9366 0.0129 266.6974);
-  --paper: oklch(0.2204 0.0198 275.8439);
+  --brand-a: #db582c;
+  --brand-b: #5c8c9a;
+  --ink: #e7eced;
+  --paper: #0f1517;
 
-  --accent-foreground: var(--paper);
-  --info-foreground: var(--paper);
+  --accent-foreground: #ffffff;
+  --info-foreground: #ffffff;
   --muted-foreground: color-mix(in oklab, var(--ink), var(--paper) 30%);
-  --accent-ink: var(--brand-a);
-  --card: oklch(0.2703 0.0407 281.3036);
+  --accent-ink: #ff9877;
+  --info-ink: #89bac9;
+  --card: #182022;
   --card-foreground: var(--ink);
   --popover: var(--card);
   --popover-foreground: var(--ink);
   --secondary-background: var(--card);
-  --destructive: oklch(0.5280 0.1200 357.1130);
+  --destructive: #b3453c;
   --ring: var(--brand-a);
   --border-hover: color-mix(in oklab, var(--ink), var(--paper) 55%);
 
@@ -140,6 +142,7 @@
   --color-info-hover: var(--info-hover);
   --color-info-light: var(--info-light);
   --color-info-foreground: var(--info-foreground);
+  --color-info-ink: var(--info-ink);
 
   --color-tone-conversion: var(--tone-conversion);
   --color-tone-method: var(--tone-method);
@@ -194,6 +197,7 @@
 
   .tone-method {
     --tone: var(--tone-method);
+    --tone-ink: var(--info-ink);
     --tone-surface: var(--surface-method);
     --tone-edge: var(--edge-method);
   }

@@ -24,7 +24,7 @@ function parseGradient(gradient: string): GradientConfig {
       color2: match[3],
     };
   }
-  return { direction: "135deg", color1: "#ff4d00", color2: "#ff6b35" };
+  return { direction: "135deg", color1: "#c2410c", color2: "#e07a45" };
 }
 
 function buildGradient(config: GradientConfig): string {
@@ -59,11 +59,11 @@ export function useFormEditor(form?: Form, templates: FormTemplate[] = []) {
         backgroundColor: form.backgroundColor || "#fafafa",
         backgroundGradient:
           form.backgroundGradient ||
-          "linear-gradient(135deg, #ff4d00 0%, #ff6b35 100%)",
+          "linear-gradient(135deg, #c2410c 0%, #e07a45 100%)",
         backgroundImage: form.backgroundImage || "",
         cardImage: form.cardImage || "",
         badgeText: form.badgeText || "",
-        badgeColor: form.badgeColor || "#ff4d00",
+        badgeColor: form.badgeColor || "#c2410c",
         badgeStyle: isBadgeStyle(form.badgeStyle) ? form.badgeStyle : "filled",
         title: form.title,
         description: form.description || "",

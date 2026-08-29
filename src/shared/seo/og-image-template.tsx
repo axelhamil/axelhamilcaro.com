@@ -42,7 +42,7 @@ export async function renderOgImage({
         padding: "80px",
         backgroundColor: "#0a0a0a",
         backgroundImage:
-          "radial-gradient(ellipse at top left, rgba(255, 77, 0, 0.15) 0%, transparent 50%)",
+          "radial-gradient(ellipse at top left, rgba(194, 65, 12, 0.15) 0%, transparent 50%)",
         fontFamily: "system-ui, -apple-system, sans-serif",
         position: "relative",
       }}
@@ -54,7 +54,7 @@ export async function renderOgImage({
           top: 0,
           bottom: 0,
           width: "8px",
-          backgroundColor: "#ff4d00",
+          backgroundColor: "#c2410c",
         }}
       />
       <div
@@ -78,7 +78,7 @@ export async function renderOgImage({
             <div
               style={{
                 display: "flex",
-                color: "#ff4d00",
+                color: "#c2410c",
                 fontSize: "28px",
                 fontWeight: 600,
                 textTransform: "uppercase",
@@ -127,7 +127,7 @@ export async function renderOgImage({
               height: "300px",
               borderRadius: "50%",
               objectFit: "cover",
-              border: "8px solid #ff4d00",
+              border: "8px solid #c2410c",
               flexShrink: 0,
             }}
           />

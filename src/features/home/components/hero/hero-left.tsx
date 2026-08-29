@@ -161,7 +161,7 @@ const HeroLeft = () => {
               whileHover={{
                 scale: 1.05,
                 y: -4,
-                boxShadow: "0 10px 30px rgba(255, 77, 0, 0.15)",
+                boxShadow: "0 10px 30px rgba(194, 65, 12, 0.15)",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >

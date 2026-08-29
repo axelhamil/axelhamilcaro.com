@@ -206,19 +206,19 @@ const subheading = {
 };
 
 const emailLink = {
-  color: "#ff4d00",
+  color: "#c2410c",
   textDecoration: "none",
 };
 
 const messageBlock = {
   backgroundColor: "#ffffff",
-  borderLeft: "3px solid #ff4d00",
+  borderLeft: "3px solid #c2410c",
   borderRadius: "6px",
   padding: "16px 20px",
   marginBottom: "20px",
   border: "1px solid #e5e7eb",
   borderLeftWidth: "3px",
-  borderLeftColor: "#ff4d00",
+  borderLeftColor: "#c2410c",
 };
 
 const messageText = {
@@ -244,7 +244,7 @@ const ctaColRight = {
 };
 
 const ctaButtonPrimary = {
-  backgroundColor: "#ff4d00",
+  backgroundColor: "#c2410c",
   borderRadius: "8px",
   color: "#ffffff",
   fontSize: "14px",

@@ -196,7 +196,7 @@ export function FormCard({ form }: FormCardProps) {
   const [error, setError] = useState<string | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const accentColor = form.badgeColor || "#ff4d00";
+  const accentColor = form.badgeColor || "#c2410c";
   const badgeStyle = form.badgeStyle || "filled";
   const hasLargeImage = !!form.cardImage;
 

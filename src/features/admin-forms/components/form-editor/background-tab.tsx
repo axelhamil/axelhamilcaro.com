@@ -189,7 +189,7 @@ export function BackgroundTab({
                 id="backgroundGradient"
                 value={formData.backgroundGradient}
                 onChange={(e) => onGradientCssChange(e.target.value)}
-                placeholder="linear-gradient(135deg, #ff4d00 0%, #ff6b35 100%)"
+                placeholder="linear-gradient(135deg, #c2410c 0%, #e07a45 100%)"
                 rows={2}
                 className="font-mono text-sm border-[var(--admin-border)] bg-[var(--admin-bg)] text-[var(--admin-text)] placeholder:text-[var(--admin-text-subtle)]"
               />

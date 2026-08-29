@@ -86,7 +86,7 @@ const container = {
 };
 
 const headerSection = {
-  borderBottom: "3px solid #ff4d00",
+  borderBottom: "3px solid #c2410c",
   paddingBottom: "16px",
   marginBottom: "24px",
 };

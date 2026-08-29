@@ -146,7 +146,7 @@ const ExperienceTimeline = () => {
                       <motion.div
                         className="relative p-5 sm:p-6 rounded-2xl card-accent overflow-hidden group"
                         whileHover={{
-                          boxShadow: "0 20px 40px rgba(255, 77, 0, 0.12)",
+                          boxShadow: "0 20px 40px rgba(194, 65, 12, 0.12)",
                         }}
                       >
                         <motion.div
