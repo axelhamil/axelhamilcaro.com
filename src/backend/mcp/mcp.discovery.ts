@@ -1,5 +1,7 @@
-import { SITE_URL } from "@/app/_config/site.constants";
+import { MCP, SITE_URL } from "@/app/_config/site.constants";
 import { MCP_SERVER_NAME, MCP_SERVER_VERSION } from "./mcp.constants";
+
+export const MCP_PROTOCOL_VERSIONS = ["2026-07-28", "2025-03-26"] as const;
 
 export function getServerManifest() {
   return {
@@ -13,7 +15,7 @@ export function getServerManifest() {
     remotes: [
       {
         type: "streamable-http",
-        url: `${SITE_URL}/mcp`,
+        url: MCP.url,
       },
     ],
   };
@@ -21,7 +23,7 @@ export function getServerManifest() {
 
 export function getMcpCatalog() {
   return {
-    servers: [{ url: `${SITE_URL}/mcp/server-card` }],
+    servers: [{ url: MCP.serverCardUrl }],
   };
 }
 
@@ -30,14 +32,32 @@ export function getServerCard() {
     name: MCP_SERVER_NAME,
     version: MCP_SERVER_VERSION,
     description:
-      "Axel Hamilcaro — développeur web fullstack Next.js, React, Node.",
+      "Axel Hamilcaro, développeur web fullstack Next.js, React, Node.",
     websiteUrl: SITE_URL,
     remotes: [
       {
         type: "streamable-http",
-        url: `${SITE_URL}/mcp`,
-        protocolVersions: ["2026-07-28", "2025-03-26"],
+        url: MCP.url,
+        protocolVersions: [...MCP_PROTOCOL_VERSIONS],
       },
     ],
+  };
+}
+
+export function getMcpGetDiscoveryBody() {
+  return {
+    ...getServerManifest(),
+    protocolVersions: [...MCP_PROTOCOL_VERSIONS],
+    message: "POST Streamable HTTP, ce n'est pas une page.",
+  };
+}
+
+export function getMcpGetDiscoveryHeaders() {
+  return {
+    Allow: "POST",
+    "Cache-Control": "public, max-age=3600",
+    "X-Robots-Tag": "noindex, nofollow",
+    "Access-Control-Allow-Origin": "*",
+    Link: `<${MCP.manifestUrl}>; rel="alternate"; type="application/json", <${MCP.llmsUrl}>; rel="alternate"; type="text/plain"`,
   };
 }

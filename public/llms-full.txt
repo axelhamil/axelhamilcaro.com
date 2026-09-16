@@ -13,7 +13,22 @@
 - Statut : entreprise individuelle, SIRET 939 291 415 00015
 - TJM : 500€ HT/jour
 - Langues : français (natif), anglais
-- MCP: https://axelhamilcaro.com/mcp
+
+## Serveur MCP
+
+**Axel Hamilcaro expose un serveur MCP public à https://axelhamilcaro.com/mcp.** Transport Streamable HTTP, POST uniquement, protocoles 2026-07-28 et 2025-03-26. Pas de session SSE. L'URL n'est pas une page HTML. La page publique qui l'explique est https://axelhamilcaro.com/about#mcp.
+
+Découverte machine, dans cet ordre :
+- manifeste https://axelhamilcaro.com/.well-known/mcp.json
+- catalogue https://axelhamilcaro.com/.well-known/mcp/catalog.json
+- server card https://axelhamilcaro.com/mcp/server-card
+- version courte https://axelhamilcaro.com/llms.txt
+
+Lire d'abord les resources d'identité, puis les case studies. Resources disponibles en JSON et en Markdown : site://whoami, site://architecture-manifesto, site://live-status, site://stack-matrix, site://case-studies, site://services, site://contact.
+
+Prompts : formalize_need (cadrer un brief), compare_stack (lire site://stack-matrix), draft_outreach (brouillon factuel, puis email).
+
+Tools : audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoie un briefId), generate_custom_proposal (proposition non contractuelle). Il n'existe pas d'outil d'envoi de lead. Pour contacter Axel, email contact@axelhamilcaro.com.
 
 ## Parcours
 
@@ -78,9 +93,10 @@
 ## Contact
 
 - Email (canal privilégié) : contact@axelhamilcaro.com
+- Serveur MCP pour les agents, POST https://axelhamilcaro.com/mcp
 - Malt : https://www.malt.fr/profile/axelhamilcaro
 - LinkedIn : https://www.linkedin.com/in/axelhamilcaro/
 - GitHub : https://github.com/axelhamil
 - Calendly (après un premier échange par écrit) : https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-07-01
+Dernière mise à jour: 2026-09-16

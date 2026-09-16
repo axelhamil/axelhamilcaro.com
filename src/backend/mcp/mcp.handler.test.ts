@@ -94,12 +94,22 @@ describe("POST /mcp", () => {
 
 describe("GET and DELETE /mcp", () => {
   test("return 405 in stateless mode", async () => {
-    const getResponse = await GET(new Request(MCP_URL, { method: "GET" }));
+    const getResponse = await GET();
     const deleteResponse = await DELETE(
       new Request(MCP_URL, { method: "DELETE" }),
     );
 
     assert.equal(getResponse.status, 405);
     assert.equal(deleteResponse.status, 405);
+    assert.equal(getResponse.headers.get("Allow"), "POST");
+    assert.match(
+      getResponse.headers.get("Link") ?? "",
+      /well-known\/mcp\.json/,
+    );
+    assert.equal(getResponse.headers.get("X-Robots-Tag"), "noindex, nofollow");
+
+    const body = (await getResponse.json()) as { message?: string };
+    assert.match(body.message ?? "", /POST Streamable HTTP/);
+    assert.match(body.message ?? "", /pas une page/);
   });
 });

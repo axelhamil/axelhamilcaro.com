@@ -1,5 +1,15 @@
 export const SITE_URL = "https://axelhamilcaro.com";
 
+export const MCP = {
+  url: `${SITE_URL}/mcp`,
+  manifestPath: "/.well-known/mcp.json",
+  manifestUrl: `${SITE_URL}/.well-known/mcp.json`,
+  catalogUrl: `${SITE_URL}/.well-known/mcp/catalog.json`,
+  serverCardUrl: `${SITE_URL}/mcp/server-card`,
+  llmsPath: "/llms.txt",
+  llmsUrl: `${SITE_URL}/llms.txt`,
+} as const;
+
 export const EXTERNAL_LINKS = {
   calendly: "https://calendly.com/axel-hamilcaro-pro/appel-decouverte",
   linkedin: "https://www.linkedin.com/in/axelhamilcaro/",

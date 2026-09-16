@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { siteConfig } from "@/app/_config/site";
 import Hero from "@/src/features/home/components/hero/hero";
 import { HomeFaq } from "@/src/features/home/components/home-faq";
+import { HomeMcp } from "@/src/features/home/components/home-mcp";
 
 export const metadata: Metadata = {
   alternates: { canonical: siteConfig.url },
@@ -50,6 +51,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <HomeMcp />
       <ExperienceTimeline />
       <WhatIDo />
       <Approach />

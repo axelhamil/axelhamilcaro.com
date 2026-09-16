@@ -2,11 +2,13 @@ import {
   AUTHOR,
   EXTERNAL_LINKS,
   JOB_TITLE,
+  MCP,
   PROFILE_IMAGE,
   RATES,
   SITE_URL,
   SOCIAL_LINKS,
 } from "@/app/_config/site.constants";
+import { buildMcpApiSchema } from "./schemas/mcp-api";
 
 const DAILY_RATE_EUR = String(RATES.dailyHtEur);
 const TMA_PRO_MONTHLY_EUR = String(RATES.tma.proMonthlyEur);
@@ -55,6 +57,12 @@ export function JsonLd() {
     jobTitle: JOB_TITLE,
     description: `Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé à Tours, en Centre-Val de Loire, et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. 4 ans chez Civitime, de développeur à lead technique, 10+ projets livrés en freelance depuis 2024. TJM ${DAILY_RATE_EUR}€ HT/jour.`,
     email: "mailto:contact@axelhamilcaro.com",
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "MCP",
+      value: MCP.url,
+    },
+    subjectOf: { "@id": `${SITE_URL}/#mcp` },
     knowsLanguage: ["fr-FR", "en"],
     sameAs: [
       EXTERNAL_LINKS.linkedin,
@@ -314,6 +322,8 @@ export function JsonLd() {
     review: serviceReviews,
   };
 
+  const mcpApiSchema = buildMcpApiSchema();
+
   return (
     <>
       <script
@@ -335,6 +345,13 @@ export function JsonLd() {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(professionalServiceSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(mcpApiSchema),
         }}
       />
     </>

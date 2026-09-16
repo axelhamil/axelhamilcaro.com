@@ -1,4 +1,9 @@
+import { NextResponse } from "next/server";
 import { runWithMcpRequest } from "@/src/backend/mcp/mcp.context";
+import {
+  getMcpGetDiscoveryBody,
+  getMcpGetDiscoveryHeaders,
+} from "@/src/backend/mcp/mcp.discovery";
 import { mcpHandler } from "@/src/backend/mcp/mcp.handler";
 import { rateLimited } from "@/src/lib/http";
 import {
@@ -9,8 +14,11 @@ import {
 
 export const runtime = "nodejs";
 
-export function GET(request: Request) {
-  return runWithMcpRequest(request, () => mcpHandler(request));
+export function GET() {
+  return NextResponse.json(getMcpGetDiscoveryBody(), {
+    status: 405,
+    headers: getMcpGetDiscoveryHeaders(),
+  });
 }
 
 export function POST(request: Request) {

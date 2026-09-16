@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { JsonLd } from "@/src/shared/seo/json-ld";
 import { ThemeProvider } from "@/src/shared/ui/theme/theme-provider";
 import {
   courierPrime,
@@ -9,6 +10,7 @@ import {
   geistMono,
   instrumentSans,
 } from "./_config/fonts";
+import { MCP } from "./_config/site.constants";
 import "./global.css";
 
 export { metadata } from "./_config/metadata";
@@ -28,10 +30,15 @@ export default function RootLayout({
         "antialiased bg-primary-background",
       )}
     >
+      <head>
+        <link rel="alternate" type="application/json" href={MCP.manifestUrl} />
+        <link rel="alternate" type="text/plain" href={MCP.llmsUrl} />
+      </head>
       <body className="overflow-x-hidden">
         <noscript>
           <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
         </noscript>
+        <JsonLd />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
         <SpeedInsights />

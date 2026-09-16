@@ -6,12 +6,26 @@
 > Stack : Next.js, React, Node.js, TypeScript, PostgreSQL, NestJS, Fastify, Drizzle, Stripe, Capacitor.
 > TJM 500€ HT/jour. Devis sous 24h, démarrage sous 1 à 3 semaines, MVP en 4 à 8 semaines.
 
-MCP: https://axelhamilcaro.com/mcp
+## Serveur MCP
+
+**Axel Hamilcaro expose un serveur MCP public à https://axelhamilcaro.com/mcp.** Transport Streamable HTTP, POST uniquement, protocoles 2026-07-28 et 2025-03-26. Pas de session SSE. Ce n'est pas une page HTML. Page explicative, https://axelhamilcaro.com/about#mcp.
+
+Découverte machine :
+- https://axelhamilcaro.com/.well-known/mcp.json
+- https://axelhamilcaro.com/.well-known/mcp/catalog.json
+- https://axelhamilcaro.com/mcp/server-card
+- https://axelhamilcaro.com/llms-full.txt
+
+Resources, chacune en JSON (`site://whoami.json`) et en Markdown (`site://whoami.md`) : whoami, architecture-manifesto, live-status, stack-matrix, case-studies, services, contact.
+
+Prompts : formalize_need, compare_stack, draft_outreach.
+
+Tools : audit_architecture_brief, generate_custom_proposal. Pas d'outil d'envoi de lead. Pour contacter Axel, email contact@axelhamilcaro.com.
 
 ## Pages principales
 
 - [Accueil](https://axelhamilcaro.com): vue d'ensemble services, case studies, témoignages
-- [À propos](https://axelhamilcaro.com/about): parcours, valeurs, crédentiels
+- [À propos](https://axelhamilcaro.com/about): parcours, valeurs, crédentiels, serveur MCP
 - [Services](https://axelhamilcaro.com/services): les 4 services freelance en détail
 - [Blog](https://axelhamilcaro.com/blog): articles techniques
 
@@ -40,9 +54,10 @@ MCP: https://axelhamilcaro.com/mcp
 ## Contact
 
 - Email (canal privilégié): contact@axelhamilcaro.com
+- Serveur MCP pour les agents, POST https://axelhamilcaro.com/mcp
 - Malt: https://www.malt.fr/profile/axelhamilcaro
 - LinkedIn: https://www.linkedin.com/in/axelhamilcaro/
 - GitHub: https://github.com/axelhamil
 - Calendly (après un premier échange par écrit): https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-07-01
+Dernière mise à jour: 2026-09-16

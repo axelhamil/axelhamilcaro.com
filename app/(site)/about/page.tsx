@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AboutCredentials } from "@/src/features/about/components/about-credentials";
 import { AboutHero } from "@/src/features/about/components/about-hero";
+import { AboutMcp } from "@/src/features/about/components/about-mcp";
 import { AboutProof } from "@/src/features/about/components/about-proof";
 import { AboutStory } from "@/src/features/about/components/about-story";
 import { AboutValues } from "@/src/features/about/components/about-values";
@@ -58,6 +59,7 @@ export default function AboutPage() {
       <AboutStory />
       <AboutValues />
       <AboutCredentials />
+      <AboutMcp />
       <AboutProof />
     </main>
   );
