@@ -121,6 +121,8 @@ describe("GET and DELETE /mcp", () => {
     assert.match(body.message ?? "", /POST Streamable HTTP/);
     assert.match(body.message ?? "", /pas une page/);
     assert.match(body.message ?? "", /2025-03-26/);
+    assert.doesNotMatch(body.message ?? "", /sans header/);
+    assert.doesNotMatch(body.message ?? "", / = 400/);
   });
 });
 
@@ -172,6 +174,10 @@ describe("MCP browser CORS", () => {
       response.headers.get("Access-Control-Allow-Headers") ?? "",
       /MCP-Protocol-Version/i,
     );
+    assert.match(
+      response.headers.get("Access-Control-Allow-Headers") ?? "",
+      /Mcp-Name/i,
+    );
   });
 });
 
@@ -197,5 +203,42 @@ describe("2026 header on initialize", () => {
     const text = await response.text();
     assert.match(text, /2025-03-26/);
     assert.doesNotMatch(text, /headers and body disagree/);
+  });
+});
+
+describe("2026 ping", () => {
+  test("answers ping with an empty result instead of Method not found", async () => {
+    const response = await POST(
+      jsonRpcPost(
+        {
+          jsonrpc: "2.0",
+          id: "ping-1",
+          method: "ping",
+          params: {
+            _meta: {
+              "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+              "io.modelcontextprotocol/clientInfo": {
+                name: "task-ping-test",
+                version: "1.0.0",
+              },
+              "io.modelcontextprotocol/clientCapabilities": {},
+            },
+          },
+        },
+        {
+          "MCP-Protocol-Version": "2026-07-28",
+          "Mcp-Method": "ping",
+        },
+      ),
+    );
+
+    assert.equal(response.status, 200);
+    const payload = (await response.json()) as {
+      result?: unknown;
+      error?: { message?: string };
+    };
+    assert.equal(payload.error, undefined);
+    assert.deepEqual(payload.result, {});
+    assert.doesNotMatch(JSON.stringify(payload), /Method not found/);
   });
 });

@@ -1,4 +1,6 @@
 import { createMcpHandler } from "mcp-handler";
+
+import { json } from "@/src/lib/http";
 import { clip, MCP_CLIP, MCP_SERVER_VERSION } from "./mcp.constants";
 import { getMcpPending, getMcpRequest, setMcpPending } from "./mcp.context";
 import { mcpRepository } from "./mcp.repository";
@@ -62,7 +64,7 @@ export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
     version: MCP_SERVER_VERSION,
   },
   instructions:
-    "Cursor and Claude: call initialize with protocolVersion 2025-03-26 and do not send MCP-Protocol-Version 2026-07-28. Native 2026 clients: server/discover plus that header. Read identity resources first, then case studies. Then call audit_architecture_brief, then generate_custom_proposal. To contact Axel, email contact@axelhamilcaro.com.",
+    "Cursor and Claude: call initialize with protocolVersion 2025-03-26. A 2026 protocol header on initialize is ignored and the session negotiates 2025-03-26. Native 2026 clients: server/discover plus MCP-Protocol-Version 2026-07-28. Read identity resources first, then case studies. Then call audit_architecture_brief, then generate_custom_proposal. To contact Axel, email contact@axelhamilcaro.com.",
   onEvent: (event) => {
     if (event.type === "ERROR" && process.env.NODE_ENV === "development")
       console.error("[mcp]", event.error);
@@ -83,10 +85,12 @@ export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
 });
 
 export async function handleMcpHttp(request: Request) {
-  return mcpHandler(await downgradeLegacyInitialize(request));
+  const prepared = await prepareMcpRequest(request);
+  if (prepared instanceof Response) return prepared;
+  return mcpHandler(prepared);
 }
 
-async function downgradeLegacyInitialize(request: Request) {
+async function prepareMcpRequest(request: Request) {
   if (request.method !== "POST") return request;
   if (!request.headers.get("mcp-protocol-version")) return request;
 
@@ -97,13 +101,16 @@ async function downgradeLegacyInitialize(request: Request) {
     return request;
   }
 
-  if (
-    !body ||
-    typeof body !== "object" ||
-    !("method" in body) ||
-    body.method !== "initialize"
-  )
-    return request;
+  if (!body || typeof body !== "object" || !("method" in body)) return request;
+
+  if (body.method === "ping")
+    return json({
+      jsonrpc: "2.0",
+      id: "id" in body ? body.id : null,
+      result: {},
+    });
+
+  if (body.method !== "initialize") return request;
 
   const headers = new Headers(request.headers);
   headers.delete("mcp-protocol-version");

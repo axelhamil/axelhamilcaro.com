@@ -15,7 +15,7 @@ export function getMcpCorsHeaders() {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
     "Access-Control-Allow-Headers":
-      "Content-Type, Accept, MCP-Protocol-Version, Mcp-Session-Id, Mcp-Method, Last-Event-ID, If-None-Match",
+      "Content-Type, Accept, MCP-Protocol-Version, Mcp-Session-Id, Mcp-Method, Mcp-Name, Last-Event-ID, If-None-Match",
     "Access-Control-Expose-Headers":
       "ETag, Allow, Link, MCP-Protocol-Version, Mcp-Session-Id",
     "Access-Control-Max-Age": "86400",
@@ -101,7 +101,7 @@ export function getMcpGetDiscoveryBody() {
     ...getServerManifest(),
     protocolVersions: [...MCP_PROTOCOL_VERSIONS],
     message:
-      "POST Streamable HTTP, ce n'est pas une page. Cursor et Claude: JSON-RPC initialize avec protocolVersion 2025-03-26, sans header MCP-Protocol-Version. Client 2026-07-28: server/discover plus le header.",
+      "POST Streamable HTTP, ce n'est pas une page. Cursor et Claude: JSON-RPC initialize avec protocolVersion 2025-03-26 (un header 2026 est ignoré, le serveur négocie 2025-03-26). Client 2026-07-28: server/discover plus le header.",
   };
 }
 

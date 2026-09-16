@@ -21,6 +21,9 @@ describe("llms MCP discovery", () => {
       assert.match(text, /initialize/);
       assert.match(text, /2025-03-26/);
       assert.match(text, /MCP-Protocol-Version/);
+      assert.match(text, /n[ée]gocie/);
+      assert.doesNotMatch(text, /initialize \+ ce header = 400/);
+      assert.doesNotMatch(text, / = 400/);
       assert.doesNotMatch(text, /submit_inquiry/);
       assert.equal(text.includes("\u2014"), false);
       assert.match(text, /Dernière mise à jour: 2026-09-16/);

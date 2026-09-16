@@ -16,7 +16,8 @@ export function AboutMcp() {
           </strong>{" "}
           Les agents s&apos;y connectent en POST Streamable HTTP. Cursor et
           Claude : handshake <code>initialize</code> en protocolVersion
-          2025-03-26, sans header MCP-Protocol-Version. Les clients 2026-07-28
+          2025-03-26. Un header MCP-Protocol-Version 2026-07-28 sur initialize
+          est ignoré, le serveur négocie 2025-03-26. Les clients 2026-07-28
           utilisent <code>server/discover</code>. Ce n&apos;est pas une page à
           ouvrir dans le navigateur.
         </p>
