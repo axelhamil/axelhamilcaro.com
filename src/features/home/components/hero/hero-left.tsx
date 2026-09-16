@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Code2, Mail, Rocket, Zap } from "lucide-react";
+import { AVAILABILITY } from "@/app/_config/site.constants";
 import { ContactModal } from "@/src/features/contact/components/contact-modal";
 import { AnimatedCounter } from "@/src/shared/ui/effects/animated-counter";
 import { PulsingDot } from "@/src/shared/ui/effects/floating-element";
@@ -26,6 +27,9 @@ const techIcons = [
 ];
 
 const HeroLeft = () => {
+  const availabilityStatus =
+    AVAILABILITY.status === "available" ? "Disponible" : AVAILABILITY.status;
+
   return (
     <div className="flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8 min-w-0">
       <HeroMotionItem>
@@ -37,7 +41,8 @@ const HeroLeft = () => {
           >
             <PulsingDot size="sm" />
             <span className="text-xs sm:text-sm font-medium">
-              Disponible · Tours, Centre-Val de Loire · Remote France
+              {availabilityStatus} · {AVAILABILITY.location} · Remote{" "}
+              {AVAILABILITY.remote}
             </span>
           </RunawayBadge>
         </div>

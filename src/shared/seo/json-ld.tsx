@@ -1,14 +1,16 @@
 import {
   AUTHOR,
   EXTERNAL_LINKS,
+  JOB_TITLE,
   PROFILE_IMAGE,
+  RATES,
   SITE_URL,
   SOCIAL_LINKS,
 } from "@/app/_config/site.constants";
 
-const DAILY_RATE_EUR = "500";
-const TMA_PRO_MONTHLY_EUR = "350";
-const TMA_PREMIUM_MONTHLY_EUR = "800";
+const DAILY_RATE_EUR = String(RATES.dailyHtEur);
+const TMA_PRO_MONTHLY_EUR = String(RATES.tma.proMonthlyEur);
+const TMA_PREMIUM_MONTHLY_EUR = String(RATES.tma.premiumMonthlyEur);
 
 const dailyRateSpecification = {
   "@type": "UnitPriceSpecification",
@@ -50,9 +52,8 @@ export function JsonLd() {
     familyName: "Hamilcaro",
     url: SITE_URL,
     image: PROFILE_IMAGE,
-    jobTitle: "Développeur Web Fullstack | Next.js | React | Node",
-    description:
-      "Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé à Tours, en Centre-Val de Loire, et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. 4 ans chez Civitime, de développeur à lead technique, 10+ projets livrés en freelance depuis 2024. TJM 500€ HT/jour.",
+    jobTitle: JOB_TITLE,
+    description: `Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé à Tours, en Centre-Val de Loire, et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. 4 ans chez Civitime, de développeur à lead technique, 10+ projets livrés en freelance depuis 2024. TJM ${DAILY_RATE_EUR}€ HT/jour.`,
     email: "mailto:contact@axelhamilcaro.com",
     knowsLanguage: ["fr-FR", "en"],
     sameAs: [
@@ -128,7 +129,7 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
-    name: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
+    name: `${AUTHOR.name}, ${JOB_TITLE}`,
     alternateName: "Axel Hamilcaro Portfolio",
     url: SITE_URL,
     description:
@@ -223,7 +224,7 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#service`,
-    name: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
+    name: `${AUTHOR.name}, ${JOB_TITLE}`,
     legalName: "HAMILCARO AXEL",
     description:
       "Services de développement web fullstack freelance, basé à Tours, en Centre-Val de Loire, intervient à 100% en remote sur la France : création d'applications web, SaaS, APIs REST/GraphQL, architecture technique, lead tech temps partiel, conseil et accompagnement. Expertise TypeScript, Next.js, React, Node.js, PostgreSQL.",
@@ -298,8 +299,7 @@ export function JsonLd() {
           itemOffered: {
             "@type": "Service",
             name: "TMA (tierce maintenance applicative)",
-            description:
-              "Maintenance applicative web et mobile au forfait mensuel sans engagement : PRO 350€/mois (5h incluses) ou PREMIUM 800€/mois (10h, monitoring proactif)",
+            description: `Maintenance applicative web et mobile au forfait mensuel sans engagement : PRO ${TMA_PRO_MONTHLY_EUR}€/mois (5h incluses) ou PREMIUM ${TMA_PREMIUM_MONTHLY_EUR}€/mois (10h, monitoring proactif)`,
           },
         },
       ],

@@ -30,3 +30,19 @@ export const FREELANCE_SINCE_YEAR = 2024;
 
 export const getFreelanceYears = (): number =>
   Math.max(1, new Date().getFullYear() - FREELANCE_SINCE_YEAR);
+
+export const AVAILABILITY = {
+  status: "available",
+  location: "Tours, Centre-Val de Loire",
+  remote: "France",
+  startWindow: "1 to 3 weeks",
+  quoteSla: "24h",
+} as const;
+
+export const RATES = {
+  dailyHtEur: 500,
+  tma: { proMonthlyEur: 350, premiumMonthlyEur: 800 },
+} as const;
+
+export const JOB_TITLE =
+  "Développeur Web Fullstack | Next.js | React | Node" as const;

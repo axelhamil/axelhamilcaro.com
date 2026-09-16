@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/app/_config/site.constants";
+import { RATES, SITE_URL } from "@/app/_config/site.constants";
 
 export type TmaPersona = {
   eyebrow: string;
@@ -136,7 +136,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
       "Tu veux garder ton app à jour sans recruter en interne",
       "Un volume horaire raisonnable et flexible te suffit",
     ],
-    price: 350,
+    price: RATES.tma.proMonthlyEur,
     currency: "EUR",
     hours: 5,
     hoursLabel: "5h de maintenance incluses par mois",
@@ -172,7 +172,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
       "Tu veux un canal de support dédié et un délai de réponse plus court",
       "Tu dois présenter un suivi régulier à ton équipe, ton board ou tes clients",
     ],
-    price: 800,
+    price: RATES.tma.premiumMonthlyEur,
     currency: "EUR",
     hours: 10,
     hoursLabel: "10h d'intervention incluses par mois",
