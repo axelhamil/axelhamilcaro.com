@@ -10,10 +10,11 @@
 
 **Axel Hamilcaro expose un serveur MCP public à https://axelhamilcaro.com/mcp.** Transport Streamable HTTP, POST uniquement, protocoles 2026-07-28 et 2025-03-26. Pas de session SSE. Ce n'est pas une page HTML. Page explicative, https://axelhamilcaro.com/about#mcp.
 
-Découverte machine :
+Découverte machine, dans cet ordre :
+- https://axelhamilcaro.com/.well-known/ai-catalog.json
+- https://axelhamilcaro.com/mcp/server-card
 - https://axelhamilcaro.com/.well-known/mcp.json
 - https://axelhamilcaro.com/.well-known/mcp/catalog.json
-- https://axelhamilcaro.com/mcp/server-card
 - https://axelhamilcaro.com/llms-full.txt
 
 Resources, chacune en JSON (`site://whoami.json`) et en Markdown (`site://whoami.md`) : whoami, architecture-manifesto, live-status, stack-matrix, case-studies, services, contact.

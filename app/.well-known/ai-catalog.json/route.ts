@@ -1,14 +1,14 @@
-import { MCP_SERVER_CARD_TYPE } from "@/src/backend/mcp/mcp.constants";
+import { MCP_AI_CATALOG_TYPE } from "@/src/backend/mcp/mcp.constants";
 import {
+  getAiCatalog,
   getDiscoveryHeaders,
-  getServerCard,
 } from "@/src/backend/mcp/mcp.discovery";
 import { jsonCached } from "@/src/lib/http";
 
 export function GET(request: Request) {
   return jsonCached(
-    getServerCard(),
+    getAiCatalog(),
     request,
-    getDiscoveryHeaders(MCP_SERVER_CARD_TYPE),
+    getDiscoveryHeaders(MCP_AI_CATALOG_TYPE),
   );
 }

@@ -31,6 +31,16 @@ export default function RootLayout({
       )}
     >
       <head>
+        <link
+          rel="alternate"
+          type="application/ai-catalog+json"
+          href={MCP.aiCatalogUrl}
+        />
+        <link
+          rel="alternate"
+          type="application/mcp-server-card+json"
+          href={MCP.serverCardUrl}
+        />
         <link rel="alternate" type="application/json" href={MCP.manifestUrl} />
         <link rel="alternate" type="text/plain" href={MCP.llmsUrl} />
       </head>

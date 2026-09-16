@@ -1,13 +1,32 @@
 import { MCP, SITE_URL } from "@/app/_config/site.constants";
-import { MCP_SERVER_NAME, MCP_SERVER_VERSION } from "./mcp.constants";
+import {
+  MCP_AI_CATALOG_TYPE,
+  MCP_CATALOG_IDENTIFIER,
+  MCP_SERVER_CARD_SCHEMA,
+  MCP_SERVER_CARD_TYPE,
+  MCP_SERVER_NAME,
+  MCP_SERVER_VERSION,
+} from "./mcp.constants";
 
 export const MCP_PROTOCOL_VERSIONS = ["2026-07-28", "2025-03-26"] as const;
+
+export function getDiscoveryHeaders(contentType = "application/json") {
+  return {
+    "Content-Type": `${contentType}; charset=utf-8`,
+    "Cache-Control": "public, max-age=3600",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET",
+    "Access-Control-Allow-Headers": "Content-Type, If-None-Match",
+    "Access-Control-Expose-Headers": "ETag",
+  };
+}
 
 export function getServerManifest() {
   return {
     $schema:
       "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
     name: MCP_SERVER_NAME,
+    title: "Axel Hamilcaro",
     description:
       "Public MCP server for Axel Hamilcaro: identity, stack, and case studies.",
     version: MCP_SERVER_VERSION,
@@ -23,13 +42,37 @@ export function getServerManifest() {
 
 export function getMcpCatalog() {
   return {
+    specVersion: "draft",
+    entries: [
+      {
+        identifier: MCP_CATALOG_IDENTIFIER,
+        displayName: "Axel Hamilcaro",
+        mediaType: MCP_SERVER_CARD_TYPE,
+        url: MCP.serverCardUrl,
+      },
+    ],
     servers: [{ url: MCP.serverCardUrl }],
+  };
+}
+
+export function getAiCatalog() {
+  return {
+    specVersion: "1.0",
+    entries: [
+      {
+        identifier: MCP_CATALOG_IDENTIFIER,
+        type: MCP_SERVER_CARD_TYPE,
+        url: MCP.serverCardUrl,
+      },
+    ],
   };
 }
 
 export function getServerCard() {
   return {
+    $schema: MCP_SERVER_CARD_SCHEMA,
     name: MCP_SERVER_NAME,
+    title: "Axel Hamilcaro",
     version: MCP_SERVER_VERSION,
     description:
       "Axel Hamilcaro, développeur web fullstack Next.js, React, Node.",
@@ -38,7 +81,7 @@ export function getServerCard() {
       {
         type: "streamable-http",
         url: MCP.url,
-        protocolVersions: [...MCP_PROTOCOL_VERSIONS],
+        supportedProtocolVersions: [...MCP_PROTOCOL_VERSIONS],
       },
     ],
   };
@@ -54,10 +97,14 @@ export function getMcpGetDiscoveryBody() {
 
 export function getMcpGetDiscoveryHeaders() {
   return {
+    ...getDiscoveryHeaders(),
     Allow: "POST",
-    "Cache-Control": "public, max-age=3600",
     "X-Robots-Tag": "noindex, nofollow",
-    "Access-Control-Allow-Origin": "*",
-    Link: `<${MCP.manifestUrl}>; rel="alternate"; type="application/json", <${MCP.llmsUrl}>; rel="alternate"; type="text/plain"`,
+    Link: [
+      `<${MCP.aiCatalogUrl}>; rel="alternate"; type="${MCP_AI_CATALOG_TYPE}"`,
+      `<${MCP.serverCardUrl}>; rel="alternate"; type="${MCP_SERVER_CARD_TYPE}"`,
+      `<${MCP.manifestUrl}>; rel="alternate"; type="application/json"`,
+      `<${MCP.llmsUrl}>; rel="alternate"; type="text/plain"`,
+    ].join(", "),
   };
 }

@@ -1,11 +1,10 @@
-import { NextResponse } from "next/server";
 import { runWithMcpRequest } from "@/src/backend/mcp/mcp.context";
 import {
   getMcpGetDiscoveryBody,
   getMcpGetDiscoveryHeaders,
 } from "@/src/backend/mcp/mcp.discovery";
 import { mcpHandler } from "@/src/backend/mcp/mcp.handler";
-import { rateLimited } from "@/src/lib/http";
+import { jsonWithHeaders, rateLimited } from "@/src/lib/http";
 import {
   getClientIdentifier,
   RATE_LIMITS,
@@ -15,10 +14,11 @@ import {
 export const runtime = "nodejs";
 
 export function GET() {
-  return NextResponse.json(getMcpGetDiscoveryBody(), {
-    status: 405,
-    headers: getMcpGetDiscoveryHeaders(),
-  });
+  return jsonWithHeaders(
+    getMcpGetDiscoveryBody(),
+    getMcpGetDiscoveryHeaders(),
+    405,
+  );
 }
 
 export function POST(request: Request) {

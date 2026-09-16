@@ -1,6 +1,10 @@
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
-import { EXTERNAL_LINKS, SOCIAL_LINKS } from "./app/_config/site.constants";
+import {
+  EXTERNAL_LINKS,
+  MCP,
+  SOCIAL_LINKS,
+} from "./app/_config/site.constants";
 
 const securityHeaders = [
   {
@@ -116,6 +120,15 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           ...securityHeaders,
+          {
+            key: "Link",
+            value: [
+              `<${MCP.aiCatalogUrl}>; rel="alternate"; type="application/ai-catalog+json"`,
+              `<${MCP.serverCardUrl}>; rel="alternate"; type="application/mcp-server-card+json"`,
+              `<${MCP.manifestUrl}>; rel="alternate"; type="application/json"`,
+              `<${MCP.llmsUrl}>; rel="alternate"; type="text/plain"`,
+            ].join(", "),
+          },
           ...originTrials.map((value) => ({
             key: "Origin-Trial",
             value,

@@ -104,6 +104,10 @@ describe("GET and DELETE /mcp", () => {
     assert.equal(getResponse.headers.get("Allow"), "POST");
     assert.match(
       getResponse.headers.get("Link") ?? "",
+      /well-known\/ai-catalog\.json/,
+    );
+    assert.match(
+      getResponse.headers.get("Link") ?? "",
       /well-known\/mcp\.json/,
     );
     assert.equal(getResponse.headers.get("X-Robots-Tag"), "noindex, nofollow");

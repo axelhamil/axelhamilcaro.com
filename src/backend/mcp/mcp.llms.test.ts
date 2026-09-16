@@ -14,6 +14,7 @@ describe("llms MCP discovery", () => {
       const text = readPublic(name);
 
       assert.match(text, new RegExp(MCP.url.replace(/\./g, "\\.")));
+      assert.match(text, new RegExp(MCP.aiCatalogUrl.replace(/\./g, "\\.")));
       assert.match(text, new RegExp(MCP.manifestUrl.replace(/\./g, "\\.")));
       assert.match(text, /about#mcp/);
       assert.match(text, new RegExp(CONTACT.email.replace(/\./g, "\\.")));

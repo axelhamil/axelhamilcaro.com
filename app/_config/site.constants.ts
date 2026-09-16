@@ -5,6 +5,8 @@ export const MCP = {
   manifestPath: "/.well-known/mcp.json",
   manifestUrl: `${SITE_URL}/.well-known/mcp.json`,
   catalogUrl: `${SITE_URL}/.well-known/mcp/catalog.json`,
+  aiCatalogPath: "/.well-known/ai-catalog.json",
+  aiCatalogUrl: `${SITE_URL}/.well-known/ai-catalog.json`,
   serverCardUrl: `${SITE_URL}/mcp/server-card`,
   llmsPath: "/llms.txt",
   llmsUrl: `${SITE_URL}/llms.txt`,

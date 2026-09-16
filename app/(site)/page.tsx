@@ -51,7 +51,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <HomeMcp />
       <ExperienceTimeline />
       <WhatIDo />
       <Approach />
@@ -59,6 +58,7 @@ export default function Home() {
       <TrustedBy />
       <TechStack />
       <HomeFaq />
+      <HomeMcp />
     </main>
   );
 }

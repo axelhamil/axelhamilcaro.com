@@ -1,10 +1,9 @@
-import { NextResponse } from "next/server";
-import { getMcpCatalog } from "@/src/backend/mcp/mcp.discovery";
+import {
+  getDiscoveryHeaders,
+  getMcpCatalog,
+} from "@/src/backend/mcp/mcp.discovery";
+import { jsonCached } from "@/src/lib/http";
 
-export function GET() {
-  return NextResponse.json(getMcpCatalog(), {
-    headers: {
-      "Cache-Control": "public, max-age=3600",
-    },
-  });
+export function GET(request: Request) {
+  return jsonCached(getMcpCatalog(), request, getDiscoveryHeaders());
 }
