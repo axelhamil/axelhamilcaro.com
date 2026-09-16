@@ -4,6 +4,7 @@ import Footer from "@/src/shared/layouts/footer";
 import Navbar from "@/src/shared/layouts/navbar";
 import { SiteWidgets } from "@/src/shared/layouts/site-widgets";
 import { JsonLd } from "@/src/shared/seo/json-ld";
+import { WebMcpBootstrap } from "@/src/shared/webmcp/webmcp-bootstrap";
 
 export default function SiteLayout({
   children,
@@ -19,6 +20,7 @@ export default function SiteLayout({
         Aller au contenu principal
       </a>
       <JsonLd />
+      <WebMcpBootstrap />
       <SiteWidgets />
       <Navbar />
       <div

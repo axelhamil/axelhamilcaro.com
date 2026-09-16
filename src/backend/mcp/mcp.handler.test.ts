@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
+import "./mcp.test-env";
 import { DELETE, GET, POST } from "../../../app/mcp/route";
 
 const MCP_URL = "http://localhost:3000/mcp";
@@ -69,6 +70,7 @@ describe("POST /mcp", () => {
       payload.result?.instructions ?? "",
       /audit_architecture_brief/,
     );
+    assert.doesNotMatch(payload.result?.instructions ?? "", /submit_inquiry/);
   });
 
   test("answers 2025 initialize with a Response", async () => {

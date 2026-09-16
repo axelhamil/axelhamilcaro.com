@@ -56,14 +56,28 @@ export function rateLimit(
 }
 
 export function getClientIdentifier(request: Request): string {
+  const vercel = request.headers.get("x-vercel-forwarded-for");
+  if (vercel) return vercel.split(",")[0]?.trim() || "unknown";
+
+  const cloudflare = request.headers.get("cf-connecting-ip");
+  if (cloudflare) return cloudflare.trim() || "unknown";
+
   const forwarded = request.headers.get("x-forwarded-for");
-  const realIp = request.headers.get("x-real-ip");
-  const ip = forwarded?.split(",")[0]?.trim() || realIp || "unknown";
-  return ip;
+  if (forwarded) {
+    const hops = forwarded
+      .split(",")
+      .map((hop) => hop.trim())
+      .filter(Boolean);
+    return hops.at(-1) || "unknown";
+  }
+
+  return request.headers.get("x-real-ip") || "unknown";
 }
 
 export const RATE_LIMITS = {
   submit: { maxRequests: 5, windowMs: 60 * 1000 },
   track: { maxRequests: 100, windowMs: 60 * 1000 },
   api: { maxRequests: 60, windowMs: 60 * 1000 },
+  mcp: { maxRequests: 40, windowMs: 60 * 1000 },
+  mcpWrite: { maxRequests: 8, windowMs: 60 * 1000 },
 } as const;

@@ -9,8 +9,6 @@ import {
   RATES,
   SITE_URL,
 } from "@/app/_config/site.constants";
-import { servicesData } from "@/src/features/services/lib/services-data";
-import { TMA_URL } from "@/src/features/tma/lib/tma-data";
 
 export type CatalogSectionId =
   | "whoami"
@@ -173,19 +171,29 @@ export function getCaseStudies() {
 }
 
 export function getServices() {
-  const pages = Object.values(servicesData).map((service) => ({
-    slug: service.slug,
-    title: service.card?.title ?? service.metaTitle,
-    url: service.url,
-    dailyHtEur: RATES.dailyHtEur,
-  }));
-
   return [
-    ...pages,
+    {
+      slug: "developpeur-nextjs-freelance",
+      title: "Développement web sur mesure",
+      url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
+      dailyHtEur: RATES.dailyHtEur,
+    },
+    {
+      slug: "developpement-saas",
+      title: "Développement SaaS freelance",
+      url: `${SITE_URL}/services/developpement-saas`,
+      dailyHtEur: RATES.dailyHtEur,
+    },
+    {
+      slug: "lead-tech-fractional",
+      title: "Lead tech fractional freelance",
+      url: `${SITE_URL}/services/lead-tech-fractional`,
+      dailyHtEur: RATES.dailyHtEur,
+    },
     {
       slug: "tma",
       title: "TMA (tierce maintenance applicative)",
-      url: TMA_URL,
+      url: `${SITE_URL}/tma`,
       monthlyRates: {
         proEur: RATES.tma.proMonthlyEur,
         premiumEur: RATES.tma.premiumMonthlyEur,

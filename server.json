@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.axelhamilcaro/site",
+  "description": "Public MCP server for Axel Hamilcaro: identity, stack, and case studies.",
+  "version": "1.0.0",
+  "websiteUrl": "https://axelhamilcaro.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://axelhamilcaro.com/mcp"
+    }
+  ]
+}

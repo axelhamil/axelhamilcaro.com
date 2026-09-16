@@ -18,6 +18,7 @@ interface AdminNotificationProps {
   firstName: string;
   email: string;
   source?: string | null;
+  notes?: string | null;
 }
 
 export function AdminNotification({
@@ -26,6 +27,7 @@ export function AdminNotification({
   firstName,
   email,
   source,
+  notes,
 }: AdminNotificationProps) {
   const previewText = `Nouveau lead: ${firstName} via ${formTitle}`;
 
@@ -53,6 +55,13 @@ export function AdminNotification({
               <>
                 <Text style={label}>Source</Text>
                 <Text style={value}>{source}</Text>
+              </>
+            )}
+
+            {notes && (
+              <>
+                <Text style={label}>Message</Text>
+                <Text style={value}>{notes}</Text>
               </>
             )}
 

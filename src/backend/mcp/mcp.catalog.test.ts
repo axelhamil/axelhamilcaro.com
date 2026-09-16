@@ -5,7 +5,12 @@ import {
   JOB_TITLE,
   RATES,
 } from "../../../app/_config/site.constants";
-import { getCaseStudies, getWhoami, renderMarkdown } from "./mcp.catalog";
+import {
+  getCaseStudies,
+  getServices,
+  getWhoami,
+  renderMarkdown,
+} from "./mcp.catalog";
 
 describe("mcp.catalog whoami", () => {
   test("job title equals the Malt string exactly", () => {
@@ -44,5 +49,18 @@ describe("mcp.catalog availability", () => {
   test("status is available", () => {
     assert.equal(AVAILABILITY.status, "available");
     assert.equal(getWhoami().availability.status, "available");
+  });
+});
+
+describe("mcp.catalog services", () => {
+  test("exposes three service pages plus TMA", () => {
+    const slugs = getServices().map((service) => service.slug);
+
+    assert.deepEqual(slugs, [
+      "developpeur-nextjs-freelance",
+      "developpement-saas",
+      "lead-tech-fractional",
+      "tma",
+    ]);
   });
 });

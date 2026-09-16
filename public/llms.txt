@@ -6,6 +6,8 @@
 > Stack : Next.js, React, Node.js, TypeScript, PostgreSQL, NestJS, Fastify, Drizzle, Stripe, Capacitor.
 > TJM 500€ HT/jour. Devis sous 24h, démarrage sous 1 à 3 semaines, MVP en 4 à 8 semaines.
 
+MCP: https://axelhamilcaro.com/mcp
+
 ## Pages principales
 
 - [Accueil](https://axelhamilcaro.com): vue d'ensemble services, case studies, témoignages

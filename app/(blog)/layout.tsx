@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { BlogNavbar } from "@/src/features/blog/components/blog-navbar";
 import { ScrollToTop } from "@/src/features/blog/components/scroll-to-top";
 import Footer from "@/src/shared/layouts/footer";
+import { WebMcpBootstrap } from "@/src/shared/webmcp/webmcp-bootstrap";
 
 export default function BlogLayout({
   children,
@@ -17,6 +18,7 @@ export default function BlogLayout({
         Aller au contenu principal
       </a>
       <BlogNavbar />
+      <WebMcpBootstrap />
       <div id="main-content" className="pt-20">
         {children}
       </div>

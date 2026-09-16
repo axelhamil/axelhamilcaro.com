@@ -8,6 +8,8 @@ import { signOut, useSession } from "@/src/shared/api/auth-client";
 
 const routeLabels: Record<string, string> = {
   admin: "Dashboard",
+  analytics: "Analytics",
+  agents: "Agents",
   forms: "Formulaires",
   templates: "Templates",
   leads: "Leads",

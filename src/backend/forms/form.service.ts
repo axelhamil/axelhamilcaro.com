@@ -1,3 +1,4 @@
+import { MCP_INQUIRY_SLUG } from "@/src/backend/mcp/mcp.constants";
 import { ConflictError, NotFoundError } from "@/src/core/errors/domain.error";
 import { formatDate } from "@/src/lib/utils/date.utils";
 import { generateSlug } from "@/src/lib/utils/slug.utils";
@@ -22,6 +23,8 @@ export const formService = {
   },
 
   async getBySlug(slug: string) {
+    if (slug === MCP_INQUIRY_SLUG) throw new NotFoundError("Formulaire", slug);
+
     const form = await formRepository.findBySlug(slug);
     if (!form) {
       throw new NotFoundError("Formulaire", slug);
@@ -76,6 +79,7 @@ export const formService = {
   },
 
   async getActiveSlugs() {
-    return formRepository.findAllActiveSlugs();
+    const slugs = await formRepository.findAllActiveSlugs();
+    return slugs.filter((slug) => slug !== MCP_INQUIRY_SLUG);
   },
 };

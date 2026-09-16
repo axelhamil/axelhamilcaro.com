@@ -23,6 +23,7 @@ export interface CreateLeadData {
   firstName: string;
   email: string;
   source?: string | null;
+  notes?: string | null;
 }
 
 export const leadRepository = {
@@ -77,6 +78,7 @@ export const leadRepository = {
         firstName: data.firstName,
         email: data.email,
         source: data.source ?? null,
+        notes: data.notes ?? null,
       })
       .returning();
 

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import {
   BarChart3,
+  Bot,
   ExternalLink,
   FileText,
   LayoutDashboard,
@@ -18,6 +19,7 @@ import { cn } from "@/lib/utils";
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+  { name: "Agents", href: "/admin/agents", icon: Bot },
   { name: "Formulaires", href: "/admin/forms", icon: FileText },
   { name: "Liens Tree", href: "/admin/tree", icon: Link2 },
   { name: "Templates", href: "/admin/templates", icon: Package },

@@ -1,6 +1,7 @@
 import { ZodError } from "zod";
 import { authService } from "@/src/backend/auth/auth.service";
 import { formRepository } from "@/src/backend/forms/form.repository";
+import { MCP_INQUIRY_SLUG } from "@/src/backend/mcp/mcp.constants";
 import { NotFoundError, ValidationError } from "@/src/core/errors/domain.error";
 import { error, json, rateLimited } from "@/src/lib/http";
 import { RATE_LIMITS, rateLimit } from "@/src/lib/rate-limit";
@@ -67,6 +68,8 @@ export async function submit(
   body: { source?: string },
   clientIp: string,
 ) {
+  if (slug === MCP_INQUIRY_SLUG) return error("Form not found", 404);
+
   const rateLimitResult = rateLimit(`submit:${clientIp}`, RATE_LIMITS.submit);
   if (!rateLimitResult.success) {
     return rateLimited(rateLimitResult.retryAfter);

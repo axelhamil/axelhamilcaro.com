@@ -3,7 +3,14 @@
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { Loader2, Mail, Send } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { type FormEvent, type ReactNode, useId, useRef, useState } from "react";
+import {
+  type FormEvent,
+  type ReactNode,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -90,6 +97,21 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
       resetForm();
     }
   }
+
+  useEffect(() => {
+    function onOpen() {
+      setOpen(true);
+      setOpenCount((count) => count + 1);
+      setMessageLength(0);
+      setProjectType("");
+      setBudget("");
+      setErrors({});
+      setToken(null);
+    }
+
+    window.addEventListener("axel:open-contact", onOpen);
+    return () => window.removeEventListener("axel:open-contact", onOpen);
+  }, []);
 
   function validate(payload: {
     email: string;
@@ -201,6 +223,11 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
           onSubmit={handleSubmit}
           className="space-y-5"
           noValidate
+          {...({
+            toolname: "contact_form",
+            tooldescription:
+              "Contact form for a freelance inquiry. The human must submit it.",
+          } as Record<string, string>)}
         >
           <div
             aria-hidden="true"
@@ -322,6 +349,10 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
               maxLength={MESSAGE_MAX}
               placeholder={MESSAGE_PLACEHOLDER}
               disabled={submitting}
+              {...({
+                toolparamdescription:
+                  "Project description, stack, constraints, and timeline. Minimum 80 characters.",
+              } as Record<string, string>)}
               aria-invalid={errors.message ? true : undefined}
               aria-describedby={`${formId}-message-helper${errors.message ? ` ${formId}-message-error` : ""}`}
               onChange={(e) => {
@@ -370,6 +401,9 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                 maxLength={120}
                 placeholder="John Doe"
                 disabled={submitting}
+                {...({
+                  toolparamdescription: "Visitor first name",
+                } as Record<string, string>)}
               />
             </div>
 
@@ -383,6 +417,9 @@ export function ContactModal({ children, defaultOpen }: ContactModalProps) {
                 autoComplete="email"
                 placeholder="toi@exemple.com"
                 disabled={submitting}
+                {...({
+                  toolparamdescription: "Visitor email for a reply",
+                } as Record<string, string>)}
                 aria-invalid={errors.email ? true : undefined}
                 aria-describedby={
                   errors.email ? `${formId}-email-error` : undefined

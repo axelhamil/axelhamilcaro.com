@@ -104,7 +104,8 @@
       "!**/node_modules/**",
       "!**/.next/**",
       "!**/dist/**",
-      "!**/build/**"
+      "!**/build/**",
+      "!**/drizzle/migrations/meta/**"
     ]
   },
   "javascript": {

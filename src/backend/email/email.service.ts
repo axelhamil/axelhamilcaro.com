@@ -26,6 +26,7 @@ interface SendAdminNotificationParams {
   firstName: string;
   email: string;
   source?: string | null;
+  notes?: string | null;
 }
 
 interface SendContactMessageParams {
@@ -127,6 +128,7 @@ export const emailService = {
     firstName,
     email,
     source,
+    notes,
   }: SendAdminNotificationParams) {
     if (!resend) {
       return { success: false, error: "Resend not configured" };
@@ -147,6 +149,7 @@ export const emailService = {
           firstName,
           email,
           source,
+          notes,
         }),
       });
 

@@ -23,7 +23,12 @@ export const leadService = {
     return lead;
   },
 
-  async submit(slug: string, input: unknown, source?: string | null) {
+  async submit(
+    slug: string,
+    input: unknown,
+    source?: string | null,
+    notes?: string | null,
+  ) {
     const data = submitLeadSchema.parse(input);
 
     const form = await formRepository.findBySlug(slug);
@@ -42,14 +47,15 @@ export const leadService = {
       form.id,
       email,
     );
-    if (!alreadyExists) {
-      await leadRepository.create({
-        formId: form.id,
-        firstName,
-        email,
-        source,
-      });
-    }
+    if (alreadyExists) return { created: false };
+
+    await leadRepository.create({
+      formId: form.id,
+      firstName,
+      email,
+      source,
+      notes,
+    });
 
     if (form.emailSubject && form.emailBody) {
       await emailService.sendLeadEmail({
@@ -66,7 +72,10 @@ export const leadService = {
       firstName,
       email,
       source,
+      notes,
     });
+
+    return { created: true };
   },
 
   async update(id: string, input: unknown) {

@@ -192,6 +192,29 @@ export const linkClicks = pgTable(
   ],
 );
 
+export const mcpBriefs = pgTable("mcp_briefs", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  payload: jsonb("payload").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const mcpEvents = pgTable(
+  "mcp_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    method: text("method").notNull(),
+    name: text("name"),
+    clientName: text("client_name"),
+    clientVersion: text("client_version"),
+    userAgent: text("user_agent"),
+    ok: boolean("ok").notNull().default(true),
+    durationMs: integer("duration_ms"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => [index("idx_mcp_events_created_at").on(table.createdAt)],
+);
+
 export type User = typeof users.$inferSelect;
 export type Form = typeof forms.$inferSelect;
 export type FormInsert = typeof forms.$inferInsert;
@@ -207,3 +230,7 @@ export type LinkClick = typeof linkClicks.$inferSelect;
 export type LinkClickInsert = typeof linkClicks.$inferInsert;
 export type LoginAttempt = typeof loginAttempts.$inferSelect;
 export type LoginAttemptInsert = typeof loginAttempts.$inferInsert;
+export type McpBrief = typeof mcpBriefs.$inferSelect;
+export type McpBriefInsert = typeof mcpBriefs.$inferInsert;
+export type McpEvent = typeof mcpEvents.$inferSelect;
+export type McpEventInsert = typeof mcpEvents.$inferInsert;

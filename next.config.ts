@@ -60,6 +60,9 @@ const nextConfig: NextConfig = {
     viewTransition: true,
     optimizePackageImports: ["framer-motion", "lucide-react"],
   },
+  turbopack: {
+    root: process.cwd(),
+  },
   redirects: async () => [
     {
       source: "/linkedin",
@@ -102,12 +105,25 @@ const nextConfig: NextConfig = {
       permanent: true,
     },
   ],
-  headers: async () => [
-    {
-      source: "/(.*)",
-      headers: securityHeaders,
-    },
-  ],
+  headers: async () => {
+    const originTrials = [
+      process.env.ORIGIN_TRIAL_CHROME,
+      process.env.ORIGIN_TRIAL_EDGE,
+    ].filter((token): token is string => Boolean(token));
+
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          ...securityHeaders,
+          ...originTrials.map((value) => ({
+            key: "Origin-Trial",
+            value,
+          })),
+        ],
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({
