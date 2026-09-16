@@ -19,6 +19,42 @@ describe("analyzeArchitectureNeed", () => {
       ),
     );
   });
+
+  test("constraint pas de mobile v1 drops the Capacitor adapter", () => {
+    const brief = analyzeArchitectureNeed({
+      need: "SaaS e-learning multi-tenant, app iOS plus tard",
+      constraints: "pas de mobile v1",
+    });
+
+    assert.equal(brief.flags.mobile, false);
+    assert.equal(brief.flags.noMobile, true);
+    assert.ok(
+      !brief.adapters.some((item) => /capacitor|mobile client/i.test(item)),
+    );
+    assert.ok(
+      brief.avoidOnShortMvp.some((item) =>
+        /mobile|Capacitor|native/i.test(item),
+      ),
+    );
+  });
+
+  test("does not stamp Billing and Admin on every SaaS brief", () => {
+    const learning = analyzeArchitectureNeed({
+      need: "SaaS e-learning multi-tenant, catalogue SCORM",
+      constraints: "pas de mobile v1",
+    });
+    const ticketing = analyzeArchitectureNeed({
+      need: "dashboard billetterie temps réel WebSocket, plan de salle",
+    });
+
+    assert.ok(learning.contexts.some((item) => /learn/i.test(item)));
+    assert.ok(!learning.contexts.some((item) => /billing/i.test(item)));
+    assert.ok(!learning.contexts.some((item) => /admin/i.test(item)));
+    assert.ok(
+      ticketing.contexts.some((item) => /event|seat|ticket/i.test(item)),
+    );
+    assert.notDeepEqual(learning.contexts, ticketing.contexts);
+  });
 });
 
 describe("renderProposalMarkdown", () => {

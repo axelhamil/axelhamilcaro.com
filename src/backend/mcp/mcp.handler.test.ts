@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
 import "./mcp.test-env";
-import { DELETE, GET, POST } from "../../../app/mcp/route";
+import { DELETE, GET, OPTIONS, POST } from "../../../app/mcp/route";
 
 const MCP_URL = "http://localhost:3000/mcp";
 
@@ -103,6 +103,11 @@ describe("GET and DELETE /mcp", () => {
     assert.equal(deleteResponse.status, 405);
     assert.equal(getResponse.headers.get("Allow"), "POST");
     assert.match(
+      getResponse.headers.get("Access-Control-Allow-Methods") ?? "",
+      /POST/,
+    );
+    assert.equal(getResponse.headers.get("Access-Control-Allow-Origin"), "*");
+    assert.match(
       getResponse.headers.get("Link") ?? "",
       /well-known\/ai-catalog\.json/,
     );
@@ -115,5 +120,82 @@ describe("GET and DELETE /mcp", () => {
     const body = (await getResponse.json()) as { message?: string };
     assert.match(body.message ?? "", /POST Streamable HTTP/);
     assert.match(body.message ?? "", /pas une page/);
+    assert.match(body.message ?? "", /2025-03-26/);
+  });
+});
+
+describe("MCP browser CORS", () => {
+  test("POST initialize from claude.ai exposes Access-Control-Allow-Origin", async () => {
+    const response = await POST(
+      jsonRpcPost(
+        {
+          jsonrpc: "2.0",
+          id: 1,
+          method: "initialize",
+          params: {
+            protocolVersion: "2025-03-26",
+            capabilities: {},
+            clientInfo: { name: "claude.ai", version: "1" },
+          },
+        },
+        { Origin: "https://claude.ai" },
+      ),
+    );
+
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("Access-Control-Allow-Origin"), "*");
+    assert.match(
+      response.headers.get("Access-Control-Allow-Methods") ?? "",
+      /POST/,
+    );
+  });
+
+  test("OPTIONS preflight allows POST from a browser origin", async () => {
+    const response = await OPTIONS(
+      new Request(MCP_URL, {
+        method: "OPTIONS",
+        headers: {
+          Origin: "https://claude.ai",
+          "Access-Control-Request-Method": "POST",
+          "Access-Control-Request-Headers": "content-type,mcp-protocol-version",
+        },
+      }),
+    );
+
+    assert.equal(response.status, 204);
+    assert.equal(response.headers.get("Access-Control-Allow-Origin"), "*");
+    assert.match(
+      response.headers.get("Access-Control-Allow-Methods") ?? "",
+      /POST/,
+    );
+    assert.match(
+      response.headers.get("Access-Control-Allow-Headers") ?? "",
+      /MCP-Protocol-Version/i,
+    );
+  });
+});
+
+describe("2026 header on initialize", () => {
+  test("does not 400 when Cursor sends initialize plus MCP-Protocol-Version 2026", async () => {
+    const response = await POST(
+      jsonRpcPost(
+        {
+          jsonrpc: "2.0",
+          id: 1,
+          method: "initialize",
+          params: {
+            protocolVersion: "2026-07-28",
+            capabilities: {},
+            clientInfo: { name: "cursor", version: "1" },
+          },
+        },
+        { "MCP-Protocol-Version": "2026-07-28" },
+      ),
+    );
+
+    assert.equal(response.status, 200);
+    const text = await response.text();
+    assert.match(text, /2025-03-26/);
+    assert.doesNotMatch(text, /headers and body disagree/);
   });
 });

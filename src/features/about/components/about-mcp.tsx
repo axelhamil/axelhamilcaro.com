@@ -14,9 +14,11 @@ export function AboutMcp() {
           <strong className="text-primary">
             Axel Hamilcaro expose un serveur MCP public à {MCP.url}.
           </strong>{" "}
-          Les agents s&apos;y connectent en POST Streamable HTTP, protocoles
-          2026-07-28 et 2025-03-26. Ce n&apos;est pas une page à ouvrir dans le
-          navigateur.
+          Les agents s&apos;y connectent en POST Streamable HTTP. Cursor et
+          Claude : handshake <code>initialize</code> en protocolVersion
+          2025-03-26, sans header MCP-Protocol-Version. Les clients 2026-07-28
+          utilisent <code>server/discover</code>. Ce n&apos;est pas une page à
+          ouvrir dans le navigateur.
         </p>
         <p className="text-secondary text-lg leading-relaxed mb-4">
           Le serveur publie l&apos;identité, la stack, les case studies et les

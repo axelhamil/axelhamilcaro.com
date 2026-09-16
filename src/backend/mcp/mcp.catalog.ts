@@ -33,26 +33,41 @@ const CASE_STUDIES = [
     slug: "scormpilot",
     title: "ScormPilot",
     path: "/portfolio/scormpilot",
-    summary: "SaaS e-learning SCORM multi-tenant, 5 apps en solo.",
+    summary:
+      "SaaS e-learning SCORM multi-tenant, 5 apps en solo (monorepo Turborepo), 99.9% uptime.",
+    metrics: ["5 apps solo", "99.9% uptime", "monorepo Turborepo"],
+    stack: ["Next.js", "Fastify", "PostgreSQL", "DDD"],
   },
   {
     slug: "civitime",
     title: "Civitime",
     path: "/portfolio/civitime",
-    summary: "Plateforme RSE EdTech B Corp, de développeur à lead technique.",
+    summary:
+      "Plateforme RSE EdTech B Corp, 250 000+ collaborateurs, 4 ans de développeur à lead technique, refonte Clean Archi + DDD + event sourcing.",
+    metrics: [
+      "250 000+ collaborateurs",
+      "4 ans, développeur à lead",
+      "completion 65-73%",
+    ],
+    stack: ["React", "NestJS", "DDD", "event sourcing"],
   },
   {
     slug: "openup",
     title: "OpenUp",
     path: "/portfolio/openup",
-    summary: "SaaS de gestion de liens tout-en-un, iOS, Android et PWA.",
+    summary:
+      "SaaS de gestion de liens tout-en-un, iOS, Android et PWA, edge Cloudflare <50ms.",
+    metrics: ["<50ms edge", "iOS + Android + PWA", "live openup.to"],
+    stack: ["Hono", "Capacitor", "Cloudflare Workers", "Stripe"],
   },
   {
     slug: "billetterie",
     title: "Billetterie",
     path: "/portfolio/billetterie",
     summary:
-      "Dashboard interne de billetterie, plan de salle 2D/3D, WebSocket.",
+      "Dashboard interne de billetterie, plan de salle 2D/3D, WebSocket <200ms, solo en 1 mois.",
+    metrics: ["<200ms WebSocket", "solo 1 mois", "plan 2D/3D"],
+    stack: ["Next.js", "NestJS", "WebSocket", "PostgreSQL"],
   },
 ] as const;
 
@@ -167,6 +182,8 @@ export function getCaseStudies() {
     path: study.path,
     url: `${SITE_URL}${study.path}`,
     summary: study.summary,
+    metrics: [...study.metrics],
+    stack: [...study.stack],
   }));
 }
 
@@ -331,6 +348,10 @@ function renderCaseStudiesMarkdown() {
       `## ${study.title}`,
       "",
       study.summary,
+      "",
+      ...study.metrics.map((metric) => `- ${metric}`),
+      "",
+      `Stack: ${study.stack.join(", ")}`,
       "",
       study.url,
       "",

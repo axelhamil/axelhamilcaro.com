@@ -41,8 +41,8 @@ describe("mcp.discovery", () => {
     );
     assert.ok(card.description.length <= 100);
     assert.deepEqual(card.remotes[0]?.supportedProtocolVersions, [
-      "2026-07-28",
       "2025-03-26",
+      "2026-07-28",
     ]);
   });
 
@@ -73,7 +73,7 @@ describe("mcp.discovery", () => {
   test("GET discovery body keeps 405 semantics without looking like a page", () => {
     const body = getMcpGetDiscoveryBody();
     assert.equal(body.remotes[0]?.url, MCP.url);
-    assert.deepEqual(body.protocolVersions, ["2026-07-28", "2025-03-26"]);
+    assert.deepEqual(body.protocolVersions, ["2025-03-26", "2026-07-28"]);
     assert.match(body.message, /POST Streamable HTTP/);
     assert.match(body.message, /pas une page/);
   });

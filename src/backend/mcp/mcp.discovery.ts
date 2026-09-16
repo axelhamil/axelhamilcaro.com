@@ -8,16 +8,25 @@ import {
   MCP_SERVER_VERSION,
 } from "./mcp.constants";
 
-export const MCP_PROTOCOL_VERSIONS = ["2026-07-28", "2025-03-26"] as const;
+export const MCP_PROTOCOL_VERSIONS = ["2025-03-26", "2026-07-28"] as const;
+
+export function getMcpCorsHeaders() {
+  return {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Content-Type, Accept, MCP-Protocol-Version, Mcp-Session-Id, Mcp-Method, Last-Event-ID, If-None-Match",
+    "Access-Control-Expose-Headers":
+      "ETag, Allow, Link, MCP-Protocol-Version, Mcp-Session-Id",
+    "Access-Control-Max-Age": "86400",
+  };
+}
 
 export function getDiscoveryHeaders(contentType = "application/json") {
   return {
     "Content-Type": `${contentType}; charset=utf-8`,
     "Cache-Control": "public, max-age=3600",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET",
-    "Access-Control-Allow-Headers": "Content-Type, If-None-Match",
-    "Access-Control-Expose-Headers": "ETag",
+    ...getMcpCorsHeaders(),
   };
 }
 
@@ -91,7 +100,8 @@ export function getMcpGetDiscoveryBody() {
   return {
     ...getServerManifest(),
     protocolVersions: [...MCP_PROTOCOL_VERSIONS],
-    message: "POST Streamable HTTP, ce n'est pas une page.",
+    message:
+      "POST Streamable HTTP, ce n'est pas une page. Cursor et Claude: JSON-RPC initialize avec protocolVersion 2025-03-26, sans header MCP-Protocol-Version. Client 2026-07-28: server/discover plus le header.",
   };
 }
 

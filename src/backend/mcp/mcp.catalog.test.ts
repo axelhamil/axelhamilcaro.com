@@ -43,6 +43,16 @@ describe("mcp.catalog case studies", () => {
       "scormpilot",
     ]);
   });
+
+  test("carries the site metrics an agent would otherwise miss", () => {
+    const markdown = renderMarkdown("case-studies");
+
+    assert.match(markdown, /250 000/);
+    assert.match(markdown, /99\.9%/);
+    assert.match(markdown, /<50ms/);
+    assert.match(markdown, /<200ms/);
+    assert.match(markdown, /5 apps/);
+  });
 });
 
 describe("mcp.catalog availability", () => {

@@ -62,7 +62,7 @@ export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
     version: MCP_SERVER_VERSION,
   },
   instructions:
-    "Read identity resources first, then case studies. Then call audit_architecture_brief, then generate_custom_proposal. To contact Axel, email contact@axelhamilcaro.com.",
+    "Cursor and Claude: call initialize with protocolVersion 2025-03-26 and do not send MCP-Protocol-Version 2026-07-28. Native 2026 clients: server/discover plus that header. Read identity resources first, then case studies. Then call audit_architecture_brief, then generate_custom_proposal. To contact Axel, email contact@axelhamilcaro.com.",
   onEvent: (event) => {
     if (event.type === "ERROR" && process.env.NODE_ENV === "development")
       console.error("[mcp]", event.error);
@@ -81,3 +81,36 @@ export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
       void persistEvent(event.status === "success", event.duration ?? 0);
   },
 });
+
+export async function handleMcpHttp(request: Request) {
+  return mcpHandler(await downgradeLegacyInitialize(request));
+}
+
+async function downgradeLegacyInitialize(request: Request) {
+  if (request.method !== "POST") return request;
+  if (!request.headers.get("mcp-protocol-version")) return request;
+
+  let body: unknown;
+  try {
+    body = await request.clone().json();
+  } catch {
+    return request;
+  }
+
+  if (
+    !body ||
+    typeof body !== "object" ||
+    !("method" in body) ||
+    body.method !== "initialize"
+  )
+    return request;
+
+  const headers = new Headers(request.headers);
+  headers.delete("mcp-protocol-version");
+
+  return new Request(request.url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+  });
+}
