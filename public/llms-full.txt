@@ -1,13 +1,13 @@
 # Axel Hamilcaro, Développeur Fullstack Typescript Next.js Node.js
 
-> Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé à Tours, en Centre-Val de Loire, 100% remote sur la France.
+> Axel Hamilcaro est développeur fullstack (TypeScript, Next.js, React, Node.js), freelance basé à Tours, en Centre-Val de Loire, 100% remote sur la France.
 > Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD, et accompagne les équipes en lead tech temps partiel.
 > Entreprise individuelle (EI), SIRET 939 291 415 00015. TJM 500€ HT/jour.
 
 ## Identité et positionnement
 
 - Nom : Axel Hamilcaro
-- Métier : développeur web fullstack (Next.js, React, Node), freelance
+- Métier : développeur fullstack (TypeScript, Next.js, React, Node.js), freelance
 - Spécialité : SaaS B2B multi-tenant, applications web sur mesure, lead tech fractional
 - Localisation : Tours, Centre-Val de Loire, 100% remote France
 - Statut : entreprise individuelle, SIRET 939 291 415 00015

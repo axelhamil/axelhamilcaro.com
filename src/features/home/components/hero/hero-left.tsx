@@ -56,7 +56,7 @@ const HeroLeft = () => {
           <span className="block text-lg sm:text-xl md:text-2xl font-medium text-secondary mb-2">
             Axel Hamilcaro
           </span>{" "}
-          <LetterReveal text="Développeur Web" delay={0.2} />
+          <LetterReveal text="Développeur" delay={0.2} />
           <br className="hidden sm:block" />{" "}
           <motion.span
             className="inline-block"

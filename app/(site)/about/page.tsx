@@ -13,7 +13,7 @@ const ABOUT_URL = "https://axelhamilcaro.com/about";
 export const metadata: Metadata = {
   title: "À propos : dev fullstack freelance",
   description:
-    "Développeur web fullstack freelance à Tours, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés depuis 2024 en Next.js et React.",
+    "Développeur fullstack freelance à Tours, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés depuis 2024 en Next.js et React.",
   alternates: { canonical: ABOUT_URL },
   openGraph: {
     title: "À propos : dev fullstack freelance",
@@ -34,7 +34,7 @@ const profileSchema = buildProfilePageSchema({
   url: ABOUT_URL,
   name: "À propos d'Axel Hamilcaro",
   description:
-    "Page de présentation d'Axel Hamilcaro, développeur web fullstack freelance basé à Tours, en Centre-Val de Loire.",
+    "Page de présentation d'Axel Hamilcaro, développeur fullstack freelance basé à Tours, en Centre-Val de Loire.",
 });
 
 const breadcrumbSchema = buildBreadcrumbListSchema([

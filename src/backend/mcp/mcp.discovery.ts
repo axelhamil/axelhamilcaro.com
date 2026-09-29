@@ -92,7 +92,7 @@ export function getServerCard() {
     title: "Axel Hamilcaro",
     version: MCP_SERVER_VERSION,
     description:
-      "Axel Hamilcaro, développeur web fullstack Next.js, React, Node.",
+      "Axel Hamilcaro, développeur fullstack TypeScript, Next.js, React, Node.js.",
     websiteUrl: SITE_URL,
     remotes: [
       {
