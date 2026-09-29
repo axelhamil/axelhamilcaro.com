@@ -10,7 +10,7 @@ const paragraphVariants = cva("leading-relaxed text-pretty", {
   variants: {
     variant: {
       primary: "text-primary/90",
-      secondary: "text-secondary/80",
+      secondary: "text-muted-foreground",
       muted: "text-primary/60",
       highlight: "text-primary font-medium",
     },

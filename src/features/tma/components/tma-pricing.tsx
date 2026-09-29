@@ -200,7 +200,7 @@ export function TmaPricing() {
           email à chaque renouvellement et tu gères tout depuis ton portail
           Stripe : moyen de paiement, factures, résiliation.
         </p>
-        <p className="text-center text-secondary/80 text-xs mt-3 max-w-2xl mx-auto">
+        <p className="text-center text-muted-foreground text-xs mt-3 max-w-2xl mx-auto">
           TVA non applicable, art. 293 B du CGI.
         </p>
       </div>

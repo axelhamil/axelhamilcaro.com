@@ -37,7 +37,7 @@ export function BlogByline({
         href={originalAuthorUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-secondary underline-offset-2 hover:text-accent-ink hover:underline transition-colors"
+        className="text-secondary underline underline-offset-2 hover:text-accent-ink transition-colors"
       >
         {originalAuthor}
       </a>

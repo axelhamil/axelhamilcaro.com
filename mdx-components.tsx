@@ -16,7 +16,7 @@ function MdxImage({ src, alt }: ComponentPropsWithoutRef<"img">) {
         className="rounded-lg border border-border"
       />
       {alt && (
-        <figcaption className="mt-2 text-center text-sm text-muted">
+        <figcaption className="mt-2 text-center text-sm text-muted-foreground">
           {alt}
         </figcaption>
       )}
