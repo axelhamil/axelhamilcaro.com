@@ -4,8 +4,7 @@ import { siteConfig } from "./site";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default:
-      "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
+    default: "Axel Hamilcaro, Développeur Fullstack Typescript Next.js Node.js",
     template: "%s · Axel Hamilcaro",
   },
   description: siteConfig.description,
@@ -73,12 +72,12 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
+    title: "Axel Hamilcaro, Développeur Fullstack Typescript Next.js Node.js",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node",
+    title: "Axel Hamilcaro, Développeur Fullstack Typescript Next.js Node.js",
     description: siteConfig.description,
     creator: "@axelhamilcaro",
   },

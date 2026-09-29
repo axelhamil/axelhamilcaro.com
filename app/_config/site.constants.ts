@@ -57,4 +57,4 @@ export const RATES = {
 } as const;
 
 export const JOB_TITLE =
-  "Développeur Web Fullstack | Next.js | React | Node" as const;
+  "Développeur Fullstack Typescript Next.js Node.js" as const;

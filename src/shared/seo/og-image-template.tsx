@@ -159,7 +159,7 @@ export async function renderOgImage({
             fontSize: "22px",
           }}
         >
-          Développeur Web Fullstack · Freelance
+          Développeur Fullstack · Freelance
         </div>
       </div>
     </div>,

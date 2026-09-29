@@ -419,7 +419,7 @@ export async function list(headers: Headers) {
 
 But : une seule identité, formulée à l'identique partout, pour que les IA qui scrapent (ChatGPT, Perplexity, AI Overviews) citent une entité cohérente.
 
-1. **Titre canonique Malt** (string exacte, ne pas paraphraser) : `Axel Hamilcaro, Développeur Web Fullstack | Next.js | React | Node`. `jobTitle` = `Développeur Web Fullstack | Next.js | React | Node`. À garder partout : `app/_config/metadata.ts`, `src/shared/seo/json-ld.tsx`, `public/llms.txt` + `llms-full.txt` (H1), eyebrow `/about`.
+1. **Titre canonique Malt** (string exacte, ne pas paraphraser, recopiée du profil Malt) : `Axel Hamilcaro, Développeur Fullstack Typescript Next.js Node.js`. `jobTitle` = `Développeur Fullstack Typescript Next.js Node.js`. Si le titre Malt change, c'est le site qui s'aligne. À garder partout : `app/_config/metadata.ts`, `src/shared/seo/json-ld.tsx`, `public/llms.txt` + `llms-full.txt` (H1), eyebrow `/about`.
 2. **Orthographe** : `fullstack` en un seul mot (jamais `full-stack`). Stack signature toujours `Next.js, React, Node`.
 3. **Ne PAS changer les `<title>` par page** pour y coller le titre Malt : le template `%s · Axel Hamilcaro` (`metadata.ts`) ajoute déjà la marque. Titre Malt = identité/`jobTitle`/prose, pas les balises title par page (sinon doublons).
 4. **Parcours réel (faits canoniques, ne pas réinventer)** : Wild Code School 2020 (Concepteur Développeur, Bac+3/4) → Civitime janvier 2021 à décembre 2024, **de développeur à lead technique** (jamais "lead dès l'embauche") → **freelance depuis 2024**. Civitime = EdTech B Corp, plateforme RSE, refonte Clean Archi + DDD + event sourcing.
