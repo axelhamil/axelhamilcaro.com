@@ -8,6 +8,7 @@ import {
   SITE_URL,
   SOCIAL_LINKS,
 } from "@/app/_config/site.constants";
+import { AREA_SERVED } from "./schemas/area-served";
 import { buildMcpApiSchema } from "./schemas/mcp-api";
 
 const DAILY_RATE_EUR = String(RATES.dailyHtEur);
@@ -247,12 +248,7 @@ export function JsonLd() {
     },
     provider: { "@id": `${SITE_URL}/#person` },
     sameAs: [EXTERNAL_LINKS.malt],
-    areaServed: [
-      {
-        "@type": "Country",
-        name: "France",
-      },
-    ],
+    areaServed: AREA_SERVED,
     serviceType: [
       "Développement Web Fullstack",
       "Création d'Applications Web",
