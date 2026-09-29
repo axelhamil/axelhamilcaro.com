@@ -17,7 +17,7 @@ export function AboutHero() {
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-12">
           <Image
             src="/axel-hamilcaro-developpeur-fullstack.jpeg"
-            alt="Axel Hamilcaro, développeur web fullstack freelance"
+            alt="Axel Hamilcaro, développeur fullstack freelance"
             width={200}
             height={200}
             className="rounded-full object-cover shrink-0 border-4 border-primary"
@@ -36,9 +36,9 @@ export function AboutHero() {
             </h1>
             <p className="text-secondary text-lg leading-relaxed">
               <strong className="text-primary">
-                Axel Hamilcaro, développeur web fullstack (Next.js, React,
-                Node), freelance basé à Tours, en Centre-Val de Loire, 100%
-                remote sur la France.
+                Axel Hamilcaro, développeur fullstack (TypeScript, Next.js,
+                React, Node.js), freelance basé à Tours, en Centre-Val de Loire,
+                100% remote sur la France.
               </strong>{" "}
               Formé à la Wild Code School en 2020, j'ai passé 4 ans chez
               Civitime, de développeur à lead technique, avant de me lancer en

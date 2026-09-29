@@ -62,7 +62,7 @@ export function JsonLd() {
     url: SITE_URL,
     image: PROFILE_IMAGE,
     jobTitle: JOB_TITLE,
-    description: `Axel Hamilcaro est développeur web fullstack (Next.js, React, Node), freelance basé à Tours, en Centre-Val de Loire, et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. 4 ans chez Civitime, de développeur à lead technique, 10+ projets livrés en freelance depuis 2024. TJM ${DAILY_RATE_EUR}€ HT/jour.`,
+    description: `Axel Hamilcaro est développeur fullstack (TypeScript, Next.js, React, Node.js), freelance basé à Tours, en Centre-Val de Loire, et intervenant à 100% en remote sur la France. Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD. 4 ans chez Civitime, de développeur à lead technique, 10+ projets livrés en freelance depuis 2024. TJM ${DAILY_RATE_EUR}€ HT/jour.`,
     email: "mailto:contact@axelhamilcaro.com",
     identifier: {
       "@type": "PropertyValue",
@@ -145,7 +145,7 @@ export function JsonLd() {
     alternateName: "Axel Hamilcaro Portfolio",
     url: SITE_URL,
     description:
-      "Portfolio d'Axel Hamilcaro, développeur web fullstack Next.js, React et Node, basé à Tours, en Centre-Val de Loire, 100% remote France. Expertise SaaS B2B multi-tenant, Clean Architecture et lead tech.",
+      "Portfolio d'Axel Hamilcaro, développeur fullstack TypeScript, Next.js, React et Node.js, basé à Tours, en Centre-Val de Loire, 100% remote France. Expertise SaaS B2B multi-tenant, Clean Architecture et lead tech.",
     inLanguage: "fr-FR",
     copyrightYear: new Date().getFullYear(),
     about: { "@id": `${SITE_URL}/#person` },

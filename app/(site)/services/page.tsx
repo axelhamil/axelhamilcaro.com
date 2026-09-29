@@ -15,12 +15,12 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 export const metadata: Metadata = {
   title: "Services freelance",
   description:
-    "Développeur web fullstack freelance, toute stack : Next.js, React, Node. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis sous 24h.",
+    "Développeur fullstack freelance TypeScript, Next.js, React, Node.js. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
   alternates: { canonical: SERVICES_URL },
   openGraph: {
     title: "Services freelance",
     description:
-      "Développeur web fullstack freelance, toute stack : Next.js, React, Node. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis sous 24h.",
+      "Développeur fullstack freelance TypeScript, Next.js, React, Node.js. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
     url: SERVICES_URL,
     type: "website",
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services freelance",
     description:
-      "Développeur web fullstack freelance, toute stack : Next.js, React, Node. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis sous 24h.",
+      "Développeur fullstack freelance TypeScript, Next.js, React, Node.js. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
   },
 };
 
@@ -67,8 +67,8 @@ export default function ServicesIndexPage() {
             4 façons de travailler ensemble
           </h1>
           <p className="text-secondary text-lg sm:text-xl max-w-3xl mx-auto">
-            Développeur web fullstack. Next.js est ma signature, mais je prends
-            ton projet quelle que soit la stack : React/Node, Vite, mobile natif
+            Développeur fullstack. Next.js est ma signature, mais je prends ton
+            projet quelle que soit la stack : React/Node, Vite, mobile natif
             iOS/Android. Chaque service est cadré, chiffré, et basé sur des
             références livrées en production.
           </p>

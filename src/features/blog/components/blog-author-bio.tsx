@@ -41,10 +41,10 @@ export function BlogAuthorBio({
             </span>
           </TransitionLink>
           <p className="text-sm text-secondary leading-relaxed">
-            Développeur web fullstack freelance spécialisé Next.js, React et
-            Node, basé à Tours, en Centre-Val de Loire, et 100% remote sur la
-            France. Je conçois des SaaS B2B sur mesure et j'assure la
-            maintenance d'applications en production. 4 ans chez Civitime, de
+            Développeur fullstack freelance spécialisé TypeScript, Next.js,
+            React et Node.js, basé à Tours, en Centre-Val de Loire, et 100%
+            remote sur la France. Je conçois des SaaS B2B sur mesure et j'assure
+            la maintenance d'applications en production. 4 ans chez Civitime, de
             développeur à lead technique, plus de 10 projets livrés en autonomie
             depuis 2021.
           </p>

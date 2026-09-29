@@ -33,7 +33,7 @@ export default function TreeHeader() {
           >
             <Image
               src="/axel-hamilcaro-developpeur-fullstack.jpeg"
-              alt="Axel Hamilcaro, développeur web fullstack freelance"
+              alt="Axel Hamilcaro, développeur fullstack freelance"
               width={96}
               height={96}
               className="object-cover w-full h-full"

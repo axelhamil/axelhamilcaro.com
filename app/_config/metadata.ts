@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "développeur web fullstack",
+    "développeur fullstack",
     "développeur full-stack",
     "développeur freelance",
     "développeur web",

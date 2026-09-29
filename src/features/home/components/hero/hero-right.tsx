@@ -20,7 +20,7 @@ const HeroRight = () => {
         >
           <Image
             src="/axel-hamilcaro-developpeur-fullstack.jpeg"
-            alt="Axel Hamilcaro, développeur web fullstack freelance"
+            alt="Axel Hamilcaro, développeur fullstack freelance"
             fill
             className="object-cover"
             preload
