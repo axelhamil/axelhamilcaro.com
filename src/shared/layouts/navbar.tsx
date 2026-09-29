@@ -165,9 +165,9 @@ const Navbar = () => {
             )}
             aria-label={mobileMenu.isOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={mobileMenu.isOpen}
-            aria-controls="mobile-nav"
+            aria-controls={mobileMenu.isOpen ? "mobile-nav" : undefined}
           >
-            <div className="relative w-6 h-6">
+            <span className="relative block w-6 h-6">
               <Menu
                 className={cn(
                   "absolute inset-0 transition-all duration-300",
@@ -184,7 +184,7 @@ const Navbar = () => {
                     : "opacity-0 -rotate-90 scale-50",
                 )}
               />
-            </div>
+            </span>
           </button>
         </div>
       </nav>

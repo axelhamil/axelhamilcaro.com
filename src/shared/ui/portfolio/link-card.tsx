@@ -31,26 +31,29 @@ function LinkCardContent({
 }) {
   return (
     <>
-      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light" />
+      <span
+        aria-hidden="true"
+        className="block absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light"
+      />
 
-      <div className="relative z-10 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-secondary-background border border-border group-hover:border-accent group-hover:bg-accent group-hover:scale-105 transition-all duration-300 shrink-0">
+      <span className="relative z-10 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-secondary-background border border-border group-hover:border-accent group-hover:bg-accent group-hover:scale-105 transition-all duration-300 shrink-0">
         <span className="text-primary group-hover:text-accent-foreground transition-colors duration-300">
           {icon}
         </span>
-      </div>
+      </span>
 
-      <div className="relative z-10 flex-1 min-w-0">
+      <span className="relative z-10 block flex-1 min-w-0">
         <span className="block font-semibold text-sm sm:text-base text-primary transition-colors duration-300 truncate">
           {title}
         </span>
         {description && (
-          <p className="text-xs sm:text-sm text-secondary truncate">
+          <span className="block text-xs sm:text-sm text-secondary truncate">
             {description}
-          </p>
+          </span>
         )}
-      </div>
+      </span>
 
-      <div className="relative z-10 text-muted-foreground group-hover:text-accent-ink group-hover:translate-x-1 transition-all duration-300 shrink-0">
+      <span className="relative z-10 block text-muted-foreground group-hover:text-accent-ink group-hover:translate-x-1 transition-all duration-300 shrink-0">
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5"
           fill="none"
@@ -61,7 +64,7 @@ function LinkCardContent({
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
-      </div>
+      </span>
     </>
   );
 }
