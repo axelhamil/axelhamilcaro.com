@@ -102,10 +102,7 @@ export function JsonLd() {
       "CQRS",
       "Turborepo",
     ],
-    worksFor: {
-      "@type": "Organization",
-      name: "Freelance",
-    },
+    worksFor: { "@id": `${SITE_URL}/#service` },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Tours",
@@ -151,11 +148,19 @@ export function JsonLd() {
     publisher: { "@id": `${SITE_URL}/#person` },
   };
 
+  const MALT_ORGANIZATION = {
+    "@type": "Organization",
+    "@id": "https://www.malt.fr/#organization",
+    name: "Malt",
+    url: "https://www.malt.fr",
+  };
+
   const serviceReviews = [
     {
       "@type": "Review",
       author: {
         "@type": "Person",
+        "@id": `${SITE_URL}/#reviewer-bryan-kaneb`,
         name: "Bryan Kaneb",
         jobTitle: "Développeur web freelance",
       },
@@ -169,16 +174,13 @@ export function JsonLd() {
       reviewBody:
         "J'ai fait appel à Axel pour un projet React/Node et la collaboration s'est très bien passée. Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué, il respecte ses engagements et sait anticiper les problèmes avant qu'ils n'arrivent. La communication était simple et directe, ce qui facilite grandement le suivi du projet. C'est un profil sur lequel on peut s'appuyer. Je le recommande vivement pour vos projets de développements web ou mobile.",
       url: EXTERNAL_LINKS.malt,
-      publisher: {
-        "@type": "Organization",
-        name: "Malt",
-        url: "https://www.malt.fr",
-      },
+      publisher: MALT_ORGANIZATION,
     },
     {
       "@type": "Review",
       author: {
         "@type": "Person",
+        "@id": `${SITE_URL}/#reviewer-raphael-le-cras`,
         name: "Raphael Le Cras",
         jobTitle: "Fondateur d'OpenUp",
       },
@@ -192,16 +194,13 @@ export function JsonLd() {
       reviewBody:
         "Axel est le développeur derrière OpenUp depuis le lancement, et travailler avec lui est un vrai plus. Sur ce projet (désactivation automatique des liens lors d'un downgrade de plan et système de modération/bannissement de comptes), le travail a été propre et livré dans les délais. Il a également pris le temps de mettre à jour l'application et de corriger un bug d'une fonctionnalité. Je lui confie la partie technique de mon produit en confiance et je continue à travailler avec lui. Je ne peux que le recommander de nouveau.",
       url: EXTERNAL_LINKS.malt,
-      publisher: {
-        "@type": "Organization",
-        name: "Malt",
-        url: "https://www.malt.fr",
-      },
+      publisher: MALT_ORGANIZATION,
     },
     {
       "@type": "Review",
       author: {
         "@type": "Person",
+        "@id": `${SITE_URL}/#reviewer-raphael-le-cras`,
         name: "Raphael Le Cras",
         jobTitle: "Fondateur d'OpenUp",
       },
@@ -215,11 +214,7 @@ export function JsonLd() {
       reviewBody:
         "J'ai eu besoin d'un changement urgent d'une fonctionnalité sur le plan gratuit de mon app, et Axel l'a modifié dans l'après-midi même de ma demande. Très réactif et la demande a été réalisée correctement.",
       url: EXTERNAL_LINKS.malt,
-      publisher: {
-        "@type": "Organization",
-        name: "Malt",
-        url: "https://www.malt.fr",
-      },
+      publisher: MALT_ORGANIZATION,
     },
   ];
 
