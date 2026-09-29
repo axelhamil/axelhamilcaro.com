@@ -14,10 +14,7 @@ import {
 
 describe("mcp.catalog whoami", () => {
   test("job title equals the Malt string exactly", () => {
-    assert.equal(
-      JOB_TITLE,
-      "Développeur Web Fullstack | Next.js | React | Node",
-    );
+    assert.equal(JOB_TITLE, "Développeur Fullstack Typescript Next.js Node.js");
     assert.equal(getWhoami().jobTitle, JOB_TITLE);
   });
 

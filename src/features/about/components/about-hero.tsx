@@ -26,7 +26,7 @@ export function AboutHero() {
           />
           <div>
             <p className="text-accent-ink font-medium uppercase tracking-wider text-sm mb-4">
-              Développeur Web Fullstack | Next.js | React | Node
+              Développeur Fullstack Typescript Next.js Node.js
             </p>
             <h1
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary leading-tight tracking-tight mb-6"
