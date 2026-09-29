@@ -17,7 +17,7 @@ export function ServiceCta({ data }: { data: ServiceData["hero"] }) {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <ServicePrimaryCta label={data.primaryCtaLabel} />
-          <Button href={data.secondaryCtaHref} variant="secondary" size="lg">
+          <Button href={data.secondaryCtaHref} variant="on-accent" size="lg">
             {data.secondaryCtaLabel}
           </Button>
         </div>

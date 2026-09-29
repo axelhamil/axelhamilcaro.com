@@ -18,7 +18,7 @@
   --secondary: color-mix(in oklab, var(--ink), var(--paper) 32%);
   --secondary-foreground: var(--ink);
   --muted: color-mix(in oklab, var(--ink), var(--paper) 62%);
-  --muted-foreground: color-mix(in oklab, var(--ink), var(--paper) 48%);
+  --muted-foreground: color-mix(in oklab, var(--ink), var(--paper) 42%);
 
   --accent: var(--brand-a);
   --accent-hover: color-mix(in oklab, var(--brand-a), var(--ink) 18%);

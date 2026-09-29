@@ -25,7 +25,7 @@ export function TmaCta() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <TmaContactButton label="Discuter de ton besoin" />
-          <Button href="/services" variant="secondary" size="lg">
+          <Button href="/services" variant="on-accent" size="lg">
             Découvrir mes autres services
           </Button>
         </div>
