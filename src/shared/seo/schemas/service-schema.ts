@@ -1,3 +1,4 @@
+import { AREA_SERVED } from "./area-served";
 import { authorPerson } from "./author";
 
 export type ServiceSchemaData = {
@@ -17,10 +18,7 @@ export function buildServiceSchema(data: ServiceSchemaData) {
     url: data.url,
     serviceType: data.serviceType,
     provider: authorPerson(),
-    areaServed: {
-      "@type": "Country",
-      name: "France",
-    },
+    areaServed: AREA_SERVED,
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: data.name,

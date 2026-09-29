@@ -18,6 +18,7 @@ import {
   TMA_META,
   TMA_URL,
 } from "@/src/features/tma/lib/tma-data";
+import { AREA_SERVED } from "@/src/shared/seo/schemas/area-served";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 
@@ -61,7 +62,7 @@ const serviceSchema = {
     name: "Axel Hamilcaro",
     url: SITE_URL,
   },
-  areaServed: { "@type": "Country", name: "France" },
+  areaServed: AREA_SERVED,
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Forfaits TMA",
