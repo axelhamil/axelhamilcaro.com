@@ -55,7 +55,7 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 const openupDescription =
-  "OpenUp, générateur de deep links livré from scratch en duo avec le fondateur. 57 apps ouvertes en natif, 11 in-app browsers contournés, 10 à 15% de conversion payante. Hono, Capacitor, Cloudflare edge <50ms.";
+  "OpenUp, générateur de deep links livré en duo avec le fondateur : 57 apps ouvertes en natif, 11 in-app browsers contournés, 10 à 15% de conversion payante.";
 
 export const metadata: Metadata = {
   title: "OpenUp : générateur de deep links",
