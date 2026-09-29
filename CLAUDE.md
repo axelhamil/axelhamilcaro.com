@@ -79,7 +79,7 @@ app/                              # Next.js routes + layouts + api — SEUL endr
 src/
 ├── features/                     # UI par workflow (chaque feature = un ou plusieurs écrans)
 │   ├── home/                     # Home page sections
-│   │   └── components/           # hero/, experience-timeline, what-i-do, approach, case-studies, trusted-by, tech-stack, home-faq
+│   │   └── components/           # hero/, experience-timeline, what-i-do, approach, case-studies, trusted-by, client-reviews, tech-stack, home-faq
 │   ├── blog/                     # Blog list + article
 │   │   ├── components/           # article-card, blog-navbar, table-of-contents (mobile + desktop), article-navigation, scroll-to-top
 │   │   └── lib/                  # blog.ts (getAllPosts, getPostBySlug, extractHeadings)

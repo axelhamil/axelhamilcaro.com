@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { siteConfig } from "@/app/_config/site";
+import { ClientReviews } from "@/src/features/home/components/client-reviews";
 import Hero from "@/src/features/home/components/hero/hero";
 import { HomeFaq } from "@/src/features/home/components/home-faq";
 import { HomeMcp } from "@/src/features/home/components/home-mcp";
@@ -56,6 +57,7 @@ export default function Home() {
       <Approach />
       <CaseStudies />
       <TrustedBy />
+      <ClientReviews />
       <TechStack />
       <HomeFaq />
       <HomeMcp />

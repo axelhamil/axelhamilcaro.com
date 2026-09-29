@@ -1,4 +1,10 @@
 import {
+  MALT_APPRAISALS,
+  MALT_RECOMMENDATIONS,
+  MALT_REVIEWS_SOURCE,
+  type MaltAppraisal,
+} from "@/app/_config/malt-reviews";
+import {
   AUTHOR,
   EXTERNAL_LINKS,
   JOB_TITLE,
@@ -155,74 +161,42 @@ export function JsonLd() {
     url: "https://www.malt.fr",
   };
 
+  const reviewAuthor = (reviewer: MaltAppraisal["reviewer"]) => ({
+    "@type": "Person",
+    "@id": `${SITE_URL}/#${reviewer.id}`,
+    name: reviewer.name,
+    jobTitle: reviewer.jobTitle,
+    worksFor: { "@type": "Organization", name: reviewer.company },
+  });
+
   const serviceReviews = [
-    {
+    ...MALT_APPRAISALS.map((appraisal) => ({
       "@type": "Review",
-      author: {
-        "@type": "Person",
-        "@id": `${SITE_URL}/#reviewer-bryan-kaneb`,
-        name: "Bryan Kaneb",
-        jobTitle: "Développeur web freelance",
-      },
-      datePublished: "2025-12-19",
+      author: reviewAuthor(appraisal.reviewer),
+      datePublished: appraisal.date,
       reviewRating: {
         "@type": "Rating",
-        ratingValue: "5",
+        ratingValue: String(appraisal.rating),
         bestRating: "5",
         worstRating: "1",
       },
-      reviewBody:
-        "J'ai fait appel à Axel pour un projet React/Node et la collaboration s'est très bien passée. Axel a une vraie solidité technique, il structure bien son code, pose les bonnes questions en amont et livre un travail propre. Au-delà des compétences pures, c'est sa fiabilité qui m'a marqué, il respecte ses engagements et sait anticiper les problèmes avant qu'ils n'arrivent. La communication était simple et directe, ce qui facilite grandement le suivi du projet. C'est un profil sur lequel on peut s'appuyer. Je le recommande vivement pour vos projets de développements web ou mobile.",
-      url: EXTERNAL_LINKS.malt,
+      reviewBody: appraisal.body,
+      url: MALT_REVIEWS_SOURCE,
       publisher: MALT_ORGANIZATION,
-    },
-    {
+    })),
+    ...MALT_RECOMMENDATIONS.map((recommendation) => ({
       "@type": "Review",
-      author: {
-        "@type": "Person",
-        "@id": `${SITE_URL}/#reviewer-raphael-le-cras`,
-        name: "Raphael Le Cras",
-        jobTitle: "Fondateur d'OpenUp",
-      },
-      datePublished: "2026-06-30",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-        worstRating: "1",
-      },
-      reviewBody:
-        "Axel est le développeur derrière OpenUp depuis le lancement, et travailler avec lui est un vrai plus. Sur ce projet (désactivation automatique des liens lors d'un downgrade de plan et système de modération/bannissement de comptes), le travail a été propre et livré dans les délais. Il a également pris le temps de mettre à jour l'application et de corriger un bug d'une fonctionnalité. Je lui confie la partie technique de mon produit en confiance et je continue à travailler avec lui. Je ne peux que le recommander de nouveau.",
-      url: EXTERNAL_LINKS.malt,
+      author: reviewAuthor(recommendation.reviewer),
+      datePublished: recommendation.date,
+      reviewBody: recommendation.body,
+      url: MALT_REVIEWS_SOURCE,
       publisher: MALT_ORGANIZATION,
-    },
-    {
-      "@type": "Review",
-      author: {
-        "@type": "Person",
-        "@id": `${SITE_URL}/#reviewer-raphael-le-cras`,
-        name: "Raphael Le Cras",
-        jobTitle: "Fondateur d'OpenUp",
-      },
-      datePublished: "2026-07-01",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-        worstRating: "1",
-      },
-      reviewBody:
-        "J'ai eu besoin d'un changement urgent d'une fonctionnalité sur le plan gratuit de mon app, et Axel l'a modifié dans l'après-midi même de ma demande. Très réactif et la demande a été réalisée correctement.",
-      url: EXTERNAL_LINKS.malt,
-      publisher: MALT_ORGANIZATION,
-    },
+    })),
   ];
 
-  const ratingValues = serviceReviews.map((r) =>
-    Number(r.reviewRating.ratingValue),
-  );
   const averageRating =
-    ratingValues.reduce((sum, value) => sum + value, 0) / ratingValues.length;
+    MALT_APPRAISALS.reduce((sum, appraisal) => sum + appraisal.rating, 0) /
+    MALT_APPRAISALS.length;
 
   const professionalServiceSchema = {
     "@context": "https://schema.org",
@@ -306,7 +280,8 @@ export function JsonLd() {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: averageRating.toFixed(1),
-      reviewCount: serviceReviews.length,
+      ratingCount: MALT_APPRAISALS.length,
+      reviewCount: MALT_APPRAISALS.length,
       bestRating: "5",
       worstRating: "1",
     },
