@@ -1,14 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "./_config/site.constants";
 
-const PRIVATE_PATHS = [
-  "/api/",
-  "/_next/",
-  "/admin/",
-  "/login",
-  "/nice-try",
-  "/f/",
-];
+const PRIVATE_PATHS = ["/api/", "/admin/", "/login", "/nice-try", "/f/"];
 
 const AI_CRAWLERS = [
   "GPTBot",
