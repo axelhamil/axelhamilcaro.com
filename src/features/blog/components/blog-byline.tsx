@@ -55,9 +55,10 @@ export function BlogByline({
     >
       <Image
         src={AUTHOR.imagePath}
-        alt={AUTHOR.name}
+        alt=""
         width={isHeader ? 36 : 24}
         height={isHeader ? 36 : 24}
+        preload={isHeader}
         className={cn(
           "rounded-full object-cover border border-border",
           isHeader ? "h-9 w-9" : "h-6 w-6",

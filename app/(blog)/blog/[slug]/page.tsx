@@ -218,6 +218,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               options={{
                 mdxOptions: {
                   remarkPlugins: [remarkGfm],
+                  remarkRehypeOptions: {
+                    footnoteLabel: "Notes",
+                    footnoteBackLabel: (referenceIndex) =>
+                      `↩ Retour à la référence ${referenceIndex + 1}`,
+                  },
                   rehypePlugins: [
                     rehypeSlug,
                     rehypeUnwrapImages,

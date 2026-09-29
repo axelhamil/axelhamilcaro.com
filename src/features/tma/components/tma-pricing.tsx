@@ -116,6 +116,7 @@ export function TmaPricing() {
                 }`}
               >
                 M'abonner
+                <span className="sr-only"> au forfait {forfait.name}</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>
 
