@@ -59,6 +59,14 @@ describe("mcp.discovery", () => {
     );
   });
 
+  test("ai-catalog entries carry the fields required by the ARD schema", () => {
+    const entry = getAiCatalog().entries[0];
+
+    assert.ok(entry?.displayName);
+    assert.ok(entry.representativeQueries.length >= 2);
+    assert.ok(entry.representativeQueries.length <= 5);
+  });
+
   test("manifest does not advertise inquiry tools", () => {
     assert.doesNotMatch(getServerManifest().description, /inquiry/);
   });

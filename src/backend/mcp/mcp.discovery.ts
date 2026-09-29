@@ -70,8 +70,16 @@ export function getAiCatalog() {
     entries: [
       {
         identifier: MCP_CATALOG_IDENTIFIER,
+        displayName: "Axel Hamilcaro",
+        description:
+          "Public MCP server for Axel Hamilcaro: identity, stack, and case studies.",
         type: MCP_SERVER_CARD_TYPE,
         url: MCP.serverCardUrl,
+        representativeQueries: [
+          "who is Axel Hamilcaro",
+          "what stack does Axel Hamilcaro work with",
+          "show Axel Hamilcaro's client case studies",
+        ],
       },
     ],
   };
