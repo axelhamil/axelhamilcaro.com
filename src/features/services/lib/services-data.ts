@@ -46,7 +46,7 @@ export type ServiceData = {
 };
 
 const baseHero = {
-  primaryCtaLabel: "Lancer mon projet sous 24h",
+  primaryCtaLabel: "Recevoir mon devis sous 24h",
   secondaryCtaLabel: "Voir mes liens",
   secondaryCtaHref: "/tree",
 };

@@ -79,7 +79,7 @@ Tools : audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoi
 
 ## Différenciateurs
 
-- Mobile via Capacitor (une seule codebase web → iOS/Android/PWA), pas de React Native.
+- Mobile via Capacitor par choix de stack (une seule codebase web → iOS/Android/PWA). React Native et Expo pour une application 100 % mobile.
 - Architecture pensée pour durer (Clean Archi / DDD) plutôt que livraison jetable.
 - Profil lead tech : capable de structurer une stack et de mentorer une équipe, pas seulement d'exécuter des tickets.
 
