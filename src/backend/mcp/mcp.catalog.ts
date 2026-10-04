@@ -208,6 +208,12 @@ export function getServices() {
       dailyHtEur: RATES.dailyHtEur,
     },
     {
+      slug: "creation-application-web",
+      title: "Création d'application web de A à Z",
+      url: `${SITE_URL}/services/creation-application-web`,
+      dailyHtEur: RATES.dailyHtEur,
+    },
+    {
       slug: "tma",
       title: "TMA (tierce maintenance applicative)",
       url: `${SITE_URL}/tma`,

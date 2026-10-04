@@ -31,7 +31,7 @@ Tools : audit_architecture_brief, generate_custom_proposal. Pas d'outil d'envoi 
 
 - [Accueil](https://axelhamilcaro.com): vue d'ensemble services, case studies, témoignages
 - [À propos](https://axelhamilcaro.com/about): parcours, valeurs, crédentiels, serveur MCP
-- [Services](https://axelhamilcaro.com/services): les 4 services freelance en détail
+- [Services](https://axelhamilcaro.com/services): les 5 services freelance en détail
 - [Blog](https://axelhamilcaro.com/blog): articles techniques
 
 ## Services
@@ -39,6 +39,7 @@ Tools : audit_architecture_brief, generate_custom_proposal. Pas d'outil d'envoi 
 - [Développeur Next.js freelance](https://axelhamilcaro.com/services/developpeur-nextjs-freelance): architecture moderne, MVP en 4-8 semaines, refonte d'apps existantes. Techno adaptée au besoin : Next.js par défaut, aussi React/Node découplé, Vite, mobile natif
 - [Développement SaaS](https://axelhamilcaro.com/services/developpement-saas): SaaS B2B multi-tenant, Clean Architecture + DDD, de zéro jusqu'en production
 - [Lead tech fractional](https://axelhamilcaro.com/services/lead-tech-fractional): lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME
+- [Création d'application web](https://axelhamilcaro.com/services/creation-application-web): application web ou mobile sur mesure, de A à Z, pour porteurs de projet non techniques, un seul interlocuteur du cadrage à la mise en ligne
 - [TMA (maintenance applicative)](https://axelhamilcaro.com/tma): forfait mensuel sans engagement, PRO 350€/mois (5h incluses) ou PREMIUM 800€/mois (10h, monitoring proactif)
 
 ## Case studies
