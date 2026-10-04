@@ -9,7 +9,7 @@ const items = [
   {
     question: "Tu peux créer mon application de A à Z ?",
     answer:
-      "Oui. Je prends un projet de l'idée à la mise en ligne : cadrage, développement, mise en ligne et maintenance, avec un seul interlocuteur.",
+      "Oui. Je prends un projet de l'idée à la mise en ligne : cadrage, développement et mise en ligne, avec un seul interlocuteur, puis la maintenance si tu le souhaites.",
   },
   {
     question: "Quels sont tes délais ?",

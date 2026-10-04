@@ -62,7 +62,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       eyebrow: "Service freelance",
       title: "Développeur web freelance pour créer ton application de A à Z.",
       subtitle:
-        "Tu cherches un développeur web pour construire ton application, et tu as besoin de quelqu'un capable de tout gérer de bout en bout ? Je prends ton projet de l'idée à la mise en ligne : cadrage, développement, mise en ligne et maintenance. Un seul interlocuteur, une application web ou mobile sur mesure, livrée clé en main.",
+        "Tu cherches un développeur web pour construire ton application, et tu as besoin de quelqu'un capable de tout gérer de bout en bout ? Je prends ton projet de l'idée à la mise en ligne : cadrage, développement et mise en ligne, puis la maintenance si tu le souhaites. Un seul interlocuteur, une application web ou mobile sur mesure, livrée clé en main.",
       ...baseHero,
     },
     card: {
@@ -92,7 +92,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
         },
         {
           title: "Développement, avec une démo chaque semaine",
-          body: "Tu vois ton application avancer sur un lien de test et tu donnes ton avis au fil de l'eau. Une première version en production sort en 4 à 8 semaines.",
+          body: "Tu vois ton application avancer sur un lien de test et tu donnes ton avis au fil de l'eau. Une application complète sort en 4 à 8 semaines.",
         },
         {
           title: "Mise en ligne et suite",
@@ -110,17 +110,17 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       {
         question: "Tu gères vraiment tout de bout en bout ?",
         answer:
-          "Oui : cadrage, architecture, développement de l'interface et du serveur, base de données, configuration de l'hébergement, mise en ligne et maintenance. Tu as un seul interlocuteur du début à la fin.",
+          "Oui : cadrage, architecture, développement de l'interface et du serveur, base de données, configuration de l'hébergement et mise en ligne, puis la maintenance si tu le souhaites. Tu as un seul interlocuteur du début à la fin.",
       },
       {
         question: "Combien coûte la création d'une application web ?",
         answer:
-          "Je facture 500 € HT par jour, ou au forfait quand le périmètre est fixé. Une première version demande 4 à 8 semaines de travail, soit 10 000 à 20 000 € HT. Une application plus complète, avec plusieurs types de comptes et un paiement en ligne, se situe entre 20 000 et 30 000 € HT. Tu reçois un devis détaillé sous 24h après notre premier échange.",
+          "Je facture 500 € HT par jour, ou au forfait quand le périmètre est fixé. Une petite application ou un outil interne demande 10 à 20 jours, soit 5 000 à 10 000 € HT. Une application complète, avec comptes, paiement en ligne et espace d'administration, demande 20 à 40 jours, soit 10 000 à 20 000 € HT. Un produit avancé, avec plusieurs rôles ou une application mobile, se situe entre 20 000 et 30 000 € HT. Tu reçois un devis détaillé sous 24h après notre premier échange.",
       },
       {
         question: "Combien de temps faut-il pour créer une application ?",
         answer:
-          "Compte 4 à 8 semaines pour une première version utilisable en production. Le délai dépend surtout du nombre de fonctionnalités, c'est pour ça qu'on les priorise ensemble au cadrage.",
+          "Compte 2 à 4 semaines pour une petite application, 4 à 8 semaines pour une application complète. Le délai dépend surtout du nombre de fonctionnalités, c'est pour ça qu'on les priorise ensemble au cadrage.",
       },
       {
         question: "Tu développes aussi des applications mobiles ?",
@@ -160,7 +160,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
     metaTitle: "Développeur Next.js freelance",
     metaDescription:
-      "Dev Next.js freelance depuis 2021 : MVP en 4 à 8 semaines, refonte d'apps, TypeScript, React 19 et Tailwind v4. TJM 500€ HT, devis sous 24h.",
+      "Dev Next.js depuis 2021, freelance depuis 2024 : MVP en 4 à 8 semaines, refonte d'apps, TypeScript, React 19, Tailwind v4. TJM 500€ HT, devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Développeur Next.js freelance qui livre vraiment.",
