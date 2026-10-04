@@ -115,7 +115,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       {
         question: "Combien coûte la création d'une application web ?",
         answer:
-          "Je facture 500 € HT par jour, ou au forfait quand le périmètre est fixé. Une première version demande 4 à 8 semaines de travail, soit 10 000 à 20 000 € HT. Un produit plus complet, comme un SaaS, se situe plutôt entre 15 000 et 35 000 €. Tu reçois un devis détaillé sous 24h après notre premier échange.",
+          "Je facture 500 € HT par jour, ou au forfait quand le périmètre est fixé. Une première version demande 4 à 8 semaines de travail, soit 10 000 à 20 000 € HT. Une application plus complète, avec plusieurs types de comptes et un paiement en ligne, se situe entre 20 000 et 30 000 € HT. Tu reçois un devis détaillé sous 24h après notre premier échange.",
       },
       {
         question: "Combien de temps faut-il pour créer une application ?",
