@@ -136,7 +136,7 @@ const HeroLeft = () => {
                 >
                   <Mail className="w-5 h-5" />
                 </span>
-                Lancer mon projet sous 24h
+                Recevoir mon devis sous 24h
               </Button>
             </ContactModal>
           </MagneticWrapper>

@@ -12,7 +12,7 @@ const projects: readonly Project[] = [
     tagline: "SaaS de gestion de liens live sur openup.to",
     highlights: [
       { value: "5 piliers", label: "Liens · QR · Bio · Analytics · Domaines" },
-      { value: "3 plateformes", label: "iOS · Android · PWA en solo" },
+      { value: "3 plateformes", label: "iOS · Android · PWA" },
       { value: "4 plans Stripe", label: "EUR + USD selon géolocalisation" },
       { value: "<50ms", label: "redirections edge via Cloudflare Worker" },
     ],

@@ -30,7 +30,7 @@ const LEGAL = {
   rcs: "939 291 415 R.C.S. Paris (immatriculé le 20/01/2025)",
   vatStatus: "TVA non applicable, art. 293 B du CGI",
   address: "60 rue François Ier, 75008 Paris, France",
-  lastUpdated: "2026-05-12",
+  lastUpdated: "2026-10-05",
 } as const;
 
 const PAGE_URL = `${SITE_URL}/cgv`;
@@ -607,7 +607,12 @@ const SECTIONS: CgvSection[] = [
           code source, configuration ou contenu produit spécifiquement pour le
           Client dans le cadre des Services lui est cédé, à compter de son
           intégration dans le dépôt du Client et sous réserve du paiement
-          intégral des sommes dues.
+          intégral des sommes dues. La cession porte sur les droits de
+          reproduction, de représentation, d'adaptation, de modification et de
+          correction, pour toute exploitation, y compris commerciale, sur tout
+          support, pour le monde entier et pour toute la durée légale de
+          protection des droits d'auteur. Son prix est compris dans celui des
+          Services.
         </p>
         <p>
           <strong className="text-primary">
