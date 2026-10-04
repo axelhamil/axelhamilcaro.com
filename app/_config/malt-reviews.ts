@@ -23,7 +23,7 @@ export interface MaltRecommendation {
 const ANTHONY: MaltReviewer = {
   id: "reviewer-anthony",
   name: "Anthony",
-  jobTitle: "Dev full stack",
+  jobTitle: "Fondateur",
   company: "Civitime",
 };
 

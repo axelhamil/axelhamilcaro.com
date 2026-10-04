@@ -95,7 +95,7 @@ Tools : audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoi
 
 Note Malt : 5,0/5 sur 6 évaluations (qualité, délai et communication à 5,0), plus 2 recommandations. Source : https://www.malt.fr/profile/axelhamilcaro
 
-- Anthony (dev full stack, Civitime, 28 août 2026, 5/5) : « Je travaille avec Axel depuis plusieurs années sur différents projets. Son travail est toujours d'une très grande qualité. Je n'ai rien à redire. Il comprend les problématiques de ces clients, et adapte sa mission en fonction des besoins terrain. Je recommande ! »
+- Anthony (fondateur, Civitime, 28 août 2026, 5/5) : « Je travaille avec Axel depuis plusieurs années sur différents projets. Son travail est toujours d'une très grande qualité. Je n'ai rien à redire. Il comprend les problématiques de ces clients, et adapte sa mission en fonction des besoins terrain. Je recommande ! »
 - Raphael Le Cras (fondateur d'OpenUp, 28 août 2026, 5/5) : « Un client m’a signalé un bug, que j’ai immédiatement transmis à Axel. Il l’a rapidement identifié et corrigé. Très efficace encore une fois. »
 - Raphael Le Cras (31 juillet 2026, 5/5) : « Encore une collaboration très efficace avec Axel, cette fois sur la refonte stratégique de notre onboarding. Le design livré sur Figma a été réalisé parfaitement. »
 - Raphael Le Cras (15 juillet 2026, 5/5) : « J’ai eu besoin de mettre en place un nouveau système de quotas pour améliorer mes conversions. Le délai de ce changement était de 48h, et Axel l’a réalisé dans l’après-midi même. Toujours aussi fiable et efficace ! »
