@@ -15,12 +15,12 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 export const metadata: Metadata = {
   title: "Services freelance",
   description:
-    "Développeur fullstack freelance TypeScript, Next.js, React, Node.js. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
+    "Développeur fullstack freelance. 5 services : création d'application web de A à Z, dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
   alternates: { canonical: SERVICES_URL },
   openGraph: {
     title: "Services freelance",
     description:
-      "Développeur fullstack freelance TypeScript, Next.js, React, Node.js. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
+      "Développeur fullstack freelance. 5 services : création d'application web de A à Z, dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
     url: SERVICES_URL,
     type: "website",
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services freelance",
     description:
-      "Développeur fullstack freelance TypeScript, Next.js, React, Node.js. 4 services : dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
+      "Développeur fullstack freelance. 5 services : création d'application web de A à Z, dev sur mesure, SaaS multi-tenant, lead tech, TMA au mois. Devis 24h.",
   },
 };
 
@@ -64,7 +64,7 @@ export default function ServicesIndexPage() {
             className="text-4xl sm:text-6xl font-bold text-primary mb-6"
             style={{ fontFamily: "var(--font-space-grotesk)" }}
           >
-            4 façons de travailler ensemble
+            5 façons de travailler ensemble
           </h1>
           <p className="text-secondary text-lg sm:text-xl max-w-3xl mx-auto">
             Développeur fullstack. Next.js est ma signature, mais je prends ton

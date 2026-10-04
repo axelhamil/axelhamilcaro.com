@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: SITE_URL,
-      lastModified: new Date("2026-09-16"),
+      lastModified: new Date("2026-10-05"),
       changeFrequency: "weekly",
       priority: 1,
       images: [PROFILE_IMAGE],
@@ -44,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE_URL}/services`,
-      lastModified: new Date("2026-08-29"),
+      lastModified: new Date("2026-10-05"),
       changeFrequency: "monthly" as const,
       priority: 0.95,
     },
@@ -81,6 +81,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${SITE_URL}/services/lead-tech-fractional`,
       lastModified: new Date("2026-06-19"),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/services/creation-application-web`,
+      lastModified: new Date("2026-10-05"),
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },

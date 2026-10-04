@@ -3,7 +3,8 @@ import { SITE_URL } from "@/app/_config/site.constants";
 export type ServiceSlug =
   | "developpeur-nextjs-freelance"
   | "developpement-saas"
-  | "lead-tech-fractional";
+  | "lead-tech-fractional"
+  | "creation-application-web";
 
 export type RelatedCaseSlug =
   | "billetterie"
@@ -51,6 +52,109 @@ const baseHero = {
 };
 
 export const servicesData: Record<ServiceSlug, ServiceData> = {
+  "creation-application-web": {
+    slug: "creation-application-web",
+    url: `${SITE_URL}/services/creation-application-web`,
+    metaTitle: "Développeur web freelance : application de A à Z",
+    metaDescription:
+      "Développeur web freelance, je crée ton application web ou mobile sur mesure de A à Z : cadrage, développement, mise en ligne. Devis sous 24h.",
+    hero: {
+      eyebrow: "Service freelance",
+      title: "Développeur web freelance pour créer ton application de A à Z.",
+      subtitle:
+        "Tu cherches un développeur web pour construire ton application, et tu as besoin de quelqu'un capable de tout gérer de bout en bout ? Je prends ton projet de l'idée à la mise en ligne : cadrage, développement, mise en ligne et maintenance. Un seul interlocuteur, une application web ou mobile sur mesure, livrée clé en main.",
+      ...baseHero,
+    },
+    card: {
+      title: "Création d'application web de A à Z",
+      subtitle:
+        "Tu as une idée mais pas d'équipe technique. Je construis ton application de bout en bout, du cadrage à la mise en ligne, avec un seul interlocuteur.",
+    },
+    problem: {
+      title: "Tu reconnais une de ces situations ?",
+      bullets: [
+        "Tu as une idée d'application mais personne de technique autour de toi pour la construire.",
+        "Tu ne sais pas par où commencer : cahier des charges, budget, choix techniques.",
+        "Tu ne veux pas coordonner plusieurs prestataires, tu veux une seule personne qui gère tout.",
+        "Tu as trouvé des plateformes de freelances, mais tu ne sais pas à quel profil confier ton projet.",
+      ],
+    },
+    approach: {
+      title: "Comment se passe la création de ton application.",
+      steps: [
+        {
+          title: "Premier échange (gratuit, 30 min)",
+          body: "Tu m'expliques ton idée avec tes mots, sans jargon. Je te dis ce qui est faisable, dans quel ordre, et si je suis la bonne personne pour ton projet.",
+        },
+        {
+          title: "Cadrage et devis sous 24h",
+          body: "Je traduis ton besoin en liste de fonctionnalités priorisées, avec un prix et un délai. Tu valides avant qu'une ligne de code soit écrite.",
+        },
+        {
+          title: "Développement, avec une démo chaque semaine",
+          body: "Tu vois ton application avancer sur un lien de test et tu donnes ton avis au fil de l'eau. Une première version en production sort en 4 à 8 semaines.",
+        },
+        {
+          title: "Mise en ligne et suite",
+          body: "Je configure l'hébergement à ton nom, je mets en ligne et je publie sur les stores si ton application est mobile. Ensuite tu repars autonome, ou je continue en maintenance, ton choix.",
+        },
+      ],
+    },
+    relatedCases: ["scormpilot", "openup", "billetterie"],
+    faq: [
+      {
+        question: "Je ne suis pas technique, est-ce un problème ?",
+        answer:
+          "Non. Tu décris ton besoin et tes utilisateurs, je m'occupe des choix techniques et je te les explique simplement. Tu valides des écrans et des fonctionnalités, pas du code.",
+      },
+      {
+        question: "Tu gères vraiment tout de bout en bout ?",
+        answer:
+          "Oui : cadrage, architecture, développement de l'interface et du serveur, base de données, configuration de l'hébergement, mise en ligne et maintenance. Tu as un seul interlocuteur du début à la fin.",
+      },
+      {
+        question: "Combien coûte la création d'une application web ?",
+        answer:
+          "Je facture 500 € HT par jour, ou au forfait quand le périmètre est fixé. Une première version demande 4 à 8 semaines de travail, soit 10 000 à 20 000 € HT. Un produit plus complet, comme un SaaS, se situe plutôt entre 15 000 et 35 000 €. Tu reçois un devis détaillé sous 24h après notre premier échange.",
+      },
+      {
+        question: "Combien de temps faut-il pour créer une application ?",
+        answer:
+          "Compte 4 à 8 semaines pour une première version utilisable en production. Le délai dépend surtout du nombre de fonctionnalités, c'est pour ça qu'on les priorise ensemble au cadrage.",
+      },
+      {
+        question: "Tu développes aussi des applications mobiles ?",
+        answer:
+          "Oui, iOS et Android, à partir du même code que la version web. OpenUp en est un exemple : l'application est disponible sur iOS, Android et web.",
+      },
+      {
+        question: "Que se passe-t-il après la mise en ligne ?",
+        answer:
+          "Tu peux repartir autonome, ou me confier la maintenance : correctifs, mises à jour de sécurité et petites évolutions, avec un forfait mensuel à partir de 350 € HT par mois.",
+      },
+    ],
+    schema: {
+      serviceType: "Custom web application development",
+      offers: [
+        {
+          name: "Création d'application web sur mesure",
+          description:
+            "Conception et développement d'une application web de A à Z, du cadrage à la mise en production.",
+        },
+        {
+          name: "Création d'application mobile",
+          description:
+            "Application iOS et Android développée à partir du même code que la version web.",
+        },
+        {
+          name: "Application clé en main",
+          description:
+            "Prise en charge du projet de bout en bout par un seul développeur : cadrage, développement, mise en ligne, maintenance.",
+        },
+      ],
+    },
+  },
+
   "developpeur-nextjs-freelance": {
     slug: "developpeur-nextjs-freelance",
     url: `${SITE_URL}/services/developpeur-nextjs-freelance`,

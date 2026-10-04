@@ -7,6 +7,11 @@ const items = [
       "Applications web sur mesure, SaaS B2B multi-tenant, refonte d'architecture, lead tech temps partiel sur engagement long. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
   },
   {
+    question: "Tu peux créer mon application de A à Z ?",
+    answer:
+      "Oui. Je prends un projet de l'idée à la mise en ligne : cadrage, développement, mise en ligne et maintenance, avec un seul interlocuteur.",
+  },
+  {
     question: "Quels sont tes délais ?",
     answer:
       "Mission ferme : démarrage sous 1 à 3 semaines selon ma charge. MVP : 4 à 8 semaines pour une v1 production-ready. Audit ou consulting court : sous 5 jours ouvrés. Je suis transparent sur ma dispo dès le premier échange.",
@@ -39,7 +44,7 @@ export function HomeFaq() {
           Tes questions, mes réponses
         </h2>
         <p className="text-secondary text-lg mb-12">
-          Cinq questions que les clients me posent en premier.
+          Six questions que les clients me posent en premier.
         </p>
         {items.map((item) => (
           <details

@@ -107,6 +107,9 @@ export function JsonLd() {
       "Event Sourcing",
       "CQRS",
       "Turborepo",
+      "Création d'application web",
+      "Application web sur mesure",
+      "Application mobile",
     ],
     worksFor: { "@id": `${SITE_URL}/#service` },
     address: {
@@ -234,11 +237,22 @@ export function JsonLd() {
       itemListElement: [
         {
           "@type": "Offer",
+          url: `${SITE_URL}/services/creation-application-web`,
+          priceSpecification: dailyRateSpecification,
+          itemOffered: {
+            "@type": "Service",
+            name: "Création d'application web de A à Z",
+            description:
+              "Création d'une application web ou mobile sur mesure, de bout en bout, par un seul développeur : cadrage, développement, mise en ligne et maintenance",
+          },
+        },
+        {
+          "@type": "Offer",
           url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
           priceSpecification: dailyRateSpecification,
           itemOffered: {
             "@type": "Service",
-            name: "Développement d'Application Web",
+            name: "Développement Next.js sur mesure",
             description:
               "Création d'applications web sur mesure avec React, Next.js et TypeScript",
           },

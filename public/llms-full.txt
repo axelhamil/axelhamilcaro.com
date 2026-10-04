@@ -47,6 +47,7 @@ Tools : audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoi
 - Développeur Next.js freelance (https://axelhamilcaro.com/services/developpeur-nextjs-freelance) : architecture moderne, MVP en 4 à 8 semaines, refonte d'applications existantes sans casser l'existant. Stack TypeScript / React 19 / Tailwind v4. Next.js par défaut, mais techno adaptée au besoin : React/Node découplé, Vite, mobile natif.
 - Développement SaaS (https://axelhamilcaro.com/services/developpement-saas) : SaaS B2B multi-tenant, de zéro jusqu'en production, Clean Architecture + DDD.
 - Lead tech fractional (https://axelhamilcaro.com/services/lead-tech-fractional) : lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME. Architecture, mentorat, montée en qualité.
+- Création d'application web (https://axelhamilcaro.com/services/creation-application-web) : application web ou mobile sur mesure, de A à Z, pour porteurs de projet non techniques : un seul interlocuteur du cadrage à la mise en ligne.
 - TMA (tierce maintenance applicative) (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement.
   - PRO : 350€/mois, 5h incluses, SLA 1 jour ouvré, 1h visio/mois.
   - PREMIUM : 800€/mois, 10h incluses, SLA 1/2 jour, monitoring proactif (Sentry, UptimeRobot, Better Stack), status page, audit trimestriel, changelog mensuel.

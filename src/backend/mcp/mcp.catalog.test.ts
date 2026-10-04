@@ -60,13 +60,14 @@ describe("mcp.catalog availability", () => {
 });
 
 describe("mcp.catalog services", () => {
-  test("exposes three service pages plus TMA", () => {
+  test("exposes four service pages plus TMA", () => {
     const slugs = getServices().map((service) => service.slug);
 
     assert.deepEqual(slugs, [
       "developpeur-nextjs-freelance",
       "developpement-saas",
       "lead-tech-fractional",
+      "creation-application-web",
       "tma",
     ]);
   });

@@ -133,6 +133,12 @@ const Footer = () => {
                 Lead tech fractional
               </TransitionLink>
               <TransitionLink
+                href="/services/creation-application-web"
+                className="text-sm text-primary hover:text-accent-ink transition-colors"
+              >
+                Création d'application web
+              </TransitionLink>
+              <TransitionLink
                 href="/tma"
                 className="text-sm text-primary hover:text-accent-ink transition-colors"
               >

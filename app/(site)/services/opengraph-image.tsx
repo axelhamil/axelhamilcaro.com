@@ -11,7 +11,7 @@ export const size = OG_SIZE;
 export default function Image() {
   return renderOgImage({
     eyebrow: "Services freelance",
-    title: "4 façons de travailler ensemble",
-    subtitle: "Dev sur mesure · SaaS multi-tenant · Lead tech · TMA au mois",
+    title: "5 façons de travailler ensemble",
+    subtitle: "Application de A à Z · Dev sur mesure · SaaS · Lead tech · TMA",
   });
 }
