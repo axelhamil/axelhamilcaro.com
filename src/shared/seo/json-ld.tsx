@@ -42,81 +42,106 @@ const KNOWS_ABOUT = [
   "Deep linking",
 ];
 
-export const GLOBAL_JSON_LD = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": PERSON_ID,
-      name: AUTHOR.name,
-      givenName: "Axel",
-      familyName: "Hamilcaro",
-      url: SITE_URL,
-      image: PROFILE_IMAGE,
-      jobTitle: JOB_TITLE,
-      description: PERSON_DESCRIPTION,
-      email: CONTACT.mailto,
-      knowsLanguage: ["fr-FR", "en"],
-      knowsAbout: KNOWS_ABOUT,
-      worksFor: {
-        "@type": "Organization",
-        "@id": EMPLOYER_ID,
-        name: EMPLOYER.name,
-      },
-      affiliation: { "@id": OPENUP_ID },
-      subjectOf: { "@id": MCP_API_ID },
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Tours",
-        addressRegion: "Centre-Val de Loire",
-        addressCountry: "FR",
-      },
-      alumniOf: {
-        "@type": "EducationalOrganization",
-        name: "Wild Code School",
-        url: "https://www.wildcodeschool.com/",
-      },
-      hasCredential: {
-        "@type": "EducationalOccupationalCredential",
-        name: "Concepteur Développeur d'applications Web & Mobile (Bac+3/4)",
-        credentialCategory: "degree",
-      },
-      sameAs: [
-        EXTERNAL_LINKS.linkedin,
-        EXTERNAL_LINKS.github,
-        EXTERNAL_LINKS.malt,
-        EXTERNAL_LINKS.googleBusiness,
-        SOCIAL_LINKS.instagram,
-        SOCIAL_LINKS.tiktok,
-      ],
-    },
-    {
-      "@type": "Organization",
-      "@id": OPENUP_ID,
-      name: OPENUP.name,
-      url: OPENUP.url,
-      sameAs: [OPENUP.url],
-      description:
-        "OpenUp génère des deep links qui sortent du navigateur interne d'Instagram ou de TikTok et ouvrent l'app native, pour plus de 50 apps.",
-      foundingDate: String(OPENUP.sinceYear),
-      founder: { "@id": PERSON_ID },
-    },
-    {
-      "@type": "WebSite",
-      "@id": WEBSITE_ID,
-      name: AUTHOR.name,
-      alternateName: IDENTITY_TITLE,
-      url: SITE_URL,
-      description:
-        "Site d'Axel Hamilcaro, développeur fullstack et builder : ses builds open source, ses études de cas, son blog, ses services en freelance et un serveur MCP public.",
-      inLanguage: "fr-FR",
-      about: { "@id": PERSON_ID },
-      publisher: { "@id": PERSON_ID },
-    },
-    buildMcpApiNode(),
-  ],
+const PERSON_SAME_AS = [
+  EXTERNAL_LINKS.linkedin,
+  EXTERNAL_LINKS.github,
+  EXTERNAL_LINKS.malt,
+  EXTERNAL_LINKS.googleBusiness,
+  SOCIAL_LINKS.instagram,
+  SOCIAL_LINKS.tiktok,
+];
+
+const PERSON_NODE = {
+  "@type": "Person",
+  "@id": PERSON_ID,
+  name: AUTHOR.name,
+  givenName: "Axel",
+  familyName: "Hamilcaro",
+  url: SITE_URL,
+  image: PROFILE_IMAGE,
+  jobTitle: JOB_TITLE,
+  description: PERSON_DESCRIPTION,
+  email: CONTACT.mailto,
+  knowsLanguage: ["fr-FR", "en"],
+  knowsAbout: KNOWS_ABOUT,
+  worksFor: {
+    "@type": "Organization",
+    "@id": EMPLOYER_ID,
+    name: EMPLOYER.name,
+  },
+  affiliation: { "@id": OPENUP_ID },
+  subjectOf: { "@id": MCP_API_ID },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Tours",
+    addressRegion: "Centre-Val de Loire",
+    addressCountry: "FR",
+  },
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "Wild Code School",
+    url: "https://www.wildcodeschool.com/",
+  },
+  hasCredential: {
+    "@type": "EducationalOccupationalCredential",
+    name: "Concepteur Développeur d'applications Web & Mobile (Bac+3/4)",
+    credentialCategory: "degree",
+  },
+  sameAs: PERSON_SAME_AS,
 };
+
+const PERSON_NODE_WITHOUT_EMPLOYER = {
+  "@type": "Person",
+  "@id": PERSON_ID,
+  name: AUTHOR.name,
+  url: SITE_URL,
+  jobTitle: JOB_TITLE,
+  sameAs: PERSON_SAME_AS,
+};
+
+function buildGlobalGraph(person: object) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      person,
+      {
+        "@type": "Organization",
+        "@id": OPENUP_ID,
+        name: OPENUP.name,
+        url: OPENUP.url,
+        sameAs: [OPENUP.url],
+        description:
+          "OpenUp génère des deep links qui sortent du navigateur interne d'Instagram ou de TikTok et ouvrent l'app native, pour plus de 50 apps.",
+        foundingDate: String(OPENUP.sinceYear),
+        founder: { "@id": PERSON_ID },
+      },
+      {
+        "@type": "WebSite",
+        "@id": WEBSITE_ID,
+        name: AUTHOR.name,
+        alternateName: IDENTITY_TITLE,
+        url: SITE_URL,
+        description:
+          "Site d'Axel Hamilcaro, développeur fullstack et builder : ses builds open source, ses études de cas, son blog, ses services en freelance et un serveur MCP public.",
+        inLanguage: "fr-FR",
+        about: { "@id": PERSON_ID },
+        publisher: { "@id": PERSON_ID },
+      },
+      buildMcpApiNode(),
+    ],
+  };
+}
+
+export const GLOBAL_JSON_LD = buildGlobalGraph(PERSON_NODE);
+
+const GLOBAL_JSON_LD_WITHOUT_EMPLOYER = buildGlobalGraph(
+  PERSON_NODE_WITHOUT_EMPLOYER,
+);
 
 export function JsonLd() {
   return <JsonLdScript data={GLOBAL_JSON_LD} />;
+}
+
+export function JsonLdWithoutEmployer() {
+  return <JsonLdScript data={GLOBAL_JSON_LD_WITHOUT_EMPLOYER} />;
 }
