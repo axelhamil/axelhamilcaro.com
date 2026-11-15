@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { AdminPageWrapper } from "@/src/features/admin/components/admin-page-wrapper";
 import { Header } from "@/src/features/admin/components/header";
 import { Sidebar } from "@/src/features/admin/components/sidebar";
+
+export const metadata: Metadata = {
+  title: "Administration",
+  robots: { index: false, follow: false },
+};
 
 export default function AdminLayout({
   children,

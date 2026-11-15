@@ -64,7 +64,7 @@ describe("POST /mcp", () => {
     );
     assert.equal(
       payload.result?._meta?.["io.modelcontextprotocol/serverInfo"]?.version,
-      "1.0.0",
+      "1.1.0",
     );
     assert.match(
       payload.result?.instructions ?? "",

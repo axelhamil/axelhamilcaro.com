@@ -1,78 +1,67 @@
 import { ArrowRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { BlogByline } from "@/src/features/blog/components/blog-byline";
 import type { BlogPost } from "@/src/features/blog/lib/blog";
+import { formatLongDate } from "@/src/lib/utils/date.utils";
+import {
+  articleTransitionName,
+  SharedElement,
+} from "@/src/shared/ui/navigation/shared-element";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
-import { Heading2 } from "@/src/shared/ui/typography/heading2";
-import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 interface ArticleCardProps {
   post: BlogPost;
   featured?: boolean;
+  stamp?: string;
 }
 
-export function ArticleCard({ post, featured = false }: ArticleCardProps) {
-  const formattedDate = new Date(post.date).toLocaleDateString("fr-FR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
+export function ArticleCard({
+  post,
+  featured = false,
+  stamp,
+}: ArticleCardProps) {
   return (
     <TransitionLink
       href={`/blog/${post.slug}`}
-      className="block group"
-      variant="soft"
+      className={cn(
+        "fiche etiquette etiquette-carte etiquette-appui gap-5",
+        featured ? "fiche-une etiquette-jaune" : "etiquette-gris",
+      )}
     >
-      <article
-        className={`card-accent relative rounded-xl border border-border transition-all overflow-hidden ${
-          featured ? "border-l-4 border-l-accent p-5 sm:p-8" : "p-4 sm:p-6"
-        }`}
-      >
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
-          <span className="text-sm font-medium text-accent-ink uppercase tracking-widest">
-            {post.category}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+        <span className="etiquette etiquette-sm etiquette-fond-jaune label-mono">
+          {post.category}
+        </span>
+        <span className="meta-mono">
+          <time dateTime={post.date}>{formatLongDate(post.date)}</time>
+          <span>{post.readingTime}</span>
+        </span>
+        {stamp && (
+          <span className="tampon tampon-droite ml-auto" aria-hidden="true">
+            <span className="tampon-haut">Dernier article</span>{" "}
+            <span className="tampon-bas">{stamp}</span>
           </span>
-          <span className="text-border">|</span>
-          <time dateTime={post.date} className="text-sm text-muted-foreground">
-            {formattedDate}
-          </time>
-          <span className="text-border">|</span>
-          <span className="text-sm text-muted-foreground">
-            {post.readingTime}
-          </span>
-        </div>
+        )}
+      </div>
 
-        <Heading2
-          size={featured ? "xl" : "lg"}
-          className="group-hover:text-accent-ink transition-colors mb-2"
-        >
-          {post.title}
-        </Heading2>
+      <SharedElement name={articleTransitionName(post.slug)}>
+        <h2 className="fiche-titre heading-display">{post.title}</h2>
+      </SharedElement>
 
-        <Paragraph variant="secondary" className="mb-4">
-          {post.excerpt}
-        </Paragraph>
+      <p className="fiche-extrait">{post.excerpt}</p>
 
-        <BlogByline
-          variant="card"
-          originalAuthor={post.originalAuthor}
-          className="mb-4"
-        />
+      <ul className="flex flex-wrap gap-2">
+        {post.tags.map((tag) => (
+          <li key={tag} className="tag-mono">
+            {tag}
+          </li>
+        ))}
+      </ul>
 
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent-ink group-hover:translate-x-1 transition-all duration-300" />
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-      </article>
+      <div className="mt-auto flex items-center justify-between gap-4">
+        <BlogByline variant="card" originalAuthor={post.originalAuthor} />
+        <ArrowRight className="fiche-fleche w-5 h-5" aria-hidden="true" />
+      </div>
     </TransitionLink>
   );
 }

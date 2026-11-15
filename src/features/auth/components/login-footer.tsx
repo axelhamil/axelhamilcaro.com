@@ -1,16 +1,16 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/src/shared/ui/portfolio/button";
 
 export function LoginFooter() {
   return (
-    <motion.p
-      className="absolute bottom-6 text-xs text-muted-foreground font-mono"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1, duration: 0.5 }}
-    >
-      axel_hamilcaro() • {new Date().getFullYear()}
-    </motion.p>
+    <footer className="flex flex-wrap items-center justify-between gap-4">
+      <Button href="/" variant="ghost" size="sm">
+        <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+        Retour au site
+      </Button>
+      <p className="label-mono ink-muted">
+        axel_hamilcaro() • {new Date().getFullYear()}
+      </p>
+    </footer>
   );
 }

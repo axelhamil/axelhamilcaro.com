@@ -9,16 +9,16 @@ interface IHeading2Props {
 const heading2Variants = cva("scroll-m-20 heading-display", {
   variants: {
     variant: {
-      primary: "text-primary",
-      secondary: "text-secondary",
-      highlight: "text-primary font-bold",
+      primary: "ink-primary",
+      secondary: "ink-secondary",
+      highlight: "ink-primary",
     },
     size: {
-      xs: "text-base",
-      sm: "text-lg",
-      md: "text-xl",
-      lg: "text-2xl display-expressive",
-      xl: "text-3xl display-expressive",
+      xs: "title-xs",
+      sm: "title-sm",
+      md: "title-md",
+      lg: "title-lg",
+      xl: "title-xl",
     },
   },
   defaultVariants: {

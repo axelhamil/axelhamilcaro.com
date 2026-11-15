@@ -1,33 +1,33 @@
+import { AccentTitle } from "@/src/shared/ui/typography/accent-title";
+import { BrandText } from "@/src/shared/ui/typography/brand-text";
 import type { ServiceData } from "../lib/services-data";
 
-export function ServiceApproach({ data }: { data: ServiceData["approach"] }) {
+interface ServiceApproachProps {
+  data: ServiceData["approach"];
+}
+
+export function ServiceApproach({ data }: ServiceApproachProps) {
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-5xl mx-auto">
-        <h2
-          className="text-3xl sm:text-4xl font-bold text-primary mb-12"
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-        >
-          {data.title}
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {data.steps.map((step, index) => (
-            <div key={step.title} className="card p-8">
-              <span
-                className="text-5xl font-bold text-accent-ink block mb-4"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-                aria-hidden="true"
-              >
-                {index + 1}
-              </span>
-              <h3 className="text-xl font-semibold text-primary mb-3">
-                {step.title}
-              </h3>
-              <p className="text-secondary leading-relaxed">{step.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+    <section className="svc-section container">
+      <h2 className="svc-h2 svc-h2-seul heading-display">
+        <AccentTitle text={data.title} />
+      </h2>
+      <ol className="grille-cartes svc-grille-etapes">
+        {data.steps.map((step, index) => (
+          <li
+            key={step.title}
+            className="svc-etape etiquette etiquette-carte etiquette-gris"
+          >
+            <span className="svc-etape-numero" aria-hidden="true">
+              {index + 1}
+            </span>
+            <h3 className="svc-carte-titre">{step.title}</h3>
+            <p className="svc-texte">
+              <BrandText text={step.body} />
+            </p>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }

@@ -3,8 +3,10 @@ import {
   ResourceNotFoundError,
 } from "@modelcontextprotocol/server";
 import {
+  CATALOG_SECTION_IDS,
   type CatalogSectionId,
   getCatalogSection,
+  isCatalogSectionId,
   renderMarkdown,
 } from "./mcp.catalog";
 
@@ -15,15 +17,7 @@ export type SiteResourceRef = {
   format: ResourceFormat;
 };
 
-export const SITE_RESOURCE_IDS = [
-  "whoami",
-  "architecture-manifesto",
-  "live-status",
-  "stack-matrix",
-  "case-studies",
-  "services",
-  "contact",
-] as const satisfies readonly CatalogSectionId[];
+export const SITE_RESOURCE_IDS = CATALOG_SECTION_IDS;
 
 export const RESOURCE_CACHE_HINT = {
   ttlMs: 3_600_000,
@@ -35,16 +29,13 @@ const RESOURCE_TITLES: Record<CatalogSectionId, string> = {
   "architecture-manifesto": "Architecture manifesto",
   "live-status": "Live status",
   "stack-matrix": "Stack matrix",
+  projects: "Projects",
   "case-studies": "Case studies",
   services: "Services",
   contact: "Contact",
 };
 
 const SITE_RESOURCE_URI = /^site:\/\/([a-z0-9-]+)\.(json|md)$/;
-
-function isCatalogSectionId(value: string): value is CatalogSectionId {
-  return (SITE_RESOURCE_IDS as readonly string[]).includes(value);
-}
 
 export function parseSiteResourceUri(uri: string): SiteResourceRef | null {
   const match = SITE_RESOURCE_URI.exec(uri);

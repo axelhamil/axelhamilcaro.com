@@ -1,31 +1,27 @@
 import { X } from "lucide-react";
+import { AccentTitle } from "@/src/shared/ui/typography/accent-title";
 import type { ServiceData } from "../lib/services-data";
 
-export function ServiceProblem({ data }: { data: ServiceData["problem"] }) {
+interface ServiceProblemProps {
+  data: ServiceData["problem"];
+}
+
+export function ServiceProblem({ data }: ServiceProblemProps) {
   return (
-    <section className="py-20 px-6 bg-secondary-background">
-      <div className="max-w-4xl mx-auto">
-        <h2
-          className="text-3xl sm:text-4xl font-bold text-primary mb-10"
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-        >
-          {data.title}
-        </h2>
-        <ul className="space-y-4">
-          {data.bullets.map((bullet) => (
-            <li key={bullet} className="flex items-start gap-4">
-              <X
-                className="text-accent-ink mt-0.5 shrink-0"
-                size={20}
-                aria-hidden="true"
-              />
-              <span className="text-primary text-lg leading-relaxed">
-                {bullet}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <section className="svc-section container grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <h2 className="svc-h2 heading-display">
+        <AccentTitle text={data.title} />
+      </h2>
+      <ul className="svc-situations">
+        {data.bullets.map((bullet) => (
+          <li key={bullet} className="svc-situation">
+            <span className="svc-croix" aria-hidden="true">
+              <X className="w-4 h-4" strokeWidth={3} />
+            </span>
+            {bullet}
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

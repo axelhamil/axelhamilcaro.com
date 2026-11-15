@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { Home, RotateCcw } from "lucide-react";
 import { useEffect } from "react";
+import { Button } from "@/src/shared/ui/portfolio/button";
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -14,28 +15,36 @@ export default function SiteError({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-primary-background px-4">
-      <div className="text-center space-y-6 max-w-md">
-        <h1 className="text-4xl font-bold text-primary">Oops !</h1>
-        <p className="text-primary/60">
-          Une erreur inattendue s&apos;est produite.
+    <section className="page-entete max-w-3xl mx-auto py-12 sm:py-16 flex flex-col gap-6 min-w-0">
+      <p className="surtitre">Erreur · Envoi interrompu</p>
+
+      <div className="etiquette etiquette-carte gap-5 mr-2">
+        <p aria-hidden="true" className="tampon self-start">
+          <span className="tampon-haut">Envoi</span>{" "}
+          <span className="tampon-bas">Interrompu</span>
         </p>
-        <div className="flex gap-4 justify-center">
-          <button
-            type="button"
-            onClick={reset}
-            className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
-          >
-            Réessayer
-          </button>
-          <Link
-            href="/"
-            className="px-4 py-2 border border-primary/20 text-primary rounded-lg hover:bg-primary/5 transition-colors"
-          >
-            Retour à l&apos;accueil
-          </Link>
-        </div>
+        <h1 className="heading-display title-xl">
+          Cette page n'a pas pu s'afficher.
+        </h1>
+        <p className="para para-lg ink-secondary">
+          Une erreur s'est produite pendant le chargement. Réessayez, ça suffit
+          le plus souvent. Si elle revient, repartez de l'accueil.
+        </p>
+        {error.digest ? (
+          <p className="label-mono ink-muted">Référence {error.digest}</p>
+        ) : null}
       </div>
-    </div>
+
+      <div className="flex flex-wrap gap-4 pr-2 pb-2">
+        <Button type="button" size="lg" onClick={reset}>
+          <RotateCcw className="w-5 h-5" aria-hidden="true" />
+          Réessayer
+        </Button>
+        <Button href="/" variant="secondary" size="lg">
+          <Home className="w-5 h-5" aria-hidden="true" />
+          Retour à l'accueil
+        </Button>
+      </div>
+    </section>
   );
 }

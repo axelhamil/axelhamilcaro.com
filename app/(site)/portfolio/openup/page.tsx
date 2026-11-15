@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/app/_config/site.constants";
 import {
   OpenupFaq,
   openupFaqItems,
 } from "@/src/features/portfolio-openup/components/openup-faq";
 import {
   OpenupArchitecture,
-  OpenupBackdrop,
   OpenupBottomCta,
   OpenupContext,
   OpenupFeatures,
@@ -14,6 +14,8 @@ import {
   OpenupStats,
   OpenupTechStack,
 } from "@/src/features/portfolio-openup/components/openup-showcase";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
@@ -21,8 +23,8 @@ import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 const creativeWorkSchema = buildCreativeWorkSchema({
   name: "OpenUp, générateur de deep links",
   description:
-    "Mission freelance livrée from scratch en duo avec le fondateur, dont je suis le seul développeur : SaaS qui transforme une URL en lien ouvrant l'application native de destination. 57 applications résolues, 11 navigateurs intégrés contournés (Instagram, TikTok, WeChat), plusieurs milliers d'utilisateurs et 10 à 15% convertis en payant. Mobile natif via Capacitor, edge <50ms via Cloudflare Worker, multi-devise Stripe EUR/USD, Clean Architecture + DDD sur Hono.",
-  url: "https://axelhamilcaro.com/portfolio/openup",
+    "Produit dont Axel Hamilcaro est le fondateur technique : SaaS qui transforme une URL en lien ouvrant l'application native de destination, même depuis le navigateur intégré d'Instagram ou de TikTok. 57 applications résolues, 11 navigateurs intégrés contournés (Instagram, TikTok, WeChat), redirection décidée en moins de 50 ms depuis l'edge Cloudflare, plusieurs milliers d'utilisateurs et 10 à 15% convertis en payant. QR codes, link-in-bio et analytics autour du lien. Web, iOS et Android depuis une seule codebase via Capacitor, abonnements Stripe en EUR et USD, Clean Architecture + DDD sur Hono.",
+  url: `${SITE_URL}/portfolio/openup`,
   dateCreated: "2026",
   keywords: [
     "deep link",
@@ -41,7 +43,6 @@ const creativeWorkSchema = buildCreativeWorkSchema({
     "Clean Architecture",
     "DDD",
     "Stripe",
-    "freelance",
   ],
   applicationCategory: "BusinessApplication",
 });
@@ -55,11 +56,13 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 ]);
 
 const openupDescription =
-  "OpenUp, générateur de deep links livré en duo avec le fondateur : 57 apps ouvertes en natif, 11 in-app browsers contournés, 10 à 15% de conversion payante.";
+  "OpenUp, le générateur de deep links dont je suis le fondateur technique : 57 apps ouvertes en natif, 11 in-app browsers contournés, 10 à 15 % de conversion.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "OpenUp : générateur de deep links",
   description: openupDescription,
+  path: "/portfolio/openup",
+  type: "article",
   keywords: [
     "OpenUp",
     "deep link",
@@ -78,52 +81,24 @@ export const metadata: Metadata = {
     "DDD",
     "Axel Hamilcaro",
   ],
-  alternates: {
-    canonical: "/portfolio/openup",
-  },
-  openGraph: {
-    title: "OpenUp : générateur de deep links",
-    description: openupDescription,
-    url: "/portfolio/openup",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "OpenUp : générateur de deep links",
-    description: openupDescription,
-  },
-};
+});
 
 export default function OpenupPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <main className="pb-8">
-        <div className="relative">
-          <OpenupBackdrop />
-          <OpenupHero />
-          <OpenupStats />
-          <OpenupContext />
-          <OpenupScreenshots />
-          <OpenupFeatures />
-          <OpenupArchitecture />
-          <OpenupTechStack />
-          <OpenupFaq />
-          <OpenupBottomCta />
-        </div>
+      <JsonLdScript data={creativeWorkSchema} />
+      <JsonLdScript data={faqSchema} />
+      <JsonLdScript data={breadcrumbSchema} />
+      <main className="cas cas-openup">
+        <OpenupHero />
+        <OpenupStats />
+        <OpenupContext />
+        <OpenupScreenshots />
+        <OpenupFeatures />
+        <OpenupArchitecture />
+        <OpenupTechStack />
+        <OpenupFaq />
+        <OpenupBottomCta />
       </main>
     </>
   );

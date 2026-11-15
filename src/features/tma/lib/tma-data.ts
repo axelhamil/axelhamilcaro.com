@@ -6,7 +6,7 @@ export type TmaPersona = {
   body: string;
 };
 
-export type TmaForfaitFeature = {
+type TmaForfaitFeature = {
   label: string;
   premiumOnly?: boolean;
 };
@@ -71,9 +71,8 @@ export const TMA_LAST_UPDATED = {
 } as const;
 
 export const TMA_META = {
-  title: "TMA : maintenance applicative dès 350€/mois",
-  description:
-    "Forfait TMA mensuel pour app Next.js, React, Node ou mobile. PRO 350€/mois (5h, 1 jour ouvré) ou PREMIUM 800€/mois (10h, monitoring proactif). Sans engagement.",
+  title: `TMA : maintenance dès ${RATES.tma.proMonthlyEur} € HT par mois`,
+  description: `Je maintiens ton app Next.js, React, Node ou mobile au forfait : PRO à ${RATES.tma.proMonthlyEur} € HT par mois (5h) ou PREMIUM à ${RATES.tma.premiumMonthlyEur} € HT par mois (10h, monitoring). Sans engagement.`,
   keywords: [
     "tierce maintenance applicative",
     "TMA freelance",
@@ -90,11 +89,15 @@ export const TMA_META = {
   ],
 } as const;
 
+export const TMA_SCHEMA = {
+  name: "TMA freelance au forfait",
+  description: `Axel Hamilcaro, développeur fullstack freelance à Tours, maintient des applications Next.js, React, Node et mobiles au forfait mensuel sans engagement : PRO à ${RATES.tma.proMonthlyEur} € HT pour 5 heures, PREMIUM à ${RATES.tma.premiumMonthlyEur} € HT pour 10 heures avec monitoring proactif.`,
+} as const;
+
 export const TMA_HERO = {
   eyebrow: "// maintenance_applicative()",
-  title: "Tierce Maintenance Applicative pour ton app en prod.",
-  subtitle:
-    "Forfait mensuel sans engagement, heures dédiées chaque mois, un seul interlocuteur freelance expérimenté. Tu gardes ton app web ou mobile vivante (bugs, sécurité, perf, support, infra légère) sans recruter et sans devoir tout réexpliquer à chaque ticket.",
+  title: `TMA freelance au forfait : ${RATES.tma.proMonthlyEur} € HT par mois`,
+  subtitle: `Je suis Axel Hamilcaro, développeur fullstack freelance basé à Tours : ma TMA coûte ${RATES.tma.proMonthlyEur} € HT par mois pour 5 heures (PRO) et ${RATES.tma.premiumMonthlyEur} € HT par mois pour 10 heures avec monitoring proactif (PREMIUM), sans engagement. Heures dédiées chaque mois, un seul interlocuteur. Tu gardes ton app web ou mobile vivante (bugs, sécurité, perf, support, infra légère) sans recruter et sans devoir tout réexpliquer à chaque ticket.`,
   primaryCtaLabel: "Voir les forfaits",
   primaryCtaHref: "#forfaits",
   secondaryCtaLabel: "En discuter avant",
@@ -128,8 +131,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
     slug: "pro",
     name: "TMA PRO",
     tagline: "Pour garder ton app fiable et à jour.",
-    description:
-      "Forfait Pro de TMA pour applications en production : 5h/mois d'intervention (correctifs, optimisation, mises à jour sécurité/dépendances, ajustements techniques mineurs, petites évolutions, support e-mail). Prise en charge sous 1 jour ouvré. 1h de visio incluse par mois. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
+    description: `Forfait Pro de TMA pour applications en production : 5h/mois d'intervention (correctifs, optimisation, mises à jour sécurité/dépendances, ajustements techniques mineurs, petites évolutions, support e-mail). Prise en charge sous 1 jour ouvré. 1h de visio incluse par mois. Hors-forfait : ${RATES.tma.overflowHourlyEur} € HT par heure. Sans engagement, reconduction mensuelle.`,
     targetAudience: [
       "Tu as une app en production qui tourne et qui a besoin de suivi régulier",
       "Tu n'as pas besoin d'astreinte critique 24/7",
@@ -140,7 +142,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
     currency: "EUR",
     hours: 5,
     hoursLabel: "5h de maintenance incluses par mois",
-    hourlyOverflow: 80,
+    hourlyOverflow: RATES.tma.overflowHourlyEur,
     responseTime: "1 jour ouvré",
     meetingHours: "1h/mois",
     features: [
@@ -156,7 +158,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
       { label: "Support technique" },
       { label: "Prise en compte sous 1 jour ouvré" },
       { label: "1h de visioconférence par mois (selon dispos communes)" },
-      { label: "Hors-forfait : 80€/h" },
+      { label: `Hors-forfait : ${RATES.tma.overflowHourlyEur} € HT par heure` },
       { label: "Sans engagement, interventions du lundi au vendredi" },
     ],
   },
@@ -164,8 +166,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
     slug: "premium",
     name: "TMA PREMIUM",
     tagline: "Pour les apps critiques, monitoring et reporting compris.",
-    description:
-      "Forfait Premium de TMA pour applications critiques : monitoring proactif (Sentry, UptimeRobot, Better Stack à provisionner par le client), mises à jour de sécurité, correction de bugs, optimisations, reporting mensuel et support. Inclus : 10h/mois, 2h de visio, prise en charge sous une demi-journée ouvrée. Hors-forfait : 80€/h. Sans engagement, reconduction mensuelle.",
+    description: `Forfait Premium de TMA pour applications critiques : monitoring proactif (Sentry, UptimeRobot, Better Stack à provisionner par le client), mises à jour de sécurité, correction de bugs, optimisations, reporting mensuel et support. Inclus : 10h/mois, 2h de visio, prise en charge sous une demi-journée ouvrée. Hors-forfait : ${RATES.tma.overflowHourlyEur} € HT par heure. Sans engagement, reconduction mensuelle.`,
     targetAudience: [
       "Ton app est critique pour ton activité (revenu, opérations, image)",
       "Tu as besoin de monitoring proactif et d'alertes avant tes utilisateurs",
@@ -176,7 +177,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
     currency: "EUR",
     hours: 10,
     hoursLabel: "10h d'intervention incluses par mois",
-    hourlyOverflow: 80,
+    hourlyOverflow: RATES.tma.overflowHourlyEur,
     responseTime: "1 demi-journée ouvrée",
     meetingHours: "2h/mois",
     recommended: true,
@@ -198,7 +199,7 @@ export const TMA_FORFAITS: TmaForfait[] = [
         premiumOnly: true,
       },
       { label: "2h de visioconférence incluses par mois" },
-      { label: "Hors-forfait : 80€/h" },
+      { label: `Hors-forfait : ${RATES.tma.overflowHourlyEur} € HT par heure` },
       { label: "CHANGELOG mensuel annoté", premiumOnly: true },
       { label: "Audit perf / sécu trimestriel", premiumOnly: true },
       { label: "Status page publique", premiumOnly: true },
@@ -226,15 +227,14 @@ export const TMA_PROCESS: TmaProcessStep[] = [
   {
     step: "04",
     title: "On suit, on ajuste, on rapporte",
-    body: "Volant de visioconférence à caler selon nos dispos (1h en PRO, 2h en PREMIUM, certains mois sans). On passe les tickets en revue, on priorise, on planifie les évolutions. Sur PREMIUM : reporting mensuel écrit garanti, avec optimisations continues et suivi des alertes monitoring.",
+    body: "Volant de visioconférence à caler selon les disponibilités de chacun (1h en PRO, 2h en PREMIUM, certains mois sans). On passe les tickets en revue, on priorise, on planifie les évolutions. Sur PREMIUM : reporting mensuel écrit garanti, avec optimisations continues et suivi des alertes monitoring.",
   },
 ];
 
 export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "Et si je dépasse les heures incluses dans le forfait ?",
-    answer:
-      "Les heures supplémentaires sont facturées 80€/h sur les deux forfaits, avec ton accord écrit avant intervention. Pas de surprise sur la facture. Si le dépassement devient récurrent, on rebascule sur le forfait au-dessus (PRO → PREMIUM) plutôt que d'empiler les heures hors-forfait.",
+    answer: `Les heures supplémentaires sont facturées ${RATES.tma.overflowHourlyEur} € HT par heure sur les deux forfaits, avec ton accord écrit avant intervention. Pas de surprise sur la facture. Si le dépassement devient récurrent, on rebascule sur le forfait au-dessus (PRO → PREMIUM) plutôt que d'empiler les heures hors-forfait.`,
   },
   {
     question: "Comment tu comptes les heures consommées par ticket ?",
@@ -269,7 +269,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   {
     question: "On fait des points réguliers ?",
     answer:
-      "Le forfait inclut un volant de visioconférence à utiliser dans le mois (1h sur PRO, 2h sur PREMIUM). On la cale selon nos dispos communes : certains mois on prend tout d'un coup, d'autres on découpe en 2-3 calls courts, et il peut y avoir des mois sans visio si rien ne le justifie ou si l'agenda ne le permet pas. Les heures non utilisées ne sont pas reportées. Sur PREMIUM, le reporting mensuel écrit est garanti même sans visio.",
+      "Le forfait inclut un volant de visioconférence à utiliser dans le mois (1h sur PRO, 2h sur PREMIUM). Je la cale selon les disponibilités de chacun : certains mois je prends tout d'un coup, d'autres on découpe en 2-3 calls courts, et il peut y avoir des mois sans visio si rien ne le justifie ou si l'agenda ne le permet pas. Les heures non utilisées ne sont pas reportées. Sur PREMIUM, le reporting mensuel écrit est garanti même sans visio.",
   },
   {
     question: "Comment se passe la facturation ?",
@@ -313,8 +313,7 @@ export const TMA_FAQ: TmaFaqItem[] = [
   },
   {
     question: "Que se passe-t-il si mon app tombe le week-end ou la nuit ?",
-    answer:
-      "Pas d'astreinte 24/7 : la TMA reste un service en heures ouvrées (lundi au vendredi). Sur PREMIUM, le monitoring continue de tourner et de t'alerter même hors heures ; si tu veux que j'intervienne en best-effort la nuit ou le week-end, c'est facturé en heures supplémentaires au tarif standard de 80€/h, avec ton accord écrit avant intervention. Pour de l'astreinte garantie 24/7, c'est une mission séparée avec rémunération adaptée à cadrer ensemble.",
+    answer: `Pas d'astreinte 24/7 : la TMA reste un service en heures ouvrées (lundi au vendredi). Sur PREMIUM, le monitoring continue de tourner et de t'alerter même hors heures ; si tu veux que j'intervienne en best-effort la nuit ou le week-end, c'est facturé en heures supplémentaires au tarif standard de ${RATES.tma.overflowHourlyEur} € HT par heure, avec ton accord écrit avant intervention. Pour de l'astreinte garantie 24/7, c'est une mission séparée avec rémunération adaptée à cadrer ensemble.`,
   },
   {
     question: "Si j'ai plusieurs projets, ça rentre dans le même forfait ?",
@@ -353,7 +352,7 @@ export const TMA_MONITORING_TOOLS: TmaMonitoringTool[] = [
 export const TMA_PREREQUISITES: TmaPrerequisite[] = [
   {
     title: "App déjà en production",
-    body: "La TMA n'est pas un service de développement from scratch. Ton produit doit déjà tourner avec des utilisateurs réels (ou un déploiement de staging stable au minimum).",
+    body: "La TMA n'est pas un service de développement de zéro. Ton produit doit déjà tourner avec des utilisateurs réels (ou un déploiement de staging stable au minimum).",
   },
   {
     title: "Code source accessible",
@@ -419,7 +418,7 @@ export const TMA_PRO_WORKFLOW: TmaDeliverable[] = [
     title: "Visio mensuelle et décompte transparent",
     tagline: "1h / mois + suivi heures",
     cadence: "Tous les mois",
-    body: "1h de visioconférence par mois pour faire le point (priorités, planning, décisions). Décompte des heures consommées par tranches de 30 min, arrondi au plus bas avec minimum 30 min par ticket (plus juste qu'un arrondi systématique au-dessus). Suivi partagé dès qu'on approche des 5h, dépassement uniquement avec ton accord écrit (80€/h).",
+    body: `1h de visioconférence par mois pour faire le point (priorités, planning, décisions). Décompte des heures consommées par tranches de 30 min, arrondi au plus bas avec minimum 30 min par ticket (plus juste qu'un arrondi systématique au-dessus). Suivi partagé dès qu'on approche des 5h, dépassement uniquement avec ton accord écrit (${RATES.tma.overflowHourlyEur} € HT par heure).`,
   },
 ];
 

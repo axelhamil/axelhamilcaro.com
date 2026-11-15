@@ -1,3 +1,6 @@
+export const MESSAGE_MIN = 80;
+export const MESSAGE_MAX = 5000;
+
 export const PROJECT_TYPES = [
   {
     value: "nextjs-app",

@@ -1,22 +1,10 @@
-"use client";
-
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform,
-  type Variants,
-} from "framer-motion";
 import {
   ArrowLeft,
   ArrowUpRight,
-  BarChart3,
   Cloud,
-  Code2,
   Database,
   ExternalLink,
   Globe,
-  Layers,
   LayoutDashboard,
   Lock,
   Monitor,
@@ -24,41 +12,77 @@ import {
   Server,
   Share2,
   Shield,
-  Target,
   TestTube2,
   Users,
 } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { blurDataURLs } from "@/app/_config/blur-placeholders";
-import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
-import { TiltCard } from "@/src/shared/ui/effects/tilt-card";
-import TransitionLink from "@/src/shared/ui/navigation/transition-link";
-import { inkOnLight, textOn } from "@/src/shared/ui/portfolio/brand-color";
+import { Ribbon } from "@/src/shared/ui/motifs/ribbon";
+import {
+  projectTransitionName,
+  SharedElement,
+} from "@/src/shared/ui/navigation/shared-element";
+import { Button } from "@/src/shared/ui/portfolio/button";
+import { CaseGallery } from "@/src/shared/ui/portfolio/case-gallery";
+import {
+  CaseBottomCta,
+  CaseContext,
+  CaseStats,
+  CaseTechStack,
+} from "@/src/shared/ui/portfolio/case-sections";
+import { BrandText } from "@/src/shared/ui/typography/brand-text";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
-const SP = {
-  navy: "#1B3A5C",
-  blue: "#2563EB",
-  cyan: "#06B6D4",
-  teal: "#0D9488",
-  orange: "#F59E0B",
-  light: "#F0F7FF",
-} as const;
+const heroTags = ["E-learning", "RGPD", "Solo Dev"] as const;
+
+const heroRibbon = [
+  "SCORM 1.2 et 2004",
+  "Player et runtime",
+  "Multi-diffusion",
+  "Multi-tenant",
+  "Dashboard analytics",
+  "App Teams",
+  "5 apps en solo",
+  "Monorepo Turborepo",
+  "Architecture hexagonale",
+  "RGPD",
+  "Hébergement européen",
+  "99.9% uptime",
+  "MVP en 3 mois",
+  "Tours",
+] as const;
 
 const stats = [
   {
     value: "100%",
     label: "Solo",
     sublabel: "Conception à production",
-    color: SP.navy,
+    tone: "",
   },
-  { value: "Milliers", label: "de players quotidiens", color: SP.blue },
-  { value: "5", label: "Apps", sublabel: "Monorepo Turborepo", color: SP.cyan },
-  { value: "99.9%", label: "Uptime", color: SP.teal },
-  { value: "Dizaines", label: "de clients actifs", color: SP.orange },
+  {
+    value: "Milliers",
+    label: "de players quotidiens",
+    sublabel: undefined,
+    tone: "etiquette-jaune",
+  },
+  {
+    value: "5",
+    label: "Apps",
+    sublabel: "Monorepo Turborepo",
+    tone: "etiquette-gris",
+  },
+  {
+    value: "99.9%",
+    label: "Uptime",
+    sublabel: undefined,
+    tone: "etiquette-jaune",
+  },
+  {
+    value: "Dizaines",
+    label: "de clients actifs",
+    sublabel: undefined,
+    tone: "",
+  },
 ] as const;
 
 const secondaryStats = [
@@ -69,40 +93,55 @@ const secondaryStats = [
   "Tours, France",
 ] as const;
 
+const contextCards = [
+  {
+    title: "Le problème",
+    text: "Les organismes de formation qui vendent des modules SCORM n'ont aucun contrôle une fois le fichier ZIP envoyé au client. Les LMS sont rigides, coûteux et surdimensionnés pour la simple diffusion de contenus e-learning.",
+  },
+  {
+    title: "La solution",
+    text: "ScormPilot centralise les modules SCORM et permet leur diffusion multi-canal (lien, iframe, SCORM connecté, Teams). L'organisme garde le contrôle sur le versioning, les accès et les analytics de ses contenus.",
+  },
+  {
+    title: "Mon rôle",
+    text: "Conception produit, architecture, développement de 5 applications (API, dashboard, player, runtime, Teams), infrastructure cloud et mise en production. Tout en solo, du premier commit à la première facture.",
+  },
+  {
+    title: "Résultats",
+    text: "MVP livré en 3 mois. Adopté par une dizaine d'organismes de formation, plusieurs milliers de players quotidiens, dizaines de clients actifs. Produit en croissance continue avec un modèle SaaS récurrent.",
+  },
+] as const;
+
 const screenshots = [
   {
     src: "/portfolio/scormpilot/dashboard.webp",
-    alt: "ScormPilot - Tableau de bord avec statistiques globales",
+    alt: "ScormPilot : Tableau de bord avec statistiques globales",
     label: "Dashboard",
-    icon: BarChart3,
-    color: SP.blue,
+    path: "dashboard",
     width: 1776,
     height: 1055,
   },
   {
     src: "/portfolio/scormpilot/modules.webp",
-    alt: "ScormPilot - Performance détaillée des modules SCORM",
+    alt: "ScormPilot : Performance détaillée des modules SCORM",
     label: "Modules",
-    icon: Layers,
-    color: SP.cyan,
+    path: "modules",
     width: 1776,
     height: 1055,
   },
   {
     src: "/portfolio/scormpilot/library.webp",
-    alt: "ScormPilot - Bibliothèque de modules avec gestion des versions",
+    alt: "ScormPilot : Bibliothèque de modules avec gestion des versions",
     label: "Bibliothèque",
-    icon: Package,
-    color: SP.teal,
+    path: "bibliothèque",
     width: 1776,
     height: 1055,
   },
   {
     src: "/portfolio/scormpilot/clients.webp",
-    alt: "ScormPilot - Gestion multi-tenant des clients",
+    alt: "ScormPilot : Gestion multi-tenant des clients",
     label: "Clients",
-    icon: Users,
-    color: SP.orange,
+    path: "clients",
     width: 1776,
     height: 1055,
   },
@@ -114,42 +153,36 @@ const features = [
     title: "Dashboard Analytics",
     description:
       "Tableau de bord complet avec KPIs en temps réel : nombre d'utilisateurs, taux de complétion, score moyen, durée moyenne, tendance des lancements. Filtrage par client et par date.",
-    color: SP.blue,
   },
   {
     icon: Package,
     title: "Gestion des Modules",
     description:
       "Upload, versionning et pilotage à distance des fichiers SCORM. Remplacement de la source sans recharger côté client, tracking des progressions par module.",
-    color: SP.navy,
   },
   {
     icon: Share2,
     title: "Multi-diffusion",
     description:
       "Quatre modes de diffusion : lien unique, code iframe, SCORM connecté (tracker injecté), application Microsoft Teams. Le client choisit son canal.",
-    color: SP.cyan,
   },
   {
     icon: Users,
     title: "Multi-tenant",
     description:
       "Chaque client dispose d'un pool d'utilisateurs isolé via Firebase Identity Platform. Trois modes d'authentification : email, anonyme, LMS.",
-    color: SP.teal,
   },
   {
     icon: Shield,
     title: "RGPD & Sécurité",
     description:
       "Hébergement 100% européen (GCP Belgique, DigitalOcean Frankfurt). Aucune donnée personnelle superflue collectée, serveurs dédiés par organisme.",
-    color: SP.orange,
   },
   {
     icon: Monitor,
     title: "SCORM Player & Runtime",
     description:
       "Player React avec mode démo et login LMS. Runtime vanilla TypeScript : orchestration SCORM complète, monitoring de connexion, observation des commits.",
-    color: SP.navy,
   },
 ] as const;
 
@@ -159,14 +192,12 @@ const crossCutting = [
     title: "Infrastructure Production",
     description:
       "CI/CD GitHub Actions, containers Docker sur Cloud Run, PostgreSQL managé, Firebase Auth/Storage. 99.9% uptime.",
-    color: SP.blue,
   },
   {
     icon: Globe,
     title: "Internationalisation",
     description:
       "Dashboard admin avec next-intl, player SCORM avec i18next. Interface disponible en français et anglais, extensible à d'autres langues.",
-    color: SP.teal,
   },
 ] as const;
 
@@ -176,951 +207,262 @@ const archHighlights = [
     title: "Architecture Hexagonale",
     description:
       "Séparation stricte domain / application / infrastructure. 4 bounded contexts (Organisme, Client, Module, Plan), 22 use cases, 25+ value objects, 7 ports d'abstraction.",
-    color: SP.navy,
   },
   {
     icon: Server,
     title: "Monorepo Turborepo",
     description:
       "5 apps (API Fastify, Dashboard Next.js, Player React, Runtime SCORM, Teams App) et 5 packages partages (drizzle, libs, types, ui, config).",
-    color: SP.blue,
   },
   {
     icon: Lock,
     title: "Multi-tenant & Auth",
     description:
       "Firebase Identity Platform avec tenant dédié par client. Trois modes d'auth (email, anonyme, LMS). Validators domaine pour l'isolation des données entre organismes.",
-    color: SP.cyan,
   },
   {
     icon: TestTube2,
     title: "DI & Qualite",
     description:
       "InversifyJS pour l'injection de dépendances. Validation Zod au démarrage (env vars). Containers Docker non-root, secrets validés au boot.",
-    color: SP.teal,
   },
 ] as const;
 
 const techStack = [
-  { name: "Next.js 16", category: "frontend" },
-  { name: "React 19", category: "frontend" },
-  { name: "Vite 7", category: "frontend" },
-  { name: "Tailwind CSS 4", category: "frontend" },
-  { name: "TanStack Query", category: "frontend" },
-  { name: "Fastify 5", category: "backend" },
-  { name: "Drizzle ORM", category: "backend" },
-  { name: "PostgreSQL 16", category: "backend" },
-  { name: "InversifyJS", category: "backend" },
-  { name: "Zod", category: "backend" },
-  { name: "Firebase", category: "infra" },
-  { name: "Google Cloud Run", category: "infra" },
-  { name: "Docker", category: "infra" },
-  { name: "Turborepo", category: "infra" },
-  { name: "GitHub Actions", category: "infra" },
-  { name: "Cloudflare Workers", category: "infra" },
-  { name: "Hexagonal Architecture", category: "architecture" },
-  { name: "DDD", category: "architecture" },
-  { name: "SCORM", category: "architecture" },
+  "Next.js 16",
+  "React 19",
+  "Vite 7",
+  "Tailwind CSS 4",
+  "TanStack Query",
+  "Fastify 5",
+  "Drizzle ORM",
+  "PostgreSQL 16",
+  "InversifyJS",
+  "Zod",
+  "Firebase",
+  "Google Cloud Run",
+  "Docker",
+  "Turborepo",
+  "GitHub Actions",
+  "Cloudflare Workers",
+  "Hexagonal Architecture",
+  "DDD",
+  "SCORM",
 ] as const;
 
-const categoryColors: Record<string, string> = {
-  architecture: SP.navy,
-  backend: SP.cyan,
-  frontend: SP.blue,
-  infra: SP.teal,
-};
-
-const cardVariants: Variants = {
-  rest: { y: 0, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" },
-  hover: { y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.08)" },
-};
-
-export function ScormpilotBackdrop() {
-  return (
-    <div
-      className="absolute top-0 left-0 right-0 h-[700px] pointer-events-none -z-10"
-      style={{
-        background: `radial-gradient(ellipse 90% 60% at 50% 0%, ${SP.light}50 0%, ${SP.blue}08 50%, transparent 80%)`,
-      }}
-    />
-  );
-}
-
 export function ScormpilotHero() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
   return (
-    <section ref={heroRef} className="relative pt-6 sm:pt-10 pb-12 sm:pb-16">
-      <motion.div
-        style={{ y: heroY, opacity: heroOpacity }}
-        className="container mx-auto"
-      >
-        <RevealContainer className="max-w-4xl">
-          <RevealItem>
-            <TransitionLink
-              href="/#portfolio"
-              className="inline-flex items-center gap-2 text-sm text-secondary hover:text-accent-ink transition-colors mb-6 group"
-            >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              Retour aux projets
-            </TransitionLink>
-          </RevealItem>
+    <section className="cas-hero trame pleine-largeur">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 pb-12 sm:pb-16 flex flex-col gap-8">
+        <div className="flex items-start justify-between gap-6">
+          <Button href="/#portfolio" variant="ghost" size="sm">
+            <ArrowLeft className="w-4 h-4" />
+            Retour aux projets
+          </Button>
+          <p aria-hidden="true" className="tampon tampon-droite mr-2 mt-2">
+            <span className="tampon-haut">Expédié</span>{" "}
+            <span className="tampon-bas">2025</span>
+          </p>
+        </div>
 
-          <RevealItem>
-            <div className="flex items-center gap-2.5 mb-5 flex-wrap">
-              <span className="badge text-xs uppercase tracking-widest font-semibold text-secondary">
-                Freelance, SaaS
-              </span>
-              <span
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
-                style={{
-                  background: SP.blue,
-                  color: textOn(SP.blue),
-                  borderColor: SP.blue,
-                }}
-              >
-                <Package className="w-3 h-3" />
-                E-learning
-              </span>
-              <span
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
-                style={{
-                  background: SP.teal,
-                  color: textOn(SP.teal),
-                  borderColor: SP.teal,
-                }}
-              >
-                <Shield className="w-3 h-3" />
-                RGPD
-              </span>
-              <span
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold border"
-                style={{
-                  background: SP.navy,
-                  color: textOn(SP.navy),
-                  borderColor: SP.navy,
-                }}
-              >
-                <Code2 className="w-3 h-3" />
-                Solo Dev
-              </span>
-            </div>
-          </RevealItem>
+        <div className="cas-hero-texte flex flex-col gap-6">
+          <p className="surtitre">Freelance, SaaS</p>
 
-          <RevealItem>
-            <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex flex-wrap items-center gap-5">
+            <span className="cas-logo">
               <Image
                 src="/portfolio/scormpilot/logo.webp"
                 alt="ScormPilot logo"
                 width={200}
                 height={160}
-                className="h-16 w-auto sm:h-20 md:h-24"
+                className="h-10 w-auto sm:h-12"
               />
-              <h1
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.9]"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                ScormPilot
-              </h1>
-            </div>
-          </RevealItem>
+            </span>
+            <SharedElement name={projectTransitionName("scormpilot")}>
+              <h1 className="cas-h1 heading-display">ScormPilot</h1>
+            </SharedElement>
+          </div>
 
-          <RevealItem>
-            <p
-              className="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-secondary max-w-2xl"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
+          <p className="cas-accroche heading-display">
+            <span className="marqueur">
               Plateforme SaaS de gestion et diffusion de modules SCORM
-            </p>
-          </RevealItem>
+            </span>
+          </p>
 
-          <RevealItem>
-            <Paragraph
+          <Paragraph size="lg" className="cas-lede">
+            <strong>
+              Je suis Axel Hamilcaro, développeur fullstack freelance : en 2025,
+              j&apos;ai conçu et développé seul ScormPilot, une plateforme SaaS
+              de gestion et de diffusion de modules SCORM.
+            </strong>{" "}
+            Elle s&apos;adresse aux organismes de formation qui vendent des
+            contenus SCORM et veulent garder la main sur la diffusion.
+            Versioning, multi-diffusion, analytics et multi-tenant, développé en
+            solo. Plusieurs milliers de players quotidiens, dizaines de clients
+            actifs.
+          </Paragraph>
+
+          <ul className="cas-tags">
+            {heroTags.map((tag) => (
+              <li key={tag} className="etiquette etiquette-sm label-mono">
+                {tag}
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
+            <Button href="https://scormpilot.com" size="lg">
+              <ExternalLink className="w-5 h-5" />
+              Voir scormpilot.com
+              <ArrowUpRight className="w-5 h-5" />
+            </Button>
+            <Button
+              href="https://dashboard.scormpilot.com/dashboard"
               variant="secondary"
-              className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed"
+              size="lg"
             >
-              ScormPilot s'adresse aux organismes de formation qui vendent des
-              contenus SCORM et veulent garder la main sur la diffusion.
-              Versioning, multi-diffusion, analytics et multi-tenant, développé
-              en solo. Plusieurs milliers de players quotidiens, dizaines de
-              clients actifs.
-            </Paragraph>
-          </RevealItem>
+              Ouvrir le dashboard
+              <ArrowUpRight className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+      </div>
 
-          <RevealItem>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <MagneticWrapper strength={0.04}>
-                <motion.a
-                  href="https://scormpilot.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg group"
-                  style={{
-                    background: SP.blue,
-                    color: "#fff",
-                  }}
-                  whileHover={{ y: -2, boxShadow: `0 12px 24px ${SP.blue}40` }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Voir scormpilot.com
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </motion.a>
-              </MagneticWrapper>
-              <MagneticWrapper strength={0.04}>
-                <motion.a
-                  href="https://dashboard.scormpilot.com/dashboard"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border group"
-                  style={{
-                    background: "var(--primary-background)",
-                    color: inkOnLight(SP.teal),
-                    borderColor: `${SP.teal}40`,
-                  }}
-                  whileHover={{
-                    y: -2,
-                    borderColor: SP.teal,
-                    boxShadow: `0 8px 20px ${SP.teal}25`,
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  Ouvrir le dashboard
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </motion.a>
-              </MagneticWrapper>
-            </div>
-          </RevealItem>
-        </RevealContainer>
-      </motion.div>
+      <Ribbon items={heroRibbon} hachures />
     </section>
   );
 }
 
 export function ScormpilotStats() {
   return (
-    <section
-      className="relative py-6 sm:py-8"
-      style={{ background: `${SP.light}25` }}
-    >
-      <div
-        className="absolute inset-x-0 top-0 h-px"
-        style={{
-          background: `linear-gradient(to right, transparent 10%, ${SP.blue}40, ${SP.cyan}40, ${SP.teal}40, ${SP.orange}40, transparent 90%)`,
-        }}
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 h-px"
-        style={{
-          background: `linear-gradient(to right, transparent 10%, ${SP.orange}40, ${SP.teal}40, ${SP.cyan}40, ${SP.blue}40, transparent 90%)`,
-        }}
-      />
-      <RevealContainer className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
-        {stats.map((stat) => (
-          <RevealItem key={stat.label} direction="scale">
-            <MagneticWrapper strength={0.03}>
-              <motion.div
-                className="text-center cursor-default"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <p
-                  className="text-3xl sm:text-4xl md:text-5xl font-bold"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk)",
-                    color: inkOnLight(stat.color),
-                  }}
-                >
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs font-medium text-secondary uppercase tracking-wider">
-                  {stat.label}
-                </p>
-                {"sublabel" in stat && stat.sublabel && (
-                  <p
-                    className="text-[10px] font-medium uppercase tracking-wider mt-0.5"
-                    style={{ color: inkOnLight(stat.color) }}
-                  >
-                    {stat.sublabel}
-                  </p>
-                )}
-              </motion.div>
-            </MagneticWrapper>
-          </RevealItem>
-        ))}
-      </RevealContainer>
-
-      <RevealContainer className="container mx-auto mt-4">
-        <RevealItem>
-          <p className="text-center text-xs text-muted-foreground tracking-wide">
-            {secondaryStats.join(" · ")}
-          </p>
-        </RevealItem>
-      </RevealContainer>
-    </section>
+    <CaseStats
+      stats={stats}
+      facts={secondaryStats}
+      columns="grid-cols-2 lg:grid-cols-5"
+      lastItemSpan="max-lg:last:col-span-2"
+    />
   );
 }
 
 export function ScormpilotContext() {
-  return (
-    <section className="relative py-12 sm:py-16">
-      <RevealContainer className="container mx-auto max-w-4xl">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.03}>
-            <motion.div
-              className="eyebrow mb-3 inline-flex"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Target className="w-4 h-4 text-accent-ink" />
-              <span className="text-sm font-medium">Contexte</span>
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
-
-        <RevealItem>
-          <Heading2
-            size="xl"
-            className="text-2xl sm:text-3xl md:text-4xl"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Le projet
-          </Heading2>
-        </RevealItem>
-      </RevealContainer>
-
-      <RevealContainer className="container mx-auto max-w-4xl mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        <RevealItem direction="left">
-          <motion.div
-            className="rounded-xl p-5 sm:p-6 h-full"
-            style={{
-              background: "var(--primary-background)",
-              border: "1px solid var(--border)",
-              borderLeft: `3px solid ${SP.blue}`,
-            }}
-            variants={cardVariants}
-            initial="rest"
-            whileHover="hover"
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <h3
-              className="text-sm sm:text-base font-semibold text-primary mb-2"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              Le problème
-            </h3>
-            <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Les organismes de formation qui vendent des modules SCORM n'ont
-              aucun contrôle une fois le fichier ZIP envoyé au client. Les LMS
-              sont rigides, coûteux et surdimensionnés pour la simple diffusion
-              de contenus e-learning.
-            </p>
-          </motion.div>
-        </RevealItem>
-
-        <RevealItem direction="right">
-          <motion.div
-            className="rounded-xl p-5 sm:p-6 h-full"
-            style={{
-              background: "var(--primary-background)",
-              border: "1px solid var(--border)",
-              borderLeft: `3px solid ${SP.cyan}`,
-            }}
-            variants={cardVariants}
-            initial="rest"
-            whileHover="hover"
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <h3
-              className="text-sm sm:text-base font-semibold text-primary mb-2"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              La solution
-            </h3>
-            <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              ScormPilot centralise les modules SCORM et permet leur diffusion
-              multi-canal (lien, iframe, SCORM connecté, Teams). L'organisme
-              garde le contrôle sur le versioning, les accès et les analytics de
-              ses contenus.
-            </p>
-          </motion.div>
-        </RevealItem>
-
-        <RevealItem direction="left">
-          <motion.div
-            className="rounded-xl p-5 sm:p-6 h-full"
-            style={{
-              background: "var(--primary-background)",
-              border: "1px solid var(--border)",
-              borderLeft: `3px solid ${SP.teal}`,
-            }}
-            variants={cardVariants}
-            initial="rest"
-            whileHover="hover"
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <h3
-              className="text-sm sm:text-base font-semibold text-primary mb-2"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              Mon rôle
-            </h3>
-            <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              Conception produit, architecture, développement de 5 applications
-              (API, dashboard, player, runtime, Teams), infrastructure cloud et
-              mise en production. Tout en solo, du premier commit à la première
-              facture.
-            </p>
-          </motion.div>
-        </RevealItem>
-
-        <RevealItem direction="right">
-          <motion.div
-            className="rounded-xl p-5 sm:p-6 h-full"
-            style={{
-              background: "var(--primary-background)",
-              border: "1px solid var(--border)",
-              borderLeft: `3px solid ${SP.orange}`,
-            }}
-            variants={cardVariants}
-            initial="rest"
-            whileHover="hover"
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <h3
-              className="text-sm sm:text-base font-semibold text-primary mb-2"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              Résultats
-            </h3>
-            <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-              MVP livré en 3 mois. Adopté par une dizaine d'organismes de
-              formation, plusieurs milliers de players quotidiens, dizaines de
-              clients actifs. Produit en croissance continue avec un modèle SaaS
-              récurrent.
-            </p>
-          </motion.div>
-        </RevealItem>
-      </RevealContainer>
-    </section>
-  );
+  return <CaseContext title="Le projet" cards={contextCards} />;
 }
 
 export function ScormpilotScreenshots() {
-  const [activeScreenshot, setActiveScreenshot] = useState(0);
-  const active = screenshots[activeScreenshot];
-
   return (
-    <section
-      className="relative py-12 sm:py-16"
-      style={{ background: `${SP.light}18` }}
-    >
-      <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.03}>
-            <motion.div
-              className="eyebrow mb-3 inline-flex"
-              whileHover={{ scale: 1.05 }}
-            >
-              <LayoutDashboard className="w-4 h-4 text-accent-ink" />
-              <span className="text-sm font-medium">Aperçu</span>
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
+    <section className="cas-section container mx-auto">
+      <header className="cas-entete">
+        <p className="surtitre">Aperçu</p>
+        <Heading2 size="xl">L&apos;application en images</Heading2>
+        <Paragraph variant="secondary">
+          Dashboard admin, gestion des modules, suivi des clients et analytics
+          détaillées par module.
+        </Paragraph>
+      </header>
 
-        <RevealItem>
-          <Heading2
-            size="xl"
-            className="text-2xl sm:text-3xl md:text-4xl"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            L'application en images
-          </Heading2>
-        </RevealItem>
-
-        <RevealItem>
-          <Paragraph
-            variant="secondary"
-            className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
-          >
-            Dashboard admin, gestion des modules, suivi des clients et analytics
-            détaillées par module.
-          </Paragraph>
-        </RevealItem>
-      </RevealContainer>
-
-      <RevealContainer className="container mx-auto max-w-5xl">
-        <RevealItem>
-          <div className="flex justify-center gap-1 sm:gap-1.5 mb-5 sm:mb-6 flex-wrap">
-            {screenshots.map((s, i) => {
-              const isActive = activeScreenshot === i;
-              return (
-                <motion.button
-                  key={s.label}
-                  type="button"
-                  onClick={() => setActiveScreenshot(i)}
-                  className="relative flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-sm font-medium transition-all duration-200"
-                  style={{
-                    background: isActive ? s.color : `${s.color}08`,
-                    color: isActive ? "#fff" : "var(--secondary)",
-                    boxShadow: isActive ? `0 4px 16px ${s.color}35` : "none",
-                    border: `1px solid ${isActive ? s.color : `${s.color}15`}`,
-                  }}
-                  whileHover={{ scale: 1.04, y: -1 }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <s.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 hidden sm:block" />
-                  {s.label}
-                </motion.button>
-              );
-            })}
-          </div>
-        </RevealItem>
-
-        <RevealItem>
-          <TiltCard
-            className="rounded-xl sm:rounded-2xl"
-            tiltAmount={2}
-            glareOpacity={0.03}
-          >
-            <div
-              className="relative rounded-xl sm:rounded-2xl overflow-hidden"
-              style={{
-                border: `1px solid ${active.color}20`,
-                boxShadow: `0 25px 80px ${active.color}15, 0 8px 32px rgba(0,0,0,0.08)`,
-              }}
-            >
-              <div
-                className="relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border-b"
-                style={{
-                  background: "var(--primary-background)",
-                  borderColor: `${active.color}15`,
-                }}
-              >
-                <div className="flex items-center gap-1 sm:gap-1.5">
-                  <span
-                    className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                    style={{ background: "#FF5F57" }}
-                  />
-                  <span
-                    className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                    style={{ background: "#FFBD2E" }}
-                  />
-                  <span
-                    className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full"
-                    style={{ background: "#28C840" }}
-                  />
-                </div>
-                <a
-                  href="https://dashboard.scormpilot.com/dashboard"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 mx-2 sm:mx-8 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] text-center font-mono truncate hover:opacity-80 transition-opacity"
-                  style={{
-                    background: `${active.color}08`,
-                    color: "var(--secondary)",
-                    border: `1px solid ${active.color}12`,
-                  }}
-                >
-                  dashboard.scormpilot.com/{active.label.toLowerCase()}
-                </a>
-                <div className="w-6 sm:w-[46px]" />
-              </div>
-
-              <div
-                className="h-[2px]"
-                style={{
-                  background: `linear-gradient(to right, ${active.color}, ${screenshots[(activeScreenshot + 1) % screenshots.length].color})`,
-                }}
-              />
-
-              <div
-                className="relative overflow-hidden"
-                style={{
-                  height: "clamp(280px, 50vw, 640px)",
-                  background: `linear-gradient(180deg, ${SP.light}20 0%, ${SP.light}08 100%)`,
-                }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.src}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="absolute inset-0"
-                  >
-                    <Image
-                      src={active.src}
-                      alt={active.alt}
-                      width={active.width}
-                      height={active.height}
-                      className="w-full h-auto"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
-                      placeholder="blur"
-                      blurDataURL={blurDataURLs[active.src]}
-                      preload={activeScreenshot === 0}
-                    />
-                  </motion.div>
-                </AnimatePresence>
-
-                <div
-                  className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(to top, var(--primary-background), transparent)",
-                  }}
-                />
-              </div>
-            </div>
-          </TiltCard>
-        </RevealItem>
-      </RevealContainer>
+      <CaseGallery
+        shots={screenshots}
+        label="Captures de ScormPilot"
+        address={{
+          href: "https://dashboard.scormpilot.com/dashboard",
+          text: "dashboard.scormpilot.com/",
+        }}
+      />
     </section>
   );
 }
 
 export function ScormpilotFeatures() {
   return (
-    <section
-      className="relative py-12 sm:py-16"
-      style={{ background: `${SP.light}12` }}
-    >
-      <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.03}>
-            <motion.div
-              className="eyebrow mb-3 inline-flex"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Layers className="w-4 h-4 text-accent-ink" />
-              <span className="text-sm font-medium">Fonctionnalités</span>
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
+    <section className="cas-section container mx-auto flex flex-col gap-10">
+      <header className="cas-entete mb-0">
+        <p className="surtitre">Fonctionnalités</p>
+        <Heading2 size="xl">
+          Ce que j&apos;ai <br /> <span className="marqueur">construit</span>
+        </Heading2>
+        <Paragraph variant="secondary">
+          Dashboard analytics, gestion multi-tenant, diffusion multi-canal et
+          runtime SCORM custom. Un produit complet déployé en production.
+        </Paragraph>
+      </header>
 
-        <RevealItem>
-          <Heading2
-            size="xl"
-            className="text-2xl sm:text-3xl md:text-4xl"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Ce que j'ai construit
-          </Heading2>
-        </RevealItem>
-
-        <RevealItem>
-          <Paragraph
-            variant="secondary"
-            className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
-          >
-            Dashboard analytics, gestion multi-tenant, diffusion multi-canal et
-            runtime SCORM custom. Un produit complet déployé en production.
-          </Paragraph>
-        </RevealItem>
-      </RevealContainer>
-
-      <RevealContainer className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-5xl">
-        {features.map((feature, i) => (
-          <RevealItem
+      <ul className="grille-cartes md:grid-cols-2 lg:grid-cols-3">
+        {features.map((feature) => (
+          <li
             key={feature.title}
-            direction={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
+            className="etiquette etiquette-carte cas-carte"
           >
-            <MagneticWrapper strength={0.03}>
-              <TiltCard
-                className="h-full rounded-xl"
-                tiltAmount={4}
-                glareOpacity={0.04}
-              >
-                <motion.div
-                  className="relative rounded-xl overflow-hidden h-full p-4 sm:p-5"
-                  style={{
-                    background: "var(--primary-background)",
-                    border: "1px solid var(--border)",
-                    borderLeft: `3px solid ${feature.color}`,
-                  }}
-                  variants={cardVariants}
-                  initial="rest"
-                  whileHover="hover"
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <div className="flex items-start gap-3">
-                    <motion.div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{
-                        background: `${feature.color}12`,
-                      }}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 17,
-                      }}
-                    >
-                      <feature.icon
-                        className="w-4.5 h-4.5"
-                        style={{ color: feature.color }}
-                      />
-                    </motion.div>
-                    <div className="min-w-0">
-                      <h3
-                        className="text-sm sm:text-base font-semibold text-primary"
-                        style={{ fontFamily: "var(--font-space-grotesk)" }}
-                      >
-                        {feature.title}
-                      </h3>
-                      <p className="mt-1 text-xs sm:text-sm text-secondary leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </TiltCard>
-            </MagneticWrapper>
-          </RevealItem>
+            <span className="cas-pastille">
+              <feature.icon className="w-5 h-5" />
+            </span>
+            <h3 className="heading-display title-sm">{feature.title}</h3>
+            <p className="cas-carte-texte">
+              <BrandText text={feature.description} />
+            </p>
+          </li>
         ))}
-      </RevealContainer>
+      </ul>
 
-      <RevealContainer className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-5xl mt-4">
-        {crossCutting.map((item, i) => (
-          <RevealItem key={item.title} direction={i === 0 ? "left" : "right"}>
-            <MagneticWrapper strength={0.03}>
-              <motion.div
-                className="rounded-xl p-4 sm:p-5 h-full"
-                style={{
-                  background: "var(--primary-background)",
-                  border: "1px solid var(--border)",
-                  borderLeft: `3px solid ${item.color}`,
-                }}
-                variants={cardVariants}
-                initial="rest"
-                whileHover="hover"
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <div className="flex items-start gap-3">
-                  <motion.div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${item.color}12` }}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 17,
-                    }}
-                  >
-                    <item.icon
-                      className="w-4.5 h-4.5"
-                      style={{ color: item.color }}
-                    />
-                  </motion.div>
-                  <div className="min-w-0">
-                    <h3
-                      className="text-sm sm:text-base font-semibold text-primary"
-                      style={{ fontFamily: "var(--font-space-grotesk)" }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p className="mt-1 text-xs sm:text-sm text-secondary leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </MagneticWrapper>
-          </RevealItem>
+      <ul className="grille-cartes md:grid-cols-2">
+        {crossCutting.map((item) => (
+          <li
+            key={item.title}
+            className="etiquette etiquette-jaune etiquette-carte cas-carte"
+          >
+            <span className="cas-pastille">
+              <item.icon className="w-5 h-5" />
+            </span>
+            <h3 className="heading-display title-sm">{item.title}</h3>
+            <p className="cas-carte-texte">
+              <BrandText text={item.description} />
+            </p>
+          </li>
         ))}
-      </RevealContainer>
+      </ul>
     </section>
   );
 }
 
 export function ScormpilotArchitecture() {
   return (
-    <section className="relative py-12 sm:py-16">
-      <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.03}>
-            <motion.div
-              className="eyebrow mb-3 inline-flex"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Server className="w-4 h-4 text-accent-ink" />
-              <span className="text-sm font-medium">Architecture</span>
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
-
-        <RevealItem>
-          <Heading2
-            size="xl"
-            className="text-2xl sm:text-3xl md:text-4xl"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Décisions techniques
+    <section className="cas-section bloc-inverse pleine-largeur">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10">
+        <header className="cas-entete">
+          <p className="surtitre">Architecture</p>
+          <Heading2 size="xl">
+            Décisions <br /> <span className="marqueur">techniques</span>
           </Heading2>
-        </RevealItem>
-
-        <RevealItem>
-          <Paragraph
-            variant="secondary"
-            className="mt-2 max-w-2xl mx-auto text-sm sm:text-base"
-          >
+          <Paragraph variant="secondary">
             Une architecture hexagonale avec DDD, pensée pour la scalabilité et
-            l'isolation multi-tenant des données.
+            l&apos;isolation multi-tenant des données.
           </Paragraph>
-        </RevealItem>
-      </RevealContainer>
+        </header>
 
-      <RevealContainer className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl">
-        {archHighlights.map((item, i) => (
-          <RevealItem
-            key={item.title}
-            direction={i % 2 === 0 ? "left" : "right"}
-          >
-            <MagneticWrapper strength={0.03}>
-              <motion.div
-                className="rounded-xl p-4 sm:p-5 h-full"
-                style={{
-                  background: "var(--primary-background)",
-                  border: "1px solid var(--border)",
-                  borderLeft: `3px solid ${item.color}`,
-                }}
-                variants={cardVariants}
-                initial="rest"
-                whileHover="hover"
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <div className="flex items-start gap-3">
-                  <motion.div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${item.color}12` }}
-                    whileHover={{ scale: 1.1, rotate: -5 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 17,
-                    }}
-                  >
-                    <item.icon
-                      className="w-4.5 h-4.5"
-                      style={{ color: item.color }}
-                    />
-                  </motion.div>
-                  <div>
-                    <h3
-                      className="text-sm sm:text-base font-semibold text-primary"
-                      style={{ fontFamily: "var(--font-space-grotesk)" }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p className="mt-1 text-xs sm:text-sm text-secondary leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </MagneticWrapper>
-          </RevealItem>
-        ))}
-      </RevealContainer>
+        <ul className="grille-cartes md:grid-cols-2">
+          {archHighlights.map((item) => (
+            <li
+              key={item.title}
+              className="etiquette etiquette-gris etiquette-carte cas-carte"
+            >
+              <span className="cas-pastille">
+                <item.icon className="w-5 h-5" />
+              </span>
+              <h3 className="heading-display title-sm">{item.title}</h3>
+              <p className="cas-carte-texte">
+                <BrandText text={item.description} />
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
 
 export function ScormpilotTechStack() {
-  return (
-    <section
-      className="relative py-12 sm:py-16"
-      style={{ background: `${SP.light}12` }}
-    >
-      <RevealContainer className="container mx-auto text-center mb-8 sm:mb-10">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.03}>
-            <motion.div
-              className="eyebrow mb-3 inline-flex"
-              whileHover={{ scale: 1.05 }}
-            >
-              <TestTube2 className="w-4 h-4 text-accent-ink" />
-              <span className="text-sm font-medium">Stack technique</span>
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
-
-        <RevealItem>
-          <Heading2
-            size="xl"
-            className="text-2xl sm:text-3xl md:text-4xl"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Technologies utilisées
-          </Heading2>
-        </RevealItem>
-      </RevealContainer>
-
-      <RevealContainer className="container mx-auto max-w-3xl">
-        <div className="flex flex-wrap justify-center gap-2">
-          {techStack.map((tech) => {
-            const color = categoryColors[tech.category] || SP.blue;
-            return (
-              <RevealItem key={tech.name} direction="scale">
-                <MagneticWrapper strength={0.04}>
-                  <motion.span
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium cursor-default"
-                    style={{
-                      background: `${color}10`,
-                      border: `1px solid ${color}25`,
-                      color: "var(--primary)",
-                    }}
-                    whileHover={{
-                      scale: 1.06,
-                      y: -2,
-                      boxShadow: `0 6px 16px ${color}15`,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 17,
-                    }}
-                  >
-                    <span
-                      className="w-1.5 h-1.5 rounded-full"
-                      style={{ background: color }}
-                    />
-                    {tech.name}
-                  </motion.span>
-                </MagneticWrapper>
-              </RevealItem>
-            );
-          })}
-        </div>
-      </RevealContainer>
-    </section>
-  );
+  return <CaseTechStack tech={techStack} />;
 }
 
 export function ScormpilotBottomCta() {
-  return (
-    <section className="py-10 sm:py-14">
-      <RevealContainer className="container mx-auto text-center">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.02}>
-            <TransitionLink
-              href="/#portfolio"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border border-border hover:border-accent hover:shadow-lg transition-all group"
-              style={{ background: "var(--primary-background)" }}
-            >
-              <ArrowLeft className="w-4 h-4 text-accent-ink transition-transform group-hover:-translate-x-1" />
-              Voir tous les projets
-            </TransitionLink>
-          </MagneticWrapper>
-        </RevealItem>
-      </RevealContainer>
-    </section>
-  );
+  return <CaseBottomCta />;
 }

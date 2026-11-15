@@ -1,98 +1,69 @@
-import {
-  Activity,
-  Bell,
-  ExternalLink,
-  Gauge,
-  ScrollText,
-  Sparkles,
-} from "lucide-react";
+import { Activity, Bell, ExternalLink, Gauge, ScrollText } from "lucide-react";
+import { BrandText } from "@/src/shared/ui/typography/brand-text";
 import { TMA_MONITORING_TOOLS } from "../lib/tma-data";
+import { TmaSectionEntete } from "./tma-section-entete";
 
 const ICONS = [Bell, Activity, ScrollText, Gauge] as const;
 
 export function TmaMonitoring() {
   return (
-    <section className="py-20 sm:py-28 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
-            <Sparkles className="w-3 h-3" aria-hidden="true" />
-            Premium uniquement
-          </span>
-          <p
-            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
-            style={{ fontFamily: "var(--font-geist-mono)" }}
-          >
-            {"// monitoring_premium()"}
-          </p>
-          <h2
-            className="text-3xl sm:text-5xl font-bold text-primary mb-4"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Outils de monitoring inclus sur PREMIUM.
-          </h2>
-          <p className="text-secondary text-lg max-w-2xl">
-            Setup, configuration des alertes et intervention sur incident
-            compris dans tes 10h mensuelles. Les outils t'alertent (et
-            m'alertent) avant tes utilisateurs ; les incidents sont documentés
-            dans le reporting mensuel.
-          </p>
-        </div>
+    <section className="svc-section container">
+      <TmaSectionEntete
+        badge={{ label: "Premium uniquement", tone: "premium" }}
+        eyebrow="// monitoring_premium()"
+        title="Outils de monitoring inclus sur PREMIUM."
+        intro="Setup, configuration des alertes et intervention sur incident compris dans tes 10h mensuelles. Les outils t'alertent (et m'alertent) avant tes utilisateurs ; les incidents sont documentés dans le reporting mensuel."
+      />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-          {TMA_MONITORING_TOOLS.map((tool, index) => {
-            const Icon = ICONS[index] ?? Bell;
-            return (
-              <article
-                key={tool.name}
-                className="card p-6 sm:p-8 flex flex-col"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-accent/10 text-accent-ink">
-                      <Icon className="w-5 h-5" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-primary">
-                        {tool.name}
-                      </h3>
-                      <p
-                        className="text-xs uppercase tracking-wider text-secondary"
-                        style={{ fontFamily: "var(--font-geist-mono)" }}
-                      >
-                        {tool.tagline}
-                      </p>
-                    </div>
-                  </div>
-                  <a
-                    href={tool.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-secondary hover:text-accent-ink transition-colors"
-                    aria-label={`Site officiel ${tool.name}`}
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+      <ul className="grille-cartes svc-grille-2">
+        {TMA_MONITORING_TOOLS.map((tool, index) => {
+          const Icon = ICONS[index % ICONS.length];
+
+          return (
+            <li
+              key={tool.name}
+              className="svc-carte etiquette etiquette-carte etiquette-jaune"
+            >
+              <div className="flex items-start gap-4">
+                {Icon ? (
+                  <span className="svc-picto" aria-hidden="true">
+                    <Icon className="w-5 h-5" />
+                  </span>
+                ) : null}
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                  <h3 className="svc-carte-titre">{tool.name}</h3>
+                  <p className="svc-meta">
+                    <BrandText text={tool.tagline} />
+                  </p>
                 </div>
-                <p className="text-secondary leading-relaxed">{tool.body}</p>
-              </article>
-            );
-          })}
-        </div>
+                <a
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-link shrink-0"
+                  aria-label={`Site officiel ${tool.name}`}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+              <p className="svc-texte">
+                <BrandText text={tool.body} />
+              </p>
+            </li>
+          );
+        })}
+      </ul>
 
-        <div className="card p-6 sm:p-8 border-l-4 border-l-accent">
-          <p className="text-primary font-semibold mb-2">
-            Souveraineté des données
-          </p>
-          <p className="text-secondary leading-relaxed">
-            Les outils sont provisionnés à ton nom. Tu créés les comptes en 5
-            minutes, tu m'invites en admin technique, je configure tout. Les
-            coûts restent à ta charge uniquement en cas de dépassement des free
-            tiers (≈26$/mois sur Sentry au-delà du plan gratuit). À la
-            résiliation, tu gardes tes outils, ton historique et tes dashboards
-            : aucune dépendance à mon infrastructure.
-          </p>
-        </div>
+      <div className="tma-souverainete etiquette">
+        <p className="svc-carte-titre">Souveraineté des données</p>
+        <p className="svc-texte">
+          Les outils sont provisionnés à ton nom. Tu crées les comptes en 5
+          minutes, tu m'invites en admin technique, je configure tout. Les coûts
+          restent à ta charge uniquement en cas de dépassement des free tiers
+          (≈26$/mois sur Sentry au-delà du plan gratuit). À la résiliation, tu
+          gardes tes outils, ton historique et tes dashboards : aucune
+          dépendance à mon infrastructure.
+        </p>
       </div>
     </section>
   );

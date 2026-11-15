@@ -1,16 +1,16 @@
 import {
   Briefcase,
-  Coffee,
   Github,
-  Heart,
   Instagram,
   Linkedin,
   Mail,
   Music2,
 } from "lucide-react";
 import { EXTERNAL_LINKS, SOCIAL_LINKS } from "@/app/_config/site.constants";
-import { ContactModal } from "@/src/features/contact/components/contact-modal";
+import { ContactModal } from "@/src/shared/ui/contact/contact-modal";
+import { Ribbon } from "@/src/shared/ui/motifs/ribbon";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { Button } from "@/src/shared/ui/portfolio/button";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 const socialLinks = [
@@ -41,139 +41,122 @@ const socialLinks = [
   },
 ] as const;
 
+const FOOTER_TAGS = [
+  "axelhamilcaro.com",
+  "Fait à Tours",
+  "Next.js 16",
+  "React 19",
+  "Tailwind CSS v4",
+  "Server Components",
+  "Animations en CSS",
+  "Serveur MCP public",
+  "llms.txt",
+  "IndexNow",
+  "Vercel",
+  "Neon PostgreSQL",
+  "Thème clair et sombre",
+] as const;
+
+const SITE_LINKS = [
+  { href: "/about", label: "À propos" },
+  { href: "/#portfolio", label: "Produits" },
+  { href: "/blog", label: "Blog" },
+  { href: "/tree", label: "Liens" },
+] as const;
+
+const SERVICE_LINKS = [
+  {
+    href: "/services/developpeur-nextjs-freelance",
+    label: "Développement web sur mesure",
+  },
+  { href: "/services/developpement-saas", label: "Développement SaaS" },
+  { href: "/services/lead-tech-fractional", label: "Lead tech fractional" },
+  {
+    href: "/services/creation-application-web",
+    label: "Création d'application web de A à Z",
+  },
+  { href: "/tma", label: "TMA au mois" },
+  { href: "/services", label: "Travailler avec moi" },
+] as const;
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative z-10 border-t border-secondary/20 mt-16 sm:mt-20 md:mt-24">
-      <div className="container mx-auto py-10 sm:py-12 md:py-16">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
-          <div className="flex flex-col gap-3">
-            <div className="font-mono text-xl sm:text-2xl font-bold text-primary-foreground">
-              axel_hamilcaro()
-            </div>
+    <footer className="site-footer relative z-10 mt-16 sm:mt-20 md:mt-24">
+      <Ribbon items={FOOTER_TAGS} hachures />
+
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-16 flex flex-col gap-12">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr_1.2fr]">
+          <div className="flex flex-col gap-4">
+            <p className="brand">axel_hamilcaro()</p>
 
             <Paragraph variant="secondary" size="sm" className="max-w-sm">
-              Je conçois et développe des produits web premium, avec une
-              architecture lisible, une UI soignée, et une prod pilotable.
+              Je développe mes propres produits et des applications web pour des
+              clients, de l'API à l'interface, et je les maintiens en
+              production.
             </Paragraph>
 
-            <div className="flex flex-wrap gap-2 pt-1">
-              <span className="text-xs px-2.5 py-1 border border-secondary/20 bg-secondary-background/20 text-secondary">
-                Produit
-              </span>
-              <span className="text-xs px-2.5 py-1 border border-secondary/20 bg-secondary-background/20 text-secondary">
-                Clean Architecture
-              </span>
-              <span className="text-xs px-2.5 py-1 border border-secondary/20 bg-secondary-background/20 text-secondary">
-                Performance
-              </span>
-            </div>
+            <ul className="flex flex-wrap gap-3 pt-1">
+              {FOOTER_TAGS.map((tag) => (
+                <li
+                  key={tag}
+                  className="etiquette etiquette-sm etiquette-gris label-mono"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Par ici
-            </span>
-            <nav className="flex flex-col gap-2">
-              <TransitionLink
-                href="/about"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                À propos
-              </TransitionLink>
-              <TransitionLink
-                href="/#portfolio"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                Portfolio
-              </TransitionLink>
-              <TransitionLink
-                href="/blog"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                Blog
-              </TransitionLink>
-              <TransitionLink
-                href="/tree"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                Liens
-              </TransitionLink>
-              <a
-                href="/sitemap.xml"
-                className="text-xs text-muted-foreground hover:text-accent-ink transition-colors mt-1"
-              >
+          <div className="flex flex-col gap-4">
+            <span className="surtitre">Par ici</span>
+            <nav className="flex flex-col" aria-label="Plan du site">
+              {SITE_LINKS.map((link) => (
+                <TransitionLink
+                  key={link.href}
+                  href={link.href}
+                  className="footer-link"
+                >
+                  {link.label}
+                </TransitionLink>
+              ))}
+              <a href="/sitemap.xml" className="footer-link footer-meta">
                 Sitemap
               </a>
             </nav>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Services
-            </span>
-            <nav className="flex flex-col gap-2">
-              <TransitionLink
-                href="/services/developpeur-nextjs-freelance"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                Développeur Next.js
-              </TransitionLink>
-              <TransitionLink
-                href="/services/developpement-saas"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                Développement SaaS
-              </TransitionLink>
-              <TransitionLink
-                href="/services/lead-tech-fractional"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                Lead tech fractional
-              </TransitionLink>
-              <TransitionLink
-                href="/services/creation-application-web"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                Création d'application web
-              </TransitionLink>
-              <TransitionLink
-                href="/tma"
-                className="text-sm text-primary hover:text-accent-ink transition-colors"
-              >
-                TMA : forfait mensuel
-              </TransitionLink>
-              <TransitionLink
-                href="/services"
-                className="text-sm text-secondary hover:text-accent-ink transition-colors"
-              >
-                Tous les services →
-              </TransitionLink>
+          <div className="flex flex-col gap-4">
+            <span className="surtitre">Services</span>
+            <nav className="flex flex-col" aria-label="Services">
+              {SERVICE_LINKS.map((link) => (
+                <TransitionLink
+                  key={link.href}
+                  href={link.href}
+                  className="footer-link"
+                >
+                  {link.label}
+                </TransitionLink>
+              ))}
             </nav>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Contact direct
-            </span>
+          <div className="flex flex-col gap-4">
+            <span className="surtitre">Contact direct</span>
 
-            <div className="flex flex-col gap-2">
-              <ContactModal>
-                <button
-                  type="button"
-                  className="group flex items-center justify-between gap-3 rounded-xl px-4 py-3 bg-info text-info-foreground hover:bg-info-hover hover:shadow-lg transition-all duration-300 text-left cursor-pointer"
-                >
-                  <span className="flex items-center gap-2 text-sm font-semibold">
-                    <Mail className="w-4 h-4" />
-                    Me contacter
-                  </span>
-                  <span className="text-xs text-accent-foreground">
-                    Réponse sous 1h en journée
-                  </span>
-                </button>
-              </ContactModal>
-            </div>
+            <ContactModal>
+              <Button
+                type="button"
+                className="w-full flex-col items-start text-left"
+              >
+                <span className="flex items-center gap-2">
+                  <Mail className="w-4 h-4" />
+                  Me contacter
+                </span>
+                <span className="btn-note">Réponse sous 1h en journée</span>
+              </Button>
+            </ContactModal>
 
             <div className="flex flex-wrap items-center gap-2 pt-2">
               {socialLinks.map((link) => (
@@ -183,40 +166,32 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.name}
-                  className="p-2 rounded-lg bg-secondary-background/30 border border-secondary/20 text-primary hover:text-accent-ink hover:border-accent/40 hover:bg-secondary-background/50 transition-all duration-300 hover:scale-110"
+                  className="icon-link"
                 >
-                  <link.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <link.icon className="w-5 h-5" />
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent my-8" />
-
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">
-            &copy; {currentYear} Axel Hamilcaro · SIRET 939 291 415 00015 ·{" "}
-            <TransitionLink
-              href="/mentions-legales"
-              className="hover:text-accent-ink transition-colors"
-            >
+        <div className="footer-separateur pt-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <p className="footer-meta">
+            &copy; {currentYear}
+            {" Axel Hamilcaro · "}
+            <TransitionLink href="/mentions-legales" className="footer-link">
               Mentions légales
             </TransitionLink>
-          </Paragraph>
+          </p>
 
-          <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">
-            Fait avec{" "}
-            <Heart className="inline w-3.5 h-3.5 align-[-0.15em] text-accent-ink animate-pulse" />
-            ,{" "}
-            <Coffee className="inline w-3.5 h-3.5 align-[-0.15em] text-accent-ink" />{" "}
-            et beaucoup de{" "}
-            <span className="font-mono text-accent-ink">TypeScript</span>
-          </Paragraph>
+          <p className="footer-meta">
+            Je code ce site moi-même, en{" "}
+            <span className="stat-valeur marqueur">TypeScript</span>
+          </p>
 
-          <Paragraph variant="muted" size="sm" className="text-xs sm:text-sm">
+          <p className="footer-meta">
             Tours, Centre-Val de Loire, remote France
-          </Paragraph>
+          </p>
         </div>
       </div>
     </footer>

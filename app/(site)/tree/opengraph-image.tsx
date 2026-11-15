@@ -4,14 +4,26 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "Liens et réseaux d'Axel Hamilcaro";
+export const alt = "Liens d'Axel Hamilcaro, développeur fullstack et builder";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
 export default function Image() {
   return renderOgImage({
-    eyebrow: "Liens & réseaux",
-    title: "Retrouvez Axel Hamilcaro",
-    subtitle: "LinkedIn · GitHub · Malt · Instagram · TikTok",
+    eyebrow: "Liens",
+    title: "Tous mes liens",
+    accent: "au même endroit.",
+    subtitle:
+      "LinkedIn, GitHub, Malt, Instagram, TikTok et prise de rendez-vous.",
+    ribbon: [
+      "LinkedIn",
+      "GitHub",
+      "Malt",
+      "Instagram",
+      "TikTok",
+      "Rendez-vous",
+    ],
+    withPhoto: true,
+    stamp: { top: "Liens", bottom: "axelhamilcaro.com" },
   });
 }

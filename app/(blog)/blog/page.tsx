@@ -1,42 +1,48 @@
-import { BookOpen } from "lucide-react";
 import type { Metadata } from "next";
-import { AUTHOR, SITE_URL } from "@/app/_config/site.constants";
+import { AUTHOR, PERSON_ID, SITE_URL } from "@/app/_config/site.constants";
 import { ArticleCard } from "@/src/features/blog/components/article-card";
 import { getAllPosts } from "@/src/features/blog/lib/blog";
-import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
-import { Heading1 } from "@/src/shared/ui/typography/heading1";
-import { Paragraph } from "@/src/shared/ui/typography/paragraph";
+import { WEBSITE_ID } from "@/src/shared/seo/json-ld";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
+import { Ribbon } from "@/src/shared/ui/motifs/ribbon";
+
+const RIBBON_ITEMS = [
+  "Articles",
+  "Guides",
+  "Traductions",
+  "Études de cas",
+  "Prix d'une app web",
+  "MVP SaaS",
+  "Claude Code",
+  "Fractional CTO",
+  "Reprise de projet",
+  "TMA",
+  "Therac-25",
+  "Sécurité logicielle",
+  "Freelance",
+] as const;
 
 const BLOG_DESCRIPTION =
-  "Articles, traductions et réflexions sur le développement logiciel, la sécurité et les études de cas techniques par Axel Hamilcaro.";
+  "Articles, guides et traductions d'Axel Hamilcaro, développeur fullstack et builder : prix d'une application web ou d'un MVP SaaS, limites de Claude Code, TMA, lead tech fractional et la traduction du Therac-25.";
 
-export const metadata: Metadata = {
-  title: "Blog : dev web, sécurité, études de cas",
-  description: BLOG_DESCRIPTION,
+const BLOG_META_DESCRIPTION =
+  "Je suis Axel Hamilcaro, développeur fullstack. Une app web sur mesure coûte 5 000 à 30 000 € HT, un MVP SaaS 15 000 à 35 000 €. Plus Claude Code et la TMA.";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Blog : prix d'app, MVP SaaS, Claude Code",
+  description: BLOG_META_DESCRIPTION,
+  path: "/blog",
   keywords: [
     "blog développeur",
-    "sécurité logicielle",
-    "développement web",
-    "TypeScript",
-    "Next.js",
-    "études de cas",
+    "prix application web",
+    "MVP SaaS",
+    "Claude Code",
+    "Therac-25",
+    "tierce maintenance applicative",
     AUTHOR.name,
   ],
-  alternates: { canonical: `${SITE_URL}/blog` },
-  openGraph: {
-    title: "Blog : dev web, sécurité, études de cas",
-    description: BLOG_DESCRIPTION,
-    url: `${SITE_URL}/blog`,
-    siteName: AUTHOR.name,
-    locale: "fr_FR",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blog : dev web, sécurité, études de cas",
-    description: BLOG_DESCRIPTION,
-  },
-};
+});
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -45,6 +51,8 @@ export default function BlogPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Blog d'Axel Hamilcaro",
+    isPartOf: { "@id": WEBSITE_ID },
+    author: { "@id": PERSON_ID },
     description: BLOG_DESCRIPTION,
     url: `${SITE_URL}/blog`,
     inLanguage: "fr-FR",
@@ -74,37 +82,39 @@ export default function BlogPage() {
   };
 
   return (
-    <main className="mx-auto max-w-4xl px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <header className="mb-8 sm:mb-12">
-        <span className="badge mb-4 inline-flex items-center gap-2">
-          <BookOpen className="w-4 h-4" />
-          Blog
-        </span>
-        <Heading1 size="xl" style={{ fontFamily: "var(--font-display)" }}>
-          Développement web, sécurité et études de cas
-        </Heading1>
-        <Paragraph variant="secondary" size="lg" className="mt-3">
-          Articles, traductions et réflexions sur le développement logiciel.
-        </Paragraph>
+    <main className="blog-liste mx-auto max-w-6xl pb-16 sm:pb-24">
+      <JsonLdScript data={collectionJsonLd} />
+      <JsonLdScript data={breadcrumbJsonLd} />
+      <header className="blog-entete flex flex-col gap-6 py-12 sm:py-20">
+        <p className="surtitre">Blog</p>
+        <h1 className="blog-titre heading-display">
+          Prix d'une app web, Claude Code, TMA : <br />
+          <span className="marqueur">ce que je publie</span>
+        </h1>
+        <p className="blog-chapo">
+          Je suis Axel Hamilcaro, développeur fullstack et builder. J'écris sur
+          ce que coûte un projet web, sur Claude Code et la TMA, et j'ai traduit
+          le chapitre de Nancy Leveson sur le Therac-25.
+        </p>
       </header>
 
-      <RevealContainer className="flex flex-col gap-6">
+      <Ribbon items={RIBBON_ITEMS} hachures className="pleine-largeur" />
+
+      <ul className="fiches grille-cartes mt-12 sm:mt-16">
         {posts.map((post, index) => (
-          <RevealItem key={post.slug}>
-            <ArticleCard post={post} featured={index === 0} />
-          </RevealItem>
+          <li key={post.slug} className={index === 0 ? "col-span-full" : ""}>
+            <ArticleCard
+              post={post}
+              featured={index === 0}
+              stamp={
+                index === 0
+                  ? `N° ${String(posts.length).padStart(3, "0")}`
+                  : undefined
+              }
+            />
+          </li>
         ))}
-      </RevealContainer>
+      </ul>
     </main>
   );
 }

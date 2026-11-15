@@ -21,6 +21,10 @@ describe("parseSiteResourceUri", () => {
   });
 
   test("returns null for unknown section or format", () => {
+    assert.deepEqual(parseSiteResourceUri("site://projects.md"), {
+      id: "projects",
+      format: "md",
+    });
     assert.equal(parseSiteResourceUri("site://unknown.json"), null);
     assert.equal(parseSiteResourceUri("site://whoami.txt"), null);
     assert.equal(
@@ -31,7 +35,7 @@ describe("parseSiteResourceUri", () => {
 });
 
 describe("buildResourceBody", () => {
-  test("whoami JSON contains the exact Malt job title", () => {
+  test("whoami JSON contains the exact job title", () => {
     const body = buildResourceBody("whoami", "json");
     const parsed = JSON.parse(body.text) as { jobTitle: string };
 
@@ -39,7 +43,7 @@ describe("buildResourceBody", () => {
     assert.equal(parsed.jobTitle, JOB_TITLE);
   });
 
-  test("whoami markdown contains the Malt job title", () => {
+  test("whoami markdown contains the job title", () => {
     const body = buildResourceBody("whoami", "md");
 
     assert.equal(body.mimeType, "text/markdown");

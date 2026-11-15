@@ -1,36 +1,35 @@
+import { FaqAccordion } from "@/src/shared/ui/motifs/faq-accordion";
+import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { AccentTitle } from "@/src/shared/ui/typography/accent-title";
 import type { ServiceData } from "../lib/services-data";
 
-export function ServiceFaq({ items }: { items: ServiceData["faq"] }) {
+interface ServiceFaqProps {
+  items: ServiceData["faq"];
+  guide?: ServiceData["guide"];
+}
+
+export function ServiceFaq({ items, guide }: ServiceFaqProps) {
   return (
-    <section className="py-12 sm:py-16 px-6">
-      <div className="max-w-4xl mx-auto">
-        <h2
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-          className="text-4xl sm:text-5xl font-bold text-primary mb-4"
-        >
-          Tes questions, mes réponses
+    <section className="svc-section container">
+      <div className="svc-entete">
+        <h2 className="svc-h2 heading-display">
+          <AccentTitle text="Tes questions, mes réponses" />
         </h2>
-        <p className="text-secondary text-lg mb-12">
+        <p className="svc-intro">
           Questions fréquentes sur ce type de mission.
+          {guide && (
+            <>
+              {" "}
+              Mon article de fond :{" "}
+              <TransitionLink href={guide.href} className="souligne-trace">
+                {guide.title}
+              </TransitionLink>
+              .
+            </>
+          )}
         </p>
-        {items.map((item) => (
-          <details
-            key={item.question}
-            className="group border-b border-border py-6"
-          >
-            <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent-ink">
-              {item.question}
-              <span
-                className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform"
-                aria-hidden="true"
-              >
-                +
-              </span>
-            </summary>
-            <p className="mt-4 text-secondary leading-relaxed">{item.answer}</p>
-          </details>
-        ))}
       </div>
+      <FaqAccordion items={items} variant="svc" />
     </section>
   );
 }

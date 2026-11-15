@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/app/_config/site.constants";
 import {
   BilletterieFaq,
   billetterieFaqItems,
 } from "@/src/features/portfolio-billetterie/components/billetterie-faq";
 import {
   BilletterieArchitecture,
-  BilletterieBackdrop,
   BilletterieBottomCta,
   BilletterieContext,
   BilletterieFeatures,
@@ -14,6 +14,8 @@ import {
   BilletterieStats,
   BilletterieTechStack,
 } from "@/src/features/portfolio-billetterie/components/billetterie-showcase";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
@@ -22,8 +24,8 @@ const creativeWorkSchema = buildCreativeWorkSchema({
   name: "Billetterie événementielle interne",
   description:
     "Système de billetterie complet (plan 2D/3D interactif, ventes WebSocket temps réel, gestion automatisée tarifs et TVA) développé en solo en 1 mois.",
-  url: "https://axelhamilcaro.com/portfolio/billetterie",
-  dateCreated: "2024",
+  url: `${SITE_URL}/portfolio/billetterie`,
+  dateCreated: "2025",
   keywords: [
     "billetterie",
     "WebSocket",
@@ -45,10 +47,12 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
   { name: "Billetterie événementielle", url: "/portfolio/billetterie" },
 ]);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Billetterie : dashboard événements",
   description:
-    "Conception et développement d'un dashboard interne de gestion d'événements et ventes en temps réel. Plan de salle 2D/3D, WebSocket, tarification multi-TVA.",
+    "J'ai conçu et développé en solo, en 1 mois, un dashboard de billetterie : plan de salle 2D/3D, ventes en temps réel par WebSocket, tarification multi-TVA.",
+  path: "/portfolio/billetterie",
+  type: "article",
   keywords: [
     "Billetterie",
     "Dashboard",
@@ -62,54 +66,24 @@ export const metadata: Metadata = {
     "Next.js",
     "Axel Hamilcaro",
   ],
-  alternates: {
-    canonical: "/portfolio/billetterie",
-  },
-  openGraph: {
-    title: "Billetterie : dashboard événements",
-    description:
-      "Dashboard interne : plan de salle 2D/3D, ventes temps réel via WebSocket, gestion automatisée tarifs et TVA. Solo, 1 mois (Next.js, NestJS, PostgreSQL).",
-    url: "/portfolio/billetterie",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Billetterie : dashboard événements",
-    description:
-      "Dashboard interne : plan de salle 2D/3D, ventes temps réel via WebSocket, gestion automatisée tarifs et TVA. Livré en solo en 1 mois.",
-  },
-};
+});
 
 export default function BilletteriePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <main className="pb-8">
-        <div className="relative">
-          <BilletterieBackdrop />
-          <BilletterieHero />
-          <BilletterieStats />
-          <BilletterieContext />
-          <BilletterieScreenshots />
-          <BilletterieFeatures />
-          <BilletterieArchitecture />
-          <BilletterieTechStack />
-          <BilletterieFaq />
-          <BilletterieBottomCta />
-        </div>
+      <JsonLdScript data={creativeWorkSchema} />
+      <JsonLdScript data={faqSchema} />
+      <JsonLdScript data={breadcrumbSchema} />
+      <main className="cas cas-billetterie">
+        <BilletterieHero />
+        <BilletterieStats />
+        <BilletterieContext />
+        <BilletterieScreenshots />
+        <BilletterieFeatures />
+        <BilletterieArchitecture />
+        <BilletterieTechStack />
+        <BilletterieFaq />
+        <BilletterieBottomCta />
       </main>
     </>
   );

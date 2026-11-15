@@ -48,7 +48,7 @@ export function buildDraftOutreachPrompt() {
         content: {
           type: "text" as const,
           text: [
-            "Draft a short factual outreach message to Axel Hamilcaro.",
+            "Draft a short factual outreach message to Axel Hamilcaro about a freelance project.",
             `TJM: ${RATES.dailyHtEur}€ HT/day.`,
             `Availability status: ${AVAILABILITY.status}.`,
             `Start window: ${AVAILABILITY.startWindow}.`,

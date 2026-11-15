@@ -1,25 +1,48 @@
+import path from "node:path";
 import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import type { ComponentPropsWithoutRef } from "react";
+import sharp from "sharp";
 
-function MdxImage({ src, alt }: ComponentPropsWithoutRef<"img">) {
+async function readImage(src: string) {
+  const image = sharp(path.join(process.cwd(), "public", src));
+  const [{ width, height }, { channels }] = await Promise.all([
+    image.metadata(),
+    image.stats(),
+  ]);
+
+  if (!width || !height) {
+    throw new Error(`Dimensions illisibles pour l'image ${src}`);
+  }
+
+  const means = channels.slice(0, 3).map((channel) => channel.mean);
+  const isLightMonochrome =
+    Math.max(...means) - Math.min(...means) < 1 && Math.min(...means) > 200;
+
+  return { width, height, isLightMonochrome };
+}
+
+async function MdxImage({ src, alt }: ComponentPropsWithoutRef<"img">) {
   if (!src || typeof src !== "string") return null;
 
+  const { width, height, isLightMonochrome } = await readImage(src);
+
   return (
-    <figure className="my-8">
-      <Image
-        src={src}
-        alt={alt ?? ""}
-        width={800}
-        height={500}
-        sizes="(max-width: 768px) 100vw, 800px"
-        className="rounded-lg border border-border"
-      />
-      {alt && (
-        <figcaption className="mt-2 text-center text-sm text-muted-foreground">
-          {alt}
-        </figcaption>
-      )}
+    <figure
+      className={
+        isLightMonochrome ? "figure-article figure-document" : "figure-article"
+      }
+    >
+      <span className="figure-cadre">
+        <Image
+          src={src}
+          alt={alt ?? ""}
+          width={width}
+          height={height}
+          sizes="(max-width: 768px) 100vw, 680px"
+        />
+      </span>
+      {alt && <figcaption>{alt}</figcaption>}
     </figure>
   );
 }
@@ -51,51 +74,17 @@ function MdxLink({
   );
 }
 
-function MdxBlockquote({
-  children,
-  ...props
-}: ComponentPropsWithoutRef<"blockquote">) {
-  return (
-    <blockquote
-      className="bg-accent-light border-l-4 border-accent rounded-r-xl px-5 py-4 my-6 not-italic [&>p]:m-0"
-      {...props}
-    >
-      {children}
-    </blockquote>
-  );
-}
-
 function MdxTable({ children, ...props }: ComponentPropsWithoutRef<"table">) {
   return (
-    <div className="overflow-x-auto my-6 border border-border rounded-xl">
-      <table className="w-full text-sm" {...props}>
-        {children}
-      </table>
-    </div>
-  );
-}
-
-function MdxThead({ children, ...props }: ComponentPropsWithoutRef<"thead">) {
-  return (
-    <thead className="bg-secondary-background" {...props}>
-      {children}
-    </thead>
-  );
-}
-
-function MdxTh({ children, ...props }: ComponentPropsWithoutRef<"th">) {
-  return (
-    <th className="text-left font-semibold px-4 py-3" {...props}>
-      {children}
-    </th>
-  );
-}
-
-function MdxTd({ children, ...props }: ComponentPropsWithoutRef<"td">) {
-  return (
-    <td className="px-4 py-3 border-t border-border" {...props}>
-      {children}
-    </td>
+    <section
+      className="tableau-article"
+      aria-label="Tableau défilant"
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: région défilante, le clavier doit pouvoir la faire défiler (WCAG 2.1.1)
+      tabIndex={0}
+    >
+      <table {...props}>{children}</table>
+      <span className="tableau-indice" aria-hidden="true" />
+    </section>
   );
 }
 
@@ -103,10 +92,6 @@ export function useMDXComponents(): MDXComponents {
   return {
     a: MdxLink,
     img: MdxImage,
-    blockquote: MdxBlockquote,
     table: MdxTable,
-    thead: MdxThead,
-    th: MdxTh,
-    td: MdxTd,
   };
 }

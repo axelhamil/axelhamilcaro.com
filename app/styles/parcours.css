@@ -1,0 +1,726 @@
+.parcours-bordereau {
+  --bordereau-pad: clamp(1rem, 3vw, 2rem);
+  --piste-tete: 12rem;
+  --piste-marge: 2rem;
+  --piste-gouttiere: 1.25rem;
+  --piste-fin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 var(--offset) var(--offset) 0;
+  background: var(--fond);
+  color: var(--encre);
+  border: 2px solid var(--encre);
+  box-shadow: var(--offset) var(--offset) 0 var(--ombre-jaune);
+
+  .parcours-bordereau-tete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem var(--bordereau-pad);
+    border-bottom: 2px solid var(--encre);
+  }
+
+  .parcours-bordereau-tete .tampon {
+    flex-shrink: 0;
+  }
+
+  .parcours-bordereau-pied {
+    padding: 1rem var(--bordereau-pad);
+    color: var(--encre-muette);
+  }
+
+  .pistes {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin: 0;
+    padding: 1.5rem calc(var(--bordereau-pad) / 2) 1.5rem
+      calc(var(--bordereau-pad) / 2);
+    border: 0;
+    border-bottom: 2px solid var(--encre);
+  }
+
+  .pistes-legende {
+    float: left;
+    width: 100%;
+    margin-bottom: 1.25rem;
+    padding-inline: var(--piste-fin);
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--encre-muette);
+  }
+
+  .pistes-echelle {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0 var(--piste-fin) 0.5rem var(--piste-marge);
+    padding-bottom: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--encre-muette);
+  }
+
+  .pistes-echelle > span {
+    padding-left: 0.25rem;
+    border-left: 2px solid var(--filet);
+  }
+
+  .pistes-echelle::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    background: var(--encre);
+    transform-origin: left;
+  }
+
+  .piste {
+    position: relative;
+    display: grid;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.75rem var(--piste-fin) 0.75rem var(--piste-marge);
+    cursor: pointer;
+    transition: background-color var(--dur-ui) var(--ease-ui);
+  }
+
+  .piste::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(0.875rem - 1px);
+    width: 2px;
+    background: var(--encre);
+    transform-origin: top;
+  }
+
+  .piste::after {
+    content: "";
+    position: absolute;
+    top: 0.875rem;
+    left: 0.4375rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    background: var(--fond);
+    border: 2px solid var(--encre);
+    transition: scale var(--dur-ui) var(--ease-ui);
+  }
+
+  .piste:has(:focus-visible) {
+    z-index: 1;
+    outline: 2px solid var(--anneau);
+    outline-offset: 2px;
+  }
+
+  .piste-choix {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+    opacity: 0;
+  }
+
+  .piste-tete {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .piste-nom {
+    width: fit-content;
+    max-width: 100%;
+    padding-inline: var(--surligne-pad);
+    margin-inline: calc(var(--surligne-pad) * -1);
+    font-family: var(--font-display);
+    font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .piste-repere,
+  .piste-periode {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--encre-muette);
+  }
+
+  .piste-repere {
+    grid-column: 1 / -1;
+  }
+
+  .piste-periode {
+    grid-row: 1;
+    grid-column: 2;
+    text-align: right;
+  }
+
+  .piste-voie {
+    display: grid;
+    grid-template-columns: repeat(72, minmax(0, 1fr));
+    align-self: center;
+    height: 0.875rem;
+    background: linear-gradient(90deg, var(--filet) 2px, transparent 2px) 0 0 /
+      calc(100% / 6) 100% repeat-x;
+  }
+
+  .piste-barre {
+    --barre-ombre: var(--ombre-gris);
+    --hachure-a: var(--encre-muette);
+    --hachure-b: var(--fond);
+    position: relative;
+    grid-row: 1;
+    overflow: hidden;
+    background: var(--fond-2);
+    border: 2px solid var(--encre);
+    box-shadow: var(--offset-sm) var(--offset-sm) 0 var(--barre-ombre);
+    transition:
+      translate var(--dur-ui) var(--ease-ui),
+      box-shadow var(--dur-ui) var(--ease-ui),
+      background-color var(--dur-ui) var(--ease-ui);
+  }
+
+  .piste-barre-en-cours::after {
+    content: "";
+    position: absolute;
+    inset: 0 -16px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--hachure-a) 0 5px,
+      var(--hachure-b) 5px 10px
+    );
+  }
+
+  .piste-civitime .piste-barre {
+    grid-column: 1 / 49;
+  }
+
+  .piste-compte .piste-barre {
+    grid-column: 37 / 73;
+  }
+
+  .piste-builds .piste-barre {
+    grid-column: 50 / 73;
+  }
+
+  .piste-openup .piste-barre {
+    grid-column: 61 / 73;
+  }
+
+  .piste-eskimoz .piste-barre {
+    grid-column: 69 / 73;
+  }
+
+  .piste:is(
+      &:has([data-chapitre="aujourdhui"] :checked)
+        [data-chapitre="aujourdhui"],
+      &:has([data-chapitre="openup"] :checked) [data-chapitre="openup"],
+      &:has([data-chapitre="compte"] :checked) [data-chapitre="compte"],
+      &:has([data-chapitre="civitime"] :checked)
+        [data-chapitre="civitime"]
+    ) {
+    & .piste-nom {
+      color: var(--encre-accent);
+      background: var(--surligne);
+    }
+
+    & .piste-barre {
+      --barre-ombre: var(--ombre);
+      --hachure-a: var(--noir);
+      --hachure-b: var(--aplat);
+      background: var(--aplat);
+    }
+
+    &::after {
+      background: var(--aplat);
+      border-color: var(--carre-bord);
+    }
+  }
+
+  .piste:has(:checked)::after {
+    scale: 1.3;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .piste:hover {
+      background: var(--fond-2);
+    }
+
+    .piste:hover .piste-barre {
+      translate: 2px 2px;
+      box-shadow: 2px 2px 0 var(--barre-ombre);
+    }
+  }
+
+  .fiche {
+    display: none;
+    grid-template-rows: 1fr;
+    padding: var(--bordereau-pad);
+    border-bottom: 2px solid var(--encre);
+  }
+
+  .fiche:is(
+      &:has([data-chapitre="aujourdhui"] :checked)
+        [data-chapitre="aujourdhui"],
+      &:has([data-chapitre="openup"] :checked) [data-chapitre="openup"],
+      &:has([data-chapitre="compte"] :checked) [data-chapitre="compte"],
+      &:has([data-chapitre="civitime"] :checked)
+        [data-chapitre="civitime"]
+    ) {
+    display: grid;
+  }
+
+  .fiche-corps {
+    min-height: 0;
+    margin: -0.625rem;
+    padding: 0.625rem;
+    overflow: clip;
+  }
+
+  .fiche-duo {
+    display: grid;
+    gap: calc(1.5rem + var(--offset));
+    padding-right: calc(0.625rem + var(--offset));
+    padding-bottom: calc(0.625rem + var(--offset));
+  }
+
+  .fiche-duo .poste {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+    min-width: 0;
+    padding: clamp(1rem, 2.4vw, 1.5rem);
+    background: var(--fond);
+    border: 2px solid var(--encre);
+    box-shadow: var(--offset) var(--offset) 0 var(--ombre-gris);
+  }
+
+  .fiche-solo .poste {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .poste-affiche {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--encre);
+  }
+
+  .fiche-solo .poste-affiche {
+    box-shadow: var(--offset) var(--offset) 0 var(--ombre-gris);
+  }
+
+  .poste-etabli {
+    --dot: color-mix(in oklab, var(--papier), var(--noir) 84%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(0.75rem, 2.4cqi, 1.25rem);
+    aspect-ratio: 1600 / 836;
+    padding: clamp(1rem, 5cqi, 2rem);
+    container-type: inline-size;
+    background-color: var(--noir);
+    color: var(--papier);
+  }
+
+  .poste-etabli .surtitre {
+    color: var(--papier);
+    font-size: clamp(0.5625rem, 2.6cqi, 0.8125rem);
+  }
+
+  .poste-etabli-titre {
+    font-size: clamp(1.75rem, 11cqi, 4rem);
+    line-height: 0.9;
+  }
+
+  .poste-etabli-accent {
+    color: var(--jaune);
+  }
+
+  .poste-etabli-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .poste-etabli-tags .etiquette {
+    --etq-fond: var(--noir);
+    --etq-texte: var(--papier);
+    --etq-bord: var(--papier);
+    --etq-ombre: var(--jaune);
+    font-size: clamp(0.6875rem, 2.8cqi, 0.9375rem);
+  }
+
+  .poste-texte {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0;
+  }
+
+  .fiche-duo .poste-texte {
+    flex: 1;
+  }
+
+  .poste-tete {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .poste-moment {
+    width: fit-content;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid var(--encre);
+    transition:
+      background-color var(--dur-ui) var(--ease-ui),
+      color var(--dur-ui) var(--ease-ui);
+  }
+
+  &:has(#parcours-eskimoz:checked) .poste-eskimoz .poste-moment,
+  &:has(#parcours-builds:checked) .poste-builds .poste-moment {
+    background: var(--aplat);
+    color: var(--sur-aplat);
+    border-color: var(--sur-aplat);
+  }
+
+  .poste-nom {
+    font-size: clamp(1.875rem, 4.4vw, 3rem);
+  }
+
+  .poste-role {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .poste-periode {
+    color: var(--encre-muette);
+  }
+
+  .poste-contexte {
+    max-width: var(--measure);
+    color: var(--encre-douce);
+  }
+
+  .poste-intertitre {
+    margin-bottom: 0.75rem;
+    color: var(--encre-muette);
+  }
+
+  .poste-faits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: var(--measure);
+  }
+
+  .poste-faits li {
+    position: relative;
+    padding-left: 1.25rem;
+    line-height: var(--leading-body);
+    text-wrap: pretty;
+  }
+
+  .poste-faits li::before {
+    content: "";
+    position: absolute;
+    top: 0.6em;
+    left: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--aplat);
+    box-shadow: inset 0 0 0 2px var(--carre-bord);
+  }
+
+  .missions {
+    max-width: var(--measure);
+    border-top: 2px solid var(--filet);
+  }
+
+  .mission {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1rem;
+    row-gap: 0.25rem;
+    padding-block: 0.75rem;
+    border-bottom: 2px solid var(--filet);
+  }
+
+  .mission-nom {
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .mission-periode {
+    color: var(--encre-muette);
+    text-align: right;
+  }
+
+  .mission-texte {
+    grid-column: 1 / -1;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--encre-douce);
+    text-wrap: pretty;
+  }
+
+  .poste-resultats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(0.5rem + var(--offset-sm));
+    padding: 0 var(--offset-sm) var(--offset-sm) 0;
+  }
+
+  .poste-resultats .etiquette {
+    font-size: 0.9375rem;
+  }
+
+  .poste-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem 0.625rem;
+    color: var(--encre-muette);
+  }
+
+  .poste-stack li + li::before {
+    content: "■";
+    margin-right: 0.625rem;
+    color: var(--encre-accent);
+  }
+
+  .poste-liens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-top: auto;
+    padding: 0 var(--offset) var(--offset) 0;
+  }
+
+  @media (min-width: 768px) {
+    & {
+      --piste-marge: 2.25rem;
+    }
+
+    .pistes-echelle {
+      margin-left: calc(
+        var(--piste-marge) + var(--piste-tete) + var(--piste-gouttiere)
+      );
+      font-size: 0.6875rem;
+    }
+
+    .piste {
+      grid-template-columns: var(--piste-tete) minmax(0, 1fr);
+      column-gap: var(--piste-gouttiere);
+      padding-block: 0.625rem;
+    }
+
+    .piste::before {
+      display: none;
+    }
+
+    .piste::after {
+      top: 0.75rem;
+    }
+
+    .piste-tete {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .piste-periode {
+      text-align: left;
+    }
+
+    .piste-voie {
+      height: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    & {
+      --piste-tete: 15rem;
+    }
+
+    .fiche-duo {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fiche-solo .poste {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: start;
+      column-gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .fiche-solo .poste-affiche {
+      position: sticky;
+      top: calc(var(--nav-h) + 1.5rem);
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    .fiche-solo .poste-texte {
+      grid-row: 1;
+      grid-column: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fiche:is(
+        &:has([data-chapitre="aujourdhui"] :checked)
+          [data-chapitre="aujourdhui"],
+        &:has([data-chapitre="openup"] :checked) [data-chapitre="openup"],
+        &:has([data-chapitre="compte"] :checked) [data-chapitre="compte"],
+        &:has([data-chapitre="civitime"] :checked)
+          [data-chapitre="civitime"]
+      ) {
+      transition: grid-template-rows 0.45s var(--ease-ui);
+
+      & > .fiche-corps {
+        animation: fiche-sort 0.45s var(--ease-ui) both;
+      }
+    }
+
+    @starting-style {
+      .fiche:is(
+          &:has([data-chapitre="aujourdhui"] :checked)
+            [data-chapitre="aujourdhui"],
+          &:has([data-chapitre="openup"] :checked)
+            [data-chapitre="openup"],
+          &:has([data-chapitre="compte"] :checked)
+            [data-chapitre="compte"],
+          &:has([data-chapitre="civitime"] :checked)
+            [data-chapitre="civitime"]
+        ) {
+        grid-template-rows: 0fr;
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .piste:hover .piste-barre-en-cours::after {
+        animation: hachures-glisse 0.7s linear infinite;
+      }
+    }
+
+    @supports (animation-timeline: view()) {
+      .pistes {
+        view-timeline: --pistes block;
+      }
+
+      .pistes-echelle::after {
+        animation: trace linear both;
+        animation-timeline: --pistes;
+        animation-range: entry 0% entry 60%;
+      }
+
+      .piste {
+        animation: reveal-up var(--ease-ui) both;
+        animation-timeline: --pistes;
+        animation-range: entry 5% entry 45%;
+      }
+
+      .piste::before {
+        animation: rail-trace linear both;
+        animation-timeline: --pistes;
+        animation-range: entry 0% entry 90%;
+      }
+
+      .piste-barre {
+        animation: barre-trace var(--ease-ui) both;
+        animation-timeline: --pistes;
+      }
+
+      .piste-builds {
+        animation-range: entry 12% entry 52%;
+      }
+
+      .piste-openup {
+        animation-range: entry 19% entry 59%;
+      }
+
+      .piste-compte {
+        animation-range: entry 26% entry 66%;
+      }
+
+      .piste-civitime {
+        animation-range: entry 33% entry 73%;
+      }
+
+      .piste-civitime .piste-barre {
+        animation-range: entry 40% entry 80%;
+      }
+
+      .piste-compte .piste-barre {
+        animation-range: entry 50% entry 88%;
+      }
+
+      .piste-builds .piste-barre {
+        animation-range: entry 58% entry 94%;
+      }
+
+      .piste-openup .piste-barre {
+        animation-range: entry 64% entry 98%;
+      }
+
+      .piste-eskimoz .piste-barre {
+        animation-range: entry 70% entry 100%;
+      }
+    }
+  }
+}
+
+@keyframes fiche-sort {
+  from {
+    opacity: 0;
+    translate: 0 -0.75rem;
+  }
+}
+
+@keyframes hachures-glisse {
+  to {
+    translate: calc(10px * 1.41421) 0;
+  }
+}
+
+@keyframes rail-trace {
+  from {
+    scale: 1 0;
+  }
+}
+
+@keyframes barre-trace {
+  from {
+    clip-path: inset(-10px 100% -10px -10px);
+  }
+  to {
+    clip-path: inset(-10px -10px -10px -10px);
+  }
+}

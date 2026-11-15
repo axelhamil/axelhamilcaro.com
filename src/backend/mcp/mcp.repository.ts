@@ -1,6 +1,25 @@
-import { and, desc, eq, gte, like, lte, sql } from "drizzle-orm";
+import {
+  and,
+  desc,
+  eq,
+  gte,
+  inArray,
+  isNotNull,
+  like,
+  lte,
+  sql,
+} from "drizzle-orm";
 import { db } from "@/drizzle";
 import { leads, mcpBriefs, mcpEvents } from "@/drizzle/schema";
+import { MCP_STATS_TIME_ZONE } from "./mcp.constants";
+import {
+  MCP_ORIGIN_RULES,
+  MCP_TRAFFIC_CATEGORIES,
+  type McpOriginRule,
+  type McpTrafficScope,
+  OTHER_ORIGIN,
+  UNKNOWN_ORIGIN,
+} from "./mcp.origin";
 
 const BRIEF_TTL_MS = 24 * 60 * 60 * 1000;
 const EVENT_RETENTION_MS = 30 * 24 * 60 * 60 * 1000;
@@ -39,7 +58,101 @@ export type NewMcpEvent = {
   userAgent?: string | null;
   ok: boolean;
   durationMs?: number | null;
+  sessionId?: string | null;
+  visitorHash?: string | null;
+  country?: string | null;
+  city?: string | null;
+  toolArguments?: Record<string, string | null> | null;
+  errorMessage?: string | null;
+  referer?: string | null;
 };
+
+export type McpStatsScope = {
+  from: Date;
+  traffic: McpTrafficScope;
+};
+
+export type McpEventFilter = McpStatsScope & {
+  method?: string;
+  ok?: boolean;
+  origin?: string;
+  visit?: string;
+};
+
+export type McpEventCursor = {
+  createdAt: string;
+  id: string;
+};
+
+const visitKey = sql<
+  string | null
+>`coalesce(${mcpEvents.sessionId}, ${mcpEvents.visitorHash})`;
+
+function sqlLiteral(value: string) {
+  return `'${value.replaceAll("'", "''")}'`;
+}
+
+function ruleBranches(column: string, pick: (rule: McpOriginRule) => string) {
+  return MCP_ORIGIN_RULES.map(
+    (rule) =>
+      `when ${column} ~* ${sqlLiteral(rule.pattern)} then ${sqlLiteral(pick(rule))}`,
+  ).join(" ");
+}
+
+function originCase(
+  pick: (rule: McpOriginRule) => string,
+  unknown: string,
+  other: string,
+) {
+  const clientName = `"mcp_events"."client_name"`;
+  const userAgent = `"mcp_events"."user_agent"`;
+
+  return `(case ${ruleBranches(clientName, pick)} when coalesce(btrim(${userAgent}), '') = '' then ${sqlLiteral(unknown)} ${ruleBranches(userAgent, pick)} else ${sqlLiteral(other)} end)`;
+}
+
+const originIdSql = sql.raw(
+  originCase((rule) => rule.id, UNKNOWN_ORIGIN.id, OTHER_ORIGIN.id),
+);
+
+const originCategorySql = sql.raw(
+  originCase(
+    (rule) => rule.category,
+    UNKNOWN_ORIGIN.category,
+    OTHER_ORIGIN.category,
+  ),
+);
+
+function trafficCondition(traffic: McpTrafficScope) {
+  if (traffic === "tout") return undefined;
+
+  const categories = MCP_TRAFFIC_CATEGORIES[traffic].map(sqlLiteral).join(", ");
+  return sql`${originCategorySql} in (${sql.raw(categories)})`;
+}
+
+function scopeConditions(scope: McpStatsScope) {
+  return and(
+    gte(mcpEvents.createdAt, scope.from),
+    trafficCondition(scope.traffic),
+  );
+}
+
+function eventConditions(filter: McpEventFilter, cursor?: McpEventCursor) {
+  return and(
+    scopeConditions(filter),
+    filter.method ? eq(mcpEvents.method, filter.method) : undefined,
+    filter.ok === undefined ? undefined : eq(mcpEvents.ok, filter.ok),
+    filter.origin ? sql`${originIdSql} = ${filter.origin}` : undefined,
+    filter.visit ? eq(visitKey, filter.visit) : undefined,
+    cursor
+      ? sql`(${mcpEvents.createdAt}, ${mcpEvents.id}) < (cast(${cursor.createdAt} as timestamp), cast(${cursor.id} as uuid))`
+      : undefined,
+  );
+}
+
+const countAll = sql<number>`cast(count(*) as int)`;
+const lastAt = sql<Date | null>`max(${mcpEvents.createdAt})`.mapWith(
+  mcpEvents.createdAt,
+);
 
 export const mcpRepository = {
   async createBrief(payload: McpBriefPayload) {
@@ -82,61 +195,103 @@ export const mcpRepository = {
       userAgent: event.userAgent ?? null,
       ok: event.ok,
       durationMs: event.durationMs ?? null,
+      sessionId: event.sessionId ?? null,
+      visitorHash: event.visitorHash ?? null,
+      country: event.country ?? null,
+      city: event.city ?? null,
+      toolArguments: event.toolArguments ?? null,
+      errorMessage: event.errorMessage ?? null,
+      referer: event.referer ?? null,
     });
   },
 
-  async stats(from: Date) {
-    const [totals] = await db
+  async totals(scope: McpStatsScope) {
+    const [row] = await db
       .select({
-        calls: sql<number>`cast(count(*) as int)`,
-        clients: sql<number>`cast(count(distinct ${mcpEvents.clientName}) as int)`,
-      })
-      .from(mcpEvents)
-      .where(gte(mcpEvents.createdAt, from));
-
-    const topTools = await db
-      .select({
-        name: mcpEvents.name,
-        count: sql<number>`cast(count(*) as int)`,
-      })
-      .from(mcpEvents)
-      .where(
-        and(gte(mcpEvents.createdAt, from), eq(mcpEvents.method, "tools/call")),
-      )
-      .groupBy(mcpEvents.name)
-      .orderBy(desc(sql`count(*)`))
-      .limit(8);
-
-    const topResources = await db
-      .select({
-        name: mcpEvents.name,
-        count: sql<number>`cast(count(*) as int)`,
-      })
-      .from(mcpEvents)
-      .where(
-        and(
-          gte(mcpEvents.createdAt, from),
-          eq(mcpEvents.method, "resources/read"),
+        calls: countAll,
+        errors: sql<number>`cast(count(*) filter (where not ${mcpEvents.ok}) as int)`,
+        medianMs: sql<
+          number | null
+        >`percentile_cont(0.5) within group (order by ${mcpEvents.durationMs})`.mapWith(
+          Number,
         ),
-      )
+        p95Ms: sql<
+          number | null
+        >`percentile_cont(0.95) within group (order by ${mcpEvents.durationMs})`.mapWith(
+          Number,
+        ),
+        lastAt,
+        visitors: sql<number>`cast(count(distinct ${mcpEvents.visitorHash}) as int)`,
+      })
+      .from(mcpEvents)
+      .where(scopeConditions(scope));
+
+    return row;
+  },
+
+  async callsByDay(scope: McpStatsScope) {
+    const day = sql<string>`to_char((${mcpEvents.createdAt} at time zone 'UTC') at time zone ${sql.raw(`'${MCP_STATS_TIME_ZONE}'`)}, 'YYYY-MM-DD')`;
+
+    return db
+      .select({
+        day,
+        calls: countAll,
+        errors: sql<number>`cast(count(*) filter (where not ${mcpEvents.ok}) as int)`,
+      })
+      .from(mcpEvents)
+      .where(scopeConditions(scope))
+      .groupBy(day)
+      .orderBy(day);
+  },
+
+  async topNames(scope: McpStatsScope, method: string) {
+    return db
+      .select({ name: mcpEvents.name, count: countAll, lastAt })
+      .from(mcpEvents)
+      .where(and(scopeConditions(scope), eq(mcpEvents.method, method)))
       .groupBy(mcpEvents.name)
       .orderBy(desc(sql`count(*)`))
       .limit(8);
+  },
 
-    const recent = await db
-      .select()
+  async origins(scope: McpStatsScope) {
+    const origin = sql<string>`${originIdSql}`;
+
+    return db
+      .select({ id: origin, count: countAll, lastAt })
+      .from(mcpEvents)
+      .where(scopeConditions(scope))
+      .groupBy(origin)
+      .orderBy(desc(sql`count(*)`));
+  },
+
+  async categories(from: Date) {
+    const category = sql<string>`${originCategorySql}`;
+
+    return db
+      .select({ category, count: countAll })
       .from(mcpEvents)
       .where(gte(mcpEvents.createdAt, from))
-      .orderBy(desc(mcpEvents.createdAt))
-      .limit(50);
+      .groupBy(category);
+  },
 
+  async methods(scope: McpStatsScope) {
+    return db
+      .select({ method: mcpEvents.method, count: countAll })
+      .from(mcpEvents)
+      .where(scopeConditions(scope))
+      .groupBy(mcpEvents.method)
+      .orderBy(desc(sql`count(*)`));
+  },
+
+  async leadCounts(from: Date) {
     const [[mcpLeads], [webLeads]] = await Promise.all([
       db
-        .select({ count: sql<number>`cast(count(*) as int)` })
+        .select({ count: countAll })
         .from(leads)
         .where(and(gte(leads.createdAt, from), like(leads.source, "mcp:%"))),
       db
-        .select({ count: sql<number>`cast(count(*) as int)` })
+        .select({ count: countAll })
         .from(leads)
         .where(
           and(
@@ -146,18 +301,37 @@ export const mcpRepository = {
         ),
     ]);
 
-    return {
-      calls: totals?.calls ?? 0,
-      distinctClients: totals?.clients ?? 0,
-      topTools,
-      topResources,
-      recent,
-      leads: {
-        mcp: mcpLeads?.count ?? 0,
-        webForms: webLeads?.count ?? 0,
-        contactModalExcluded:
-          "The site contact modal is email-only and is not counted here.",
-      },
-    };
+    return { mcp: mcpLeads?.count ?? 0, webForms: webLeads?.count ?? 0 };
+  },
+
+  async listEvents(
+    filter: McpEventFilter,
+    limit: number,
+    cursor?: McpEventCursor,
+  ) {
+    return db
+      .select({
+        event: mcpEvents,
+        cursor: sql<string>`to_char(${mcpEvents.createdAt}, 'YYYY-MM-DD"T"HH24:MI:SS.US')`,
+        visit: visitKey,
+      })
+      .from(mcpEvents)
+      .where(eventConditions(filter, cursor))
+      .orderBy(desc(mcpEvents.createdAt), desc(mcpEvents.id))
+      .limit(limit);
+  },
+
+  async clientsByVisit(visits: string[]) {
+    if (visits.length === 0) return [];
+
+    return db
+      .selectDistinctOn([visitKey], {
+        visit: visitKey,
+        clientName: mcpEvents.clientName,
+        clientVersion: mcpEvents.clientVersion,
+      })
+      .from(mcpEvents)
+      .where(and(isNotNull(mcpEvents.clientName), inArray(visitKey, visits)))
+      .orderBy(visitKey, desc(mcpEvents.createdAt));
   },
 };

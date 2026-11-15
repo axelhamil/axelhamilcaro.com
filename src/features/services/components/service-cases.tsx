@@ -1,4 +1,5 @@
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { AccentTitle } from "@/src/shared/ui/typography/accent-title";
 import type { RelatedCaseSlug } from "../lib/services-data";
 
 const CASE_META: Record<
@@ -16,7 +17,7 @@ const CASE_META: Record<
   openup: {
     name: "OpenUp",
     description:
-      "SaaS gestion de liens, iOS + Android + PWA, edge Cloudflare <50ms.",
+      "Projet parallèle dont je suis le fondateur technique : deep links, iOS, Android et web.",
   },
   scormpilot: {
     name: "ScormPilot",
@@ -24,43 +25,36 @@ const CASE_META: Record<
   },
 };
 
-export function ServiceCases({
-  relatedCases,
-}: {
+interface ServiceCasesProps {
   relatedCases: RelatedCaseSlug[];
-}) {
+}
+
+export function ServiceCases({ relatedCases }: ServiceCasesProps) {
   return (
-    <section className="py-20 px-6 bg-secondary-background">
-      <div className="max-w-5xl mx-auto">
-        <h2
-          className="text-3xl sm:text-4xl font-bold text-primary mb-10"
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-        >
-          Mes case studies sur ce type de mission
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {relatedCases.map((slug) => {
-            const meta = CASE_META[slug];
-            return (
+    <section className="svc-section container">
+      <h2 className="svc-h2 svc-h2-seul heading-display">
+        <AccentTitle text="Ce que j'ai construit" />
+      </h2>
+      <ul className="grille-cartes">
+        {relatedCases.map((slug) => {
+          const meta = CASE_META[slug];
+
+          return (
+            <li key={slug}>
               <TransitionLink
-                key={slug}
                 href={`/portfolio/${slug}`}
-                className="card p-6 block hover:border-accent/40 transition-colors"
+                className="svc-carte etiquette etiquette-carte etiquette-jaune etiquette-appui"
               >
-                <h3 className="text-lg font-semibold text-primary mb-2">
-                  {meta.name}
-                </h3>
-                <p className="text-secondary text-sm leading-relaxed">
-                  {meta.description}
-                </p>
-                <span className="mt-4 inline-block text-accent-ink text-sm font-medium">
-                  Voir le case →
+                <h3 className="svc-carte-titre">{meta.name}</h3>
+                <p className="svc-texte">{meta.description}</p>
+                <span className="svc-lien-carte">
+                  <span className="svc-lien-carte-texte">Voir le cas →</span>
                 </span>
               </TransitionLink>
-            );
-          })}
-        </div>
-      </div>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }

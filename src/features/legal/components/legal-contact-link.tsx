@@ -1,32 +1,32 @@
-"use client";
-
 import { Mail } from "lucide-react";
-import { ContactModal } from "@/src/features/contact/components/contact-modal";
-
-type Variant = "button" | "inline";
+import { ContactModal } from "@/src/shared/ui/contact/contact-modal";
+import { Button } from "@/src/shared/ui/portfolio/button";
 
 interface LegalContactLinkProps {
   label: string;
-  variant?: Variant;
+  variant?: "button" | "inline";
 }
-
-const STYLES: Record<Variant, string> = {
-  button:
-    "inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent-hover transition-all duration-300 cursor-pointer",
-  inline:
-    "text-accent-ink font-medium hover:underline cursor-pointer underline underline-offset-2",
-};
 
 export function LegalContactLink({
   label,
   variant = "button",
 }: LegalContactLinkProps) {
+  if (variant === "inline") {
+    return (
+      <ContactModal>
+        <Button type="button" variant="ghost" className="legal-lien-bouton">
+          {label}
+        </Button>
+      </ContactModal>
+    );
+  }
+
   return (
     <ContactModal>
-      <button type="button" className={STYLES[variant]}>
-        {variant === "button" ? <Mail className="w-4 h-4" /> : null}
+      <Button type="button">
+        <Mail className="w-4 h-4" />
         {label}
-      </button>
+      </Button>
     </ContactModal>
   );
 }

@@ -65,6 +65,11 @@ interface BlogPostWithContent extends BlogPost {
   content: string;
 }
 
+function formatReadingTime(content: string) {
+  const minutes = Math.max(1, Math.ceil(readingTime(content).minutes));
+  return `${minutes} min de lecture`;
+}
+
 function getAllPosts(): BlogPost[] {
   const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".mdx"));
 
@@ -74,12 +79,11 @@ function getAllPosts(): BlogPost[] {
       const raw = fs.readFileSync(path.join(BLOG_DIR, filename), "utf-8");
       const { data, content } = matter(raw);
       const frontmatter = parseFrontmatter(filename, data);
-      const stats = readingTime(content);
 
       return {
         ...frontmatter,
         slug,
-        readingTime: stats.text,
+        readingTime: formatReadingTime(content),
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -93,12 +97,11 @@ function getPostBySlug(slug: string): BlogPostWithContent | null {
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
   const frontmatter = parseFrontmatter(`${slug}.mdx`, data);
-  const stats = readingTime(content);
 
   return {
     ...frontmatter,
     slug,
-    readingTime: stats.text,
+    readingTime: formatReadingTime(content),
     content,
   };
 }
@@ -150,5 +153,5 @@ function getAdjacentPosts(currentSlug: string): {
   };
 }
 
-export type { BlogPost, BlogPostWithContent, Heading };
+export type { BlogPost, Heading };
 export { getAllPosts, getPostBySlug, extractHeadings, getAdjacentPosts };

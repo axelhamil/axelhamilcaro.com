@@ -1,3 +1,4 @@
+import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -6,7 +7,6 @@ import rehypeSlug from "rehype-slug";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkGfm from "remark-gfm";
 import { AUTHOR, SITE_URL } from "@/app/_config/site.constants";
-import { Badge } from "@/components/ui/badge";
 import { useMDXComponents } from "@/mdx-components";
 import { ArticleNavigation } from "@/src/features/blog/components/article-navigation";
 import { BlogAuthorBio } from "@/src/features/blog/components/blog-author-bio";
@@ -19,11 +19,16 @@ import {
   getAllPosts,
   getPostBySlug,
 } from "@/src/features/blog/lib/blog";
+import { formatLongDate } from "@/src/lib/utils/date.utils";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
 import { buildBlogPostingSchema } from "@/src/shared/seo/schemas/blog-posting";
+import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
+import {
+  articleTransitionName,
+  SharedElement,
+} from "@/src/shared/ui/navigation/shared-element";
 import { Button } from "@/src/shared/ui/portfolio/button";
-import { Heading1 } from "@/src/shared/ui/typography/heading1";
-import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -34,6 +39,12 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
+const BRAND_SUFFIX = ` · ${AUTHOR.name}`;
+const TITLE_MAX = 60;
+
+const articleTitle = (title: string) =>
+  title.length + BRAND_SUFFIX.length <= TITLE_MAX ? title : { absolute: title };
+
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
@@ -42,9 +53,15 @@ export async function generateMetadata({
   if (!post) return {};
 
   const url = `${SITE_URL}/blog/${slug}`;
+  const image = {
+    url: post.image ?? `/blog/${slug}/og`,
+    width: 1200,
+    height: 630,
+    alt: post.title,
+  };
 
   return {
-    title: post.seoTitle ?? post.title,
+    title: articleTitle(post.seoTitle ?? post.title),
     description: post.excerpt,
     keywords: [...post.tags, AUTHOR.name, "blog", post.category],
     authors: [{ name: AUTHOR.name, url: SITE_URL }],
@@ -58,12 +75,15 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.date,
       authors: [AUTHOR.name],
+      modifiedTime: post.dateModified ?? post.date,
       tags: post.tags,
+      images: [image],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
+      images: [image],
     },
   };
 }
@@ -76,11 +96,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const headings = extractHeadings(post.content);
   const mdxComponents = useMDXComponents();
 
-  const formattedDate = new Date(post.date).toLocaleDateString("fr-FR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const modifiedDate =
+    post.dateModified && post.dateModified !== post.date
+      ? post.dateModified
+      : null;
 
   const wordCount = post.content.trim().split(/\s+/).length;
 
@@ -92,7 +111,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     url: `${SITE_URL}/blog/${slug}`,
     datePublished: post.date,
     dateModified: post.dateModified ?? post.date,
-    image: post.image ?? `${SITE_URL}/blog/${slug}/opengraph-image`,
+    image: post.image ?? `${SITE_URL}/blog/${slug}/og`,
     author: post.originalAuthor ?? AUTHOR.name,
     authorUrl: post.originalAuthorUrl,
     translator: isTranslation ? AUTHOR.name : undefined,
@@ -101,117 +120,78 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     wordCount,
   });
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Accueil",
-        item: SITE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: `${SITE_URL}/blog`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: `${SITE_URL}/blog/${slug}`,
-      },
-    ],
-  };
+  const breadcrumbJsonLd = buildBreadcrumbListSchema([
+    { name: "Accueil", url: SITE_URL },
+    { name: "Blog", url: `${SITE_URL}/blog` },
+    { name: post.title, url: `${SITE_URL}/blog/${slug}` },
+  ]);
 
   const faqJsonLd =
     post.faq && post.faq.length > 0 ? buildFaqPageSchema(post.faq) : null;
 
   return (
-    <main className="min-h-screen bg-primary-background">
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(blogPostingJsonLd),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      {faqJsonLd && (
-        <script
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
-      )}
-      <header className="border-b border-border">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 pt-6 pb-8">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-6">
-            <span className="text-sm font-medium text-accent-ink uppercase tracking-widest">
-              {post.category}
-            </span>
-            <span className="text-border">|</span>
-            <time
-              dateTime={post.date}
-              className="text-sm text-muted-foreground"
-            >
-              {formattedDate}
-            </time>
-            <span className="text-border">|</span>
-            <span className="text-sm text-muted-foreground">
-              {post.readingTime}
-            </span>
-          </div>
-
-          <Heading1 size="xl" style={{ fontFamily: "var(--font-display)" }}>
-            {post.title}
-          </Heading1>
-
-          <Paragraph variant="secondary" size="lg" className="mt-2">
-            {post.subtitle}
-          </Paragraph>
-
-          <BlogByline
-            variant="header"
-            originalAuthor={post.originalAuthor}
-            originalAuthorUrl={post.originalAuthorUrl}
-            className="mt-5"
-          />
-
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            {post.pdfUrl && (
-              <Button href={post.pdfUrl} variant="secondary" size="sm">
-                Document original (PDF) &rarr;
-              </Button>
+    <main>
+      <JsonLdScript data={blogPostingJsonLd} />
+      <JsonLdScript data={breadcrumbJsonLd} />
+      {faqJsonLd && <JsonLdScript data={faqJsonLd} />}
+      <header className="article-cadre article-entete flex flex-col gap-6 py-10 sm:py-16">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <p className="etiquette etiquette-sm etiquette-fond-jaune label-mono">
+            {post.category}
+          </p>
+          <p className="meta-mono">
+            <time dateTime={post.date}>{formatLongDate(post.date)}</time>
+            <span>{post.readingTime}</span>
+            {modifiedDate && (
+              <span>
+                Mis à jour le{" "}
+                <time dateTime={modifiedDate}>
+                  {formatLongDate(modifiedDate)}
+                </time>
+              </span>
             )}
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          </div>
+          </p>
+        </div>
+
+        <SharedElement name={articleTransitionName(post.slug)}>
+          <h1 className="article-titre heading-display">{post.title}</h1>
+        </SharedElement>
+
+        <p className="article-chapo">{post.subtitle}</p>
+
+        <BlogByline
+          variant="header"
+          originalAuthor={post.originalAuthor}
+          originalAuthorUrl={post.originalAuthorUrl}
+        />
+
+        <div className="flex flex-wrap items-center gap-4">
+          {post.pdfUrl && (
+            <Button href={post.pdfUrl} variant="secondary" size="sm">
+              Document original (PDF) &rarr;
+            </Button>
+          )}
+          <ul className="flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <li key={tag} className="tag-mono">
+                {tag}
+              </li>
+            ))}
+          </ul>
         </div>
       </header>
 
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 py-4">
-        <MobileTableOfContents headings={headings} />
-      </div>
+      <div className="hachures pleine-largeur" aria-hidden="true" />
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-0 pb-8 lg:pt-0 lg:pb-16 lg:grid lg:grid-cols-[200px_1fr] lg:gap-12">
+      <div className="article-cadre article-grille py-10 sm:py-14">
         <aside className="hidden lg:block">
           <TableOfContents headings={headings} />
         </aside>
 
-        <div>
-          <article className="prose prose-sm sm:prose-base max-w-none first:prose-headings:mt-0 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-accent-ink prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-accent prose-blockquote:text-secondary prose-table:text-sm prose-th:text-left prose-th:font-semibold">
+        <div className="flex flex-col gap-12 sm:gap-16 min-w-0">
+          <MobileTableOfContents headings={headings} />
+
+          <article className="article-corps">
             <MDXRemote
               source={post.content}
               components={mdxComponents}
@@ -229,8 +209,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     [
                       rehypePrettyCode,
                       {
-                        theme: "github-dark",
-                        keepBackground: true,
+                        theme: {
+                          light: "github-light-high-contrast",
+                          dark: "github-dark",
+                        },
+                        keepBackground: false,
+                        defaultLang: { block: "plaintext" },
                       },
                     ],
                   ],
@@ -246,6 +230,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <BlogPostCta />
 
           <ArticleNavigation currentSlug={slug} />
+
+          <Button href="/blog" variant="ghost" size="sm" className="self-start">
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+            Tous les articles du blog
+          </Button>
         </div>
       </div>
     </main>

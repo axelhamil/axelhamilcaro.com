@@ -1,36 +1,34 @@
+import { AccentTitle } from "@/src/shared/ui/typography/accent-title";
+import { BrandText } from "@/src/shared/ui/typography/brand-text";
 import { TMA_PERSONAS } from "../lib/tma-data";
 
 export function TmaWhoFor() {
   return (
-    <section className="py-20 px-6 bg-secondary-background">
-      <div className="max-w-5xl mx-auto">
-        <h2
-          className="text-3xl sm:text-4xl font-bold text-primary mb-4"
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-        >
-          Pour qui ?
+    <section className="svc-section container">
+      <div className="svc-entete">
+        <h2 className="svc-h2 heading-display">
+          <AccentTitle text="Pour qui ?" />
         </h2>
-        <p className="text-secondary text-lg mb-12">
+        <p className="svc-intro">
           La TMA est faite pour ces {TMA_PERSONAS.length} situations.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {TMA_PERSONAS.map((persona) => (
-            <div key={persona.title} className="card p-6 sm:p-8">
-              <span
-                className="text-5xl font-bold text-accent-ink block mb-4"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-                aria-hidden="true"
-              >
-                {persona.eyebrow}
-              </span>
-              <h3 className="text-xl font-semibold text-primary mb-3">
-                {persona.title}
-              </h3>
-              <p className="text-secondary leading-relaxed">{persona.body}</p>
-            </div>
-          ))}
-        </div>
       </div>
+      <ul className="grille-cartes svc-grille-2">
+        {TMA_PERSONAS.map((persona) => (
+          <li
+            key={persona.title}
+            className="svc-carte etiquette etiquette-carte etiquette-gris"
+          >
+            <span className="tma-numero-persona" aria-hidden="true">
+              {persona.eyebrow}
+            </span>
+            <h3 className="svc-carte-titre">{persona.title}</h3>
+            <p className="svc-texte">
+              <BrandText text={persona.body} />
+            </p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

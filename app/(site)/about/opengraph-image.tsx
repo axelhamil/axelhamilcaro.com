@@ -4,16 +4,20 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "À propos d'Axel Hamilcaro, développeur fullstack freelance";
+export const alt =
+  "À propos d'Axel Hamilcaro, développeur fullstack et builder";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
 export default function Image() {
   return renderOgImage({
     eyebrow: "À propos",
-    title: "4 ans de dev à lead tech · freelance depuis 2024 · 10+ projets",
+    title: "Les briques sur lesquelles",
+    accent: "d'autres construisent.",
     subtitle:
-      "Tours, Centre-Val de Loire, remote France · Next.js · React · Node.js",
+      "Tours. Builder open source, dev chez Eskimoz. 4 ans chez Civitime, de dev à lead tech.",
+    ribbon: ["À propos", "Parcours", "Méthode", "Serveur MCP"],
     withPhoto: true,
+    stamp: { top: "Build log", bottom: "N° 001" },
   });
 }

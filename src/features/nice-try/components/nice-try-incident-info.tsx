@@ -1,31 +1,25 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
+interface Incident {
+  id: string;
+  horodatage: string;
+}
+
 export function NiceTryIncidentInfo() {
-  const [timestamp, setTimestamp] = useState<string | null>(null);
-  const [incidentId, setIncidentId] = useState<string | null>(null);
+  const [incident, setIncident] = useState<Incident | null>(null);
 
   useEffect(() => {
-    setTimestamp(new Date().toISOString());
-    setIncidentId(Math.random().toString(36).slice(2, 10));
+    setIncident({
+      id: Math.random().toString(36).slice(2, 10),
+      horodatage: new Date().toISOString(),
+    });
   }, []);
 
   return (
-    <motion.div
-      className="absolute bottom-4 left-0 right-0 text-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 2.5 }}
-    >
-      <p className="text-zinc-700 text-xs font-mono">
-        {incidentId && timestamp && (
-          <>
-            incident_id: {incidentId} • {timestamp}
-          </>
-        )}
-      </p>
-    </motion.div>
+    <p className="label-mono ink-muted nice-try-incident">
+      {incident ? `incident_id: ${incident.id} • ${incident.horodatage}` : null}
+    </p>
   );
 }

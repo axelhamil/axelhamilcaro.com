@@ -1,61 +1,156 @@
 import { createMcpHandler } from "mcp-handler";
 
+import { z } from "zod";
 import { json } from "@/src/lib/http";
+import { getClientIdentifier } from "@/src/lib/rate-limit";
 import { clip, MCP_CLIP, MCP_SERVER_VERSION } from "./mcp.constants";
-import { getMcpPending, getMcpRequest, setMcpPending } from "./mcp.context";
+import {
+  getMcpStore,
+  type McpStore,
+  setMcpError,
+  setMcpPending,
+} from "./mcp.context";
 import { mcpRepository } from "./mcp.repository";
 import { registerMcpCapabilities } from "./mcp.server";
+import {
+  readRequestTelemetry,
+  shortErrorMessage,
+  summarizeToolArguments,
+  visitorFingerprint,
+} from "./mcp.telemetry";
 
-type RpcBody = {
-  method?: string;
-  params?: {
-    name?: string;
-    uri?: string;
-    _meta?: Record<string, { name?: string; version?: string } | undefined>;
-  };
-};
+const clientInfoSchema = z.object({
+  name: z.string().optional().catch(undefined),
+  version: z.string().optional().catch(undefined),
+});
 
-function rpcName(method: string | undefined, body: unknown) {
-  if (!body || typeof body !== "object") return null;
-  const params = (body as RpcBody).params;
+const rpcBodySchema = z.object({
+  params: z
+    .object({
+      name: z.string().optional().catch(undefined),
+      uri: z.string().optional().catch(undefined),
+      arguments: z.unknown().optional(),
+      clientInfo: clientInfoSchema.optional().catch(undefined),
+      _meta: z
+        .object({
+          "io.modelcontextprotocol/clientInfo": clientInfoSchema
+            .optional()
+            .catch(undefined),
+        })
+        .optional()
+        .catch(undefined),
+    })
+    .optional()
+    .catch(undefined),
+});
+
+type RpcParams = z.infer<typeof rpcBodySchema>["params"];
+
+function rpcParams(body: unknown): RpcParams {
+  const parsed = rpcBodySchema.safeParse(body);
+  return parsed.success ? parsed.data.params : undefined;
+}
+
+function rpcName(method: string, params: RpcParams) {
   if (method === "tools/call" || method === "prompts/get")
     return params?.name ?? null;
   if (method === "resources/read") return params?.uri ?? null;
   return null;
 }
 
-function rpcClient(body: unknown) {
-  if (!body || typeof body !== "object") return { name: null, version: null };
-  const info = (body as RpcBody).params?._meta?.[
-    "io.modelcontextprotocol/clientInfo"
-  ];
+function rpcArguments(method: string, params: RpcParams) {
+  if (method !== "tools/call" && method !== "prompts/get") return null;
+  return summarizeToolArguments(params?.arguments);
+}
+
+function rpcClient(params: RpcParams) {
+  const info =
+    params?._meta?.["io.modelcontextprotocol/clientInfo"] ?? params?.clientInfo;
+
   return {
     name: info?.name ?? null,
     version: info?.version ?? null,
   };
 }
 
-async function persistEvent(ok: boolean, durationMs: number) {
-  const pending = getMcpPending();
-  if (!pending) return;
+function describeError(error: unknown) {
+  return error instanceof Error ? error.message : String(error);
+}
 
+function logPersistFailure(error: unknown) {
+  console.error(
+    JSON.stringify({
+      level: "error",
+      scope: "mcp.telemetry",
+      message: "failed to persist MCP event",
+      error: describeError(error),
+    }),
+  );
+}
+
+type McpOutcome = {
+  status: number;
+  durationMs: number;
+  thrown?: unknown;
+};
+
+async function persistEvent(store: McpStore | undefined, outcome: McpOutcome) {
   try {
+    const pending = store?.pending;
+    if (!store || !pending) return;
+
+    const { request } = store;
+    const ok =
+      outcome.status < 400 && !store.toolFailed && outcome.thrown === undefined;
+    const thrownMessage =
+      outcome.thrown === undefined ? null : describeError(outcome.thrown);
+    const errorMessage = ok
+      ? null
+      : shortErrorMessage(
+          store.errorMessage ?? thrownMessage ?? `HTTP ${outcome.status}`,
+        );
+
     await mcpRepository.insertEvent({
       method: clip(pending.method, MCP_CLIP.method) ?? "unknown",
       name: clip(pending.name, MCP_CLIP.name),
       clientName: clip(pending.clientName, MCP_CLIP.client),
       clientVersion: clip(pending.clientVersion, MCP_CLIP.client),
-      userAgent: clip(
-        getMcpRequest()?.headers.get("user-agent"),
-        MCP_CLIP.userAgent,
-      ),
+      userAgent: clip(request.headers.get("user-agent"), MCP_CLIP.userAgent),
       ok,
-      durationMs,
+      durationMs: outcome.durationMs,
+      toolArguments: pending.toolArguments,
+      errorMessage,
+      visitorHash: visitorFingerprint(
+        getClientIdentifier(request),
+        new Date(),
+        process.env.BETTER_AUTH_SECRET,
+      ),
+      ...readRequestTelemetry(request.headers),
     });
   } catch (error) {
-    if (process.env.NODE_ENV === "development")
-      console.error("[mcp] failed to persist event", error);
+    logPersistFailure(error);
   }
+}
+
+function persistWhenSent(response: Response, persist: () => Promise<void>) {
+  if (!response.body) {
+    void persist();
+    return response;
+  }
+
+  const body = response.body.pipeThrough(
+    new TransformStream({
+      flush() {
+        void persist();
+      },
+    }),
+  );
+
+  return new Response(body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
+  });
 }
 
 export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
@@ -64,30 +159,51 @@ export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
     version: MCP_SERVER_VERSION,
   },
   instructions:
-    "Cursor and Claude: call initialize with protocolVersion 2025-03-26. A 2026 protocol header on initialize is ignored and the session negotiates 2025-03-26. Native 2026 clients: server/discover plus MCP-Protocol-Version 2026-07-28. Read identity resources first, then case studies. Then call audit_architecture_brief, then generate_custom_proposal. To contact Axel, email contact@axelhamilcaro.com.",
+    "Cursor and Claude: call initialize with protocolVersion 2025-03-26. A 2026 protocol header on initialize is ignored and the session negotiates 2025-03-26. Native 2026 clients: server/discover plus MCP-Protocol-Version 2026-07-28. Read identity resources first (site://whoami), then site://projects or list_projects, then case studies. For a client project, call audit_architecture_brief, then generate_custom_proposal. To contact Axel, email contact@axelhamilcaro.com.",
   onEvent: (event) => {
-    if (event.type === "ERROR" && process.env.NODE_ENV === "development")
-      console.error("[mcp]", event.error);
-
-    if (event.type === "REQUEST_RECEIVED") {
-      const client = rpcClient(event.parameters);
-      setMcpPending({
-        method: clip(event.method, MCP_CLIP.method) ?? event.method,
-        name: clip(rpcName(event.method, event.parameters), MCP_CLIP.name),
-        clientName: clip(client.name, MCP_CLIP.client),
-        clientVersion: clip(client.version, MCP_CLIP.client),
-      });
+    if (event.type === "ERROR") {
+      if (process.env.NODE_ENV === "development")
+        console.error("[mcp]", event.error);
+      setMcpError(describeError(event.error));
     }
 
-    if (event.type === "REQUEST_COMPLETED")
-      void persistEvent(event.status === "success", event.duration ?? 0);
+    if (event.type === "REQUEST_RECEIVED") {
+      const params = rpcParams(event.parameters);
+      const client = rpcClient(params);
+      setMcpPending({
+        method: clip(event.method, MCP_CLIP.method) ?? event.method,
+        name: clip(rpcName(event.method, params), MCP_CLIP.name),
+        clientName: clip(client.name, MCP_CLIP.client),
+        clientVersion: clip(client.version, MCP_CLIP.client),
+        toolArguments: rpcArguments(event.method, params),
+      });
+    }
   },
 });
 
 export async function handleMcpHttp(request: Request) {
   const prepared = await prepareMcpRequest(request);
   if (prepared instanceof Response) return prepared;
-  return mcpHandler(prepared);
+
+  const store = getMcpStore();
+  const startedAt = Date.now();
+
+  try {
+    const response = await mcpHandler(prepared);
+    return persistWhenSent(response, () =>
+      persistEvent(store, {
+        status: response.status,
+        durationMs: Date.now() - startedAt,
+      }),
+    );
+  } catch (error) {
+    void persistEvent(store, {
+      status: 500,
+      durationMs: Date.now() - startedAt,
+      thrown: error,
+    });
+    throw error;
+  }
 }
 
 async function prepareMcpRequest(request: Request) {

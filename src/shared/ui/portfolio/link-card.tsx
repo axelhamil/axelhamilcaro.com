@@ -3,22 +3,17 @@ import { type ComponentProps, forwardRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
-const linkCardVariants = cva(
-  "group relative flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl transition-all duration-300 ease-out cursor-pointer border active:scale-[0.98] w-full text-left",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary-background border-border hover:border-accent hover:shadow-md",
-        featured:
-          "bg-accent/5 border-accent/40 hover:border-accent shadow-md hover:shadow-lg ring-1 ring-accent/10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
+const linkCardVariants = cva("group link-card", {
+  variants: {
+    variant: {
+      default: "",
+      featured: "link-card-featured",
     },
   },
-);
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 function LinkCardContent({
   icon,
@@ -31,40 +26,25 @@ function LinkCardContent({
 }) {
   return (
     <>
-      <span
-        aria-hidden="true"
-        className="block absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-accent-light"
-      />
+      <span className="link-card-icon">{icon}</span>
 
-      <span className="relative z-10 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-secondary-background border border-border group-hover:border-accent group-hover:bg-accent group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span className="text-primary group-hover:text-accent-foreground transition-colors duration-300">
-          {icon}
-        </span>
-      </span>
-
-      <span className="relative z-10 block flex-1 min-w-0">
-        <span className="block font-semibold text-sm sm:text-base text-primary transition-colors duration-300 truncate">
-          {title}
-        </span>
+      <span className="flex-1 min-w-0">
+        <span className="link-card-title truncate">{title}</span>
         {description && (
-          <span className="block text-xs sm:text-sm text-secondary truncate">
-            {description}
-          </span>
+          <span className="link-card-desc truncate">{description}</span>
         )}
       </span>
 
-      <span className="relative z-10 block text-muted-foreground group-hover:text-accent-ink group-hover:translate-x-1 transition-all duration-300 shrink-0">
-        <svg
-          className="w-4 h-4 sm:w-5 sm:h-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-          aria-hidden="true"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </span>
+      <svg
+        className="link-card-arrow w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2.5}
+        aria-hidden="true"
+      >
+        <path strokeLinecap="square" d="M9 5l7 7-7 7" />
+      </svg>
     </>
   );
 }

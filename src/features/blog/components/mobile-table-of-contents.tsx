@@ -1,11 +1,5 @@
-"use client";
-
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useCallback, useState } from "react";
 import type { Heading } from "@/src/features/blog/lib/blog";
-
-const SCROLL_OFFSET = 100;
 
 interface MobileTableOfContentsProps {
   headings: Heading[];
@@ -14,68 +8,28 @@ interface MobileTableOfContentsProps {
 export function MobileTableOfContents({
   headings,
 }: MobileTableOfContentsProps) {
-  const [open, setOpen] = useState(false);
-
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-      e.preventDefault();
-      setOpen(false);
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const top =
-          el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
-        window.scrollTo({ top, behavior: "smooth" });
-      }, 250);
-    },
-    [],
-  );
-
   if (headings.length === 0) return null;
 
   return (
-    <div className="lg:hidden border border-border rounded-xl overflow-hidden">
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center justify-between w-full px-5 py-3 text-sm font-semibold text-primary bg-secondary-background cursor-pointer"
-      >
+    <details className="sommaire-mobile lg:hidden">
+      <summary className="sommaire-mobile-bouton flex items-center justify-between gap-4">
         Table des matières
         <ChevronDown
-          className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className="sommaire-mobile-chevron w-4 h-4"
+          aria-hidden="true"
         />
-      </button>
-      <AnimatePresence>
-        {open && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-            aria-label="Table des matières mobile"
-          >
-            <ul className="space-y-1 px-5 py-3 text-sm">
-              {headings.map((heading) => (
-                <li
-                  key={heading.id}
-                  style={{
-                    paddingLeft: heading.level === 3 ? "1rem" : 0,
-                  }}
-                >
-                  <a
-                    href={`#${heading.id}`}
-                    onClick={(e) => handleClick(e, heading.id)}
-                    className="block py-1 text-muted-foreground hover:text-accent-ink transition-colors"
-                  >
-                    {heading.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.nav>
-        )}
-      </AnimatePresence>
-    </div>
+      </summary>
+      <nav aria-label="Table des matières mobile">
+        <ol className="sommaire-liste">
+          {headings.map((heading) => (
+            <li key={heading.id} data-niveau={heading.level}>
+              <a href={`#${heading.id}`} className="sommaire-lien">
+                {heading.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </details>
   );
 }

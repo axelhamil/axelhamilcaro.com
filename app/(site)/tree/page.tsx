@@ -1,49 +1,41 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/app/_config/site.constants";
+import { PERSON_ID, SITE_URL } from "@/app/_config/site.constants";
 import { treeLinkService } from "@/src/backend/tree-links/tree-link.service";
 import TreeHeader from "@/src/features/tree/components/header";
+import TreeContact from "@/src/features/tree/components/tree-contact";
 import TreeLinksWrapper from "@/src/features/tree/components/tree-links-wrapper";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Liens et Réseaux",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Liens : LinkedIn, GitHub, Malt, rendez-vous",
   description:
-    "Retrouvez mes liens professionnels : LinkedIn, GitHub, Malt, rendez-vous. Axel Hamilcaro, dev freelance Next.js, React, Node.js, Tours, remote France.",
-  alternates: {
-    canonical: "/tree",
-  },
-  openGraph: {
-    title: "Liens et Réseaux",
-    description:
-      "Retrouvez mes liens professionnels : LinkedIn, GitHub, Malt, rendez-vous. Axel Hamilcaro, dev freelance Next.js, React, Node.js, Tours, remote France.",
-    url: "/tree",
-  },
-};
+    "Tous mes liens au même endroit : LinkedIn, GitHub, Malt, Instagram, TikTok et prise de rendez-vous. Je suis Axel Hamilcaro, développeur fullstack et builder.",
+  path: "/tree",
+});
 
 export const revalidate = 60;
 
 export default async function TreePage() {
   const links = await treeLinkService.listActive();
 
-  const profilePageJsonLd = {
+  const linksPageJsonLd = {
     "@context": "https://schema.org",
-    "@type": "ProfilePage",
+    "@type": "WebPage",
     "@id": `${SITE_URL}/tree`,
     url: `${SITE_URL}/tree`,
-    name: "Axel Hamilcaro : liens et réseaux",
-    mainEntity: { "@id": `${SITE_URL}/#person` },
-    about: { "@id": `${SITE_URL}/#person` },
+    name: "Liens d'Axel Hamilcaro",
+    about: { "@id": PERSON_ID },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
     inLanguage: "fr-FR",
   };
 
   return (
-    <main className="relative min-h-[calc(100svh-var(--nav-h))] flex flex-col items-center pt-6 sm:pt-10 pb-12 overflow-hidden">
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
-      />
-      <div className="relative z-10 w-full max-w-sm sm:max-w-md flex flex-col items-center gap-4 sm:gap-6">
+    <main className="trame pleine-largeur min-h-[calc(100svh-var(--nav-h))]">
+      <JsonLdScript data={linksPageJsonLd} />
+      <div className="w-full max-w-xl mx-auto px-4 sm:px-6 py-10 sm:py-14 flex flex-col gap-10">
         <TreeHeader />
+        <TreeContact />
         <TreeLinksWrapper links={links} />
       </div>
     </main>

@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/src/features/blog/lib/blog";
+import { PROJECTS } from "./_config/projects";
 import { PROFILE_IMAGE, SITE_URL } from "./_config/site.constants";
+
+const REDESIGN_DATE = new Date("2026-11-14");
+const LEGAL_NOTICE_DATE = new Date("2026-05-06");
+const TERMS_OF_SALE_DATE = new Date("2026-10-05");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogPosts = getAllPosts().map((post) => ({
@@ -10,110 +15,127 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const latestPostDate = new Date(
-    Math.max(...blogPosts.map((post) => post.lastModified.getTime())),
+  const projectPages = PROJECTS.map((project) => ({
+    url: `${SITE_URL}/portfolio/${project.slug}`,
+    lastModified: new Date(project.dateModified),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const blogIndexDate = new Date(
+    Math.max(
+      REDESIGN_DATE.getTime(),
+      ...blogPosts.map((post) => post.lastModified.getTime()),
+    ),
   );
 
   return [
     {
       url: SITE_URL,
-      lastModified: new Date("2026-10-05"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "weekly",
       priority: 1,
       images: [PROFILE_IMAGE],
     },
     {
       url: `${SITE_URL}/tree`,
-      lastModified: new Date("2026-08-29"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly",
       priority: 0.8,
       images: [PROFILE_IMAGE],
     },
     {
       url: `${SITE_URL}/blog`,
-      lastModified: latestPostDate,
+      lastModified: blogIndexDate,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/about`,
-      lastModified: new Date("2026-09-16"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly" as const,
       priority: 0.9,
       images: [PROFILE_IMAGE],
     },
     {
       url: `${SITE_URL}/services`,
-      lastModified: new Date("2026-10-05"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly" as const,
       priority: 0.95,
     },
     {
       url: `${SITE_URL}/tma`,
-      lastModified: new Date("2026-09-16"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/mentions-legales`,
-      lastModified: new Date("2026-08-29"),
+      lastModified: LEGAL_NOTICE_DATE,
       changeFrequency: "yearly" as const,
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/cgv`,
-      lastModified: new Date("2026-10-05"),
+      lastModified: TERMS_OF_SALE_DATE,
       changeFrequency: "yearly" as const,
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
-      lastModified: new Date("2026-08-06"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/services/developpement-saas`,
-      lastModified: new Date("2026-08-20"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/services/lead-tech-fractional`,
-      lastModified: new Date("2026-06-19"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/services/creation-application-web`,
-      lastModified: new Date("2026-10-05"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     {
+      url: `${SITE_URL}/portfolio`,
+      lastModified: REDESIGN_DATE,
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/portfolio/billetterie`,
-      lastModified: new Date("2026-08-29"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "yearly" as const,
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/portfolio/civitime`,
-      lastModified: new Date("2026-08-29"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "yearly" as const,
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/portfolio/openup`,
-      lastModified: new Date("2026-08-29"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "yearly" as const,
       priority: 0.85,
     },
     {
       url: `${SITE_URL}/portfolio/scormpilot`,
-      lastModified: new Date("2026-08-29"),
+      lastModified: REDESIGN_DATE,
       changeFrequency: "yearly" as const,
       priority: 0.8,
     },
+    ...projectPages,
     ...blogPosts,
   ];
 }

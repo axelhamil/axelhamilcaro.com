@@ -155,7 +155,7 @@ Quand on travaille seul, personne ne prend le relais pendant que la limite se re
 
 ## claude-window, ancrer sa fenêtre automatiquement
 
-J'ai empaqueté le mécanisme dans [claude-window](https://github.com/axelhamil/claude-window). Un petit programme tourne en arrière-plan, envoie une requête d'un token, lit l'heure de reset dans les en-têtes, dort jusqu'à cet instant plus deux minutes, puis recommence. Entre deux réveils, il ne fait rien du tout et ne consomme aucun quota. Quatre requêtes par jour au total.
+J'ai empaqueté le mécanisme dans [claude-window](/portfolio/claude-window). Un petit programme tourne en arrière-plan, envoie une requête d'un token, lit l'heure de reset dans les en-têtes, dort jusqu'à cet instant plus deux minutes, puis recommence. Entre deux réveils, il ne fait rien du tout et ne consomme aucun quota. Quatre requêtes par jour au total.
 
 Le mien tourne sur un Raspberry Pi Zero 2 W qui héberge déjà Pi-hole, avec 464 Mo de mémoire partagée entre les deux. C'est le bon endroit pour ce genre de tâche : une machine allumée en permanence, qui ne dort jamais et ne dépend pas de votre poste de travail. Si vous voulez le même socle, j'ai publié le [guide d'installation headless du Pi Zero 2 W avec IP fixe et Pi-hole](https://gist.github.com/axelhamil/b3787d4cd9e23d228fdd40ee150be4c1) que j'ai suivi pour le mien.
 

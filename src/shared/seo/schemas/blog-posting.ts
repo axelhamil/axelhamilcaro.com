@@ -1,4 +1,4 @@
-import { AUTHOR, SITE_URL } from "@/app/_config/site.constants";
+import { AUTHOR, PERSON_ID, SITE_URL } from "@/app/_config/site.constants";
 
 export type BlogPostingData = {
   headline: string;
@@ -15,7 +15,6 @@ export type BlogPostingData = {
   wordCount?: number;
 };
 
-const PERSON_ID = `${SITE_URL}/#person`;
 const SITE_OWNER = AUTHOR.name;
 
 function personRef(name: string, url?: string) {
