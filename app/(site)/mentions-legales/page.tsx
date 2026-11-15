@@ -220,6 +220,15 @@ const SECTIONS: LegalSection[] = [
           traceurs.
         </p>
         <p>
+          Le <strong>serveur MCP public</strong> (<code>/mcp</code>), destiné
+          aux assistants IA, journalise chaque appel pour mesurer son usage :
+          date, méthode et outil appelés, agent utilisateur, pays et ville
+          déduits par l'hébergeur. L'adresse IP n'est jamais enregistrée : seule
+          une empreinte tronquée, renouvelée chaque jour et commune à des
+          milliers d'adresses, sert à compter les visites sans permettre de
+          retrouver une adresse. Ces lignes sont supprimées au bout de 30 jours.
+        </p>
+        <p>
           Les paiements sont gérés par <strong>Stripe</strong> via Payment Links
           externes : aucune donnée bancaire ne transite par axelhamilcaro.com,
           aucun cookie Stripe n'est déposé sur le domaine.
