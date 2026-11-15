@@ -12,10 +12,12 @@ describe("ProfessionalService JSON-LD", () => {
     );
   });
 
-  test("the service node carries its rating and reviews", () => {
-    const schema = buildProfessionalServiceSchema();
+  test("no node rates or reviews Axel's own business", () => {
+    const served = JSON.stringify([
+      GLOBAL_JSON_LD,
+      buildProfessionalServiceSchema(),
+    ]);
 
-    assert.equal(schema.aggregateRating["@type"], "AggregateRating");
-    assert.ok(schema.review.length >= schema.aggregateRating.reviewCount);
+    assert.doesNotMatch(served, /aggregateRating|reviewRating|"review"|Review/);
   });
 });

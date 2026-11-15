@@ -1,4 +1,5 @@
 import { createMcpHandler } from "mcp-handler";
+import { after } from "next/server";
 
 import { z } from "zod";
 import { json } from "@/src/lib/http";
@@ -13,6 +14,7 @@ import {
 import { mcpRepository } from "./mcp.repository";
 import { registerMcpCapabilities } from "./mcp.server";
 import {
+  knownCallName,
   readRequestTelemetry,
   shortErrorMessage,
   summarizeToolArguments,
@@ -53,14 +55,14 @@ function rpcParams(body: unknown): RpcParams {
 
 function rpcName(method: string, params: RpcParams) {
   if (method === "tools/call" || method === "prompts/get")
-    return params?.name ?? null;
+    return knownCallName(method, params?.name);
   if (method === "resources/read") return params?.uri ?? null;
   return null;
 }
 
 function rpcArguments(method: string, params: RpcParams) {
   if (method !== "tools/call" && method !== "prompts/get") return null;
-  return summarizeToolArguments(params?.arguments);
+  return summarizeToolArguments(method, params?.name, params?.arguments);
 }
 
 function rpcClient(params: RpcParams) {
@@ -132,16 +134,25 @@ async function persistEvent(store: McpStore | undefined, outcome: McpOutcome) {
   }
 }
 
-function persistWhenSent(response: Response, persist: () => Promise<void>) {
+function deferUntilResponseClosed(task: () => Promise<void>) {
+  try {
+    after(task);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function markWhenSent(response: Response, onSent: () => void) {
   if (!response.body) {
-    void persist();
+    onSent();
     return response;
   }
 
   const body = response.body.pipeThrough(
     new TransformStream({
       flush() {
-        void persist();
+        onSent();
       },
     }),
   );
@@ -151,6 +162,25 @@ function persistWhenSent(response: Response, persist: () => Promise<void>) {
     statusText: response.statusText,
     headers: response.headers,
   });
+}
+
+function persistWhenSent(
+  response: Response,
+  persist: (sentAt: number) => Promise<void>,
+) {
+  let sentAt: number | undefined;
+  const deferred = deferUntilResponseClosed(() =>
+    persist(sentAt ?? Date.now()),
+  );
+
+  return markWhenSent(response, () => {
+    sentAt = Date.now();
+    if (!deferred) void persist(sentAt);
+  });
+}
+
+function persistAfterFailure(persist: () => Promise<void>) {
+  if (!deferUntilResponseClosed(persist)) void persist();
 }
 
 export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
@@ -190,18 +220,21 @@ export async function handleMcpHttp(request: Request) {
 
   try {
     const response = await mcpHandler(prepared);
-    return persistWhenSent(response, () =>
+    return persistWhenSent(response, (sentAt) =>
       persistEvent(store, {
         status: response.status,
-        durationMs: Date.now() - startedAt,
+        durationMs: sentAt - startedAt,
       }),
     );
   } catch (error) {
-    void persistEvent(store, {
-      status: 500,
-      durationMs: Date.now() - startedAt,
-      thrown: error,
-    });
+    const failedAt = Date.now();
+    persistAfterFailure(() =>
+      persistEvent(store, {
+        status: 500,
+        durationMs: failedAt - startedAt,
+        thrown: error,
+      }),
+    );
     throw error;
   }
 }

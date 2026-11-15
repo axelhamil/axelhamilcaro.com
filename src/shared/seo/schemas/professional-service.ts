@@ -1,10 +1,4 @@
 import {
-  MALT_APPRAISALS,
-  MALT_RECOMMENDATIONS,
-  MALT_REVIEWS_SOURCE,
-  type MaltAppraisal,
-} from "@/app/_config/malt-reviews";
-import {
   AUTHOR,
   EXTERNAL_LINKS,
   LEGAL_ENTITY,
@@ -85,57 +79,6 @@ const OFFERS = [
   },
 ] as const;
 
-const MALT = {
-  "@type": "Organization",
-  name: "Malt",
-  url: "https://www.malt.fr",
-};
-
-const reviewAuthor = (reviewer: MaltAppraisal["reviewer"]) => ({
-  "@type": "Person",
-  name: reviewer.name,
-  jobTitle: reviewer.jobTitle,
-  worksFor: { "@type": "Organization", name: reviewer.company },
-});
-
-const averageRating =
-  MALT_APPRAISALS.reduce((sum, appraisal) => sum + appraisal.rating, 0) /
-  MALT_APPRAISALS.length;
-
-const AGGREGATE_RATING = {
-  "@type": "AggregateRating",
-  ratingValue: averageRating.toFixed(1),
-  ratingCount: MALT_APPRAISALS.length,
-  reviewCount: MALT_APPRAISALS.length,
-  bestRating: "5",
-  worstRating: "1",
-};
-
-const REVIEWS = [
-  ...MALT_APPRAISALS.map((appraisal) => ({
-    "@type": "Review",
-    author: reviewAuthor(appraisal.reviewer),
-    datePublished: appraisal.date,
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: String(appraisal.rating),
-      bestRating: "5",
-      worstRating: "1",
-    },
-    reviewBody: appraisal.body,
-    url: MALT_REVIEWS_SOURCE,
-    publisher: MALT,
-  })),
-  ...MALT_RECOMMENDATIONS.map((recommendation) => ({
-    "@type": "Review",
-    author: reviewAuthor(recommendation.reviewer),
-    datePublished: recommendation.date,
-    reviewBody: recommendation.body,
-    url: MALT_REVIEWS_SOURCE,
-    publisher: MALT,
-  })),
-];
-
 export function buildProfessionalServiceSchema() {
   return {
     "@context": "https://schema.org",
@@ -179,7 +122,5 @@ export function buildProfessionalServiceSchema() {
         },
       })),
     },
-    aggregateRating: AGGREGATE_RATING,
-    review: REVIEWS,
   };
 }

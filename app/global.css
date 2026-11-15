@@ -1570,6 +1570,26 @@ html:not(.bascule-theme)::view-transition-new(root) {
       animation-name: vt-avance-entree;
     }
   }
+
+  html:root:not(.bascule-theme):active-view-transition-type(retour-avance) {
+    &::view-transition-old(root) {
+      animation-name: vt-avance-sortie;
+    }
+
+    &::view-transition-new(root) {
+      animation-name: vt-avance-entree;
+    }
+  }
+
+  html:root:not(.bascule-theme):active-view-transition-type(retour-recule) {
+    &::view-transition-old(root) {
+      animation-name: vt-recule-sortie;
+    }
+
+    &::view-transition-new(root) {
+      animation-name: vt-recule-entree;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

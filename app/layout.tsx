@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { TraverseTransition } from "@/src/shared/ui/navigation/traverse-transition";
 import { ThemeProvider } from "@/src/shared/ui/theme/theme-provider";
 import { geistMono, inter } from "./_config/fonts";
 import { MCP } from "./_config/site.constants";
@@ -44,6 +45,7 @@ export default function RootLayout({
       </head>
       <body className="overflow-x-hidden">
         {identity}
+        <TraverseTransition />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
         <SpeedInsights />
