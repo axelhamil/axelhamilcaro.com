@@ -1352,6 +1352,13 @@
     transition: color var(--dur-ui) var(--ease-ui);
   }
 
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block: -0.25rem;
+  }
+
   .nav-link:hover {
     color: var(--encre-accent);
   }

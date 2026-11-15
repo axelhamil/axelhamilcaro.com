@@ -63,7 +63,7 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="nav-link py-2.5"
+                className="nav-link py-2"
                 data-active={active}
               >
                 {link.label}
