@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { JsonLd } from "@/src/shared/seo/json-ld";
 import { ThemeProvider } from "@/src/shared/ui/theme/theme-provider";
 import { geistMono, inter } from "./_config/fonts";
 import { MCP } from "./_config/site.constants";
@@ -13,8 +12,10 @@ export { viewport } from "./_config/viewport";
 
 export default function RootLayout({
   children,
+  identity,
 }: Readonly<{
   children: ReactNode;
+  identity: ReactNode;
 }>) {
   return (
     <html
@@ -42,7 +43,7 @@ export default function RootLayout({
         <link rel="alternate" type="text/plain" href={MCP.llmsUrl} />
       </head>
       <body className="overflow-x-hidden">
-        <JsonLd />
+        {identity}
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
         <SpeedInsights />
