@@ -6,19 +6,19 @@ interface IParagraphProps {
   children: ReactNode;
 }
 
-const paragraphVariants = cva("leading-relaxed text-pretty", {
+const paragraphVariants = cva("para", {
   variants: {
     variant: {
-      primary: "text-primary/90",
-      secondary: "text-muted-foreground",
-      muted: "text-primary/60",
-      highlight: "text-primary font-medium",
+      primary: "ink-primary",
+      secondary: "ink-secondary",
+      muted: "ink-muted",
+      highlight: "ink-strong",
     },
     size: {
-      sm: "text-sm",
-      md: "text-base",
-      lg: "text-lg",
-      xl: "text-xl",
+      sm: "para-sm",
+      md: "para-md",
+      lg: "para-lg",
+      xl: "para-xl",
     },
   },
   defaultVariants: {

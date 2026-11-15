@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Button } from "@/src/shared/ui/portfolio/button";
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -13,21 +14,16 @@ export default function GlobalError({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-primary-background">
-      <div className="text-center space-y-4">
-        <h1 className="text-2xl font-bold text-primary">
-          Une erreur est survenue
-        </h1>
-        <p className="text-primary/60">
-          Nous nous excusons pour ce désagrément.
+    <div className="trame min-h-screen px-4 flex items-center justify-center">
+      <div className="flex flex-col items-start gap-6 max-w-xl">
+        <h1 className="heading-display title-xl">Une erreur est survenue</h1>
+        <p className="para para-lg ink-secondary">
+          Cette page n'a pas pu s'afficher. Réessayez, ça suffit le plus
+          souvent.
         </p>
-        <button
-          type="button"
-          onClick={reset}
-          className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
-        >
+        <Button type="button" onClick={reset}>
           Réessayer
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { getAdjacentPosts } from "@/src/features/blog/lib/blog";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
@@ -13,46 +14,35 @@ export function ArticleNavigation({ currentSlug }: ArticleNavigationProps) {
 
   return (
     <nav
-      className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 sm:mt-16"
+      className="grille-cartes navigation-articles sm:grid-cols-2"
       aria-label="Navigation entre articles"
     >
-      {prev ? (
+      {prev && (
         <TransitionLink
           href={`/blog/${prev.slug}`}
-          className="group card-accent rounded-xl border border-border p-5 transition-all"
-          variant="soft"
+          className="etiquette etiquette-carte etiquette-gris etiquette-appui gap-3"
         >
-          <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          <span className="label-mono inline-flex items-center gap-2">
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             Précédent
           </span>
-          <div className="flex items-center gap-2 mt-2">
-            <ArrowLeft className="w-4 h-4 text-muted-foreground group-hover:text-accent-ink group-hover:-translate-x-1 transition-all duration-300 shrink-0" />
-            <span className="text-sm font-medium text-primary group-hover:text-accent-ink transition-colors line-clamp-2">
-              {prev.title}
-            </span>
-          </div>
+          <span className="navigation-articles-titre">{prev.title}</span>
         </TransitionLink>
-      ) : (
-        <div />
       )}
-      {next ? (
+      {next && (
         <TransitionLink
           href={`/blog/${next.slug}`}
-          className="group card-accent rounded-xl border border-border p-5 transition-all text-right"
-          variant="soft"
+          className={cn(
+            "etiquette etiquette-carte etiquette-jaune etiquette-appui gap-3 items-end text-right",
+            !prev && "sm:col-start-2",
+          )}
         >
-          <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          <span className="label-mono inline-flex items-center gap-2">
             Suivant
+            <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </span>
-          <div className="flex items-center justify-end gap-2 mt-2">
-            <span className="text-sm font-medium text-primary group-hover:text-accent-ink transition-colors line-clamp-2">
-              {next.title}
-            </span>
-            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent-ink group-hover:translate-x-1 transition-all duration-300 shrink-0" />
-          </div>
+          <span className="navigation-articles-titre">{next.title}</span>
         </TransitionLink>
-      ) : (
-        <div />
       )}
     </nav>
   );

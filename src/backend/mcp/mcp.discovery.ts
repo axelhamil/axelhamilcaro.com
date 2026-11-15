@@ -2,8 +2,10 @@ import { MCP, SITE_URL } from "@/app/_config/site.constants";
 import {
   MCP_AI_CATALOG_TYPE,
   MCP_CATALOG_IDENTIFIER,
+  MCP_SERVER_CARD_DESCRIPTION,
   MCP_SERVER_CARD_SCHEMA,
   MCP_SERVER_CARD_TYPE,
+  MCP_SERVER_DESCRIPTION,
   MCP_SERVER_NAME,
   MCP_SERVER_VERSION,
 } from "./mcp.constants";
@@ -36,8 +38,7 @@ export function getServerManifest() {
       "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
     name: MCP_SERVER_NAME,
     title: "Axel Hamilcaro",
-    description:
-      "Public MCP server for Axel Hamilcaro: identity, stack, and case studies.",
+    description: MCP_SERVER_DESCRIPTION,
     version: MCP_SERVER_VERSION,
     websiteUrl: SITE_URL,
     remotes: [
@@ -71,14 +72,15 @@ export function getAiCatalog() {
       {
         identifier: MCP_CATALOG_IDENTIFIER,
         displayName: "Axel Hamilcaro",
-        description:
-          "Public MCP server for Axel Hamilcaro: identity, stack, and case studies.",
+        description: MCP_SERVER_DESCRIPTION,
         type: MCP_SERVER_CARD_TYPE,
         url: MCP.serverCardUrl,
         representativeQueries: [
           "who is Axel Hamilcaro",
+          "what is Axel Hamilcaro building",
           "what stack does Axel Hamilcaro work with",
-          "show Axel Hamilcaro's client case studies",
+          "show Axel Hamilcaro's case studies",
+          "does Axel Hamilcaro take freelance projects",
         ],
       },
     ],
@@ -91,8 +93,7 @@ export function getServerCard() {
     name: MCP_SERVER_NAME,
     title: "Axel Hamilcaro",
     version: MCP_SERVER_VERSION,
-    description:
-      "Axel Hamilcaro, développeur fullstack TypeScript, Next.js, React, Node.js.",
+    description: MCP_SERVER_CARD_DESCRIPTION,
     websiteUrl: SITE_URL,
     remotes: [
       {

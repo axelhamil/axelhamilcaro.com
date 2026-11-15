@@ -4,5 +4,5 @@ export const siteConfig = {
   url: SITE_URL,
   name: "Axel Hamilcaro",
   description:
-    "Axel Hamilcaro, développeur fullstack TypeScript, Next.js, React et Node.js, freelance à Tours et remote. Création d'applications web sur mesure, de A à Z.",
+    "Je suis Axel Hamilcaro, développeur fullstack et builder à Tours. Je construis mes produits et outils, dont clean-stack, et je prends des projets en freelance.",
 } as const;

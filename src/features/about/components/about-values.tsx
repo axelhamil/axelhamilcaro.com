@@ -1,63 +1,61 @@
-import { Code2, MessageSquare, Rocket, Target } from "lucide-react";
-
-const values = [
+const principes = [
   {
-    Icon: Code2,
-    title: "Code propre, pas dogmatique",
-    text: "Clean Architecture + DDD quand le produit le mérite. Pragmatique quand il faut juste livrer vite. Pas de sur-ingénierie pour le plaisir.",
+    titre: "Comprendre le problème avant d'ouvrir l'éditeur.",
+    texte:
+      "Je pose les questions sur le métier avant d'écrire une ligne. Le code sert un objectif clair, sinon il ne sert à rien.",
+    ombre: "",
   },
   {
-    Icon: Target,
-    title: "Vision produit avant la technique",
-    text: "Je pose les bonnes questions sur le métier avant de coder. Le code doit servir un objectif business clair, sinon il ne sert à rien.",
+    titre: "Écrire le test avant le code.",
+    texte:
+      "Les règles métier sont testées d'abord. C'est ce qui me permet de changer vite sans casser ce qui marche déjà.",
+    ombre: "etiquette-gris",
   },
   {
-    Icon: Rocket,
-    title: "Livraison fiable",
-    text: 'Je tiens mes engagements. Pas de surprise sur les délais, pas de dette technique cachée, pas de "ça marchait sur mon poste".',
+    titre:
+      "Garder une architecture qu'un autre dev, ou un agent, peut reprendre sans moi.",
+    texte:
+      "Clean Architecture et DDD quand le produit le mérite, simple quand il faut juste livrer. Pas de sur-ingénierie pour le plaisir.",
+    ombre: "etiquette-gris",
   },
   {
-    Icon: MessageSquare,
-    title: "Communication directe",
-    text: "Je travaille en async, je documente, je préviens dès qu'un blocage apparaît. Pas besoin de me chasser pour avoir un statut.",
+    titre: "Mettre en prod tôt, mesurer, corriger.",
+    texte:
+      "Je livre par petites étapes, je regarde ce qui se passe en vrai, je corrige. Pas de surprise sur les délais, pas de dette cachée.",
+    ombre: "etiquette-jaune",
   },
 ] as const;
 
 export function AboutValues() {
   return (
-    <section className="py-12 sm:py-16 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-10">
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-primary mb-3"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Mes valeurs
+    <section id="facon-de-faire" className="py-12 sm:py-16">
+      <div className="max-w-5xl mx-auto flex flex-col gap-10">
+        <header className="flex flex-col gap-5">
+          <p className="surtitre">Méthode</p>
+          <h2 className="heading-display title-xl">
+            Ma façon <br /> <span className="marqueur">de faire.</span>
           </h2>
-          <p className="text-secondary text-lg">
-            Comment je travaille, concrètement.
-          </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {values.map(({ Icon, title, text }) => (
-            <article
-              key={title}
-              className="flex flex-col gap-4 p-6 rounded-xl card border border-border"
+        <ul className="grille-cartes principes">
+          {principes.map(({ titre, texte, ombre }) => (
+            <li
+              key={titre}
+              className={`etiquette etiquette-carte ${ombre} gap-3`}
             >
-              <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-accent/10">
-                <Icon className="w-5 h-5 text-accent-ink" />
-              </div>
-              <h3
-                className="text-lg font-semibold text-primary"
-                style={{ fontFamily: "var(--font-space-grotesk)" }}
-              >
-                {title}
-              </h3>
-              <p className="text-secondary leading-relaxed">{text}</p>
-            </article>
+              <h3 className="heading-display title-sm">{titre}</h3>
+              <p className="para ink-secondary">{texte}</p>
+            </li>
           ))}
-        </div>
+        </ul>
+
+        <p className="mesure para para-lg">
+          Je travaille avec des agents IA tous les jours. Ils écrivent vite, je
+          décide de ce qui part en prod. Le métier n'a pas changé, le rythme si.
+          Ce qui prenait une semaine tient dans une journée, à condition que les
+          fondations soient propres. Sinon l'agent produit de la dette aussi
+          vite que du code.
+        </p>
       </div>
     </section>
   );

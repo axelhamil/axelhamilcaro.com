@@ -1,23 +1,28 @@
+import { Ribbon } from "@/src/shared/ui/motifs/ribbon";
 import { Button } from "@/src/shared/ui/portfolio/button";
+import { AccentTitle } from "@/src/shared/ui/typography/accent-title";
 import type { ServiceData } from "../lib/services-data";
 import { ServicePrimaryCta } from "./service-primary-cta";
 
-export function ServiceCta({ data }: { data: ServiceData["hero"] }) {
+interface ServiceCtaProps {
+  data: ServiceData["hero"];
+  ribbon: readonly string[];
+}
+
+export function ServiceCta({ data, ribbon }: ServiceCtaProps) {
   return (
-    <section className="py-20 px-6 bg-accent text-white">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2
-          className="text-3xl sm:text-4xl font-bold mb-4"
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-        >
-          Prêt à lancer ton projet ?
+    <section className="svc-cta bloc-inverse pleine-largeur">
+      <Ribbon items={ribbon} hachures />
+      <div className="svc-cta-corps container flex flex-col items-start gap-8">
+        <h2 className="svc-h2 heading-display">
+          <AccentTitle text="Prêt à lancer ton projet ?" />
         </h2>
-        <p className="text-lg mb-10">
+        <p className="svc-intro">
           Décris-moi ta situation en 3 lignes. Réponse sous 1h en journée.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
           <ServicePrimaryCta label={data.primaryCtaLabel} />
-          <Button href={data.secondaryCtaHref} variant="on-accent" size="lg">
+          <Button href={data.secondaryCtaHref} variant="secondary" size="lg">
             {data.secondaryCtaLabel}
           </Button>
         </div>

@@ -10,8 +10,11 @@ export const size = OG_SIZE;
 
 export default function Image() {
   return renderOgImage({
-    eyebrow: "Conditions générales de vente",
-    title: "CGV B2B",
-    subtitle: "Forfaits TMA et missions freelance · SIRET 939 291 415 00015",
+    eyebrow: "Légal · Prestations B2B",
+    title: "Conditions générales",
+    accent: "de vente.",
+    subtitle:
+      "Forfaits TMA et missions freelance, article L.441-1 du Code de commerce.",
+    ribbon: ["CGV", "B2B", "TMA", "Missions freelance"],
   });
 }

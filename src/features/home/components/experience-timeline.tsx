@@ -1,234 +1,70 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Briefcase, Code2, GraduationCap, Link2, Rocket } from "lucide-react";
-import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
-import { TiltCard } from "@/src/shared/ui/effects/tilt-card";
+import { PARCOURS } from "@/app/_config/parcours";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
-
-const experiences = [
-  {
-    period: "2024 - Présent",
-    company: "Freelance",
-    role: "Développeur Fullstack",
-    description:
-      "J'accompagne startups et entrepreneurs. MVP, refontes, SaaS sur mesure.",
-    icon: Rocket,
-    tone: "tone-conversion",
-    chip: "chip-azure",
-    side: "left" as const,
-    highlight: "Dispo",
-  },
-  {
-    period: "2025 - Présent",
-    company: "OpenUp",
-    role: "Développeur Fullstack · Produit live",
-    description:
-      "SaaS de gestion de liens live sur openup.to. Courts, QR, link-in-bio, analytics, iOS/Android/PWA.",
-    icon: Link2,
-    tone: "tone-fact",
-    chip: "chip-violet",
-    side: "right" as const,
-    highlight: "Live",
-  },
-  {
-    period: "2025 - Présent",
-    company: "ScormPilot",
-    role: "Développeur Fullstack",
-    description:
-      "SaaS e-learning multi-tenant, 5 apps en solo. Next.js, Fastify, PostgreSQL.",
-    icon: Code2,
-    tone: "tone-fact",
-    chip: "chip-jade",
-    side: "left" as const,
-    highlight: "5 apps",
-  },
-  {
-    period: "2024 - 2025",
-    company: "Superprof",
-    role: "Mentor Dev Web",
-    description:
-      "Accompagnement de 10+ devs sur React, Clean Architecture et bonnes pratiques.",
-    icon: GraduationCap,
-    tone: "tone-fact",
-    chip: "chip-magenta",
-    side: "right" as const,
-    highlight: "10+ élèves",
-  },
-  {
-    period: "2021 - 2024",
-    company: "Civitime",
-    role: "Lead Dev Fullstack",
-    description:
-      "4 ans à structurer la stack technique d'une startup EdTech : serious games RSE, refonte DDD, éditeur de contenu interne.",
-    icon: Briefcase,
-    tone: "tone-fact",
-    chip: "chip-ember",
-    side: "left" as const,
-    highlight: "4 ans",
-  },
-] as const;
+import { CHAPITRES } from "./parcours/parcours-data";
+import { ParcoursPistes } from "./parcours/parcours-pistes";
+import { ParcoursPoste } from "./parcours/parcours-poste";
 
 const ExperienceTimeline = () => {
   return (
     <section
       id="parcours"
-      className="relative container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20 overflow-hidden"
+      className="pleine-largeur"
       aria-labelledby="parcours-title"
     >
-      <RevealContainer className="text-center mb-12 sm:mb-16 md:mb-20">
-        <RevealItem direction="scale">
-          <motion.div className="eyebrow mb-4" whileHover={{ scale: 1.05 }}>
-            <span className="animate-icon-wiggle">
-              <Briefcase className="w-4 h-4 text-accent-ink" />
-            </span>
-            <span className="text-sm font-medium">Parcours</span>
-          </motion.div>
-        </RevealItem>
-
-        <RevealItem>
-          <Heading2
-            id="parcours-title"
-            size="xl"
-            className="text-2xl sm:text-3xl md:text-4xl"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Mon expérience professionnelle
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 section-home">
+        <header className="section-tete">
+          <p className="surtitre">Parcours</p>
+          <Heading2 id="parcours-title" size="xl">
+            Le parcours <br /> <span className="marqueur">jusqu'ici.</span>
           </Heading2>
-        </RevealItem>
-
-        <RevealItem>
-          <Paragraph
-            variant="secondary"
-            className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
-          >
-            Depuis 2021, je construis des produits web solides et scalables
+          <Paragraph variant="secondary" size="lg" className="section-intro">
+            De développeur à lead technique chez Civitime, puis à mon compte.
+            Aujourd'hui, le jour chez Eskimoz, le reste du temps sur mes builds
+            : clean-stack, weathertop, afterlive, et OpenUp en parallèle.
           </Paragraph>
-        </RevealItem>
-      </RevealContainer>
+        </header>
 
-      <div className="relative max-w-4xl mx-auto">
-        <motion.div
-          className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 hidden md:block"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent, var(--accent), var(--accent), transparent)",
-          }}
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        />
+        <div className="parcours-bordereau">
+          <div className="hachures" aria-hidden="true" />
+          <div className="parcours-bordereau-tete">
+            <p className="label-mono">Bordereau de parcours</p>
+            <p className="tampon tampon-droite" aria-hidden="true">
+              <span className="tampon-haut">En cours</span>{" "}
+              <span className="tampon-bas">2026</span>
+            </p>
+          </div>
 
-        <div className="relative space-y-6 md:space-y-0">
-          {experiences.map((exp, index) => {
-            const Icon = exp.icon;
-            const isLeft = exp.side === "left";
+          <ParcoursPistes />
 
-            return (
+          {CHAPITRES.map((chapitre) => (
+            <div
+              key={chapitre.id}
+              className="fiche"
+              data-chapitre={chapitre.id}
+            >
               <div
-                key={exp.company}
-                className={`reveal-up relative md:flex md:items-center ${
-                  isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
+                className={
+                  chapitre.postes.length > 1
+                    ? "fiche-corps fiche-duo"
+                    : "fiche-corps fiche-solo"
+                }
               >
-                <div
-                  className={`md:w-1/2 ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12"}`}
-                >
-                  <MagneticWrapper strength={0.02}>
-                    <TiltCard
-                      className="rounded-2xl"
-                      tiltAmount={6}
-                      glareOpacity={0.08}
-                    >
-                      <motion.div
-                        className="relative p-5 sm:p-6 rounded-2xl card-accent overflow-hidden group"
-                        whileHover={{
-                          boxShadow: "0 20px 40px rgba(194, 65, 12, 0.12)",
-                        }}
-                      >
-                        <motion.div
-                          className="absolute top-3 right-3 px-2 py-1 rounded-full bg-accent/10 text-accent-ink text-xs font-semibold z-20"
-                          initial={{ opacity: 0, x: isLeft ? -10 : 10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.08 + 0.25 }}
-                        >
-                          {exp.highlight}
-                        </motion.div>
-
-                        <motion.div
-                          className={`absolute -top-16 ${isLeft ? "-left-16" : "-right-16"} w-32 h-32 rounded-full ${exp.tone} tone-glow opacity-0 blur-2xl group-hover:opacity-20 transition-opacity duration-500`}
-                        />
-
-                        <div className="relative z-10 flex items-start gap-4 pt-8 sm:pt-0">
-                          <div
-                            className={`shrink-0 w-12 h-12 rounded-xl ${exp.chip} tone-chip flex items-center justify-center shadow-lg animate-bounce-soft`}
-                            style={{ animationDelay: `${index * 0.3}s` }}
-                          >
-                            <Icon className="w-6 h-6" />
-                          </div>
-
-                          <div className="flex-1 mt-6">
-                            <motion.p
-                              className={`text-xs uppercase tracking-wider font-semibold ${exp.tone} tone-text`}
-                            >
-                              {exp.period}
-                            </motion.p>
-                            <h3 className="heading-display mt-1 text-xl sm:text-2xl">
-                              {exp.company}
-                            </h3>
-                            <p className="text-sm font-medium text-accent-ink">
-                              {exp.role}
-                            </p>
-                            <Paragraph
-                              variant="secondary"
-                              size="sm"
-                              className="mt-2 text-sm"
-                            >
-                              {exp.description}
-                            </Paragraph>
-                          </div>
-                        </div>
-
-                        <motion.div
-                          className="absolute bottom-0 left-0 right-0 h-0.5"
-                          style={{
-                            background:
-                              "linear-gradient(to right, transparent, var(--accent), transparent)",
-                          }}
-                          initial={{ scaleX: 0, opacity: 0 }}
-                          whileHover={{ scaleX: 1, opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      </motion.div>
-                    </TiltCard>
-                  </MagneticWrapper>
-                </div>
-
-                <motion.div
-                  className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: index * 0.08 + 0.15,
-                    type: "spring",
-                    stiffness: 350,
-                  }}
-                >
-                  <div
-                    className={`w-4 h-4 rounded-full ${exp.chip} tone-chip shadow-lg ring-4 ring-background animate-scale-pulse`}
-                    style={{ animationDelay: `${index * 0.5}s` }}
+                {chapitre.postes.map((poste) => (
+                  <ParcoursPoste
+                    key={poste.id}
+                    poste={poste}
+                    missions={chapitre.missions}
                   />
-                </motion.div>
-
-                <div className="hidden md:block md:w-1/2" />
+                ))}
               </div>
-            );
-          })}
+            </div>
+          ))}
+
+          <p className="parcours-bordereau-pied label-mono">
+            Point de départ : {PARCOURS.formation.organisation},{" "}
+            {PARCOURS.formation.periode}, titre {PARCOURS.formation.role}.
+          </p>
         </div>
       </div>
     </section>

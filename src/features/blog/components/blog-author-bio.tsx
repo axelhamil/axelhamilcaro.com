@@ -3,81 +3,70 @@ import Image from "next/image";
 import { AUTHOR, EXTERNAL_LINKS } from "@/app/_config/site.constants";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
-const LINK_CLASS =
-  "inline-flex items-center gap-1.5 text-sm font-medium leading-none text-secondary hover:text-accent-ink transition-colors";
+const PROFILE_LINKS = [
+  { href: EXTERNAL_LINKS.malt, label: "Malt", Icon: Briefcase },
+  { href: EXTERNAL_LINKS.linkedin, label: "LinkedIn", Icon: Linkedin },
+  { href: EXTERNAL_LINKS.github, label: "GitHub", Icon: Github },
+] as const;
+
+interface BlogAuthorBioProps {
+  label?: string;
+}
 
 export function BlogAuthorBio({
   label = "À propos de l'auteur",
-}: {
-  label?: string;
-}) {
+}: BlogAuthorBioProps) {
   return (
-    <aside className="mt-12 sm:mt-16 mx-auto max-w-3xl" aria-label={label}>
-      <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 rounded-2xl border border-border bg-secondary-background/40 p-6 sm:p-8">
+    <aside
+      className="auteur etiquette etiquette-carte etiquette-gris gap-6 sm:flex-row"
+      aria-label={label}
+    >
+      <TransitionLink
+        href="/about"
+        aria-label={`À propos d'${AUTHOR.name}`}
+        className="auteur-photo shrink-0 self-start"
+      >
+        <Image
+          src={AUTHOR.imagePath}
+          alt={AUTHOR.name}
+          width={96}
+          height={96}
+          className="block w-20 h-20 sm:w-24 sm:h-24 object-cover"
+        />
+      </TransitionLink>
+
+      <div className="flex flex-col gap-3 min-w-0">
+        <p className="surtitre">{label}</p>
         <TransitionLink
           href="/about"
-          aria-label={`À propos d'${AUTHOR.name}`}
-          className="shrink-0 self-start"
+          rel="author"
+          className="auteur-nom heading-display w-fit"
         >
-          <Image
-            src={AUTHOR.imagePath}
-            alt={AUTHOR.name}
-            width={88}
-            height={88}
-            className="h-20 w-20 sm:h-22 sm:w-22 rounded-full object-cover border border-border"
-          />
+          {AUTHOR.name}
         </TransitionLink>
-
-        <div className="flex flex-col gap-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent-ink">
-            {label}
-          </p>
-          <TransitionLink href="/about" rel="author" className="w-fit">
-            <span
-              className="text-lg font-bold text-primary hover:text-accent-ink transition-colors"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              {AUTHOR.name}
-            </span>
-          </TransitionLink>
-          <p className="text-sm text-secondary leading-relaxed">
-            Développeur fullstack freelance spécialisé TypeScript, Next.js,
-            React et Node.js, basé à Tours, en Centre-Val de Loire, et 100%
-            remote sur la France. Je conçois des SaaS B2B sur mesure et j'assure
-            la maintenance d'applications en production. 4 ans chez Civitime, de
-            développeur à lead technique, plus de 10 projets livrés en autonomie
-            depuis 2021.
-          </p>
-          <div className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a
-              href={EXTERNAL_LINKS.malt}
-              target="_blank"
-              rel="me noopener noreferrer"
-              className={LINK_CLASS}
-            >
-              <Briefcase className="w-4 h-4" />
-              Malt
-            </a>
-            <a
-              href={EXTERNAL_LINKS.linkedin}
-              target="_blank"
-              rel="me noopener noreferrer"
-              className={LINK_CLASS}
-            >
-              <Linkedin className="w-4 h-4" />
-              LinkedIn
-            </a>
-            <a
-              href={EXTERNAL_LINKS.github}
-              target="_blank"
-              rel="me noopener noreferrer"
-              className={LINK_CLASS}
-            >
-              <Github className="w-4 h-4" />
-              GitHub
-            </a>
-          </div>
-        </div>
+        <p className="auteur-texte">
+          Je suis Axel Hamilcaro, développeur fullstack et builder, basé à
+          Tours, en Centre-Val de Loire, en remote sur toute la France. Je
+          construis les API et les outils de fondation sur lesquels d'autres
+          bâtissent leurs produits. J'ai passé 4 ans chez Civitime, de
+          développeur à lead technique, je suis à mon compte depuis fin 2024
+          avec 20+ projets livrés, et je prends des projets en freelance.
+        </p>
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-1">
+          {PROFILE_LINKS.map(({ href, label: linkLabel, Icon }) => (
+            <li key={linkLabel}>
+              <a
+                href={href}
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="auteur-lien link-underline inline-flex items-center gap-2"
+              >
+                <Icon className="w-4 h-4" aria-hidden="true" />
+                {linkLabel}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </aside>
   );

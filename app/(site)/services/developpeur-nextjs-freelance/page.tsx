@@ -1,32 +1,23 @@
 import type { Metadata } from "next";
 import { ServicePageShell } from "@/src/features/services/components/service-page-shell";
 import { servicesData } from "@/src/features/services/lib/services-data";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 import { buildServiceSchema } from "@/src/shared/seo/schemas/service-schema";
 
 const data = servicesData["developpeur-nextjs-freelance"];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: data.metaTitle,
   description: data.metaDescription,
-  alternates: { canonical: data.url },
-  openGraph: {
-    title: data.metaTitle,
-    description: data.metaDescription,
-    url: data.url,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: data.metaTitle,
-    description: data.metaDescription,
-  },
-};
+  path: "/services/developpeur-nextjs-freelance",
+});
 
 const serviceSchema = buildServiceSchema({
-  name: data.hero.title,
-  description: data.metaDescription,
+  name: data.schema.name,
+  description: data.schema.description,
   url: data.url,
   serviceType: data.schema.serviceType,
   offers: data.schema.offers,
@@ -46,21 +37,9 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 export default function NextJsServicePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <JsonLdScript data={serviceSchema} />
+      <JsonLdScript data={faqSchema} />
+      <JsonLdScript data={breadcrumbSchema} />
       <ServicePageShell data={data} />
     </>
   );

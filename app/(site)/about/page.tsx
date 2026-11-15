@@ -1,40 +1,34 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/app/_config/site.constants";
 import { AboutCredentials } from "@/src/features/about/components/about-credentials";
 import { AboutHero } from "@/src/features/about/components/about-hero";
 import { AboutMcp } from "@/src/features/about/components/about-mcp";
 import { AboutProof } from "@/src/features/about/components/about-proof";
 import { AboutStory } from "@/src/features/about/components/about-story";
 import { AboutValues } from "@/src/features/about/components/about-values";
+import { AboutWorkWithMe } from "@/src/features/about/components/about-work-with-me";
+import { PERSON_DESCRIPTION } from "@/src/shared/seo/json-ld";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildProfilePageSchema } from "@/src/shared/seo/schemas/profile-page";
 
-const ABOUT_URL = "https://axelhamilcaro.com/about";
+const ABOUT_URL = `${SITE_URL}/about`;
 
-export const metadata: Metadata = {
-  title: "À propos : dev fullstack freelance",
-  description:
-    "Développeur fullstack freelance à Tours, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés depuis 2024 en Next.js et React.",
-  alternates: { canonical: ABOUT_URL },
-  openGraph: {
-    title: "À propos : dev fullstack freelance",
-    description:
-      "Dev fullstack à Tours, Centre-Val de Loire, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés depuis 2024. Next.js, React, DDD.",
-    url: ABOUT_URL,
-    type: "profile",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "À propos : dev fullstack freelance",
-    description:
-      "Dev fullstack à Tours, Centre-Val de Loire, remote France. 4 ans chez Civitime, de dev à lead technique. 10+ projets livrés en Next.js, React et Clean Archi.",
-  },
-};
+const ABOUT_DESCRIPTION =
+  "Je suis Axel Hamilcaro, développeur fullstack et builder à Tours. Chez Eskimoz depuis septembre 2026, 4 ans chez Civitime, freelance depuis fin 2024.";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "À propos : développeur fullstack et builder",
+  description: ABOUT_DESCRIPTION,
+  path: "/about",
+  type: "profile",
+});
 
 const profileSchema = buildProfilePageSchema({
   url: ABOUT_URL,
-  name: "À propos d'Axel Hamilcaro",
-  description:
-    "Page de présentation d'Axel Hamilcaro, développeur fullstack freelance basé à Tours, en Centre-Val de Loire.",
+  name: "À propos d'Axel Hamilcaro, développeur fullstack et builder",
+  description: PERSON_DESCRIPTION,
 });
 
 const breadcrumbSchema = buildBreadcrumbListSchema([
@@ -44,23 +38,16 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 
 export default function AboutPage() {
   return (
-    <main className="pb-8">
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+    <main>
+      <JsonLdScript data={profileSchema} />
+      <JsonLdScript data={breadcrumbSchema} />
       <AboutHero />
       <AboutStory />
-      <AboutValues />
-      <AboutCredentials />
       <AboutMcp />
+      <AboutValues />
       <AboutProof />
+      <AboutCredentials />
+      <AboutWorkWithMe />
     </main>
   );
 }

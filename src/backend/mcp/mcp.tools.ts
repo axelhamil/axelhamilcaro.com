@@ -6,7 +6,13 @@ import {
   rateLimit,
 } from "@/src/lib/rate-limit";
 import { analyzeArchitectureNeed, renderAuditMarkdown } from "./mcp.audit";
-import { getMcpRequest } from "./mcp.context";
+import { getMcpRequest, setMcpError } from "./mcp.context";
+import {
+  getProjects,
+  PROJECT_CATEGORIES,
+  PROJECT_STATUSES,
+  renderProjectsMarkdown,
+} from "./mcp.projects";
 import { buildProposal, renderProposalMarkdown } from "./mcp.proposal";
 import { mcpRepository } from "./mcp.repository";
 
@@ -28,6 +34,12 @@ const proposalInputSchema = z
     message: "Provide briefId or need",
   });
 
+const projectsInputSchema = z.object({
+  category: z.enum(PROJECT_CATEGORIES).optional(),
+  status: z.enum(PROJECT_STATUSES).optional(),
+  format: z.enum(["markdown", "json"]).default("markdown"),
+});
+
 const writeAnnotations = {
   readOnlyHint: false,
   openWorldHint: false,
@@ -41,6 +53,8 @@ function textResult(text: string) {
 }
 
 function errorResult(text: string) {
+  setMcpError(text, { toolFailed: true });
+
   return {
     isError: true as const,
     content: [{ type: "text" as const, text }],
@@ -55,6 +69,28 @@ function limitWrite(kind: "audit" | "proposal") {
 }
 
 export function registerMcpTools(server: McpServer) {
+  server.registerTool(
+    "list_projects",
+    {
+      title: "List projects",
+      description:
+        "Products, building blocks and agent tools Axel Hamilcaro builds, as published on the site. Optional filters: category, status. format: markdown or json.",
+      inputSchema: projectsInputSchema,
+      annotations: {
+        readOnlyHint: true,
+        openWorldHint: false,
+      },
+    },
+    async ({ category, status, format }) => {
+      const filter = { category, status };
+
+      if (format === "json")
+        return textResult(JSON.stringify(getProjects(filter), null, 2));
+
+      return textResult(renderProjectsMarkdown(filter));
+    },
+  );
+
   server.registerTool(
     "audit_architecture_brief",
     {

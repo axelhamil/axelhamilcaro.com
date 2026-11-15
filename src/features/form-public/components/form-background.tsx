@@ -1,8 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import type { Form } from "@/drizzle/schema";
+import { formThemeStyle } from "@/src/features/form-public/lib/form-theme";
 
 interface FormPageBackgroundProps {
   form: Form;
@@ -13,92 +12,34 @@ export function FormPageBackground({
   form,
   children,
 }: FormPageBackgroundProps) {
-  const getBackgroundStyle = () => {
-    switch (form.backgroundType) {
-      case "image":
-        return {
-          backgroundImage: `url(${form.backgroundImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        };
-      case "gradient":
-        return { background: form.backgroundGradient || undefined };
-      default:
-        return { backgroundColor: form.backgroundColor || "#1a1a2e" };
-    }
-  };
-
-  const accentColor = form.badgeColor || "#c2410c";
+  const image = form.backgroundType === "image" ? form.backgroundImage : null;
 
   return (
-    <div
-      className="relative flex min-h-screen items-center justify-center p-4 sm:p-8 overflow-hidden"
-      style={getBackgroundStyle()}
+    <main
+      className="form-page trame relative isolate flex min-h-svh flex-col items-center justify-center gap-6 px-4 py-12 sm:p-10"
+      style={formThemeStyle(form)}
     >
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.015]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
+      {image ? (
+        <div aria-hidden="true" className="form-fond absolute inset-0 -z-10">
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      ) : null}
 
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-20 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, ${accentColor}40 0%, transparent 70%)`,
-          top: "10%",
-          right: "-10%",
-        }}
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.15, 0.25, 0.15],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-
-      <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-15 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, ${accentColor}30 0%, transparent 70%)`,
-          bottom: "5%",
-          left: "-5%",
-        }}
-        animate={{
-          scale: [1.1, 1, 1.1],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-
-      <motion.div
-        className="absolute bottom-6 left-6 text-white/20 text-xs font-mono tracking-widest uppercase hidden sm:block"
+      <p
         aria-hidden="true"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.5 }}
+        className="form-adresse label-mono ink-muted self-stretch flex justify-between gap-4"
       >
-        axelhamilcaro.com
-      </motion.div>
+        <span>axelhamilcaro.com</span>
+        <span className="truncate">/f/{form.slug}</span>
+      </p>
 
-      <motion.div
-        className="absolute top-6 right-6 text-white/20 text-xs font-mono tracking-widest uppercase hidden sm:block"
-        aria-hidden="true"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
-      >
-        {form.slug}
-      </motion.div>
-
-      <div className="relative z-10 w-full">{children}</div>
-    </div>
+      <div className="w-full">{children}</div>
+    </main>
   );
 }

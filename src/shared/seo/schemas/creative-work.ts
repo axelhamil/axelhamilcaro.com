@@ -13,7 +13,7 @@ export type CreativeWorkData = {
 export function buildCreativeWorkSchema(data: CreativeWorkData) {
   return {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": data.applicationCategory ? "SoftwareApplication" : "CreativeWork",
     name: data.name,
     description: data.description,
     url: data.url,

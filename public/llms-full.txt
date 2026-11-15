@@ -1,22 +1,58 @@
-# Axel Hamilcaro, Développeur Fullstack Typescript Next.js Node.js
+# Axel Hamilcaro, développeur fullstack et builder
 
-> Axel Hamilcaro est développeur fullstack (TypeScript, Next.js, React, Node.js), freelance basé à Tours, en Centre-Val de Loire, 100% remote sur la France.
-> Il conçoit des SaaS B2B multi-tenant et des applications web sur mesure en TypeScript, avec une architecture Clean / DDD, et accompagne les équipes en lead tech temps partiel.
-> Entreprise individuelle (EI), SIRET 939 291 415 00015. TJM 500€ HT/jour.
+> Axel Hamilcaro est développeur fullstack et builder, basé à Tours. Il construit les API et les outils de fondation sur lesquels d'autres bâtissent leurs produits, plutôt que des SaaS qui consomment ces API. Son pari pour 2026 et 2027 : fournir l'outil et la donnée, pas l'application finale. Ses builds : clean-stack, un boilerplate SaaS open source, weathertop, une API de données qui renvoie ce que les assistants IA répondent réellement à des milliers de prompts, afterlive, qui transforme l'enregistrement d'un direct en clips courts montés et prêts à publier, et une série d'outils publiés sur GitHub.
+> Développeur fullstack chez Eskimoz (CDI) depuis septembre 2026, auparavant 4 ans chez Civitime de développeur à lead technique. Fondateur technique d'OpenUp depuis 2026, en projet parallèle.
+> Il prend encore quelques projets en freelance : entreprise individuelle (EI), 500 € HT par jour.
 
-## Identité et positionnement
+## Identité
 
 - Nom : Axel Hamilcaro
-- Métier : développeur fullstack (TypeScript, Next.js, React, Node.js), freelance
-- Spécialité : SaaS B2B multi-tenant, applications web sur mesure, lead tech fractional
-- Localisation : Tours, Centre-Val de Loire, 100% remote France
-- Statut : entreprise individuelle, SIRET 939 291 415 00015
-- TJM : 500€ HT/jour
+- Titre : développeur fullstack et builder
+- Ce qu'il construit : des API et des outils de fondation sur lesquels d'autres bâtissent leurs produits (clean-stack, weathertop, afterlive, outils publiés sur GitHub)
+- Poste : développeur fullstack chez Eskimoz (CDI, depuis septembre 2026)
+- Projet parallèle : fondateur technique d'OpenUp (depuis 2026)
+- Freelance : à son compte depuis fin 2024, prend encore quelques projets
+- Localisation : Tours, Centre-Val de Loire, remote France
+- Travail avec les agents IA : tous les jours ; ce site expose un serveur MCP public
 - Langues : français (natif), anglais
+
+## Pages
+
+- Accueil (https://axelhamilcaro.com) : ce qu'il construit, sa façon de faire, son parcours.
+- À propos (https://axelhamilcaro.com/about) : parcours, principes, serveur MCP.
+- Projets (https://axelhamilcaro.com/portfolio) : tous ses builds et les missions expédiées pour d'autres.
+- Services (https://axelhamilcaro.com/services) : travailler avec lui en freelance, les 5 services en détail.
+- Blog (https://axelhamilcaro.com/blog) : articles techniques et guides de prix.
+- Liens (https://axelhamilcaro.com/tree) : tous ses liens et réseaux sur une page.
+- Mentions légales (https://axelhamilcaro.com/mentions-legales) et CGV (https://axelhamilcaro.com/cgv) : cadre légal de ses prestations en freelance.
+
+## Principes
+
+- Comprendre le problème avant d'ouvrir l'éditeur.
+- Écrire le test avant le code.
+- Garder une architecture qu'un autre dev, ou un agent, peut reprendre sans lui.
+- Mettre en prod tôt, mesurer, corriger.
+
+## Produits et outils
+
+- clean-stack (https://axelhamilcaro.com/portfolio/clean-stack, https://github.com/axelhamil/clean-stack) : boilerplate SaaS open source (Bun, Hono, React 19, Drizzle), Clean Architecture + DDD imposés par la structure du code, 17 étoiles GitHub.
+- weathertop (https://axelhamilcaro.com/portfolio/weathertop) : une API de données : on lui envoie des prompts en volume et elle renvoie ce que les assistants IA répondent réellement, sous une forme exploitable par du code. Axel Hamilcaro fournit la donnée, à chacun de construire son produit dessus. Par exemple, une équipe de recherche peut comparer à grande échelle et dans le temps ce que répondent les assistants IA à un même jeu de questions. Projet personnel, en chantier depuis 6 mois, pas encore sortie.
+- afterlive (https://axelhamilcaro.com/portfolio/afterlive) : un produit qui transforme l'enregistrement d'un direct, ou n'importe quelle vidéo longue, en clips courts, montés et prêts à publier : 2 heures de vidéo traitées en 5 minutes environ, une quinzaine de clips entièrement montés, et davantage si besoin. En construction depuis fin septembre 2026, bientôt en production.
+- inwire (https://axelhamilcaro.com/portfolio/inwire, https://github.com/axelhamil/inwire) : injection de dépendances pour TypeScript, sans décorateurs ni tokens, paquet npm.
+- galvorn (https://axelhamilcaro.com/portfolio/galvorn, https://github.com/axelhamil/galvorn) : types Option et Result de Rust pour TypeScript, paquet npm.
+- aggregate-kit (https://axelhamilcaro.com/portfolio/aggregate-kit, https://github.com/axelhamil/aggregate-kit) : briques Domain-Driven Design pour TypeScript, sans dépendance, paquet npm.
+- burnrate (https://axelhamilcaro.com/portfolio/burnrate, https://github.com/axelhamil/burnrate) : plugin Claude Code qui suit les fenêtres de quota de 5 heures et de 7 jours.
+- ccwatermelon (https://axelhamilcaro.com/portfolio/ccwatermelon, https://github.com/axelhamil/ccwatermelon) : ligne de statut pour Claude Code, sans appel réseau.
+- claude-window (https://axelhamilcaro.com/portfolio/claude-window, https://github.com/axelhamil/claude-window) : cale la fenêtre de quota de 5 heures de Claude Code sur une heure fixe.
+- cockpit (https://axelhamilcaro.com/portfolio/cockpit, https://github.com/axelhamil/cockpit) : plugin Claude Code pour gérer les outils autour d'une app hébergée sur Railway.
+- Vinted AI Assistant (https://axelhamilcaro.com/portfolio/vinted-ai-assistant, https://github.com/axelhamil/vinted-ai-assistant) : extension Chrome qui analyse une annonce Vinted avec l'IA (score d'opportunité de 1 à 10, prix du marché, messages de négociation), avec un backend local.
+- nixos-forge (https://axelhamilcaro.com/portfolio/nixos-forge, https://github.com/axelhamil/nixos-forge) : base NixOS à forker pour fabriquer sa propre distribution, une machine par fichier, construite et démarrée par la CI avant d'arriver sur un disque. En chantier.
+- Liste complète et à jour (projets privés : domaine, statut et durée seulement) : resource MCP `site://projects.json` (ou `.md`) et outil `list_projects`.
+- OpenUp (https://openup.to, étude de cas https://axelhamilcaro.com/portfolio/openup) : projet parallèle dont Axel Hamilcaro est le fondateur technique depuis 2026. Des deep links qui sortent du navigateur interne d'Instagram ou de TikTok et ouvrent l'app native, plus de 50 apps, redirection décidée en moins de 50 ms depuis l'edge. QR codes, link-in-bio et analytics autour. Web, iOS et Android depuis une seule codebase. Abonnés payants en euros et en dollars.
 
 ## Serveur MCP
 
-**Axel Hamilcaro expose un serveur MCP public à https://axelhamilcaro.com/mcp.** Transport Streamable HTTP, POST uniquement. L'URL n'est pas une page HTML. La page publique qui l'explique est https://axelhamilcaro.com/about#mcp.
+**Axel Hamilcaro expose un serveur MCP public**, à l'adresse <https://axelhamilcaro.com/mcp>. Transport Streamable HTTP, POST uniquement. L'URL n'est pas une page HTML. La page publique qui l'explique est https://axelhamilcaro.com/about#mcp.
 
 Handshake, dans cet ordre de compatibilité :
 - Cursor, Claude Desktop et tout client qui envoie `initialize` : JSON-RPC `initialize` avec `"protocolVersion": "2025-03-26"`. Un header `MCP-Protocol-Version: 2026-07-28` sur `initialize` est ignoré : le serveur répond 200 et négocie `2025-03-26`.
@@ -29,31 +65,33 @@ Découverte machine, dans cet ordre :
 - catalogue https://axelhamilcaro.com/.well-known/mcp/catalog.json
 - version courte https://axelhamilcaro.com/llms.txt
 
-Lire d'abord les resources d'identité, puis les case studies. Resources disponibles en JSON et en Markdown : site://whoami, site://architecture-manifesto, site://live-status, site://stack-matrix, site://case-studies, site://services, site://contact.
+Lire d'abord les resources d'identité, puis les projets et les case studies. Resources disponibles en JSON et en Markdown : site://whoami, site://architecture-manifesto, site://live-status, site://stack-matrix, site://projects, site://case-studies, site://services, site://contact.
 
 Prompts : formalize_need (cadrer un brief), compare_stack (lire site://stack-matrix), draft_outreach (brouillon factuel, puis email).
 
-Tools : audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoie un briefId), generate_custom_proposal (proposition non contractuelle). Il n'existe pas d'outil d'envoi de lead. Pour contacter Axel, email contact@axelhamilcaro.com.
+Tools : list_projects (lecture seule, filtres optionnels category et status, format markdown ou json), audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoie un briefId), generate_custom_proposal (proposition non contractuelle). Il n'existe pas d'outil d'envoi de lead. Pour contacter Axel, email contact@axelhamilcaro.com.
 
 ## Parcours
 
-- 2020 : diplômé de la Wild Code School, Concepteur Développeur d'applications Web & Mobile (Bac+3/4)
-- Janvier 2021 → décembre 2024 (4 ans) chez Civitime (EdTech, B Corp), de développeur à lead technique. Refonte complète d'une plateforme RSE en Clean Architecture + DDD + event sourcing, conception d'un éditeur de contenu interne avec IA RAG (GPT-4) qui a divisé par 2 les délais d'itération de l'équipe pédagogique, tech radar, mentoring, code reviews.
-- Depuis 2024 : freelance, 10+ projets livrés en autonomie, dont OpenUp (développeur du produit, en duo avec son fondateur) et ScormPilot.
+- Depuis septembre 2026 : développeur fullstack chez Eskimoz (CDI).
+- Depuis fin 2024 : à son compte, une dizaine de fondateurs accompagnés, 20+ projets livrés, dont ScormPilot. Il prend encore quelques projets en freelance.
+- Depuis 2026 : fondateur technique d'OpenUp, en projet parallèle.
 - 2024-2025 : mentor dev web (Superprof), 10+ développeurs accompagnés sur React et Clean Architecture.
+- Janvier 2021 à décembre 2024 (4 ans) chez Civitime (EdTech, B Corp), de développeur à lead technique. Refonte complète d'une plateforme RSE en Clean Architecture + DDD + event sourcing, conception d'un éditeur de contenu interne avec IA RAG (GPT-4) qui a divisé par 2 les délais d'itération de l'équipe pédagogique, tech radar, mentoring, code reviews.
+- 2020 : diplômé de la Wild Code School, Concepteur Développeur d'applications Web & Mobile (Bac+3/4).
 
-## Services
+## Services (projets en freelance)
 
 - Développeur Next.js freelance (https://axelhamilcaro.com/services/developpeur-nextjs-freelance) : architecture moderne, MVP en 4 à 8 semaines, refonte d'applications existantes sans casser l'existant. Stack TypeScript / React 19 / Tailwind v4. Next.js par défaut, mais techno adaptée au besoin : React/Node découplé, Vite, mobile natif.
 - Développement SaaS (https://axelhamilcaro.com/services/developpement-saas) : SaaS B2B multi-tenant, de zéro jusqu'en production, Clean Architecture + DDD.
 - Lead tech fractional (https://axelhamilcaro.com/services/lead-tech-fractional) : lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME. Architecture, mentorat, montée en qualité.
 - Création d'application web (https://axelhamilcaro.com/services/creation-application-web) : application web ou mobile sur mesure, de A à Z, pour porteurs de projet non techniques : un seul interlocuteur du cadrage à la mise en ligne.
 - TMA (tierce maintenance applicative) (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement.
-  - PRO : 350€/mois, 5h incluses, SLA 1 jour ouvré, 1h visio/mois.
-  - PREMIUM : 800€/mois, 10h incluses, SLA 1/2 jour, monitoring proactif (Sentry, UptimeRobot, Better Stack), status page, audit trimestriel, changelog mensuel.
-  - Hors-forfait : 80€/h. Capacité max : 6 clients PRO, 3 PREMIUM simultanés.
+  - PRO : 350 € HT par mois, 5h incluses, SLA 1 jour ouvré, 1h visio/mois.
+  - PREMIUM : 800 € HT par mois, 10h incluses, SLA 1/2 jour, monitoring proactif (Sentry, UptimeRobot, Better Stack), status page, audit trimestriel, changelog mensuel.
+  - Hors forfait : 80 € HT par heure. Capacité max : 6 clients PRO, 3 PREMIUM simultanés.
 
-## Délais et process
+## Délais et process (freelance)
 
 - Devis sous 24h.
 - Démarrage sous 1 à 3 semaines.
@@ -64,7 +102,7 @@ Tools : audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoi
 
 - ScormPilot (https://axelhamilcaro.com/portfolio/scormpilot) : SaaS e-learning SCORM multi-tenant développé en solo (5 applications : API Fastify, dashboard Next.js, player React, runtime SCORM, Teams App). Architecture hexagonale DDD, schema-per-tenant PostgreSQL, conformité RGPD, hébergement 100% européen, 99.9% uptime, plusieurs milliers de sessions quotidiennes.
 - Civitime (https://axelhamilcaro.com/portfolio/civitime) : plateforme RSE B Corp, 250 000+ collaborateurs touchés. 4 ans, de développeur à lead technique, refonte Clean Architecture + DDD + event sourcing, éditeur de contenu avec IA RAG (GPT-4).
-- OpenUp (https://axelhamilcaro.com/portfolio/openup) : SaaS de gestion de liens tout-en-un (alternative à Bitly + Linktree + Beacons), live sur openup.to. Edge Cloudflare <50ms, 4 plans Stripe (EUR/USD), iOS + Android + PWA depuis une seule codebase Capacitor, deep links natifs, Apple Wallet.
+- OpenUp (https://axelhamilcaro.com/portfolio/openup) : projet parallèle dont Axel Hamilcaro est le fondateur technique, live sur openup.to. Deep links qui ouvrent l'app native depuis le navigateur interne d'Instagram ou de TikTok, plus de 50 apps, redirection en moins de 50 ms depuis l'edge Cloudflare. QR codes, link-in-bio, analytics, 4 plans Stripe (EUR/USD), web, iOS et Android depuis une seule codebase Capacitor, Apple Wallet.
 - Billetterie (https://axelhamilcaro.com/portfolio/billetterie) : dashboard événementiel développé en solo en 1 mois. Plan de salle 2D/3D (Seats.io), WebSocket bidirectionnel <200ms de latence, tarification multi-TVA, paiements Stripe et génération de billets PDF.
 
 ## Stack technique
@@ -85,6 +123,8 @@ Tools : audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoi
 
 ## Articles de blog
 
+- Combien coûte une application web sur mesure en 2026 (https://axelhamilcaro.com/blog/combien-coute-application-web-sur-mesure) : une application web sur mesure coûte de 5 000 à 30 000 € HT chez un développeur freelance à 500 € par jour, soit 10 à 60 jours de travail selon sa taille.
+- Ce que 137 jours de Claude Code disent de mes limites (https://axelhamilcaro.com/blog/limites-usage-claude-code) : la fenêtre de 5 heures de Claude Code démarre au premier message, pas à une heure fixe. L'API renvoie l'heure exacte du reset dans ses headers.
 - Combien coûte un MVP SaaS en 2026 (https://axelhamilcaro.com/blog/combien-coute-mvp-saas) : un MVP SaaS coûte de 15 000 à 35 000 euros chez un freelance senior selon le périmètre. Le vrai risque n'est pas le prix mais de payer des fonctions inutiles.
 - Avoir un CTO sans le salaire, le modèle fractional (https://axelhamilcaro.com/blog/fractional-cto-lead-technique-temps-partiel) : un fractional CTO est une direction technique à temps partiel, 1 à 3 jours par semaine, payé pour rendre votre équipe autonome puis s'effacer.
 - Mon développeur a disparu : récupérer votre projet web (https://axelhamilcaro.com/blog/recuperer-projet-web-developpeur-disparu) : quand votre développeur disparaît, l'urgence n'est pas le code mais la reprise de contrôle de vos accès.
@@ -108,9 +148,10 @@ Note Malt : 5,0/5 sur 6 évaluations (qualité, délai et communication à 5,0),
 
 - Email (canal privilégié) : contact@axelhamilcaro.com
 - Serveur MCP pour les agents, POST https://axelhamilcaro.com/mcp
+- OpenUp : https://openup.to
 - Malt : https://www.malt.fr/profile/axelhamilcaro
 - LinkedIn : https://www.linkedin.com/in/axelhamilcaro/
 - GitHub : https://github.com/axelhamil
 - Calendly (après un premier échange par écrit) : https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-09-16
+Dernière mise à jour: 2026-11-14

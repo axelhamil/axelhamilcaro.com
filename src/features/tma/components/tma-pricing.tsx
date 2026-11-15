@@ -1,4 +1,8 @@
-import { ArrowRight, Check, Sparkles, Target } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import { LEGAL_ENTITY } from "@/app/_config/site.constants";
+import { cn } from "@/lib/utils";
+import { Button } from "@/src/shared/ui/portfolio/button";
+import { AccentTitle } from "@/src/shared/ui/typography/accent-title";
 import { TMA_FORFAITS } from "../lib/tma-data";
 
 const PAYMENT_LINKS: Record<"pro" | "premium", string> = {
@@ -12,198 +16,142 @@ const PAYMENT_LINKS: Record<"pro" | "premium", string> = {
 
 export function TmaPricing() {
   return (
-    <section id="forfaits" className="py-20 sm:py-28 px-6 scroll-mt-24">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <p
-            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
-            style={{ fontFamily: "var(--font-geist-mono)" }}
+    <section id="forfaits" className="svc-section container scroll-mt-24">
+      <div className="svc-entete">
+        <p className="surtitre">{"// souscrire()"}</p>
+        <h2 className="svc-h2 heading-display">
+          <AccentTitle text="PRO ou PREMIUM, tu sais ce que tu paies." />
+        </h2>
+        <p className="svc-intro">
+          Aucune feature cachée, aucun upsell. Sans engagement, résiliable en
+          self-service via ton portail Stripe. Facture automatique chaque mois,
+          TVA gérée selon ton pays de facturation.
+        </p>
+      </div>
+
+      <div className="tma-forfaits">
+        {TMA_FORFAITS.map((forfait) => (
+          <article
+            key={forfait.slug}
+            className={cn(
+              "tma-forfait etiquette",
+              forfait.recommended ? "svc-aplat" : "etiquette-gris",
+            )}
           >
-            {"// souscrire()"}
-          </p>
-          <h2
-            className="text-3xl sm:text-5xl font-bold text-primary mb-4"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            PRO ou PREMIUM, tu sais ce que tu paies.
-          </h2>
-          <p className="text-secondary text-lg max-w-2xl mx-auto">
-            Aucune feature cachée, aucun upsell. Sans engagement, résiliable en
-            self-service via ton portail Stripe. Facture automatique chaque
-            mois, TVA gérée selon ton pays de facturation.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {TMA_FORFAITS.map((forfait) => (
-            <article
-              key={forfait.slug}
-              className={`relative card p-6 sm:p-8 lg:p-10 flex flex-col ${
-                forfait.recommended ? "border-accent/40" : ""
-              }`}
-            >
-              {forfait.recommended ? (
-                <div className="absolute -top-3 left-8 inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
-                  <Sparkles className="w-3 h-3" aria-hidden="true" />
-                  Recommandé
-                </div>
-              ) : null}
-
-              <header className="mb-6">
-                <p
-                  className="text-accent-ink font-semibold tracking-wider text-sm mb-2"
-                  style={{ fontFamily: "var(--font-geist-mono)" }}
-                >
-                  {forfait.slug.toUpperCase()}
-                </p>
-                <h3
-                  className="text-2xl sm:text-3xl font-bold text-primary mb-2"
-                  style={{ fontFamily: "var(--font-space-grotesk)" }}
-                >
-                  {forfait.name}
-                </h3>
-                <p className="text-secondary leading-relaxed">
-                  {forfait.tagline}
-                </p>
-              </header>
-
-              <div className="mb-6 pb-6 border-b border-border">
-                <p className="flex items-center gap-2 text-xs uppercase tracking-wider text-secondary mb-3">
-                  <Target
-                    className="w-4 h-4 text-accent-ink"
-                    aria-hidden="true"
-                  />
-                  Pour qui
-                </p>
-                <ul className="space-y-2">
-                  {forfait.targetAudience.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 text-sm text-primary"
-                    >
-                      <span
-                        className="text-accent-ink mt-0.5 shrink-0"
-                        aria-hidden="true"
-                      >
-                        →
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-8">
-                <span
-                  className="text-4xl sm:text-5xl font-bold text-primary"
-                  style={{ fontFamily: "var(--font-space-grotesk)" }}
-                >
-                  {forfait.price}€
+            {forfait.recommended ? (
+              <p className="tma-forfait-tampon tampon tampon-droite">
+                <span className="tampon-haut">Recommandé</span>{" "}
+                <span className="tampon-bas" aria-hidden="true">
+                  {forfait.hours}h / mois
                 </span>
-                <span className="text-secondary text-base sm:text-lg">
-                  HT / mois
-                </span>
-              </div>
-
-              <a
-                href={PAYMENT_LINKS[forfait.slug]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center justify-center gap-2 w-full px-6 py-3 mb-8 rounded-lg font-semibold transition-all ${
-                  forfait.recommended
-                    ? "bg-accent text-white hover:bg-accent-hover"
-                    : "bg-primary text-primary-background hover:opacity-90"
-                }`}
-              >
-                M'abonner
-                <span className="sr-only"> au forfait {forfait.name}</span>
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </a>
-
-              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 pb-6 border-b border-border">
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
-                    Heures incluses
-                  </dt>
-                  <dd className="text-primary font-semibold">
-                    {forfait.hours}h / mois
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
-                    Hors-forfait
-                  </dt>
-                  <dd className="text-primary font-semibold">
-                    {forfait.hourlyOverflow}€ / h
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
-                    Délai de prise en compte
-                  </dt>
-                  <dd className="text-primary font-semibold">
-                    {forfait.responseTime}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-secondary mb-1">
-                    Visio max / mois
-                  </dt>
-                  <dd className="text-primary font-semibold">
-                    {forfait.meetingHours}
-                  </dd>
-                </div>
-              </dl>
-
-              <p className="text-xs uppercase tracking-wider text-secondary mb-3">
-                Fonctionnalités
               </p>
-              <ul className="space-y-3 flex-1">
-                {forfait.features.map((feature) => (
-                  <li
-                    key={feature.label}
-                    className="flex items-start gap-3 text-primary"
-                  >
-                    <Check
-                      className={`w-5 h-5 mt-0.5 shrink-0 ${
-                        feature.premiumOnly
-                          ? "text-accent-ink"
-                          : "text-accent-ink/70"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    <span
-                      className={
-                        feature.premiumOnly ? "font-medium" : "text-secondary"
-                      }
-                    >
-                      {feature.label}
+            ) : null}
+
+            <header className="flex flex-col gap-3">
+              <p className="svc-meta">{forfait.slug.toUpperCase()}</p>
+              <h3 className="tma-forfait-nom heading-display">
+                {forfait.name}
+              </h3>
+              <p className="svc-texte">{forfait.tagline}</p>
+            </header>
+
+            <div className="tma-bloc-filet flex flex-col gap-3">
+              <p className="svc-meta">Pour qui</p>
+              <ul className="flex flex-col gap-2">
+                {forfait.targetAudience.map((item) => (
+                  <li key={item} className="tma-fonctionnalite">
+                    <span className="tma-fleche" aria-hidden="true">
+                      →
                     </span>
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
+            </div>
 
-              <div className="mt-6 pt-6 border-t border-border flex justify-end">
-                <a
-                  href={`#${forfait.slug}-details`}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-ink hover:text-accent-hover transition-colors"
-                >
-                  En savoir plus
-                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                </a>
+            <p className="tma-prix tma-bloc-filet">
+              <span className="tma-prix-valeur">{forfait.price}€</span>
+              <span className="svc-meta">HT / mois</span>
+            </p>
+
+            <Button
+              href={PAYMENT_LINKS[forfait.slug]}
+              variant="primary"
+              size="lg"
+              className="w-full"
+            >
+              M'abonner
+              <span className="sr-only"> au forfait {forfait.name}</span>
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Button>
+
+            <dl className="tma-caracteristiques tma-bloc-filet">
+              <div>
+                <dt className="svc-meta">Heures incluses</dt>
+                <dd className="tma-caracteristique-valeur">
+                  {forfait.hours}h / mois
+                </dd>
               </div>
-            </article>
-          ))}
-        </div>
+              <div>
+                <dt className="svc-meta">Hors-forfait</dt>
+                <dd className="tma-caracteristique-valeur">
+                  {forfait.hourlyOverflow} € HT par heure
+                </dd>
+              </div>
+              <div>
+                <dt className="svc-meta">Délai de prise en compte</dt>
+                <dd className="tma-caracteristique-valeur">
+                  {forfait.responseTime}
+                </dd>
+              </div>
+              <div>
+                <dt className="svc-meta">Visio max / mois</dt>
+                <dd className="tma-caracteristique-valeur">
+                  {forfait.meetingHours}
+                </dd>
+              </div>
+            </dl>
 
-        <p className="text-center text-secondary text-sm mt-8 max-w-2xl mx-auto">
+            <div className="tma-bloc-filet flex flex-col gap-4">
+              <p className="svc-meta">Fonctionnalités</p>
+              <ul className="flex flex-col gap-3">
+                {forfait.features.map((feature) => (
+                  <li
+                    key={feature.label}
+                    className={cn(
+                      "tma-fonctionnalite",
+                      feature.premiumOnly && "tma-fonctionnalite-premium",
+                    )}
+                  >
+                    <span className="tma-coche" aria-hidden="true">
+                      <Check className="w-3 h-3" strokeWidth={3.5} />
+                    </span>
+                    <span>{feature.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="tma-bloc-filet flex justify-end self-end">
+              <a
+                href={`#${forfait.slug}-details`}
+                className="link-underline cible-tactile gap-1.5"
+              >
+                En savoir plus
+                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-3 mt-8 max-w-2xl">
+        <p className="svc-texte">
           Paiement sécurisé via Stripe (Payment Link). Tu reçois ta facture par
           email à chaque renouvellement et tu gères tout depuis ton portail
           Stripe : moyen de paiement, factures, résiliation.
         </p>
-        <p className="text-center text-muted-foreground text-xs mt-3 max-w-2xl mx-auto">
-          TVA non applicable, art. 293 B du CGI.
-        </p>
+        <p className="svc-meta">{`${LEGAL_ENTITY.vatStatus}.`}</p>
       </div>
     </section>
   );

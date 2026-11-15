@@ -1,40 +1,29 @@
-type Highlight = { value: string; label: string };
+import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { BrandText } from "@/src/shared/ui/typography/brand-text";
 
-type Project = {
+interface Highlight {
+  value: string;
+  label: string;
+}
+
+interface Project {
   name: string;
   tagline: string;
+  href: string;
+  statut: string;
+  annee: string;
+  ombre: string;
   highlights: readonly Highlight[];
-};
+}
 
 const projects: readonly Project[] = [
   {
-    name: "OpenUp",
-    tagline: "SaaS de gestion de liens live sur openup.to",
-    highlights: [
-      { value: "5 piliers", label: "Liens · QR · Bio · Analytics · Domaines" },
-      { value: "3 plateformes", label: "iOS · Android · PWA" },
-      { value: "4 plans Stripe", label: "EUR + USD selon géolocalisation" },
-      { value: "<50ms", label: "redirections edge via Cloudflare Worker" },
-    ],
-  },
-  {
-    name: "Civitime",
-    tagline: "De dev à lead tech en 4 ans, plateforme RSE B Corp",
-    highlights: [
-      {
-        value: "Refonte complète",
-        label: "Clean Architecture · DDD · event sourcing",
-      },
-      {
-        value: "Éditeur de contenu interne",
-        label: "délais de livraison pédagogique ÷ 2",
-      },
-      { value: "Lead tech", label: "tech radar, mentoring, code reviews" },
-    ],
-  },
-  {
     name: "ScormPilot",
     tagline: "SaaS e-learning multi-tenant",
+    href: "/portfolio/scormpilot",
+    statut: "Expédié",
+    annee: "2025",
+    ombre: "etiquette-jaune",
     highlights: [
       { value: "5 apps", label: "livrées en solo" },
       {
@@ -45,66 +34,119 @@ const projects: readonly Project[] = [
     ],
   },
   {
+    name: "Civitime",
+    tagline: "De dev à lead tech en 4 ans, plateforme RSE B Corp",
+    href: "/portfolio/civitime",
+    statut: "Expédié",
+    annee: "2024",
+    ombre: "etiquette-gris",
+    highlights: [
+      {
+        value: "Refonte complète",
+        label: "Clean Architecture · DDD · event sourcing",
+      },
+      {
+        value: "Éditeur interne",
+        label: "délais de livraison pédagogique ÷ 2",
+      },
+      { value: "Lead tech", label: "tech radar, mentoring, code reviews" },
+    ],
+  },
+  {
     name: "Billetterie 2D/3D",
     tagline: "Mission solo accélérée",
+    href: "/portfolio/billetterie",
+    statut: "Expédié",
+    annee: "2025",
+    ombre: "",
     highlights: [
       { value: "1 mois", label: "de la maquette à la prod, en solo" },
       { value: "Plan 2D/3D", label: "sélection de sièges interactive" },
       { value: "Stripe", label: "paiement + génération de billets PDF" },
     ],
   },
+  {
+    name: "OpenUp",
+    tagline: "Fondateur technique, des deep links qui ouvrent l'app native",
+    href: "/portfolio/openup",
+    statut: "En cours",
+    annee: "2026",
+    ombre: "",
+    highlights: [
+      { value: "50+ apps", label: "ouvertes depuis Instagram ou TikTok" },
+      { value: "<50ms", label: "redirections edge via Cloudflare Worker" },
+      { value: "3 plateformes", label: "web, iOS et Android, une codebase" },
+      { value: "EUR + USD", label: "abonnés payants, plans Stripe" },
+    ],
+  },
 ];
 
 export function AboutProof() {
   return (
-    <section className="py-12 sm:py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-10">
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-primary mb-3"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Ce que j'ai livré, en chiffres
+    <section id="expedie" className="py-12 sm:py-16">
+      <div className="max-w-6xl mx-auto flex flex-col gap-10">
+        <header className="flex flex-col gap-5">
+          <p className="surtitre">Études de cas</p>
+          <h2 className="heading-display title-xl">
+            Ce que j'ai expédié, <br />
+            <span className="marqueur">en chiffres.</span>
           </h2>
-          <p className="text-secondary text-lg">
-            Chaque ligne renvoie à un case study détaillé.
+          <p className="mesure para para-lg ink-secondary">
+            Chaque carte renvoie à son étude de cas détaillée. Mes propres
+            builds, de clean-stack à weathertop, sont sur{" "}
+            <TransitionLink href="/#portfolio" className="souligne-trace">
+              la page d'accueil
+            </TransitionLink>
+            . OpenUp, que je mène en parallèle, ferme la liste.
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map(({ name, tagline, highlights }) => (
-            <article
-              key={name}
-              className="flex flex-col gap-5 p-6 rounded-xl card border border-border"
-            >
-              <header>
-                <h3
-                  className="text-2xl font-bold text-primary"
-                  style={{ fontFamily: "var(--font-space-grotesk)" }}
+        <ul className="grille-cartes preuves">
+          {projects.map(
+            ({ name, tagline, href, statut, annee, ombre, highlights }) => (
+              <li key={name}>
+                <TransitionLink
+                  href={href}
+                  className={`etiquette etiquette-carte etiquette-appui ${ombre} gap-5`}
                 >
-                  {name}
-                </h3>
-                <p className="text-secondary text-sm mt-1">{tagline}</p>
-              </header>
-
-              <ul className="flex flex-col gap-3">
-                {highlights.map(({ value, label }) => (
-                  <li key={label} className="flex items-baseline gap-3">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col gap-1 min-w-0">
+                      <h3 className="heading-display title-md">{name}</h3>
+                      <p className="para para-sm ink-secondary">
+                        <BrandText text={tagline} />
+                      </p>
+                    </div>
                     <span
-                      className="text-accent-ink font-bold whitespace-nowrap shrink-0"
-                      style={{ fontFamily: "var(--font-space-grotesk)" }}
+                      aria-hidden="true"
+                      className="tampon tampon-droite shrink-0"
                     >
-                      {value}
+                      <span className="tampon-haut">{statut}</span>{" "}
+                      <span className="tampon-bas">{annee}</span>
                     </span>
-                    <span className="text-secondary text-sm leading-snug">
-                      {label}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+                  </div>
+
+                  <dl className="preuve-chiffres flex flex-col gap-3">
+                    {highlights.map(({ value, label }) => (
+                      <div
+                        key={label}
+                        className="grid grid-cols-[minmax(0,9rem)_minmax(0,1fr)] gap-3 items-baseline"
+                      >
+                        <dt className="stat-valeur marqueur">{value}</dt>
+                        <dd className="para para-sm ink-secondary">
+                          <BrandText text={label} />
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+
+                  <span className="label-mono preuve-lien mt-auto">
+                    Voir le cas {name}
+                  </span>
+                </TransitionLink>
+              </li>
+            ),
+          )}
+        </ul>
       </div>
     </section>
   );

@@ -4,14 +4,19 @@ import {
   renderOgImage,
 } from "@/src/shared/seo/og-image-template";
 
-export const alt = "Case study Billetterie, Axel Hamilcaro";
+export const alt =
+  "Étude de cas Billetterie, dashboard événementiel conçu par Axel Hamilcaro";
 export const contentType = OG_CONTENT_TYPE;
 export const size = OG_SIZE;
 
 export default function Image() {
   return renderOgImage({
-    eyebrow: "Case study",
-    title: "Billetterie événementielle",
-    subtitle: "Plan 2D/3D + WebSocket temps réel · Solo en 1 mois",
+    eyebrow: "Étude de cas · Dashboard",
+    title: "Billetterie",
+    accent: "dashboard événements.",
+    subtitle:
+      "Plan de salle 2D/3D, ventes en temps réel par WebSocket, tarification multi-TVA. Solo en 1 mois.",
+    ribbon: ["Billetterie", "WebSocket", "Plan 2D/3D", "Conçu en solo"],
+    stamp: { top: "Expédié", bottom: "1 mois" },
   });
 }

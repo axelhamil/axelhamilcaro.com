@@ -1,8 +1,10 @@
+import { CaseFaq } from "@/src/shared/ui/portfolio/case-sections";
+
 export const scormpilotFaqItems = [
   {
     question: "Pourquoi 5 applications séparées et pas un monolithe ?",
     answer:
-      "Chaque app a un cycle de release différent : API et dashboard évoluent vite, lecteur et runtime SCORM doivent être ultra stables et fonctionner offline (clients = organismes de formation), et l'app Teams suit les contraintes Microsoft.",
+      "Chaque app a un cycle de release différent : API et dashboard évoluent vite, lecteur et runtime SCORM doivent rester stables et fonctionner offline (clients = organismes de formation), et l'app Teams suit les contraintes Microsoft.",
   },
   {
     question: "Multi-tenancy, comment c'est implémenté ?",
@@ -23,35 +25,9 @@ export const scormpilotFaqItems = [
 
 export function ScormpilotFaq() {
   return (
-    <section className="py-12 sm:py-16 px-6">
-      <div className="max-w-4xl mx-auto">
-        <h2
-          className="text-4xl sm:text-5xl font-bold text-primary mb-4"
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-        >
-          Questions fréquentes sur ce projet
-        </h2>
-        <p className="text-secondary text-lg mb-12">
-          Les questions que mes clients m&apos;ont posées sur cette mission.
-        </p>
-        {scormpilotFaqItems.map((item) => (
-          <details
-            key={item.question}
-            className="group border-b border-border py-6"
-          >
-            <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent-ink">
-              <span className="flex-1">{item.question}</span>
-              <span
-                className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform"
-                aria-hidden="true"
-              >
-                +
-              </span>
-            </summary>
-            <p className="mt-4 text-secondary leading-relaxed">{item.answer}</p>
-          </details>
-        ))}
-      </div>
-    </section>
+    <CaseFaq
+      items={scormpilotFaqItems}
+      intro="Les questions que mes clients m'ont posées sur cette mission."
+    />
   );
 }

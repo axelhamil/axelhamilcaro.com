@@ -1,12 +1,18 @@
-"use client";
+import { ContactModal } from "@/src/shared/ui/contact/contact-modal";
+import { Button } from "@/src/shared/ui/portfolio/button";
 
-import { Button } from "@/components/ui/button";
-import { ContactModal } from "@/src/features/contact/components/contact-modal";
+interface TmaContactButtonProps {
+  label: string;
+  variant?: "primary" | "secondary";
+}
 
-export function TmaContactButton({ label }: { label: string }) {
+export function TmaContactButton({
+  label,
+  variant = "secondary",
+}: TmaContactButtonProps) {
   return (
     <ContactModal>
-      <Button className="inline-flex items-center justify-center gap-2 h-auto px-7 py-3 text-lg font-medium rounded-lg border-2 border-secondary/30 bg-secondary-background/50 text-primary hover:border-accent/40 hover:bg-secondary-background/70 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out cursor-pointer">
+      <Button type="button" variant={variant} size="lg">
         {label}
       </Button>
     </ContactModal>

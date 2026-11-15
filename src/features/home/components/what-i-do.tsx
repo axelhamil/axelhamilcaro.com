@@ -1,205 +1,82 @@
-"use client";
-
-import { motion } from "framer-motion";
-import {
-  Code2,
-  Lightbulb,
-  Rocket,
-  Sparkles,
-  Trophy,
-  Wrench,
-} from "lucide-react";
-import { AnimatedCounter } from "@/src/shared/ui/effects/animated-counter";
-import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
-import { RevealContainer, RevealItem } from "@/src/shared/ui/effects/reveal";
-import { TiltCard } from "@/src/shared/ui/effects/tilt-card";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { RATES } from "@/app/_config/site.constants";
+import TransitionLink from "@/src/shared/ui/navigation/transition-link";
+import { Button } from "@/src/shared/ui/portfolio/button";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
-const stats = [
-  { value: "20+", label: "applications depuis 2021" },
-  { value: "4 ans", label: "expérience lead" },
-  { value: "10+", label: "élèves mentorés" },
-  { value: "48h", label: "sites artisans" },
+const offers = [
+  {
+    href: "/services/creation-application-web",
+    title: "Création d'application web de A à Z",
+    detail: "Du cadrage à la mise en ligne",
+  },
+  {
+    href: "/services/developpeur-nextjs-freelance",
+    title: "Développement web sur mesure",
+    detail: "Architecture, MVP, refonte",
+  },
+  {
+    href: "/services/developpement-saas",
+    title: "Développement SaaS",
+    detail: "Multi-tenant, jusqu'en production",
+  },
+  {
+    href: "/services/lead-tech-fractional",
+    title: "Lead tech fractional",
+    detail: "Temps partiel, 3 à 18 mois",
+  },
+  {
+    href: "/tma",
+    title: "TMA au mois",
+    detail: `Dès ${RATES.tma.proMonthlyEur} € par mois`,
+  },
 ] as const;
-
-const services = [
-  {
-    icon: Lightbulb,
-    title: "Conception",
-    description:
-      "Analyse de vos besoins, architecture technique et roadmap claire pour démarrer sur de bonnes bases.",
-    tone: "tone-conversion",
-    chip: "chip-amber",
-  },
-  {
-    icon: Code2,
-    title: "Développement",
-    description:
-      "Du MVP simple à l'architecture DDD et event sourcing selon votre métier. Un code TypeScript testé qui tient 5 ans, pas 6 mois.",
-    tone: "tone-conversion",
-    chip: "chip-azure",
-  },
-  {
-    icon: Rocket,
-    title: "Déploiement",
-    description:
-      "Pipeline CI/CD, monitoring et mise en production automatisée. Zéro stress au lancement.",
-    tone: "tone-conversion",
-    chip: "chip-magenta",
-  },
-  {
-    icon: Wrench,
-    title: "Support",
-    description:
-      "Évolutions fonctionnelles, corrections et support réactif. Votre produit reste performant.",
-    tone: "tone-conversion",
-    chip: "chip-jade",
-  },
-];
 
 const WhatIDo = () => {
   return (
     <section
       id="services"
-      className="relative container mx-auto py-16 sm:py-20 md:py-24 scroll-mt-20 overflow-hidden"
+      className="pleine-largeur"
+      aria-labelledby="services-title"
     >
-      <RevealContainer className="text-center mb-10 sm:mb-12 md:mb-16">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.03}>
-            <motion.div
-              className="eyebrow mb-4 inline-flex"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.span
-                animate={{ rotate: [0, 15, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              >
-                <Sparkles className="w-4 h-4 text-accent-ink" />
-              </motion.span>
-              <span className="text-sm font-medium">Services</span>
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
-
-        <RevealItem>
-          <Heading2
-            size="xl"
-            className="text-2xl sm:text-3xl md:text-4xl"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Mes services de développement web
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 section-home grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <header className="section-tete lg:self-start">
+          <p className="surtitre">Freelance</p>
+          <Heading2 id="services-title" size="xl">
+            Travailler <br /> <span className="marqueur">avec moi.</span>
           </Heading2>
-        </RevealItem>
-
-        <RevealItem>
-          <Paragraph
-            variant="secondary"
-            className="mt-3 sm:mt-4 max-w-lg mx-auto text-sm sm:text-base"
-          >
-            Un accompagnement complet de l'idée au lancement, puis au-delà
+          <Paragraph variant="secondary" size="lg" className="section-intro">
+            Je prends quelques projets en freelance, à côté de mon poste et
+            d'OpenUp. 5 façons de travailler ensemble, chacune détaillée sur sa
+            page.
           </Paragraph>
-        </RevealItem>
-      </RevealContainer>
+          <Button href="/services" size="lg" className="self-start">
+            Travailler avec moi
+            <ArrowRight className="w-5 h-5" />
+          </Button>
+        </header>
 
-      <RevealContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
-        {services.map((service, index) => (
-          <RevealItem key={service.title} direction="scale">
-            <MagneticWrapper strength={0.04}>
-              <TiltCard className="h-full rounded-2xl">
-                <motion.div
-                  className="relative h-full flex flex-col items-center text-center gap-3 sm:gap-4 p-5 sm:p-6 rounded-2xl card-accent overflow-hidden"
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <motion.div
-                    className={`absolute inset-0 ${service.tone} tone-glow opacity-0 transition-opacity duration-500`}
-                    whileHover={{ opacity: 0.05 }}
-                  />
-
-                  <motion.div
-                    className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-accent/5 blur-3xl"
-                    animate={{
-                      scale: [1, 1.08, 1],
-                      opacity: [0.2, 0.35, 0.2],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Number.POSITIVE_INFINITY,
-                      delay: index * 0.5,
-                    }}
-                  />
-
-                  <motion.div
-                    className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl ${service.chip} tone-chip flex items-center justify-center shadow-lg`}
-                    whileHover={{
-                      scale: 1.08,
-                      rotate: 4,
-                    }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    <service.icon className="w-7 h-7 sm:w-8 sm:h-8" />
-                  </motion.div>
-
-                  <h3 className="relative z-10 font-semibold text-primary text-lg sm:text-xl">
-                    {service.title}
-                  </h3>
-
-                  <Paragraph
-                    variant="secondary"
-                    size="sm"
-                    className="relative z-10 text-sm"
-                  >
-                    {service.description}
-                  </Paragraph>
-
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent"
-                    initial={{ scaleX: 0, opacity: 0 }}
-                    whileHover={{ scaleX: 1, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.div>
-              </TiltCard>
-            </MagneticWrapper>
-          </RevealItem>
-        ))}
-      </RevealContainer>
-
-      <RevealContainer className="mt-10 sm:mt-12">
-        <RevealItem direction="scale">
-          <MagneticWrapper strength={0.02}>
-            <motion.div
-              className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12 px-6 py-4 rounded-2xl bg-primary/5 max-w-3xl mx-auto"
-              whileHover={{ scale: 1.01 }}
-            >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  className="flex items-center gap-2"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Trophy className="w-4 h-4 text-accent-ink hidden sm:block" />
-                  <span className="font-bold text-accent-ink">
-                    <AnimatedCounter value={stat.value} className="inline" />
-                  </span>
-                  <span className="text-xs sm:text-sm text-secondary">
-                    {stat.label}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </MagneticWrapper>
-        </RevealItem>
-      </RevealContainer>
+        <ul className="offres min-w-0">
+          {offers.map((offer) => (
+            <li key={offer.href} className="reveal-up">
+              <TransitionLink
+                href={offer.href}
+                className="offre grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-6 gap-y-1"
+              >
+                <span className="offre-titre heading-display">
+                  {offer.title}
+                </span>
+                <ArrowUpRight
+                  className="offre-fleche w-6 h-6 row-span-2"
+                  aria-hidden="true"
+                />
+                <span className="label-mono ink-muted">{offer.detail}</span>
+              </TransitionLink>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 };

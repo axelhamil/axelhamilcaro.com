@@ -1,18 +1,16 @@
+const CHAMPS = ["prenom", "email"] as const;
+
 export default function FormLoading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1e1e2e]">
-      <div className="w-full max-w-md mx-4">
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 animate-pulse">
-          <div className="w-24 h-6 bg-white/20 rounded-full mb-6" />
-          <div className="w-3/4 h-8 bg-white/20 rounded mb-4" />
-          <div className="w-full h-4 bg-white/20 rounded mb-8" />
-          <div className="space-y-4">
-            <div className="h-12 bg-white/20 rounded-lg" />
-            <div className="h-12 bg-white/20 rounded-lg" />
-            <div className="h-12 bg-white/20 rounded-lg" />
-          </div>
-          <div className="h-12 bg-white/20 rounded-lg mt-6" />
-        </div>
+    <div className="trame flex min-h-svh items-center justify-center px-4 py-12">
+      <div className="etiquette etiquette-carte w-full max-w-lg gap-6 p-6 sm:p-10">
+        <div className="squelette h-6 w-28" />
+        <div className="squelette h-10 w-3/4" />
+        <div className="squelette h-4 w-full" />
+        {CHAMPS.map((cle) => (
+          <div key={cle} className="squelette h-11" />
+        ))}
+        <div className="squelette h-14" />
       </div>
     </div>
   );

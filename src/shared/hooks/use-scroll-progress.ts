@@ -12,17 +12,10 @@ export function useScrollProgress(options: UseScrollProgressOptions = {}) {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-
-      const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setScrollProgress(Math.min(progress, 100));
 
       if (pathname !== "/") {
         setActiveSection("");
@@ -48,6 +41,5 @@ export function useScrollProgress(options: UseScrollProgressOptions = {}) {
   return {
     isScrolled,
     activeSection,
-    scrollProgress,
   };
 }

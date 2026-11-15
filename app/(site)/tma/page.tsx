@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/app/_config/site.constants";
+import { PERSON_ID } from "@/app/_config/site.constants";
 import { TmaCta } from "@/src/features/tma/components/tma-cta";
 import { TmaDeliverables } from "@/src/features/tma/components/tma-deliverables";
 import { TmaFaq } from "@/src/features/tma/components/tma-faq";
@@ -16,32 +16,21 @@ import {
   TMA_FAQ,
   TMA_FORFAITS,
   TMA_META,
+  TMA_SCHEMA,
   TMA_URL,
 } from "@/src/features/tma/lib/tma-data";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 import { AREA_SERVED } from "@/src/shared/seo/schemas/area-served";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: TMA_META.title,
   description: TMA_META.description,
+  path: "/tma",
   keywords: [...TMA_META.keywords],
-  alternates: { canonical: TMA_URL },
-  openGraph: {
-    title: "TMA : maintenance applicative dès 350€/mois",
-    description:
-      "Forfait TMA pour app Next.js, React, Node ou mobile. PRO 350€ (5h, 1 j ouvré) ou PREMIUM 800€ (10h, monitoring proactif). Sans engagement, résiliation Stripe.",
-    url: TMA_URL,
-    type: "website",
-    siteName: "Axel Hamilcaro",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "TMA : forfaits 350€ ou 800€/mois",
-    description:
-      "Forfait TMA mensuel : Next.js, React, Node, infra légère. PRO 350€/mois (5h) ou PREMIUM 800€/mois (10h, monitoring proactif). Sans engagement.",
-  },
-};
+});
 
 const faqSchema = buildFaqPageSchema(TMA_FAQ);
 
@@ -53,15 +42,11 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Tierce maintenance applicative pour Next.js, React, Node et mobile",
-  description: TMA_META.description,
+  name: TMA_SCHEMA.name,
+  description: TMA_SCHEMA.description,
   url: TMA_URL,
   serviceType: "Tierce Maintenance Applicative",
-  provider: {
-    "@type": "Person",
-    name: "Axel Hamilcaro",
-    url: SITE_URL,
-  },
+  provider: { "@id": PERSON_ID },
   areaServed: AREA_SERVED,
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -96,22 +81,10 @@ const serviceSchema = {
 
 export default function TmaPage() {
   return (
-    <main className="pb-8">
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+    <main>
+      <JsonLdScript data={serviceSchema} />
+      <JsonLdScript data={faqSchema} />
+      <JsonLdScript data={breadcrumbSchema} />
       <TmaHero />
       <TmaWhoFor />
       <TmaPricing />

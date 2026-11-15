@@ -1,5 +1,6 @@
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
+import { HTML_LIMITED_BOT_UA_RE } from "next/dist/shared/lib/router/utils/html-bots";
 import {
   EXTERNAL_LINKS,
   MCP,
@@ -52,8 +53,30 @@ const securityHeaders = [
   },
 ];
 
+const blockingMetadataBots = [
+  "Googlebot",
+  "GPTBot",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "Claude-User",
+  "Claude-SearchBot",
+  "PerplexityBot",
+  "Perplexity-User",
+  "MistralAI-User",
+  "MistralAI-Index",
+  "Amazonbot",
+  "Meta-ExternalAgent",
+  "CCBot",
+  "Bytespider",
+];
+
 const nextConfig: NextConfig = {
   pageExtensions: ["tsx", "ts", "mdx"],
+  htmlLimitedBots: new RegExp(
+    [HTML_LIMITED_BOT_UA_RE.source, ...blockingMetadataBots].join("|"),
+    "i",
+  ),
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
@@ -110,6 +133,11 @@ const nextConfig: NextConfig = {
       destination: "/blog/therac-25",
       permanent: true,
     },
+    {
+      source: "/blog/:slug/:image(opengraph-image[^/]*)",
+      destination: "/blog/:slug/og",
+      permanent: true,
+    },
   ],
   headers: async () => {
     const originTrials = [
@@ -137,6 +165,12 @@ const nextConfig: NextConfig = {
           })),
         ],
       },
+      ...["/admin", "/admin/:path*", "/login", "/nice-try", "/f/:path*"].map(
+        (source) => ({
+          source,
+          headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+        }),
+      ),
     ];
   },
 };

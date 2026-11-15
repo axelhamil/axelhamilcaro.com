@@ -4,12 +4,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { JsonLd } from "@/src/shared/seo/json-ld";
 import { ThemeProvider } from "@/src/shared/ui/theme/theme-provider";
-import {
-  courierPrime,
-  fraunces,
-  geistMono,
-  instrumentSans,
-} from "./_config/fonts";
+import { geistMono, inter } from "./_config/fonts";
 import { MCP } from "./_config/site.constants";
 import "./global.css";
 
@@ -25,8 +20,10 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={cn(
-        `${instrumentSans.variable} ${geistMono.variable} ${fraunces.variable} ${courierPrime.variable}`,
+        inter.variable,
+        geistMono.variable,
         "antialiased bg-primary-background",
       )}
     >
@@ -45,9 +42,6 @@ export default function RootLayout({
         <link rel="alternate" type="text/plain" href={MCP.llmsUrl} />
       </head>
       <body className="overflow-x-hidden">
-        <noscript>
-          <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
-        </noscript>
         <JsonLd />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />

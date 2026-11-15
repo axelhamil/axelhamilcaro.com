@@ -1,0 +1,410 @@
+.hero {
+  --trame-y: 2.5rem;
+}
+
+@media (min-width: 48rem) {
+  .hero {
+    --trame-y: 4rem;
+  }
+}
+
+.hero-texte {
+  container-type: inline-size;
+}
+
+.hero-h1 {
+  --hero-h1-taille: clamp(2.5rem, 12.5cqi, 7.5rem);
+  font-size: var(--hero-h1-taille);
+  line-height: var(--leading-hero);
+  letter-spacing: var(--tracking-hero);
+  text-wrap: wrap;
+}
+
+.hero-h1-nom {
+  display: flex;
+  width: fit-content;
+  margin-bottom: 1rem;
+  font-size: clamp(0.8125rem, 3cqi, 1rem);
+  line-height: 1.2;
+}
+
+.hero-h1-et {
+  font-size: 0;
+}
+
+.hero-h1-et::before {
+  content: "&";
+  font-size: var(--hero-h1-taille);
+}
+
+.hero-h1-accent::after {
+  content: ".";
+}
+
+.hero-accroche {
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.125rem, 4.4cqi, 1.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--encre);
+}
+
+.hero-lede {
+  max-width: var(--measure);
+}
+
+.hero-portrait {
+  border: 2px solid var(--encre);
+  box-shadow: var(--offset) var(--offset) 0 var(--ombre-jaune);
+  overflow: hidden;
+}
+
+.hero-fait-valeur {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.5rem, 6cqi, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.hero-fait-label {
+  font-size: clamp(0.5625rem, 2.6cqi, 0.6875rem);
+  overflow-wrap: anywhere;
+  color: var(--secondary);
+}
+
+.section-home {
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+
+.section-suite {
+  padding-top: 0;
+}
+
+.section-tete {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.grid > .section-tete {
+  margin-bottom: 0;
+}
+
+.section-intro {
+  max-width: var(--measure);
+}
+
+.methode-liste {
+  border-top: 2px solid var(--encre);
+}
+
+.methode-etape {
+  padding-block: clamp(1.25rem, 3vw, 2rem);
+  border-bottom: 2px solid var(--encre);
+}
+
+.methode-numero {
+  display: inline-block;
+  padding: 0.5rem 0.625rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  color: var(--sur-aplat);
+  background: var(--aplat);
+  border: 2px solid var(--sur-aplat);
+  box-shadow: var(--offset-sm) var(--offset-sm) 0 var(--ombre);
+  transition:
+    transform var(--dur-ui) var(--ease-ui),
+    box-shadow var(--dur-ui) var(--ease-ui);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .methode-etape:hover .methode-numero {
+    transform: translate(var(--offset-sm), var(--offset-sm));
+    box-shadow: 0 0 0 var(--ombre);
+  }
+}
+
+.methode-texte {
+  font-size: clamp(1.375rem, 3.2vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.methode-agents {
+  max-width: var(--measure);
+}
+
+.mcp-terminal {
+  font-size: 0.9375rem;
+}
+
+.mcp-terminal .terminal-prefixe {
+  min-width: 3.5rem;
+}
+
+.offres {
+  border-top: 2px solid var(--encre);
+}
+
+.offre {
+  min-height: 44px;
+  padding: 1.25rem 0.75rem;
+  color: var(--encre);
+  border-bottom: 2px solid var(--encre);
+}
+
+.offre-titre {
+  font-size: clamp(1.125rem, 2.4vw, 1.625rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.offre-fleche {
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .offre:hover {
+    color: var(--sur-aplat);
+    background: var(--aplat);
+  }
+
+  .offre:hover .ink-muted {
+    color: var(--sur-aplat);
+  }
+
+  .offre:hover .offre-fleche {
+    transform: translate(4px, -4px);
+  }
+}
+
+.fiches {
+  --carte-min: 19rem;
+}
+
+.fiche,
+.avis-carte {
+  gap: 1.25rem;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.avis-liste {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 48rem) {
+  .avis-carte {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-rows: auto 1fr;
+    gap: 1.25rem clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .avis-carte > .avis-tete {
+    grid-area: 1 / 1;
+  }
+
+  .avis-carte > .avis-signature {
+    grid-area: 2 / 1;
+    align-self: end;
+  }
+
+  .avis-carte > :is(.avis-texte, .dossier) {
+    grid-area: 1 / 2 / 3;
+    max-width: var(--measure);
+  }
+}
+
+.avis-tete {
+  padding-bottom: 0.75rem;
+  color: var(--encre-muette);
+  border-bottom: 2px solid var(--filet-fort);
+}
+
+.avis-texte {
+  font-size: 0.9375rem;
+  color: var(--encre-douce);
+}
+
+.avis-signature {
+  gap: 0.25rem;
+}
+
+.avis-nom {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.dossier {
+  position: relative;
+  row-gap: 0.5rem;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.dossier-avis {
+  order: -1;
+  flex: 0 0 100%;
+  gap: 0.75rem;
+  min-inline-size: 0;
+  margin-inline-end: -100%;
+  padding-bottom: 0.75rem;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.375rem);
+  transition:
+    opacity var(--dur-ui) var(--ease-ui),
+    transform var(--dur-ui) var(--ease-ui),
+    visibility 0s linear var(--dur-ui);
+}
+
+.dossier-avis:last-of-type {
+  margin-inline-end: 0;
+}
+
+.dossier-meta {
+  color: var(--encre-muette);
+}
+
+.dossier-onglet {
+  flex: 1 1 0;
+  min-inline-size: 2.75rem;
+  max-inline-size: 3.5rem;
+  block-size: 2.75rem;
+  margin-inline-end: 0.375rem;
+  color: var(--encre);
+  background: var(--fond);
+  border: 2px solid var(--encre);
+  cursor: pointer;
+  transition:
+    transform var(--dur-ui) var(--ease-ui),
+    box-shadow var(--dur-ui) var(--ease-ui);
+}
+
+.dossier-onglet:last-of-type {
+  margin-inline-end: 0;
+}
+
+.dossier-radio:checked + .dossier-onglet {
+  color: var(--sur-aplat);
+  background: var(--aplat);
+  box-shadow: var(--offset-sm) var(--offset-sm) 0 var(--ombre);
+}
+
+.dossier-radio:checked + .dossier-onglet + .dossier-avis {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.dossier-radio:focus-visible + .dossier-onglet {
+  outline: 2px solid var(--anneau);
+  outline-offset: 3px;
+}
+
+.dossier-onglet:active {
+  transform: translate(2px, 2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dossier-radio:not(:checked) + .dossier-onglet:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--ombre);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dossier-avis,
+  .dossier-onglet {
+    transition: none;
+  }
+
+  .dossier-avis {
+    transform: none;
+  }
+}
+
+.mur {
+  border-top: 2px solid var(--encre);
+}
+
+.mur-rangee {
+  padding-block: 1.25rem;
+  border-bottom: 2px solid var(--filet);
+}
+
+.mur-label {
+  color: var(--encre-muette);
+}
+
+.mur-rangee:last-child .mur-label {
+  color: var(--encre-accent);
+}
+
+.mur-rangee dd {
+  margin: 0;
+}
+
+.mur-tag {
+  padding: 0.375rem 0.75rem;
+  font-size: clamp(0.9375rem, 1.6vw, 1.125rem);
+  letter-spacing: -0.01em;
+}
+
+.faq-liste {
+  border-top: 2px solid var(--encre);
+}
+
+.faq-liste .faq-item {
+  border-bottom: 2px solid var(--encre);
+}
+
+.faq-liste .faq-question {
+  padding-block: 1.25rem;
+  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  line-height: 1.3;
+}
+
+.faq-liste .faq-signe {
+  box-sizing: content-box;
+  padding: 0.375rem;
+  color: var(--sur-aplat);
+  background: var(--aplat);
+  border: 2px solid var(--sur-aplat);
+  transition: rotate var(--dur-ui) var(--ease-ui);
+}
+
+.faq-liste .faq-reponse {
+  max-width: var(--measure);
+  padding-bottom: 1.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .faq-liste .faq-item[open] .faq-reponse {
+    animation: faq-ouvre 0.3s var(--ease-ui);
+  }
+}
+
+@keyframes faq-ouvre {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}

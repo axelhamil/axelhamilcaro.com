@@ -1,75 +1,70 @@
+import { Plus } from "lucide-react";
+import { MCP } from "@/app/_config/site.constants";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
+import { Heading2 } from "@/src/shared/ui/typography/heading2";
+import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 const items = [
   {
-    question: "Quels types de projets prends-tu ?",
+    question: "Qui est Axel Hamilcaro ?",
     answer:
-      "Applications web sur mesure, SaaS B2B multi-tenant, refonte d'architecture, lead tech temps partiel sur engagement long. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
+      "Je suis Axel Hamilcaro, développeur fullstack et builder, basé à Tours, en Centre-Val de Loire. Je fabrique des produits et des outils, dont OpenUp, où je suis fondateur technique. Avant, j'ai passé 4 ans chez Civitime, de développeur à lead technique.",
   },
   {
-    question: "Tu peux créer mon application de A à Z ?",
+    question: "Prends-tu encore des projets en freelance ?",
+    answer:
+      "Oui, à côté de mon poste et d'OpenUp. Je prends quelques projets : création d'application, SaaS, lead tech ou maintenance au mois. Le détail de chaque offre est sur la page Services, à l'adresse axelhamilcaro.com/services.",
+  },
+  {
+    question: "Quels types de projets prends-tu ?",
+    answer:
+      "Applications web sur mesure, SaaS B2B multi-tenant, refonte d'architecture, lead tech temps partiel sur engagement long. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
+  },
+  {
+    question: "Tu peux créer mon application de A à Z ?",
     answer:
       "Oui. Je prends un projet de l'idée à la mise en ligne : cadrage, développement et mise en ligne, avec un seul interlocuteur, puis la maintenance si tu le souhaites.",
   },
   {
-    question: "Quels sont tes délais ?",
-    answer:
-      "Mission ferme : démarrage sous 1 à 3 semaines selon ma charge. MVP : 4 à 8 semaines pour une v1 production-ready. Audit ou consulting court : sous 5 jours ouvrés. Je suis transparent sur ma dispo dès le premier échange.",
-  },
-  {
-    question: "Quel est ton TJM et mode de facturation ?",
-    answer:
-      "TJM 500€ HT (référence Malt). Facturation au temps passé en régie, ou au forfait pour scope fermé. Devis détaillé sous 24h après notre échange découverte.",
-  },
-  {
-    question: "Travailles-tu en remote ou sur site ?",
+    question: "Travailles-tu en remote ou sur site ?",
     answer:
       "100% remote, basé à Tours, en Centre-Val de Loire. Je suis disponible pour des points sur site ponctuels en France selon le projet (kickoff, atelier produit, restitution).",
   },
   {
-    question: "Comment se passe le premier contact ?",
-    answer:
-      "Tu m'écris en 3 lignes (objectif business, contexte, deadline) ou tu réserves un appel découverte 30 min sur Calendly. Je reviens avec une analyse honnête et un plan d'action concret. Si je ne suis pas le bon profil, je te le dis.",
+    question: "À quoi sert le serveur MCP de ce site ?",
+    answer: `J'expose un serveur MCP public à ${MCP.url}. Un agent IA s'y connecte en POST et lit mon identité, ma stack, mes études de cas et mes services. Ce n'est pas une page à ouvrir dans le navigateur.`,
   },
 ];
 
 export function HomeFaq() {
   return (
-    <section id="faq" className="py-12 sm:py-16 px-6">
-      <div className="max-w-4xl mx-auto">
-        <h2
-          style={{ fontFamily: "var(--font-space-grotesk)" }}
-          className="text-4xl sm:text-5xl font-bold text-primary mb-4"
-        >
-          Tes questions, mes réponses
-        </h2>
-        <p className="text-secondary text-lg mb-12">
-          Six questions que les clients me posent en premier.
-        </p>
-        {items.map((item) => (
-          <details
-            key={item.question}
-            className="group border-b border-border py-6"
-          >
-            <summary className="cursor-pointer flex justify-between items-center text-lg font-semibold text-primary group-open:text-accent-ink">
-              {item.question}
-              <span
-                className="ml-4 text-2xl font-light group-open:rotate-45 transition-transform"
-                aria-hidden="true"
-              >
-                +
-              </span>
-            </summary>
-            <p className="mt-4 text-secondary leading-relaxed">{item.answer}</p>
-          </details>
-        ))}
-        <script
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(buildFaqPageSchema(items)),
-          }}
-        />
+    <section id="faq" className="pleine-largeur" aria-labelledby="faq-title">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 section-home grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <header className="section-tete lg:self-start">
+          <p className="surtitre">FAQ</p>
+          <Heading2 id="faq-title" size="xl">
+            Tes questions, <br />{" "}
+            <span className="marqueur">mes réponses.</span>
+          </Heading2>
+          <Paragraph variant="secondary" size="lg" className="section-intro">
+            Les questions qu'on me pose le plus souvent.
+          </Paragraph>
+        </header>
+
+        <div className="faq-liste min-w-0">
+          {items.map((item) => (
+            <details key={item.question} className="faq-item">
+              <summary className="faq-question grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6">
+                {item.question}
+                <Plus className="faq-signe w-5 h-5" aria-hidden="true" />
+              </summary>
+              <p className="faq-reponse para ink-secondary">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+
+        <JsonLdScript data={buildFaqPageSchema(items)} />
       </div>
     </section>
   );

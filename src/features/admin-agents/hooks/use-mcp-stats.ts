@@ -1,31 +1,60 @@
 import useSWR from "swr";
 import { fetcher } from "@/src/shared/api/swr-config";
 
-export type McpStats = {
+export interface McpRankedRow {
+  name: string | null;
+  count: number;
+  lastAt: string | null;
+}
+
+export type McpTraffic = "agents" | "sans-scanners" | "tout";
+
+export type McpOriginCategory =
+  | "agent"
+  | "scanner"
+  | "outil"
+  | "navigateur"
+  | "inconnu";
+
+export interface McpOriginRow {
+  id: string;
+  label: string;
+  category: McpOriginCategory;
+  count: number;
+  lastAt: string | null;
+}
+
+export interface McpStats {
   days: number;
+  traffic: McpTraffic;
+  hidden: {
+    total: number;
+    byCategory: Array<{ category: McpOriginCategory; count: number }>;
+  };
+  timeZone: string;
   calls: number;
-  distinctClients: number;
-  topTools: Array<{ name: string | null; count: number }>;
-  topResources: Array<{ name: string | null; count: number }>;
-  recent: Array<{
-    id: string;
-    method: string;
-    name: string | null;
-    clientName: string | null;
-    ok: boolean;
-    durationMs: number | null;
-    createdAt: string | null;
-  }>;
+  errors: number;
+  errorRate: number;
+  medianMs: number | null;
+  p95Ms: number | null;
+  lastAt: string | null;
+  distinctVisitors: number;
+  distinctOrigins: number;
+  callsByDay: Array<{ day: string; calls: number; errors: number }>;
+  origins: McpOriginRow[];
+  methods: Array<{ method: string; count: number }>;
+  topTools: McpRankedRow[];
+  topResources: McpRankedRow[];
   leads: {
     mcp: number;
     webForms: number;
     contactModalExcluded: string;
   };
-};
+}
 
-export function useMcpStats(days = 7) {
+export function useMcpStats(days: number, traffic: McpTraffic) {
   const { data, error, isLoading, mutate, isValidating } = useSWR<McpStats>(
-    `/api/admin/mcp-stats?days=${days}`,
+    `/api/admin/mcp-stats?days=${days}&traffic=${traffic}`,
     fetcher,
     { revalidateOnFocus: false },
   );

@@ -1,14 +1,20 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { Clock, Keyboard, MousePointer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "@/src/shared/ui/portfolio/button";
 
 interface KeyStats {
   keyPresses: number;
   clicks: number;
   timeSpent: number;
 }
+
+const formatTime = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
+};
 
 export function KeyStatsWidget() {
   const [stats, setStats] = useState<KeyStats>({
@@ -17,18 +23,13 @@ export function KeyStatsWidget() {
     timeSpent: 0,
   });
   const [isVisible, setIsVisible] = useState(false);
-  const [lastKey, setLastKey] = useState<string | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
   const startTimeRef = useRef(Date.now());
 
   useEffect(() => {
-    setIsMounted(true);
     startTimeRef.current = Date.now();
 
-    const handleKeyPress = (e: KeyboardEvent) => {
+    const handleKeyPress = () => {
       setStats((prev) => ({ ...prev, keyPresses: prev.keyPresses + 1 }));
-      setLastKey(e.key.length === 1 ? e.key.toUpperCase() : e.key);
-      setTimeout(() => setLastKey(null), 300);
     };
 
     const handleClick = () => {
@@ -60,108 +61,56 @@ export function KeyStatsWidget() {
     };
   }, []);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  if (!isMounted) return null;
-
   return (
     <>
-      <motion.button
-        className="fixed bottom-8 left-8 w-10 h-10 rounded-full bg-secondary-background border border-border flex items-center justify-center z-50 shadow-lg"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+      <Button
+        type="button"
+        variant="secondary"
+        size="icon"
+        className="fixed bottom-6 left-6 z-50 hidden sm:inline-flex"
         onClick={() => setIsVisible((prev) => !prev)}
+        aria-expanded={isVisible}
         title="Stats de session (⌘K)"
+        aria-label="Stats de session (⌘K)"
       >
-        <Keyboard className="w-4 h-4 text-secondary" />
-      </motion.button>
+        <Keyboard className="w-4 h-4" />
+      </Button>
 
-      <AnimatePresence>
-        {isVisible && (
-          <motion.div
-            className="fixed bottom-20 left-8 p-4 rounded-xl bg-secondary-background border border-border shadow-xl z-50 min-w-[200px]"
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-          >
-            <h4
-              className="text-sm font-bold text-primary mb-3 flex items-center gap-2"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              <span className="text-accent-ink">⚡</span> Session Stats
-            </h4>
+      {isVisible && (
+        <div className="panneau menu-mobile fixed bottom-20 left-6 z-50 min-w-[220px] p-4 flex flex-col gap-3">
+          <h4 className="surtitre">Session Stats</h4>
 
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-2 text-secondary">
-                  <Keyboard className="w-3.5 h-3.5" />
-                  Touches
-                </span>
-                <motion.span
-                  className="font-mono font-bold text-accent-ink"
-                  key={stats.keyPresses}
-                  initial={{ scale: 1.2 }}
-                  animate={{ scale: 1 }}
-                >
-                  {stats.keyPresses}
-                </motion.span>
-              </div>
-
-              <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-2 text-secondary">
-                  <MousePointer className="w-3.5 h-3.5" />
-                  Clics
-                </span>
-                <motion.span
-                  className="font-mono font-bold text-accent-ink"
-                  key={stats.clicks}
-                  initial={{ scale: 1.2 }}
-                  animate={{ scale: 1 }}
-                >
-                  {stats.clicks}
-                </motion.span>
-              </div>
-
-              <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-2 text-secondary">
-                  <Clock className="w-3.5 h-3.5" />
-                  Temps
-                </span>
-                <span className="font-mono font-bold text-primary">
-                  {formatTime(stats.timeSpent)}
-                </span>
-              </div>
+          <dl className="flex flex-col gap-2 para-sm">
+            <div className="flex items-center justify-between gap-4">
+              <dt className="flex items-center gap-2 ink-secondary">
+                <Keyboard className="w-3.5 h-3.5" />
+                Touches
+              </dt>
+              <dd className="stat-valeur marqueur">{stats.keyPresses}</dd>
             </div>
 
-            <p className="text-[10px] text-muted-foreground mt-3">
-              Raccourci: ⌘K
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="flex items-center justify-between gap-4">
+              <dt className="flex items-center gap-2 ink-secondary">
+                <MousePointer className="w-3.5 h-3.5" />
+                Clics
+              </dt>
+              <dd className="stat-valeur marqueur">{stats.clicks}</dd>
+            </div>
 
-      <AnimatePresence>
-        {lastKey && (
-          <motion.div
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-[9999]"
-            initial={{ opacity: 0.8, scale: 0.5 }}
-            animate={{ opacity: 0, scale: 2, y: -50 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span
-              className="text-6xl font-bold text-accent-ink/30"
-              style={{ fontFamily: "var(--font-space-grotesk)" }}
-            >
-              {lastKey}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="flex items-center justify-between gap-4">
+              <dt className="flex items-center gap-2 ink-secondary">
+                <Clock className="w-3.5 h-3.5" />
+                Temps
+              </dt>
+              <dd className="stat-valeur marqueur">
+                {formatTime(stats.timeSpent)}
+              </dd>
+            </div>
+          </dl>
+
+          <p className="label-mono ink-muted">Raccourci: ⌘K</p>
+        </div>
+      )}
     </>
   );
 }

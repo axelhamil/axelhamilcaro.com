@@ -7,6 +7,15 @@ export function formatDate(date: Date | null, locale = "fr-FR"): string {
   });
 }
 
+export function formatLongDate(isoDate: string): string {
+  return new Date(isoDate).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 export function formatDateTime(date: Date | null, locale = "fr-FR"): string {
   if (!date) return "-";
   return new Date(date).toLocaleDateString(locale, {

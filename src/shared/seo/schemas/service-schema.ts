@@ -1,5 +1,6 @@
 import { AREA_SERVED } from "./area-served";
 import { authorPerson } from "./author";
+import { DAILY_RATE_SPECIFICATION } from "./professional-service";
 
 export type ServiceSchemaData = {
   name: string;
@@ -24,6 +25,7 @@ export function buildServiceSchema(data: ServiceSchemaData) {
       name: data.name,
       itemListElement: data.offers.map((offer) => ({
         "@type": "Offer",
+        priceSpecification: DAILY_RATE_SPECIFICATION,
         itemOffered: {
           "@type": "Service",
           name: offer.name,

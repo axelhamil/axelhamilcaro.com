@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Briefcase,
   Calendar,
@@ -15,8 +14,7 @@ import {
 } from "lucide-react";
 import { useEffect } from "react";
 import type { TreeLink } from "@/drizzle/schema";
-import { ContactModal } from "@/src/features/contact/components/contact-modal";
-import { MagneticWrapper } from "@/src/shared/ui/effects/magnetic-wrapper";
+import { ContactModal } from "@/src/shared/ui/contact/contact-modal";
 import { LinkCard } from "@/src/shared/ui/portfolio/link-card";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -29,31 +27,6 @@ const iconMap: Record<string, LucideIcon> = {
   mail: Mail,
   instagram: Instagram,
   tiktok: Music2,
-};
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 300,
-      damping: 24,
-    },
-  },
 };
 
 function getSessionId() {
@@ -112,59 +85,44 @@ export default function TreeLinksWrapper({ links }: TreeLinksWrapperProps) {
   };
 
   return (
-    <motion.nav
-      className="w-full flex flex-col gap-2 sm:gap-2.5"
-      aria-label="Liens sociaux"
-      variants={container}
-      initial="hidden"
-      animate="show"
-    >
-      {links.map((link) => {
-        const IconComponent = iconMap[link.icon] || LinkIcon;
-        const isMailto = link.url.startsWith("mailto:");
+    <section aria-labelledby="tree-liens" className="flex flex-col gap-4">
+      <h2 id="tree-liens" className="surtitre">
+        Mes liens
+      </h2>
+      <nav aria-label="Liens sociaux">
+        <ul className="tree-pile flex flex-col gap-4 pr-2 pb-2">
+          {links.map((link) => {
+            const IconComponent = iconMap[link.icon] || LinkIcon;
+            const icon = <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />;
+            const description = link.description || undefined;
+            const variant = link.featured ? "featured" : "default";
 
-        if (isMailto) {
-          return (
-            <MagneticWrapper key={link.id} strength={0.03}>
-              <motion.div
-                variants={item}
-                whileHover={{ scale: 1.02, x: 4 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleClick(link)}
-              >
-                <ContactModal>
+            return (
+              <li key={link.id} onClickCapture={() => handleClick(link)}>
+                {link.url.startsWith("mailto:") ? (
+                  <ContactModal>
+                    <LinkCard
+                      asButton
+                      icon={icon}
+                      title={link.title}
+                      description={description}
+                      variant={variant}
+                    />
+                  </ContactModal>
+                ) : (
                   <LinkCard
-                    asButton
-                    icon={<IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    href={link.url}
+                    icon={icon}
                     title={link.title}
-                    description={link.description || undefined}
-                    variant={link.featured ? "featured" : "default"}
+                    description={description}
+                    variant={variant}
                   />
-                </ContactModal>
-              </motion.div>
-            </MagneticWrapper>
-          );
-        }
-
-        return (
-          <MagneticWrapper key={link.id} strength={0.03}>
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => handleClick(link)}
-            >
-              <LinkCard
-                href={link.url}
-                icon={<IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />}
-                title={link.title}
-                description={link.description || undefined}
-                variant={link.featured ? "featured" : "default"}
-              />
-            </motion.div>
-          </MagneticWrapper>
-        );
-      })}
-    </motion.nav>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </section>
   );
 }

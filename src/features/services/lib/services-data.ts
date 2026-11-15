@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/app/_config/site.constants";
+import { RATES, SITE_URL } from "@/app/_config/site.constants";
 
 export type ServiceSlug =
   | "developpeur-nextjs-freelance"
@@ -25,9 +25,13 @@ export type ServiceData = {
     secondaryCtaLabel: string;
     secondaryCtaHref: string;
   };
-  card?: {
+  card: {
     title: string;
     subtitle: string;
+  };
+  ribbons: {
+    hero: readonly string[];
+    cta: readonly string[];
   };
   problem: {
     title: string;
@@ -38,8 +42,11 @@ export type ServiceData = {
     steps: { title: string; body: string }[];
   };
   relatedCases: RelatedCaseSlug[];
+  guide?: { href: string; title: string };
   faq: { question: string; answer: string }[];
   schema: {
+    name: string;
+    description: string;
     serviceType: string;
     offers: { name: string; description: string }[];
   };
@@ -55,14 +62,12 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
   "creation-application-web": {
     slug: "creation-application-web",
     url: `${SITE_URL}/services/creation-application-web`,
-    metaTitle: "Développeur web freelance : application de A à Z",
-    metaDescription:
-      "Développeur web freelance, je crée ton application web ou mobile sur mesure de A à Z : cadrage, développement, mise en ligne. Devis sous 24h.",
+    metaTitle: "Développeur web freelance : app de A à Z",
+    metaDescription: `Je suis développeur web freelance à Tours : je crée ton application web ou mobile sur mesure de A à Z, du cadrage à la mise en ligne, à ${RATES.dailyHtEur} € HT par jour.`,
     hero: {
       eyebrow: "Service freelance",
       title: "Développeur web freelance pour créer ton application de A à Z.",
-      subtitle:
-        "Tu cherches un développeur web pour construire ton application, et tu as besoin de quelqu'un capable de tout gérer de bout en bout ? Je prends ton projet de l'idée à la mise en ligne : cadrage, développement et mise en ligne, puis la maintenance si tu le souhaites. Un seul interlocuteur, une application web ou mobile sur mesure, livrée clé en main.",
+      subtitle: `Je suis Axel Hamilcaro, développeur web freelance basé à Tours : je crée ton application web ou mobile de A à Z, du cadrage à la mise en ligne, à ${RATES.dailyHtEur} € HT par jour, avec un devis sous 24h et une démo chaque semaine. Tu cherches quelqu'un capable de tout gérer de bout en bout ? Je prends ton projet de l'idée à la mise en ligne, puis la maintenance si tu le souhaites. Un seul interlocuteur, une application sur mesure livrée prête à l'emploi.`,
       ...baseHero,
     },
     card: {
@@ -70,8 +75,39 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       subtitle:
         "Tu as une idée mais pas d'équipe technique. Je construis ton application de bout en bout, du cadrage à la mise en ligne, avec un seul interlocuteur.",
     },
+    ribbons: {
+      hero: [
+        "Application de A à Z",
+        "Cadrage",
+        "Fonctionnalités priorisées",
+        "Devis sous 24h",
+        "Démo chaque semaine",
+        "Web",
+        "iOS",
+        "Android",
+        "Hébergement à ton nom",
+        "Mise en ligne",
+        "Publication sur les stores",
+        "4 à 8 semaines",
+        "Un seul interlocuteur",
+      ],
+      cta: [
+        "Premier échange gratuit",
+        "30 min",
+        "Sans jargon",
+        `${RATES.dailyHtEur} € HT par jour`,
+        "Forfait possible",
+        "De 5 000 à 30 000 € HT",
+        "Petite app en 2 à 4 semaines",
+        "Comptes",
+        "Paiement en ligne",
+        "Espace d'administration",
+        `Maintenance dès ${RATES.tma.proMonthlyEur} € HT par mois`,
+        "Tu repars autonome",
+      ],
+    },
     problem: {
-      title: "Tu reconnais une de ces situations ?",
+      title: "Les cas où je prends ton projet",
       bullets: [
         "Tu as une idée d'application mais personne de technique autour de toi pour la construire.",
         "Tu ne sais pas par où commencer : cahier des charges, budget, choix techniques.",
@@ -100,7 +136,11 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
         },
       ],
     },
-    relatedCases: ["scormpilot", "openup", "billetterie"],
+    relatedCases: ["scormpilot", "billetterie", "openup"],
+    guide: {
+      href: "/blog/combien-coute-application-web-sur-mesure",
+      title: "Combien coûte une application web sur mesure en 2026",
+    },
     faq: [
       {
         question: "Je ne suis pas technique, est-ce un problème ?",
@@ -114,8 +154,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       },
       {
         question: "Combien coûte la création d'une application web ?",
-        answer:
-          "Je facture 500 € HT par jour, ou au forfait quand le périmètre est fixé. Une petite application ou un outil interne demande 10 à 20 jours, soit 5 000 à 10 000 € HT. Une application complète, avec comptes, paiement en ligne et espace d'administration, demande 20 à 40 jours, soit 10 000 à 20 000 € HT. Un produit avancé, avec plusieurs rôles ou une application mobile, se situe entre 20 000 et 30 000 € HT. Tu reçois un devis détaillé sous 24h après notre premier échange.",
+        answer: `Je facture ${RATES.dailyHtEur} € HT par jour, ou au forfait quand le périmètre est fixé. Une petite application ou un outil interne demande 10 à 20 jours, soit 5 000 à 10 000 € HT. Une application complète, avec comptes, paiement en ligne et espace d'administration, demande 20 à 40 jours, soit 10 000 à 20 000 € HT. Un produit avancé, avec plusieurs rôles ou une application mobile, se situe entre 20 000 et 30 000 € HT. Tu reçois un devis détaillé sous 24h après le premier échange.`,
       },
       {
         question: "Combien de temps faut-il pour créer une application ?",
@@ -129,11 +168,12 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       },
       {
         question: "Que se passe-t-il après la mise en ligne ?",
-        answer:
-          "Tu peux repartir autonome, ou me confier la maintenance : correctifs, mises à jour de sécurité et petites évolutions, avec un forfait mensuel à partir de 350 € HT par mois.",
+        answer: `Tu peux repartir autonome, ou me confier la maintenance : correctifs, mises à jour de sécurité et petites évolutions, avec un forfait mensuel à partir de ${RATES.tma.proMonthlyEur} € HT par mois.`,
       },
     ],
     schema: {
+      name: "Création d'application web et mobile de A à Z",
+      description: `Axel Hamilcaro, développeur fullstack freelance à Tours, crée des applications web et mobiles sur mesure de A à Z, du cadrage à la mise en ligne, à ${RATES.dailyHtEur} € HT par jour, avec un devis sous 24 heures.`,
       serviceType: "Custom web application development",
       offers: [
         {
@@ -147,7 +187,7 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
             "Application iOS et Android développée à partir du même code que la version web.",
         },
         {
-          name: "Application clé en main",
+          name: "Application prête à l'emploi",
           description:
             "Prise en charge du projet de bout en bout par un seul développeur : cadrage, développement, mise en ligne, maintenance.",
         },
@@ -159,13 +199,11 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     slug: "developpeur-nextjs-freelance",
     url: `${SITE_URL}/services/developpeur-nextjs-freelance`,
     metaTitle: "Développeur Next.js freelance",
-    metaDescription:
-      "Dev Next.js depuis 2021, freelance depuis 2024 : MVP en 4 à 8 semaines, refonte d'apps, TypeScript, React 19, Tailwind v4. TJM 500€ HT, devis sous 24h.",
+    metaDescription: `Je développe en Next.js depuis 2021 et en freelance depuis fin 2024 : MVP en 4 à 8 semaines, refonte d'app, TypeScript, React 19. TJM ${RATES.dailyHtEur} € HT, devis sous 24h.`,
     hero: {
       eyebrow: "Service freelance",
       title: "Développeur Next.js freelance qui livre vraiment.",
-      subtitle:
-        "Tu cherches un freelance Next.js senior qui prend en charge ton produit de A à Z et livre en production sans surprise ? Next.js est ma stack de prédilection, mais j'adapte la techno à ton besoin : React/Node découplé, Vite, mobile natif. J'interviens sur architecture, MVP, refonte et lead tech temps partiel.",
+      subtitle: `Je suis Axel Hamilcaro, développeur Next.js freelance basé à Tours : je construis ton MVP en 4 à 8 semaines ou je refonds ton application en TypeScript et React 19, à ${RATES.dailyHtEur} € HT par jour, devis sous 24h. Tu cherches un freelance Next.js qui prend en charge ton produit de A à Z et livre en production sans surprise ? Next.js est ma stack de prédilection, mais j'adapte la techno à ton besoin : React/Node découplé, Vite, mobile natif. J'interviens sur architecture, MVP, refonte et lead tech temps partiel.`,
       ...baseHero,
     },
     card: {
@@ -173,10 +211,42 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       subtitle:
         "Ton produit web de A à Z : architecture, MVP, refonte, mise en production. Next.js, React/Node ou la stack adaptée à ton besoin, pas l'inverse.",
     },
+    ribbons: {
+      hero: [
+        "Next.js",
+        "React 19",
+        "TypeScript",
+        "React + Node",
+        "Hono",
+        "Vite",
+        "Capacitor",
+        "MVP",
+        "Refonte",
+        "Architecture",
+        "Lead tech temps partiel",
+        "Preview chaque semaine",
+        "Monitoring",
+        "Documentation",
+      ],
+      cta: [
+        `TJM ${RATES.dailyHtEur} € HT`,
+        "Forfait sur scope fermé",
+        "Démarrage sous 1 à 3 semaines",
+        "Cadrage gratuit de 30 min",
+        "Solo ou en équipe",
+        "Revues de code",
+        "Pair programming",
+        "iOS et Android",
+        "Fastlane",
+        "TestFlight",
+        "Play Store",
+        "Tu repars autonome",
+      ],
+    },
     problem: {
-      title: "Tu reconnais une de ces situations ?",
+      title: "Ce que ton projet demande",
       bullets: [
-        "Ton équipe est saturée et ton roadmap dérape.",
+        "Ton équipe est saturée et ta roadmap dérape.",
         "Ta stack legacy ralentit tes livraisons et ton équipe perd patience.",
         "Tu as une idée de produit mais personne pour le construire correctement en autonomie.",
         "Ton MVP a explosé en complexité et tu as besoin de remettre l'architecture à plat.",
@@ -203,11 +273,11 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
         },
       ],
     },
-    relatedCases: ["scormpilot", "openup", "billetterie"],
+    relatedCases: ["scormpilot", "billetterie", "openup"],
     faq: [
       {
         question: "Quel est ton TJM ?",
-        answer: "500€ HT/jour. Devis au forfait possible pour scope fermé.",
+        answer: `${RATES.dailyHtEur} € HT par jour. Devis au forfait possible pour un périmètre fermé.`,
       },
       {
         question: "Tu peux démarrer quand ?",
@@ -227,10 +297,12 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       {
         question: "Tu fais du mobile aussi ?",
         answer:
-          "Oui, mobile natif iOS et Android via Capacitor (PWA + apps natives depuis une seule codebase, releases auto via Fastlane CI/CD vers TestFlight et Play Store). OpenUp est ma référence récente : SaaS gestion de liens en production sur app.openup.to, dispo iOS, Android et web.",
+          "Oui, mobile natif iOS et Android via Capacitor (PWA + apps natives depuis une seule codebase, releases auto via Fastlane CI/CD vers TestFlight et Play Store). OpenUp, dont je suis le fondateur technique, est en production sur app.openup.to, disponible sur iOS, Android et web.",
       },
     ],
     schema: {
+      name: "Développement Next.js freelance",
+      description: `Axel Hamilcaro, développeur fullstack freelance à Tours, développe en Next.js depuis 2021 : MVP en 4 à 8 semaines et refonte d'applications en TypeScript et React 19, à ${RATES.dailyHtEur} € HT par jour.`,
       serviceType: "Software development consulting",
       offers: [
         {
@@ -255,18 +327,55 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
   "developpement-saas": {
     slug: "developpement-saas",
     url: `${SITE_URL}/services/developpement-saas`,
-    metaTitle: "Développement SaaS freelance",
+    metaTitle: "Développeur DDD et SaaS freelance",
     metaDescription:
-      "Dev freelance SaaS B2B. Architecture multi-tenant, Clean Architecture + DDD, mise en prod complète. Référence : ScormPilot (5 apps solo). Devis sous 24h.",
+      "Je suis développeur DDD freelance : SaaS B2B multi-tenant en Clean Architecture, mise en prod complète. Référence : ScormPilot, 5 apps en solo. Devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Je conçois et livre ton SaaS de zéro jusqu'en production.",
-      subtitle:
-        "Architecture multi-tenant, mise en production et monitoring compris. Un code clair, pensé pour grandir avec tes clients, sans complexité inutile.",
+      subtitle: `Je suis Axel Hamilcaro, développeur SaaS freelance basé à Tours : je conçois ton SaaS B2B multi-tenant en Clean Architecture et DDD, de la première ligne à la mise en production, à ${RATES.dailyHtEur} € HT par jour. Référence : ScormPilot, 5 apps livrées en solo. Monitoring compris, un code clair pensé pour grandir avec tes clients, sans complexité inutile.`,
       ...baseHero,
     },
+    card: {
+      title: "Développement SaaS",
+      subtitle:
+        "Architecture multi-tenant, mise en production et monitoring compris. Un code clair, pensé pour grandir avec tes clients, sans complexité inutile.",
+    },
+    ribbons: {
+      hero: [
+        "SaaS B2B",
+        "Multi-tenant",
+        "Row-level security",
+        "Schema-per-tenant",
+        "Bounded contexts",
+        "Clean Architecture",
+        "DDD",
+        "CI/CD dès le jour 1",
+        "Monitoring",
+        "Alerting",
+        "Tests BDD",
+        "Docker",
+        "GitHub Actions",
+        "Cloudflare R2",
+      ],
+      cta: [
+        "MVP en 4 à 12 semaines",
+        "Premier déploiement en semaine 2-3",
+        "ScormPilot",
+        "5 apps en solo",
+        "Civitime",
+        "4 ans de refonte continue",
+        "Audit produit",
+        "Refonte progressive",
+        "GCP",
+        "Vercel",
+        "Documentation",
+        "Onboarding tech",
+        "Devis sous 24h",
+      ],
+    },
     problem: {
-      title: "Tu reconnais une de ces situations ?",
+      title: "Quand ton MVP ne tient plus",
       bullets: [
         "Ton MVP fonctionne mais l'architecture craque sous la charge clients.",
         "Tu veux lancer un SaaS B2B mais ton équipe n'a pas l'expérience multi-tenancy.",
@@ -295,7 +404,11 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
         },
       ],
     },
-    relatedCases: ["scormpilot", "openup", "civitime"],
+    relatedCases: ["scormpilot", "civitime", "openup"],
+    guide: {
+      href: "/blog/combien-coute-mvp-saas",
+      title: "Combien coûte un MVP SaaS en 2026",
+    },
     faq: [
       {
         question: "Tu peux faire du multi-tenancy avec quel pattern ?",
@@ -319,12 +432,14 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       },
     ],
     schema: {
+      name: "Développement SaaS freelance",
+      description: `Axel Hamilcaro, développeur fullstack freelance à Tours, conçoit des SaaS B2B multi-tenant en Clean Architecture et DDD jusqu'à la mise en production, à ${RATES.dailyHtEur} € HT par jour. Référence : ScormPilot, 5 applications livrées seul.`,
       serviceType: "SaaS development consulting",
       offers: [
         {
           name: "Développement SaaS multi-tenant",
           description:
-            "Conception et développement d'un SaaS B2B from scratch jusqu'en production.",
+            "Conception et développement d'un SaaS B2B de zéro jusqu'en production.",
         },
         {
           name: "Audit et refonte SaaS existant",
@@ -345,16 +460,51 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
     url: `${SITE_URL}/services/lead-tech-fractional`,
     metaTitle: "Lead tech fractional freelance",
     metaDescription:
-      "Lead tech freelance pour startups et PME. 4 ans chez Civitime, de dev à lead tech. Missions de 3 à 18 mois, 1 à 3 jours par semaine. Devis sous 24h.",
+      "Je suis lead tech freelance pour startups et PME, après 4 ans chez Civitime de dev à lead tech : 1 à 3 jours par semaine, de 3 à 18 mois, devis sous 24h.",
     hero: {
       eyebrow: "Service freelance",
       title: "Lead technique fractional pour ton équipe.",
-      subtitle:
-        "Tu as une équipe dev mais pas de senior pour structurer l'architecture, cadrer les choix techno et accompagner la montée en compétence ? J'interviens en lead tech temps partiel sur des engagements de 3 à 18 mois.",
+      subtitle: `Je suis Axel Hamilcaro, lead tech fractional basé à Tours : j'interviens 1 à 3 jours par semaine, pendant 3 à 18 mois, à ${RATES.dailyHtEur} € HT par jour, pour structurer l'architecture et faire monter ton équipe en compétence, après 4 ans chez Civitime de développeur à lead tech. Tu as une équipe dev mais pas de senior pour cadrer les choix techno ? C'est le rôle que je prends.`,
       ...baseHero,
     },
+    card: {
+      title: "Lead tech fractional",
+      subtitle:
+        "Tu as une équipe dev mais pas de senior pour structurer l'architecture et accompagner la montée en compétence ? Lead tech temps partiel, de 3 à 18 mois.",
+    },
+    ribbons: {
+      hero: [
+        "Lead tech fractional",
+        "1 à 3 jours par semaine",
+        "De 3 à 18 mois",
+        "Audit en 1 à 2 semaines",
+        "Plan d'action 3 à 6 mois",
+        "Revues de code",
+        "Pair programming",
+        "Architecture",
+        "Mentorat",
+        "Recrutement technique",
+        "Préparation de levée",
+        "Transmission",
+        "Renouvelable au trimestre",
+      ],
+      cta: [
+        "4 ans chez Civitime",
+        "De dev à lead tech",
+        "3 mois minimum",
+        "Idéal de 6 à 18 mois",
+        "2 jours par semaine",
+        "Lead et dev hands-on",
+        "Diagnostic écrit",
+        "Roadmap technique",
+        "Formation de l'équipe",
+        "Sortie avec préavis",
+        "Startups et PME",
+        "Devis sous 24h",
+      ],
+    },
     problem: {
-      title: "Tu reconnais une de ces situations ?",
+      title: "Quand ton équipe a besoin d'un senior",
       bullets: [
         "Ton équipe code vite mais l'architecture dérive et la dette s'accumule.",
         "Tu n'as pas le budget pour un CTO senior à plein temps mais tu as besoin d'un structurant.",
@@ -384,6 +534,10 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       ],
     },
     relatedCases: ["civitime", "scormpilot"],
+    guide: {
+      href: "/blog/fractional-cto-lead-technique-temps-partiel",
+      title: "Avoir un CTO sans le salaire, le modèle fractional",
+    },
     faq: [
       {
         question: "Combien de temps par semaine ?",
@@ -407,6 +561,8 @@ export const servicesData: Record<ServiceSlug, ServiceData> = {
       },
     ],
     schema: {
+      name: "Lead tech fractional",
+      description: `Axel Hamilcaro, développeur fullstack à Tours, passé de développeur à lead technique en 4 ans chez Civitime, encadre la technique de startups et de PME 1 à 3 jours par semaine, de 3 à 18 mois, à ${RATES.dailyHtEur} € HT par jour.`,
       serviceType: "Software engineering leadership",
       offers: [
         {

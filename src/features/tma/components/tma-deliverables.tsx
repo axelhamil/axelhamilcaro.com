@@ -3,74 +3,30 @@ import {
   CalendarClock,
   FileText,
   MessagesSquare,
-  Sparkles,
 } from "lucide-react";
 import { TMA_PREMIUM_DELIVERABLES } from "../lib/tma-data";
+import { TmaLivrables } from "./tma-livrables";
+import { TmaSectionEntete } from "./tma-section-entete";
 
 const ICONS = [Activity, FileText, CalendarClock, MessagesSquare] as const;
 
 export function TmaDeliverables() {
   return (
-    <section id="premium-details" className="py-20 sm:py-28 px-6 scroll-mt-24">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
-            <Sparkles className="w-3 h-3" aria-hidden="true" />
-            Premium uniquement
-          </span>
-          <p
-            className="text-accent-ink font-medium tracking-wider text-sm mb-4"
-            style={{ fontFamily: "var(--font-geist-mono)" }}
-          >
-            {"// livrables_premium()"}
-          </p>
-          <h2
-            className="text-3xl sm:text-5xl font-bold text-primary mb-4"
-            style={{ fontFamily: "var(--font-space-grotesk)" }}
-          >
-            Ce que tu obtiens en plus, en 10h / mois.
-          </h2>
-          <p className="text-secondary text-lg max-w-2xl">
-            Quatre livrables récurrents qui n'existent pas en PRO. Setup,
-            rédaction et maintenance compris dans le forfait : tu n'as pas à
-            arbitrer entre « heures de support » et « heures de livrables ».
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {TMA_PREMIUM_DELIVERABLES.map((item, index) => {
-            const Icon = ICONS[index] ?? Sparkles;
-            return (
-              <article
-                key={item.title}
-                className="card p-6 sm:p-8 flex flex-col"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-2 rounded-lg bg-accent/10 text-accent-ink">
-                    <Icon className="w-5 h-5" aria-hidden="true" />
-                  </div>
-                  <span
-                    className="text-xs uppercase tracking-wider text-secondary"
-                    style={{ fontFamily: "var(--font-geist-mono)" }}
-                  >
-                    {item.cadence}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-primary mb-1">
-                  {item.title}
-                </h3>
-                <p
-                  className="text-xs uppercase tracking-wider text-accent-ink mb-3"
-                  style={{ fontFamily: "var(--font-geist-mono)" }}
-                >
-                  {item.tagline}
-                </p>
-                <p className="text-secondary leading-relaxed">{item.body}</p>
-              </article>
-            );
-          })}
-        </div>
-      </div>
+    <section
+      id="premium-details"
+      className="svc-section container scroll-mt-24"
+    >
+      <TmaSectionEntete
+        badge={{ label: "Premium uniquement", tone: "premium" }}
+        eyebrow="// livrables_premium()"
+        title="Ce que tu obtiens en plus, en 10h / mois."
+        intro="Quatre livrables récurrents qui n'existent pas en PRO. Setup, rédaction et maintenance compris dans le forfait : tu n'as pas à arbitrer entre « heures de support » et « heures de livrables »."
+      />
+      <TmaLivrables
+        items={TMA_PREMIUM_DELIVERABLES}
+        icons={ICONS}
+        ombre="jaune"
+      />
     </section>
   );
 }

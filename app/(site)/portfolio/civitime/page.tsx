@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/app/_config/site.constants";
 import {
   CivitimeFaq,
   civitimeFaqItems,
 } from "@/src/features/portfolio-civitime/components/civitime-faq";
 import {
   CivitimeArchitecture,
-  CivitimeBackdrop,
   CivitimeBottomCta,
   CivitimeContext,
   CivitimeFeatures,
@@ -15,6 +15,8 @@ import {
   CivitimeStats,
   CivitimeTechStack,
 } from "@/src/features/portfolio-civitime/components/civitime-showcase";
+import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
+import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 import { buildBreadcrumbListSchema } from "@/src/shared/seo/schemas/breadcrumb-list";
 import { buildCreativeWorkSchema } from "@/src/shared/seo/schemas/creative-work";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
@@ -23,7 +25,7 @@ const creativeWorkSchema = buildCreativeWorkSchema({
   name: "Civitime : plateforme RSE B Corp",
   description:
     "4 ans chez Civitime, de développeur à lead technique, sur la refonte complète d'une plateforme RSE B Corp en Clean Architecture + DDD + event sourcing. Conception d'un éditeur IA RAG qui a divisé par 2 les délais d'itération de l'équipe pédagogique.",
-  url: "https://axelhamilcaro.com/portfolio/civitime",
+  url: `${SITE_URL}/portfolio/civitime`,
   dateCreated: "2021",
   keywords: [
     "RSE",
@@ -48,10 +50,12 @@ const breadcrumbSchema = buildBreadcrumbListSchema([
   { name: "Civitime", url: "/portfolio/civitime" },
 ]);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Civitime : SaaS RSE multi-tenant, 4 ans",
   description:
-    "Lead fullstack 4 ans chez Civitime, B Corp RSE (250 000+ collaborateurs). Clean Architecture + DDD, éditeur IA RAG (délais ÷2), SaaS SCORM multi-tenant.",
+    "J'ai passé 4 ans chez Civitime, B Corp RSE (250 000+ collaborateurs), de dev à lead tech : Clean Architecture et DDD, éditeur IA RAG, SaaS SCORM multi-tenant.",
+  path: "/portfolio/civitime",
+  type: "article",
   keywords: [
     "Civitime",
     "serious games",
@@ -64,55 +68,25 @@ export const metadata: Metadata = {
     "plateforme SaaS",
     "Axel Hamilcaro",
   ],
-  alternates: {
-    canonical: "/portfolio/civitime",
-  },
-  openGraph: {
-    title: "Civitime : SaaS RSE multi-tenant, 4 ans",
-    description:
-      "4 ans chez Civitime, de dev à lead technique : serious games RSE, éditeur interne, plateforme SaaS SCORM multi-tenant.",
-    url: "/portfolio/civitime",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Civitime : SaaS RSE multi-tenant, 4 ans",
-    description:
-      "4 ans chez Civitime, de dev à lead technique : serious games RSE, éditeur interne, plateforme SaaS SCORM multi-tenant.",
-  },
-};
+});
 
 export default function CivitimePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <main className="pb-8">
-        <div className="relative">
-          <CivitimeBackdrop />
-          <CivitimeHero />
-          <CivitimeStats />
-          <CivitimeContext />
-          <CivitimeScreenshots />
-          <CivitimeRoleEvolution />
-          <CivitimeFeatures />
-          <CivitimeArchitecture />
-          <CivitimeTechStack />
-          <CivitimeFaq />
-          <CivitimeBottomCta />
-        </div>
+      <JsonLdScript data={creativeWorkSchema} />
+      <JsonLdScript data={faqSchema} />
+      <JsonLdScript data={breadcrumbSchema} />
+      <main className="cas cas-civitime">
+        <CivitimeHero />
+        <CivitimeStats />
+        <CivitimeContext />
+        <CivitimeScreenshots />
+        <CivitimeRoleEvolution />
+        <CivitimeFeatures />
+        <CivitimeArchitecture />
+        <CivitimeTechStack />
+        <CivitimeFaq />
+        <CivitimeBottomCta />
       </main>
     </>
   );

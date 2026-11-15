@@ -1,23 +1,44 @@
+import { PARCOURS } from "@/app/_config/parcours";
+import { BUILDS_SUMMARY } from "@/app/_config/projects";
 import {
   AUTHOR,
   AVAILABILITY,
   CONTACT,
+  EMPLOYER,
   EXTERNAL_LINKS,
   FREELANCE_SINCE_YEAR,
   getFreelanceYears,
+  IDENTITY_TITLE,
   JOB_TITLE,
+  MCP,
+  OPENUP,
   RATES,
   SITE_URL,
+  THESIS,
 } from "@/app/_config/site.constants";
+import {
+  AFTERLIVE_AMBITION,
+  getProjects,
+  renderProjectsMarkdown,
+  WEATHERTOP_AMBITION,
+} from "./mcp.projects";
 
-export type CatalogSectionId =
-  | "whoami"
-  | "architecture-manifesto"
-  | "live-status"
-  | "stack-matrix"
-  | "case-studies"
-  | "services"
-  | "contact";
+export const CATALOG_SECTION_IDS = [
+  "whoami",
+  "architecture-manifesto",
+  "live-status",
+  "stack-matrix",
+  "projects",
+  "case-studies",
+  "services",
+  "contact",
+] as const;
+
+export type CatalogSectionId = (typeof CATALOG_SECTION_IDS)[number];
+
+export function isCatalogSectionId(value: string): value is CatalogSectionId {
+  return (CATALOG_SECTION_IDS as readonly string[]).includes(value);
+}
 
 export type StackSeniority = "expert" | "strong" | "working";
 
@@ -28,7 +49,62 @@ export type StackEntry = {
 
 const SIGNATURE_STACK = "Next.js, React, Node" as const;
 
-const CASE_STUDIES = [
+const GITHUB_TOOLS = [
+  "inwire",
+  "galvorn",
+  "aggregate-kit",
+  "burnrate",
+  "ccwatermelon",
+  "claude-window",
+  "cockpit",
+] as const;
+
+const BUILDS = [
+  {
+    name: "clean-stack",
+    kind: "Boilerplate SaaS open source (Bun, Hono, React 19, Drizzle), Clean Architecture + DDD, 17 étoiles GitHub",
+    url: "https://github.com/axelhamil/clean-stack",
+  },
+  {
+    name: "weathertop",
+    kind: WEATHERTOP_AMBITION,
+  },
+  {
+    name: "afterlive",
+    kind: AFTERLIVE_AMBITION,
+  },
+  {
+    name: "Outils publiés sur GitHub",
+    kind: `${GITHUB_TOOLS.join(", ")} (détail : site://projects)`,
+    url: EXTERNAL_LINKS.github,
+  },
+];
+
+const IDENTITY_SUMMARY = `${AUTHOR.name} est développeur fullstack et builder, basé à Tours. ${THESIS.thirdPerson} ${BUILDS_SUMMARY} ${EMPLOYER.role} chez ${EMPLOYER.name} (CDI) depuis septembre 2026, auparavant 4 ans chez Civitime de développeur à lead technique. ${OPENUP.role} d'${OPENUP.name} depuis ${OPENUP.sinceYear}, en projet parallèle. Il prend encore quelques projets en freelance.`;
+
+const AI_AGENTS =
+  "Travaille avec des agents IA tous les jours. Ce site expose un serveur MCP public.";
+
+const PRINCIPLES = [
+  "Comprendre le problème avant d'ouvrir l'éditeur.",
+  "Écrire le test avant le code.",
+  "Garder une architecture qu'un autre dev, ou un agent, peut reprendre sans moi.",
+  "Mettre en prod tôt, mesurer, corriger.",
+] as const;
+
+type CaseStudy = {
+  slug: string;
+  title: string;
+  path: string;
+  summary: string;
+  role?: string;
+  year?: number;
+  status?: string;
+  metrics: readonly string[];
+  stack: readonly string[];
+};
+
+const CASE_STUDIES: readonly CaseStudy[] = [
   {
     slug: "scormpilot",
     title: "ScormPilot",
@@ -53,11 +129,19 @@ const CASE_STUDIES = [
   },
   {
     slug: "openup",
-    title: "OpenUp",
+    title: OPENUP.name,
     path: "/portfolio/openup",
     summary:
-      "SaaS de gestion de liens tout-en-un, iOS, Android et PWA, edge Cloudflare <50ms.",
-    metrics: ["<50ms edge", "iOS + Android + PWA", "live openup.to"],
+      "Projet parallèle dont Axel Hamilcaro est le fondateur technique depuis 2026. Des deep links qui sortent du navigateur interne d'Instagram ou de TikTok et ouvrent l'app native, plus de 50 apps, redirection décidée en moins de 50 ms depuis l'edge. QR codes, link-in-bio et analytics autour, web, iOS et Android depuis une seule codebase, abonnés payants en euros et en dollars.",
+    role: OPENUP.role,
+    year: OPENUP.sinceYear,
+    status: "in progress",
+    metrics: [
+      "50+ apps natives",
+      "<50ms edge",
+      "web + iOS + Android, une codebase",
+      "abonnés EUR + USD",
+    ],
     stack: ["Hono", "Capacitor", "Cloudflare Workers", "Stripe"],
   },
   {
@@ -69,35 +153,84 @@ const CASE_STUDIES = [
     metrics: ["<200ms WebSocket", "solo 1 mois", "plan 2D/3D"],
     stack: ["Next.js", "NestJS", "WebSocket", "PostgreSQL"],
   },
-] as const;
+];
+
+const monthYear = (iso: string) =>
+  new Date(`${iso}-01`).toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 
 export function getCareer() {
   return {
     education: {
-      school: "Wild Code School",
-      year: 2020,
+      school: PARCOURS.formation.organisation,
+      year: Number(PARCOURS.formation.debut.iso),
       diploma: "Concepteur Développeur",
     },
     civitime: {
-      from: "January 2021",
-      to: "December 2024",
+      from: monthYear(PARCOURS.civitime.debut.iso),
+      to: monthYear(PARCOURS.civitime.fin.iso),
       progression: "developer to lead",
-      company: "Civitime",
+      company: PARCOURS.civitime.organisation,
       kind: "EdTech B Corp",
       product: "RSE platform",
       architecture: "Clean Archi + DDD + event sourcing",
     },
     freelanceSince: FREELANCE_SINCE_YEAR,
+    foundersAccompanied: "une dizaine",
+    openup: {
+      company: OPENUP.name,
+      url: OPENUP.url,
+      role: OPENUP.role,
+      since: OPENUP.sinceYear,
+      status: "in progress",
+    },
+    employer: {
+      company: EMPLOYER.name,
+      role: EMPLOYER.role,
+      contract: EMPLOYER.contract,
+      since: EMPLOYER.since,
+    },
   };
+}
+
+function getCurrentRoles() {
+  return [
+    {
+      organization: EMPLOYER.name,
+      role: EMPLOYER.role,
+      contract: EMPLOYER.contract,
+      since: EMPLOYER.since,
+    },
+    {
+      organization: OPENUP.name,
+      url: OPENUP.url,
+      role: `${OPENUP.role}, projet parallèle`,
+      since: String(OPENUP.sinceYear),
+    },
+    {
+      organization: "Freelance",
+      role: "Développeur fullstack freelance, quelques projets clients",
+      since: String(FREELANCE_SINCE_YEAR),
+    },
+  ];
 }
 
 export function getWhoami() {
   return {
     name: AUTHOR.name,
     jobTitle: JOB_TITLE,
+    identity: IDENTITY_TITLE,
+    summary: IDENTITY_SUMMARY,
+    builds: BUILDS,
     location: AVAILABILITY.location,
     remote: AVAILABILITY.remote,
     stack: SIGNATURE_STACK,
+    currentRoles: getCurrentRoles(),
+    aiAgents: AI_AGENTS,
+    mcpServer: MCP.url,
     freelanceSince: FREELANCE_SINCE_YEAR,
     freelanceYears: getFreelanceYears(),
     dailyRateHtEur: RATES.dailyHtEur,
@@ -111,27 +244,10 @@ export function getWhoami() {
 
 export function getManifesto() {
   return {
+    principles: [...PRINCIPLES],
     typescript: "TypeScript strict",
     architecture:
       "Clean Architecture + DDD quand le produit le mérite. Pragmatique quand il faut juste livrer vite. Pas de sur-ingénierie pour le plaisir.",
-    values: [
-      {
-        title: "Code propre, pas dogmatique",
-        text: "Clean Architecture + DDD quand le produit le mérite. Pragmatique quand il faut juste livrer vite. Pas de sur-ingénierie pour le plaisir.",
-      },
-      {
-        title: "Vision produit avant la technique",
-        text: "Je pose les bonnes questions sur le métier avant de coder. Le code doit servir un objectif business clair, sinon il ne sert à rien.",
-      },
-      {
-        title: "Livraison fiable",
-        text: 'Je tiens mes engagements. Pas de surprise sur les délais, pas de dette technique cachée, pas de "ça marchait sur mon poste".',
-      },
-      {
-        title: "Communication directe",
-        text: "Je travaille en async, je documente, je préviens dès qu'un blocage apparaît. Pas besoin de me chasser pour avoir un statut.",
-      },
-    ],
   };
 }
 
@@ -144,6 +260,12 @@ export function getLiveStatus() {
     quoteSla: AVAILABILITY.quoteSla,
     freelanceSince: FREELANCE_SINCE_YEAR,
     freelanceYears: getFreelanceYears(),
+    context: {
+      employer: `${EMPLOYER.role} chez ${EMPLOYER.name} (CDI depuis ${EMPLOYER.since})`,
+      builds: `weathertop : ${WEATHERTOP_AMBITION} afterlive : ${AFTERLIVE_AMBITION}`,
+      product: `${OPENUP.role} d'${OPENUP.name}, projet parallèle en cours`,
+      freelance: "Prend encore quelques projets en freelance",
+    },
   };
 }
 
@@ -182,6 +304,9 @@ export function getCaseStudies() {
     path: study.path,
     url: `${SITE_URL}${study.path}`,
     summary: study.summary,
+    role: study.role,
+    year: study.year,
+    status: study.status,
     metrics: [...study.metrics],
     stack: [...study.stack],
   }));
@@ -246,6 +371,8 @@ export function getCatalogSection(id: CatalogSectionId) {
       return getLiveStatus();
     case "stack-matrix":
       return getStackMatrix();
+    case "projects":
+      return getProjects();
     case "case-studies":
       return getCaseStudies();
     case "services":
@@ -265,6 +392,8 @@ export function renderMarkdown(id: CatalogSectionId): string {
       return renderLiveStatusMarkdown();
     case "stack-matrix":
       return renderStackMatrixMarkdown();
+    case "projects":
+      return renderProjectsMarkdown();
     case "case-studies":
       return renderCaseStudiesMarkdown();
     case "services":
@@ -283,18 +412,43 @@ function renderWhoamiMarkdown() {
     "",
     `**${whoami.jobTitle}**`,
     "",
+    whoami.summary,
+    "",
     `- Location: ${whoami.location}`,
     `- Remote: ${whoami.remote}`,
     `- Stack: ${whoami.stack}`,
+    `- AI agents: ${whoami.aiAgents}`,
+    `- MCP server: ${whoami.mcpServer}`,
+    `- Email: ${whoami.email}`,
+    "",
+    "## Builds",
+    "",
+    ...whoami.builds.map((build) =>
+      build.url
+        ? `- ${build.name}: ${build.kind} ${build.url}`
+        : `- ${build.name}: ${build.kind}`,
+    ),
+    "",
+    "## Current roles",
+    "",
+    ...whoami.currentRoles.map(
+      (role) => `- ${role.organization}: ${role.role}, since ${role.since}`,
+    ),
+    "",
+    "## Freelance",
+    "",
     `- Freelance since: ${whoami.freelanceSince} (${whoami.freelanceYears} years)`,
     `- TJM: ${whoami.dailyRateHtEur}€ HT/day`,
     `- Quote SLA: ${whoami.quoteSla}`,
     `- Start window: ${whoami.startWindow}`,
-    `- Email: ${whoami.email}`,
     "",
     "## Career",
     "",
-    `${career.education.school} ${career.education.year} (${career.education.diploma}) → ${career.civitime.company} ${career.civitime.from}–${career.civitime.to}, ${career.civitime.progression}. ${career.civitime.company} = ${career.civitime.kind}, ${career.civitime.product}, ${career.civitime.architecture}. Freelance since ${career.freelanceSince}.`,
+    `- ${career.education.school} ${career.education.year} (${career.education.diploma})`,
+    `- ${career.civitime.company}, ${career.civitime.from} to ${career.civitime.to}, ${career.civitime.progression}. ${career.civitime.kind}, ${career.civitime.product}, ${career.civitime.architecture}.`,
+    `- Freelance since ${career.freelanceSince}, ${career.foundersAccompanied} de fondateurs accompagnés.`,
+    `- ${career.openup.company} (${career.openup.url}), ${career.openup.role} since ${career.openup.since}, ${career.openup.status}.`,
+    `- ${career.employer.company}, ${career.employer.role}, ${career.employer.contract} since ${career.employer.since}.`,
   ].join("\n");
 }
 
@@ -304,15 +458,14 @@ function renderManifestoMarkdown() {
   return [
     "# Architecture manifesto",
     "",
+    "## Principles",
+    "",
+    ...manifesto.principles.map((principle) => `- ${principle}`),
+    "",
+    "## Architecture",
+    "",
     `- ${manifesto.typescript}`,
     `- ${manifesto.architecture}`,
-    "",
-    ...manifesto.values.flatMap((value) => [
-      `## ${value.title}`,
-      "",
-      value.text,
-      "",
-    ]),
   ].join("\n");
 }
 
@@ -328,6 +481,13 @@ function renderLiveStatusMarkdown() {
     `- Start window: ${status.startWindow}`,
     `- Quote SLA: ${status.quoteSla}`,
     `- Freelance since: ${status.freelanceSince} (${status.freelanceYears} years)`,
+    "",
+    "## Context",
+    "",
+    `- ${status.context.employer}`,
+    `- ${status.context.builds}`,
+    `- ${status.context.product}`,
+    `- ${status.context.freelance}`,
   ].join("\n");
 }
 
@@ -353,6 +513,9 @@ function renderCaseStudiesMarkdown() {
     ...getCaseStudies().flatMap((study) => [
       `## ${study.title}`,
       "",
+      ...(study.role
+        ? [`${study.role}, ${study.year}, ${study.status}.`, ""]
+        : []),
       study.summary,
       "",
       ...study.metrics.map((metric) => `- ${metric}`),

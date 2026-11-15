@@ -1,7 +1,9 @@
-import type { ReactNode } from "react";
-import { BlogNavbar } from "@/src/features/blog/components/blog-navbar";
+import { type ReactNode, ViewTransition } from "react";
+import { Toaster } from "sonner";
 import { ScrollToTop } from "@/src/features/blog/components/scroll-to-top";
 import Footer from "@/src/shared/layouts/footer";
+import Navbar from "@/src/shared/layouts/navbar";
+import { MagneticField } from "@/src/shared/ui/effects/magnetic-field";
 import { WebMcpBootstrap } from "@/src/shared/webmcp/webmcp-bootstrap";
 
 export default function BlogLayout({
@@ -13,17 +15,21 @@ export default function BlogLayout({
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+        className="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3"
       >
         Aller au contenu principal
       </a>
-      <BlogNavbar />
       <WebMcpBootstrap />
-      <div id="main-content" className="pt-20">
-        {children}
-      </div>
+      <MagneticField />
+      <Navbar />
+      <ViewTransition default="none" exit="auto">
+        <div id="main-content" className="page-marges pt-[var(--nav-h)]">
+          <ViewTransition>{children}</ViewTransition>
+        </div>
+      </ViewTransition>
       <Footer />
       <ScrollToTop />
+      <Toaster position="bottom-right" richColors />
     </>
   );
 }

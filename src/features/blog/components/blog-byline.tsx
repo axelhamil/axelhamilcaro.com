@@ -20,15 +20,11 @@ export function BlogByline({
   const isTranslation = Boolean(originalAuthor);
 
   const author = isHeader ? (
-    <TransitionLink
-      href="/about"
-      rel="author"
-      className="font-medium text-primary hover:text-accent-ink transition-colors"
-    >
+    <TransitionLink href="/about" rel="author" className="link-underline">
       {AUTHOR.name}
     </TransitionLink>
   ) : (
-    <span className="font-medium text-secondary">{AUTHOR.name}</span>
+    <span className="signature-nom">{AUTHOR.name}</span>
   );
 
   const original =
@@ -37,38 +33,35 @@ export function BlogByline({
         href={originalAuthorUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-secondary underline underline-offset-2 hover:text-accent-ink transition-colors"
+        className="link-underline"
       >
         {originalAuthor}
       </a>
     ) : (
-      <span className="text-secondary">{originalAuthor}</span>
+      <span className="signature-nom">{originalAuthor}</span>
     );
 
   return (
-    <div
+    <p
       className={cn(
-        "flex flex-wrap items-center gap-x-2.5 gap-y-1",
-        isHeader ? "text-sm" : "text-xs",
+        "signature flex items-center gap-3",
+        isHeader && "signature-entete",
         className,
       )}
     >
       <Image
         src={AUTHOR.imagePath}
         alt=""
-        width={isHeader ? 36 : 24}
-        height={isHeader ? 36 : 24}
+        width={isHeader ? 40 : 28}
+        height={isHeader ? 40 : 28}
         preload={isHeader}
-        className={cn(
-          "rounded-full object-cover border border-border",
-          isHeader ? "h-9 w-9" : "h-6 w-6",
-        )}
+        className="signature-photo shrink-0"
       />
-      <span className="text-muted-foreground">
+      <span>
         {isTranslation ? "Traduit par " : "Par "}
         {author}
         {isTranslation ? <> · Texte original de {original}</> : null}
       </span>
-    </div>
+    </p>
   );
 }

@@ -1,20 +1,55 @@
 import { authService } from "@/src/backend/auth/auth.service";
 import { error, json } from "@/src/lib/http";
-import { mcpRepository } from "./mcp.repository";
+import {
+  mcpEventsQuerySchema,
+  mcpOverviewQuerySchema,
+} from "./mcp.stats.schema";
+import { mcpStatsService } from "./mcp.stats.service";
 
-export async function getStats(headers: Headers, days = 7) {
+const TELEMETRY_UNAVAILABLE =
+  "MCP telemetry is unavailable. Check that the mcp_events migrations ran.";
+
+function logStatsFailure(scope: string, cause: unknown) {
+  console.error(
+    JSON.stringify({
+      level: "error",
+      scope,
+      message: "MCP stats query failed",
+      error: cause instanceof Error ? cause.message : String(cause),
+    }),
+  );
+}
+
+export async function getStats(
+  headers: Headers,
+  searchParams: URLSearchParams,
+) {
   const auth = await authService.requireAdmin(headers);
   if (!auth.success) return error(auth.error, auth.status);
 
-  const windowDays = Number.isFinite(days)
-    ? Math.min(90, Math.max(1, Math.trunc(days)))
-    : 7;
-  const from = new Date(Date.now() - windowDays * 24 * 60 * 60 * 1000);
+  const query = mcpOverviewQuerySchema.parse(Object.fromEntries(searchParams));
 
   try {
-    const stats = await mcpRepository.stats(from);
-    return json({ days: windowDays, ...stats });
-  } catch {
-    return error("MCP telemetry is unavailable. Check migrations.", 503);
+    return json(await mcpStatsService.overview(query.days, query.traffic));
+  } catch (cause) {
+    logStatsFailure("mcp.stats.overview", cause);
+    return error(TELEMETRY_UNAVAILABLE, 503);
+  }
+}
+
+export async function listEvents(
+  headers: Headers,
+  searchParams: URLSearchParams,
+) {
+  const auth = await authService.requireAdmin(headers);
+  if (!auth.success) return error(auth.error, auth.status);
+
+  const query = mcpEventsQuerySchema.parse(Object.fromEntries(searchParams));
+
+  try {
+    return json(await mcpStatsService.events(query));
+  } catch (cause) {
+    logStatsFailure("mcp.stats.events", cause);
+    return error(TELEMETRY_UNAVAILABLE, 503);
   }
 }
