@@ -407,6 +407,7 @@ export async function list(headers: Headers) {
 - Analytics Vercel + Speed Insights (layout racine)
 - Auth : better-auth + GitHub provider
 - DB : Drizzle + Neon PostgreSQL
+- Déploiement Vercel : la commande de build du projet (réglage Vercel, absent du dépôt) est `pnpm run build && pnpm run db:migrate && pnpm db:seed` ; les migrations de `drizzle/migrations` s'appliquent donc à chaque déploiement, jamais à la main. Un build qui échoue sur le téléchargement d'une police Google (`next/font`) est un incident réseau : relancer le déploiement
 - Email : Resend (templates dans `src/backend/email/templates/`)
 
 ## Checklist refacto future
