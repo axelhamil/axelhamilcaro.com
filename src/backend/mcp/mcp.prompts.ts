@@ -2,6 +2,16 @@ import type { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import { AVAILABILITY, CONTACT, RATES } from "@/app/_config/site.constants";
 
+const compareStackArgsSchema = z.object({
+  need: z.string().min(1).max(4000).describe("The product or stack need"),
+});
+
+export const MCP_PROMPT_ARGUMENT_SCHEMAS = {
+  formalize_need: z.object({}),
+  compare_stack: compareStackArgsSchema,
+  draft_outreach: z.object({}),
+};
+
 export function buildFormalizeNeedPrompt() {
   return {
     messages: [
@@ -79,9 +89,7 @@ export function registerMcpPrompts(server: McpServer) {
       title: "Compare a need to the stack matrix",
       description:
         "Read site://stack-matrix and compare it to the user's need.",
-      argsSchema: z.object({
-        need: z.string().min(1).max(4000).describe("The product or stack need"),
-      }),
+      argsSchema: MCP_PROMPT_ARGUMENT_SCHEMAS.compare_stack,
     },
     async ({ need }) => buildCompareStackPrompt({ need }),
   );

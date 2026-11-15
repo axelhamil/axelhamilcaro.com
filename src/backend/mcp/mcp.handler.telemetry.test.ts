@@ -108,6 +108,60 @@ describe("MCP event telemetry", () => {
   });
 });
 
+describe("MCP argument telemetry", () => {
+  const leakingArguments = {
+    "jean.dupont@acme.fr 06 12 34 56 78": "x",
+    sk_live_51Hx: true,
+  };
+
+  test("stores only a count of undeclared argument names", async () => {
+    const inserted = captureInsertedEvent();
+
+    const response = await POST(
+      jsonRpcPost({
+        jsonrpc: "2.0",
+        id: 4,
+        method: "tools/call",
+        params: {
+          name: "list_projects",
+          arguments: { ...leakingArguments, format: "json" },
+        },
+      }),
+    );
+    await response.text();
+    const event = await inserted;
+
+    assert.equal(event.name, "list_projects");
+    assert.deepEqual(event.toolArguments, {
+      format: "json",
+      _undeclared: "2",
+    });
+    assert.doesNotMatch(JSON.stringify(event), /jean|acme|06 12|sk_live/);
+  });
+
+  test("records a tool outside the catalog as unknown", async () => {
+    const inserted = captureInsertedEvent();
+
+    const response = await POST(
+      jsonRpcPost({
+        jsonrpc: "2.0",
+        id: 5,
+        method: "tools/call",
+        params: {
+          name: "jean.dupont@acme.fr sk_live_51Hx",
+          arguments: leakingArguments,
+        },
+      }),
+    );
+    await response.text();
+    const event = await inserted;
+
+    assert.equal(event.name, "unknown");
+    assert.deepEqual(event.toolArguments, { _undeclared: "2" });
+    assert.doesNotMatch(JSON.stringify(event), /jean|acme|06 12|sk_live/);
+  });
+});
+
 describe("MCP tool failure telemetry", () => {
   test("records a tool error result as a failed call with its message", async () => {
     mock.method(mcpRepository, "findBriefById", async () => null);

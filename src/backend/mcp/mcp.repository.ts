@@ -84,9 +84,13 @@ export type McpEventCursor = {
   id: string;
 };
 
+const visitorOfDay = sql<
+  string | null
+>`(${mcpEvents.visitorHash} || '@' || to_char(${mcpEvents.createdAt}, 'YYYYMMDD'))`;
+
 const visitKey = sql<
   string | null
->`coalesce(${mcpEvents.sessionId}, ${mcpEvents.visitorHash})`;
+>`coalesce(${mcpEvents.sessionId}, ${visitorOfDay})`;
 
 function sqlLiteral(value: string) {
   return `'${value.replaceAll("'", "''")}'`;
@@ -221,7 +225,7 @@ export const mcpRepository = {
           Number,
         ),
         lastAt,
-        visitors: sql<number>`cast(count(distinct ${mcpEvents.visitorHash}) as int)`,
+        visitors: sql<number>`cast(count(distinct ${visitorOfDay}) as int)`,
       })
       .from(mcpEvents)
       .where(scopeConditions(scope));

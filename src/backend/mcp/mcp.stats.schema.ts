@@ -2,6 +2,7 @@ import { z } from "zod";
 import { MCP_TRAFFIC_SCOPES } from "./mcp.origin";
 
 export const MCP_STATS_PERIODS = [1, 7, 30] as const;
+export const MCP_EVENTS_FILTER_MAX = 256;
 
 const periodSchema = z.coerce
   .number()
@@ -11,7 +12,7 @@ const periodSchema = z.coerce
 const optionalText = z
   .string()
   .trim()
-  .max(256)
+  .max(MCP_EVENTS_FILTER_MAX)
   .optional()
   .transform((value) => value || undefined);
 

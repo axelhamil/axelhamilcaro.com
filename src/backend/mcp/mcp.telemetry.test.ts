@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
+import { createHmac } from "node:crypto";
 import { describe, test } from "node:test";
 import {
+  knownCallName,
   readRequestTelemetry,
   summarizeToolArguments,
   visitorFingerprint,
@@ -8,12 +10,16 @@ import {
 
 describe("summarizeToolArguments", () => {
   test("never stores the content of a free text field", () => {
-    const summary = summarizeToolArguments({
-      need: "SaaS de facturation pour Jean Dupont, jean@example.com",
-      stack: "Next.js",
-      constraints: "budget 20k",
-      briefId: "4b2d0f7e-9a0c-4c1e-8d2f-1b3c5d7e9f00",
-    });
+    const summary = summarizeToolArguments(
+      "tools/call",
+      "generate_custom_proposal",
+      {
+        need: "SaaS de facturation pour Jean Dupont, jean@example.com",
+        stack: "Next.js",
+        constraints: "budget 20k",
+        briefId: "4b2d0f7e-9a0c-4c1e-8d2f-1b3c5d7e9f00",
+      },
+    );
 
     assert.deepEqual(summary, {
       need: null,
@@ -25,22 +31,87 @@ describe("summarizeToolArguments", () => {
 
   test("keeps the value of a public site identifier", () => {
     assert.deepEqual(
-      summarizeToolArguments({ category: "brique", format: "json" }),
+      summarizeToolArguments("tools/call", "list_projects", {
+        category: "brique",
+        format: "json",
+      }),
       { category: "brique", format: "json" },
     );
   });
 
   test("drops a public key whose value is not a known identifier", () => {
     assert.deepEqual(
-      summarizeToolArguments({ category: "contact me at jean@example.com" }),
+      summarizeToolArguments("tools/call", "list_projects", {
+        category: "contact me at jean@example.com",
+      }),
       { category: null },
     );
   });
 
+  test("counts undeclared argument names without storing them", () => {
+    const summary = summarizeToolArguments("tools/call", "list_projects", {
+      "jean.dupont@acme.fr 06 12 34 56 78": "x",
+      sk_live_51Hx: true,
+      format: "json",
+    });
+
+    assert.deepEqual(summary, { format: "json", _undeclared: "2" });
+    assert.doesNotMatch(
+      JSON.stringify(summary),
+      /jean|dupont|acme|06 12|sk_live|51Hx/,
+    );
+  });
+
+  test("stores no argument name for a call outside the catalog", () => {
+    assert.deepEqual(
+      summarizeToolArguments("tools/call", "exfiltrate", {
+        "jean.dupont@acme.fr": "x",
+      }),
+      { _undeclared: "1" },
+    );
+  });
+
+  test("keeps the declared arguments of a prompt", () => {
+    assert.deepEqual(
+      summarizeToolArguments("prompts/get", "compare_stack", {
+        need: "jean@example.com",
+        "jean.dupont@acme.fr": "x",
+      }),
+      { need: null, _undeclared: "1" },
+    );
+  });
+
   test("returns nothing when there are no arguments", () => {
-    assert.equal(summarizeToolArguments(undefined), null);
-    assert.equal(summarizeToolArguments({}), null);
-    assert.equal(summarizeToolArguments(["need"]), null);
+    assert.equal(
+      summarizeToolArguments("tools/call", "list_projects", undefined),
+      null,
+    );
+    assert.equal(
+      summarizeToolArguments("tools/call", "list_projects", {}),
+      null,
+    );
+    assert.equal(
+      summarizeToolArguments("tools/call", "list_projects", ["need"]),
+      null,
+    );
+  });
+});
+
+describe("knownCallName", () => {
+  test("keeps a tool or prompt of the catalog", () => {
+    assert.equal(knownCallName("tools/call", "list_projects"), "list_projects");
+    assert.equal(
+      knownCallName("prompts/get", "compare_stack"),
+      "compare_stack",
+    );
+  });
+
+  test("turns a name outside the catalog into unknown", () => {
+    assert.equal(
+      knownCallName("tools/call", "jean.dupont@acme.fr sk_live_51Hx"),
+      "unknown",
+    );
+    assert.equal(knownCallName("prompts/get", "toString"), "unknown");
   });
 });
 
@@ -71,11 +142,24 @@ describe("visitorFingerprint", () => {
     );
   });
 
-  test("never contains the IP", () => {
+  test("is truncated to 20 bits and never contains the IP", () => {
     const hash = visitorFingerprint("203.0.113.7", morning, secret) ?? "";
 
-    assert.match(hash, /^[0-9a-f]{32}$/);
+    assert.match(hash, /^[0-9a-f]{5}$/);
     assert.doesNotMatch(hash, /203|113/);
+  });
+
+  test("never keys the HMAC with the auth secret itself", () => {
+    const fingerprint = visitorFingerprint("203.0.113.7", morning, secret);
+    const withRawSecret = [
+      "mcp-visitor|2026-11-14|203.0.113.7",
+      "2026-11-14|203.0.113.7",
+    ].map((message) =>
+      createHmac("sha256", secret).update(message).digest("hex").slice(0, 5),
+    );
+
+    assert.ok(fingerprint);
+    assert.equal(withRawSecret.includes(fingerprint), false);
   });
 
   test("returns nothing without an IP or a secret", () => {
