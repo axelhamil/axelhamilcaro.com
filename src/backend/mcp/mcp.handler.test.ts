@@ -92,6 +92,51 @@ describe("POST /mcp", () => {
   });
 });
 
+describe("MCP server instructions", () => {
+  async function discoverInstructions() {
+    const response = await POST(
+      jsonRpcPost(
+        {
+          jsonrpc: "2.0",
+          id: "discover-instructions",
+          method: "server/discover",
+          params: {
+            _meta: {
+              "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+              "io.modelcontextprotocol/clientInfo": {
+                name: "task-6-test",
+                version: "1.0.0",
+              },
+              "io.modelcontextprotocol/clientCapabilities": {},
+            },
+          },
+        },
+        {
+          "MCP-Protocol-Version": "2026-07-28",
+          "Mcp-Method": "server/discover",
+        },
+      ),
+    );
+    const payload = (await response.json()) as {
+      result?: { instructions?: string };
+    };
+    return payload.result?.instructions ?? "";
+  }
+
+  test("instructions point to discuss_project and keep the protocol negotiation sentence", async () => {
+    const instructions = await discoverInstructions();
+
+    assert.match(instructions, /discuss_project/);
+    assert.match(instructions, /2025-03-26/);
+  });
+
+  test("instructions no longer mention generate_custom_proposal", async () => {
+    const instructions = await discoverInstructions();
+
+    assert.doesNotMatch(instructions, /generate_custom_proposal/);
+  });
+});
+
 describe("GET and DELETE /mcp", () => {
   test("return 405 in stateless mode", async () => {
     const getResponse = await GET();

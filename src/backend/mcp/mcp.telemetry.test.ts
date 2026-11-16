@@ -113,6 +113,14 @@ describe("knownCallName", () => {
     );
     assert.equal(knownCallName("prompts/get", "toString"), "unknown");
   });
+
+  test("keeps discuss_project and drops the removed prompts", () => {
+    assert.equal(
+      knownCallName("prompts/get", "discuss_project"),
+      "discuss_project",
+    );
+    assert.equal(knownCallName("prompts/get", "formalize_need"), "unknown");
+  });
 });
 
 describe("visitorFingerprint", () => {

@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
-import { AVAILABILITY, RATES } from "../../../app/_config/site.constants";
 import {
   buildCompareStackPrompt,
-  buildDraftOutreachPrompt,
-  buildFormalizeNeedPrompt,
+  buildDiscussProjectPrompt,
 } from "./mcp.prompts";
 
-function userText(prompt: ReturnType<typeof buildFormalizeNeedPrompt>): string {
+function userText(
+  prompt: ReturnType<typeof buildDiscussProjectPrompt>,
+): string {
   const [message] = prompt.messages;
   assert.ok(message);
   assert.equal(message.role, "user");
@@ -16,10 +16,20 @@ function userText(prompt: ReturnType<typeof buildFormalizeNeedPrompt>): string {
 }
 
 describe("mcp prompt builders", () => {
-  test("formalize_need mentions audit_architecture_brief", () => {
-    const text = userText(buildFormalizeNeedPrompt());
+  test("discuss_project names the tools, the resources and the consent rule", () => {
+    const text = userText(buildDiscussProjectPrompt());
 
-    assert.match(text, /audit_architecture_brief/);
+    assert.match(text, /estimate_project/);
+    assert.match(text, /send_project_brief/);
+    assert.match(text, /site:\/\/estimation-grid/);
+    assert.match(text, /one question at a time/i);
+    assert.match(text, /explicit/i);
+  });
+
+  test("discuss_project never names Eskimoz or Weathertop", () => {
+    const text = userText(buildDiscussProjectPrompt());
+
+    assert.doesNotMatch(text, /eskimoz|weathertop/i);
   });
 
   test("compare_stack reads site://stack-matrix against the need", () => {
@@ -28,15 +38,5 @@ describe("mcp prompt builders", () => {
 
     assert.match(text, /site:\/\/stack-matrix/);
     assert.ok(text.includes(need));
-  });
-
-  test("draft_outreach uses catalog TJM and availability then email", () => {
-    const text = userText(buildDraftOutreachPrompt());
-
-    assert.match(text, /contact@axelhamilcaro\.com/);
-    assert.doesNotMatch(text, /submit_inquiry/);
-    assert.ok(text.includes(String(RATES.dailyHtEur)));
-    assert.ok(text.includes(AVAILABILITY.status));
-    assert.ok(text.includes(AVAILABILITY.startWindow));
   });
 });

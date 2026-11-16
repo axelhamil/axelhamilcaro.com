@@ -11,6 +11,7 @@ import {
   setMcpError,
   setMcpPending,
 } from "./mcp.context";
+import { MCP_SERVER_INSTRUCTIONS } from "./mcp.instructions";
 import { mcpRepository } from "./mcp.repository";
 import { registerMcpCapabilities } from "./mcp.server";
 import {
@@ -188,8 +189,7 @@ export const mcpHandler = createMcpHandler(registerMcpCapabilities, {
     name: "axelhamilcaro.com",
     version: MCP_SERVER_VERSION,
   },
-  instructions:
-    "Cursor and Claude: call initialize with protocolVersion 2025-03-26. A 2026 protocol header on initialize is ignored and the session negotiates 2025-03-26. Native 2026 clients: server/discover plus MCP-Protocol-Version 2026-07-28. Read identity resources first (site://whoami), then site://projects or list_projects, then case studies. For a client project, call audit_architecture_brief, then generate_custom_proposal. To contact Axel, email contact@axelhamilcaro.com.",
+  instructions: MCP_SERVER_INSTRUCTIONS,
   onEvent: (event) => {
     if (event.type === "ERROR") {
       if (process.env.NODE_ENV === "development")
