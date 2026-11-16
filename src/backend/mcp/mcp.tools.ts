@@ -161,14 +161,14 @@ export function registerMcpTools(server: McpServer) {
       const analysis = analyzeArchitectureNeed(args);
 
       try {
-        const row = await mcpRepository.createBrief({
+        await mcpRepository.createBrief({
           need: args.need,
           stack: args.stack,
           constraints: args.constraints,
           analysis,
         });
 
-        return textResult(renderAuditMarkdown(args, analysis, row.id));
+        return textResult(renderAuditMarkdown(args, analysis));
       } catch {
         return errorResult("Could not persist the brief. Retry later.");
       }

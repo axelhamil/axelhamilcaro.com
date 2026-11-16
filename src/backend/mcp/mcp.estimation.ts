@@ -297,10 +297,7 @@ export const estimateProject = (input: EstimateInput): EstimateResult => {
       eur: totalEur,
       stage: input.openQuestions >= BRIEF_STAGE_QUESTIONS ? "brief" : "refined",
     },
-    toQuote: [
-      ...input.unlisted.map((need) => `To quote by Axel: ${need}`),
-      ...(mobileNotSized ? [MOBILE_NOT_SIZED] : []),
-    ],
+    toQuote: [...input.unlisted, ...(mobileNotSized ? [MOBILE_NOT_SIZED] : [])],
     hypotheses: [
       ...BASE_HYPOTHESES,
       ...(mobileNotSized

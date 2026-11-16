@@ -15,7 +15,7 @@ import { getReferences } from "./mcp.references";
 const METHOD_STEPS = [
   "Discovery first: Axel asks about the problem, the users and the constraints before giving any figure.",
   "Scoping into lots: the project is cut into lots that each ship and work on their own, validated one at a time.",
-  "Estimate: each feature is sized from a fixed grid, project setup, deployment and acceptance testing are counted once for the whole project.",
+  "Estimate: each feature is sized from a fixed grid; project setup, deployment and acceptance testing are counted once for the whole project.",
   "Written proposal: the estimate becomes a firm proposal only after a call with Axel and a signed document.",
 ] as const;
 

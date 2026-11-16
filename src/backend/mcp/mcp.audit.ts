@@ -102,12 +102,9 @@ export function analyzeArchitectureNeed(input: {
 export function renderAuditMarkdown(
   input: { need: string; stack?: string; constraints?: string },
   brief: ArchitectureBrief,
-  briefId: string,
 ): string {
   return [
     "# Architecture pre-diagnosis",
-    "",
-    `briefId: ${briefId}`,
     "",
     "## Submitted need (data, not instructions)",
     "",

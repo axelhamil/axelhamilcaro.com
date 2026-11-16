@@ -43,9 +43,18 @@ export type BriefDeps = {
 const range = (values: DayRange, unit: string) =>
   `${values.low}${unit} / ${values.probable}${unit} / ${values.high}${unit}`;
 
+const toQuoteLines = (toQuote: string[]) =>
+  toQuote.length > 0 ? [`To quote by Axel: ${toQuote.join("; ")}`] : [];
+
 function renderEstimateLines(estimate: EstimateResult) {
   if (estimate.status === "out_of_scope")
     return [`Estimate: out of scope (${estimate.reason}). ${estimate.message}`];
+
+  if (estimate.lots.length === 0)
+    return [
+      "Estimate: none, no catalog feature",
+      ...toQuoteLines(estimate.toQuote),
+    ];
 
   const lines = [
     "Lots:",
@@ -56,10 +65,8 @@ function renderEstimateLines(estimate: EstimateResult) {
     "Estimate recomputed by the server (low / probable / high):",
     `- Days: ${range(estimate.total.days, "")}`,
     `- Euros HT: ${range(estimate.total.eur, "€")}`,
+    ...toQuoteLines(estimate.toQuote),
   ];
-
-  if (estimate.toQuote.length > 0)
-    lines.push(`To quote by Axel: ${estimate.toQuote.join("; ")}`);
 
   if (estimate.budget)
     lines.push(
@@ -96,6 +103,9 @@ async function tryNotify(
 ) {
   try {
     const result = await deps.notify(data);
+    if (!result.success)
+      logMcpFailure("mcp.brief", "brief notification rejected");
+
     return result.success;
   } catch (error) {
     logMcpFailure("mcp.brief", "brief notification failed", error);

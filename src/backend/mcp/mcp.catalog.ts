@@ -323,6 +323,9 @@ export function getCaseStudies() {
   }));
 }
 
+const TMA_SCOPE =
+  "Covers applications Axel delivered or rewrote; no maintenance of a legacy codebase without a rewrite.";
+
 export function getServices() {
   return [
     {
@@ -353,6 +356,7 @@ export function getServices() {
       slug: "tma",
       title: "TMA (tierce maintenance applicative)",
       url: `${SITE_URL}/tma`,
+      scope: TMA_SCOPE,
       monthlyRates: {
         proEur: RATES.tma.proMonthlyEur,
         premiumEur: RATES.tma.premiumMonthlyEur,
@@ -567,7 +571,16 @@ function renderServicesMarkdown() {
           ? `${service.dailyHtEur}€ HT/day`
           : `PRO ${service.monthlyRates.proEur}€/month, PREMIUM ${service.monthlyRates.premiumEur}€/month`;
 
-      return [`## ${service.title}`, "", `- ${rate}`, `- ${service.url}`, ""];
+      const scope = "scope" in service ? [`- ${service.scope}`] : [];
+
+      return [
+        `## ${service.title}`,
+        "",
+        `- ${rate}`,
+        ...scope,
+        `- ${service.url}`,
+        "",
+      ];
     }),
   ].join("\n");
 }

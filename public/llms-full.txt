@@ -69,7 +69,7 @@ Lire d'abord les resources d'identité, puis les projets et les case studies. Re
 
 Prompts : discuss_project (point d'entrée recommandé pour un projet client : découverte guidée, puis estimation avec estimate_project), compare_stack (lire site://stack-matrix).
 
-Tools : list_projects (lecture seule, filtres optionnels category et status, format markdown ou json), audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoie un briefId), estimate_project (estimation déterministe et non contractuelle, avec hypothèses et questions ouvertes), send_project_brief (envoi du récap à Axel). send_project_brief n'envoie le récap qu'avec l'accord explicite de la personne et son email. Pour contacter Axel, email contact@axelhamilcaro.com.
+Tools : list_projects (lecture seule, filtres optionnels category et status, format markdown ou json), audit_architecture_brief (pré-diagnostic DDD/Clean Architecture), estimate_project (estimation déterministe et non contractuelle, avec hypothèses et questions ouvertes), send_project_brief (envoi du récap à Axel). send_project_brief n'envoie le récap qu'avec l'accord explicite de la personne et son email. Pour contacter Axel, email contact@axelhamilcaro.com.
 
 ## Parcours
 
@@ -86,7 +86,7 @@ Tools : list_projects (lecture seule, filtres optionnels category et status, for
 - Développement SaaS (https://axelhamilcaro.com/services/developpement-saas) : SaaS B2B multi-tenant, de zéro jusqu'en production, Clean Architecture + DDD.
 - Lead tech fractional (https://axelhamilcaro.com/services/lead-tech-fractional) : lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME. Architecture, mentorat, montée en qualité.
 - Création d'application web (https://axelhamilcaro.com/services/creation-application-web) : application web ou mobile sur mesure, de A à Z, pour porteurs de projet non techniques : un seul interlocuteur du cadrage à la mise en ligne.
-- TMA (tierce maintenance applicative) (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement.
+- TMA (tierce maintenance applicative) (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement, pour les applications livrées ou réécrites par Axel.
   - PRO : 350 € HT par mois, 5h incluses, SLA 1 jour ouvré, 1h visio/mois.
   - PREMIUM : 800 € HT par mois, 10h incluses, SLA 1/2 jour, monitoring proactif (Sentry, UptimeRobot, Better Stack), status page, audit trimestriel, changelog mensuel.
   - Hors forfait : 80 € HT par heure. Capacité max : 6 clients PRO, 3 PREMIUM simultanés.

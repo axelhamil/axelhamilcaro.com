@@ -66,7 +66,7 @@ Tools : list_projects (lecture seule, filtres category et status), audit_archite
 - [Développement SaaS](https://axelhamilcaro.com/services/developpement-saas): SaaS B2B multi-tenant, Clean Architecture + DDD, de zéro jusqu'en production
 - [Lead tech fractional](https://axelhamilcaro.com/services/lead-tech-fractional): lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME
 - [Création d'application web](https://axelhamilcaro.com/services/creation-application-web): application web ou mobile sur mesure, de A à Z, pour porteurs de projet non techniques, un seul interlocuteur du cadrage à la mise en ligne
-- [TMA (maintenance applicative)](https://axelhamilcaro.com/tma): forfait mensuel sans engagement, PRO 350 € HT par mois (5h incluses) ou PREMIUM 800 € HT par mois (10h, monitoring proactif)
+- [TMA (maintenance applicative)](https://axelhamilcaro.com/tma): forfait mensuel sans engagement pour les applications livrées ou réécrites par Axel, PRO 350 € HT par mois (5h incluses) ou PREMIUM 800 € HT par mois (10h, monitoring proactif)
 
 ## Case studies
 

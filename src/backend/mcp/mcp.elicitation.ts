@@ -39,6 +39,7 @@ const CONTEXT_PROPERTIES = {
     title: "Budget",
     description: "Budget in mind, in euros excluding tax",
     minimum: 1,
+    maximum: 10_000_000,
   },
   existing: {
     type: "boolean",

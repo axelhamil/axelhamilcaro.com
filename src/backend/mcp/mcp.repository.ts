@@ -193,19 +193,6 @@ export const mcpRepository = {
     return row;
   },
 
-  async findBriefById(id: string) {
-    const [row] = await db
-      .select()
-      .from(mcpBriefs)
-      .where(eq(mcpBriefs.id, id))
-      .limit(1);
-
-    if (!row) return null;
-    if (row.expiresAt.getTime() < Date.now()) return null;
-
-    return row;
-  },
-
   async deleteExpiredBriefs() {
     await db.delete(mcpBriefs).where(lte(mcpBriefs.expiresAt, new Date()));
   },

@@ -145,4 +145,10 @@ describe("mcp.catalog services", () => {
       "tma",
     ]);
   });
+
+  test("TMA is limited to applications Axel delivered or rewrote, as the method refuses legacy maintenance", () => {
+    const tma = getServices().find((service) => service.slug === "tma");
+
+    assert.match(JSON.stringify(tma), /applications Axel delivered or rewrote/);
+  });
 });

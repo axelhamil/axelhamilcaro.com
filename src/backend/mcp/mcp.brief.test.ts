@@ -156,10 +156,12 @@ describe("send_project_brief", () => {
     assert.doesNotMatch(line, /jean|Jean|climbing/);
   });
 
-  test("Resend failure keeps the lead and reports notified false", async () => {
+  test("Resend failure keeps the lead, reports notified false and logs without personal data", async (t) => {
+    const logged = t.mock.method(console, "error", () => undefined);
     const { deps, created } = fakeDeps();
     deps.notify.mock.mockImplementation(async () => ({ success: false }));
     const result = await send(deps, valid);
+    const line = String(logged.mock.calls[0]?.arguments[0]);
 
     assert.equal(created.length, 1);
     assert.deepEqual(result, {
@@ -167,6 +169,35 @@ describe("send_project_brief", () => {
       created: true,
       notified: false,
     });
+    assert.equal(logged.mock.callCount(), 1);
+    assert.match(line, /brief notification rejected/);
+    assert.doesNotMatch(line, /jean|Jean|climbing/);
+  });
+
+  test("a brief without any catalog feature states that no estimate exists and keeps the needs to quote", async () => {
+    for (const lots of [[], undefined]) {
+      const { deps, created } = fakeDeps();
+      await send(deps, {
+        ...valid,
+        lots,
+        unlisted: ["Sync with the client's ERP"],
+      });
+      const notes = created[0]?.notes ?? "";
+
+      assert.match(notes, /^Estimate: none, no catalog feature$/m);
+      assert.match(notes, /^To quote by Axel: Sync with the client's ERP$/m);
+      assert.doesNotMatch(notes, /€/);
+    }
+  });
+
+  test("an unlisted need appears once in the recap, under a single To quote prefix", async () => {
+    const { deps, created } = fakeDeps();
+    await send(deps, { ...valid, unlisted: ["Sync with the client's ERP"] });
+
+    assert.match(
+      created[0]?.notes ?? "",
+      /^To quote by Axel: Sync with the client's ERP$/m,
+    );
   });
 
   test("leads older than 12 months are purged on each send", async () => {

@@ -30,9 +30,8 @@ export function AboutMcp() {
           <p className="para ink-secondary">
             Le serveur publie mon identité, ma stack, mes études de cas et mes
             services. Il propose un audit d&apos;architecture déterministe puis
-            une proposition non contractuelle. Il peut estimer un projet et, si
-            la personne le décide, m&apos;envoyer le récap. Pour m&apos;écrire,{" "}
-            {CONTACT.email}.
+            une estimation non contractuelle du projet et, si la personne le
+            décide, m&apos;envoie le récap. Pour m&apos;écrire, {CONTACT.email}.
           </p>
           <p className="para ink-secondary">
             Manifeste machine,{" "}

@@ -92,11 +92,7 @@ describe("estimateProject", () => {
       unlisted: ["Sync with the client's ERP"],
     });
 
-    assert.ok(
-      withUnlisted.toQuote.includes(
-        "To quote by Axel: Sync with the client's ERP",
-      ),
-    );
+    assert.ok(withUnlisted.toQuote.includes("Sync with the client's ERP"));
     assert.deepEqual(withUnlisted.total, without.total);
   });
 
