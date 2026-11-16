@@ -1,8 +1,6 @@
 # Axel Hamilcaro, développeur fullstack et builder
 
 > Axel Hamilcaro est développeur fullstack et builder, basé à Tours. Il construit les API et les outils de fondation sur lesquels d'autres bâtissent leurs produits, plutôt que des SaaS qui consomment ces API. Son pari pour 2026 et 2027 : fournir l'outil et la donnée, pas l'application finale. Ses builds : clean-stack, un boilerplate SaaS open source, weathertop, une API de données qui renvoie ce que les assistants IA répondent réellement à des milliers de prompts, afterlive, qui transforme l'enregistrement d'un direct en clips courts montés et prêts à publier, et une série d'outils publiés sur GitHub.
-
-> Développeur fullstack chez Eskimoz (CDI) depuis septembre 2026. Avant : 4 ans chez Civitime, de développeur à lead technique, puis à son compte depuis fin 2024.
 > Fondateur technique d'OpenUp depuis 2026, en projet parallèle.
 > Il prend encore quelques projets en freelance : 500 € HT par jour, TMA dès 350 € HT par mois.
 

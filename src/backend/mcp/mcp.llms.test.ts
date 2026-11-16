@@ -81,13 +81,12 @@ describe("llms files describe the estimation server", () => {
       );
     });
 
-    test(`${name} never names Eskimoz and weathertop in the same paragraph`, () => {
-      const paragraphs = readPublic(name).split(/\n\s*\n/);
+    test(`${name} never names Eskimoz and weathertop in the same section`, () => {
+      const sections = readPublic(name).split(/^(?=#)/m);
 
       assert.deepEqual(
-        paragraphs.filter(
-          (paragraph) =>
-            /eskimoz/i.test(paragraph) && /weathertop/i.test(paragraph),
+        sections.filter(
+          (section) => /eskimoz/i.test(section) && /weathertop/i.test(section),
         ),
         [],
       );
