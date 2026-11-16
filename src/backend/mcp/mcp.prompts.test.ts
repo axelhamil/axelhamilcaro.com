@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
+import { CONTACT } from "../../../app/_config/site.constants";
 import {
   buildCompareStackPrompt,
   buildDiscussProjectPrompt,
@@ -24,6 +25,22 @@ describe("mcp prompt builders", () => {
     assert.match(text, /site:\/\/estimation-grid/);
     assert.match(text, /one question at a time/i);
     assert.match(text, /explicit/i);
+  });
+
+  test("discuss_project grounds facts in the resources and gives the contact email", () => {
+    const text = userText(buildDiscussProjectPrompt());
+
+    assert.match(text, /facts about Axel only from the site:\/\/ resources/i);
+    assert.ok(text.includes(CONTACT.email));
+  });
+
+  test("discuss_project checks scope before sizing the work", () => {
+    const text = userText(buildDiscussProjectPrompt());
+    const scope = text.search(/does not take/);
+    const estimate = text.search(/Call estimate_project/);
+
+    assert.ok(scope >= 0);
+    assert.ok(scope < estimate);
   });
 
   test("discuss_project never names Eskimoz or Weathertop", () => {
