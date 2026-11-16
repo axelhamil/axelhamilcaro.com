@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+  estimateInputSchema,
+  estimateToolInputSchema,
+} from "./mcp.estimation.schema";
 import { PROJECT_CATEGORIES, PROJECT_STATUSES } from "./mcp.projects";
 
 const briefInputSchema = z.object({
@@ -7,26 +11,38 @@ const briefInputSchema = z.object({
   constraints: z.string().max(2000).optional(),
 });
 
-const proposalInputSchema = z
-  .object({
-    briefId: z.string().uuid().optional(),
-    need: z.string().min(1).max(4000).optional(),
-    stack: z.string().max(2000).optional(),
-    constraints: z.string().max(2000).optional(),
-    format: z.enum(["markdown", "json"]).default("markdown"),
-  })
-  .refine((value) => value.briefId || value.need, {
-    message: "Provide briefId or need",
-  });
-
 const projectsInputSchema = z.object({
   category: z.enum(PROJECT_CATEGORIES).optional(),
   status: z.enum(PROJECT_STATUSES).optional(),
   format: z.enum(["markdown", "json"]).default("markdown"),
 });
 
+export const sendProjectBriefSchema = estimateInputSchema
+  .omit({ format: true })
+  .extend({
+    consent: z
+      .literal(true)
+      .describe("true only after the person explicitly agreed to send"),
+    email: z.email().max(254).describe("Email Axel replies to"),
+    name: z.string().trim().max(100).optional(),
+    company: z.string().trim().max(150).optional(),
+    need: z
+      .string()
+      .min(1)
+      .max(4000)
+      .describe("The need in the person's words"),
+    answers: z
+      .string()
+      .max(4000)
+      .optional()
+      .describe("Answers given during the discovery"),
+  });
+
+export type SendProjectBriefInput = z.infer<typeof sendProjectBriefSchema>;
+
 export const MCP_TOOL_INPUT_SCHEMAS = {
   list_projects: projectsInputSchema,
   audit_architecture_brief: briefInputSchema,
-  generate_custom_proposal: proposalInputSchema,
+  estimate_project: estimateToolInputSchema,
+  send_project_brief: sendProjectBriefSchema,
 };

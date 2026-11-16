@@ -64,12 +64,9 @@ describe("POST /mcp", () => {
     );
     assert.equal(
       payload.result?._meta?.["io.modelcontextprotocol/serverInfo"]?.version,
-      "1.1.0",
+      "1.2.0",
     );
-    assert.match(
-      payload.result?.instructions ?? "",
-      /audit_architecture_brief/,
-    );
+    assert.match(payload.result?.instructions ?? "", /estimate_project/);
     assert.doesNotMatch(payload.result?.instructions ?? "", /submit_inquiry/);
   });
 
@@ -89,6 +86,45 @@ describe("POST /mcp", () => {
 
     assert.ok(response instanceof Response);
     assert.equal(response.status, 200);
+  });
+});
+
+describe("MCP server instructions", () => {
+  async function discoverInstructions() {
+    const response = await POST(
+      jsonRpcPost(
+        {
+          jsonrpc: "2.0",
+          id: "discover-instructions",
+          method: "server/discover",
+          params: {
+            _meta: {
+              "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+              "io.modelcontextprotocol/clientInfo": {
+                name: "task-6-test",
+                version: "1.0.0",
+              },
+              "io.modelcontextprotocol/clientCapabilities": {},
+            },
+          },
+        },
+        {
+          "MCP-Protocol-Version": "2026-07-28",
+          "Mcp-Method": "server/discover",
+        },
+      ),
+    );
+    const payload = (await response.json()) as {
+      result?: { instructions?: string };
+    };
+    return payload.result?.instructions ?? "";
+  }
+
+  test("instructions point to discuss_project and keep the protocol negotiation sentence", async () => {
+    const instructions = await discoverInstructions();
+
+    assert.match(instructions, /discuss_project/);
+    assert.match(instructions, /2025-03-26/);
   });
 });
 

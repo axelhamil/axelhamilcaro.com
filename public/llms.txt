@@ -1,7 +1,6 @@
 # Axel Hamilcaro, développeur fullstack et builder
 
 > Axel Hamilcaro est développeur fullstack et builder, basé à Tours. Il construit les API et les outils de fondation sur lesquels d'autres bâtissent leurs produits, plutôt que des SaaS qui consomment ces API. Son pari pour 2026 et 2027 : fournir l'outil et la donnée, pas l'application finale. Ses builds : clean-stack, un boilerplate SaaS open source, weathertop, une API de données qui renvoie ce que les assistants IA répondent réellement à des milliers de prompts, afterlive, qui transforme l'enregistrement d'un direct en clips courts montés et prêts à publier, et une série d'outils publiés sur GitHub.
-> Développeur fullstack chez Eskimoz (CDI) depuis septembre 2026. Avant : 4 ans chez Civitime, de développeur à lead technique, puis à son compte depuis fin 2024.
 > Fondateur technique d'OpenUp depuis 2026, en projet parallèle.
 > Il prend encore quelques projets en freelance : 500 € HT par jour, TMA dès 350 € HT par mois.
 
@@ -45,11 +44,11 @@ Découverte machine, dans cet ordre :
 - https://axelhamilcaro.com/.well-known/mcp/catalog.json
 - https://axelhamilcaro.com/llms-full.txt
 
-Resources, chacune en JSON (`site://whoami.json`) et en Markdown (`site://whoami.md`) : whoami, architecture-manifesto, live-status, stack-matrix, projects, case-studies, services, contact.
+Resources, chacune en JSON (`site://whoami.json`) et en Markdown (`site://whoami.md`) : whoami, architecture-manifesto, live-status, stack-matrix, projects, case-studies, services, contact, method (la méthode de travail d'Axel), estimation-grid (la grille de chiffrage), references (des projets réels chiffrés).
 
-Prompts : formalize_need, compare_stack, draft_outreach.
+Prompts : discuss_project (point d'entrée recommandé pour un projet client : découverte guidée puis estimation), compare_stack.
 
-Tools : list_projects (lecture seule, filtres category et status), audit_architecture_brief, generate_custom_proposal. Pas d'outil d'envoi de lead. Pour contacter Axel, email contact@axelhamilcaro.com.
+Tools : list_projects (lecture seule, filtres category et status), audit_architecture_brief, estimate_project (estimation déterministe et non contractuelle), send_project_brief. send_project_brief n'envoie un récap à Axel qu'avec l'accord explicite de la personne et son email. Pour contacter Axel, email contact@axelhamilcaro.com.
 
 ## Pages principales
 
@@ -67,7 +66,7 @@ Tools : list_projects (lecture seule, filtres category et status), audit_archite
 - [Développement SaaS](https://axelhamilcaro.com/services/developpement-saas): SaaS B2B multi-tenant, Clean Architecture + DDD, de zéro jusqu'en production
 - [Lead tech fractional](https://axelhamilcaro.com/services/lead-tech-fractional): lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME
 - [Création d'application web](https://axelhamilcaro.com/services/creation-application-web): application web ou mobile sur mesure, de A à Z, pour porteurs de projet non techniques, un seul interlocuteur du cadrage à la mise en ligne
-- [TMA (maintenance applicative)](https://axelhamilcaro.com/tma): forfait mensuel sans engagement, PRO 350 € HT par mois (5h incluses) ou PREMIUM 800 € HT par mois (10h, monitoring proactif)
+- [TMA (maintenance applicative)](https://axelhamilcaro.com/tma): forfait mensuel sans engagement pour les applications livrées ou réécrites par Axel, PRO 350 € HT par mois (5h incluses) ou PREMIUM 800 € HT par mois (10h, monitoring proactif)
 
 ## Case studies
 
@@ -96,4 +95,4 @@ Tools : list_projects (lecture seule, filtres category et status), audit_archite
 - GitHub: https://github.com/axelhamil
 - Calendly (après un premier échange par écrit): https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-11-14
+Dernière mise à jour: 2026-11-16

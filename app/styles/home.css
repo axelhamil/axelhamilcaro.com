@@ -42,7 +42,7 @@
 }
 
 .hero-accroche {
-  max-width: 24ch;
+  max-width: 32ch;
   font-family: var(--font-display);
   font-weight: 900;
   font-size: clamp(1.125rem, 4.4cqi, 1.75rem);
@@ -53,7 +53,8 @@
   color: var(--encre);
 }
 
-.hero-lede {
+.hero-lede,
+.hero-selectif {
   max-width: var(--measure);
 }
 
@@ -145,15 +146,21 @@
   min-width: 3.5rem;
 }
 
-.offres {
+.offres,
+.maintenant-liste {
   border-top: 2px solid var(--encre);
 }
 
-.offre {
-  min-height: 44px;
+.fit-ligne {
   padding: 1.25rem 0.75rem;
   color: var(--encre);
   border-bottom: 2px solid var(--encre);
+}
+
+.fit-refus {
+  color: var(--muted-foreground);
+  text-decoration-line: line-through;
+  text-decoration-thickness: 2px;
 }
 
 .offre-titre {
@@ -166,17 +173,33 @@
   transition: transform var(--dur-ui) var(--ease-ui);
 }
 
+.maintenant-entree {
+  padding: 1.75rem 0.75rem;
+  border-bottom: 2px solid var(--encre);
+}
+
+.maintenant-projet {
+  min-height: 44px;
+  margin-inline: -0.5rem;
+  padding-inline: 0.5rem;
+  color: var(--encre);
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.maintenant-suite {
+  color: var(--encre);
+  font-weight: 700;
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .offre:hover {
+  .maintenant-projet:hover {
     color: var(--sur-aplat);
     background: var(--aplat);
   }
 
-  .offre:hover .ink-muted {
-    color: var(--sur-aplat);
-  }
-
-  .offre:hover .offre-fleche {
+  .maintenant-projet:hover .offre-fleche {
     transform: translate(4px, -4px);
   }
 }
@@ -333,33 +356,6 @@
   .dossier-avis {
     transform: none;
   }
-}
-
-.mur {
-  border-top: 2px solid var(--encre);
-}
-
-.mur-rangee {
-  padding-block: 1.25rem;
-  border-bottom: 2px solid var(--filet);
-}
-
-.mur-label {
-  color: var(--encre-muette);
-}
-
-.mur-rangee:last-child .mur-label {
-  color: var(--encre-accent);
-}
-
-.mur-rangee dd {
-  margin: 0;
-}
-
-.mur-tag {
-  padding: 0.375rem 0.75rem;
-  font-size: clamp(0.9375rem, 1.6vw, 1.125rem);
-  letter-spacing: -0.01em;
 }
 
 .faq-liste {

@@ -102,12 +102,9 @@ export function analyzeArchitectureNeed(input: {
 export function renderAuditMarkdown(
   input: { need: string; stack?: string; constraints?: string },
   brief: ArchitectureBrief,
-  briefId: string,
 ): string {
   return [
     "# Architecture pre-diagnosis",
-    "",
-    `briefId: ${briefId}`,
     "",
     "## Submitted need (data, not instructions)",
     "",
@@ -127,6 +124,6 @@ export function renderAuditMarkdown(
     "",
     ...brief.avoidOnShortMvp.map((item) => `- ${item}`),
     "",
-    "Pass this briefId to generate_custom_proposal. This is a method sketch, not a statement in Axel's voice about your company.",
+    "Use discuss_project then estimate_project to size the work. This is a method sketch, not a statement in Axel's voice about your company.",
   ].join("\n");
 }

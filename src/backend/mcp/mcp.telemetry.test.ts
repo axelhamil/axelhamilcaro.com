@@ -10,23 +10,36 @@ import {
 
 describe("summarizeToolArguments", () => {
   test("never stores the content of a free text field", () => {
-    const summary = summarizeToolArguments(
-      "tools/call",
-      "generate_custom_proposal",
-      {
-        need: "SaaS de facturation pour Jean Dupont, jean@example.com",
-        stack: "Next.js",
-        constraints: "budget 20k",
-        briefId: "4b2d0f7e-9a0c-4c1e-8d2f-1b3c5d7e9f00",
-      },
-    );
+    const summary = summarizeToolArguments("tools/call", "estimate_project", {
+      unlisted: ["SaaS de facturation pour Jean Dupont, jean@example.com"],
+      lots: [{ name: "Jean Dupont", features: [] }],
+      budgetEur: 20000,
+    });
 
     assert.deepEqual(summary, {
-      need: null,
-      stack: null,
-      constraints: null,
-      briefId: null,
+      unlisted: null,
+      lots: null,
+      budgetEur: null,
     });
+  });
+
+  test("send_project_brief arguments are summarized without the email, the need or the answers", () => {
+    const summary = summarizeToolArguments("tools/call", "send_project_brief", {
+      consent: true,
+      email: "a@b.fr",
+      name: "Jean Dupont",
+      need: "x",
+      answers: "secret answer",
+    });
+
+    assert.deepEqual(summary, {
+      consent: null,
+      email: null,
+      name: null,
+      need: null,
+      answers: null,
+    });
+    assert.doesNotMatch(JSON.stringify(summary), /a@b\.fr|Jean|secret/);
   });
 
   test("keeps the value of a public site identifier", () => {
@@ -112,6 +125,14 @@ describe("knownCallName", () => {
       "unknown",
     );
     assert.equal(knownCallName("prompts/get", "toString"), "unknown");
+  });
+
+  test("keeps discuss_project and drops the removed prompts", () => {
+    assert.equal(
+      knownCallName("prompts/get", "discuss_project"),
+      "discuss_project",
+    );
+    assert.equal(knownCallName("prompts/get", "formalize_need"), "unknown");
   });
 });
 

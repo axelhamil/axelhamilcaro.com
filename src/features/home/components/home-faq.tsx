@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import { MCP } from "@/app/_config/site.constants";
+import { HOME_FAQ_ANSWERS } from "@/app/_config/home-copy";
 import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
@@ -8,23 +8,19 @@ import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 const items = [
   {
     question: "Qui est Axel Hamilcaro ?",
-    answer:
-      "Je suis Axel Hamilcaro, développeur fullstack et builder, basé à Tours, en Centre-Val de Loire. Je fabrique des produits et des outils, dont OpenUp, où je suis fondateur technique. Avant, j'ai passé 4 ans chez Civitime, de développeur à lead technique.",
+    answer: HOME_FAQ_ANSWERS.whoIs,
   },
   {
     question: "Prends-tu encore des projets en freelance ?",
-    answer:
-      "Oui, à côté de mon poste et d'OpenUp. Je prends quelques projets : création d'application, SaaS, lead tech ou maintenance au mois. Le détail de chaque offre est sur la page Services, à l'adresse axelhamilcaro.com/services.",
+    answer: HOME_FAQ_ANSWERS.freelance,
   },
   {
-    question: "Quels types de projets prends-tu ?",
-    answer:
-      "Applications web sur mesure, SaaS B2B multi-tenant, refonte d'architecture, lead tech temps partiel sur engagement long. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
+    question: "Quels types de projets prends-tu ?",
+    answer: HOME_FAQ_ANSWERS.projectTypes,
   },
   {
     question: "Tu peux créer mon application de A à Z ?",
-    answer:
-      "Oui. Je prends un projet de l'idée à la mise en ligne : cadrage, développement et mise en ligne, avec un seul interlocuteur, puis la maintenance si tu le souhaites.",
+    answer: HOME_FAQ_ANSWERS.fromScratch,
   },
   {
     question: "Travailles-tu en remote ou sur site ?",
@@ -32,8 +28,16 @@ const items = [
       "100% remote, basé à Tours, en Centre-Val de Loire. Je suis disponible pour des points sur site ponctuels en France selon le projet (kickoff, atelier produit, restitution).",
   },
   {
-    question: "À quoi sert le serveur MCP de ce site ?",
-    answer: `J'expose un serveur MCP public à ${MCP.url}. Un agent IA s'y connecte en POST et lit mon identité, ma stack, mes études de cas et mes services. Ce n'est pas une page à ouvrir dans le navigateur.`,
+    question: "Peut-on estimer son projet avec toi sans réserver de créneau ?",
+    answer: HOME_FAQ_ANSWERS.estimateWithoutCall,
+  },
+  {
+    question: "Comment brancher ton serveur MCP dans mon assistant ?",
+    answer: HOME_FAQ_ANSWERS.connectMcp,
+  },
+  {
+    question: "L'estimation vaut-elle un devis ?",
+    answer: HOME_FAQ_ANSWERS.estimateIsQuote,
   },
 ];
 

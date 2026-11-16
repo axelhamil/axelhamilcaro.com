@@ -21,6 +21,7 @@ import { MCP_SERVER_VERSION } from "./mcp.constants";
 const MANIFESTO_KEYS_BY_VERSION: Record<string, readonly string[]> = {
   "1.0.0": ["architecture", "typescript", "values"],
   "1.1.0": ["architecture", "principles", "typescript"],
+  "1.2.0": ["architecture", "principles", "typescript"],
 };
 
 describe("mcp server version", () => {
@@ -55,7 +56,7 @@ describe("mcp.catalog whoami", () => {
 
   test("identity is the thesis and the builds, OpenUp stays a side project", () => {
     const whoami = getWhoami();
-    const [identity = ""] = whoami.summary.split(EMPLOYER.role);
+    const [identity = ""] = whoami.summary.split("Civitime");
 
     assert.match(identity, /outils de fondation/);
 
@@ -70,6 +71,17 @@ describe("mcp.catalog whoami", () => {
     assert.deepEqual(
       whoami.currentRoles.map((role) => role.organization),
       [EMPLOYER.name, OPENUP.name, "Freelance"],
+    );
+  });
+
+  test("whoami summary no longer carries the employer", () => {
+    const whoami = getWhoami();
+
+    assert.equal(whoami.summary.includes(EMPLOYER.name), false);
+    assert.match(whoami.summary, /Civitime/);
+    assert.match(whoami.summary, new RegExp(OPENUP.name));
+    assert.ok(
+      whoami.currentRoles.some((role) => role.organization === EMPLOYER.name),
     );
   });
 
@@ -132,5 +144,11 @@ describe("mcp.catalog services", () => {
       "creation-application-web",
       "tma",
     ]);
+  });
+
+  test("TMA is limited to applications Axel delivered or rewrote, as the method refuses legacy maintenance", () => {
+    const tma = getServices().find((service) => service.slug === "tma");
+
+    assert.match(JSON.stringify(tma), /applications Axel delivered or rewrote/);
   });
 });

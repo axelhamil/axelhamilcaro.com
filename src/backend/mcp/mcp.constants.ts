@@ -1,11 +1,19 @@
 import { IDENTITY_TITLE } from "@/app/_config/site.constants";
 
 export const MCP_INQUIRY_SLUG = "mcp-inquiry";
+export const BRIEF_RETENTION_MONTHS = 12;
+
+export function briefRetentionCutoff(now: Date) {
+  const cutoff = new Date(now);
+  cutoff.setUTCMonth(cutoff.getUTCMonth() - BRIEF_RETENTION_MONTHS);
+  return cutoff;
+}
+
 export const MCP_SERVER_NAME = "com.axelhamilcaro/site";
 export const MCP_CATALOG_IDENTIFIER = "urn:air:axelhamilcaro.com:mcp:site";
-export const MCP_SERVER_VERSION = "1.1.0";
-export const MCP_SERVER_DESCRIPTION = `Public MCP server for ${IDENTITY_TITLE}: identity, projects, case studies, services.`;
-export const MCP_SERVER_CARD_DESCRIPTION = `${IDENTITY_TITLE}. Briques open source, API et outils.`;
+export const MCP_SERVER_VERSION = "1.2.0";
+export const MCP_SERVER_DESCRIPTION = `Public MCP server for ${IDENTITY_TITLE}: identity, projects, case studies, services, project estimation.`;
+export const MCP_SERVER_CARD_DESCRIPTION = `${IDENTITY_TITLE}. Estimation de projet, briques et outils.`;
 export const MCP_AI_CATALOG_TYPE = "application/ai-catalog+json";
 export const MCP_SERVER_CARD_TYPE = "application/mcp-server-card+json";
 export const MCP_SERVER_CARD_SCHEMA =

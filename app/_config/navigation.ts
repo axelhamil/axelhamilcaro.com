@@ -7,9 +7,4 @@ export const NAV_LINKS = [
   { href: "/tree", label: "Liens" },
 ] as const;
 
-export const DESKTOP_SECTIONS = [
-  "portfolio",
-  "parcours",
-  "services",
-  "stack",
-] as const;
+export const DESKTOP_SECTIONS = ["portfolio", "parcours", "services"] as const;

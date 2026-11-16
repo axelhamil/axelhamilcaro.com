@@ -1,14 +1,14 @@
 # Axel Hamilcaro, développeur fullstack et builder
 
 > Axel Hamilcaro est développeur fullstack et builder, basé à Tours. Il construit les API et les outils de fondation sur lesquels d'autres bâtissent leurs produits, plutôt que des SaaS qui consomment ces API. Son pari pour 2026 et 2027 : fournir l'outil et la donnée, pas l'application finale. Ses builds : clean-stack, un boilerplate SaaS open source, weathertop, une API de données qui renvoie ce que les assistants IA répondent réellement à des milliers de prompts, afterlive, qui transforme l'enregistrement d'un direct en clips courts montés et prêts à publier, et une série d'outils publiés sur GitHub.
-> Développeur fullstack chez Eskimoz (CDI) depuis septembre 2026, auparavant 4 ans chez Civitime de développeur à lead technique. Fondateur technique d'OpenUp depuis 2026, en projet parallèle.
+> Fondateur technique d'OpenUp depuis 2026, en projet parallèle.
 > Il prend encore quelques projets en freelance : entreprise individuelle (EI), 500 € HT par jour.
 
 ## Identité
 
 - Nom : Axel Hamilcaro
 - Titre : développeur fullstack et builder
-- Ce qu'il construit : des API et des outils de fondation sur lesquels d'autres bâtissent leurs produits (clean-stack, weathertop, afterlive, outils publiés sur GitHub)
+- Ce qu'il construit : des API et des outils de fondation sur lesquels d'autres bâtissent leurs produits (détail dans la section Produits et outils)
 - Poste : développeur fullstack chez Eskimoz (CDI, depuis septembre 2026)
 - Projet parallèle : fondateur technique d'OpenUp (depuis 2026)
 - Freelance : à son compte depuis fin 2024, prend encore quelques projets
@@ -65,11 +65,11 @@ Découverte machine, dans cet ordre :
 - catalogue https://axelhamilcaro.com/.well-known/mcp/catalog.json
 - version courte https://axelhamilcaro.com/llms.txt
 
-Lire d'abord les resources d'identité, puis les projets et les case studies. Resources disponibles en JSON et en Markdown : site://whoami, site://architecture-manifesto, site://live-status, site://stack-matrix, site://projects, site://case-studies, site://services, site://contact.
+Lire d'abord les resources d'identité, puis les projets et les case studies. Resources disponibles en JSON et en Markdown : site://whoami, site://architecture-manifesto, site://live-status, site://stack-matrix, site://projects, site://case-studies, site://services, site://contact, site://method (méthode de travail), site://estimation-grid (grille de chiffrage), site://references (projets réels chiffrés).
 
-Prompts : formalize_need (cadrer un brief), compare_stack (lire site://stack-matrix), draft_outreach (brouillon factuel, puis email).
+Prompts : discuss_project (point d'entrée recommandé pour un projet client : découverte guidée, puis estimation avec estimate_project), compare_stack (lire site://stack-matrix).
 
-Tools : list_projects (lecture seule, filtres optionnels category et status, format markdown ou json), audit_architecture_brief (pré-diagnostic DDD/Clean Architecture, renvoie un briefId), generate_custom_proposal (proposition non contractuelle). Il n'existe pas d'outil d'envoi de lead. Pour contacter Axel, email contact@axelhamilcaro.com.
+Tools : list_projects (lecture seule, filtres optionnels category et status, format markdown ou json), audit_architecture_brief (pré-diagnostic DDD/Clean Architecture), estimate_project (estimation déterministe et non contractuelle, avec hypothèses et questions ouvertes), send_project_brief (envoi du récap à Axel). send_project_brief n'envoie le récap qu'avec l'accord explicite de la personne et son email. Pour contacter Axel, email contact@axelhamilcaro.com.
 
 ## Parcours
 
@@ -86,7 +86,7 @@ Tools : list_projects (lecture seule, filtres optionnels category et status, for
 - Développement SaaS (https://axelhamilcaro.com/services/developpement-saas) : SaaS B2B multi-tenant, de zéro jusqu'en production, Clean Architecture + DDD.
 - Lead tech fractional (https://axelhamilcaro.com/services/lead-tech-fractional) : lead technique temps partiel, 1 à 3 jours/semaine, pour startups et PME. Architecture, mentorat, montée en qualité.
 - Création d'application web (https://axelhamilcaro.com/services/creation-application-web) : application web ou mobile sur mesure, de A à Z, pour porteurs de projet non techniques : un seul interlocuteur du cadrage à la mise en ligne.
-- TMA (tierce maintenance applicative) (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement.
+- TMA (tierce maintenance applicative) (https://axelhamilcaro.com/tma) : forfait mensuel sans engagement, pour les applications livrées ou réécrites par Axel.
   - PRO : 350 € HT par mois, 5h incluses, SLA 1 jour ouvré, 1h visio/mois.
   - PREMIUM : 800 € HT par mois, 10h incluses, SLA 1/2 jour, monitoring proactif (Sentry, UptimeRobot, Better Stack), status page, audit trimestriel, changelog mensuel.
   - Hors forfait : 80 € HT par heure. Capacité max : 6 clients PRO, 3 PREMIUM simultanés.
@@ -154,4 +154,4 @@ Note Malt : 5,0/5 sur 6 évaluations (qualité, délai et communication à 5,0),
 - GitHub : https://github.com/axelhamil
 - Calendly (après un premier échange par écrit) : https://calendly.com/axel-hamilcaro-pro/appel-decouverte
 
-Dernière mise à jour: 2026-11-14
+Dernière mise à jour: 2026-11-16

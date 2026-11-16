@@ -80,4 +80,5 @@ export const RATE_LIMITS = {
   api: { maxRequests: 60, windowMs: 60 * 1000 },
   mcp: { maxRequests: 40, windowMs: 60 * 1000 },
   mcpWrite: { maxRequests: 8, windowMs: 60 * 1000 },
+  mcpBriefDaily: { maxRequests: 20, windowMs: 24 * 60 * 60 * 1000 },
 } as const;

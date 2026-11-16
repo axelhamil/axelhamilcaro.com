@@ -1282,6 +1282,92 @@
     background: var(--papier);
   }
 
+  .mcp-connexion {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 0;
+  }
+
+  .mcp-ligne {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .mcp-copiable {
+    max-width: 100%;
+    user-select: all;
+    overflow-wrap: anywhere;
+  }
+
+  .mcp-champ {
+    padding: 0.5rem 0.75rem;
+    background: var(--fond-2);
+    border: 2px solid var(--filet-fort);
+    font-family: var(--font-mono);
+  }
+
+  .mcp-client {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--fond-2);
+    color: var(--encre);
+    border: 2px solid var(--filet-fort);
+    border-radius: 0;
+    box-shadow: var(--offset) var(--offset) 0 var(--ombre);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .mcp-connexion .grille-cartes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 48rem) {
+    .mcp-connexion .grille-cartes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .mcp-etapes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 100%;
+    min-width: 0;
+    padding-left: 1.5rem;
+    list-style: decimal;
+  }
+
+  .mcp-etapes > li {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .mcp-etapes > li::marker {
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+
+  .mcp-code {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+    background: var(--fond);
+    border: 2px solid var(--filet);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    user-select: all;
+  }
+
   .compteur {
     position: relative;
     font-variant-numeric: tabular-nums;

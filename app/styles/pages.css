@@ -135,7 +135,7 @@
   min-height: 4rem;
 }
 
-#mcp code {
+#mcp p > code {
   padding: 0.05em 0.35em;
   font-family: var(--font-mono);
   font-size: 0.875em;

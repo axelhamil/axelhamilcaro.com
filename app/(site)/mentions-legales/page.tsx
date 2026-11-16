@@ -229,6 +229,15 @@ const SECTIONS: LegalSection[] = [
           retrouver une adresse. Ces lignes sont supprimées au bout de 30 jours.
         </p>
         <p>
+          Le serveur MCP permet aussi d'envoyer un récapitulatif de projet à
+          Axel, uniquement à la demande de la personne, pour qu'Axel la
+          recontacte au sujet de ce projet : son email, son nom et sa société
+          (facultatifs), son besoin et l'estimation sont enregistrés comme
+          demande de contact, transmis à Axel par email via{" "}
+          <strong>Resend</strong>, et supprimés 12 mois après la première
+          demande. La télémétrie ne contient ni l'email ni le récapitulatif.
+        </p>
+        <p>
           Les paiements sont gérés par <strong>Stripe</strong> via Payment Links
           externes : aucune donnée bancaire ne transite par axelhamilcaro.com,
           aucun cookie Stripe n'est déposé sur le domaine.

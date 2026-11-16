@@ -17,11 +17,19 @@ import {
   THESIS,
 } from "@/app/_config/site.constants";
 import {
+  getEstimationGrid,
+  getMethod,
+  renderEstimationGridMarkdown,
+  renderMethodMarkdown,
+  renderReferencesMarkdown,
+} from "./mcp.method";
+import {
   AFTERLIVE_AMBITION,
   getProjects,
   renderProjectsMarkdown,
   WEATHERTOP_AMBITION,
 } from "./mcp.projects";
+import { getReferences } from "./mcp.references";
 
 export const CATALOG_SECTION_IDS = [
   "whoami",
@@ -32,6 +40,9 @@ export const CATALOG_SECTION_IDS = [
   "case-studies",
   "services",
   "contact",
+  "method",
+  "estimation-grid",
+  "references",
 ] as const;
 
 export type CatalogSectionId = (typeof CATALOG_SECTION_IDS)[number];
@@ -80,7 +91,7 @@ const BUILDS = [
   },
 ];
 
-const IDENTITY_SUMMARY = `${AUTHOR.name} est développeur fullstack et builder, basé à Tours. ${THESIS.thirdPerson} ${BUILDS_SUMMARY} ${EMPLOYER.role} chez ${EMPLOYER.name} (CDI) depuis septembre 2026, auparavant 4 ans chez Civitime de développeur à lead technique. ${OPENUP.role} d'${OPENUP.name} depuis ${OPENUP.sinceYear}, en projet parallèle. Il prend encore quelques projets en freelance.`;
+const IDENTITY_SUMMARY = `${AUTHOR.name} est développeur fullstack et builder, basé à Tours. ${THESIS.thirdPerson} ${BUILDS_SUMMARY} Il a passé 4 ans chez Civitime, de développeur à lead technique. ${OPENUP.role} d'${OPENUP.name} depuis ${OPENUP.sinceYear}, en projet parallèle. Il prend encore quelques projets en freelance.`;
 
 const AI_AGENTS =
   "Travaille avec des agents IA tous les jours. Ce site expose un serveur MCP public.";
@@ -312,6 +323,9 @@ export function getCaseStudies() {
   }));
 }
 
+const TMA_SCOPE =
+  "Covers applications Axel delivered or rewrote; no maintenance of a legacy codebase without a rewrite.";
+
 export function getServices() {
   return [
     {
@@ -342,6 +356,7 @@ export function getServices() {
       slug: "tma",
       title: "TMA (tierce maintenance applicative)",
       url: `${SITE_URL}/tma`,
+      scope: TMA_SCOPE,
       monthlyRates: {
         proEur: RATES.tma.proMonthlyEur,
         premiumEur: RATES.tma.premiumMonthlyEur,
@@ -379,6 +394,12 @@ export function getCatalogSection(id: CatalogSectionId) {
       return getServices();
     case "contact":
       return getContact();
+    case "method":
+      return getMethod();
+    case "estimation-grid":
+      return getEstimationGrid();
+    case "references":
+      return getReferences();
   }
 }
 
@@ -400,6 +421,12 @@ export function renderMarkdown(id: CatalogSectionId): string {
       return renderServicesMarkdown();
     case "contact":
       return renderContactMarkdown();
+    case "method":
+      return renderMethodMarkdown();
+    case "estimation-grid":
+      return renderEstimationGridMarkdown();
+    case "references":
+      return renderReferencesMarkdown();
   }
 }
 
@@ -482,10 +509,16 @@ function renderLiveStatusMarkdown() {
     `- Quote SLA: ${status.quoteSla}`,
     `- Freelance since: ${status.freelanceSince} (${status.freelanceYears} years)`,
     "",
-    "## Context",
+    "## Employment",
     "",
     `- ${status.context.employer}`,
+    "",
+    "## Builds",
+    "",
     `- ${status.context.builds}`,
+    "",
+    "## Context",
+    "",
     `- ${status.context.product}`,
     `- ${status.context.freelance}`,
   ].join("\n");
@@ -538,7 +571,16 @@ function renderServicesMarkdown() {
           ? `${service.dailyHtEur}€ HT/day`
           : `PRO ${service.monthlyRates.proEur}€/month, PREMIUM ${service.monthlyRates.premiumEur}€/month`;
 
-      return [`## ${service.title}`, "", `- ${rate}`, `- ${service.url}`, ""];
+      const scope = "scope" in service ? [`- ${service.scope}`] : [];
+
+      return [
+        `## ${service.title}`,
+        "",
+        `- ${rate}`,
+        ...scope,
+        `- ${service.url}`,
+        "",
+      ];
     }),
   ].join("\n");
 }
