@@ -56,6 +56,7 @@ export const estimateInputSchema = z.object({
     ),
   platforms: z
     .array(z.enum(PLATFORMS))
+    .min(1)
     .default(["web"])
     .describe("Target platforms of the product"),
   existing: z

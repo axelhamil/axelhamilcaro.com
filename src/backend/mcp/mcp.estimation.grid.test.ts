@@ -80,6 +80,7 @@ describe("estimateInputSchema", () => {
       },
       { openQuestions: 11 },
       { budgetEur: -1 },
+      { platforms: [] },
     ];
 
     for (const input of rejected) {
