@@ -223,7 +223,7 @@ export const PROJECTS: readonly Project[] = [
     summary:
       "Je le maintiens comme point de départ de mes propres produits. On clone, on écrit la logique métier, le reste est déjà là. Clean Architecture et DDD sont imposés par la structure du code, pas par une page de doc.",
     posterLines: ["LE BOILERPLATE", "QUI DIT NON."],
-    highlights: ["17 étoiles", "v2.2.2", "Auth + multi-tenant"],
+    highlights: ["Open source", "v2.2.2", "Auth + multi-tenant"],
     stats: [
       { value: "17", label: "étoiles sur GitHub" },
       { value: "3", label: "forks" },
@@ -235,7 +235,6 @@ export const PROJECTS: readonly Project[] = [
       "Multi-tenant",
       "Hono",
       "React 19",
-      "17 étoiles",
       "v2.2.2",
       "Auth + multi-tenant",
       "TypeScript",
@@ -890,6 +889,10 @@ export const BUILDS_COUNT = PROJECTS.length + 1;
 
 export const PUBLIC_BUILDS_COUNT = PROJECTS.filter(
   ({ visibility }) => visibility === "public",
+).length;
+
+export const PRIVATE_BUILDS_COUNT = PROJECTS.filter(
+  ({ visibility }) => visibility === "private",
 ).length;
 
 export const getProjectBySlug = (slug: string) =>

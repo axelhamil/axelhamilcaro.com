@@ -1,21 +1,27 @@
-import { ArrowDown, ArrowRight } from "lucide-react";
-import { PUBLIC_BUILDS_COUNT } from "@/app/_config/projects";
-import { THESIS } from "@/app/_config/site.constants";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { FACT_LABELS, HERO_COPY } from "@/app/_config/home-copy";
+import { PARCOURS } from "@/app/_config/parcours";
+import {
+  PRIVATE_BUILDS_COUNT,
+  PUBLIC_BUILDS_COUNT,
+} from "@/app/_config/projects";
+import { EXTERNAL_LINKS, THESIS } from "@/app/_config/site.constants";
 import { AnimatedCounter } from "@/src/shared/ui/effects/animated-counter";
+import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 import { Button } from "@/src/shared/ui/portfolio/button";
 import { BrandText } from "@/src/shared/ui/typography/brand-text";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
-const FIRST_JOB_YEAR = 2021;
-
-const yearsOfExperience = new Date().getFullYear() - FIRST_JOB_YEAR;
-
 const facts = [
-  { v: `${yearsOfExperience}+`, l: "ans de métier", tone: "" },
-  { v: "20+", l: "applications livrées", tone: "etiquette-gris" },
+  { v: String(PUBLIC_BUILDS_COUNT), l: FACT_LABELS.publicBuilds, tone: "" },
   {
-    v: `${PUBLIC_BUILDS_COUNT}`,
-    l: "builds publics sur GitHub",
+    v: String(PRIVATE_BUILDS_COUNT),
+    l: FACT_LABELS.privateBuilds,
+    tone: "etiquette-gris",
+  },
+  {
+    v: PARCOURS.civitime.debut.iso.slice(0, 4),
+    l: FACT_LABELS.developerSince,
     tone: "etiquette-jaune",
   },
 ] as const;
@@ -32,27 +38,42 @@ const HeroLeft = () => {
         </span>
       </h1>
 
-      <p className="hero-accroche">Je ship ce qui sert vraiment le business.</p>
+      <p className="hero-accroche">{HERO_COPY.accroche}</p>
 
       <Paragraph size="lg" className="hero-lede">
-        <strong>
-          Je suis Axel Hamilcaro, développeur fullstack et builder, basé à
-          Tours.
-        </strong>{" "}
-        {`${THESIS.firstPerson} Le jour, je développe chez Eskimoz, et je mène OpenUp en parallèle. Je prends toujours des projets en freelance.`}
+        <strong>{HERO_COPY.intro}</strong>{" "}
+        {`${THESIS.firstPerson} ${HERO_COPY.context}`}
       </Paragraph>
 
       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
         <Button href="/#portfolio" size="lg">
-          Voir ce que je fabrique
+          {HERO_COPY.primaryCta}
           <ArrowDown className="w-5 h-5" />
         </Button>
 
-        <Button href="/services" variant="secondary" size="lg">
-          Travailler avec moi
-          <ArrowRight className="w-5 h-5" />
+        <Button
+          href={EXTERNAL_LINKS.github}
+          external
+          variant="secondary"
+          size="lg"
+        >
+          {HERO_COPY.secondaryCta}
+          <ArrowUpRight className="w-5 h-5" />
         </Button>
       </div>
+
+      <Paragraph
+        variant="secondary"
+        className="hero-selectif flex flex-wrap items-center gap-x-3"
+      >
+        {HERO_COPY.selective}
+        <TransitionLink
+          href="/#services"
+          className="link-underline label-mono cible-tactile"
+        >
+          {HERO_COPY.selectiveLink}
+        </TransitionLink>
+      </Paragraph>
 
       <ul className="grid grid-cols-3 gap-3 sm:gap-5 max-w-xl pr-2 pb-2">
         {facts.map(({ v, l, tone }) => (

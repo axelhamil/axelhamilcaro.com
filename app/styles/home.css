@@ -42,7 +42,7 @@
 }
 
 .hero-accroche {
-  max-width: 24ch;
+  max-width: 32ch;
   font-family: var(--font-display);
   font-weight: 900;
   font-size: clamp(1.125rem, 4.4cqi, 1.75rem);
@@ -53,7 +53,8 @@
   color: var(--encre);
 }
 
-.hero-lede {
+.hero-lede,
+.hero-selectif {
   max-width: var(--measure);
 }
 
