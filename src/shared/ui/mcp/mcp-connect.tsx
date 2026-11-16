@@ -9,7 +9,7 @@ export function McpConnect() {
 
       <div className="mcp-ligne">
         <p className="label-mono">Adresse du serveur</p>
-        <code className="mcp-copiable mcp-adresse">{MCP.url}</code>
+        <code className="mcp-copiable mcp-champ">{MCP.url}</code>
         <CopyButton text={MCP.url} label="Copier l'adresse" />
       </div>
 

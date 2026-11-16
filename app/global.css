@@ -1303,7 +1303,7 @@
     overflow-wrap: anywhere;
   }
 
-  .mcp-adresse {
+  .mcp-champ {
     padding: 0.5rem 0.75rem;
     background: var(--fond-2);
     border: 2px solid var(--filet-fort);
