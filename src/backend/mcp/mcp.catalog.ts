@@ -91,7 +91,7 @@ const BUILDS = [
   },
 ];
 
-const IDENTITY_SUMMARY = `${AUTHOR.name} est développeur fullstack et builder, basé à Tours. ${THESIS.thirdPerson} ${BUILDS_SUMMARY} ${EMPLOYER.role} chez ${EMPLOYER.name} (CDI) depuis septembre 2026, auparavant 4 ans chez Civitime de développeur à lead technique. ${OPENUP.role} d'${OPENUP.name} depuis ${OPENUP.sinceYear}, en projet parallèle. Il prend encore quelques projets en freelance.`;
+const IDENTITY_SUMMARY = `${AUTHOR.name} est développeur fullstack et builder, basé à Tours. ${THESIS.thirdPerson} ${BUILDS_SUMMARY} Il a passé 4 ans chez Civitime, de développeur à lead technique. ${OPENUP.role} d'${OPENUP.name} depuis ${OPENUP.sinceYear}, en projet parallèle. Il prend encore quelques projets en freelance.`;
 
 const AI_AGENTS =
   "Travaille avec des agents IA tous les jours. Ce site expose un serveur MCP public.";
@@ -505,10 +505,16 @@ function renderLiveStatusMarkdown() {
     `- Quote SLA: ${status.quoteSla}`,
     `- Freelance since: ${status.freelanceSince} (${status.freelanceYears} years)`,
     "",
-    "## Context",
+    "## Employment",
     "",
     `- ${status.context.employer}`,
+    "",
+    "## Builds",
+    "",
     `- ${status.context.builds}`,
+    "",
+    "## Context",
+    "",
     `- ${status.context.product}`,
     `- ${status.context.freelance}`,
   ].join("\n");

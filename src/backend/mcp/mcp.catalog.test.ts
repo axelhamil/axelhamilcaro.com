@@ -56,7 +56,7 @@ describe("mcp.catalog whoami", () => {
 
   test("identity is the thesis and the builds, OpenUp stays a side project", () => {
     const whoami = getWhoami();
-    const [identity = ""] = whoami.summary.split(EMPLOYER.role);
+    const [identity = ""] = whoami.summary.split("Civitime");
 
     assert.match(identity, /outils de fondation/);
 
@@ -71,6 +71,17 @@ describe("mcp.catalog whoami", () => {
     assert.deepEqual(
       whoami.currentRoles.map((role) => role.organization),
       [EMPLOYER.name, OPENUP.name, "Freelance"],
+    );
+  });
+
+  test("whoami summary no longer carries the employer", () => {
+    const whoami = getWhoami();
+
+    assert.equal(whoami.summary.includes(EMPLOYER.name), false);
+    assert.match(whoami.summary, /Civitime/);
+    assert.match(whoami.summary, new RegExp(OPENUP.name));
+    assert.ok(
+      whoami.currentRoles.some((role) => role.organization === EMPLOYER.name),
     );
   });
 

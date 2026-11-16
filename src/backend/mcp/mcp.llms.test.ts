@@ -12,6 +12,7 @@ import {
 } from "../../../app/_config/site.constants";
 import { CATALOG_SECTION_IDS } from "./mcp.catalog";
 import { AFTERLIVE_AMBITION, WEATHERTOP_AMBITION } from "./mcp.projects";
+import { markdownSections } from "./mcp.test-sections";
 
 function readPublic(name: "llms.txt" | "llms-full.txt") {
   return readFileSync(join(process.cwd(), "public", name), "utf8");
@@ -82,7 +83,7 @@ describe("llms files describe the estimation server", () => {
     });
 
     test(`${name} never names Eskimoz and weathertop in the same section`, () => {
-      const sections = readPublic(name).split(/^(?=#)/m);
+      const sections = markdownSections(readPublic(name));
 
       assert.deepEqual(
         sections.filter(
