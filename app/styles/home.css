@@ -151,11 +151,16 @@
   border-top: 2px solid var(--encre);
 }
 
-.offre {
-  min-height: 44px;
+.fit-ligne {
   padding: 1.25rem 0.75rem;
   color: var(--encre);
   border-bottom: 2px solid var(--encre);
+}
+
+.fit-refus {
+  color: var(--muted-foreground);
+  text-decoration-line: line-through;
+  text-decoration-thickness: 2px;
 }
 
 .offre-titre {
@@ -166,21 +171,6 @@
 
 .offre-fleche {
   transition: transform var(--dur-ui) var(--ease-ui);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .offre:hover {
-    color: var(--sur-aplat);
-    background: var(--aplat);
-  }
-
-  .offre:hover .ink-muted {
-    color: var(--sur-aplat);
-  }
-
-  .offre:hover .offre-fleche {
-    transform: translate(4px, -4px);
-  }
 }
 
 .maintenant-entree {
