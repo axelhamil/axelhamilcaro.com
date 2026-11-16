@@ -20,7 +20,7 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 const OPENUP_ID = `${OPENUP.url}/#organization`;
 const EMPLOYER_ID = `${SITE_URL}/#employer`;
 
-export const PERSON_DESCRIPTION = `Axel Hamilcaro est développeur fullstack et builder, basé à Tours, en Centre-Val de Loire. ${THESIS.thirdPerson} ${BUILDS_SUMMARY} Développeur fullstack chez Eskimoz depuis septembre 2026, il a passé 4 ans chez Civitime, de développeur à lead technique. Il est aussi le fondateur technique d'OpenUp depuis 2026 et prend encore quelques projets en freelance.`;
+export const PERSON_DESCRIPTION = `Axel Hamilcaro est développeur fullstack et builder, basé à Tours, en Centre-Val de Loire. ${THESIS.thirdPerson} ${BUILDS_SUMMARY} Il a passé 4 ans chez Civitime, de développeur à lead technique. Il est aussi le fondateur technique d'OpenUp depuis 2026 et prend encore quelques projets en freelance.`;
 
 const KNOWS_ABOUT = [
   "TypeScript",
