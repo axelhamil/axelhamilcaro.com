@@ -1,9 +1,14 @@
 import Image from "next/image";
 
-const HeroRight = () => {
+interface PortraitProps {
+  stampTop: string;
+  stampBottom: string;
+}
+
+export function Portrait({ stampTop, stampBottom }: PortraitProps) {
   return (
-    <div className="relative justify-self-start lg:justify-self-end mr-4">
-      <div className="hero-portrait relative w-60 h-60 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
+    <figure className="portrait-place relative justify-self-start lg:justify-self-end lg:self-start mr-4">
+      <div className="portrait relative w-60 h-60 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
         <Image
           src="/axel-hamilcaro-developpeur-fullstack.jpeg"
           alt="Axel Hamilcaro, développeur fullstack et builder"
@@ -19,11 +24,9 @@ const HeroRight = () => {
         aria-hidden="true"
         className="tampon tampon-droite absolute -top-5 -right-6"
       >
-        <span className="tampon-haut">Build log</span>{" "}
-        <span className="tampon-bas">N° 001</span>
+        <span className="tampon-haut">{stampTop}</span>{" "}
+        <span className="tampon-bas">{stampBottom}</span>
       </p>
-    </div>
+    </figure>
   );
-};
-
-export default HeroRight;
+}

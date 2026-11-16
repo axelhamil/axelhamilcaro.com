@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { PUBLIC_BUILDS_COUNT } from "@/app/_config/projects";
 import { getFreelanceYears, THESIS } from "@/app/_config/site.constants";
 import { Ribbon } from "@/src/shared/ui/motifs/ribbon";
+import { Portrait } from "@/src/shared/ui/portrait/portrait";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 
 const ABOUT_RIBBON = [
@@ -78,25 +78,7 @@ export function AboutHero() {
           </ul>
         </div>
 
-        <figure className="relative justify-self-start lg:justify-self-end mr-4">
-          <Image
-            src="/axel-hamilcaro-developpeur-fullstack.jpeg"
-            alt="Axel Hamilcaro, développeur fullstack et builder"
-            width={320}
-            height={320}
-            className="apropos-portrait w-60 h-60 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-cover"
-            preload
-            fetchPriority="high"
-            sizes="(max-width: 640px) 240px, (max-width: 1024px) 288px, 320px"
-          />
-          <p
-            aria-hidden="true"
-            className="tampon tampon-droite absolute -top-5 -right-6"
-          >
-            <span className="tampon-haut">Builds</span>
-            <span className="tampon-bas">En chantier</span>
-          </p>
-        </figure>
+        <Portrait stampTop="Builds" stampBottom="En chantier" />
       </div>
 
       <Ribbon items={ABOUT_RIBBON} hachures />

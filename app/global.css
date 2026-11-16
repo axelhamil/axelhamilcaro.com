@@ -837,6 +837,30 @@
     }
   }
 
+  .portrait {
+    border: 2px solid var(--encre);
+    box-shadow: var(--offset) var(--offset) 0 var(--ombre-jaune);
+    overflow: hidden;
+  }
+
+  @media (min-width: 64rem) {
+    .portrait-place {
+      --portrait-taille: 20rem;
+      --portrait-depart: 4rem;
+      margin-top: max(
+        0px,
+        (100svh - var(--nav-h) - var(--portrait-taille)) / 2 -
+          var(--portrait-depart)
+      );
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .portrait-place {
+      --portrait-taille: 24rem;
+    }
+  }
+
   .tampon {
     display: inline-flex;
     flex-direction: column;
