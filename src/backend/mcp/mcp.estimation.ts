@@ -13,6 +13,7 @@ import {
   WIDENING,
 } from "./mcp.estimation.grid";
 import type { EstimateInput } from "./mcp.estimation.schema";
+import { type ReferenceSummary, referencesFor } from "./mcp.references";
 
 export type DayRange = { low: number; probable: number; high: number };
 
@@ -50,6 +51,7 @@ export type EstimatedResult = {
   hypotheses: string[];
   exclusions: string[];
   topQuestions: string[];
+  references: ReferenceSummary[];
 };
 
 export type EstimateResult = OutOfScopeResult | EstimatedResult;
@@ -302,6 +304,9 @@ export const estimateProject = (input: EstimateInput): EstimateResult => {
     ],
     exclusions: EXCLUSIONS,
     topQuestions: topQuestions(input),
+    references: referencesFor(
+      input.lots.flatMap((lot) => lot.features.map((f) => f.id)),
+    ),
   };
 
   if (input.budgetEur === undefined) return result;
