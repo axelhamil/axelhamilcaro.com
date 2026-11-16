@@ -42,7 +42,7 @@ const WhatIDo = () => {
           </Paragraph>
           <Paragraph variant="secondary">{WORK_COPY.doubt}</Paragraph>
           <Button href="/services" size="lg" className="self-start">
-            {WORK_COPY.cta}
+            {WORK_COPY.cta(offers.length)}
             <ArrowRight className="w-5 h-5" />
           </Button>
         </header>

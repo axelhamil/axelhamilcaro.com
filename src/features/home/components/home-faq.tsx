@@ -9,8 +9,7 @@ import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 const items = [
   {
     question: "Qui est Axel Hamilcaro ?",
-    answer:
-      "Je suis Axel Hamilcaro, développeur fullstack et builder, basé à Tours, en Centre-Val de Loire. Je fabrique des produits et des outils, dont OpenUp, où je suis fondateur technique. Avant, j'ai passé 4 ans chez Civitime, de développeur à lead technique.",
+    answer: HOME_FAQ_ANSWERS.whoIs,
   },
   {
     question: "Prends-tu encore des projets en freelance ?",
@@ -22,8 +21,7 @@ const items = [
   },
   {
     question: "Tu peux créer mon application de A à Z ?",
-    answer:
-      "Oui. Je prends un projet de l'idée à la mise en ligne : cadrage, développement et mise en ligne, avec un seul interlocuteur, puis la maintenance si tu le souhaites.",
+    answer: HOME_FAQ_ANSWERS.fromScratch,
   },
   {
     question: "Travailles-tu en remote ou sur site ?",

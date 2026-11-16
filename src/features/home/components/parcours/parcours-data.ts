@@ -130,7 +130,7 @@ export const CHAPITRES: readonly Chapitre[] = [
         debut: PARCOURS.builds.debut,
         role: PARCOURS.builds.role,
         contexte:
-          "Le reste du temps, je fabrique des outils de fondation : je fournis l'outil et la donnée, pas l'application finale.",
+          "Le reste du temps, je fabrique mes propres produits et outils, en public dès que je peux.",
         faitsTitre: "Sur l'établi",
         faits: [
           `clean-stack, depuis ${PARCOURS.builds.debut.label} : mon boilerplate SaaS open source en TypeScript.`,

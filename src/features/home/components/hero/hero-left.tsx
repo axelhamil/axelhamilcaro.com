@@ -5,7 +5,7 @@ import {
   PRIVATE_BUILDS_COUNT,
   PUBLIC_BUILDS_COUNT,
 } from "@/app/_config/projects";
-import { EXTERNAL_LINKS, THESIS } from "@/app/_config/site.constants";
+import { EXTERNAL_LINKS } from "@/app/_config/site.constants";
 import { AnimatedCounter } from "@/src/shared/ui/effects/animated-counter";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 import { Button } from "@/src/shared/ui/portfolio/button";
@@ -42,7 +42,7 @@ const HeroLeft = () => {
 
       <Paragraph size="lg" className="hero-lede">
         <strong>{HERO_COPY.intro}</strong>{" "}
-        {`${THESIS.firstPerson} ${HERO_COPY.context}`}
+        {`${HERO_COPY.lede} ${HERO_COPY.context}`}
       </Paragraph>
 
       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">

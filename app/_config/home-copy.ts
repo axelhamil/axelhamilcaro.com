@@ -3,6 +3,7 @@ export const HERO_COPY = {
     "Je construis des API et des outils sur lesquels d'autres bâtissent, et je le fais en public.",
   intro:
     "Je suis Axel Hamilcaro, développeur fullstack et builder, basé à Tours.",
+  lede: "Mon pari pour 2026 et 2027 : fournir l'outil et la donnée, pas l'application finale.",
   context:
     "Je suis aussi développeur chez Eskimoz et je mène OpenUp en parallèle.",
   primaryCta: "Voir ce que je construis",
@@ -31,7 +32,7 @@ export const BUILDS_COPY = {
   titleTop: "Ce que",
   titleAccent: "je construis.",
   intro:
-    "Des API, des briques et des outils de fondation, construits en public, avec leur statut et leur dernière mise à jour. OpenUp, que je mène en parallèle, en fait partie.",
+    "Des API, des briques et des outils de fondation, construits en public, avec leur statut et leur dernière mise à jour. OpenUp, dont je suis le fondateur technique, en fait partie.",
   clientsTitle: "Construit pour d'autres",
 } as const;
 
@@ -51,7 +52,7 @@ export const WORK_COPY = {
   refuseTitle: "Ce que je refuse",
   refuse: ["Sites vitrines", "Régie", "Maintenance de legacy sans refonte"],
   doubt: "Un doute sur le fit ? Écris-moi, je réponds sous 24 h.",
-  cta: "Voir les 5 offres",
+  cta: (count: number) => `Voir les ${count} offres`,
   detailTitle: "Le détail des offres",
 } as const;
 
@@ -69,12 +70,16 @@ export const HOME_RIBBONS = {
 } as const;
 
 export const PARCOURS_INTRO =
-  "De développeur à lead technique chez Civitime, puis à mon compte. Aujourd'hui développeur chez Eskimoz, avec OpenUp en parallèle.";
+  "De développeur à lead technique chez Civitime, puis à mon compte. Aujourd'hui développeur chez Eskimoz et fondateur technique d'OpenUp.";
 
 export const HOME_DESCRIPTION =
   "Je suis Axel Hamilcaro, développeur fullstack et builder à Tours. Je construis des API et des outils en public, dont clean-stack, et j'accepte peu de projets.";
 
 export const HOME_FAQ_ANSWERS = {
+  whoIs:
+    "Je suis Axel Hamilcaro, builder basé à Tours. Je construis en public des API, des outils de fondation et des outils pour agents IA. Je suis aussi le fondateur technique d'OpenUp.",
+  fromScratch:
+    "Oui, quand le projet ressemble à ce que je construis : une API, des données, des briques pour agents IA, un produit qui part de zéro. Pas de site vitrine. Le détail est sur axelhamilcaro.com/services.",
   freelance:
     "Oui, quelques projets choisis, à côté de mes builds, de mon poste et d'OpenUp. Je prends des API, des données, des briques pour agents IA, des produits partis de zéro et du lead tech à temps partiel. Le détail est sur la page Services, à l'adresse axelhamilcaro.com/services.",
   projectTypes:
