@@ -144,6 +144,7 @@ src/
 │   │   ├── contact/              # contact-modal (formulaire, valide via backend/contact)
 │   │   ├── typography/           # heading2, paragraph
 │   │   ├── effects/              # animated-counter, magnetic-field, typewriter
+│   │   ├── mcp/                  # copy-button, mcp-connect
 │   │   ├── navigation/           # transition-link
 │   │   ├── portfolio/            # button (site-wide custom button), link-card
 │   │   └── widgets/              # key-stats (homepage widget)
