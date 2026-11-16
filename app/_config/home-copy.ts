@@ -1,3 +1,6 @@
+import { MCP_CLAUDE_CODE_COMMAND } from "./mcp-clients";
+import { MCP } from "./site.constants";
+
 export const HERO_COPY = {
   accroche:
     "Je construis des API et des outils sur lesquels d'autres bâtissent, et je le fais en public.",
@@ -84,6 +87,10 @@ export const HOME_FAQ_ANSWERS = {
     "Oui, quelques projets choisis, à côté de mes builds, de mon poste et d'OpenUp. Je prends des API, des données, des briques pour agents IA, des produits partis de zéro et du lead tech à temps partiel. Le détail est sur la page Services, à l'adresse axelhamilcaro.com/services.",
   projectTypes:
     "Des API et des produits de données, des briques pour agents IA, des produits qui partent de zéro, du lead tech à temps partiel. Je ne prends ni sites vitrines, ni régie, ni maintenance de legacy sans refonte. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
+  estimateWithoutCall: `Oui. Tu branches mon serveur MCP (${MCP.url}) dans Claude, ChatGPT, Cursor ou Claude Code, tu racontes ton projet, et ton assistant te rend une fourchette en jours et en euros HT calculée avec ma grille. Rien ne m'est envoyé sans ton accord.`,
+  connectMcp: `Dans Claude : Customize, Connectors, Add custom connector, puis colle ${MCP.url}. Dans ChatGPT : Plugins, Add custom MCP server. Dans Cursor : ajoute l'adresse dans mcp.json. Dans Claude Code : ${MCP_CLAUDE_CODE_COMMAND}. Les étapes détaillées et la phrase à copier sont dans la section MCP de cette page.`,
+  estimateIsQuote:
+    "Non. C'est une fourchette non contractuelle, avec ses hypothèses et ses exclusions, pour savoir si ton projet tient dans ton budget avant d'en parler. Le chiffre ferme vient après un échange avec moi.",
 } as const;
 
 const collectTexts = (value: unknown): string[] => {

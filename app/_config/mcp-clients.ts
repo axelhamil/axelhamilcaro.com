@@ -7,6 +7,8 @@ export const MCP_TOOLS = ["estimate_project", "send_project_brief"] as const;
 export const MCP_STARTER_PROMPT =
   "Utilise le prompt discuss_project du serveur MCP d'Axel Hamilcaro pour estimer mon projet. Si tu ne vois pas les prompts, pose-moi ses questions une par une, puis appelle estimate_project.";
 
+export const MCP_CLAUDE_CODE_COMMAND = `claude mcp add --transport http --scope user axel-hamilcaro ${MCP.url}`;
+
 export type McpClientId = "claude" | "chatgpt" | "cursor" | "claude-code";
 
 export interface McpClient {
@@ -63,7 +65,7 @@ export const MCP_CLIENTS: McpClient[] = [
       "Lance cette commande dans ton terminal.",
       "Vérifie avec claude mcp list.",
     ],
-    code: `claude mcp add --transport http --scope user axel-hamilcaro ${MCP.url}`,
+    code: MCP_CLAUDE_CODE_COMMAND,
     note: "Sans --scope user, le serveur ne vaut que pour le dossier courant.",
   },
 ];

@@ -1,6 +1,5 @@
 import { Plus } from "lucide-react";
 import { HOME_FAQ_ANSWERS } from "@/app/_config/home-copy";
-import { MCP } from "@/app/_config/site.constants";
 import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
@@ -29,8 +28,16 @@ const items = [
       "100% remote, basé à Tours, en Centre-Val de Loire. Je suis disponible pour des points sur site ponctuels en France selon le projet (kickoff, atelier produit, restitution).",
   },
   {
-    question: "À quoi sert le serveur MCP de ce site ?",
-    answer: `J'expose un serveur MCP public à ${MCP.url}. Un agent IA s'y connecte en POST et lit mon identité, ma stack, mes études de cas et mes services. Ce n'est pas une page à ouvrir dans le navigateur.`,
+    question: "Peut-on estimer son projet avec toi sans réserver de créneau ?",
+    answer: HOME_FAQ_ANSWERS.estimateWithoutCall,
+  },
+  {
+    question: "Comment brancher ton serveur MCP dans mon assistant ?",
+    answer: HOME_FAQ_ANSWERS.connectMcp,
+  },
+  {
+    question: "L'estimation vaut-elle un devis ?",
+    answer: HOME_FAQ_ANSWERS.estimateIsQuote,
   },
 ];
 
