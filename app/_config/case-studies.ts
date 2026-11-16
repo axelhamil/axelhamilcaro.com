@@ -143,5 +143,11 @@ export const MISSION_CASES: readonly CaseStudy[] = [
   },
 ];
 
+const HOME_CLIENT_SLUGS = ["scormpilot", "billetterie"];
+
+export const HOME_CLIENT_CASES: readonly CaseStudy[] = MISSION_CASES.filter(
+  (study) => HOME_CLIENT_SLUGS.includes(study.slug),
+);
+
 export const getCaseMeta = (study: CaseStudy) =>
   `${study.role} / ${study.status} ${study.year}`;

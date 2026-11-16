@@ -26,6 +26,15 @@ export const NOW_COPY = {
   nextLabel: "Prochaine étape",
 } as const;
 
+export const BUILDS_COPY = {
+  surtitre: "Mes builds",
+  titleTop: "Ce que",
+  titleAccent: "je construis.",
+  intro:
+    "Des API, des briques et des outils de fondation, construits en public, avec leur statut et leur dernière mise à jour. OpenUp, que je mène en parallèle, en fait partie.",
+  clientsTitle: "Construit pour d'autres",
+} as const;
+
 export const WORK_COPY = {
   surtitre: "Missions choisies",
   titleTop: "Travailler",
@@ -88,6 +97,7 @@ export const ALL_HOME_TEXTS: readonly string[] = [
   HERO_COPY,
   FACT_LABELS,
   NOW_COPY,
+  BUILDS_COPY,
   WORK_COPY,
   HOME_RIBBONS,
   PARCOURS_INTRO,
