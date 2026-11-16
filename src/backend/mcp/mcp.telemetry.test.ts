@@ -10,22 +10,16 @@ import {
 
 describe("summarizeToolArguments", () => {
   test("never stores the content of a free text field", () => {
-    const summary = summarizeToolArguments(
-      "tools/call",
-      "generate_custom_proposal",
-      {
-        need: "SaaS de facturation pour Jean Dupont, jean@example.com",
-        stack: "Next.js",
-        constraints: "budget 20k",
-        briefId: "4b2d0f7e-9a0c-4c1e-8d2f-1b3c5d7e9f00",
-      },
-    );
+    const summary = summarizeToolArguments("tools/call", "estimate_project", {
+      unlisted: ["SaaS de facturation pour Jean Dupont, jean@example.com"],
+      lots: [{ name: "Jean Dupont", features: [] }],
+      budgetEur: 20000,
+    });
 
     assert.deepEqual(summary, {
-      need: null,
-      stack: null,
-      constraints: null,
-      briefId: null,
+      unlisted: null,
+      lots: null,
+      budgetEur: null,
     });
   });
 

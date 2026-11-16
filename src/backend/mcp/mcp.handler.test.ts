@@ -66,10 +66,7 @@ describe("POST /mcp", () => {
       payload.result?._meta?.["io.modelcontextprotocol/serverInfo"]?.version,
       "1.1.0",
     );
-    assert.match(
-      payload.result?.instructions ?? "",
-      /audit_architecture_brief/,
-    );
+    assert.match(payload.result?.instructions ?? "", /estimate_project/);
     assert.doesNotMatch(payload.result?.instructions ?? "", /submit_inquiry/);
   });
 
@@ -128,12 +125,6 @@ describe("MCP server instructions", () => {
 
     assert.match(instructions, /discuss_project/);
     assert.match(instructions, /2025-03-26/);
-  });
-
-  test("instructions no longer mention generate_custom_proposal", async () => {
-    const instructions = await discoverInstructions();
-
-    assert.doesNotMatch(instructions, /generate_custom_proposal/);
   });
 });
 

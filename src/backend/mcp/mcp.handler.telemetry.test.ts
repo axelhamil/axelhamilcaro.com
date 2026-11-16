@@ -164,7 +164,6 @@ describe("MCP argument telemetry", () => {
 
 describe("MCP tool failure telemetry", () => {
   test("records a tool error result as a failed call with its message", async () => {
-    mock.method(mcpRepository, "findBriefById", async () => null);
     const inserted = captureInsertedEvent();
 
     const response = await POST(
@@ -173,8 +172,10 @@ describe("MCP tool failure telemetry", () => {
         id: 3,
         method: "tools/call",
         params: {
-          name: "generate_custom_proposal",
-          arguments: { briefId: "00000000-0000-4000-8000-000000000000" },
+          name: "estimate_project",
+          arguments: {
+            unlisted: ["Custom ERP connector for jean@example.com"],
+          },
         },
       }),
     );
@@ -182,7 +183,8 @@ describe("MCP tool failure telemetry", () => {
     const event = await inserted;
 
     assert.equal(event.ok, false);
-    assert.equal(event.errorMessage, "Unknown or expired briefId.");
-    assert.deepEqual(event.toolArguments, { briefId: null });
+    assert.match(event.errorMessage ?? "", /at least one feature/);
+    assert.deepEqual(event.toolArguments, { unlisted: null });
+    assert.doesNotMatch(JSON.stringify(event), /jean@example/);
   });
 });
