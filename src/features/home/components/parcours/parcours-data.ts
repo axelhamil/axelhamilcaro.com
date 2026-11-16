@@ -137,7 +137,7 @@ export const CHAPITRES: readonly Chapitre[] = [
           "afterlive : l'enregistrement d'un direct devient une quinzaine de clips montés, et davantage si besoin, 2 heures de vidéo traitées en 5 minutes environ. Bientôt en production.",
           "Des bibliothèques TypeScript et des outils pour agents IA, publiés sur GitHub.",
         ],
-        resultats: ["Open source", "2 produits en chantier"],
+        resultats: ["Open source", "Afterlive en chantier"],
         stack: [],
         liens: [
           { href: EXTERNAL_LINKS.github, label: "Mes outils sur GitHub" },
