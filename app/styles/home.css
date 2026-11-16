@@ -57,12 +57,6 @@
   max-width: var(--measure);
 }
 
-.hero-portrait {
-  border: 2px solid var(--encre);
-  box-shadow: var(--offset) var(--offset) 0 var(--ombre-jaune);
-  overflow: hidden;
-}
-
 .hero-fait-valeur {
   font-family: var(--font-display);
   font-weight: 900;

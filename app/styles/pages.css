@@ -38,11 +38,6 @@
   color: var(--secondary);
 }
 
-.apropos-portrait {
-  border: 2px solid var(--encre);
-  box-shadow: var(--offset) var(--offset) 0 var(--ombre-jaune);
-}
-
 .parcours-etape {
   padding-block: 1.75rem;
   border-top: 2px solid var(--filet);
