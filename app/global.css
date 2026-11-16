@@ -1339,13 +1339,13 @@
   .mcp-code {
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
     padding: 0.75rem;
     background: var(--fond);
     border: 2px solid var(--filet);
     font-family: var(--font-mono);
     font-size: 0.8125rem;
-    white-space: pre;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
     user-select: all;
   }
 
