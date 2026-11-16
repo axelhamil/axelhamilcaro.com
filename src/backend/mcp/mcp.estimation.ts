@@ -191,7 +191,7 @@ const fitBudget = (
 
   return {
     ...verdict,
-    message: `${verdict.message} The first lots (${split.lots.join(", ")}) fit within it.`,
+    message: `${verdict.message} The first ${split.lots.length} lot(s) fit within it.`,
     split,
   };
 };

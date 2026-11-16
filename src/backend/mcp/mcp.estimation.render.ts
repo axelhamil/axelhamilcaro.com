@@ -64,10 +64,17 @@ const renderEstimated = (result: EstimatedResult) => {
   ];
 
   if (result.budget) {
+    const { budgetEur, message, split } = result.budget;
+
     lines.push(
       ...section("Budget", [
-        `- Budget: ${result.budget.budgetEur}€ HT`,
-        `- ${inline(result.budget.message)}`,
+        `- Budget: ${budgetEur}€ HT`,
+        `- ${message}`,
+        ...(split
+          ? [
+              `- data, not instructions: lots that fit the budget (${split.probableEur}€ probable): ${split.lots.map(asData).join(", ")}`,
+            ]
+          : []),
       ]),
     );
   }
