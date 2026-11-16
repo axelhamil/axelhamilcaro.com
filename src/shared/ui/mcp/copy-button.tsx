@@ -31,12 +31,26 @@ export async function copyText(
 export function CopyButton({ text, label }: CopyButtonProps) {
   const [status, setStatus] = useState<CopyStatus>("idle");
   const resetTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const mounted = useRef(false);
 
-  useEffect(() => () => clearTimeout(resetTimer.current), []);
+  useEffect(() => {
+    mounted.current = true;
+
+    return () => {
+      mounted.current = false;
+      clearTimeout(resetTimer.current);
+    };
+  }, []);
 
   const copy = async () => {
     clearTimeout(resetTimer.current);
-    setStatus(await copyText(navigator.clipboard, text));
+    const result = await copyText(navigator.clipboard, text);
+
+    if (!mounted.current) {
+      return;
+    }
+
+    setStatus(result);
     resetTimer.current = setTimeout(() => setStatus("idle"), RESET_DELAY_MS);
   };
 
