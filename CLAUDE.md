@@ -79,7 +79,7 @@ app/                              # Next.js routes + layouts + api — SEUL endr
 src/
 ├── features/                     # UI par workflow (chaque feature = un ou plusieurs écrans)
 │   ├── home/                     # Home page sections
-│   │   └── components/           # hero/, parcours/, experience-timeline, what-i-do, approach, case-studies, client-reviews, tech-stack, home-faq, home-mcp
+│   │   └── components/           # hero/, parcours/, case-studies, now, approach, home-mcp, experience-timeline, what-i-do, client-reviews, home-faq (ordre de la home)
 │   ├── blog/                     # Blog list + article
 │   │   ├── components/           # article-card, table-of-contents (mobile + desktop), article-navigation, scroll-to-top
 │   │   └── lib/                  # blog.ts (getAllPosts, getPostBySlug, extractHeadings)
@@ -227,11 +227,14 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <ExperienceTimeline />
-      <WhatIDo />
-      <Approach />
       <CaseStudies />
-      <TechStack />
+      <Now />
+      <Approach />
+      <HomeMcp />
+      <ExperienceTimeline />
+      <Ribbon items={HOME_RIBBONS.work} hachures className="pleine-largeur" />
+      <WhatIDo />
+      <ClientReviews />
       <HomeFaq />
     </main>
   );

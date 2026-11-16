@@ -358,33 +358,6 @@
   }
 }
 
-.mur {
-  border-top: 2px solid var(--encre);
-}
-
-.mur-rangee {
-  padding-block: 1.25rem;
-  border-bottom: 2px solid var(--filet);
-}
-
-.mur-label {
-  color: var(--encre-muette);
-}
-
-.mur-rangee:last-child .mur-label {
-  color: var(--encre-accent);
-}
-
-.mur-rangee dd {
-  margin: 0;
-}
-
-.mur-tag {
-  padding: 0.375rem 0.75rem;
-  font-size: clamp(0.9375rem, 1.6vw, 1.125rem);
-  letter-spacing: -0.01em;
-}
-
 .faq-liste {
   border-top: 2px solid var(--encre);
 }

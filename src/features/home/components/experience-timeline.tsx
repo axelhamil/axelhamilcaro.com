@@ -1,3 +1,4 @@
+import { PARCOURS_INTRO } from "@/app/_config/home-copy";
 import { PARCOURS } from "@/app/_config/parcours";
 import { Heading2 } from "@/src/shared/ui/typography/heading2";
 import { Paragraph } from "@/src/shared/ui/typography/paragraph";
@@ -19,9 +20,7 @@ const ExperienceTimeline = () => {
             Le parcours <br /> <span className="marqueur">jusqu'ici.</span>
           </Heading2>
           <Paragraph variant="secondary" size="lg" className="section-intro">
-            De développeur à lead technique chez Civitime, puis à mon compte.
-            Aujourd'hui, le jour chez Eskimoz, le reste du temps sur mes builds
-            : clean-stack, weathertop, afterlive, et OpenUp en parallèle.
+            {PARCOURS_INTRO}
           </Paragraph>
         </header>
 

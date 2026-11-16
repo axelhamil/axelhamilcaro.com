@@ -22,7 +22,7 @@ const buildItem = (project: Project) => (
   </li>
 );
 
-const caseItem = (study: CaseStudy) => (
+const caseItem = (study: CaseStudy, titleAs: "h3" | "h4") => (
   <li key={study.slug}>
     <ProjectCard
       href={study.href}
@@ -33,7 +33,7 @@ const caseItem = (study: CaseStudy) => (
       tagline={study.description}
       tags={study.tech}
       linkLabel="Voir le cas"
-      titleAs="h3"
+      titleAs={titleAs}
     />
   </li>
 );
@@ -59,7 +59,7 @@ const CaseStudies = () => {
 
         <ul className="grille-cartes atelier-grille">
           {builds.slice(0, 2).map(buildItem)}
-          {caseItem(OPENUP_CASE)}
+          {caseItem(OPENUP_CASE, "h3")}
           {builds.slice(2).map(buildItem)}
         </ul>
 
@@ -73,7 +73,7 @@ const CaseStudies = () => {
             {BUILDS_COPY.clientsTitle}
           </h3>
           <ul className="grille-cartes atelier-grille">
-            {HOME_CLIENT_CASES.map(caseItem)}
+            {HOME_CLIENT_CASES.map((study) => caseItem(study, "h4"))}
           </ul>
         </div>
       </div>
