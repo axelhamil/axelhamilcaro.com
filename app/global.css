@@ -1285,15 +1285,6 @@
     content: "0123456789";
   }
 
-  .skip-link:focus {
-    background: var(--jaune);
-    color: var(--noir);
-    font-family: var(--font-mono);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-  }
-
   .site-nav {
     background: var(--fond);
     border-bottom: 2px solid var(--rule);
