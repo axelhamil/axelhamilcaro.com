@@ -145,7 +145,8 @@
   min-width: 3.5rem;
 }
 
-.offres {
+.offres,
+.maintenant-liste {
   border-top: 2px solid var(--encre);
 }
 
@@ -177,6 +178,37 @@
   }
 
   .offre:hover .offre-fleche {
+    transform: translate(4px, -4px);
+  }
+}
+
+.maintenant-entree {
+  padding: 1.75rem 0.75rem;
+  border-bottom: 2px solid var(--encre);
+}
+
+.maintenant-projet {
+  min-height: 44px;
+  margin-inline: -0.5rem;
+  padding-inline: 0.5rem;
+  color: var(--encre);
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.maintenant-suite {
+  color: var(--encre);
+  font-weight: 700;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .maintenant-projet:hover {
+    color: var(--sur-aplat);
+    background: var(--aplat);
+  }
+
+  .maintenant-projet:hover .offre-fleche {
     transform: translate(4px, -4px);
   }
 }
