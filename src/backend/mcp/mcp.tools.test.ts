@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import { describe, test } from "node:test";
 import "./mcp.test-env";
 import { NOT_BINDING_QUOTE } from "./mcp.constants";
+import { runWithMcpRequest } from "./mcp.context";
 import { estimateInputSchema } from "./mcp.estimation.schema";
-import { estimateToolResult } from "./mcp.tools";
+import { estimateToolResult, sendProjectBriefToolResult } from "./mcp.tools";
+import { sendProjectBriefSchema } from "./mcp.tools.schema";
 
 const call = (raw: unknown) =>
   estimateToolResult(estimateInputSchema.parse(raw));
@@ -52,5 +54,61 @@ describe("estimate_project tool", () => {
     assert.notEqual(result.isError, true);
     assert.match(text(result), /does not take showcase website projects/);
     assert.doesNotMatch(text(result), /€/);
+  });
+});
+
+describe("send_project_brief tool", () => {
+  const brief = sendProjectBriefSchema.parse({
+    consent: true,
+    email: "jean@example.com",
+    need: "A booking platform",
+    lots: [core],
+  });
+
+  const recorded = {
+    send: async () => ({
+      status: "recorded" as const,
+      created: true,
+      notified: true,
+    }),
+  };
+
+  test("a recorded brief confirms the sending and keeps the non-binding reminder", async () => {
+    const result = await sendProjectBriefToolResult(brief, recorded);
+
+    assert.notEqual(result.isError, true);
+    assert.match(text(result), /Brief sent to Axel\. He replies by email\./);
+    assert.ok(text(result).includes(NOT_BINDING_QUOTE));
+  });
+
+  test("a persistence failure is an error without the email or the recap", async () => {
+    const result = await sendProjectBriefToolResult(brief, {
+      send: async () => {
+        throw new Error("db down jean@example.com");
+      },
+    });
+
+    assert.equal(result.isError, true);
+    assert.equal(text(result), "Could not record the brief. Retry later.");
+  });
+
+  test("the 9th send_project_brief call from the same client within a minute is rate limited", async () => {
+    const request = new Request("https://axelhamilcaro.com/mcp", {
+      headers: { "x-vercel-forwarded-for": "198.51.100.9" },
+    });
+    const callAsClient = () =>
+      runWithMcpRequest(request, () =>
+        sendProjectBriefToolResult(brief, recorded),
+      );
+
+    for (let call = 0; call < 8; call += 1) {
+      const result = await callAsClient();
+      assert.notEqual(result.isError, true);
+    }
+
+    const limited = await callAsClient();
+
+    assert.equal(limited.isError, true);
+    assert.match(text(limited), /Rate limited\./);
   });
 });

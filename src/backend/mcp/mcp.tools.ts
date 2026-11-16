@@ -5,13 +5,18 @@ import {
   rateLimit,
 } from "@/src/lib/rate-limit";
 import { analyzeArchitectureNeed, renderAuditMarkdown } from "./mcp.audit";
+import { projectBriefService } from "./mcp.brief";
+import { NOT_BINDING_QUOTE } from "./mcp.constants";
 import { getMcpRequest, setMcpError } from "./mcp.context";
 import { estimateProject } from "./mcp.estimation";
 import { renderEstimateMarkdown } from "./mcp.estimation.render";
 import type { EstimateInput } from "./mcp.estimation.schema";
 import { getProjects, renderProjectsMarkdown } from "./mcp.projects";
 import { mcpRepository } from "./mcp.repository";
-import { MCP_TOOL_INPUT_SCHEMAS } from "./mcp.tools.schema";
+import {
+  MCP_TOOL_INPUT_SCHEMAS,
+  type SendProjectBriefInput,
+} from "./mcp.tools.schema";
 
 const writeAnnotations = {
   readOnlyHint: false,
@@ -54,11 +59,33 @@ export function estimateToolResult(args: EstimateInput): ToolResult {
   return textResult(renderEstimateMarkdown(result));
 }
 
-function limitWrite(kind: "audit") {
+function limitWrite(kind: "audit" | "brief") {
   const request = getMcpRequest();
   const ip = request ? getClientIdentifier(request) : "unknown";
 
   return rateLimit(`mcp-${kind}:${ip}`, RATE_LIMITS.mcpWrite);
+}
+
+type BriefSender = {
+  send(input: SendProjectBriefInput): Promise<unknown>;
+};
+
+export async function sendProjectBriefToolResult(
+  args: SendProjectBriefInput,
+  service: BriefSender = projectBriefService,
+): Promise<ToolResult> {
+  const limited = limitWrite("brief");
+  if (!limited.success) return errorResult("Rate limited. Retry later.");
+
+  try {
+    await service.send(args);
+  } catch {
+    return errorResult("Could not record the brief. Retry later.");
+  }
+
+  return textResult(
+    `Brief sent to Axel. He replies by email.\n\n${NOT_BINDING_QUOTE}`,
+  );
 }
 
 export function registerMcpTools(server: McpServer) {
@@ -128,5 +155,17 @@ export function registerMcpTools(server: McpServer) {
       },
     },
     async (args) => estimateToolResult(args),
+  );
+
+  server.registerTool(
+    "send_project_brief",
+    {
+      title: "Send the project brief to Axel",
+      description:
+        "Sends the project brief and estimate to Axel. Call only after the person explicitly agreed and gave their email. consent must be true.",
+      inputSchema: MCP_TOOL_INPUT_SCHEMAS.send_project_brief,
+      annotations: { ...writeAnnotations, idempotentHint: false },
+    },
+    async (args) => sendProjectBriefToolResult(args),
   );
 }

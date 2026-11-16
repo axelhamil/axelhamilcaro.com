@@ -23,6 +23,25 @@ describe("summarizeToolArguments", () => {
     });
   });
 
+  test("send_project_brief arguments are summarized without the email, the need or the answers", () => {
+    const summary = summarizeToolArguments("tools/call", "send_project_brief", {
+      consent: true,
+      email: "a@b.fr",
+      name: "Jean Dupont",
+      need: "x",
+      answers: "secret answer",
+    });
+
+    assert.deepEqual(summary, {
+      consent: null,
+      email: null,
+      name: null,
+      need: null,
+      answers: null,
+    });
+    assert.doesNotMatch(JSON.stringify(summary), /a@b\.fr|Jean|secret/);
+  });
+
   test("keeps the value of a public site identifier", () => {
     assert.deepEqual(
       summarizeToolArguments("tools/call", "list_projects", {

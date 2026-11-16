@@ -1,4 +1,4 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, lt } from "drizzle-orm";
 import { db } from "@/drizzle";
 import { forms, leads } from "@/drizzle/schema";
 
@@ -68,6 +68,25 @@ export const leadRepository = {
       .limit(1);
 
     return existing.length > 0;
+  },
+
+  async findByFormAndEmail(
+    formId: string,
+    email: string,
+  ): Promise<Lead | null> {
+    const row = await db.query.leads.findFirst({
+      where: and(eq(leads.formId, formId), eq(leads.email, email)),
+    });
+    return row ?? null;
+  },
+
+  async deleteOlderThan(formId: string, cutoff: Date): Promise<number> {
+    const deleted = await db
+      .delete(leads)
+      .where(and(eq(leads.formId, formId), lt(leads.createdAt, cutoff)))
+      .returning({ id: leads.id });
+
+    return deleted.length;
   },
 
   async create(data: CreateLeadData): Promise<Lead> {
