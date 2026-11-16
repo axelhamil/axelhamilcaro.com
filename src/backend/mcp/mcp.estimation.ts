@@ -82,6 +82,7 @@ const BASE_HYPOTHESES = [
   "One full-time developer",
   "Acceptance testing is counted once, in the foundation",
   "At brief stage the estimate is an order of magnitude, not a quote",
+  "Calibration is a loose check against 4 delivered projects (1 to 3 months each), not proof of precision; each delivered project tightens the grid.",
 ];
 
 const pert = (t: DayTriple) => (t.low + 4 * t.likely + t.high) / 6;
@@ -130,12 +131,18 @@ const roundTenths = (range: DayRange): DayRange => ({
   high: tenth(range.high),
 });
 
-const toEur = (days: number) => Math.round((days * RATES.dailyHtEur) / 10) * 10;
+const toEur = (days: number) => Math.round(days * RATES.dailyHtEur);
 
 const eurRange = (range: DayRange): DayRange => ({
   low: toEur(range.low),
   probable: toEur(range.probable),
   high: toEur(range.high),
+});
+
+const wholeDays = (range: DayRange): DayRange => ({
+  low: Math.floor(range.low),
+  probable: Math.round(range.probable),
+  high: Math.ceil(range.high),
 });
 
 const budgetStatus = (
@@ -177,7 +184,7 @@ const fitBudget = (
 
   for (const [index, lot] of lots.entries()) {
     mean += lot.band.mean;
-    const probableEur = toEur(mean);
+    const probableEur = toEur(Math.round(mean));
 
     if (probableEur > budgetEur) break;
 
@@ -236,13 +243,13 @@ export const estimateProject = (input: EstimateInput): EstimateResult => {
     const band = aggregate(
       lot.features.map((f) => FEATURE_GRID[f.id].sizes[f.size]),
     );
-    const days = pertRange(band);
+    const days = roundTenths(pertRange(band));
 
     return {
       band,
       estimate: {
         name: lot.name,
-        days: roundTenths(days),
+        days,
         eur: eurRange(days),
         features,
       },
@@ -263,11 +270,13 @@ export const estimateProject = (input: EstimateInput): EstimateResult => {
   ];
   const foundationBand = aggregate(foundationItems.map((item) => item.days));
 
-  const totalRaw = widen(
-    pertRange(combine([foundationBand, ...lots.map((lot) => lot.band)])),
-    input.openQuestions,
+  const totalDays = wholeDays(
+    widen(
+      pertRange(combine([foundationBand, ...lots.map((lot) => lot.band)])),
+      input.openQuestions,
+    ),
   );
-  const totalEur = eurRange(totalRaw);
+  const totalEur = eurRange(totalDays);
 
   const mobileNotSized =
     input.platforms.includes("mobile") &&
@@ -284,11 +293,7 @@ export const estimateProject = (input: EstimateInput): EstimateResult => {
       days: roundTenths(pertRange(foundationBand)),
     },
     total: {
-      days: {
-        low: Math.floor(totalRaw.low),
-        probable: Math.round(totalRaw.probable),
-        high: Math.ceil(totalRaw.high),
-      },
+      days: totalDays,
       eur: totalEur,
       stage: input.openQuestions >= BRIEF_STAGE_QUESTIONS ? "brief" : "refined",
     },

@@ -26,20 +26,20 @@ describe("estimateProject", () => {
   test("one standard auth, brief stage: total low is half the probable, high is double", () => {
     const result = estimated({ lots: [core], openQuestions: 5 });
 
-    assert.equal(result.lots[0]?.days.probable, 3.1);
-    assert.equal(result.foundation.days.probable, 7.2);
-    assert.equal(result.total.days.probable, 10);
-    assert.equal(result.total.days.low, Math.floor(10.25 * 0.5));
-    assert.equal(result.total.days.high, Math.ceil(10.25 * 2));
+    assert.equal(result.lots[0]?.days.probable, 2);
+    assert.equal(result.foundation.days.probable, 4.3);
+    assert.equal(result.total.days.probable, 6);
+    assert.equal(result.total.days.low, Math.floor(6.25 * 0.5));
+    assert.equal(result.total.days.high, Math.ceil(6.25 * 2));
     assert.equal(result.total.stage, "brief");
   });
 
   test("answered questions tighten the band: openQuestions 0 gives low and high inside the raw PERT band", () => {
     const result = estimated({ lots: [core], openQuestions: 0 });
 
-    assert.equal(result.total.days.low, 8);
-    assert.equal(result.total.days.probable, 10);
-    assert.equal(result.total.days.high, 12);
+    assert.equal(result.total.days.low, 5);
+    assert.equal(result.total.days.probable, 6);
+    assert.equal(result.total.days.high, 8);
     assert.equal(result.total.stage, "refined");
   });
 
@@ -50,8 +50,8 @@ describe("estimateProject", () => {
       openQuestions: 0,
     });
 
-    assert.equal(one.total.days.probable, Math.round(3.0833 + 7.1667));
-    assert.equal(two.total.days.probable, Math.round(2 * 3.0833 + 7.1667));
+    assert.equal(one.total.days.probable, Math.round(2 + 4.25));
+    assert.equal(two.total.days.probable, Math.round(2 * 2 + 4.25));
   });
 
   test("eur is days times RATES.dailyHtEur with no per-line margin", () => {
@@ -59,11 +59,12 @@ describe("estimateProject", () => {
 
     assert.equal(RATES.dailyHtEur, 500);
     assert.equal(result.rateHtEur, RATES.dailyHtEur);
-    assert.equal(result.lots[0]?.eur.probable, 1540);
+    assert.equal(result.lots[0]?.eur.probable, 1000);
+    assert.deepEqual(result.total.days, { low: 3, probable: 6, high: 13 });
     assert.deepEqual(result.total.eur, {
-      low: 2560,
-      probable: 5130,
-      high: 10250,
+      low: 1500,
+      probable: 3000,
+      high: 6500,
     });
   });
 
@@ -81,7 +82,7 @@ describe("estimateProject", () => {
     });
 
     assert.equal(result.lots[0]?.features.length, 2);
-    assert.equal(result.lots[0]?.days.probable, 6.2);
+    assert.equal(result.lots[0]?.days.probable, 4);
   });
 
   test("a feature outside the catalog goes to toQuote and adds no days", () => {
@@ -115,7 +116,7 @@ describe("estimateProject", () => {
 
     assert.equal(fresh.foundation.items.length, 3);
     assert.equal(resumed.foundation.items.length, 4);
-    assert.equal(resumed.foundation.days.probable, 11.5);
+    assert.equal(resumed.foundation.days.probable, 6.9);
   });
 
   test("mobile platform without mobile_app: excluded from the total and flagged in toQuote", () => {
@@ -163,14 +164,14 @@ describe("estimateProject", () => {
 
     assert.deepEqual(result.budget?.split, {
       lots: ["Core", "V2"],
-      probableEur: 8790,
+      probableEur: 5000,
     });
     assert.deepEqual(result.total, reference.total);
-    assert.equal(result.total.eur.probable, 18130);
+    assert.equal(result.total.eur.probable, 9500);
   });
 
   test("budget so low that the first lot plus foundation does not fit gives no split", () => {
-    const result = estimated({ lots: [core, v2, v3], budgetEur: 5000 });
+    const result = estimated({ lots: [core, v2, v3], budgetEur: 2500 });
 
     assert.equal(result.budget?.status, "below_range");
     assert.equal(result.budget?.split, undefined);

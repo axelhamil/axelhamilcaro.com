@@ -43,9 +43,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "How do users sign in, and do they need different roles or permissions?",
     sizes: {
-      simple: triple(0.25, 1, 2),
-      standard: triple(1.5, 3, 5),
-      complex: triple(4, 7, 12),
+      simple: triple(0.25, 0.5, 1),
+      standard: triple(1, 2, 3),
+      complex: triple(2.5, 4, 7),
     },
   },
   multi_tenant: {
@@ -53,9 +53,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Will several organizations share the product, each seeing only its own data?",
     sizes: {
-      simple: triple(2, 3, 5),
-      standard: triple(4, 7, 11),
-      complex: triple(8, 14, 22),
+      simple: triple(1, 2, 3),
+      standard: triple(2.5, 4, 7),
+      complex: triple(5, 8, 13),
     },
   },
   payments: {
@@ -63,9 +63,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Do users pay once, by subscription, or does money flow between several parties?",
     sizes: {
-      simple: triple(1.5, 3, 5),
-      standard: triple(4, 7, 12),
-      complex: triple(8, 15, 25),
+      simple: triple(1, 1.5, 3),
+      standard: triple(2, 4, 6),
+      complex: triple(5, 8, 14),
     },
   },
   back_office: {
@@ -73,9 +73,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "What does the team need to manage behind the scenes, and how many kinds of records?",
     sizes: {
-      simple: triple(2, 4, 6),
-      standard: triple(5, 9, 15),
-      complex: triple(10, 18, 30),
+      simple: triple(1, 2, 3),
+      standard: triple(2, 3, 5),
+      complex: triple(5, 8, 14),
     },
   },
   realtime: {
@@ -83,9 +83,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Do users need to see changes made by others instantly, without refreshing?",
     sizes: {
-      simple: triple(1.5, 3, 5),
-      standard: triple(3, 6, 10),
-      complex: triple(8, 14, 22),
+      simple: triple(1, 1.5, 3),
+      standard: triple(1.5, 2.5, 4),
+      complex: triple(5, 8, 13),
     },
   },
   notifications: {
@@ -93,9 +93,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Which events should alert users, and through which channels: email, push or SMS?",
     sizes: {
-      simple: triple(1, 2, 3),
-      standard: triple(2.5, 5, 8),
-      complex: triple(6, 10, 16),
+      simple: triple(0.5, 1, 2),
+      standard: triple(1.5, 2.5, 4),
+      complex: triple(3, 5, 9),
     },
   },
   file_upload: {
@@ -103,9 +103,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "What kind of files do users upload, and must they be processed or previewed?",
     sizes: {
-      simple: triple(1, 2, 3),
-      standard: triple(2.5, 4, 7),
-      complex: triple(5, 9, 15),
+      simple: triple(0.5, 1, 2),
+      standard: triple(1.5, 2.5, 4),
+      complex: triple(3, 5, 8),
     },
   },
   search: {
@@ -113,9 +113,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "What do users search for, and do they need filters, sorting or typo tolerance?",
     sizes: {
-      simple: triple(1, 2, 3),
-      standard: triple(3, 5, 9),
-      complex: triple(6, 11, 18),
+      simple: triple(0.5, 1, 2),
+      standard: triple(1.5, 3, 5),
+      complex: triple(4, 6, 10),
     },
   },
   third_party_integration: {
@@ -123,9 +123,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Which outside tools must the product talk to, and in which direction?",
     sizes: {
-      simple: triple(1, 2, 4),
-      standard: triple(3, 6, 10),
-      complex: triple(7, 12, 20),
+      simple: triple(0.5, 1, 2),
+      standard: triple(1.5, 3, 5),
+      complex: triple(4, 7, 11),
     },
   },
   mobile_app: {
@@ -133,9 +133,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Must the mobile app be published on the stores, and does it work offline?",
     sizes: {
-      simple: triple(5, 8, 12),
-      standard: triple(10, 16, 26),
-      complex: triple(18, 30, 48),
+      simple: triple(3, 5, 8),
+      standard: triple(6, 10, 16),
+      complex: triple(12, 18, 30),
     },
   },
   data_import: {
@@ -143,18 +143,18 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Where does the existing data come from, and how clean and large is it?",
     sizes: {
-      simple: triple(1, 2, 3),
-      standard: triple(3, 5, 9),
-      complex: triple(6, 11, 18),
+      simple: triple(0.5, 1, 2),
+      standard: triple(1.5, 3, 5),
+      complex: triple(4, 6, 10),
     },
   },
   dashboard_analytics: {
     label: "Dashboard and analytics",
     question: "Which figures must the dashboard show, and who looks at them?",
     sizes: {
-      simple: triple(1.5, 3, 5),
-      standard: triple(4, 7, 12),
-      complex: triple(8, 14, 24),
+      simple: triple(0.5, 1, 2),
+      standard: triple(1.5, 2.5, 4),
+      complex: triple(3, 5, 9),
     },
   },
   content_management: {
@@ -162,9 +162,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Who edits the content, and does it need drafts, approval or several languages?",
     sizes: {
-      simple: triple(1.5, 3, 5),
-      standard: triple(3, 6, 10),
-      complex: triple(6, 11, 18),
+      simple: triple(1, 1.5, 3),
+      standard: triple(2, 3, 5),
+      complex: triple(4, 6, 10),
     },
   },
   booking_scheduling: {
@@ -172,9 +172,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "What is booked, and are there limited spots, time slots or cancellations to handle?",
     sizes: {
-      simple: triple(2, 4, 6),
-      standard: triple(5, 9, 15),
-      complex: triple(10, 18, 30),
+      simple: triple(1, 2, 3.5),
+      standard: triple(3, 5, 8),
+      complex: triple(5, 8, 13),
     },
   },
   ai_feature: {
@@ -182,9 +182,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "What should the AI do for the user, and what happens when its answer is wrong?",
     sizes: {
-      simple: triple(1.5, 3, 5),
-      standard: triple(4, 7, 12),
-      complex: triple(8, 15, 26),
+      simple: triple(1, 1.5, 3),
+      standard: triple(2, 4, 7),
+      complex: triple(5, 8, 14),
     },
   },
   public_api: {
@@ -192,9 +192,9 @@ export const FEATURE_GRID: Record<FeatureId, FeatureEntry> = {
     question:
       "Who will use the API from outside, and what must they be able to do with it?",
     sizes: {
-      simple: triple(1.5, 3, 5),
-      standard: triple(3, 6, 10),
-      complex: triple(6, 11, 18),
+      simple: triple(0.5, 1, 2),
+      standard: triple(1.5, 3, 5),
+      complex: triple(4, 6, 10),
     },
   },
 };
@@ -204,12 +204,12 @@ export const FOUNDATION: readonly {
   label: string;
   days: DayTriple;
 }[] = [
-  { id: "setup", label: "Project setup", days: triple(1, 2, 3) },
-  { id: "deployment", label: "Deployment", days: triple(1, 2, 3.5) },
-  { id: "acceptance", label: "Acceptance testing", days: triple(1.5, 3, 5) },
+  { id: "setup", label: "Project setup", days: triple(0.5, 1, 2) },
+  { id: "deployment", label: "Deployment", days: triple(0.5, 1, 2) },
+  { id: "acceptance", label: "Acceptance testing", days: triple(1, 2, 3.5) },
 ];
 
-export const CODEBASE_AUDIT: DayTriple = triple(2, 4, 8);
+export const CODEBASE_AUDIT: DayTriple = triple(1, 2.5, 5);
 
 export const GRID_STATUS = "draft, to be validated by Axel";
 
