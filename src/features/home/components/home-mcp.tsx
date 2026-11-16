@@ -50,13 +50,9 @@ export function HomeMcp() {
               il te pose mes questions, une à la fois.
             </strong>{" "}
             Tu repars avec une fourchette en jours et en euros HT, calculée avec
-            ma grille de prix : la même description donne toujours le même
+            ma grille de prix : les mêmes réponses donnent toujours le même
             chiffre. Ce n'est pas un devis, et rien ne m'est envoyé sans ton
             accord.
-          </Paragraph>
-          <Paragraph variant="secondary" className="section-intro">
-            C'est le genre de brique que j'aime fabriquer : on la branche, elle
-            répond.
           </Paragraph>
         </header>
 

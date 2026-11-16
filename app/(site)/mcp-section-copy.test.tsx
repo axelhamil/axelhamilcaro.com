@@ -7,6 +7,9 @@ import { MCP } from "@/app/_config/site.constants";
 import { AboutMcp } from "@/src/features/about/components/about-mcp";
 import { HomeFaq } from "@/src/features/home/components/home-faq";
 import { HomeMcp } from "@/src/features/home/components/home-mcp";
+import { buildMcpApiNode } from "@/src/shared/seo/schemas/mcp-api";
+
+const RETIRED_LEAD = /envoi(e)? (pas )?de lead|aucun envoi de lead/i;
 
 const faqPageSchema = z.object({
   "@type": z.literal("FAQPage"),
@@ -56,11 +59,15 @@ describe("MCP section copy", () => {
   ] as const) {
     test(`${name} never carries the retired lead sentence, a long dash or the two names that stay apart`, () => {
       const html = renderToStaticMarkup(element);
-      assert.doesNotMatch(html, /n(&#x27;|'|’)envoie pas de lead/i);
+      assert.doesNotMatch(html, RETIRED_LEAD);
       assert.doesNotMatch(html, /—|–/);
       assert.doesNotMatch(html, /eskimoz|weathertop/i);
     });
   }
+
+  test("the site-wide MCP WebAPI JSON-LD never carries the retired lead sentence", () => {
+    assert.doesNotMatch(JSON.stringify(buildMcpApiNode()), RETIRED_LEAD);
+  });
 
   test("both MCP sections give the address and the discuss_project starter prompt in the served HTML", () => {
     for (const element of [

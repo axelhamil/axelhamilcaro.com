@@ -22,7 +22,7 @@ export function McpConnect() {
       <ul className="grille-cartes">
         {MCP_CLIENTS.map((client) => (
           <li key={client.id} className="mcp-client">
-            <h3 className="heading-display title-md">{client.name}</h3>
+            <h4 className="heading-display title-md">{client.name}</h4>
             <ol className="mcp-etapes">
               {client.steps.map((step) => (
                 <li key={step}>{step}</li>
@@ -33,7 +33,10 @@ export function McpConnect() {
                 <pre className="mcp-code">
                   <code>{client.code}</code>
                 </pre>
-                <CopyButton text={client.code} label="Copier" />
+                <CopyButton
+                  text={client.code}
+                  label={`Copier pour ${client.name}`}
+                />
               </>
             )}
             {client.note && <p className="ink-muted">{client.note}</p>}
