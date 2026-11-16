@@ -17,11 +17,19 @@ import {
   THESIS,
 } from "@/app/_config/site.constants";
 import {
+  getEstimationGrid,
+  getMethod,
+  renderEstimationGridMarkdown,
+  renderMethodMarkdown,
+  renderReferencesMarkdown,
+} from "./mcp.method";
+import {
   AFTERLIVE_AMBITION,
   getProjects,
   renderProjectsMarkdown,
   WEATHERTOP_AMBITION,
 } from "./mcp.projects";
+import { getReferences } from "./mcp.references";
 
 export const CATALOG_SECTION_IDS = [
   "whoami",
@@ -32,6 +40,9 @@ export const CATALOG_SECTION_IDS = [
   "case-studies",
   "services",
   "contact",
+  "method",
+  "estimation-grid",
+  "references",
 ] as const;
 
 export type CatalogSectionId = (typeof CATALOG_SECTION_IDS)[number];
@@ -379,6 +390,12 @@ export function getCatalogSection(id: CatalogSectionId) {
       return getServices();
     case "contact":
       return getContact();
+    case "method":
+      return getMethod();
+    case "estimation-grid":
+      return getEstimationGrid();
+    case "references":
+      return getReferences();
   }
 }
 
@@ -400,6 +417,12 @@ export function renderMarkdown(id: CatalogSectionId): string {
       return renderServicesMarkdown();
     case "contact":
       return renderContactMarkdown();
+    case "method":
+      return renderMethodMarkdown();
+    case "estimation-grid":
+      return renderEstimationGridMarkdown();
+    case "references":
+      return renderReferencesMarkdown();
   }
 }
 
