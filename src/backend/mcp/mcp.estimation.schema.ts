@@ -35,6 +35,13 @@ export const lotSchema = z.object({
     .describe("Catalog features delivered in this lot, each with a size"),
 });
 
+const platformsSchema = z.array(z.enum(PLATFORMS)).min(1);
+
+const existingSchema = z.enum(EXISTING);
+
+const EXISTING_DESCRIPTION =
+  "none: built from scratch; codebase_to_resume: an existing codebase must be audited and taken over";
+
 export const estimateInputSchema = z.object({
   projectKind: z
     .enum(PROJECT_KINDS)
@@ -54,17 +61,10 @@ export const estimateInputSchema = z.object({
     .describe(
       "Needs that match no catalog feature, in the client's words; Axel prices them himself",
     ),
-  platforms: z
-    .array(z.enum(PLATFORMS))
-    .min(1)
+  platforms: platformsSchema
     .default(["web"])
     .describe("Target platforms of the product"),
-  existing: z
-    .enum(EXISTING)
-    .default("none")
-    .describe(
-      "none: built from scratch; codebase_to_resume: an existing codebase must be audited and taken over",
-    ),
+  existing: existingSchema.default("none").describe(EXISTING_DESCRIPTION),
   openQuestions: z
     .number()
     .int()
@@ -89,3 +89,14 @@ export const estimateInputSchema = z.object({
 });
 
 export type EstimateInput = z.infer<typeof estimateInputSchema>;
+
+export const estimateToolInputSchema = estimateInputSchema.extend({
+  platforms: platformsSchema
+    .optional()
+    .describe("Target platforms of the product, web when omitted"),
+  existing: existingSchema
+    .optional()
+    .describe(`${EXISTING_DESCRIPTION}; none when omitted`),
+});
+
+export type EstimateToolInput = z.infer<typeof estimateToolInputSchema>;

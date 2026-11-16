@@ -1,4 +1,7 @@
-import type { McpServer } from "@modelcontextprotocol/server";
+import type {
+  InputRequiredResult,
+  McpServer,
+} from "@modelcontextprotocol/server";
 import {
   getClientIdentifier,
   RATE_LIMITS,
@@ -8,9 +11,15 @@ import { analyzeArchitectureNeed, renderAuditMarkdown } from "./mcp.audit";
 import { projectBriefService } from "./mcp.brief";
 import { NOT_BINDING_QUOTE } from "./mcp.constants";
 import { getMcpRequest, setMcpError } from "./mcp.context";
+import {
+  applyContextAnswers,
+  buildContextElicitation,
+  contextToAsk,
+  type ElicitationContext,
+} from "./mcp.elicitation";
 import { estimateProject } from "./mcp.estimation";
 import { renderEstimateMarkdown } from "./mcp.estimation.render";
-import type { EstimateInput } from "./mcp.estimation.schema";
+import type { EstimateInput, EstimateToolInput } from "./mcp.estimation.schema";
 import { logMcpFailure } from "./mcp.log";
 import { getProjects, renderProjectsMarkdown } from "./mcp.projects";
 import { mcpRepository } from "./mcp.repository";
@@ -58,6 +67,20 @@ export function estimateToolResult(args: EstimateInput): ToolResult {
     return textResult(JSON.stringify(result, null, 2));
 
   return textResult(renderEstimateMarkdown(result));
+}
+
+export function estimateProjectToolResult(
+  args: EstimateToolInput,
+  ctx: ElicitationContext,
+): ToolResult | InputRequiredResult {
+  const toAsk =
+    args.projectKind === "application" && args.lots.length > 0
+      ? contextToAsk(args, ctx)
+      : [];
+
+  if (toAsk.length > 0) return buildContextElicitation(toAsk);
+
+  return estimateToolResult(applyContextAnswers(args, ctx));
 }
 
 function clientIp() {
@@ -165,7 +188,7 @@ export function registerMcpTools(server: McpServer) {
         idempotentHint: true,
       },
     },
-    async (args) => estimateToolResult(args),
+    async (args, ctx) => estimateProjectToolResult(args, ctx),
   );
 
   server.registerTool(

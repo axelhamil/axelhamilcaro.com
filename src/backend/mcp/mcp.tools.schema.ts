@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { estimateInputSchema } from "./mcp.estimation.schema";
+import {
+  estimateInputSchema,
+  estimateToolInputSchema,
+} from "./mcp.estimation.schema";
 import { PROJECT_CATEGORIES, PROJECT_STATUSES } from "./mcp.projects";
 
 const briefInputSchema = z.object({
@@ -40,6 +43,6 @@ export type SendProjectBriefInput = z.infer<typeof sendProjectBriefSchema>;
 export const MCP_TOOL_INPUT_SCHEMAS = {
   list_projects: projectsInputSchema,
   audit_architecture_brief: briefInputSchema,
-  estimate_project: estimateInputSchema,
+  estimate_project: estimateToolInputSchema,
   send_project_brief: sendProjectBriefSchema,
 };
