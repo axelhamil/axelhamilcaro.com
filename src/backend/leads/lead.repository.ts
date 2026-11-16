@@ -1,4 +1,4 @@
-import { and, desc, eq, lt } from "drizzle-orm";
+import { and, desc, eq, lt, sql } from "drizzle-orm";
 import { db } from "@/drizzle";
 import { forms, leads } from "@/drizzle/schema";
 
@@ -70,16 +70,6 @@ export const leadRepository = {
     return existing.length > 0;
   },
 
-  async findByFormAndEmail(
-    formId: string,
-    email: string,
-  ): Promise<Lead | null> {
-    const row = await db.query.leads.findFirst({
-      where: and(eq(leads.formId, formId), eq(leads.email, email)),
-    });
-    return row ?? null;
-  },
-
   async deleteOlderThan(formId: string, cutoff: Date): Promise<number> {
     const deleted = await db
       .delete(leads)
@@ -87,6 +77,30 @@ export const leadRepository = {
       .returning({ id: leads.id });
 
     return deleted.length;
+  },
+
+  async upsertAppendingNotes(
+    data: CreateLeadData & { notes: string },
+    options: { separator: string; maxLength: number },
+  ): Promise<{ created: boolean }> {
+    const [row] = await db
+      .insert(leads)
+      .values({
+        formId: data.formId,
+        firstName: data.firstName,
+        email: data.email,
+        source: data.source ?? null,
+        notes: data.notes,
+      })
+      .onConflictDoUpdate({
+        target: [leads.formId, leads.email],
+        set: {
+          notes: sql`right(coalesce(${leads.notes} || ${options.separator}, '') || excluded.notes, ${options.maxLength}::int)`,
+        },
+      })
+      .returning({ created: sql<boolean>`(xmax = 0)` });
+
+    return { created: row?.created ?? true };
   },
 
   async create(data: CreateLeadData): Promise<Lead> {

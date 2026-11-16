@@ -230,10 +230,12 @@ const SECTIONS: LegalSection[] = [
         </p>
         <p>
           Le serveur MCP permet aussi d'envoyer un récapitulatif de projet à
-          Axel, uniquement à la demande de la personne : son email, son nom et
-          sa société (facultatifs), son besoin et l'estimation sont enregistrés
-          comme demande de contact et supprimés au bout de 12 mois. La
-          télémétrie ne contient ni l'email ni le récapitulatif.
+          Axel, uniquement à la demande de la personne, pour qu'Axel la
+          recontacte au sujet de ce projet : son email, son nom et sa société
+          (facultatifs), son besoin et l'estimation sont enregistrés comme
+          demande de contact, transmis à Axel par email via{" "}
+          <strong>Resend</strong>, et supprimés 12 mois après la première
+          demande. La télémétrie ne contient ni l'email ni le récapitulatif.
         </p>
         <p>
           Les paiements sont gérés par <strong>Stripe</strong> via Payment Links

@@ -11,6 +11,7 @@ import { getMcpRequest, setMcpError } from "./mcp.context";
 import { estimateProject } from "./mcp.estimation";
 import { renderEstimateMarkdown } from "./mcp.estimation.render";
 import type { EstimateInput } from "./mcp.estimation.schema";
+import { logMcpFailure } from "./mcp.log";
 import { getProjects, renderProjectsMarkdown } from "./mcp.projects";
 import { mcpRepository } from "./mcp.repository";
 import {
@@ -59,11 +60,13 @@ export function estimateToolResult(args: EstimateInput): ToolResult {
   return textResult(renderEstimateMarkdown(result));
 }
 
-function limitWrite(kind: "audit" | "brief") {
+function clientIp() {
   const request = getMcpRequest();
-  const ip = request ? getClientIdentifier(request) : "unknown";
+  return request ? getClientIdentifier(request) : "unknown";
+}
 
-  return rateLimit(`mcp-${kind}:${ip}`, RATE_LIMITS.mcpWrite);
+function limitWrite(kind: "audit" | "brief") {
+  return rateLimit(`mcp-${kind}:${clientIp()}`, RATE_LIMITS.mcpWrite);
 }
 
 type BriefSender = {
@@ -77,9 +80,17 @@ export async function sendProjectBriefToolResult(
   const limited = limitWrite("brief");
   if (!limited.success) return errorResult("Rate limited. Retry later.");
 
+  const daily = rateLimit(
+    `mcp-brief-daily:${clientIp()}`,
+    RATE_LIMITS.mcpBriefDaily,
+  );
+  if (!daily.success)
+    return errorResult("Daily limit of briefs reached. Retry tomorrow.");
+
   try {
     await service.send(args);
-  } catch {
+  } catch (error) {
+    logMcpFailure("mcp.tools", "send_project_brief failed", error);
     return errorResult("Could not record the brief. Retry later.");
   }
 

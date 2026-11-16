@@ -1,6 +1,13 @@
 import { IDENTITY_TITLE } from "@/app/_config/site.constants";
 
 export const MCP_INQUIRY_SLUG = "mcp-inquiry";
+export const BRIEF_RETENTION_MONTHS = 12;
+
+export function briefRetentionCutoff(now: Date) {
+  const cutoff = new Date(now);
+  cutoff.setUTCMonth(cutoff.getUTCMonth() - BRIEF_RETENTION_MONTHS);
+  return cutoff;
+}
 export const MCP_SERVER_NAME = "com.axelhamilcaro/site";
 export const MCP_CATALOG_IDENTIFIER = "urn:air:axelhamilcaro.com:mcp:site";
 export const MCP_SERVER_VERSION = "1.1.0";

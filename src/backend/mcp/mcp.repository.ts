@@ -5,13 +5,18 @@ import {
   gte,
   inArray,
   isNotNull,
-  like,
+  lt,
   lte,
   sql,
 } from "drizzle-orm";
 import { db } from "@/drizzle";
-import { leads, mcpBriefs, mcpEvents } from "@/drizzle/schema";
-import { MCP_STATS_TIME_ZONE } from "./mcp.constants";
+import { forms, leads, mcpBriefs, mcpEvents } from "@/drizzle/schema";
+import {
+  briefRetentionCutoff,
+  MCP_INQUIRY_SLUG,
+  MCP_STATS_TIME_ZONE,
+} from "./mcp.constants";
+import { logMcpFailure } from "./mcp.log";
 import {
   MCP_ORIGIN_RULES,
   MCP_TRAFFIC_CATEGORIES,
@@ -37,9 +42,24 @@ async function purgeStale() {
     await Promise.all([
       db.delete(mcpBriefs).where(lte(mcpBriefs.expiresAt, new Date())),
       db.delete(mcpEvents).where(lte(mcpEvents.createdAt, eventCutoff)),
+      db
+        .delete(leads)
+        .where(
+          and(
+            inArray(
+              leads.formId,
+              db
+                .select({ id: forms.id })
+                .from(forms)
+                .where(eq(forms.slug, MCP_INQUIRY_SLUG)),
+            ),
+            lt(leads.createdAt, briefRetentionCutoff(new Date(now))),
+          ),
+        ),
     ]);
-  } catch {
+  } catch (error) {
     lastPurge = 0;
+    logMcpFailure("mcp.repository", "MCP retention purge failed", error);
   }
 }
 
@@ -152,6 +172,8 @@ function eventConditions(filter: McpEventFilter, cursor?: McpEventCursor) {
       : undefined,
   );
 }
+
+const mcpLeadSource = sql`(${leads.source} = 'mcp' or ${leads.source} like 'mcp:%')`;
 
 const countAll = sql<number>`cast(count(*) as int)`;
 const lastAt = sql<Date | null>`max(${mcpEvents.createdAt})`.mapWith(
@@ -293,14 +315,14 @@ export const mcpRepository = {
       db
         .select({ count: countAll })
         .from(leads)
-        .where(and(gte(leads.createdAt, from), like(leads.source, "mcp:%"))),
+        .where(and(gte(leads.createdAt, from), mcpLeadSource)),
       db
         .select({ count: countAll })
         .from(leads)
         .where(
           and(
             gte(leads.createdAt, from),
-            sql`(${leads.source} is null or ${leads.source} not like 'mcp:%')`,
+            sql`(${leads.source} is null or not ${mcpLeadSource})`,
           ),
         ),
     ]);

@@ -111,4 +111,45 @@ describe("send_project_brief tool", () => {
     assert.equal(limited.isError, true);
     assert.match(text(limited), /Rate limited\./);
   });
+
+  test("the 21st brief of the day from the same client is rejected even across minutes", async (t) => {
+    t.mock.timers.enable({
+      apis: ["Date"],
+      now: Date.parse("2026-11-16T08:00:00Z"),
+    });
+    const request = new Request("https://axelhamilcaro.com/mcp", {
+      headers: { "x-vercel-forwarded-for": "198.51.100.21" },
+    });
+    const callAsClient = () =>
+      runWithMcpRequest(request, () =>
+        sendProjectBriefToolResult(brief, recorded),
+      );
+
+    for (let call = 0; call < 20; call += 1) {
+      if (call % 8 === 0) t.mock.timers.tick(61_000);
+      const result = await callAsClient();
+      assert.notEqual(result.isError, true);
+    }
+
+    t.mock.timers.tick(61_000);
+    const capped = await callAsClient();
+
+    assert.equal(capped.isError, true);
+    assert.match(text(capped), /Daily limit/);
+  });
+
+  test("a persistence failure is logged without the email", async (t) => {
+    const logged = t.mock.method(console, "error", () => undefined);
+    await sendProjectBriefToolResult(brief, {
+      send: async () => {
+        throw Object.assign(new Error("Key (email)=(jean@example.com)"), {
+          code: "23505",
+        });
+      },
+    });
+    const line = String(logged.mock.calls[0]?.arguments[0]);
+
+    assert.match(line, /23505/);
+    assert.doesNotMatch(line, /jean@example\.com/);
+  });
 });

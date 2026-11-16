@@ -5,15 +5,18 @@ import {
   leadRepository,
 } from "@/src/backend/leads/lead.repository";
 import { normalizeEmail } from "@/src/lib/utils/email.utils";
-import { MCP_CLIP, MCP_INQUIRY_SLUG } from "./mcp.constants";
+import {
+  briefRetentionCutoff,
+  MCP_CLIP,
+  MCP_INQUIRY_SLUG,
+} from "./mcp.constants";
 import {
   type DayRange,
   type EstimateResult,
   estimateProject,
 } from "./mcp.estimation";
+import { logMcpFailure } from "./mcp.log";
 import type { SendProjectBriefInput } from "./mcp.tools.schema";
-
-export const BRIEF_RETENTION_MONTHS = 12;
 
 const BRIEF_FORM_TITLE = "MCP project brief";
 const BRIEF_SOURCE = "mcp";
@@ -21,9 +24,10 @@ const ANONYMOUS = "Anonymous";
 
 export type BriefDeps = {
   ensureForm(): Promise<{ id: string; title: string; slug: string }>;
-  findLead(formId: string, email: string): Promise<{ id: string } | null>;
-  createLead(data: CreateLeadData): Promise<unknown>;
-  updateLead(id: string, notes: string): Promise<unknown>;
+  upsertLead(
+    data: CreateLeadData & { notes: string },
+    options: { separator: string; maxLength: number },
+  ): Promise<{ created: boolean }>;
   purgeOlderThan(formId: string, cutoff: Date): Promise<unknown>;
   notify(data: {
     formTitle: string;
@@ -79,10 +83,11 @@ export function renderBriefNotes(
   return lines.join("\n").slice(0, MCP_CLIP.notes);
 }
 
-function retentionCutoff(now: Date) {
-  const cutoff = new Date(now);
-  cutoff.setUTCMonth(cutoff.getUTCMonth() - BRIEF_RETENTION_MONTHS);
-  return cutoff;
+export function cleanName(name: string | undefined) {
+  return (name ?? "")
+    .replace(/\p{C}+/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 async function tryNotify(
@@ -92,7 +97,8 @@ async function tryNotify(
   try {
     const result = await deps.notify(data);
     return result.success;
-  } catch {
+  } catch (error) {
+    logMcpFailure("mcp.brief", "brief notification failed", error);
     return false;
   }
 }
@@ -115,24 +121,24 @@ export function createProjectBriefService(deps: BriefDeps) {
     async send(input: SendProjectBriefInput) {
       const form = await deps.ensureForm();
 
+      const now = deps.now();
+
       await deps
-        .purgeOlderThan(form.id, retentionCutoff(deps.now()))
-        .catch(() => undefined);
+        .purgeOlderThan(form.id, briefRetentionCutoff(now))
+        .catch((error: unknown) =>
+          logMcpFailure("mcp.brief", "brief retention purge failed", error),
+        );
 
       const email = normalizeEmail(input.email);
-      const firstName = input.name || ANONYMOUS;
+      const firstName = cleanName(input.name) || ANONYMOUS;
       const notes = renderBriefNotes(input, estimateBrief(input));
-      const existing = await deps.findLead(form.id, email);
-
-      if (existing) await deps.updateLead(existing.id, notes);
-      else
-        await deps.createLead({
-          formId: form.id,
-          firstName,
-          email,
-          source: BRIEF_SOURCE,
-          notes,
-        });
+      const { created } = await deps.upsertLead(
+        { formId: form.id, firstName, email, source: BRIEF_SOURCE, notes },
+        {
+          separator: `\n\n--- Brief of ${now.toISOString()} ---\n`,
+          maxLength: MCP_CLIP.notes,
+        },
+      );
 
       const notified = await tryNotify(deps, {
         formTitle: form.title,
@@ -143,7 +149,7 @@ export function createProjectBriefService(deps: BriefDeps) {
         notes,
       });
 
-      return { status: "recorded" as const, created: !existing, notified };
+      return { status: "recorded" as const, created, notified };
     },
   };
 }
@@ -161,9 +167,8 @@ async function ensureBriefForm() {
 
 export const projectBriefService = createProjectBriefService({
   ensureForm: ensureBriefForm,
-  findLead: (formId, email) => leadRepository.findByFormAndEmail(formId, email),
-  createLead: (data) => leadRepository.create(data),
-  updateLead: (id, notes) => leadRepository.update(id, { notes }),
+  upsertLead: (data, options) =>
+    leadRepository.upsertAppendingNotes(data, options),
   purgeOlderThan: (formId, cutoff) =>
     leadRepository.deleteOlderThan(formId, cutoff),
   notify: (data) => emailService.sendAdminNotification(data),
