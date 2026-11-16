@@ -1321,14 +1321,33 @@
     border: 2px solid var(--filet-fort);
     border-radius: 0;
     box-shadow: var(--offset) var(--offset) 0 var(--ombre);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .mcp-connexion .grille-cartes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 48rem) {
+    .mcp-connexion .grille-cartes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .mcp-etapes {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    max-width: 100%;
+    min-width: 0;
     padding-left: 1.5rem;
     list-style: decimal;
+  }
+
+  .mcp-etapes > li {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .mcp-etapes > li::marker {

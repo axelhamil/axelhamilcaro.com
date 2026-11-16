@@ -142,6 +142,14 @@
   border: 2px solid var(--filet);
 }
 
+#mcp .mcp-code code {
+  display: block;
+  padding: 0;
+  font: inherit;
+  background: none;
+  border: 0;
+}
+
 .legal-h1 {
   font-size: clamp(2rem, 7cqi, 4.5rem);
   overflow-wrap: anywhere;
