@@ -79,7 +79,7 @@ export function getAiCatalog() {
           "who is Axel Hamilcaro",
           "what is Axel Hamilcaro building",
           "what stack does Axel Hamilcaro work with",
-          "show Axel Hamilcaro's case studies",
+          "estimate a software project with Axel Hamilcaro",
           "does Axel Hamilcaro take freelance projects",
         ],
       },

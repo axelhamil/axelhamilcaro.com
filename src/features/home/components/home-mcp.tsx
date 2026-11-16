@@ -26,8 +26,8 @@ export function HomeMcp() {
             <strong>J'expose un serveur MCP public à {MCP.url}.</strong> Un
             agent IA s'y connecte en POST et lit mon identité, ma stack, mes
             études de cas et mes services, sans passer par une page HTML. Il
-            propose aussi un audit d'architecture déterministe. Il n'envoie pas
-            de lead.
+            propose aussi un audit d'architecture déterministe. Il peut estimer
+            un projet et, si la personne le décide, m'envoyer le récap.
           </Paragraph>
           <Paragraph variant="secondary" className="section-intro">
             C'est le genre de brique que j'aime fabriquer : on la branche, elle

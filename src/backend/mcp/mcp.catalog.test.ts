@@ -21,6 +21,7 @@ import { MCP_SERVER_VERSION } from "./mcp.constants";
 const MANIFESTO_KEYS_BY_VERSION: Record<string, readonly string[]> = {
   "1.0.0": ["architecture", "typescript", "values"],
   "1.1.0": ["architecture", "principles", "typescript"],
+  "1.2.0": ["architecture", "principles", "typescript"],
 };
 
 describe("mcp server version", () => {

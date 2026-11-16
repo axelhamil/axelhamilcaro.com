@@ -65,10 +65,14 @@ describe("mcp.discovery", () => {
     assert.ok(entry?.displayName);
     assert.ok(entry.representativeQueries.length >= 2);
     assert.ok(entry.representativeQueries.length <= 5);
+    assert.ok(
+      entry.representativeQueries.some((query) => /estimate/.test(query)),
+    );
   });
 
   test("manifest does not advertise inquiry tools", () => {
     assert.doesNotMatch(getServerManifest().description, /inquiry/);
+    assert.match(getServerManifest().description, /estimation/);
   });
 
   test("GET discovery Link points to the AI catalog first", () => {

@@ -10,6 +10,7 @@ import {
   RATES,
   THESIS,
 } from "../../../app/_config/site.constants";
+import { CATALOG_SECTION_IDS } from "./mcp.catalog";
 import { AFTERLIVE_AMBITION, WEATHERTOP_AMBITION } from "./mcp.projects";
 
 function readPublic(name: "llms.txt" | "llms-full.txt") {
@@ -34,7 +35,62 @@ describe("llms MCP discovery", () => {
       assert.doesNotMatch(text, / = 400/);
       assert.doesNotMatch(text, /submit_inquiry/);
       assert.equal(text.includes("\u2014"), false);
-      assert.match(text, /Dernière mise à jour: 2026-11-14/);
+      assert.match(text, /Dernière mise à jour: 2026-11-16/);
+    });
+  }
+});
+
+const FINAL_TOOLS = [
+  "list_projects",
+  "audit_architecture_brief",
+  "estimate_project",
+  "send_project_brief",
+] as const;
+
+const FINAL_PROMPTS = ["discuss_project", "compare_stack"] as const;
+
+describe("llms files describe the estimation server", () => {
+  for (const name of ["llms.txt", "llms-full.txt"] as const) {
+    test(`${name} lists the final tools, prompts and resources`, () => {
+      const text = readPublic(name);
+
+      for (const id of CATALOG_SECTION_IDS) {
+        assert.ok(text.includes(id), id);
+      }
+
+      for (const tool of [...FINAL_TOOLS, ...FINAL_PROMPTS]) {
+        assert.ok(text.includes(tool), tool);
+      }
+    });
+
+    test(`${name} no longer states that no lead can be sent`, () => {
+      const text = readPublic(name);
+
+      assert.doesNotMatch(
+        text,
+        /Pas d'outil d'envoi de lead|n'existe pas d'outil d'envoi/,
+      );
+    });
+
+    test(`${name} does not name removed tools`, () => {
+      const text = readPublic(name);
+
+      assert.doesNotMatch(
+        text,
+        /generate_custom_proposal|formalize_need|draft_outreach/,
+      );
+    });
+
+    test(`${name} never names Eskimoz and weathertop in the same paragraph`, () => {
+      const paragraphs = readPublic(name).split(/\n\s*\n/);
+
+      assert.deepEqual(
+        paragraphs.filter(
+          (paragraph) =>
+            /eskimoz/i.test(paragraph) && /weathertop/i.test(paragraph),
+        ),
+        [],
+      );
     });
   }
 });
