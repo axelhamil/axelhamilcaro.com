@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { HOME_FAQ_ANSWERS } from "@/app/_config/home-copy";
 import { MCP } from "@/app/_config/site.constants";
 import { JsonLdScript } from "@/src/shared/seo/json-ld-script";
 import { buildFaqPageSchema } from "@/src/shared/seo/schemas/faq-page";
@@ -8,23 +9,19 @@ import { Paragraph } from "@/src/shared/ui/typography/paragraph";
 const items = [
   {
     question: "Qui est Axel Hamilcaro ?",
-    answer:
-      "Je suis Axel Hamilcaro, développeur fullstack et builder, basé à Tours, en Centre-Val de Loire. Je fabrique des produits et des outils, dont OpenUp, où je suis fondateur technique. Avant, j'ai passé 4 ans chez Civitime, de développeur à lead technique.",
+    answer: HOME_FAQ_ANSWERS.whoIs,
   },
   {
     question: "Prends-tu encore des projets en freelance ?",
-    answer:
-      "Oui, à côté de mon poste et d'OpenUp. Je prends quelques projets : création d'application, SaaS, lead tech ou maintenance au mois. Le détail de chaque offre est sur la page Services, à l'adresse axelhamilcaro.com/services.",
+    answer: HOME_FAQ_ANSWERS.freelance,
   },
   {
-    question: "Quels types de projets prends-tu ?",
-    answer:
-      "Applications web sur mesure, SaaS B2B multi-tenant, refonte d'architecture, lead tech temps partiel sur engagement long. Stack principal : Next.js, React, Node.js, TypeScript, PostgreSQL.",
+    question: "Quels types de projets prends-tu ?",
+    answer: HOME_FAQ_ANSWERS.projectTypes,
   },
   {
     question: "Tu peux créer mon application de A à Z ?",
-    answer:
-      "Oui. Je prends un projet de l'idée à la mise en ligne : cadrage, développement et mise en ligne, avec un seul interlocuteur, puis la maintenance si tu le souhaites.",
+    answer: HOME_FAQ_ANSWERS.fromScratch,
   },
   {
     question: "Travailles-tu en remote ou sur site ?",

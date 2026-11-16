@@ -1,5 +1,4 @@
 import { PARCOURS, type ParcoursRepere } from "@/app/_config/parcours";
-import { PRIVATE_BUILD_TEXTS } from "@/app/_config/projects";
 import { EXTERNAL_LINKS } from "@/app/_config/site.constants";
 
 type ChapitreId = "aujourdhui" | "openup" | "compte" | "civitime";
@@ -131,19 +130,14 @@ export const CHAPITRES: readonly Chapitre[] = [
         debut: PARCOURS.builds.debut,
         role: PARCOURS.builds.role,
         contexte:
-          "Le reste du temps, je fabrique des outils de fondation : je fournis l'outil et la donnée, pas l'application finale.",
+          "Le reste du temps, je fabrique mes propres produits et outils, en public dès que je peux.",
         faitsTitre: "Sur l'établi",
         faits: [
           `clean-stack, depuis ${PARCOURS.builds.debut.label} : mon boilerplate SaaS open source en TypeScript.`,
-          `weathertop : une API de données qui renvoie ce que les assistants IA répondent réellement à des prompts envoyés en volume. Un projet personnel, en chantier depuis ${PRIVATE_BUILD_TEXTS.weathertop.duration}, pas encore sorti.`,
           "afterlive : l'enregistrement d'un direct devient une quinzaine de clips montés, et davantage si besoin, 2 heures de vidéo traitées en 5 minutes environ. Bientôt en production.",
           "Des bibliothèques TypeScript et des outils pour agents IA, publiés sur GitHub.",
         ],
-        resultats: [
-          "Open source",
-          "2 produits en chantier",
-          `${PRIVATE_BUILD_TEXTS.weathertop.duration} sur weathertop`,
-        ],
+        resultats: ["Open source", "Afterlive en chantier"],
         stack: [],
         liens: [
           { href: EXTERNAL_LINKS.github, label: "Mes outils sur GitHub" },
@@ -152,7 +146,7 @@ export const CHAPITRES: readonly Chapitre[] = [
           surtitre: "Axel Hamilcaro / Mes builds",
           titre: "Le reste ",
           accent: "du temps.",
-          tags: ["clean-stack", "weathertop", "afterlive"],
+          tags: ["clean-stack", "afterlive"],
         },
       },
     ],

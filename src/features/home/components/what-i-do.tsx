@@ -1,4 +1,5 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { WORK_COPY } from "@/app/_config/home-copy";
 import { RATES } from "@/app/_config/site.constants";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 import { Button } from "@/src/shared/ui/portfolio/button";
@@ -9,27 +10,16 @@ const offers = [
   {
     href: "/services/creation-application-web",
     title: "Création d'application web de A à Z",
-    detail: "Du cadrage à la mise en ligne",
   },
   {
     href: "/services/developpeur-nextjs-freelance",
     title: "Développement web sur mesure",
-    detail: "Architecture, MVP, refonte",
   },
-  {
-    href: "/services/developpement-saas",
-    title: "Développement SaaS",
-    detail: "Multi-tenant, jusqu'en production",
-  },
-  {
-    href: "/services/lead-tech-fractional",
-    title: "Lead tech fractional",
-    detail: "Temps partiel, 3 à 18 mois",
-  },
+  { href: "/services/developpement-saas", title: "Développement SaaS" },
+  { href: "/services/lead-tech-fractional", title: "Lead tech fractional" },
   {
     href: "/tma",
-    title: "TMA au mois",
-    detail: `Dès ${RATES.tma.proMonthlyEur} € par mois`,
+    title: `TMA dès ${RATES.tma.proMonthlyEur} € par mois`,
   },
 ] as const;
 
@@ -42,40 +32,74 @@ const WhatIDo = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-10 section-home grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <header className="section-tete lg:self-start">
-          <p className="surtitre">Freelance</p>
+          <p className="surtitre">{WORK_COPY.surtitre}</p>
           <Heading2 id="services-title" size="xl">
-            Travailler <br /> <span className="marqueur">avec moi.</span>
+            {WORK_COPY.titleTop} <br />{" "}
+            <span className="marqueur">{WORK_COPY.titleAccent}</span>
           </Heading2>
           <Paragraph variant="secondary" size="lg" className="section-intro">
-            Je prends quelques projets en freelance, à côté de mon poste et
-            d'OpenUp. 5 façons de travailler ensemble, chacune détaillée sur sa
-            page.
+            {WORK_COPY.intro}
           </Paragraph>
+          <Paragraph variant="secondary">{WORK_COPY.doubt}</Paragraph>
           <Button href="/services" size="lg" className="self-start">
-            Travailler avec moi
+            {WORK_COPY.cta(offers.length)}
             <ArrowRight className="w-5 h-5" />
           </Button>
         </header>
 
-        <ul className="offres min-w-0">
-          {offers.map((offer) => (
-            <li key={offer.href} className="reveal-up">
-              <TransitionLink
-                href={offer.href}
-                className="offre grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-6 gap-y-1"
-              >
-                <span className="offre-titre heading-display">
-                  {offer.title}
-                </span>
-                <ArrowUpRight
-                  className="offre-fleche w-6 h-6 row-span-2"
-                  aria-hidden="true"
-                />
-                <span className="label-mono ink-muted">{offer.detail}</span>
-              </TransitionLink>
-            </li>
-          ))}
-        </ul>
+        <div className="min-w-0 flex flex-col gap-12">
+          <div className="flex flex-col gap-6">
+            <h3 className="heading-display title-md">{WORK_COPY.takeTitle}</h3>
+            <ul className="offres">
+              {WORK_COPY.take.map((item) => (
+                <li
+                  key={item}
+                  className="fit-ligne offre-titre heading-display"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="hachures" aria-hidden="true" />
+            <h3 className="heading-display title-md">
+              {WORK_COPY.refuseTitle}
+            </h3>
+            <ul className="offres">
+              {WORK_COPY.refuse.map((item) => (
+                <li
+                  key={item}
+                  className="fit-ligne fit-refus offre-titre heading-display"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <nav
+            aria-labelledby="services-offres"
+            className="flex flex-col gap-4"
+          >
+            <h3 id="services-offres" className="label-mono ink-muted">
+              {WORK_COPY.detailTitle}
+            </h3>
+            <ul className="flex flex-wrap gap-x-6 gap-y-3">
+              {offers.map((offer) => (
+                <li key={offer.href}>
+                  <TransitionLink
+                    href={offer.href}
+                    className="link-underline label-mono"
+                  >
+                    {offer.title}
+                  </TransitionLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </section>
   );
