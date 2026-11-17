@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AUTHOR, SITE_URL } from "@/app/_config/site.constants";
+import { AUTHOR, SITE_URL, X_HANDLE } from "@/app/_config/site.constants";
 
 interface PageMetadataInput {
   title: string;
@@ -36,7 +36,8 @@ export function buildPageMetadata({
       card: "summary_large_image",
       title: fullTitle,
       description,
-      creator: "@axelhamilcaro",
+      site: X_HANDLE,
+      creator: X_HANDLE,
     },
   };
 }

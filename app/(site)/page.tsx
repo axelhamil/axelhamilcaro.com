@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HOME_RIBBONS } from "@/app/_config/home-copy";
 import { siteConfig } from "@/app/_config/site";
+import { X_HANDLE } from "@/app/_config/site.constants";
 import Approach from "@/src/features/home/components/approach";
 import CaseStudies from "@/src/features/home/components/case-studies";
 import { ClientReviews } from "@/src/features/home/components/client-reviews";
@@ -30,7 +31,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: HOME_TITLE,
     description: siteConfig.description,
-    creator: "@axelhamilcaro",
+    site: X_HANDLE,
+    creator: X_HANDLE,
   },
 };
 

@@ -54,7 +54,7 @@ export const RESOURCE_DESCRIPTIONS: Record<CatalogSectionId, string> = {
   services:
     "Read to know which services Axel offers and their daily or monthly rates.",
   contact:
-    "Read when the visitor wants to reach Axel by email, LinkedIn, Malt or a call.",
+    "Read when the visitor wants to reach Axel by email, LinkedIn, X, Reddit, Malt or a call.",
   method:
     "Read before scoping a project to know how Axel works, what he does not take and how he estimates.",
   "estimation-grid":

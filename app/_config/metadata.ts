@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "./site";
-import { IDENTITY_TITLE } from "./site.constants";
+import { IDENTITY_TITLE, X_HANDLE } from "./site.constants";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -52,7 +52,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: IDENTITY_TITLE,
     description: siteConfig.description,
-    creator: "@axelhamilcaro",
+    site: X_HANDLE,
+    creator: X_HANDLE,
   },
   icons: {
     icon: [

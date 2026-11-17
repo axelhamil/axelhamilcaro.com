@@ -10,7 +10,7 @@ import { buildPageMetadata } from "@/src/shared/seo/page-metadata";
 export const metadata: Metadata = buildPageMetadata({
   title: "Liens : LinkedIn, GitHub, Malt, rendez-vous",
   description:
-    "Tous mes liens au même endroit : LinkedIn, GitHub, Malt, Instagram, TikTok et prise de rendez-vous. Je suis Axel Hamilcaro, développeur fullstack et builder.",
+    "Tous mes liens au même endroit : LinkedIn, GitHub, X, Reddit, Malt, Instagram, TikTok et rendez-vous. Je suis Axel Hamilcaro, développeur fullstack et builder.",
   path: "/tree",
 });
 

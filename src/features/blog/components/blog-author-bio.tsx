@@ -1,12 +1,18 @@
 import { Briefcase, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
-import { AUTHOR, EXTERNAL_LINKS } from "@/app/_config/site.constants";
+import {
+  AUTHOR,
+  EXTERNAL_LINKS,
+  SOCIAL_LINKS,
+} from "@/app/_config/site.constants";
+import { XLogo } from "@/src/shared/ui/icons/x-logo";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 
 const PROFILE_LINKS = [
   { href: EXTERNAL_LINKS.malt, label: "Malt", Icon: Briefcase },
   { href: EXTERNAL_LINKS.linkedin, label: "LinkedIn", Icon: Linkedin },
   { href: EXTERNAL_LINKS.github, label: "GitHub", Icon: Github },
+  { href: SOCIAL_LINKS.x, label: "X", Icon: XLogo },
 ] as const;
 
 interface BlogAuthorBioProps {
