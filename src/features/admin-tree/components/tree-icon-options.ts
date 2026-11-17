@@ -10,6 +10,8 @@ import {
   Mail,
   Music2,
 } from "lucide-react";
+import { RedditLogo } from "@/src/shared/ui/icons/reddit-logo";
+import { XLogo } from "@/src/shared/ui/icons/x-logo";
 
 export const iconOptions: Array<{
   value: string;
@@ -20,6 +22,8 @@ export const iconOptions: Array<{
   { value: "calendar", label: "Calendrier", icon: Calendar },
   { value: "github", label: "GitHub", icon: Github },
   { value: "linkedin", label: "LinkedIn", icon: Linkedin },
+  { value: "x", label: "X", icon: XLogo },
+  { value: "reddit", label: "Reddit", icon: RedditLogo },
   { value: "briefcase", label: "Travail", icon: Briefcase },
   { value: "globe", label: "Web", icon: Globe },
   { value: "mail", label: "Email", icon: Mail },

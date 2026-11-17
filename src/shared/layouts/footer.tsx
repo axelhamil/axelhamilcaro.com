@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import { EXTERNAL_LINKS, SOCIAL_LINKS } from "@/app/_config/site.constants";
 import { ContactModal } from "@/src/shared/ui/contact/contact-modal";
+import { RedditLogo } from "@/src/shared/ui/icons/reddit-logo";
+import { XLogo } from "@/src/shared/ui/icons/x-logo";
 import { Ribbon } from "@/src/shared/ui/motifs/ribbon";
 import TransitionLink from "@/src/shared/ui/navigation/transition-link";
 import { Button } from "@/src/shared/ui/portfolio/button";
@@ -23,6 +25,16 @@ const socialLinks = [
     name: "LinkedIn",
     href: EXTERNAL_LINKS.linkedin,
     icon: Linkedin,
+  },
+  {
+    name: "X",
+    href: SOCIAL_LINKS.x,
+    icon: XLogo,
+  },
+  {
+    name: "Reddit",
+    href: SOCIAL_LINKS.reddit,
+    icon: RedditLogo,
   },
   {
     name: "Malt",
@@ -158,7 +170,7 @@ const Footer = () => {
               </Button>
             </ContactModal>
 
-            <div className="flex flex-wrap items-center gap-2 pt-2">
+            <div className="grid grid-cols-4 w-fit gap-1.5 pt-2">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}

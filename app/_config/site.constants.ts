@@ -31,7 +31,11 @@ export const EXTERNAL_LINKS = {
   googleBusiness: "https://www.google.com/search?kgmid=/g/11nqct9z28",
 } as const;
 
+export const X_HANDLE = "@charon_613";
+
 export const SOCIAL_LINKS = {
+  x: `https://x.com/${X_HANDLE.slice(1)}`,
+  reddit: "https://www.reddit.com/user/Maxwell974",
   instagram: "https://www.instagram.com/axelhmlcr/",
   tiktok: "https://www.tiktok.com/@axelhmlcr",
 } as const;

@@ -27,12 +27,28 @@ const defaultLinks = [
     order: 2,
   },
   {
+    title: "X",
+    url: "https://x.com/charon_613",
+    icon: "x",
+    description: "@charon_613",
+    featured: false,
+    order: 3,
+  },
+  {
+    title: "Reddit",
+    url: "https://www.reddit.com/user/Maxwell974",
+    icon: "reddit",
+    description: "u/Maxwell974",
+    featured: false,
+    order: 4,
+  },
+  {
     title: "Malt",
     url: "https://www.malt.fr/profile/axelhamilcaro",
     icon: "briefcase",
     description: "Mon profil freelance",
     featured: false,
-    order: 3,
+    order: 5,
   },
   {
     title: "Portfolio",
@@ -40,7 +56,7 @@ const defaultLinks = [
     icon: "globe",
     description: "Mon site personnel",
     featured: false,
-    order: 4,
+    order: 6,
   },
   {
     title: "Contact",
@@ -48,7 +64,7 @@ const defaultLinks = [
     icon: "mail",
     description: "Réponse sous 1h en journée",
     featured: false,
-    order: 5,
+    order: 7,
   },
   {
     title: "Instagram",
@@ -56,7 +72,7 @@ const defaultLinks = [
     icon: "instagram",
     description: "@axelhmlcr",
     featured: false,
-    order: 6,
+    order: 8,
   },
   {
     title: "TikTok",
@@ -64,7 +80,7 @@ const defaultLinks = [
     icon: "tiktok",
     description: "@axelhmlcr",
     featured: false,
-    order: 7,
+    order: 9,
   },
 ];
 

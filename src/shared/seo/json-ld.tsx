@@ -45,6 +45,8 @@ const KNOWS_ABOUT = [
 const PERSON_SAME_AS = [
   EXTERNAL_LINKS.linkedin,
   EXTERNAL_LINKS.github,
+  SOCIAL_LINKS.x,
+  SOCIAL_LINKS.reddit,
   EXTERNAL_LINKS.malt,
   EXTERNAL_LINKS.googleBusiness,
   SOCIAL_LINKS.instagram,

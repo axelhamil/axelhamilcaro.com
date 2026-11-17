@@ -36,7 +36,7 @@ describe("llms MCP discovery", () => {
       assert.doesNotMatch(text, / = 400/);
       assert.doesNotMatch(text, /submit_inquiry/);
       assert.equal(text.includes("\u2014"), false);
-      assert.match(text, /Dernière mise à jour: 2026-11-16/);
+      assert.match(text, /Dernière mise à jour: 2026-11-17/);
     });
   }
 });

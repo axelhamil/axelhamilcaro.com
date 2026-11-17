@@ -15,6 +15,8 @@ import {
 import { useEffect } from "react";
 import type { TreeLink } from "@/drizzle/schema";
 import { ContactModal } from "@/src/shared/ui/contact/contact-modal";
+import { RedditLogo } from "@/src/shared/ui/icons/reddit-logo";
+import { XLogo } from "@/src/shared/ui/icons/x-logo";
 import { LinkCard } from "@/src/shared/ui/portfolio/link-card";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -22,6 +24,8 @@ const iconMap: Record<string, LucideIcon> = {
   calendar: Calendar,
   github: Github,
   linkedin: Linkedin,
+  x: XLogo,
+  reddit: RedditLogo,
   briefcase: Briefcase,
   globe: Globe,
   mail: Mail,

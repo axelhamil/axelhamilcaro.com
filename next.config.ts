@@ -119,6 +119,16 @@ const nextConfig: NextConfig = {
       permanent: true,
     },
     {
+      source: "/x",
+      destination: SOCIAL_LINKS.x,
+      permanent: true,
+    },
+    {
+      source: "/reddit",
+      destination: SOCIAL_LINKS.reddit,
+      permanent: true,
+    },
+    {
       source: "/instagram",
       destination: SOCIAL_LINKS.instagram,
       permanent: true,

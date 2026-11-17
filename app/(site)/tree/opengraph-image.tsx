@@ -14,10 +14,12 @@ export default function Image() {
     title: "Tous mes liens",
     accent: "au même endroit.",
     subtitle:
-      "LinkedIn, GitHub, Malt, Instagram, TikTok et prise de rendez-vous.",
+      "LinkedIn, GitHub, X, Reddit, Malt, Instagram, TikTok et prise de rendez-vous.",
     ribbon: [
       "LinkedIn",
       "GitHub",
+      "X",
+      "Reddit",
       "Malt",
       "Instagram",
       "TikTok",

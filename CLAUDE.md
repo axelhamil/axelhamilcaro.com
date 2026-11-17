@@ -394,7 +394,7 @@ export async function list(headers: Headers) {
 
 - React strict mode, compression, view transitions
 - Headers security (DNS prefetch, nosniff, referrer policy)
-- Redirects : `/linkedin`, `/github`, `/malt`, `/rdv` → externes
+- Redirects : `/linkedin`, `/github`, `/x`, `/reddit`, `/malt`, `/rdv`, `/instagram`, `/tiktok` → externes
 
 ### Tailwind v4 + design system
 

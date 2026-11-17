@@ -14,6 +14,7 @@ import {
   OPENUP,
   RATES,
   SITE_URL,
+  SOCIAL_LINKS,
   THESIS,
 } from "@/app/_config/site.constants";
 import {
@@ -371,6 +372,8 @@ export function getContact() {
     mailto: CONTACT.mailto,
     linkedin: EXTERNAL_LINKS.linkedin,
     github: EXTERNAL_LINKS.github,
+    x: SOCIAL_LINKS.x,
+    reddit: SOCIAL_LINKS.reddit,
     malt: EXTERNAL_LINKS.malt,
     calendly: EXTERNAL_LINKS.calendly,
   };
@@ -595,6 +598,8 @@ function renderContactMarkdown() {
     `- Malt: ${contact.malt}`,
     `- LinkedIn: ${contact.linkedin}`,
     `- GitHub: ${contact.github}`,
+    `- X: ${contact.x}`,
+    `- Reddit: ${contact.reddit}`,
     `- Calendly: ${contact.calendly}`,
   ].join("\n");
 }
